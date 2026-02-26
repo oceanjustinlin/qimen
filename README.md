@@ -57,7 +57,6 @@
 
 <details>
   
-```json
 {
   "status": "success",
   "pillars": {
@@ -115,9 +114,8 @@
     
   ]
 }
-```json
-</details>
 
+</details>
 
 
 ---
