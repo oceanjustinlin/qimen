@@ -117,6 +117,9 @@
   ]
 }
 </details>
+
+---
+
 ## 📂 文件结构说明
 
 - `QimenOrchestrator.js`：**核心入口**。负责获取输入、调度起局、组装 Prompt、请求 AI、存盘及渲染 HTML 前端。
