@@ -5,6 +5,20 @@
 
 本项目是一个基于 iOS/iPadOS [Scriptable](https://scriptable.app/) 的自动化脚本集合。它利用“时家奇门拆补转盘法”进行高精度排盘，并无缝对接 Google Gemini 大语言模型，针对您的具体问题生成图文并茂、逻辑严密的决策指引卡片。
 
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="be10cdd1e135d71e0ddbe89a64451071.jpg" width="200" alt="">
+    </td>
+    <td align="center">
+      <img src="bacd56b1b8cb125e7fa66e144836aa15.jpg" width="200" alt=">
+    </td>
+    <td align="center">
+      <img src="a3b32cc30efd1c35afbd4c4a7d828059.jpg" width="200" alt="">
+    </td>
+  </tr>
+</table>
+
 ## ✨ 核心特性
 
 - **🚀 一键起局与推演**：无需在多个 App 间来回切换，直接运行脚本并输入问题，瞬间生成涵盖九宫、神星门仪、马星、空亡、寄宫的全维度专业盘面。
@@ -126,6 +140,7 @@
 - `QimenCalculations.js`：包含奇门遁甲的核心推演逻辑（天地盘、九星八门八神飞布）。
 - `QimenConstants.js`：静态数据字典（二十四节气局数、洛书轨迹等）。
 - `QimenUtils.js`：抽象的数组旋转、干支提取等数学工具函数。
+- `QimenShortcutsAPI.js`：快捷指令接口。专为 iOS Shortcuts 设计的结构化 JSON 数据输出模块，方便高阶用户进行自动化串联。
 
 ---
 
