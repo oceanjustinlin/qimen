@@ -71,7 +71,7 @@
 - **关键信号 (Keyword)**：提炼出决定事物成败的核心断语或底层因素（例如：“财气通门户，马星催动”）。
 
 <p align="center">
-  <img src="be10cdd1e135d71e0ddbe89a64451071.jpg" width="200" alt="">
+  <img src="微信图片_20260228161822_475_16.jpg" width="200" alt="">
 </p>
  
 ### 2. 🔍 深度局象 (Analysis)
@@ -85,16 +85,9 @@
 告别模棱两可，将玄学预测直接转化为切实可行的商业/生活行动指南：
 - **行动策略 (Strategy)**：AI 结合局象推演出的具体战术建议（例如：“必须主动出击，不可坐等”、“重点攻克对方的技术负责人”）。
 - **避坑指南 (Risk)**：明确指出当前局势下的隐藏暗雷及防范措施（例如：“防备口头承诺，必须落实纸面”）。
-<table align="center">
-  <tr>
-    <td align="center">
-      <img src="bacd56b1b8cb125e7fa66e144836aa15.jpg" width="200" alt=">
-    </td>
-    <td align="center">
-      <img src="a3b32cc30efd1c35afbd4c4a7d828059.jpg" width="200" alt="">
-    </td>
-  </tr>
-</table>
+<p align="center">
+  <img src="微信图片_20260228161823_476_16.jpg" width="200" alt="">
+</p>
 
 ### 4. 🍀 开运锦囊 (Lucky Tips)
 位于卡片最底部的微操指南，提供日常维度的助运小技巧：
