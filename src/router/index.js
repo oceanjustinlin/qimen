@@ -2,10 +2,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import BaziView from '../views/BaziView.vue'
-import FortuneView from '../views/FortuneView.vue' 
+import FortuneView from '../views/FortuneView.vue'
 import ResetPasswordView from '../views/ResetPasswordView.vue'
 import EngineeringView from '../views/EngineeringView.vue'
 import LegalView from '../views/LegalView.vue'
+import AdminView from '../views/AdminView.vue'
+import { globalState } from '../store.js'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -56,7 +58,19 @@ const router = createRouter({
       meta: { title: '服务条款 — 奇门遁甲 AI' } },
     { path: '/privacy', name: 'privacy', component: LegalView,
       meta: { title: '隐私政策 — 奇门遁甲 AI' } },
+    {
+      path: '/admin', name: 'admin', component: AdminView,
+      meta: { title: '管理员总览 — 奇门遁甲 AI', robots: 'noindex' },
+    },
   ]
+})
+
+router.beforeEach((to) => {
+  if (to.name === 'admin') {
+    if (!globalState.authReady) return true
+    if (globalState.currentUser?.app_metadata?.role !== 'admin') return { name: 'home' }
+  }
+  return true
 })
 
 export default router

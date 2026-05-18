@@ -50,6 +50,9 @@ export const resolveSelectedBaziProfileId = (profiles = [], {
   return defaultProfile?.id || ''
 }
 
+export const isAdmin = () =>
+  globalState.currentUser?.app_metadata?.role === 'admin'
+
 export const setCurrentUser = (user) => {
   globalState.currentUser = user
   globalState.authReady = true
