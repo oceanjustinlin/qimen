@@ -112,7 +112,7 @@ const buildPillarColumn = ({ name, pillar, star, hiddenStems, diShi, zhiShiShen,
   }
 }
 
-const buildTransitColumn = (name, ganZhi, dayGan) => {
+export const buildTransitColumn = (name, ganZhi, dayGan) => {
   if (!ganZhi) return null
   const gan = ganZhi.charAt(0)
   const zhi = ganZhi.charAt(1)

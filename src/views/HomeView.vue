@@ -231,6 +231,7 @@
                   :result-data="activeBaziResultData"
                   :analysis-mode="activeBaziResultData.meta?.analysis_mode"
                   :selected-year="baziCardSelectedYear"
+                  :collapsible="true"
                   @update:selected-year="baziCardSelectedYear = $event"
                 />
               </Teleport>

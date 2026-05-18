@@ -44,130 +44,141 @@
     </Teleport>
 
     <div v-if="xiaoyunList.length || fullDayunList.length" class="timeline-section">
-      <div class="timeline-head">
-        <div class="timeline-title">专业四柱大运流年流月流日联动</div>
-      </div>
+      <!-- 折叠条 -->
+      <button v-if="collapsible" class="timeline-toggle" @click="timelineExpanded = !timelineExpanded">
+        <span class="timeline-toggle-summary">
+          <span v-if="selectedDayun" class="tl-chip">大运 {{ selectedDayun.gan }}{{ selectedDayun.zhi }}</span>
+          <span v-if="selectedLiunianYear" class="tl-chip">流年 {{ currentLiunianGanzhi }}</span>
+        </span>
+        <span class="timeline-toggle-label">{{ timelineExpanded ? '收起' : '展开' }}大运流年</span>
+        <svg class="timeline-toggle-arrow" :class="{ expanded: timelineExpanded }" width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
 
-      <div v-if="xiaoyunList.length" class="linkage-row">
-        <div class="row-label">小<br>运</div>
-        <div class="row-content">
-          <button
-            v-for="xiaoyun in xiaoyunList"
-            :key="dayunKey(xiaoyun)"
-            type="button"
-            class="link-item xy-item"
-            :class="{ active: isSelectedDayun(xiaoyun) }"
-            @click="selectDayun(xiaoyun)"
-          >
-            <div class="item-header">{{ xiaoyun.start_year || '-' }}<br>{{ xiaoyun.start_age || '?' }}~{{ endAge(xiaoyun) }}岁</div>
-            <div class="item-body xiaoyun-body">小运</div>
-          </button>
+      <template v-if="!collapsible || timelineExpanded">
+        <div class="timeline-head">
+          <div class="timeline-title">专业四柱大运流年流月流日联动</div>
         </div>
-      </div>
 
-      <div class="linkage-row">
-        <div class="row-label">大<br>运</div>
-        <div class="row-content">
-          <button
-            v-for="dayun in fullDayunList"
-            :key="dayunKey(dayun)"
-            type="button"
-            class="link-item dy-item"
-            :class="{ active: isSelectedDayun(dayun), marked: dayunHasWindow(dayun), best: dayunHasBestWindow(dayun) }"
-            @click="selectDayun(dayun)"
-          >
-            <div class="item-header">{{ dayun.start_year || '-' }}<br>{{ dayun.start_age || '?' }}~{{ endAge(dayun) }}岁</div>
-            <div class="item-body stacked-ganzhi">
-              <div class="char-wrap">
-                <span class="char-gan" :class="WX_MAP[dayun.gan] || 'wx-none'">{{ dayun.gan || '-' }}</span>
-                <span v-if="dayun.shi_shen" class="shi-shen" :class="getShenColor(dayun.shi_shen)">{{ dayun.shi_shen }}</span>
+        <!-- 大运行（含小运） -->
+        <div class="linkage-row">
+          <div class="row-label">大<br>运</div>
+          <div class="row-content">
+            <!-- 小运：前置合并进大运行 -->
+            <button
+              v-for="xiaoyun in xiaoyunList"
+              :key="dayunKey(xiaoyun)"
+              type="button"
+              class="link-item xy-item"
+              :class="{ active: isSelectedDayun(xiaoyun) }"
+              @click="selectDayun(xiaoyun)"
+            >
+              <div class="item-header">{{ xiaoyun.start_year || '-' }}<br>{{ xiaoyun.start_age || '?' }}~{{ endAge(xiaoyun) }}岁</div>
+              <div class="item-body xiaoyun-body">小运</div>
+            </button>
+            <!-- 正式大运 -->
+            <button
+              v-for="dayun in fullDayunList"
+              :key="dayunKey(dayun)"
+              type="button"
+              class="link-item dy-item"
+              :class="{ active: isSelectedDayun(dayun), marked: dayunHasWindow(dayun), best: dayunHasBestWindow(dayun) }"
+              @click="selectDayun(dayun)"
+            >
+              <div class="item-header">{{ dayun.start_year || '-' }}<br>{{ dayun.start_age || '?' }}~{{ endAge(dayun) }}岁</div>
+              <div class="item-body stacked-ganzhi">
+                <div class="char-wrap">
+                  <span class="char-gan" :class="WX_MAP[dayun.gan] || 'wx-none'">{{ dayun.gan || '-' }}</span>
+                  <span v-if="dayun.shi_shen" class="shi-shen" :class="getShenColor(dayun.shi_shen)">{{ dayun.shi_shen }}</span>
+                </div>
+                <div class="char-wrap">
+                  <span class="char-zhi" :class="WX_MAP[dayun.zhi] || 'wx-none'">{{ dayun.zhi || '-' }}</span>
+                  <span v-if="dayun.zhi_shi_shen" class="shi-shen" :class="getShenColor(dayun.zhi_shi_shen)">{{ dayun.zhi_shi_shen }}</span>
+                </div>
               </div>
-              <div class="char-wrap">
-                <span class="char-zhi" :class="WX_MAP[dayun.zhi] || 'wx-none'">{{ dayun.zhi || '-' }}</span>
-                <span v-if="dayun.zhi_shi_shen" class="shi-shen" :class="getShenColor(dayun.zhi_shi_shen)">{{ dayun.zhi_shi_shen }}</span>
-              </div>
-            </div>
-          </button>
+            </button>
+          </div>
         </div>
-      </div>
 
-      <div v-if="linkedLiunianList.length" class="linkage-row">
-        <div class="row-label">流<br>年</div>
-        <div class="row-content">
-          <button
-            v-for="liunian in linkedLiunianList"
-            :key="liunian.year"
-            type="button"
-            class="link-item ln-item"
-            :class="{ active: selectedLiunianYear === liunian.year, marked: Boolean(liunian.window), best: liunian.window?.quality === 'strong' }"
-            @click="selectYear(liunian.year)"
-          >
-            <div class="item-header">{{ liunian.year }}</div>
-            <div class="item-body stacked-ganzhi">
-              <div class="char-wrap">
-                <span class="char-gan" :class="WX_MAP[liunian.gan] || 'wx-none'">{{ liunian.gan || '-' }}</span>
-                <span v-if="liunian.shi_shen" class="shi-shen" :class="getShenColor(liunian.shi_shen)">{{ liunian.shi_shen }}</span>
+        <div v-if="linkedLiunianList.length" class="linkage-row">
+          <div class="row-label">流<br>年</div>
+          <div class="row-content">
+            <button
+              v-for="liunian in linkedLiunianList"
+              :key="liunian.year"
+              type="button"
+              class="link-item ln-item"
+              :class="{ active: selectedLiunianYear === liunian.year, marked: Boolean(liunian.window), best: liunian.window?.quality === 'strong' }"
+              @click="selectYear(liunian.year)"
+            >
+              <div class="item-header">{{ liunian.year }}</div>
+              <div class="item-body stacked-ganzhi">
+                <div class="char-wrap">
+                  <span class="char-gan" :class="WX_MAP[liunian.gan] || 'wx-none'">{{ liunian.gan || '-' }}</span>
+                  <span v-if="liunian.shi_shen" class="shi-shen" :class="getShenColor(liunian.shi_shen)">{{ liunian.shi_shen }}</span>
+                </div>
+                <div class="char-wrap">
+                  <span class="char-zhi" :class="WX_MAP[liunian.zhi] || 'wx-none'">{{ liunian.zhi || '-' }}</span>
+                  <span v-if="liunian.zhi_shi_shen" class="shi-shen" :class="getShenColor(liunian.zhi_shi_shen)">{{ liunian.zhi_shi_shen }}</span>
+                </div>
               </div>
-              <div class="char-wrap">
-                <span class="char-zhi" :class="WX_MAP[liunian.zhi] || 'wx-none'">{{ liunian.zhi || '-' }}</span>
-                <span v-if="liunian.zhi_shi_shen" class="shi-shen" :class="getShenColor(liunian.zhi_shi_shen)">{{ liunian.zhi_shi_shen }}</span>
-              </div>
-            </div>
-          </button>
+            </button>
+          </div>
         </div>
-      </div>
 
-      <div v-if="linkedLiuyueList.length" class="linkage-row">
-        <div class="row-label">流<br>月</div>
-        <div class="row-content">
-          <button
-            v-for="liuyue in linkedLiuyueList"
-            :key="liuyue.index"
-            type="button"
-            class="link-item ly-item"
-            :class="{ active: selectedLiuyueIndex === liuyue.index }"
-            @click="selectLiuyue(liuyue.index)"
-          >
-            <div class="item-header">{{ liuyue.monthName || liuyue.month_name || '-' }}</div>
-            <div class="item-body stacked-ganzhi">
-              <div class="char-wrap">
-                <span class="char-gan" :class="WX_MAP[liuyue.gan] || 'wx-none'">{{ liuyue.gan || '-' }}</span>
-                <span v-if="liuyue.shi_shen" class="shi-shen" :class="getShenColor(liuyue.shi_shen)">{{ liuyue.shi_shen }}</span>
+        <div v-if="linkedLiuyueList.length" class="linkage-row">
+          <div class="row-label">流<br>月</div>
+          <div class="row-content">
+            <button
+              v-for="liuyue in linkedLiuyueList"
+              :key="liuyue.index"
+              type="button"
+              class="link-item ly-item"
+              :class="{ active: selectedLiuyueIndex === liuyue.index }"
+              @click="selectLiuyue(liuyue.index)"
+            >
+              <div class="item-header">{{ liuyue.monthName || liuyue.month_name || '-' }}</div>
+              <div class="item-body stacked-ganzhi">
+                <div class="char-wrap">
+                  <span class="char-gan" :class="WX_MAP[liuyue.gan] || 'wx-none'">{{ liuyue.gan || '-' }}</span>
+                  <span v-if="liuyue.shi_shen" class="shi-shen" :class="getShenColor(liuyue.shi_shen)">{{ liuyue.shi_shen }}</span>
+                </div>
+                <div class="char-wrap">
+                  <span class="char-zhi" :class="WX_MAP[liuyue.zhi] || 'wx-none'">{{ liuyue.zhi || '-' }}</span>
+                  <span v-if="liuyue.zhi_shi_shen" class="shi-shen" :class="getShenColor(liuyue.zhi_shi_shen)">{{ liuyue.zhi_shi_shen }}</span>
+                </div>
               </div>
-              <div class="char-wrap">
-                <span class="char-zhi" :class="WX_MAP[liuyue.zhi] || 'wx-none'">{{ liuyue.zhi || '-' }}</span>
-                <span v-if="liuyue.zhi_shi_shen" class="shi-shen" :class="getShenColor(liuyue.zhi_shi_shen)">{{ liuyue.zhi_shi_shen }}</span>
-              </div>
-            </div>
-          </button>
+            </button>
+          </div>
         </div>
-      </div>
 
-      <div v-if="linkedLiuriList.length" class="linkage-row">
-        <div class="row-label">流<br>日</div>
-        <div class="row-content">
-          <button
-            v-for="liuri in linkedLiuriList"
-            :key="liuri.dateKey"
-            type="button"
-            class="link-item lr-item"
-            :class="{ active: selectedLiuriDateKey === liuri.dateKey }"
-            @click="selectLiuri(liuri.dateKey)"
-          >
-            <div class="item-header">{{ liuri.dateLabel }}<br>{{ liuri.weekLabel }}</div>
-            <div class="item-body stacked-ganzhi">
-              <div class="char-wrap">
-                <span class="char-gan" :class="WX_MAP[liuri.gan] || 'wx-none'">{{ liuri.gan || '-' }}</span>
-                <span v-if="liuri.shi_shen" class="shi-shen" :class="getShenColor(liuri.shi_shen)">{{ liuri.shi_shen }}</span>
+        <div v-if="linkedLiuriList.length" class="linkage-row">
+          <div class="row-label">流<br>日</div>
+          <div class="row-content">
+            <button
+              v-for="liuri in linkedLiuriList"
+              :key="liuri.dateKey"
+              type="button"
+              class="link-item lr-item"
+              :class="{ active: selectedLiuriDateKey === liuri.dateKey }"
+              @click="selectLiuri(liuri.dateKey)"
+            >
+              <div class="item-header">{{ liuri.dateLabel }}<br>{{ liuri.weekLabel }}</div>
+              <div class="item-body stacked-ganzhi">
+                <div class="char-wrap">
+                  <span class="char-gan" :class="WX_MAP[liuri.gan] || 'wx-none'">{{ liuri.gan || '-' }}</span>
+                  <span v-if="liuri.shi_shen" class="shi-shen" :class="getShenColor(liuri.shi_shen)">{{ liuri.shi_shen }}</span>
+                </div>
+                <div class="char-wrap">
+                  <span class="char-zhi" :class="WX_MAP[liuri.zhi] || 'wx-none'">{{ liuri.zhi || '-' }}</span>
+                  <span v-if="liuri.zhi_shi_shen" class="shi-shen" :class="getShenColor(liuri.zhi_shi_shen)">{{ liuri.zhi_shi_shen }}</span>
+                </div>
               </div>
-              <div class="char-wrap">
-                <span class="char-zhi" :class="WX_MAP[liuri.zhi] || 'wx-none'">{{ liuri.zhi || '-' }}</span>
-                <span v-if="liuri.zhi_shi_shen" class="shi-shen" :class="getShenColor(liuri.zhi_shi_shen)">{{ liuri.zhi_shi_shen }}</span>
-              </div>
-            </div>
-          </button>
+            </button>
+          </div>
         </div>
-      </div>
+      </template>
     </div>
   </section>
 </template>
@@ -185,7 +196,8 @@ const props = defineProps({
   resultData: { type: Object, default: () => ({}) },
   analysisMode: { type: String, default: '' },
   selectedYear: { type: Number, default: null },
-  showChart: { type: Boolean, default: true }
+  showChart: { type: Boolean, default: true },
+  collapsible: { type: Boolean, default: false }
 })
 
 const emit = defineEmits(['update:selectedYear'])
@@ -208,13 +220,31 @@ const localSelectedYear = ref(props.selectedYear)
 const selectedLiuyueIndex = ref(0)
 const selectedLiuriDateKey = ref('')
 const selectedShensha = ref(null)
+const timelineExpanded = ref(false)
 
 watch(() => props.selectedYear, (year) => {
   localSelectedYear.value = year
 })
 
 const profileRef = computed(() => props.profile)
-const { resolvedMatrix, displayColumns } = useBaziColumns(profileRef)
+
+const xiaoyunList = computed(() => {
+  const m = resolvedMatrix.value || {}
+  const explicit = m.xiaoyun_list || []
+  const legacy = (m.dayun_list || []).filter(d => d.isXiaoyun)
+  return explicit.length ? explicit : legacy
+})
+const fullDayunList = computed(() => (resolvedMatrix.value?.dayun_list || []).filter(d => !d.isXiaoyun))
+const selectedLiunianYear = computed(() => Number(localSelectedYear.value || resolvedMatrix.value?.current_liunian?.year))
+const selectedDayun = computed(() => fullDayunList.value.find(d => isSelectedDayun(d)) || null)
+
+// selectionRef feeds selected dayun/liunian back into useBaziColumns for pillar table override
+const selectionRef = computed(() => ({
+  liunianYear: selectedLiunianYear.value,
+  dayun: selectedDayun.value
+}))
+
+const { resolvedMatrix, displayColumns } = useBaziColumns(profileRef, null, selectionRef)
 const matrix = resolvedMatrix
 
 const profileTitle = computed(() => props.profile?.name || '命主档案')
@@ -222,21 +252,27 @@ const profileTags = computed(() => [
   props.profile?.strong_weak,
   props.profile?.geju || props.profile?.bazi_detail?.pattern_analysis?.extraction?.final_pattern?.name
 ].filter(Boolean))
-const xiaoyunList = computed(() => {
-  const explicit = matrix.value.xiaoyun_list || []
-  const legacy = (matrix.value.dayun_list || []).filter(dayun => dayun.isXiaoyun)
-  return explicit.length ? explicit : legacy
-})
-const fullDayunList = computed(() => (matrix.value.dayun_list || []).filter(dayun => !dayun.isXiaoyun))
-const liunianList = computed(() => matrix.value.liunian_list || [])
+const liunianList = computed(() => matrix.value?.liunian_list || [])
 const windows = computed(() => props.resultData?.mode_analysis?.trigger_windows || [])
 const windowByYear = computed(() => new Map(windows.value.map(item => [Number(item.year), item])))
 const bestWindow = computed(() => windows.value.find(item => item.quality === 'strong') || windows.value[0] || null)
-const selectedLiunianYear = computed(() => Number(localSelectedYear.value || matrix.value.current_liunian?.year))
-const selectedDayun = computed(() => fullDayunList.value.find(dayun => isSelectedDayun(dayun)) || null)
 const modeLabel = computed(() => MODE_LABELS[props.analysisMode] || '八字分析')
-const dayGan = computed(() => matrix.value.pillars?.[2]?.gan || '')
+const dayGan = computed(() => matrix.value?.pillars?.[2]?.gan || '')
 const baziEngine = computed(() => buildBaziEngine(props.profile))
+
+// 折叠条摘要用：当前选中流年的干支
+const currentLiunianGanzhi = computed(() => {
+  const year = selectedLiunianYear.value
+  if (!year) return ''
+  let ln = liunianList.value.find(l => Number(l.year) === year)
+  if (!ln) {
+    for (const d of (matrix.value?.dayun_list || [])) {
+      ln = (d.liunian_list || []).find(l => Number(l.year) === year)
+      if (ln) break
+    }
+  }
+  return ln ? `${ln.gan || ''}${ln.zhi || ''}` : String(year)
+})
 
 const linkedLiunianList = computed(() => {
   const source = liunianList.value
@@ -277,7 +313,7 @@ watch([bestWindow, () => props.analysisMode], ([best]) => {
   if (props.selectedYear) return
   const year = props.analysisMode === 'timing'
     ? Number(best?.year)
-    : Number(matrix.value.current_liunian?.year)
+    : Number(matrix.value?.current_liunian?.year)
   if (Number.isFinite(year)) selectYear(year)
 }, { immediate: true })
 
@@ -320,7 +356,6 @@ function buildBaziEngine(profile = {}) {
     return null
   }
 }
-
 
 function getShenColor(name = '') {
   if (/杀|官|印/.test(name)) return 'shen-green'
@@ -464,6 +499,46 @@ function dayunYearRange(dayun) {
   border-top: 1px dashed var(--glass-border);
   padding-top: 16px;
 }
+.timeline-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  padding: 6px 0;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 12px;
+  text-align: left;
+  margin-bottom: 4px;
+}
+.timeline-toggle-summary {
+  display: flex;
+  gap: 6px;
+  flex: 1;
+}
+.tl-chip {
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgba(212,175,55,0.1);
+  border: 1px solid rgba(212,175,55,0.2);
+  color: var(--gold-light);
+  font-size: 11px;
+}
+.timeline-toggle-label {
+  color: var(--text-muted);
+  font-size: 11px;
+  flex-shrink: 0;
+}
+.timeline-toggle-arrow {
+  flex-shrink: 0;
+  color: var(--text-muted);
+  transition: transform 0.2s;
+}
+.timeline-toggle-arrow.expanded {
+  transform: rotate(180deg);
+}
 .timeline-head {
   display: flex;
   align-items: center;
@@ -532,6 +607,12 @@ function dayunYearRange(dayun) {
 }
 .link-item.marked { border-color: rgba(78,205,196,0.28); }
 .link-item.best { background: rgba(78,205,196,0.07); }
+/* 小运格子：宽度缩小，文字弱化 */
+.xy-item {
+  min-width: 60px;
+  opacity: 0.7;
+}
+.xy-item.active { opacity: 1; }
 .item-header {
   min-height: 28px;
   margin-bottom: 5px;
@@ -559,8 +640,8 @@ function dayunYearRange(dayun) {
   gap: 2px;
 }
 .xiaoyun-body {
-  font-size: 14px;
-  color: #777;
+  font-size: 12px;
+  color: #666;
   margin-top: 8px;
 }
 .char-wrap {
@@ -595,9 +676,6 @@ function dayunYearRange(dayun) {
 @media (max-width: 640px) {
   .backing-head {
     align-items: flex-start;
-  }
-  .bazi-table {
-    --bz-char-size: 16px;
   }
 }
 </style>
