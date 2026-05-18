@@ -603,68 +603,12 @@
                 </div>
                 <!-- ══ /命主断事笔记 ══ -->
 
-                <div v-if="resolvedMatrix && currentTab !== 'events'" class="bazi-table-wrap">
-                    <table class="bazi-table">
-                        <thead>
-                            <tr>
-                                <th class="bz-label">柱位</th>
-                                <th v-for="col in displayColumns" :key="col.name" class="bz-label">
-                                    {{ col.name }}{{ currentTab === 'basic' ? '柱' : '' }}
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="bz-label">主星</td>
-                                <td v-for="(col, i) in displayColumns" :key="'star'+i" class="bz-star">{{ col.star }}</td>
-                            </tr>
-                            <tr>
-                                <td class="bz-label">天干</td>
-                                <td v-for="(col, i) in displayColumns" :key="'gan'+i" class="bz-char" :class="WX_MAP[col.gan] || 'wx-none'">{{ col.gan }}</td>
-                            </tr>
-                            <tr>
-                                <td class="bz-label">地支</td>
-                                <td v-for="(col, i) in displayColumns" :key="'zhi'+i" class="bz-char" :class="WX_MAP[col.zhi] || 'wx-none'">{{ col.zhi }}</td>
-                            </tr>
-                            <tr>
-                                <td class="bz-label">藏干</td>
-                                <td v-for="(col, i) in displayColumns" :key="'cg'+i" class="bz-sub">
-                                    <template v-for="g in col.hidden_stems" :key="g">
-                                        <span :class="WX_MAP[g]">{{ GAN_WUXING[g] }}</span><br>
-                                    </template>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="bz-label">星运</td>
-                                <td v-for="(col, i) in displayColumns" :key="'shi'+i" class="bz-sub">{{ col.shi }}</td>
-                            </tr>
-                            <tr>
-                                <td class="bz-label">自座</td>
-                                <td v-for="(col, i) in displayColumns" :key="'zizuo'+i" class="bz-sub">{{ col.zizuo }}</td>
-                            </tr>
-                            <tr>
-                                <td class="bz-label">空亡</td>
-                                <td v-for="(col, i) in displayColumns" :key="'kong'+i" class="bz-sub">
-                                    <span v-if="col.is_kong" style="color:var(--crimson)">空亡</span>
-                                    <span v-else style="color:#555">-</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="bz-label">纳音</td>
-                                <td v-for="(col, i) in displayColumns" :key="'nayin'+i" class="bz-sub">{{ col.nayin }}</td>
-                            </tr>
-                            <tr>
-                                <td class="bz-label">神煞<br><span style="font-size:8px;color:#666">(点击查看)</span></td>
-                                <td v-for="(col, i) in displayColumns" :key="'shen'+i" class="bz-shensha">
-                                    <div v-for="s in sortedShensha(col.shensha)" :key="s"
-                                         class="clickable-shensha"
-                                         :class="'ss-' + getShenshaInfo(s).nature"
-                                         @click="showShensha(s)">{{ s }}</div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <BaziPillarTable
+                    v-if="resolvedMatrix && currentTab !== 'events'"
+                    :columns="displayColumns"
+                    :show-pillar-suffix="currentTab === 'basic'"
+                    @shensha-click="showShensha"
+                />
 
                 <div v-if="needsUpgrade && currentTab !== 'events'" class="matrix-fallback-note">
                     基础四柱已生成，可先查看本地排盘；点击右上角 <strong style="color:var(--gold);">「生成排盘」</strong> 后可补全格局、喜忌、断语与岁运细解。
@@ -1230,6 +1174,7 @@ import {
 import OpenSourceLinks from '../components/OpenSourceLinks.vue'
 import AccountMenu from '../components/AccountMenu.vue'
 import BaziBackingPanel from '../components/BaziBackingPanel.vue'
+import BaziPillarTable from '../components/BaziPillarTable.vue'
 import {
     buildBaziProfileInsertPayload,
     buildPillarsProfilePayload,
@@ -1253,7 +1198,7 @@ import {
     getDayunByYear,
     getPromptDataFromProfile
 } from '../utils/baziLocalMatrix.mjs'
-import { getShenShaArray } from '../utils/baziShensha.mjs'
+import { getShenShaArray, getShenshaInfo, sortedShensha } from '../utils/baziShensha.mjs'
 import { resolveBaziInterpretation } from '../utils/baziInterpretation.mjs'
 import { buildCalibrationPrompt, hasValidCalibration } from '../utils/buildCalibrationPrompt.mjs'
 import {
@@ -3351,72 +3296,6 @@ const rerunButtonLabel = computed(() => {
     return '重新推演'
 })
 
-const SHENSHA_INFOS = {
-    '天乙': { label:'天乙贵人', nature:'吉', summary:'「天上之神，所至之处百凶消散」——诸神之首，化解危难、遇贵人相助之最强标志。', auspicious:'逢生旺之地，与禄马、印绶同见；落于日时二柱最吉；贵人有气，遇难自解。', inauspicious:'贵人无气，虽有如无——空亡、冲克、入墓则贵人失效；女命多见，感情反复。', note:'三命通会：「其神最尊贵，无论何凶煞临身，遇天乙皆避」。' },
-    '天乙贵人': { label:'天乙贵人', nature:'吉', summary:'「天上之神，所至之处百凶消散」——诸神之首，化解危难、遇贵人相助之最强标志。', auspicious:'逢生旺之地，与禄马、印绶同见；落于日时二柱最吉；贵人有气，遇难自解。', inauspicious:'贵人无气，虽有如无——空亡、冲克、入墓则贵人失效；女命多见，感情反复。', note:'三命通会：「其神最尊贵，无论何凶煞临身，遇天乙皆避」。' },
-    '太极贵人': { label:'太极贵人', nature:'吉', summary:'「造化始终相保，有始有终」——主命运圆满，遇事有始有终，人生起落终归稳定落地。', auspicious:'四库（辰戌丑未）齐全者至贵；与天乙、禄神同见，贵气层叠，一生圆满。', inauspicious:'逢空亡则始终之气断裂，事业难坚持；冲克太多则太极之气破散。', note:'三命通会：「物造于初为太极，收也，物有所归曰极」；五行各有太极始终之地。' },
-    '文昌': { label:'文昌贵人', nature:'吉', summary:'「禄前两位，主聪慧文章」——学业聪颖、文笔出众，读书有成，适合文职、学术、创作。', auspicious:'与学堂同见则学业大旺；与印绶相生则文昌印绶，科甲名声；逢生旺才华显发。', inauspicious:'逢空亡则文昌落空，聪明难转实绩；逢冲破则才华受挫，考试不顺。', note:'「诗书佳，未必有富贵」——文昌主才学，不主财富，须结合格局断贵贱。' },
-    '文昌贵人': { label:'文昌贵人', nature:'吉', summary:'「禄前两位，主聪慧文章」——学业聪颖、文笔出众，读书有成，适合文职、学术、创作。', auspicious:'与学堂同见则学业大旺；与印绶相生则科甲名声；逢生旺才华显发。', inauspicious:'逢空亡则文昌落空，聪明难转实绩；逢冲破则才华受挫，考试不顺。', note:'「诗书佳，未必有富贵」——文昌主才学，不主财富，须结合格局断贵贱。' },
-    '天德': { label:'天德贵人', nature:'吉', summary:'「神藏煞没，终生逢凶化吉」——天德乃众吉之首，能消一切灾厄，终生享受先天庇佑。', auspicious:'落于日柱力量最强；与月德、将星、禄马同见则福力翻倍；不怕合。', inauspicious:'忌冲克：逢冲则德破，化凶为吉之力大失；逢空亡则德空，如无。', note:'三命通会：「天德之神，利物济人；所至之处，百凶消散」。天德重于月德。' },
-    '天德贵人': { label:'天德贵人', nature:'吉', summary:'「神藏煞没，终生逢凶化吉」——天德乃众吉之首，能消一切灾厄，终生享受先天庇佑。', auspicious:'落于日柱力量最强；与月德、将星、禄马同见则福力翻倍；不怕合。', inauspicious:'忌冲克：逢冲则德破，化凶为吉之力大失；逢空亡则德空，如无。', note:'三命通会：「天德之神，利物济人；所至之处，百凶消散」。天德重于月德。' },
-    '月德': { label:'月德贵人', nature:'吉', summary:'「三合所照，一生少灾」——月德主先天厚德，能护人度过凶险，逢凶自解。', auspicious:'与天德同见则天月二德并临，为最强护身符；落于月柱、日柱均有效。', inauspicious:'忌冲克破害；冲破之后不成德合，护佑之力大减。', note:'月德之力略次于天德；与孤辰寡宿同见，则孤寡之意可解。' },
-    '月德贵人': { label:'月德贵人', nature:'吉', summary:'「三合所照，一生少灾」——月德主先天厚德，能护人度过凶险，逢凶自解。', auspicious:'与天德同见则天月二德并临，为最强护身符；落于月柱、日柱均有效。', inauspicious:'忌冲克破害；冲破之后护佑之力大减。', note:'月德之力略次于天德；与孤辰寡宿同见，则孤寡之意可解。' },
-    '天德合': { label:'天德合', nature:'吉', summary:'「五行相契之辰，回凶作吉」——天德合是天德的感应之力，德气通过合化传导，消灾护运。', auspicious:'与天德本体同见则效力加倍；逢生旺之地则更佳。', inauspicious:'若合而被破（合神被冲），则天德合失效；逢空亡则无用。', note:'三命通会：「月德合乃五行相契之辰」；天德合福力等同天德，略次一筹。' },
-    '月德合': { label:'月德合', nature:'吉', summary:'「与月德相感，利物济人」——月德合为月德之化气，福力传递，同样能消凶解难。', auspicious:'命局清纯、无冲破者发挥最强；与月德本体同柱则德气双临。', inauspicious:'逢刑冲破害则德气涣散；空亡则德合入空，无从化吉。', note:'判断：寅午戌月德丙→月德合辛，见辛干即合得月德。' },
-    '天官贵人': { label:'天官贵人', nature:'吉', summary:'「拜受官印，福禄双全」——主仕途顺遂，官运亨通，适合从政、管理岗位。', auspicious:'与天乙贵人、禄神同见，贵气叠加；日主旺、印绶生扶则发挥最强。', inauspicious:'逢空亡则贵气消散；逢冲破则官途受阻，多是非。', note:'起于年干，按紫微安星诀推算；在八字中偏重仕途与社会地位判断。' },
-    '将星': { label:'将星', nature:'中性', summary:'「居三合局中央旺位，主掌大权」——有气度、有领导力，处事从容不迫，多居要职。', auspicious:'与印绶、官星并见最吉；命局强旺者节印扶将，可掌军政大权。', inauspicious:'逢冲（灾煞冲将星）则大权旁落，多是非；空亡则威望不足，虎头蛇尾。', note:'三命通会：将星与华盖同见，文武兼备；将星单现而命弱，空有大志。' },
-    '华盖': { label:'华盖', nature:'中性', summary:'「三合局末位，如伞盖护主」——主艺术才华、孤高出尘，命格高则贵显，命格低则孤僻。', auspicious:'与印绶同见，主文艺出众，适合宗教、艺术、学术领域；命强则贵。', inauspicious:'命弱华盖，多孤芳自赏，不合群，晚婚或独处；逢空亡则才华难展。', note:'「华盖之人，不是和尚道士，就是艺术大家」；同时有将星则文武双全。' },
-    '驿马': { label:'驿马', nature:'中性', summary:'「先天三合数，主奔走四方」——一生多动，不宜守旧，适合经商、外交、出行之业。', auspicious:'马逢生旺、不空不破则一日千里；与官印同见，仕途远赴他地显贵。', inauspicious:'马逢空亡则截路空亡，出行不利；马与劫煞同柱，破财于途；女命驿马合贵人，感情不稳。', note:'三命通会：「小儿老人不利见马」；马与桃花同柱，风流奔波；马入墓则动而无功。' },
-    '桃花': { label:'桃花', nature:'凶', summary:'「三合局沐浴之地，主情色」——异性缘极佳，感情丰富，但难专一，多情多乱。', auspicious:'女命正官坐桃花（日支），感情得正，为佳配；命格高洁则桃花助人缘。', inauspicious:'桃花坐空亡，感情虚幻；与驿马、大耗同柱，色情破财奔走；双桃花感情混乱。', note:'三命通会将桃花列为「咸池败神」，主色欲；与将星同见，可用魅力获得成功。' },
-    '孤辰': { label:'孤辰', nature:'凶', summary:'「形孤骨露，不利六亲」——性情孤僻，缘薄离散，一生在情感与家庭上多有缺憾。', auspicious:'同柱有天德、月德可解，有贵人环绕则孤意大减。', inauspicious:'官杀坐孤辰、女命正官落孤辰，独居风险大；与寡宿同柱则孤苦加重。', note:'三命通会：「孤寡双辰并隔角，此人必定骨肉伤」。30岁前成婚者较少，晚婚反而稳固。' },
-    '寡宿': { label:'寡宿', nature:'凶', summary:'「老而无夫曰寡」——主孤寡离别，感情路上多波折，伴侣缘浅。', auspicious:'同柱有天月德化解；命局官印两旺者，孤寡之意减轻。', inauspicious:'女命寡宿坐夫宫（日支），或与孤辰双现，孤独终老概率大增。', note:'男怕孤辰，女怕寡宿；类似孤辰，但偏向于女命断验。' },
-    '大耗': { label:'大耗', nature:'凶', summary:'「咸池自败大耗」——主意外耗损，钱财来去无常，常有破财之忧。', auspicious:'命局日主旺、印绶厚者，耗损可承受，不至于大败。', inauspicious:'与桃花或驿马同柱，则耗中带色、动中破财；逢空亡则大耗入空，破损更烈。', note:'视物昏花、财物散失之象；男命防奢靡，女命防破产。' },
-    '劫煞': { label:'劫煞', nature:'凶', summary:'「五行绝处之煞，为害最重」——主外来劫夺，财物名利无端被损，常遭小人算计。', auspicious:'日主旺、官印制化，或与贵人同柱，则威力大减；为日主所克亦无大碍。', inauspicious:'与亡神合为二煞，再加灾煞则三煞齐聚；会三刑则不佳；逢岁运触动，灾祸突发。', note:'三命通会：「劫煞亡神，虚耗名利之心」；有官印制化，多主从事军警刀剑之职。' },
-    '亡神': { label:'亡神', nature:'凶', summary:'「五行临官处之泄气，内耗心神」——主内在消耗，思虑过重，精神内耗，情绪不稳。', auspicious:'与贵人同柱则力量大减；日主旺者能承受其耗泄。', inauspicious:'与劫煞合见则财气两空；会三刑则身心俱损；逢空亡则亡入虚空，反主灾散。', note:'劫煞主外劫，亡神主内耗，一外一内；与驿马同柱则奔波中多暗损。' },
-    '灾煞': { label:'灾煞', nature:'凶', summary:'「冲破将星，主血光横死」——灾煞居劫煞之前，性质猛烈，主意外伤亡、血光之灾。', auspicious:'有福神（天乙、天德）相助，可转凶为武权，主从事军警、刀剑之职。', inauspicious:'三煞（劫煞、亡神、灾煞）齐聚，岁运相冲，最易发生意外；与刑冲同见则血光难免。', note:'三命通会：「主血光横死，水火焚溺，金木刀伤，土主坠落」；有福神则多是武权。' },
-    '阳刃': { label:'阳刃', nature:'凶', summary:'「禄前一位，极盛生刃」——阳刃代表极强的攻击性与执行力，性格刚强果断，带煞气。', auspicious:'有官煞制刃或印绶化刃，则刚强反转为领导力，可居高位；命局强旺配刃最佳。', inauspicious:'刃无制则性急心悖，蛮横残忍；与飞刃同见则祸福极端；女命阳刃多，克夫之象。', note:'三命通会：「五阳干有刃，五阴干无刃」；武将、外科医生、执法人员多见阳刃。' },
-    '羊刃': { label:'阳刃', nature:'凶', summary:'「禄前一位，极盛生刃」——阳刃代表极强的攻击性与执行力，性格刚强果断，带煞气。', auspicious:'有官煞制刃或印绶化刃，则刚强反转为领导力，可居高位；命局强旺配刃最佳。', inauspicious:'刃无制则性急心悖，蛮横残忍；与飞刃同见则祸福极端；女命阳刃多，克夫之象。', note:'三命通会：「五阳干有刃，五阴干无刃」；武将、外科医生、执法人员多见阳刃。' },
-    '红艳': { label:'红艳煞', nature:'凶', summary:'「主桃花酒色，情欲执著」——对感情着迷，爱得浓烈，不顾身份地位差异，感情易出轨偏差。', auspicious:'命格高洁、官印旺盛者，红艳转为魅力与艺术气质，反助事业。', inauspicious:'女命最忌：红艳休同煞伴——与劫煞、桃花同见，色情祸身；男命红艳多，宠妾灭妻之象。', note:'三命通会原文：「甲乙逢午、丙寅、丁未、戊子、己辰、庚戌、辛酉、壬巳、癸申」。' },
-    '禄神': { label:'禄神', nature:'吉', summary:'「临官之禄，自食其力」——禄神代表日主最旺的状态，主自力更生、事业稳定、衣食有保障。', auspicious:'禄旺、与官印同见则禄马贵人并临，仕途财运俱佳；建禄格命主多有一技之长。', inauspicious:'禄逢空亡（截路空亡）则辛苦难得；禄被冲破则奔禄，奔波不定；禄坐劫财则财被劫走。', note:'三命通会：「辰戌丑未四库无禄」；禄空则宜出外谋生；禄旺身旺则建禄格可取。' },
-    '天厨': { label:'天厨贵人', nature:'吉', summary:'「食神建禄，衣食丰足」——天厨主一生不愁口食，饮食丰盛，生活品质好，财源稳定。', auspicious:'与食神同旺，则天厨食神双现，饮食业、服务业极旺；女命天厨，主能干持家。', inauspicious:'逢空亡则厨空，饮食不继；逢冲破则财食不稳，常有生计之忧。', note:'推算：取日干食神的临官位；如甲日食神丙，丙禄在巳，故甲日天厨在巳。' },
-    '飞刃': { label:'飞刃', nature:'凶', summary:'「阳刃对冲，飞刃倒戈」——飞刃比阳刃更为凶险，主意外血光、刀剑之灾，行事冲动伤人。', auspicious:'有官印制化、或空亡截路同见，飞刃之力可减；命格极强者，飞刃转为武勇之气。', inauspicious:'飞刃与阳刃同见（刃刃相逢），杀气极重；与截路空亡同见则此身安得出尘埃。', note:'三命通会：「飞刃倒戈终见乖，小人得此便为灾；空亡截路同相见，此身安得出尘埃」。' },
-    '学堂': { label:'学堂', nature:'吉', summary:'「官贵五行长生之地，主科甲出身」——主聪慧好学，读书有成，科举得意，适合学术研究与文职。', auspicious:'与文昌同见则文昌学堂双吉，学业大旺；与印绶相生，主名声与文章俱佳。', inauspicious:'逢空亡则才学难以转化；冲克学堂柱则学业中断，考运受阻。', note:'三命通会：学堂取日主官贵五行长生之地，侧重官贵方向的才学，非日主本气长生。' },
-    '魁罡': { label:'魁罡', nature:'中性', summary:'「天罡河魁，阴阳绝灭之地」——聪慧果断，文章出众，处事极端，命运大起大落。', auspicious:'日主强旺、无冲克，则贵显无伦，英雄豪杰；适合军政、法律、执法领域。', inauspicious:'逢财官（财来破格、官煞混杂）则立见灾祸；日主孤弱再遇冲刑，则困穷彻底。', note:'三命通会：「身处天罡地魁，衰弱则困穷彻底，强盛则贵显无伦」；庚辰壬辰戊戌庚戌四日。' },
-    '日德': { label:'日德', nature:'吉', summary:'「天地德合，性情慈善」——日德之人禀赋厚重，为人仁慈，遇难有贵人解救，一生少见大灾。', auspicious:'本身即为大吉；与天月二德同见，福力极厚；逢生旺则慈善之名远播。', inauspicious:'逢冲克则德破，善意难达；刑冲太多则性情受损，慈善变执拗。', note:'甲寅、丙辰、戊辰、庚辰、壬戌五日；三命通会称此五日「天德地德俱全，性情慈善，逢凶化吉」。' },
-    '日贵': { label:'日贵', nature:'吉', summary:'「自坐天乙贵人，贵人随身」——日贵之人随时随地都有贵人相助，危难时刻必有化解，地位超然。', auspicious:'逢生旺之地，贵人力量最强；与天乙贵人同见，贵气双重叠加。', inauspicious:'逢空亡则贵人落空；冲破日柱则贵人被打散，该有的帮助不来。', note:'丁酉、丁亥为夜贵，癸巳、癸卯为昼贵；四日均自坐天乙贵人。' },
-    '三奇': { label:'三奇', nature:'吉', summary:'「天干连珠，精神超凡」——三奇者胸襟卓越，才智异常，多为奇才，仕途事业多超越常人。', auspicious:'顺布（年乙月丙日丁）且有财官印为依托，格局完整，则贵至一品。', inauspicious:'逆排或乱排则逆者福慢，乱者不寿；有伤官、刑冲破害则奇贵大损。', note:'三命通会：「天上三奇乙丙丁，地下三奇甲戊庚；顺布方为贵，逆行不足称」。' },
-    '国印贵人': { label:'国印贵人', nature:'吉', summary:'「禄位顺数九，位至方伯印绶随身」——国印贵人主有权印，上司庇护，适合从政为官，职场晋升顺畅。', auspicious:'与官星同见，仕途通达；命强逢印，更易身居高位、掌印权柄。', inauspicious:'空亡或冲破，则权印虚设，难以实际履职；刑克同现，权力争夺反成祸端。', note:'起法：日干养位（甲戌、乙未、丙丑、丁戌、戊丑、己戌、庚辰、辛丑、壬未、癸辰）。' },
-    '德秀贵人': { label:'德秀贵人', nature:'吉', summary:'「五行中和纯粹之气，德秀兼备」——德秀贵人主品德高尚、文才出众，处事中正，多获上位器重。', auspicious:'与文昌同见，文才超卓；逢印绶相生，德行彰显，贵气厚重。', inauspicious:'逢刑冲则德秀失格，处事失信；与枭印夺食同见，才学难以施展。', note:'三命通会：月支三合对应天干中和之气（寅午戌月→丙丁戊癸；亥卯未月→甲乙丁壬；申子辰月→甲丙戊己辛壬癸；巳酉丑月→乙庚辛）。' },
-    '福星贵人': { label:'福星贵人', nature:'吉', summary:'「食神临官，福自天来」——福星贵人主逢凶化吉，福禄自来，一生衣食无忧，遇难自解。', auspicious:'与食神同见，福禄双全；逢财印相助，一生受庇护无穷。', inauspicious:'空亡则福星无力；刑冲破害则福星失辉，吉力减损。', note:'起法：日干食神长生之地（甲→寅、乙→丑、丙→子、丁→亥、戊→戌、己→酉、庚→申、辛→未、壬→午、癸→巳）。' },
-    '金舆': { label:'金舆', nature:'吉', summary:'「坐金舆而出，富贵安逸」——金舆主安逸富足，坐享荣华，一生不为财愁，可得配偶或前辈资产扶持。', auspicious:'与财星同柱，财运丰厚；得生旺，富贵之气自然发露。', inauspicious:'逢空亡或冲破，金舆倾覆，富贵落空；刑冲同见则坐不稳，财富难守。', note:'起法：各柱天干冠带位（甲→丑、乙丙戊→辰、丁己庚→未、辛壬→戌、癸→丑），「禄前两辰即为金舆」。' },
-    '天喜': { label:'天喜', nature:'吉', summary:'「红鸾对宫，喜星临门」——天喜主喜庆临门，婚嫁成就，异性缘旺，亦主生育子嗣、升迁获奖之喜。', auspicious:'与红鸾同见，婚嫁大吉；大运流年遇天喜，当年必有喜庆之事。', inauspicious:'遇空亡或冲破，喜事延迟或生变；与孤辰寡宿同见，喜中藏忧。', note:'紫微斗数：「卯上起子逆数之，对宫天喜不差移」；年支起，子→酉，寅→未，依次类推。' },
-    '流霞': { label:'流霞', nature:'凶', summary:'「霞光散血，产厄血光」——流霞主血光、手术、产难，女命尤验，亦主皮肤、血液疾患，注意意外伤害。', auspicious:'命格强旺、有制，流霞之凶可减；逢印绶化解，血光转为医药手术后康复。', inauspicious:'女命逢流霞于时柱，产厄风险较高；与血刃、元辰同见，血光之灾尤重。', note:'三命通会：「主产死、堕胎、血疾」；甲→酉、乙→戌、丙→未、丁→申、戊→巳、己→辰、庚→寅、辛→亥、壬→卯、癸→巳。' },
-    '元辰': { label:'元辰', nature:'凶', summary:'「年支别而不合，婚姻艰难」——元辰主婚姻不顺，感情路上多曲折，配偶缘薄，易离易散。', auspicious:'命中有合神化解，或配偶星有力生扶，元辰之凶可减；逢生旺之年反主有缘份。', inauspicious:'元辰与孤辰寡宿同见，孤独终老风险大；与劫煞亡神同柱，感情劫难更重。', note:'渊海子平：「阳男阴女在冲前一位，阴男阳女在冲后一位」；以年支起，主婚姻难合之象。' },
-    '天医': { label:'天医', nature:'吉', summary:'「月支前一位，医药有缘」——天医主与医学、健康领域有缘，或本身从事医疗行业，或逢病遇良医。', auspicious:'与印绶同见，适合习医或以医为业；逢官印相生，可成名医或医疗管理者。', inauspicious:'遇空亡或冲破，医缘减弱；与流霞、血刃同见，则以医伴病，自身亦多病。', note:'起法：以生月地支取前一位（月支前一辰），例如未月生人，天医在午。' },
-    '血刃': { label:'血刃', nature:'凶', summary:'「三合桃花对冲，血光手术」——血刃主血光之灾、手术外伤，亦与生育、妇科（女命）相关，宜注意意外。', auspicious:'与印绶同见可化，逢空亡则凶力减；命格强旺、有制化，可从事医疗外科相关行业。', inauspicious:'与流霞、元辰同见，血光叠加；逢大运流年冲动，当年须防手术外伤。', note:'起法：年支三合局桃花之对冲（寅午戌→酉；申子辰→卯；亥卯未→午；巳酉丑→子）。' },
-    '金神': { label:'金神', nature:'中性', summary:'「乙丑/己巳/癸酉，威猛刚烈之神」——甲日时柱逢之，性格强悍决断，势不可挡。', auspicious:'逢火局制伏（原局有火或行南方火运），化刚为用，大富大贵；与七杀、羊刃同见入火乡，主权贵显赫。', inauspicious:'无火则刚暴难驯，伤人伤己；行北方水运，水克火不制金，主奇祸破败。', note:'起法：甲日生于丑/巳/酉时（乙丑、己巳、癸酉时柱）；三命通会：「甲日金神逢火贵」。' },
-    '天罗': { label:'天罗', nature:'凶', summary:'「戌亥同现，天倾西北」——天罗主困厄跌宕，一生多有牢狱、诉讼、意外之难，事业起落无常。', auspicious:'逢天德、月德同见可化；命格强旺、印绶护身者，困厄反锻炼出坚韧之志。', inauspicious:'男命尤忌（「男怕天罗女怕地网」）；火命纳音方有此煞，金木命无；与劫煞、七杀同见，凶险倍增。', note:'三命通会：「天倾西北，六阴之终，故戌亥为天罗」；火命有天罗，水土命有地网，金木命无。' },
-    '地网': { label:'地网', nature:'凶', summary:'「辰巳同现，地陷东南」——地网主牵绊束缚，身陷困局，一生多有是非纠缠、迁移受阻之象。', auspicious:'逢天德、月德同见可解；命局清纯、贵人多者，地网反为深根厚土，稳健有成。', inauspicious:'女命尤忌（「男怕天罗女怕地网」）；水命、土命纳音方有此煞，金木命无；与亡神同见，感情婚姻受缚尤重。', note:'三命通会：「地陷东南，六阳之终，故辰巳为地网」；火命有天罗，水土命有地网，金木命无。' }
-};
-
-const getShenshaInfo = (shensha) => {
-    return SHENSHA_INFOS[shensha] || {
-        label: shensha, nature: '中性',
-        summary: '传统经典神煞，具体吉凶需结合全局五行生克综合判断。',
-        auspicious: '', inauspicious: '', note: ''
-    };
-};
-
-const NATURE_ORDER = { '吉': 0, '中性': 1, '凶': 2 };
-const sortedShensha = (list) => {
-    if (!list || !list.length) return [];
-    const arr = Array.isArray(list) ? list : Object.values(list);
-    return [...arr].sort((a, b) => {
-        const na = NATURE_ORDER[getShenshaInfo(a)?.nature] ?? 1;
-        const nb = NATURE_ORDER[getShenshaInfo(b)?.nature] ?? 1;
-        return na - nb;
-    });
-};
 
 const SHI_SHEN = {
     "甲": { "甲": "比", "乙": "劫", "丙": "食", "丁": "伤", "戊": "才", "己": "财", "庚": "杀", "辛": "官", "壬": "枭", "癸": "印" },

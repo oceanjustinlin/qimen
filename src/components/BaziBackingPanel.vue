@@ -11,65 +11,37 @@
       <div class="backing-mode">{{ modeLabel }}</div>
     </div>
 
-    <div v-if="showChart && displayColumns.length" class="bazi-table-wrap">
-      <table class="bazi-table">
-        <thead>
-          <tr>
-            <th class="bz-label">柱位</th>
-            <th v-for="col in displayColumns" :key="col.name" class="bz-label">{{ col.name }}柱</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="bz-label">主星</td>
-            <td v-for="col in displayColumns" :key="`star-${col.name}`" class="bz-star">{{ col.star || '-' }}</td>
-          </tr>
-          <tr>
-            <td class="bz-label">天干</td>
-            <td v-for="col in displayColumns" :key="`gan-${col.name}`" class="bz-char" :class="WX_MAP[col.gan] || 'wx-none'">{{ col.gan || '-' }}</td>
-          </tr>
-          <tr>
-            <td class="bz-label">地支</td>
-            <td v-for="col in displayColumns" :key="`zhi-${col.name}`" class="bz-char" :class="WX_MAP[col.zhi] || 'wx-none'">{{ col.zhi || '-' }}</td>
-          </tr>
-          <tr>
-            <td class="bz-label">藏干</td>
-            <td v-for="col in displayColumns" :key="`hidden-${col.name}`" class="bz-sub">
-              <template v-for="stem in col.hidden_stems" :key="`${col.name}-${stem.gan || stem}`">
-                <span :class="WX_MAP[stem.gan || stem] || 'wx-none'">{{ hiddenStemLabel(stem) }}</span><br>
-              </template>
-              <span v-if="!col.hidden_stems.length">-</span>
-            </td>
-          </tr>
-          <tr>
-            <td class="bz-label">星运</td>
-            <td v-for="col in displayColumns" :key="`shi-${col.name}`" class="bz-sub">{{ col.shi || '-' }}</td>
-          </tr>
-          <tr>
-            <td class="bz-label">自座</td>
-            <td v-for="col in displayColumns" :key="`zizuo-${col.name}`" class="bz-sub">{{ col.zizuo || '-' }}</td>
-          </tr>
-          <tr>
-            <td class="bz-label">空亡</td>
-            <td v-for="col in displayColumns" :key="`kong-${col.name}`" class="bz-sub">
-              <span v-if="col.is_kong" class="kong-text">空亡</span>
-              <span v-else class="muted-dash">-</span>
-            </td>
-          </tr>
-          <tr>
-            <td class="bz-label">纳音</td>
-            <td v-for="col in displayColumns" :key="`nayin-${col.name}`" class="bz-sub">{{ col.nayin || '-' }}</td>
-          </tr>
-          <tr>
-            <td class="bz-label">神煞</td>
-            <td v-for="col in displayColumns" :key="`shensha-${col.name}`" class="bz-shensha">
-              <span v-for="name in sortedShensha(col.shensha)" :key="name" class="shensha-pill" :class="'ss-' + shenshaNature(name)">{{ name }}</span>
-              <span v-if="!sortedShensha(col.shensha).length">-</span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <BaziPillarTable
+      v-if="showChart && displayColumns.length"
+      :columns="displayColumns"
+      :show-pillar-suffix="true"
+      @shensha-click="selectedShensha = $event"
+    />
+
+    <Teleport to="body">
+      <div v-if="selectedShensha" class="modal-overlay" @click="selectedShensha = null">
+        <div class="shensha-modal" @click.stop>
+          <div class="shensha-modal-head">
+            <h4>{{ getShenshaInfo(selectedShensha).label || selectedShensha }}</h4>
+            <span class="shensha-nature-badge" :class="'nature-' + getShenshaInfo(selectedShensha).nature">{{ getShenshaInfo(selectedShensha).nature }}</span>
+          </div>
+          <p class="shensha-summary">{{ getShenshaInfo(selectedShensha).summary }}</p>
+          <div v-if="getShenshaInfo(selectedShensha).auspicious" class="shensha-section shensha-ji">
+            <span class="shensha-section-label">✦ 吉</span>
+            <span>{{ getShenshaInfo(selectedShensha).auspicious }}</span>
+          </div>
+          <div v-if="getShenshaInfo(selectedShensha).inauspicious" class="shensha-section shensha-xiong">
+            <span class="shensha-section-label">✦ 忌</span>
+            <span>{{ getShenshaInfo(selectedShensha).inauspicious }}</span>
+          </div>
+          <div v-if="getShenshaInfo(selectedShensha).note" class="shensha-section shensha-note">
+            <span class="shensha-section-label">古籍</span>
+            <span>{{ getShenshaInfo(selectedShensha).note }}</span>
+          </div>
+          <button class="btn-primary" style="width:100%; margin-top:14px;" @click="selectedShensha = null">知晓</button>
+        </div>
+      </div>
+    </Teleport>
 
     <div v-if="xiaoyunList.length || fullDayunList.length" class="timeline-section">
       <div class="timeline-head">
@@ -204,6 +176,9 @@
 import { computed, ref, watch } from 'vue'
 import { Solar } from 'lunar-javascript'
 import { buildLiuRiList } from '../utils/baziTransit.mjs'
+import { getShenshaInfo } from '../utils/baziShensha.mjs'
+import { useBaziColumns } from '../composables/useBaziColumns.js'
+import BaziPillarTable from './BaziPillarTable.vue'
 
 const props = defineProps({
   profile: { type: Object, default: () => ({}) },
@@ -222,7 +197,6 @@ const WX_MAP = {
   庚: 'wx-jin', 辛: 'wx-jin', 申: 'wx-jin', 酉: 'wx-jin',
   壬: 'wx-shui', 癸: 'wx-shui', 亥: 'wx-shui', 子: 'wx-shui'
 }
-const GAN_WUXING = { 甲: '甲木', 乙: '乙木', 丙: '丙火', 丁: '丁火', 戊: '戊土', 己: '己土', 庚: '庚金', 辛: '辛金', 壬: '壬水', 癸: '癸水' }
 const MODE_LABELS = {
   status: '当前状态',
   timing: '应期扫描',
@@ -233,30 +207,21 @@ const MODE_LABELS = {
 const localSelectedYear = ref(props.selectedYear)
 const selectedLiuyueIndex = ref(0)
 const selectedLiuriDateKey = ref('')
+const selectedShensha = ref(null)
 
 watch(() => props.selectedYear, (year) => {
   localSelectedYear.value = year
 })
 
-const matrix = computed(() => props.profile?.bazi_detail?.matrix || {})
+const profileRef = computed(() => props.profile)
+const { resolvedMatrix, displayColumns } = useBaziColumns(profileRef)
+const matrix = resolvedMatrix
+
 const profileTitle = computed(() => props.profile?.name || '命主档案')
 const profileTags = computed(() => [
   props.profile?.strong_weak,
   props.profile?.geju || props.profile?.bazi_detail?.pattern_analysis?.extraction?.final_pattern?.name
 ].filter(Boolean))
-const displayColumns = computed(() => {
-  const names = ['年', '月', '日', '时']
-  const pillars = (matrix.value.pillars || []).map((pillar, index) => ({
-    name: pillar.name || names[index] || '',
-    ...pillar,
-    hidden_stems: normalizeHiddenStems(pillar.hidden_stems)
-  }))
-  return [
-    matrix.value.current_liunian ? normalizeDisplayColumn(matrix.value.current_liunian, '流年') : null,
-    matrix.value.current_dayun ? normalizeDisplayColumn(matrix.value.current_dayun, '大运') : null,
-    ...pillars
-  ].filter(Boolean)
-})
 const xiaoyunList = computed(() => {
   const explicit = matrix.value.xiaoyun_list || []
   const legacy = (matrix.value.dayun_list || []).filter(dayun => dayun.isXiaoyun)
@@ -356,34 +321,6 @@ function buildBaziEngine(profile = {}) {
   }
 }
 
-function normalizeHiddenStems(stems = []) {
-  if (!Array.isArray(stems)) return []
-  return stems.map(item => typeof item === 'string' ? { gan: item } : item).filter(item => item?.gan || item)
-}
-
-function normalizeDisplayColumn(pillar, fallbackName) {
-  return {
-    ...pillar,
-    name: pillar.name || fallbackName,
-    hidden_stems: normalizeHiddenStems(pillar.hidden_stems)
-  }
-}
-
-function hiddenStemLabel(stem) {
-  const gan = stem.gan || stem
-  return stem.shi_shen ? `${gan}${stem.shi_shen}` : (GAN_WUXING[gan] || gan)
-}
-
-function sortedShensha(list = []) {
-  if (!Array.isArray(list)) return []
-  return [...list].filter(Boolean).slice(0, 8)
-}
-
-function shenshaNature(name) {
-  if (/红艳|劫煞|灾煞|血刃|亡神|孤辰|寡宿|空亡/.test(name)) return '凶'
-  if (/贵人|天乙|太极|国印|天德|月德|天喜|禄神|福星|将星/.test(name)) return '吉'
-  return '中性'
-}
 
 function getShenColor(name = '') {
   if (/杀|官|印/.test(name)) return 'shen-green'
@@ -503,49 +440,25 @@ function dayunYearRange(dayun) {
   color: rgba(244,237,220,0.78);
   font-size: 12px;
 }
-.bazi-table-wrap { width: 100%; overflow: hidden; }
-.bazi-table {
-  --bz-cell-py: 8px;
-  --bz-label-size: 10px;
-  --bz-meta-size: 10px;
-  --bz-char-size: 18px;
-  table-layout: fixed;
-  width: 100%;
-  border-collapse: collapse;
-  text-align: center;
-}
-.bazi-table th,
-.bazi-table td {
-  padding: var(--bz-cell-py) 0;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-  vertical-align: middle;
-  word-wrap: break-word;
-}
-.bazi-table th {
-  color: var(--gold-light);
-  font-family: var(--font-serif);
-  font-size: 12px;
-  font-weight: normal;
-}
-.bazi-table th:first-child,
-.bazi-table td:first-child { width: 44px; }
-.bz-label { color: var(--text-muted); font-weight: 500; font-size: var(--bz-label-size); }
-.bz-star { font-size: var(--bz-meta-size); color: var(--text-primary); }
-.bz-char { font-size: var(--bz-char-size); font-weight: 600; font-family: var(--font-ganzhi); }
-.bz-sub { font-size: var(--bz-meta-size); color: #aaa; line-height: 1.4; }
-.bz-shensha { font-size: 9px; color: #B39DDB; line-height: 1.4; }
-.shensha-pill { display: block; margin: 1px 0; white-space: nowrap; }
-.ss-吉 { color: #68D391; }
-.ss-中性 { color: #B39DDB; }
-.ss-凶 { color: #FC8181; }
-.kong-text { color: var(--crimson); }
-.muted-dash { color: #555; }
-.wx-jin { color: #E8CC80; }
-.wx-mu { color: #81C784; }
-.wx-shui { color: #64B5F6; }
-.wx-huo { color: #E57373; }
-.wx-tu { color: #DCE775; }
-.wx-none { color: #666; }
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 1000; display: flex; align-items: center; justify-content: center; }
+.shensha-modal { background: var(--bg-card); border: 1px solid var(--gold); border-radius: 12px; padding: 20px; width: 80%; max-width: 340px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); animation: shenshaPop 0.3s ease; }
+@keyframes shenshaPop { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+.shensha-modal h4 { color: var(--gold-light); font-size: 16px; margin: 0; font-family: var(--font-serif); }
+.shensha-modal-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; border-bottom: 1px dashed rgba(212,175,55,0.3); padding-bottom: 10px; margin-bottom: 10px; }
+.shensha-nature-badge { font-size: 11px; font-weight: 700; letter-spacing: 1px; padding: 2px 8px; border-radius: 20px; flex-shrink: 0; }
+.nature-吉 { background: rgba(72,187,120,0.18); color: #68D391; border: 1px solid rgba(72,187,120,0.4); }
+.nature-凶 { background: rgba(245,101,101,0.18); color: #FC8181; border: 1px solid rgba(245,101,101,0.4); }
+.nature-中性 { background: rgba(160,160,180,0.15); color: #CBD5E0; border: 1px solid rgba(160,160,180,0.3); }
+.shensha-summary { font-size: 13px; color: #D0D0D8; line-height: 1.7; margin: 0 0 10px; }
+.shensha-section { display: flex; gap: 8px; align-items: flex-start; font-size: 12px; line-height: 1.65; padding: 6px 10px; border-radius: 6px; margin-bottom: 6px; }
+.shensha-section-label { font-weight: 700; letter-spacing: 1px; flex-shrink: 0; font-size: 11px; padding-top: 1px; }
+.shensha-ji { background: rgba(72,187,120,0.08); color: #9AE6B4; }
+.shensha-ji .shensha-section-label { color: #68D391; }
+.shensha-xiong { background: rgba(245,101,101,0.08); color: #FEB2B2; }
+.shensha-xiong .shensha-section-label { color: #FC8181; }
+.shensha-note { background: rgba(212,175,55,0.07); color: #C8B87A; }
+.shensha-note .shensha-section-label { color: var(--gold); }
+.btn-primary { display: block; padding: 10px 16px; border-radius: 10px; border: none; background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: #0a0a14; font-weight: 700; font-size: 14px; cursor: pointer; }
 .timeline-section {
   margin-top: 16px;
   border-top: 1px dashed var(--glass-border);

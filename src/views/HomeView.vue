@@ -227,7 +227,7 @@
               <div v-html="resultHtml" class="html-container"></div>
               <Teleport v-if="showBaziBackingAnchor" to="#bazi-backing-anchor">
                 <BaziBackingPanel
-                  :profile="activeBaziProfile"
+                  :profile="snapshotProfile"
                   :result-data="activeBaziResultData"
                   :analysis-mode="activeBaziResultData.meta?.analysis_mode"
                   :selected-year="baziCardSelectedYear"
@@ -450,6 +450,11 @@ const selectedProfileId = ref('')
 const isProfileMenuOpen = ref(false)
 const currentBaziString = ref('')
 const activeBaziProfile = computed(() => baziProfiles.value.find(p => p.id === selectedProfileId.value))
+const snapshotProfile = computed(() => {
+  const snap = activeBaziResultData.value?.subject_snapshot
+  if (snap?.birth_date && snap?.gender) return { birth_date: snap.birth_date, gender: snap.gender }
+  return activeBaziProfile.value
+})
 const showProfileSwitcher = computed(() => baziProfiles.value.length > 0)
 const activeProfileName = computed(() => activeBaziProfile.value?.name || '命主未设')
 const isGuest = computed(() => globalState.isGuest)

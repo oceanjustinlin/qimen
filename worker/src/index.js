@@ -660,7 +660,14 @@ async function handleBaziQuestion(request, env) {
       console.warn('[qimen-api] bazi audit insert failed:', auditError.message || auditError);
     }
     
-    return json(output, { status: 200 }, request, env);
+    const outputWithSnapshot = {
+      ...output,
+      subject_snapshot: {
+        birth_date: profile.birth_date || profile.bazi_detail?.base_info?.solar_birth || null,
+        gender: profile.gender || null
+      }
+    };
+    return json(outputWithSnapshot, { status: 200 }, request, env);
   } catch (error) {
     console.error('[qimen-api] bazi-question error:', error);
     return json({ error: '八字问答生成失败', details: error.message }, { status: error.status || 500 }, request, env);

@@ -198,7 +198,33 @@ export const buildLocalBaziMatrix = (profile, referenceDate = new Date()) => {
     pillars,
     current_dayun: currentDayun?.getGanZhi() ? buildTransitColumn('大运', currentDayun.getGanZhi(), dayGan) : null,
     current_liunian: currentLiunian?.getGanZhi() ? buildTransitColumn('流年', currentLiunian.getGanZhi(), dayGan) : null,
-    dayun_list: []
+    dayun_list: dayunList.map(item => {
+      const gz = item.getGanZhi?.() || ''
+      const gan = gz.charAt(0)
+      const zhi = gz.charAt(1)
+      return {
+        gan,
+        zhi,
+        start_year: item.getStartYear?.() ?? null,
+        end_year: item.getEndYear?.() ?? null,
+        start_age: item.getStartAge?.() ?? null,
+        end_age: item.getEndAge?.() ?? null,
+        shi_shen: getShiShen(dayGan, gan),
+        zhi_shi_shen: getShiShen(dayGan, ZHI_MAIN_GAN[zhi] || ''),
+        liunian_list: (item.getLiuNian?.() || []).map(ln => {
+          const lnGz = ln.getGanZhi?.() || ''
+          const lnGan = lnGz.charAt(0)
+          const lnZhi = lnGz.charAt(1)
+          return {
+            year: ln.getYear?.() ?? null,
+            gan: lnGan,
+            zhi: lnZhi,
+            shi_shen: getShiShen(dayGan, lnGan),
+            zhi_shi_shen: getShiShen(dayGan, ZHI_MAIN_GAN[lnZhi] || '')
+          }
+        })
+      }
+    })
   }
 }
 
