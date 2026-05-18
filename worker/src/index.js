@@ -21,7 +21,7 @@ import { getMaXing, maXingMap, zhiToPalace, palaceBranches, getKongIndices } fro
 import baziCore from '../../lib/baziCore.js';
 import qimenLlmOutput from '../../lib/qimenLlmOutput.js';
 
-const { buildCompleteBaziDetail, buildQualitativeSections, hasCompleteLlmCache, hasLatestEngineCache, hasExistingLlm } = baziCore;
+const { buildCompleteBaziDetail, buildQualitativeSections, hasCompleteLlmCache, hasLatestEngineCache, hasExistingLlm, CALIBRATION_VERSION, computeEventsHash, hasValidCalibration } = baziCore;
 const { normalizeQimenLlmOutput } = qimenLlmOutput;
 
 
@@ -676,8 +676,21 @@ async function handleBaziCalibrate(request, env) {
     if (!profileId || !prompt) return json({ error: '缺少 profileId 或 prompt' }, { status: 400 }, request, env);
 
     const supabase = createSupabaseClient(env);
-    const { data: profile } = await supabase.from('bazi_profiles').select('id, user_id').eq('id', profileId).single();
+    const { data: profile } = await supabase
+      .from('bazi_profiles')
+      .select('id, user_id, life_events, calibrated_yuanju_core, calibrated_current_dayun, calibrated_current_liunian, calibrated_version')
+      .eq('id', profileId)
+      .single();
     if (!profile || profile.user_id !== user.id) return json({ error: '无权操作该档案' }, { status: 403 }, request, env);
+
+    if (hasValidCalibration(profile, profile.life_events)) {
+      return json({
+        yuanju_core: profile.calibrated_yuanju_core,
+        current_dayun: profile.calibrated_current_dayun,
+        current_liunian: profile.calibrated_current_liunian,
+        cached: true,
+      }, { status: 200 }, request, env);
+    }
 
     const llmJson = await requestLLM(prompt, env, 'gemini-3.1-pro-preview', 0.2);
     if (!llmJson.yuanju_core || !llmJson.current_dayun || !llmJson.current_liunian) {
@@ -689,6 +702,7 @@ async function handleBaziCalibrate(request, env) {
       calibrated_current_dayun: llmJson.current_dayun,
       calibrated_current_liunian: llmJson.current_liunian,
       calibrated_at: new Date().toISOString(),
+      calibrated_version: `${CALIBRATION_VERSION}:${computeEventsHash(profile.life_events)}`,
     }).eq('id', profileId);
 
     if (dbError) throw dbError;

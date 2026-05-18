@@ -1360,7 +1360,7 @@ import {
 } from '../utils/baziLocalMatrix.mjs'
 import { getShenShaArray } from '../utils/baziShensha.mjs'
 import { resolveBaziInterpretation } from '../utils/baziInterpretation.mjs'
-import { buildCalibrationPrompt } from '../utils/buildCalibrationPrompt.mjs'
+import { buildCalibrationPrompt, hasValidCalibration } from '../utils/buildCalibrationPrompt.mjs'
 import {
     buildLiuRiList,
     findTransitSelectionByDate
@@ -3157,7 +3157,7 @@ const requestAiSummary = async ({ force = false } = {}) => {
         analysisProgress.value = 100
         await fetchProfiles() // 刷新拿到最新数据
         if (shouldCalibrateFromEvents) {
-            await triggerCalibration({ profileId })
+            await triggerCalibration({ profileId, force })
         }
         analysisNotice.value = '推演完成'
     } catch (err) {
@@ -3225,8 +3225,9 @@ const deleteLifeEvent = async (id) => {
 }
 
 // ── AI 深度校准 ──────────────────────────────────────
-const triggerCalibration = async ({ profileId = activeProfile.value?.id } = {}) => {
+const triggerCalibration = async ({ profileId = activeProfile.value?.id, force = false } = {}) => {
     if (!activeProfile.value || lifeEvents.value.length === 0 || isCalibrating.value) return
+    if (!force && hasValidCalibration(activeProfile.value, lifeEvents.value)) return
     isCalibrating.value = true
     try {
         const pd = promptDataObj.value
