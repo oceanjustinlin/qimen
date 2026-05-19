@@ -192,32 +192,88 @@
 
           <transition name="fade">
             <div v-show="viewState === 'loading'" id="loader">
+              <!-- Bagua wheel with correct 先天八卦 trigrams -->
               <div class="bagua-ring-wrap">
                 <svg class="bagua-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="60" cy="60" r="56" stroke="rgba(212,175,55,0.15)" stroke-width="1" fill="none"/>
-                  <circle cx="60" cy="60" r="50" stroke="rgba(212,175,55,0.08)" stroke-width=".5" fill="none"/>
-                  <g stroke="rgba(212,175,55,0.6)" stroke-width="1.5" stroke-linecap="round">
-                    <line x1="52" y1="8" x2="68" y2="8"/> <line x1="52" y1="11" x2="68" y2="11"/> <line x1="52" y1="14" x2="68" y2="14"/>
-                    <line x1="52" y1="106" x2="59" y2="106"/><line x1="61" y1="106" x2="68" y2="106"/>
-                    <line x1="52" y1="109" x2="59" y2="109"/><line x1="61" y1="109" x2="68" y2="109"/>
-                    <line x1="52" y1="112" x2="59" y2="112"/><line x1="61" y1="112" x2="68" y2="112"/>
-                    <line x1="6" y1="52" x2="14" y2="52"/> <line x1="6" y1="55" x2="14" y2="55"/> <line x1="6" y1="58" x2="14" y2="58"/>
-                    <line x1="106" y1="52" x2="114" y2="52"/>
-                    <line x1="106" y1="55" x2="110" y2="55"/><line x1="112" y1="55" x2="114" y2="55"/>
-                    <line x1="106" y1="58" x2="114" y2="58"/>
+                  <circle cx="60" cy="60" r="56" stroke="rgba(212,175,55,0.06)" stroke-width="1" fill="none"/>
+                  <g class="bagua-wheel">
+                    <path d="M41,9 L79,9 L111,41 L111,79 L79,111 L41,111 L9,79 L9,41 Z" fill="rgba(212,175,55,0.02)" stroke="rgba(212,175,55,0.26)" stroke-width="0.8"/>
+                    <g stroke="rgba(212,175,55,0.08)" stroke-width="0.5">
+                      <line x1="60" y1="60" x2="60" y2="9"/><line x1="60" y1="60" x2="111" y2="60"/>
+                      <line x1="60" y1="60" x2="60" y2="111"/><line x1="60" y1="60" x2="9" y2="60"/>
+                      <line x1="60" y1="60" x2="95" y2="25"/><line x1="60" y1="60" x2="95" y2="95"/>
+                      <line x1="60" y1="60" x2="25" y2="95"/><line x1="60" y1="60" x2="25" y2="25"/>
+                    </g>
+                    <g stroke="rgba(212,175,55,0.7)" stroke-width="1.5" stroke-linecap="round">
+                      <!-- 乾☰ top (rot 0) all yang -->
+                      <g transform="rotate(0,60,60)"><line x1="52" y1="10" x2="68" y2="10"/><line x1="52" y1="13.5" x2="68" y2="13.5"/><line x1="52" y1="17" x2="68" y2="17"/></g>
+                      <!-- 兑☱ top-right (rot 45) 爻3 yin -->
+                      <g transform="rotate(45,60,60)"><line x1="52" y1="10" x2="68" y2="10"/><line x1="52" y1="13.5" x2="68" y2="13.5"/><line x1="52" y1="17" x2="57.5" y2="17"/><line x1="62.5" y1="17" x2="68" y2="17"/></g>
+                      <!-- 离☲ right (rot 90) 爻2 yin -->
+                      <g transform="rotate(90,60,60)"><line x1="52" y1="10" x2="68" y2="10"/><line x1="52" y1="13.5" x2="57.5" y2="13.5"/><line x1="62.5" y1="13.5" x2="68" y2="13.5"/><line x1="52" y1="17" x2="68" y2="17"/></g>
+                      <!-- 震☳ bottom-right (rot 135) 爻2+爻3 yin -->
+                      <g transform="rotate(135,60,60)"><line x1="52" y1="10" x2="68" y2="10"/><line x1="52" y1="13.5" x2="57.5" y2="13.5"/><line x1="62.5" y1="13.5" x2="68" y2="13.5"/><line x1="52" y1="17" x2="57.5" y2="17"/><line x1="62.5" y1="17" x2="68" y2="17"/></g>
+                      <!-- 坤☷ bottom (rot 180) all yin -->
+                      <g transform="rotate(180,60,60)"><line x1="52" y1="10" x2="57.5" y2="10"/><line x1="62.5" y1="10" x2="68" y2="10"/><line x1="52" y1="13.5" x2="57.5" y2="13.5"/><line x1="62.5" y1="13.5" x2="68" y2="13.5"/><line x1="52" y1="17" x2="57.5" y2="17"/><line x1="62.5" y1="17" x2="68" y2="17"/></g>
+                      <!-- 艮☶ bottom-left (rot 225) 爻1+爻2 yin -->
+                      <g transform="rotate(225,60,60)"><line x1="52" y1="10" x2="68" y2="10"/><line x1="52" y1="13.5" x2="57.5" y2="13.5"/><line x1="62.5" y1="13.5" x2="68" y2="13.5"/><line x1="52" y1="17" x2="57.5" y2="17"/><line x1="62.5" y1="17" x2="68" y2="17"/></g>
+                      <!-- 坎☵ left (rot 270) 爻1+爻3 yin -->
+                      <g transform="rotate(270,60,60)"><line x1="52" y1="10" x2="57.5" y2="10"/><line x1="62.5" y1="10" x2="68" y2="10"/><line x1="52" y1="13.5" x2="68" y2="13.5"/><line x1="52" y1="17" x2="57.5" y2="17"/><line x1="62.5" y1="17" x2="68" y2="17"/></g>
+                      <!-- 巽☴ top-left (rot 315) 爻1 yin -->
+                      <g transform="rotate(315,60,60)"><line x1="52" y1="10" x2="57.5" y2="10"/><line x1="62.5" y1="10" x2="68" y2="10"/><line x1="52" y1="13.5" x2="68" y2="13.5"/><line x1="52" y1="17" x2="68" y2="17"/></g>
+                    </g>
                   </g>
                   <g class="bagua-inner-g">
-                    <circle cx="60" cy="60" r="28" stroke="rgba(107,140,255,0.2)" stroke-width="1" fill="rgba(107,140,255,0.02)"/>
-                    <circle cx="60" cy="60" r="18" stroke="rgba(212,175,55,0.25)" stroke-width="1" fill="none"/>
-                    <circle cx="60" cy="60" r="36" stroke="rgba(212,175,55,0.35)" stroke-width="1.5" fill="none" stroke-dasharray="8 6" stroke-linecap="round"/>
+                    <circle cx="60" cy="60" r="36" stroke="rgba(212,175,55,0.22)" stroke-width="1" fill="none" stroke-dasharray="5 4.5" stroke-linecap="round"/>
+                    <circle cx="60" cy="60" r="28" stroke="rgba(107,140,255,0.15)" stroke-width="0.8" fill="rgba(107,140,255,0.015)"/>
                   </g>
-                  <circle cx="60" cy="60" r="4" fill="rgba(212,175,55,0.6)"/>
-                  <circle cx="60" cy="60" r="2" fill="rgba(212,175,55,0.9)"/>
+                  <!-- Taiji center (subtle) -->
+                  <circle cx="60" cy="60" r="13" fill="rgba(5,5,10,0.7)" stroke="rgba(212,175,55,0.18)" stroke-width="0.7"/>
+                  <path d="M60,47 A6.5,6.5 0 0,1 60,60 A6.5,6.5 0 0,0 60,73 A13,13 0 0,1 60,47" fill="rgba(212,175,55,0.16)"/>
+                  <path d="M60,47 Q67,53 60,60 Q53,67 60,73" fill="none" stroke="rgba(212,175,55,0.2)" stroke-width="0.7"/>
+                  <circle cx="60" cy="53" r="2" fill="rgba(212,175,55,0.45)"/>
+                  <circle cx="60" cy="67" r="2" fill="rgba(5,5,10,0.8)"/>
+                  <circle cx="60" cy="60" r="3" fill="rgba(212,175,55,0.35)"/>
+                  <circle cx="60" cy="60" r="1.5" fill="rgba(212,175,55,0.8)"/>
                 </svg>
               </div>
-              <div class="loader-text-block">
-                <div class="loader-main-text">{{ currentLoaderMessage }}</div>
-                <div class="loader-dots"><span></span><span></span><span></span></div>
+
+              <!-- Branch badge -->
+              <div class="loader-branch-badge" :class="{ visible: sseActiveIndex >= 1 }">
+                {{ sseBranch === 'bazi' ? '八字命理' : '奇门遁甲' }}
+              </div>
+
+              <!-- Vertical SSE timeline -->
+              <div class="sse-timeline">
+                <div class="sse-spine">
+                  <div class="sse-spine-fill" :style="{ height: sseSpinePct + '%' }"></div>
+                </div>
+                <div
+                  v-for="(step, i) in sseCurrentSteps"
+                  :key="i"
+                  class="sse-step"
+                  :class="i < sseActiveIndex ? 'done' : i === sseActiveIndex ? 'active' : 'pending'"
+                >
+                  <div class="sse-dot"></div>
+                  <div class="sse-step-name">{{ step.name }}</div>
+                  <div class="sse-step-tag">{{ i < sseActiveIndex ? '✓ ' + step.tag : step.tag }}</div>
+                  <div v-if="step.detail && i === sseActiveIndex" class="sse-step-detail">
+                    {{ step.detail }}<span class="sse-typing-dots"></span>
+                  </div>
+                  <div v-if="sseChips[i] && i < sseActiveIndex" class="sse-chip">
+                    <span class="sse-chip-main">{{ sseChips[i].main }}</span>
+                    <span class="sse-chip-sep"></span>
+                    <span class="sse-chip-sub">{{ sseChips[i].sub }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Progress bar -->
+              <div class="sse-progress-row">
+                <div class="sse-progress-track">
+                  <div class="sse-progress-fill" :style="{ width: ssePct + '%' }"></div>
+                </div>
+                <div class="sse-progress-pct">{{ ssePct }}%</div>
               </div>
             </div>
           </transition>
@@ -666,6 +722,82 @@ const LOADER_MESSAGES = ['正在接通云端超算矩阵...','推演时空坐标
 const currentLoaderMessage = ref(LOADER_MESSAGES[0])
 let loaderInterval = null
 
+// ── SSE progress state ──
+const SSE_STEPS = {
+  qimen: [
+    { name: '解析问题意图', tag: '路由分类',   detail: '正在识别问题类型' },
+    { name: '起盘计算',     tag: '天地盘落定', detail: '推算当前时辰九宫布局' },
+    { name: '定位用神',     tag: '目标星门确认', detail: '锁定用神与辅神宫位' },
+    { name: '推演应期',     tag: '扫描时间窗口', detail: '扫描未来 30 日应期节点' },
+    { name: '后端评分',     tag: '卦象强弱初判', detail: '量化宫象强弱与五行生克' },
+    { name: 'AI 推演解盘',  tag: '深度推演中',   detail: '综合推演，生成决策指引' },
+    { name: '解盘完成',     tag: '结果就绪', detail: '' },
+  ],
+  bazi: [
+    { name: '解析问题意图', tag: '路由分类',   detail: '正在识别问题类型' },
+    { name: '调取命盘',     tag: '八字加载',   detail: '读取日主与大运流年' },
+    { name: '语义路由',     tag: '分析模式确认', detail: '确认分析维度与时间范围' },
+    { name: '构建推演框架', tag: '命局分析',   detail: '整合命局与五行格局' },
+    { name: '五行喜忌',     tag: '格局评估',   detail: '评估喜用神与忌神强弱' },
+    { name: 'AI 深度解盘',  tag: '深度推演中', detail: '综合命局，生成运势解读' },
+    { name: '解盘完成',     tag: '结果就绪', detail: '' },
+  ],
+}
+const CATEGORY_LABEL_MAP = {
+  career_business: '事业运势', finance_wealth: '财运分析',
+  relationship: '感情婚恋', health_action: '健康行动', general: '综合运势',
+}
+const sseBranch = ref('qimen')
+const sseActiveIndex = ref(0)
+const sseChips = ref({})
+const ssePct = ref(0)
+const sseCurrentSteps = computed(() => SSE_STEPS[sseBranch.value] || SSE_STEPS.qimen)
+const sseSpinePct = computed(() => {
+  const done = Math.max(0, sseActiveIndex.value - 1)
+  const total = sseCurrentSteps.value.length - 1
+  return total > 0 ? (done / total) * 100 : 0
+})
+
+function resetSseState() {
+  sseBranch.value = 'qimen'
+  sseActiveIndex.value = 0
+  sseChips.value = {}
+  ssePct.value = 0
+}
+
+async function readSSEStream(response) {
+  const reader = response.body.getReader()
+  const decoder = new TextDecoder()
+  let buffer = ''
+  while (true) {
+    const { done, value } = await reader.read()
+    if (done) throw new Error('推演流意外关闭')
+    buffer += decoder.decode(value, { stream: true })
+    const parts = buffer.split('\n\n')
+    buffer = parts.pop() ?? ''
+    for (const part of parts) {
+      const line = part.trim()
+      if (!line.startsWith('data: ')) continue
+      let event
+      try { event = JSON.parse(line.slice(6)) } catch { continue }
+      if (event.type === 'step') {
+        sseActiveIndex.value = event.index + 1
+        if (event.chip) sseChips.value = { ...sseChips.value, [event.index]: event.chip }
+        ssePct.value = event.pct
+      } else if (event.type === 'active') {
+        sseActiveIndex.value = event.index
+        ssePct.value = event.pct
+      } else if (event.type === 'complete') {
+        sseActiveIndex.value = sseCurrentSteps.value.length
+        ssePct.value = 100
+        return event.result
+      } else if (event.type === 'error') {
+        throw new Error(event.message || '推演失败')
+      }
+    }
+  }
+}
+
 let clockInterval = null
 const getFortuneStorage = () => (typeof window === 'undefined' ? null : window.localStorage)
 
@@ -949,7 +1081,7 @@ const startDivination = async () => {
 
   isSubmitting.value = true
   viewState.value = 'loading'
-  startLoaderCycle()
+  resetSseState()
 
   try {
     const routeResponse = await fetch(ROUTE_API_URL, {
@@ -968,6 +1100,12 @@ const startDivination = async () => {
       viewState.value = 'input'
       return
     }
+
+    // Mark step 0 done with routing result
+    sseBranch.value = routeData.branch === 'bazi' ? 'bazi' : 'qimen'
+    sseChips.value = { 0: { main: CATEGORY_LABEL_MAP[routeData.category] || '综合运势', sub: routeData.branch === 'bazi' ? '八字命理' : routeData.branch === 'hybrid' ? '综合推演' : '奇门遁甲' } }
+    sseActiveIndex.value = 1
+    ssePct.value = 10
 
     if (routeData.branch === 'bazi') {
       if (!session) {
@@ -988,21 +1126,18 @@ const startDivination = async () => {
       const response = await fetch(BAZI_QUESTION_API_URL, {
         method: 'POST',
         headers,
-        body: JSON.stringify({
-          question: input,
-          profileId,
-          route: routeData
-        })
+        body: JSON.stringify({ question: input, profileId, route: routeData })
       })
-      const data = await response.json()
-      if (!response.ok || data.error) {
-        if (data.code === 'BAZI_PROFILE_INCOMPLETE') {
+      if (!response.ok) {
+        const errData = await response.json()
+        if (errData.code === 'BAZI_PROFILE_INCOMPLETE') {
           alert('该档案还没有完整排盘数据，请先进入八字页完成命盘推演。')
           router.push({ name: 'bazi', query: { profileId, question: input } })
           return
         }
-        throw new Error(data.details || data.error || '八字问答失败')
+        throw new Error(errData.details || errData.error || '八字问答失败')
       }
+      const data = await readSSEStream(response)
       const savedRecord = await saveRecordToDatabase(input, data)
       activeResultRecord.value = savedRecord
       resultHtml.value = buildCardHTML(data)
@@ -1028,8 +1163,11 @@ const startDivination = async () => {
         baziInfo: (routeData.branch === 'qimen') ? null : (currentBaziString.value || null)
       })
     })
-    const data = await response.json()
-    if (!response.ok || data.error) throw new Error(data.details || data.error || '推演失败')
+    if (!response.ok) {
+      const errData = await response.json()
+      throw new Error(errData.details || errData.error || '推演失败')
+    }
+    const data = await readSSEStream(response)
     const savedRecord = await saveRecordToDatabase(input, data)
     activeResultRecord.value = savedRecord
     activateBaziResultPanel(data)
@@ -1047,7 +1185,6 @@ const startDivination = async () => {
     alert("推演失败")
     viewState.value = 'input'
   } finally {
-    stopLoaderCycle()
     isSubmitting.value = false
   }
 }
@@ -1922,11 +2059,72 @@ input::placeholder { color: rgba(255,255,255,0.25); }
 }
 .add-bazi-profile-btn:hover { box-shadow: inset 0 0 0 1px rgba(212,175,55,0.26), 0 0 20px rgba(212,175,55,0.08); }
 
-/* 动画和结果页 */
-#loader { display: flex; flex-direction: column; align-items: center; gap: 24px; padding: 32px 0; }
-.bagua-ring-wrap { position: relative; width: 120px; height: 120px; }
-.bagua-svg { width: 100%; height: 100%; animation: rotateBagua 8s linear infinite; }
-.loader-main-text { font-family: var(--font-serif); font-size: 13px; color: var(--gold); text-align: center; }
+/* ── SSE Loader ── */
+#loader { display: flex; flex-direction: column; align-items: center; gap: 18px; padding: 28px 0 20px; }
+.bagua-ring-wrap { position: relative; width: 96px; height: 96px; }
+.bagua-ring-wrap::before { content:''; position:absolute; inset:-8px; border-radius:50%; background:radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 65%); animation: glow-pulse 4s ease-in-out infinite; pointer-events:none; }
+@keyframes glow-pulse { 0%,100% { opacity:.6; transform:scale(1); } 50% { opacity:1; transform:scale(1.18); } }
+.bagua-svg { width:100%; height:100%; filter:drop-shadow(0 0 14px rgba(212,175,55,0.15)); }
+.bagua-wheel { animation: wheel-spin 22s linear infinite; transform-origin: 60px 60px; }
+.bagua-inner-g { animation: wheel-spin-rev 14s linear infinite; transform-origin: 60px 60px; }
+@keyframes wheel-spin     { to { transform: rotate(360deg); } }
+@keyframes wheel-spin-rev { to { transform: rotate(-360deg); } }
+
+.loader-branch-badge { font-family:var(--font-serif); font-size:9.5px; letter-spacing:.18em; color:var(--gold-light); background:rgba(212,175,55,0.09); border:1px solid rgba(212,175,55,0.2); border-radius:20px; padding:2px 10px; opacity:0; transform:translateY(3px); transition:opacity .4s, transform .4s; pointer-events:none; }
+.loader-branch-badge.visible { opacity:1; transform:translateY(0); }
+
+/* Timeline */
+.sse-timeline { position:relative; width:100%; padding-left:24px; }
+.sse-spine { position:absolute; left:7px; top:8px; bottom:8px; width:1px; background:rgba(255,255,255,0.07); border-radius:1px; overflow:hidden; }
+.sse-spine-fill { position:absolute; top:0; left:0; width:100%; background:linear-gradient(to bottom, var(--gold), rgba(212,175,55,0.35)); border-radius:1px; transition:height .7s cubic-bezier(0.4,0,0.2,1); }
+
+.sse-step { position:relative; margin-bottom:16px; animation:sse-step-in .45s cubic-bezier(0.4,0,0.2,1) both; }
+.sse-step:last-child { margin-bottom:0; }
+@keyframes sse-step-in { from { opacity:0; transform:translateX(-7px); } to { opacity:1; transform:translateX(0); } }
+.sse-step:nth-child(1){animation-delay:.04s}.sse-step:nth-child(2){animation-delay:.10s}.sse-step:nth-child(3){animation-delay:.16s}
+.sse-step:nth-child(4){animation-delay:.22s}.sse-step:nth-child(5){animation-delay:.28s}.sse-step:nth-child(6){animation-delay:.34s}
+.sse-step:nth-child(7){animation-delay:.40s}
+
+/* Dot */
+.sse-dot { position:absolute; left:-20px; top:3px; width:13px; height:13px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:all .35s cubic-bezier(0.4,0,0.2,1); }
+.sse-step.pending .sse-dot { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); }
+.sse-step.pending .sse-dot::after { content:''; width:4px; height:4px; border-radius:50%; background:rgba(255,255,255,0.16); }
+.sse-step.done .sse-dot { background:rgba(212,175,55,0.12); border:1px solid rgba(212,175,55,0.36); box-shadow:0 0 7px rgba(212,175,55,0.16); }
+.sse-step.done .sse-dot::after { content:'✓'; font-size:7px; color:var(--gold-light); line-height:1; }
+.sse-step.active .sse-dot { background:rgba(212,175,55,0.18); border:1.5px solid var(--gold); box-shadow:0 0 0 3px rgba(212,175,55,0.09),0 0 11px rgba(212,175,55,0.28); animation:sse-dot-pulse 2.2s ease-in-out infinite; }
+.sse-step.active .sse-dot::after { content:''; width:5px; height:5px; border-radius:50%; background:var(--gold); box-shadow:0 0 5px var(--gold); }
+.sse-step.active .sse-dot::before { content:''; position:absolute; inset:-5px; border-radius:50%; border:1px solid rgba(212,175,55,0.28); animation:sse-pulse-ring 2.2s ease-out infinite; }
+@keyframes sse-dot-pulse { 0%,100%{box-shadow:0 0 0 3px rgba(212,175,55,0.09),0 0 11px rgba(212,175,55,0.28);} 50%{box-shadow:0 0 0 5px rgba(212,175,55,0.14),0 0 18px rgba(212,175,55,0.44);} }
+@keyframes sse-pulse-ring { 0%{opacity:.7;transform:scale(1);} 100%{opacity:0;transform:scale(2.2);} }
+
+/* Step text */
+.sse-step-name { font-family:var(--font-serif); font-size:12.5px; letter-spacing:.04em; line-height:1.4; transition:color .3s,font-size .3s; }
+.sse-step-tag  { font-family:var(--font-body); font-size:10px; letter-spacing:.07em; transition:color .3s; }
+.sse-step.pending .sse-step-name { color:var(--text-muted); opacity:.42; }
+.sse-step.pending .sse-step-tag  { color:var(--text-muted); opacity:.26; }
+.sse-step.done    .sse-step-name { color:rgba(212,175,55,.72); }
+.sse-step.done    .sse-step-tag  { color:rgba(212,175,55,.4); }
+.sse-step.active  .sse-step-name { color:var(--gold-light); font-size:13px; text-shadow:0 0 16px rgba(212,175,55,.36); }
+.sse-step.active  .sse-step-tag  { color:rgba(232,204,128,.52); }
+
+/* Detail + typing dots */
+.sse-step-detail { font-size:10.5px; color:var(--text-muted); margin-top:2px; max-height:0; overflow:hidden; opacity:0; transition:max-height .35s cubic-bezier(0.4,0,0.2,1),opacity .35s; }
+.sse-step.active .sse-step-detail { max-height:32px; opacity:1; }
+.sse-typing-dots::after { content:'·'; animation:sse-dots3 1.5s steps(3,end) infinite; }
+@keyframes sse-dots3 { 0%{content:'·';} 33%{content:'··';} 66%{content:'···';} }
+
+/* Chip */
+.sse-chip { display:inline-flex; align-items:center; gap:4px; margin-top:4px; padding:2px 8px; background:rgba(212,175,55,0.07); border:1px solid rgba(212,175,55,0.17); border-radius:20px; opacity:0; transform:translateY(3px); transition:opacity .4s .08s,transform .4s .08s; }
+.sse-step.done .sse-chip { opacity:1; transform:translateY(0); }
+.sse-chip-main { font-family:var(--font-serif); font-size:10px; color:var(--gold-light); letter-spacing:.05em; }
+.sse-chip-sep { width:2px; height:2px; border-radius:50%; background:rgba(212,175,55,.32); flex-shrink:0; }
+.sse-chip-sub  { font-family:var(--font-body); font-size:9.5px; color:var(--text-muted); opacity:.82; }
+
+/* Progress row */
+.sse-progress-row { width:100%; display:flex; align-items:center; gap:10px; }
+.sse-progress-track { flex:1; height:1.5px; background:rgba(255,255,255,0.07); border-radius:2px; overflow:hidden; }
+.sse-progress-fill { height:100%; background:linear-gradient(90deg,var(--gold),var(--gold-light)); border-radius:2px; box-shadow:0 0 5px rgba(212,175,55,.32); transition:width .7s cubic-bezier(0.4,0,0.2,1); }
+.sse-progress-pct { font-family:var(--font-serif); font-size:10.5px; color:rgba(212,175,55,.52); letter-spacing:.04em; min-width:28px; text-align:right; }
 
 .result-actions { display: grid; grid-template-columns: minmax(0,1fr) auto auto; gap: 10px; margin-top: 16px; align-items: center; }
 .reset-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; height: 50px; background: transparent; border: 1px solid var(--glass-border); border-radius: 14px; color: var(--text-muted); font-size: 13px; cursor: pointer; transition: border-color .2s, background .2s, color .2s; }

@@ -117,6 +117,40 @@ function json(payload, init = {}, request, env) {
   });
 }
 
+// Creates an SSE streaming response. Returns { emit, close, response }.
+// Call emit({type, ...}) to push events, close() when done.
+function createSSEResponse(request, env) {
+  const corsHeaders = getCorsHeaders(request, env, 'Content-Type, Authorization, X-Guest-Id');
+  let controller = null;
+  const encoder = new TextEncoder();
+  const stream = new ReadableStream({
+    start(c) { controller = c; },
+    cancel() { controller = null; },
+  });
+  function emit(event) {
+    if (!controller) return;
+    try { controller.enqueue(encoder.encode(`data: ${JSON.stringify(event)}\n\n`)); } catch {}
+  }
+  function close() {
+    if (!controller) return;
+    try { controller.close(); } catch {}
+    controller = null;
+  }
+  const headers = new Headers({
+    'Content-Type': 'text/event-stream; charset=utf-8',
+    'Cache-Control': 'no-cache, no-transform',
+    'X-Accel-Buffering': 'no',
+  });
+  for (const [k, v] of Object.entries(corsHeaders)) headers.set(k, v);
+  return { emit, close, response: new Response(stream, { status: 200, headers }) };
+}
+
+const QIMEN_CATEGORY_LABELS = {
+  career_business: '事业运势', finance_wealth: '财运分析',
+  relationship: '感情婚恋', health_action: '健康行动', general: '综合运势',
+};
+const QIMEN_SCORE_LABEL = s => s >= 70 ? '中上吉' : s >= 50 ? '中平' : '偏凶';
+
 async function readJson(request) {
   if (!request.body) return {};
   const contentType = request.headers.get('Content-Type') || '';
@@ -572,22 +606,44 @@ async function handleContextNotes(request, env) {
 async function handleBaziQuestion(request, env) {
   if (request.method !== 'POST') return json({ error: 'Method not allowed' }, { status: 405 }, request, env);
   const startedAt = Date.now();
+
+  // ── Pre-stream: auth + basic validation (may return JSON errors) ──
+  let user;
   try {
-    const user = await getAuthedUser(request, env);
-    const body = await readJson(request);
-    const question = String(body.question || '').trim();
-    const profileId = String(body.profileId || '').trim();
+    user = await getAuthedUser(request, env);
+  } catch (authErr) {
+    return json({ error: '认证失败', details: authErr.message }, { status: authErr.status || 401 }, request, env);
+  }
+
+  const body = await readJson(request);
+  const question = String(body.question || '').trim();
+  const profileId = String(body.profileId || '').trim();
+  if (!question) return json({ error: '问题不能为空' }, { status: 400 }, request, env);
+  if (!profileId) return json({ error: '缺少八字档案 ID' }, { status: 400 }, request, env);
+
+  // Profile fetch (pre-stream so we can return JSON errors for missing/invalid profiles)
+  const supabase = createSupabaseClient(env);
+  const { data: profile, error: profileErr } = await supabase.from('bazi_profiles').select('*').eq('id', profileId).single();
+  if (profileErr || !profile) return json({ error: '档案不存在' }, { status: 404 }, request, env);
+  if (profile.user_id !== user.id) return json({ error: '无权操作该档案' }, { status: 403 }, request, env);
+  if (!profile.bazi_detail || !profile.bazi_str) return json({ error: '该档案缺少完整八字排盘数据，请先在八字页完成命盘推演', code: 'BAZI_PROFILE_INCOMPLETE' }, { status: 400 }, request, env);
+
+  // ── Start SSE stream ──
+  const { emit, close, response: sseResponse } = createSSEResponse(request, env);
+
+  (async () => {
+  try {
     const requestRoute = body.route || {};
     const baseRoute = normalizeDivinationRoute({ branch: 'bazi', category: 'general', ...requestRoute });
-    
-    if (!question) return json({ error: '问题不能为空' }, { status: 400 }, request, env);
-    if (!profileId) return json({ error: '缺少八字档案 ID' }, { status: 400 }, request, env);
 
-    const supabase = createSupabaseClient(env);
-    const { data: profile, error } = await supabase.from('bazi_profiles').select('*').eq('id', profileId).single();
-    if (error || !profile) return json({ error: '档案不存在' }, { status: 404 }, request, env);
-    if (profile.user_id !== user.id) return json({ error: '无权操作该档案' }, { status: 403 }, request, env);
-    if (!profile.bazi_detail || !profile.bazi_str) return json({ error: '该档案缺少完整八字排盘数据，请先在八字页完成命盘推演', code: 'BAZI_PROFILE_INCOMPLETE' }, { status: 400 }, request, env);
+    // ── SSE Step 0: 解析问题意图 (routing was done by client) ──
+    const _cat0 = QIMEN_CATEGORY_LABELS[baseRoute.category] || '综合运势';
+    emit({ type: 'step', index: 0, pct: 10, chip: { main: _cat0, sub: '八字命理' } });
+
+    // ── SSE Step 1: 调取命盘完成 ──
+    const dayMaster = profile.bazi_detail?.day_master || profile.bazi_str?.split(' ')?.[2]?.[0] || '日主';
+    const strengthLabel = profile.bazi_detail?.strength_label || '';
+    emit({ type: 'step', index: 1, pct: 22, chip: { main: `日主${dayMaster}`, sub: strengthLabel || '命盘就绪' } });
 
     const cheapRouteHint = ruleRouteHint(question, { forceBranch: baseRoute.branch === 'hybrid' ? 'hybrid' : 'bazi' });
     const routeHint = {
@@ -603,8 +659,9 @@ async function handleBaziQuestion(request, env) {
       needs_time_scan_hint: requestRoute.needs_time_scan ?? requestRoute.needs_time_scan_hint ?? cheapRouteHint.needs_time_scan_hint,
       time_scope_hint: requestRoute.time_scope || requestRoute.time_scope_hint || cheapRouteHint.time_scope_hint,
       target_resolution: requestRoute.target_resolution || cheapRouteHint.target_resolution,
-      llm_derived_target: requestRoute.llm_derived_target || cheapRouteHint.llm_derived_target
+      llm_derived_target: requestRoute.llm_derived_target || cheapRouteHint.llm_derived_target,
     };
+
     let semanticRouteRaw = null;
     const semanticFallbacks = [];
     try {
@@ -615,18 +672,39 @@ async function handleBaziQuestion(request, env) {
       semanticRouteRaw = {
         ...routeHint,
         source: 'rule_hint_fallback',
-        reason: routeHint.reason || `八字语义路由失败：${routeError.message}`
+        reason: routeHint.reason || `八字语义路由失败：${routeError.message}`,
       };
       semanticFallbacks.push(`bazi_semantic_route_fallback:${routeError.message}`);
     }
-    const semanticRoute = normalizeBaziSemanticRoute({
-      ...baseRoute,
-      ...semanticRouteRaw
-    }, routeHint);
+    const semanticRoute = normalizeBaziSemanticRoute({ ...baseRoute, ...semanticRouteRaw }, routeHint);
+
+    // ── SSE Step 2: 语义路由完成 ──
+    const _BAZI_MODE_CN = { timing: '时间推演', pattern: '格局分析', character: '性格命理', status: '当下状态' };
+    const _modeLabel = _BAZI_MODE_CN[semanticRoute.analysis_mode] || '分析模式';
+    const _modeSub   = _BAZI_MODE_CN[semanticRoute.analysis_mode] ? (semanticRoute.branch === 'hybrid' ? '综合推演' : '八字命理') : '命理分析';
+    emit({ type: 'step', index: 2, pct: 36, chip: { main: _modeLabel, sub: _modeSub } });
 
     const { prompt, pipelineResult } = buildBaziQuestionPrompt({ profile, question, route: semanticRoute });
+
+    // ── SSE Step 3: 构建推演框架完成 ──
+    const _SCOPE_CN = { current_year: '今年', next_3_years: '近三年', next_5_years: '近五年', next_10_years: '未来十年', unknown: '命局综合' };
+    const _scopeType = semanticRoute.time_scope?.type || 'unknown';
+    const _scopeYears = semanticRoute.time_scope?.start_year && semanticRoute.time_scope?.end_year
+      ? `${semanticRoute.time_scope.start_year}–${semanticRoute.time_scope.end_year}`
+      : null;
+    const _scopeMain = _SCOPE_CN[_scopeType] || '命局综合';
+    emit({ type: 'step', index: 3, pct: 48, chip: { main: _scopeMain, sub: _scopeYears || '命局推演' } });
+
+    // ── SSE Step 4: 五行喜忌 (instant — derived from pipelineResult) ──
+    const _favorable = pipelineResult?.favorable_elements?.join('') || pipelineResult?.favorable || '';
+    emit({ type: 'step', index: 4, pct: 62, chip: _favorable ? { main: `喜${_favorable}`, sub: '忌神已标记' } : null });
+
+    // ── SSE Step 5: AI 推演开始 ──
+    emit({ type: 'active', index: 5, pct: 75 });
+
     const llmJson = await requestLLM(prompt, env, 'gemini-3.1-pro-preview', 0.65);
     const output = normalizeBaziQuestionOutput(llmJson, { question, route: semanticRoute, pipelineResult });
+
     const auditSnapshot = buildBaziAuditSnapshot({
       requestId: crypto.randomUUID?.() || `${Date.now()}-${Math.random().toString(16).slice(2)}`,
       userId: user.id,
@@ -640,26 +718,23 @@ async function handleBaziQuestion(request, env) {
         'buildBaziQuestionPrompt',
         output.meta?.analysis_mode ? `analysis_mode:${output.meta.analysis_mode}` : `analysis_mode:${semanticRoute.analysis_mode || 'legacy'}`,
         semanticRoute.secondary_mode ? `secondary_mode:${semanticRoute.secondary_mode}` : '',
-        semanticRoute.target_resolution ? `target_resolution:${semanticRoute.target_resolution}` : ''
+        semanticRoute.target_resolution ? `target_resolution:${semanticRoute.target_resolution}` : '',
       ].filter(Boolean),
       llmOutputRaw: llmJson,
       llmOutputNormalized: output,
       pipelineResult,
       modelName: 'gemini-3.1-pro-preview',
       latencyMs: Date.now() - startedAt,
-      fallbacks: [
-        ...semanticFallbacks,
-        ...(output.meta?.limitations || [])
-      ],
+      fallbacks: [...semanticFallbacks, ...(output.meta?.limitations || [])],
     });
 
     try {
       const { error: auditError } = await supabase.from('bazi_question_audit').insert(auditSnapshot);
       if (auditError) console.warn('[qimen-api] bazi audit insert failed:', auditError.message || auditError);
-    } catch (auditError) {
-      console.warn('[qimen-api] bazi audit insert failed:', auditError.message || auditError);
+    } catch (auditErr) {
+      console.warn('[qimen-api] bazi audit insert failed:', auditErr.message || auditErr);
     }
-    
+
     const outputWithSnapshot = {
       ...output,
       subject_snapshot: {
@@ -667,11 +742,20 @@ async function handleBaziQuestion(request, env) {
         gender: profile.gender || null
       }
     };
+<<<<<<< HEAD
     return json(outputWithSnapshot, { status: 200 }, request, env);
+=======
+    emit({ type: 'complete', result: outputWithSnapshot });
+>>>>>>> origin/main
   } catch (error) {
     console.error('[qimen-api] bazi-question error:', error);
-    return json({ error: '八字问答生成失败', details: error.message }, { status: error.status || 500 }, request, env);
+    emit({ type: 'error', message: error.message || '八字问答生成失败' });
+  } finally {
+    close();
   }
+  })(); // end async IIFE
+
+  return sseResponse;
 }
 
 async function handleBaziCalibrate(request, env) {
@@ -810,39 +894,54 @@ let baziMemoryCache = {};
 
 async function handleQimen(request, env) {
   if (request.method !== 'POST') return json({ error: 'Method not allowed' }, { status: 405 }, request, env);
-  
-  try {
-    const authHeader = request.headers.get('Authorization');
-    const guestId = request.headers.get('x-guest-id');
-    let user = null;
-    let userId = null;
-    const isGuestRequest = !authHeader && typeof guestId === 'string' && guestId.startsWith('guest_');
 
+  // ── Pre-stream: auth + quota (may return JSON errors before SSE starts) ──
+  const authHeader = request.headers.get('Authorization');
+  const guestId = request.headers.get('x-guest-id');
+  let user = null;
+  let userId = null;
+  const isGuestRequest = !authHeader && typeof guestId === 'string' && guestId.startsWith('guest_');
+
+  try {
     if (authHeader) {
       user = await getAuthedUser(request, env);
       userId = user.id;
     } else if (!isGuestRequest) {
       return json({ error: '未登录，请先登录' }, { status: 401 }, request, env);
     }
-    
-    const body = await readJson(request);
-    
-    // Quota enforcement
-    const whitelist = (env.WHITELIST_EMAILS || "").split(',').map(email => email.trim().toLowerCase());
-    const currentUserEmail = user?.email ? user.email.toLowerCase() : "";
-    const isVIP = whitelist.includes(currentUserEmail);
+  } catch (authErr) {
+    return json({ error: '认证失败', details: authErr.message }, { status: authErr.status || 401 }, request, env);
+  }
 
-    if (isGuestRequest) {
-      console.log(`👤 访客账户 [${guestId}] 发起一次推演`);
-    } else if (isVIP) {
-      console.log(`👑 白名单特权账户 [${currentUserEmail}] 发起推演，免除额度限制`);
-    } else {
+  // Body must be read before SSE starts (Request.body can only be consumed once)
+  const body = await readJson(request);
+
+  // Quota enforcement
+  const whitelist = (env.WHITELIST_EMAILS || "").split(',').map(email => email.trim().toLowerCase());
+  const currentUserEmail = user?.email ? user.email.toLowerCase() : "";
+  const isVIP = whitelist.includes(currentUserEmail);
+
+  if (isGuestRequest) {
+    console.log(`👤 访客账户 [${guestId}] 发起一次推演`);
+  } else if (isVIP) {
+    console.log(`👑 白名单特权账户 [${currentUserEmail}] 发起推演，免除额度限制`);
+  } else {
+    try {
       const supabase = createSupabaseClient(env);
       const { count, error } = await supabase.from('qimen_records').select('*', { count: 'exact', head: true }).eq('user_id', userId);
       if (!error && count >= 3) {
         return json({ error: "您的 3 次免费天机推演额度已用尽" }, { status: 403 }, request, env);
       }
+    } catch (quotaErr) {
+      console.warn('[qimen-api] quota check failed:', quotaErr);
     }
+  }
+
+  // ── Start SSE stream ──
+  const { emit, close, response: sseResponse } = createSSEResponse(request, env);
+
+  (async () => {
+  try {
 
     const userQuestion = body.question || "当前局势吉凶如何？";
     const now = new Date();
@@ -866,7 +965,17 @@ async function handleQimen(request, env) {
     
     if (qimenMemoryCache[cacheKey]) {
       console.log("⚡️ 命中云端时辰缓存！直接返回。");
-      return json(qimenMemoryCache[cacheKey], { status: 200 }, request, env);
+      const cached = qimenMemoryCache[cacheKey];
+      const cachedCat = QIMEN_CATEGORY_LABELS[cached.category] || '综合运势';
+      const cachedScore = cached.backend_score_audit?.final_score ?? cached.summary?.score ?? 72;
+      emit({ type: 'step', index: 0, pct: 10, chip: { main: cachedCat, sub: cached.branch === 'hybrid' ? '综合推演' : '奇门遁甲' } });
+      emit({ type: 'step', index: 1, pct: 25, chip: { main: cached.qimen_data?.ju_info?.name || '已起盘', sub: cached.qimen_data?.pillars?.hour || '' } });
+      emit({ type: 'step', index: 2, pct: 42, chip: null });
+      emit({ type: 'step', index: 3, pct: 58, chip: null });
+      emit({ type: 'step', index: 4, pct: 72, chip: { main: `初分 ${cachedScore}`, sub: QIMEN_SCORE_LABEL(cachedScore) } });
+      emit({ type: 'step', index: 5, pct: 90, chip: null });
+      emit({ type: 'complete', result: cached });
+      return;
     }
 
     const juResult = Calc.calculateJuByChaiBu(solar, C.JIEQI_JUSHU, C.YUAN_NAMES);
@@ -922,9 +1031,17 @@ async function handleQimen(request, env) {
     const dayStem = U.extractTianGan(ganzhiDay);
     const hourStem = U.extractTianGan(ganzhiHour);
 
+    // ── SSE Step 1: 起盘计算完成 ──
+    emit({ type: 'step', index: 1, pct: 25, chip: { main: qimen_structure, sub: ganzhiHour } });
+
     const detectedIntent = body.route
         ? normalizeDivinationRoute(body.route)
         : await classifyDivinationQuestion({ question: userQuestion, forceBranch: 'qimen', llmFallback: true, llmClassifier: (text, ruleResult) => classifyByGeminiFlashWithEnv(text, ruleResult, env) });
+
+    // ── SSE Step 0: 解析问题意图完成 (routing was done by client) ──
+    const _cat0 = QIMEN_CATEGORY_LABELS[detectedIntent.category] || '综合运势';
+    const _sub0 = detectedIntent.branch === 'hybrid' ? '综合推演' : '奇门遁甲';
+    emit({ type: 'step', index: 0, pct: 10, chip: { main: _cat0, sub: _sub0 } });
 
     // 纯奇门分支：屏蔽命主八字信息，只用盘面推演，不引入命局偏倚
     const effectiveBaziInfo = detectedIntent.branch === 'qimen' ? "未提供八字信息" : baziInfo;
@@ -938,6 +1055,10 @@ async function handleQimen(request, env) {
         .filter(item => hasBaziInfo || !item.requiresBazi)
         .map(item => ({ symbol: item.symbol, role: item.role, weight: item.layer || 'core' }));
         
+    // ── SSE Step 2: 定位用神完成 ──
+    const _primarySymbol = yongshenRule?.yongshen?.primary?.[0]?.symbol || '用神';
+    emit({ type: 'step', index: 2, pct: 42, chip: { main: _primarySymbol, sub: detectedIntent.subcategory || detectedIntent.category || '' } });
+
     const timingPalaces = Array.from({ length: 9 }, (_, i) => ({
         index: i,
         name: `${palaceNames[i]}${palaceNumbers[i]}宫`,
@@ -971,6 +1092,12 @@ async function handleQimen(request, env) {
         recheckLimit: 5
     });
     
+    // ── SSE Step 3: 推演应期完成 ──
+    const _windows = timingAnalysis?.p2_scan?.candidates || [];
+    const _firstWin = _windows[0];
+    const _winSub = _firstWin ? (_firstWin.date || '近日') : '暂无明确窗口';
+    emit({ type: 'step', index: 3, pct: 58, chip: { main: `发现 ${_windows.length} 个窗口`, sub: _winSub } });
+
     const polarityOverrides = detectPolarityOverrides({
         intent: detectedIntent,
         palaces: timingPalaces
@@ -981,6 +1108,9 @@ async function handleQimen(request, env) {
         yongshenRule,
         polarityOverrides
     });
+    // ── SSE Step 4: 后端评分完成 ──
+    emit({ type: 'step', index: 4, pct: 72, chip: { main: `初分 ${backendScoreAudit.final_score}`, sub: QIMEN_SCORE_LABEL(backendScoreAudit.final_score) } });
+
     const yongshenPromptSection = buildYongshenPromptSection({
         intent: detectedIntent,
         rule: yongshenRule,
@@ -1134,6 +1264,9 @@ ${timingPromptSection}
 务必做到有根据、有理论支持，分析的详细还要体会我问问题的心理潜在因素，照顾我的心理感受。你先分析，我下面要问你问题了。
 问题：${userQuestion}`;
 
+    // ── SSE Step 5: AI 推演开始 (awaiting LLM) ──
+    emit({ type: 'active', index: 5, pct: 78 });
+
     const aiJsonData = normalizeQimenLlmOutput(await requestLLM(finalPrompt, env, 'gemini-3.1-pro-preview', 0.7));
     const rawLlmScoreAudit = aiJsonData.score_audit || {};
     const auditDelta = parseAuditDelta(rawLlmScoreAudit.audit_delta);
@@ -1205,13 +1338,17 @@ ${timingPromptSection}
     };
 
     qimenMemoryCache[cacheKey] = finalOutput;
-    return json(finalOutput, { status: 200 }, request, env);
+    emit({ type: 'complete', result: finalOutput });
 
   } catch (error) {
     console.error('[qimen-api] qimen error:', error);
-    const isQuota = error.message && error.message.includes("额度");
-    return json({ error: "奇门引擎推演失败", details: error.message }, { status: isQuota ? 403 : 500 }, request, env);
+    emit({ type: 'error', message: error.message || '奇门引擎推演失败' });
+  } finally {
+    close();
   }
+  })(); // end async IIFE
+
+  return sseResponse;
 }
 
 async function handleBazi(request, env) {
