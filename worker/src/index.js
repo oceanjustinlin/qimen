@@ -742,11 +742,7 @@ async function handleBaziQuestion(request, env) {
         gender: profile.gender || null
       }
     };
-<<<<<<< HEAD
-    return json(outputWithSnapshot, { status: 200 }, request, env);
-=======
     emit({ type: 'complete', result: outputWithSnapshot });
->>>>>>> origin/main
   } catch (error) {
     console.error('[qimen-api] bazi-question error:', error);
     emit({ type: 'error', message: error.message || '八字问答生成失败' });
