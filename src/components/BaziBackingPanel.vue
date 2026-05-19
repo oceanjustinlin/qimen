@@ -186,7 +186,12 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
 import { Solar } from 'lunar-javascript'
-import { buildLiuRiList } from '../utils/baziTransit.mjs'
+import { buildLiuRiList, getShiShen } from '../utils/baziTransit.mjs'
+
+const ZHI_MAIN_GAN = {
+  子: '癸', 丑: '己', 寅: '甲', 卯: '乙', 辰: '戊', 巳: '丙',
+  午: '丁', 未: '己', 申: '庚', 酉: '辛', 戌: '戊', 亥: '壬'
+}
 import { getShenshaInfo } from '../utils/baziShensha.mjs'
 import { useBaziColumns } from '../composables/useBaziColumns.js'
 import BaziPillarTable from './BaziPillarTable.vue'
@@ -252,7 +257,13 @@ const profileTags = computed(() => [
   props.profile?.strong_weak,
   props.profile?.geju || props.profile?.bazi_detail?.pattern_analysis?.extraction?.final_pattern?.name
 ].filter(Boolean))
-const liunianList = computed(() => matrix.value?.liunian_list || [])
+const liunianList = computed(() => {
+  // API 排盘：liunian_list 在 matrix 顶层
+  const topLevel = matrix.value?.liunian_list
+  if (topLevel?.length) return topLevel
+  // 本地排盘（buildLocalBaziMatrix）：liunian 嵌套在 dayun_list[i].liunian_list
+  return (matrix.value?.dayun_list || []).flatMap(d => d.liunian_list || [])
+})
 const windows = computed(() => props.resultData?.mode_analysis?.trigger_windows || [])
 const windowByYear = computed(() => new Map(windows.value.map(item => [Number(item.year), item])))
 const bestWindow = computed(() => windows.value.find(item => item.quality === 'strong') || windows.value[0] || null)
@@ -290,11 +301,30 @@ const linkedLiunianList = computed(() => {
 })
 
 const selectedLiunian = computed(() => linkedLiunianList.value.find(item => item.year === selectedLiunianYear.value) || linkedLiunianList.value[0] || null)
-const linkedLiuyueList = computed(() => (selectedLiunian.value?.liuyue_list || []).map((item, index) => ({
-  ...item,
-  index: Number.isFinite(Number(item.index)) ? Number(item.index) : index,
-  monthName: item.monthName || item.month_name
-})))
+const linkedLiuyueList = computed(() => {
+  // 优先用 matrix 里的 liuyue_list（API 排盘有完整数据）
+  const fromMatrix = (selectedLiunian.value?.liuyue_list || []).map((item, index) => ({
+    ...item,
+    index: Number.isFinite(Number(item.index)) ? Number(item.index) : index,
+    monthName: item.monthName || item.month_name
+  }))
+  if (fromMatrix.length) return fromMatrix
+  // 本地排盘回退：通过 baziEngine 直接推演流月干支
+  if (!originalLiunian.value) return []
+  const dg = dayGan.value
+  return (originalLiunian.value.getLiuYue?.() || []).map((ly, index) => {
+    const gz = ly.getGanZhi?.() || ''
+    const gan = gz.charAt(0), zhi = gz.charAt(1)
+    const mainGan = ZHI_MAIN_GAN[zhi] || ''
+    return {
+      index,
+      gan, zhi,
+      monthName: `${ly.getMonthInChinese?.() || (index + 1)}月`,
+      shi_shen: getShiShen(dg, gan),
+      zhi_shi_shen: getShiShen(dg, mainGan)
+    }
+  })
+})
 const originalLiunian = computed(() => {
   if (!baziEngine.value?.yun) return null
   const year = selectedLiunianYear.value
