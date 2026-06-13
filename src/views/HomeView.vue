@@ -322,14 +322,10 @@
             <div v-show="viewState === 'result'" class="result-wrapper">
               <!-- 持久能量球层：覆盖 hero 区，卡片切换时不销毁，保证膨胀/变色/定格全程丝滑 -->
               <div v-show="showOrbFx" class="wenshi-orb-fx" :class="[orbSettling ? 'settling' : '', orbTone]">
+                <!-- 粒子星盘：加载~定格期间渲染，定格时随 .settling 淡出，由 .wo-final 接管 -->
+                <WenshiOrb ref="wenshiOrbRef" class="wenshi-orb-particles" :tone="orbTone" :active="showOrbFx" />
                 <div class="wenshi-orb">
-                  <div class="wenshi-orb-layers">
-                    <div class="wo-satin"></div>
-                    <div class="wo-ray r1"></div><div class="wo-ray r2"></div><div class="wo-ray r3"></div>
-                    <div class="wo-wave w1"></div><div class="wo-wave w2"></div>
-                    <div class="wo-core"></div><div class="wo-shade"></div>
-                  </div>
-                  <!-- 终态色球：默认透明，定格时缓慢淡入并随 wrapper 放大 -->
+                  <!-- 终态色球：默认透明，定格时缓慢淡入并随 wrapper 放大，化成 hero 渐变 -->
                   <div class="wo-final"></div>
                 </div>
                 <div class="wenshi-orb-status" v-show="!orbSettling"><span class="txt">{{ wenShiStatus }}</span><span class="dots"></span></div>
@@ -670,6 +666,7 @@ import BaziStaticPanel from '../components/BaziStaticPanel.vue'
 import BaziDynamicPanel from '../components/BaziDynamicPanel.vue'
 import OpenSourceLinks from '../components/OpenSourceLinks.vue'
 import TimePickerSheet from '../components/TimePickerSheet.vue'
+import WenshiOrb from '../components/WenshiOrb.vue'
 import { buildGoogleOAuthSignInArgs } from '../auth/googleOAuth.mjs'
 import { buildPasswordResetEmailArgs } from '../auth/passwordReset.mjs'
 import { normalizeQimenCardData } from '../utils/qimenCardFallbacks.mjs'
@@ -1363,9 +1360,11 @@ const orbSettling = ref(false) // 是否进入定格态（膨胀+变色）
 const orbTone = ref('')        // wo-tone-gold / wo-tone-teal / wo-tone-warn
 const finalOverlayHtml = ref('') // 终态覆盖层 HTML（在脚手架之上淡入，避免空档）
 const wenShiStreamSections = {} // {sectionKey: 累计文本}（非响应式，直接 DOM 打补丁）
-// 更新 hero 能量球下方的状态行（响应式，只展示最新一条）
+const wenshiOrbRef = ref(null) // 粒子星盘组件实例（用于中间产物抖动）
+// 更新 hero 能量球下方的状态行（响应式，只展示最新一条）+ 出中间产物时星盘抖一下
 function patchOrbStatus(text) {
   if (text) wenShiStatus.value = text
+  wenshiOrbRef.value?.pulse()
 }
 // 完成时：能量球缓慢膨胀填满 hero + 变分数色 + 定格（同一 DOM，不重建，丝滑无断档）
 function settleOrbToResult(data) {
@@ -5204,52 +5203,17 @@ input::placeholder { color: var(--text-muted); }
 .wenshi-orb-fx{ position:absolute; top:0; left:0; right:0; height:min(44svh,430px); z-index:1;
   display:flex; flex-direction:column; align-items:center; justify-content:center; gap:22px;
   overflow:hidden; background:#f6f3ec; }
-/* isolation 让 screen 混合只在球内生效，避免与页面混合造成闪烁 */
+/* 粒子星盘：铺满 hero 区，置于色盘/状态之下；定格时淡出由 .wo-final 接管 */
+.wenshi-orb-particles{ position:absolute; inset:0; z-index:0; pointer-events:none; }
+.wenshi-orb-fx > .wenshi-orb{ z-index:1; }
+.wenshi-orb-fx > .wenshi-orb-status{ position:relative; z-index:2; }
+.wenshi-orb-fx.settling .wenshi-orb-particles{ opacity:0; transition:opacity .8s ease; }
+/* .wenshi-orb：仅承载定格色盘 .wo-final，定格时放大 4.4x 化成 hero 渐变（粒子球见 WenshiOrb.vue） */
 :deep(.wenshi-orb){ position:relative; width:200px; height:200px; border-radius:50%; isolation:isolate; transform:translateZ(0); transition:transform 1.7s cubic-bezier(.25,.1,.25,1); }
-:deep(.wenshi-orb-layers){ position:absolute; inset:0; border-radius:50%;
-  -webkit-mask:radial-gradient(circle at 50% 50%, #000 30%, rgba(0,0,0,.82) 50%, rgba(0,0,0,.5) 66%, rgba(0,0,0,.2) 82%, transparent 100%);
-  mask:radial-gradient(circle at 50% 50%, #000 30%, rgba(0,0,0,.82) 50%, rgba(0,0,0,.5) 66%, rgba(0,0,0,.2) 82%, transparent 100%);
-  animation:woPulse 4s ease-in-out infinite; will-change:transform; transform:translateZ(0); backface-visibility:hidden; }
-:deep(.wo-satin){ position:absolute; inset:-18%; border-radius:50%;
-  background:conic-gradient(from 0deg,#bfe3f2,#8fcbe8,#e3f3fb,#a6d8ef,#cfe8f5,#9ed3ec,#bfe3f2);
-  filter:blur(16px) hue-rotate(0deg); animation:woHue 9s linear infinite, woBreathe 5s ease-in-out infinite;
-  will-change:transform,filter; transform:translateZ(0); backface-visibility:hidden; }
-:deep(.wo-ray){ position:absolute; inset:0; border-radius:50%; mix-blend-mode:screen; transform-origin:50% 50%; opacity:0; will-change:transform,opacity; backface-visibility:hidden;
-  -webkit-mask:radial-gradient(circle at 50% 50%, #000 0%, rgba(0,0,0,.7) 40%, transparent 82%);
-  mask:radial-gradient(circle at 50% 50%, #000 0%, rgba(0,0,0,.7) 40%, transparent 82%); }
-:deep(.wo-ray.r1){ background:conic-gradient(from 0deg,
-  transparent 0deg,#fff 5deg,transparent 12deg, transparent 34deg,rgba(255,255,255,.6) 41deg,transparent 50deg,
-  transparent 80deg,#fff 90deg,transparent 99deg, transparent 126deg,rgba(255,255,255,.5) 132deg,transparent 140deg,
-  transparent 168deg,#fff 180deg,transparent 191deg, transparent 222deg,rgba(255,255,255,.66) 230deg,transparent 240deg,
-  transparent 276deg,#fff 287deg,transparent 297deg, transparent 330deg,rgba(255,255,255,.55) 338deg,transparent 347deg,
-  transparent 360deg); filter:blur(1.4px); animation:woEmit 2.1s ease-out infinite; }
-:deep(.wo-ray.r2){ background:conic-gradient(from 33deg,
-  transparent 0deg,rgba(255,255,255,.85) 8deg,transparent 18deg, transparent 50deg,#fff 60deg,transparent 70deg,
-  transparent 104deg,rgba(255,255,255,.55) 112deg,transparent 120deg, transparent 152deg,rgba(255,255,255,.8) 164deg,transparent 176deg,
-  transparent 208deg,#fff 217deg,transparent 228deg, transparent 262deg,rgba(255,255,255,.6) 271deg,transparent 281deg,
-  transparent 316deg,rgba(255,255,255,.85) 326deg,transparent 337deg, transparent 360deg); filter:blur(3px); animation:woEmit 2.1s ease-out infinite .7s; }
-:deep(.wo-ray.r3){ background:conic-gradient(from 71deg,
-  transparent 0deg,#fff 7deg,transparent 16deg, transparent 60deg,rgba(255,255,255,.6) 70deg,transparent 80deg,
-  transparent 120deg,rgba(255,255,255,.85) 132deg,transparent 144deg, transparent 188deg,#fff 198deg,transparent 209deg,
-  transparent 250deg,rgba(255,255,255,.55) 259deg,transparent 269deg, transparent 305deg,#fff 316deg,transparent 327deg,
-  transparent 360deg); filter:blur(2px); animation:woEmit 2.1s ease-out infinite 1.4s; }
-:deep(.wo-wave){ position:absolute; inset:0; border-radius:50%; border:1.5px solid rgba(255,255,255,.7); opacity:0;
-  -webkit-mask:radial-gradient(circle,#000 60%,transparent 80%); mask:radial-gradient(circle,#000 60%,transparent 80%); }
-:deep(.wo-wave.w1){ animation:woEmit 2.1s ease-out infinite .35s; }
-:deep(.wo-wave.w2){ animation:woEmit 2.1s ease-out infinite 1.4s; }
-:deep(.wo-core){ position:absolute; width:46px; height:46px; left:77px; top:77px; border-radius:50%;
-  background:radial-gradient(circle,rgba(255,255,255,1) 0%,rgba(255,255,255,.85) 22%,rgba(255,255,255,.3) 48%,transparent 72%);
-  filter:blur(1.5px); animation:woCore 1.3s ease-in-out infinite; }
-:deep(.wo-shade){ position:absolute; inset:0; border-radius:50%; background:radial-gradient(circle at 40% 32%,rgba(255,255,255,.4),transparent 55%); }
 :deep(.wenshi-orb-status){ display:flex; align-items:center; gap:2px; font-size:14px; color:var(--muted, #8b8167); letter-spacing:.05em; }
 :deep(.wenshi-orb-status .dots){ width:14px; text-align:left; }
 :deep(.wenshi-orb-status .dots::after){ content:""; animation:woDots 1.4s steps(4,end) infinite; }
 @keyframes woDots{ 0%{content:""} 25%{content:"·"} 50%{content:"··"} 75%{content:"···"} 100%{content:""} }
-@keyframes woHue{ to{ filter:blur(16px) hue-rotate(360deg) } }
-@keyframes woBreathe{ 0%,100%{ transform:scale(.94) } 50%{ transform:scale(1.06) } }
-@keyframes woPulse{ 0%,100%{ transform:scale(.93) } 50%{ transform:scale(1.06) } }
-@keyframes woEmit{ 0%{ transform:scale(.18); opacity:0 } 15%{ opacity:1 } 100%{ transform:scale(1.25); opacity:0 } }
-@keyframes woCore{ 0%,100%{ transform:scale(.8); opacity:.85 } 50%{ transform:scale(1.2); opacity:1 } }
 /* 终态色球：中心镂空的“光环”，膨胀时中心透出 hero 底色，与 hero 渐变（中心淡、四周有光晕）无缝对接。
    颜色取自 hero 主题色。默认透明，定格时淡入并随 wrapper 放大化开。 */
 :deep(.wo-final){ position:absolute; inset:0; border-radius:50%; opacity:0; filter:blur(14px);
@@ -5269,7 +5233,6 @@ input::placeholder { color: var(--text-muted); }
 
 /* 定格过渡：球大幅放大到“球体不可见” + 模糊化开成 hero 渐变光晕（再由终态卡片自带渐变接管）*/
 .wenshi-orb-fx.settling .wenshi-orb{ transform:scale(4.4) translateZ(0); }
-.wenshi-orb-fx.settling .wenshi-orb-layers{ opacity:0; transition:opacity 1s ease; }
 /* 边缘溶解更深：更大模糊，化到接近 hero 渐变的柔散度 */
 .wenshi-orb-fx.settling .wo-final{ opacity:1; filter:blur(78px); }
 .wenshi-orb-fx.settling .wenshi-orb-status{ opacity:0; transition:opacity .4s ease; }
@@ -6735,9 +6698,6 @@ input::placeholder { color: var(--text-muted); }
   background: linear-gradient(90deg, rgba(201,166,107,0.08), rgba(201,166,107,0.22), rgba(201,166,107,0.08));
   background-size: 220% 100%;
 }
-/* 暗色：加载能量球用 hero 暖金主题色（替换偏蓝），并整体压暗，深底上不突兀 */
-[data-theme="dark"] .wenshi-orb-layers { filter: brightness(0.62) saturate(1.2); }
-[data-theme="dark"] .wo-satin { background: conic-gradient(from 0deg, #d4af37, #b58d3b, #8a6c2c, #c9a66b, #9c7d3a, #b58d3b, #d4af37); }
-[data-theme="dark"] .wo-shade { background: radial-gradient(circle at 38% 30%, rgba(255,255,255,0.26), transparent 50%); }
+/* 暗色：加载粒子球的明暗自适应在 WenshiOrb.vue 内按 data-theme 处理 */
 /* 终态环：暗色沿用共享主题色（gold/teal/red 光晕，中心透出深底），无需单独配色 */
 </style>
