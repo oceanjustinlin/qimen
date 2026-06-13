@@ -4700,17 +4700,6 @@ const getShenColor = (shen) => {
 .bz-char { font-size: var(--bz-char-size); font-weight: 600; font-family: var(--font-ganzhi); margin: 2px 0; }
 .bz-sub { font-size: var(--bz-meta-size); color: var(--ink-muted); line-height: 1.4; }
 .bz-shensha { font-size: 11px; color: #7c5cbf; line-height: 1.4; }
-.matrix-fallback-note {
-    margin-top: 12px;
-    padding: 12px 14px;
-    border-radius: 12px;
-    border: 1px solid var(--gold-border);
-    background: var(--gold-dim);
-    color: var(--gold);
-    font-size: 12px;
-    line-height: 1.7;
-}
-
 .wx-jin { color: #E8CC80; } .wx-mu { color: #81C784; } .wx-shui { color: #64B5F6; } .wx-huo { color: #E57373; } .wx-tu { color: #DCE775; } .wx-none { color: #666; }
 
 .timeline-section { margin-top: 16px; border-top: 1px dashed var(--line); padding-top: 16px; }
@@ -6612,7 +6601,7 @@ const getShenColor = (shen) => {
 .detail-drawer, .insight-detail-drawer, .geju-detail-drawer,
 .shensha-modal, .guest-login-modal,
 .le-guide-card, .le-guide-block, .le-guide-example, .le-guide-tip,
-.analysis-status, .matrix-fallback-note,
+.analysis-status,
 .tiaohou-god-cell, .tiaohou-warning, .decision-chain-list, .scoring-item,
 .profile-form, .profile-flyout, .profile-flyout-item,
 .xiji-item, .five-shen-cell, .link-item, .linkage-row,
@@ -6823,7 +6812,6 @@ const getShenColor = (shen) => {
 /* 其他 callout accents */
 .analysis-status      { border-left: 2px solid var(--gold-border); }
 .analysis-status.done { border-left: 2px solid rgba(13,148,136,0.4); }
-.matrix-fallback-note { border-left: 2px solid var(--gold-border); }
 .life-events-card     { border-left: 2px solid var(--line); }
 .insight-tab.active   { box-shadow: none; }
 
