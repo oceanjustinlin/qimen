@@ -4,11 +4,11 @@
 > Qimen Dunjia turning-board calculations × Bazi chart analysis × deterministic fortune scoring × Gemini × Vue
 
 <p align="center">
-  <img src="https://i.imgur.com/8MVTjsS.jpeg" width="200" alt="Qimen result card"/>
+  <img src="https://cdn.jsdelivr.net/gh/oceanjustinlin/qimen@main/docs/assets/screenshots/qimen-result-card.jpg" width="200" alt="Qimen result card"/>
   &nbsp;&nbsp;
-  <img src="https://i.imgur.com/Dr5tEar.jpeg" width="200" alt="Daily fortune score"/>
+  <img src="https://cdn.jsdelivr.net/gh/oceanjustinlin/qimen@main/docs/assets/screenshots/fortune-daily.jpg" width="200" alt="Daily fortune score"/>
   &nbsp;&nbsp;
-  <img src="https://i.imgur.com/503GVir.jpeg" width="200" alt="Bazi interpretation"/>
+  <img src="https://cdn.jsdelivr.net/gh/oceanjustinlin/qimen@main/docs/assets/screenshots/bazi-verdict.jpg" width="200" alt="Bazi interpretation"/>
 </p>
 
 <p align="center">
@@ -33,35 +33,44 @@ This is not a template generator. It is a **rules-first metaphysics reasoning sy
 
 ## Core Features
 
-### Recent Updates (2026-06-10)
+### Changelog
 
-This round moves the question engine from "emit one big JSON at the end" toward "stream as it computes, self-heal on failure, switch models per environment, and never fabricate or leak internal metrics."
+**2026-06-13 · Question Follow-ups (multi-turn deep-dive)**
 
-- **Streaming Qimen / Bazi readings**: question results no longer wait for the model to return one complete JSON before rendering. A sentinel-segment protocol (`<<<SEC:...>>>`) streams each user-facing prose section independently, patched into its card slot in step with a frontend energy-orb loading and settle animation. Rule-engine output renders first; AI prose fills in section by section.
-- **Structure-validation retry**: the backend runs a hard structural check on the stream — empty stream, missing core sections, or unparseable `data_json` triggers an `llm_retry` event that tells the frontend to clear the half-rendered content and reset to the skeleton, then retries once non-streaming. Only a second failure degrades to an error. Individual optional fields missing fall back silently and do not trigger a retry.
-- **Title as its own prose section**: both Qimen and Bazi split the title (`summary.title` / `m1_conclusion.title`) into a standalone streamed section that names the question type and core verdict, instead of duplicating it inside the structured JSON.
-- **Per-environment question model**: a new `QUESTION_MODEL` env var lets the question model be configured per environment (the code default falls back to `gemini-3.1-pro-preview`). Both production and preview are currently set to `gemini-3-flash-preview` to compare flash against pro on stability and quality.
-- **Anti-fabrication and transformation-pattern guards**: prompts now hard-constrain the AI to reference only chart / Four-Pillars fields actually returned by the backend. It must not invent gates, stars, spirits, palaces, or generation-control / clash-combination relations that aren't in the chart, nor a branch self-punishment or triple-combination from a branch the natal chart doesn't contain. When transformation (化气) shows "suspected / false / damaged" or a self-preserving seal, it reads under the normal strengthen-restrain pattern and never flips the favorable / unfavorable direction.
-- **No leaking of internal metrics**: no user-facing copy may surface internal quantitative values such as "strength 74.4," "energy 80," or "confidence 0.8." These are expressed qualitatively in metaphysics language (e.g. "strong enough to carry wealth," "activated with force," "energy runs weak").
+Both Qimen and Bazi questions now support follow-up deep-dives on top of the original reading, via two new streaming endpoints `/api/qimen-followup` and `/api/bazi-followup`.
 
-### Previous Update (2026-06-06)
+- **One casting, one reading; the original is never rewritten**: follow-up results are appended as sub-blocks under the relevant sections — they never overwrite the original, never recast the chart, and never re-score. A casting's verdict and score are fixed the moment it is cast; follow-ups only change the angle and add depth.
+- **Deepen / new-matter classifier**: a lightweight model first decides whether a follow-up is a "same-casting deep-dive" or a "new matter." A new matter immediately prompts a recast instead of spending the main model.
+- **Deterministic supplemental computation**: if a follow-up needs years, luck cycles, or timing the original chart didn't compute, the classifier requests them from a whitelist and the backend computes them deterministically. The model only ever reads the results — no function calling.
+- **Anti-fabrication carries over**: the patch model may only cite the chart evidence passed back from the frontend, must not introduce new chart elements, and must not leak internal metrics. A revision is shown as "original verdict → adjusted to … (given the new information)," never a silent overwrite.
 
-This round moved Bazi questions from "does the model sound right" toward "can the rules be evaluated, is the page sourced from the same engine, and can history be safely replayed."
+**2026-06-10 · Streaming questions with self-healing retry**
 
-- **Useful-god / target ten-god evaluation**: added [`../eval/yongshen-eval-2026-06.md`](../eval/yongshen-eval-2026-06.md) and [`../../scripts/eval-yongshen.mjs`](../../scripts/eval-yongshen.mjs), comparing the local rule engine against cases from Lu Zhiji's Bazi textbook, labeling each case as match, partial, or deviation, and recording fixes (cong'er pattern, seasonal-adjustment priority, seal rescuing the self, abandoning officer for seal).
-- **Dual-axis semantic routing**: Bazi questions no longer use the old single-axis `status/timing/pattern/character` classification. It splits into `framework` (current-state, timing scan, natal structure, character profile, or open strategy) and `target_source` (backend ten gods, natal useful gods, or low-confidence model inference).
-- **Bazi dynamic panel picking**: the dynamic panel picks target ten gods, palaces, and luck-cycle activation from `state_report`, `dynamic_report`, and `timing_candidates`, so the page does not merely restate the model's prose. High-confidence paths require the frontend to be sourced from the rule engine; low-confidence paths degrade explicitly.
-- **History compatibility**: the old `analysis_mode` migrates to the new dual-axis semantics, so stored questions still replay; new records use a more stable field contract.
-- **About page update**: the in-app About page documents this round and prior rounds, explaining why classic-case evaluation, dynamic panels, and dual-axis routing exist.
+Moved the question engine from "emit one big JSON at the end" toward "stream as it computes, self-heal on failure, switch models per environment, and never fabricate or leak internal metrics."
 
-### Earlier Feature Updates
+- A sentinel-segment protocol (`<<<SEC:...>>>`) streams each user-facing prose section independently; rule-engine output renders first and AI prose fills in section by section.
+- A hard structural check (empty stream / missing core sections / unparseable `data_json`) fires an `llm_retry` event that clears the half-rendered content back to the skeleton, then retries once non-streaming; missing optional fields fall back silently.
+- The title is split into a standalone streamed section that names the question type and core verdict instead of duplicating it inside the structured JSON.
+- A new `QUESTION_MODEL` env var configures the question model per environment (code default falls back to `gemini-3.1-pro-preview`; both environments currently run `gemini-3-flash-preview`).
+- Anti-fabrication and transformation-pattern guards: prompts reference only chart / Four-Pillars fields actually returned by the backend, and no internal quantitative value ("strength 74.4," "energy 80," "confidence 0.8") may reach user-facing copy — these are expressed qualitatively.
 
-- The fortune page now covers daily, weekly, monthly, and yearly views, so users can read today's rhythm alongside the broader week, month, and year
-- Weekly fortune adds a seven-day curve, favorable day, cautious day, weekly label, and career, wealth, and relationship reminders
-- Monthly fortune adds score curves, high-score days, low-score days, difficult-period hints, and plain-language readings for general, career, wealth, and relationships
-- Yearly fortune shows a twenty-one-year range around the current year, with luck-cycle background, annual ten-god signals, and year-cycle relationships
-- Bazi profiles now include decision notes, letting users record career, finance, relationship, and health/lifestyle context so monthly readings can stay closer to real life
-- Qimen result pages keep a validation feedback entry so users can later mark whether a reading was accurate and how the situation actually unfolded
+**2026-06-06 · Evaluable rules, same-source pages, replayable history**
+
+Moved Bazi questions from "does the model sound right" toward "can the rules be evaluated, is the page sourced from the same engine, and can history be safely replayed."
+
+- Useful-god / target ten-god evaluation: added [`../eval/yongshen-eval-2026-06.md`](../eval/yongshen-eval-2026-06.md) and [`../../scripts/eval-yongshen.mjs`](../../scripts/eval-yongshen.mjs), comparing the local rule engine against textbook cases and labeling each as match / partial / deviation.
+- Dual-axis semantic routing: Bazi questions split the old single-axis `status/timing/pattern/character` into `framework` and `target_source`.
+- Bazi dynamic panel picking: target ten gods, palaces, and luck-cycle activation are picked from `state_report`, `dynamic_report`, and `timing_candidates`, so the page stays sourced from the rule engine; low-confidence paths degrade explicitly.
+- History compatibility: the old `analysis_mode` migrates to the new dual-axis semantics, so stored questions still replay.
+
+**Earlier feature evolution**
+
+- The fortune page expanded from a single daily view to daily, weekly, monthly, and yearly views.
+- Weekly fortune: seven-day curve, favorable / cautious days, weekly label, and career / wealth / relationship reminders.
+- Monthly fortune: score curves, high / low days, difficult-period hints, and plain-language readings across general / career / wealth / relationships.
+- Yearly fortune: a multi-year range with luck-cycle background, annual ten-god signals, and year-cycle relationships.
+- Bazi profiles gained decision notes for career, finance, relationship, and health/lifestyle context, keeping monthly readings closer to real life.
+- Qimen result pages keep a validation feedback entry for marking whether a reading was accurate.
 
 ### Divination Routing Engine
 
@@ -76,6 +85,7 @@ This round moved Bazi questions from "does the model sound right" toward "can th
 - Handles key chart signals such as Tian Rui, Tian Qin lodging in Kun, emptiness, and traveling-horse indicators
 - Switches useful-god rules by question domain instead of applying one generic interpretation to every case
 - Produces auspiciousness scores, risk signals, timing windows, favorable directions, favorable time ranges, and concrete suggestions
+- Supports same-casting follow-up deep-dives without recasting or re-scoring, appending the answer under the relevant sections
 - Supports reading history and validation feedback for later calibration
 
 ### Bazi System
@@ -85,6 +95,7 @@ This round moved Bazi questions from "does the model sound right" toward "can th
 - Expands stems, branches, ten gods, hidden stems, twelve growth phases, Na Yin, emptiness, spirits, and special patterns
 - Uses a local rule engine for day-master strength, favorable elements, pattern judgment, and generation-control relationships
 - Provides five-element power visualization, scoring details, Bazi Q&A, feedback-based recalibration, and decision notes
+- Supports follow-up deep-dives on the same natal chart, presenting new information as "original verdict → adjusted to …" rather than a silent overwrite
 - Supports linked luck pillars, annual cycles, and monthly cycles to show how the natal chart interacts with current time
 
 ### Fortune Scoring
@@ -134,7 +145,7 @@ User question
 
 ### Question Reasoning Pipeline
 
-The question engine is no longer a single Bazi Q&A flow. After the user enters a question, the system first decides whether the situation is better handled by Qimen, Bazi, or a combined reading. If the question is too vague, it asks for the missing context first. Each branch uses a different calculation path, and the language model only turns the rule-based conclusions into readable guidance.
+The question engine is no longer a single Bazi Q&A flow. After the user enters a question, the system first decides whether the situation is better handled by Qimen, Bazi, or a combined reading. If the question is too vague, it asks for the missing context first. Each branch uses a different calculation path, and the language model only turns the rule-based conclusions into readable guidance. After any reading, a **follow-up** can deepen it: without recasting or re-scoring, the follow-up answer is appended under the relevant sections; if it falls outside the casting it is treated as a new matter and prompts a recast.
 
 The detailed Bazi branch design is documented in [`../bazi-prompt-assembly-prd.md`](../bazi-prompt-assembly-prd.md), and the Qimen scoring notes are in [`../qimen-scoring-engine-improvement.md`](../qimen-scoring-engine-improvement.md).
 
@@ -300,6 +311,7 @@ Production     Cloudflare Pages + Cloudflare Workers
 - **Deterministic scoring**: daily, weekly, monthly, and yearly scores are produced by local rule engines; the model cannot overwrite them
 - **Structured reasoning paths**: questions are first routed to Qimen, Bazi, or a combined reading; the Bazi branch then chooses current-state, timing-window, pattern-fit, or character-profile paths
 - **Streaming questions with self-healing retry**: questions stream via a sentinel-segment SSE protocol, rendering rule output first and filling AI prose section by section; a failed structure check (empty stream / missing core sections / unparseable data_json) auto-clears the half-rendered content and retries once non-streaming
+- **Question follow-ups**: Qimen / Bazi support same-casting deep-dives; a classifier first splits "deepen / new matter," supplemental data is computed deterministically from a whitelist, and the model only reads results — appending, never overwriting the original
 - **Switchable question model**: the `QUESTION_MODEL` env var configures the question model per environment (code default falls back to pro); both environments currently run flash to compare stability and quality
 - **Anti-fabrication guardrails**: prompts strictly constrain the AI to reference only the backend's actual chart / Four-Pillars fields, forbid inventing symbols or generation-control relations that don't exist, and forbid leaking internal quantitative metrics into user-facing copy
 - **Layered caching**: daily, weekly, monthly, yearly, and monthly detailed readings are stored in the database and cached on the frontend
@@ -359,9 +371,9 @@ Database migration scripts are kept in `docs/sql/` for the author's own maintena
 ## Screenshots
 
 <p align="center">
-  <img src="https://i.imgur.com/8MVTjsS.jpeg" width="220" alt="Qimen result card"/>
+  <img src="https://cdn.jsdelivr.net/gh/oceanjustinlin/qimen@main/docs/assets/screenshots/qimen-result-card.jpg" width="220" alt="Qimen result card"/>
   &nbsp;
-  <img src="https://i.imgur.com/wI8vWzc.jpeg" width="220" alt="Decision notes"/>
+  <img src="https://cdn.jsdelivr.net/gh/oceanjustinlin/qimen@main/docs/assets/screenshots/bazi-notes.jpg" width="220" alt="Decision notes"/>
 </p>
 
 **Qimen result cards include:**
@@ -372,11 +384,11 @@ Database migration scripts are kept in `docs/sql/` for the author's own maintena
 - Validation feedback entry on the result page
 
 <p align="center">
-  <img src="https://i.imgur.com/M0O7GR3.png" width="220" alt="Add Bazi profile"/>
+  <img src="https://cdn.jsdelivr.net/gh/oceanjustinlin/qimen@main/docs/assets/screenshots/bazi-add-profile.jpg" width="220" alt="Add Bazi profile"/>
   &nbsp;
-  <img src="https://i.imgur.com/RP92YQs.png" width="220" alt="Professional Bazi chart"/>
+  <img src="https://cdn.jsdelivr.net/gh/oceanjustinlin/qimen@main/docs/assets/screenshots/bazi-timing.jpg" width="220" alt="Bazi deep-dive timing scan"/>
   <br/>
-  <img src="https://i.imgur.com/503GVir.jpeg" width="220" alt="Bazi interpretation"/>
+  <img src="https://cdn.jsdelivr.net/gh/oceanjustinlin/qimen@main/docs/assets/screenshots/bazi-verdict.jpg" width="220" alt="Bazi interpretation"/>
 </p>
 
 **Bazi panels include:**
@@ -387,11 +399,9 @@ Database migration scripts are kept in `docs/sql/` for the author's own maintena
 - Generation-control visualization and recalibrated interpretations
 
 <p align="center">
-  <img src="https://i.imgur.com/Dr5tEar.jpeg" width="220" alt="Daily fortune score"/>
+  <img src="https://cdn.jsdelivr.net/gh/oceanjustinlin/qimen@main/docs/assets/screenshots/fortune-daily.jpg" width="220" alt="Daily fortune score"/>
   &nbsp;
-  <img src="https://i.imgur.com/lnU5q6I.png" width="220" alt="Monthly score curve"/>
-  &nbsp;
-  <img src="https://i.imgur.com/397MAVl.jpeg" width="220" alt="Monthly reading"/>
+  <img src="https://cdn.jsdelivr.net/gh/oceanjustinlin/qimen@main/docs/assets/screenshots/fortune-yearly.jpg" width="220" alt="Yearly fortune and luck-cycle"/>
 </p>
 
 **Fortune panels include:**
