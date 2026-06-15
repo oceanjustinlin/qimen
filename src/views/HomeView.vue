@@ -5206,7 +5206,8 @@ input::placeholder { color: var(--text-muted); }
 /* 粒子星盘：铺满 hero 区，置于色盘/状态之下；定格时淡出由 .wo-final 接管 */
 .wenshi-orb-particles{ position:absolute; inset:0; z-index:0; pointer-events:none; }
 .wenshi-orb-fx > .wenshi-orb{ z-index:1; }
-.wenshi-orb-fx > .wenshi-orb-status{ position:relative; z-index:2; }
+/* 状态文字绝对贴底：与球体拉开间距，且不影响 .wenshi-orb 占位盒（定格 bloom 居中对齐） */
+.wenshi-orb-fx > .wenshi-orb-status{ position:absolute; left:0; right:0; bottom:50px; z-index:2; justify-content:center; }
 .wenshi-orb-fx.settling .wenshi-orb-particles{ opacity:0; transition:opacity .8s ease; }
 /* .wenshi-orb：仅承载定格色盘 .wo-final，定格时放大 4.4x 化成 hero 渐变（粒子球见 WenshiOrb.vue） */
 :deep(.wenshi-orb){ position:relative; width:200px; height:200px; border-radius:50%; isolation:isolate; transform:translateZ(0); transition:transform 1.7s cubic-bezier(.25,.1,.25,1); }
