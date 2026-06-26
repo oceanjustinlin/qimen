@@ -1,0 +1,2938 @@
+{
+  "_meta": {
+    "engine": "lib/baziCareer.assessCareer（真引擎，非仿真）",
+    "domain": "career",
+    "generated_at": "2026-06-26T14:29:38.069Z",
+    "sample": "A · 壬寅辛亥戊辰癸丑（戊土·1962·男）",
+    "note": "陆致极《动态分析教程》命例81。2017 丁酉年·丁巳大运当选全美学会主席（吉案）。",
+    "yongshen": {
+      "favorable": [
+        "火",
+        "土",
+        "水"
+      ],
+      "unfavorable": [
+        "木"
+      ],
+      "engine_favorable": [
+        "火",
+        "土"
+      ],
+      "corrected": true,
+      "geju": "偏财格"
+    },
+    "scoring": "state_score = 引擎逐年分(base±方向×激活) + 大运喜忌十年基线(±16) + 流年喜忌微调(±6)。大运基线带来十年起伏。",
+    "caveat": "结构坍塌/用神被破等需原文判断的年份按 eventHints 注入（如 D 的落马年）；未注入处凶向偏少。注：引擎用神约1/3与原文相反，大运基线喜忌可能偏（如 D 身弱却判喜水火），仅作示意。",
+    "event_hints": {}
+  },
+  "natal": {
+    "label": "A · 壬寅辛亥戊辰癸丑（戊土·1962·男）",
+    "pillars": {
+      "year": "壬寅",
+      "month": "辛亥",
+      "day": "戊辰",
+      "hour": "癸丑"
+    },
+    "day_master": "戊",
+    "birth_year": 1962,
+    "gender": "male"
+  },
+  "dayun_segments": [
+    {
+      "ganzhi": "壬子",
+      "start_age": 5,
+      "end_age": 14,
+      "start_year": 1966,
+      "direction": "中性",
+      "rule": "none",
+      "state_score": 66,
+      "dayun_favor": 2,
+      "decade_shift": 16
+    },
+    {
+      "ganzhi": "癸丑",
+      "start_age": 15,
+      "end_age": 24,
+      "start_year": 1976,
+      "direction": "中性",
+      "rule": "none",
+      "state_score": 66,
+      "dayun_favor": 2,
+      "decade_shift": 16
+    },
+    {
+      "ganzhi": "甲寅",
+      "start_age": 25,
+      "end_age": 34,
+      "start_year": 1986,
+      "direction": "吉",
+      "rule": "R3",
+      "state_score": 82,
+      "dayun_favor": -2,
+      "decade_shift": -16
+    },
+    {
+      "ganzhi": "乙卯",
+      "start_age": 35,
+      "end_age": 44,
+      "start_year": 1996,
+      "direction": "吉",
+      "rule": "R3",
+      "state_score": 74,
+      "dayun_favor": -2,
+      "decade_shift": -16
+    },
+    {
+      "ganzhi": "丙辰",
+      "start_age": 45,
+      "end_age": 54,
+      "start_year": 2006,
+      "direction": "吉",
+      "rule": "R3",
+      "state_score": 75,
+      "dayun_favor": 2,
+      "decade_shift": 16
+    },
+    {
+      "ganzhi": "丁巳",
+      "start_age": 55,
+      "end_age": 64,
+      "start_year": 2016,
+      "direction": "吉",
+      "rule": "R3",
+      "state_score": 77,
+      "dayun_favor": 2,
+      "decade_shift": 16
+    },
+    {
+      "ganzhi": "戊午",
+      "start_age": 65,
+      "end_age": 74,
+      "start_year": 2026,
+      "direction": "中性",
+      "rule": "none",
+      "state_score": 66,
+      "dayun_favor": 2,
+      "decade_shift": 16
+    },
+    {
+      "ganzhi": "己未",
+      "start_age": 75,
+      "end_age": 84,
+      "start_year": 2036,
+      "direction": "中性",
+      "rule": "none",
+      "state_score": 66,
+      "dayun_favor": 2,
+      "decade_shift": 16
+    },
+    {
+      "ganzhi": "庚申",
+      "start_age": 85,
+      "end_age": 94,
+      "start_year": 2046,
+      "direction": "吉",
+      "rule": "R3",
+      "state_score": 74,
+      "dayun_favor": 0,
+      "decade_shift": 0
+    }
+  ],
+  "range": {
+    "start_year": 1962,
+    "end_year": 2044
+  },
+  "years": [
+    {
+      "year": 1962,
+      "age": 1,
+      "liunian": "壬寅",
+      "dayun": null,
+      "yunxian": "年",
+      "yunxian_career": "少年环境、家世起点",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 75,
+      "state_score_engine": 75,
+      "decade_shift": 0,
+      "liunian_tint": 0,
+      "activation": 44,
+      "volatility": 22,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "应局_同支",
+          "value": "寅",
+          "target": "原局支重现"
+        },
+        {
+          "channel": "禄引动",
+          "value": "寅",
+          "target": "七杀"
+        }
+      ],
+      "evidence": [
+        "引动事业星 七杀（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 1963,
+      "age": 2,
+      "liunian": "癸卯",
+      "dayun": null,
+      "yunxian": "年",
+      "yunxian_career": "少年环境、家世起点",
+      "direction": "中性",
+      "rule": "none",
+      "reason": "无明显引动",
+      "base_capacity": 66,
+      "state_score": 66,
+      "state_score_engine": 66,
+      "decade_shift": 0,
+      "liunian_tint": 0,
+      "activation": 22,
+      "volatility": 23,
+      "confidence": 35,
+      "inducements": [],
+      "evidence": []
+    },
+    {
+      "year": 1964,
+      "age": 3,
+      "liunian": "甲辰",
+      "dayun": null,
+      "yunxian": "年",
+      "yunxian_career": "少年环境、家世起点",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 79,
+      "state_score_engine": 79,
+      "decade_shift": 0,
+      "liunian_tint": 0,
+      "activation": 60,
+      "volatility": 38,
+      "confidence": 75,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "甲",
+          "target": "七杀"
+        },
+        {
+          "channel": "应局_同支",
+          "value": "辰",
+          "target": "原局支重现"
+        },
+        {
+          "channel": "原身引动",
+          "value": "甲",
+          "target": "七杀"
+        }
+      ],
+      "evidence": [
+        "引动事业星 七杀（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 1965,
+      "age": 4,
+      "liunian": "乙巳",
+      "dayun": null,
+      "yunxian": "年",
+      "yunxian_career": "少年环境、家世起点",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 77,
+      "state_score_engine": 77,
+      "decade_shift": 0,
+      "liunian_tint": 0,
+      "activation": 52,
+      "volatility": 12,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "乙",
+          "target": "正官"
+        },
+        {
+          "channel": "禄引动",
+          "value": "巳",
+          "target": "比肩"
+        }
+      ],
+      "evidence": [
+        "转折信号·冲提运：岁运 乙巳 反吟月柱 辛亥（吉凶随所引动成分定）",
+        "引动事业星 正官（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 1966,
+      "age": 5,
+      "liunian": "丙午",
+      "dayun": "壬子",
+      "yunxian": "年",
+      "yunxian_career": "少年环境、家世起点",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 98,
+      "state_score_engine": 77,
+      "decade_shift": 16,
+      "liunian_tint": 6,
+      "activation": 50,
+      "volatility": 8,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "丙",
+          "target": "偏印"
+        },
+        {
+          "channel": "禄引动",
+          "value": "午",
+          "target": "劫财"
+        },
+        {
+          "channel": "引阳刃",
+          "value": "午",
+          "target": "阳刃"
+        }
+      ],
+      "evidence": [
+        "引动事业星 偏印（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 1967,
+      "age": 6,
+      "liunian": "丁未",
+      "dayun": "壬子",
+      "yunxian": "年",
+      "yunxian_career": "少年环境、家世起点",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 96,
+      "state_score_engine": 74,
+      "decade_shift": 16,
+      "liunian_tint": 6,
+      "activation": 38,
+      "volatility": 59,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "丁",
+          "target": "正印"
+        }
+      ],
+      "evidence": [
+        "引动事业星 正印（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 1968,
+      "age": 7,
+      "liunian": "戊申",
+      "dayun": "壬子",
+      "yunxian": "年",
+      "yunxian_career": "少年环境、家世起点",
+      "direction": "中性",
+      "rule": "none",
+      "reason": "无明显引动",
+      "base_capacity": 66,
+      "state_score": 85,
+      "state_score_engine": 66,
+      "decade_shift": 16,
+      "liunian_tint": 3,
+      "activation": 34,
+      "volatility": 71,
+      "confidence": 35,
+      "inducements": [
+        {
+          "channel": "日主到位",
+          "value": "戊",
+          "target": "比肩"
+        },
+        {
+          "channel": "应局_同干",
+          "value": "戊",
+          "target": "比肩"
+        },
+        {
+          "channel": "原身引动",
+          "value": "戊",
+          "target": "比肩"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "year": 1969,
+      "age": 8,
+      "liunian": "己酉",
+      "dayun": "壬子",
+      "yunxian": "年",
+      "yunxian_career": "少年环境、家世起点",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 94,
+      "state_score_engine": 75,
+      "decade_shift": 16,
+      "liunian_tint": 3,
+      "activation": 44,
+      "volatility": 29,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "日主到位",
+          "value": "己",
+          "target": "劫财"
+        },
+        {
+          "channel": "禄引动",
+          "value": "酉",
+          "target": "伤官"
+        }
+      ],
+      "evidence": [
+        "引动事业星 伤官（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 1970,
+      "age": 9,
+      "liunian": "庚戌",
+      "dayun": "壬子",
+      "yunxian": "年",
+      "yunxian_career": "少年环境、家世起点",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 93,
+      "state_score_engine": 74,
+      "decade_shift": 16,
+      "liunian_tint": 3,
+      "activation": 38,
+      "volatility": 50,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "庚",
+          "target": "食神"
+        }
+      ],
+      "evidence": [
+        "引动事业星 食神（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 1971,
+      "age": 10,
+      "liunian": "辛亥",
+      "dayun": "壬子",
+      "yunxian": "年",
+      "yunxian_career": "少年环境、家世起点",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 98,
+      "state_score_engine": 79,
+      "decade_shift": 16,
+      "liunian_tint": 3,
+      "activation": 60,
+      "volatility": 40,
+      "confidence": 75,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "辛",
+          "target": "伤官"
+        },
+        {
+          "channel": "应局_同干",
+          "value": "辛",
+          "target": "伤官"
+        },
+        {
+          "channel": "应局_同支",
+          "value": "亥",
+          "target": "原局支重现"
+        }
+      ],
+      "evidence": [
+        "引动事业星 伤官（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 1972,
+      "age": 11,
+      "liunian": "壬子",
+      "dayun": "壬子",
+      "yunxian": "年",
+      "yunxian_career": "少年环境、家世起点",
+      "direction": "中性",
+      "rule": "none",
+      "reason": "无明显引动",
+      "base_capacity": 66,
+      "state_score": 88,
+      "state_score_engine": 66,
+      "decade_shift": 16,
+      "liunian_tint": 6,
+      "activation": 28,
+      "volatility": 75,
+      "confidence": 35,
+      "inducements": [
+        {
+          "channel": "应局_同支",
+          "value": "子",
+          "target": "原局支重现"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "year": 1973,
+      "age": 12,
+      "liunian": "癸丑",
+      "dayun": "壬子",
+      "yunxian": "年",
+      "yunxian_career": "少年环境、家世起点",
+      "direction": "中性",
+      "rule": "none",
+      "reason": "无明显引动",
+      "base_capacity": 66,
+      "state_score": 88,
+      "state_score_engine": 66,
+      "decade_shift": 16,
+      "liunian_tint": 6,
+      "activation": 28,
+      "volatility": 53,
+      "confidence": 35,
+      "inducements": [
+        {
+          "channel": "应局_同支",
+          "value": "丑",
+          "target": "原局支重现"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "year": 1974,
+      "age": 13,
+      "liunian": "甲寅",
+      "dayun": "壬子",
+      "yunxian": "年",
+      "yunxian_career": "少年环境、家世起点",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 92,
+      "state_score_engine": 82,
+      "decade_shift": 16,
+      "liunian_tint": -6,
+      "activation": 76,
+      "volatility": 25,
+      "confidence": 85,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "甲",
+          "target": "七杀"
+        },
+        {
+          "channel": "应局_同支",
+          "value": "寅",
+          "target": "原局支重现"
+        },
+        {
+          "channel": "禄引动",
+          "value": "寅",
+          "target": "七杀"
+        },
+        {
+          "channel": "原身引动",
+          "value": "甲",
+          "target": "七杀"
+        }
+      ],
+      "evidence": [
+        "引动事业星 七杀（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 1975,
+      "age": 14,
+      "liunian": "乙卯",
+      "dayun": "壬子",
+      "yunxian": "年",
+      "yunxian_career": "少年环境、家世起点",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 84,
+      "state_score_engine": 74,
+      "decade_shift": 16,
+      "liunian_tint": -6,
+      "activation": 38,
+      "volatility": 45,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "乙",
+          "target": "正官"
+        }
+      ],
+      "evidence": [
+        "引动事业星 正官（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 1976,
+      "age": 15,
+      "liunian": "丙辰",
+      "dayun": "癸丑",
+      "yunxian": "年",
+      "yunxian_career": "少年环境、家世起点",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 97,
+      "state_score_engine": 75,
+      "decade_shift": 16,
+      "liunian_tint": 6,
+      "activation": 44,
+      "volatility": 26,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "丙",
+          "target": "偏印"
+        },
+        {
+          "channel": "应局_同支",
+          "value": "辰",
+          "target": "原局支重现"
+        }
+      ],
+      "evidence": [
+        "引动事业星 偏印（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 1977,
+      "age": 16,
+      "liunian": "丁巳",
+      "dayun": "癸丑",
+      "yunxian": "年",
+      "yunxian_career": "少年环境、家世起点",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 98,
+      "state_score_engine": 77,
+      "decade_shift": 16,
+      "liunian_tint": 6,
+      "activation": 52,
+      "volatility": 52,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "丁",
+          "target": "正印"
+        },
+        {
+          "channel": "禄引动",
+          "value": "巳",
+          "target": "比肩"
+        }
+      ],
+      "evidence": [
+        "转折信号·冲提运：岁运 丁巳 反吟月柱 辛亥（吉凶随所引动成分定）",
+        "引动事业星 正印（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 1978,
+      "age": 17,
+      "liunian": "戊午",
+      "dayun": "癸丑",
+      "yunxian": "月",
+      "yunxian_career": "事业宫·立业窗口（事业起点社会层级）",
+      "direction": "中性",
+      "rule": "none",
+      "reason": "无明显引动",
+      "base_capacity": 66,
+      "state_score": 88,
+      "state_score_engine": 66,
+      "decade_shift": 16,
+      "liunian_tint": 6,
+      "activation": 34,
+      "volatility": 76,
+      "confidence": 35,
+      "inducements": [
+        {
+          "channel": "日主到位",
+          "value": "戊",
+          "target": "比肩"
+        },
+        {
+          "channel": "应局_同干",
+          "value": "戊",
+          "target": "比肩"
+        },
+        {
+          "channel": "禄引动",
+          "value": "午",
+          "target": "劫财"
+        },
+        {
+          "channel": "原身引动",
+          "value": "戊",
+          "target": "比肩"
+        },
+        {
+          "channel": "引阳刃",
+          "value": "午",
+          "target": "阳刃"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "year": 1979,
+      "age": 18,
+      "liunian": "己未",
+      "dayun": "癸丑",
+      "yunxian": "月",
+      "yunxian_career": "事业宫·立业窗口（事业起点社会层级）",
+      "direction": "中性",
+      "rule": "none",
+      "reason": "无明显引动",
+      "base_capacity": 66,
+      "state_score": 88,
+      "state_score_engine": 66,
+      "decade_shift": 16,
+      "liunian_tint": 6,
+      "activation": 28,
+      "volatility": 53,
+      "confidence": 35,
+      "inducements": [
+        {
+          "channel": "日主到位",
+          "value": "己",
+          "target": "劫财"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "year": 1980,
+      "age": 19,
+      "liunian": "庚申",
+      "dayun": "癸丑",
+      "yunxian": "月",
+      "yunxian_career": "事业宫·立业窗口（事业起点社会层级）",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 90,
+      "state_score_engine": 74,
+      "decade_shift": 16,
+      "liunian_tint": 0,
+      "activation": 38,
+      "volatility": 37,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "庚",
+          "target": "食神"
+        }
+      ],
+      "evidence": [
+        "引动事业星 食神（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 1981,
+      "age": 20,
+      "liunian": "辛酉",
+      "dayun": "癸丑",
+      "yunxian": "月",
+      "yunxian_career": "事业宫·立业窗口（事业起点社会层级）",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 97,
+      "state_score_engine": 81,
+      "decade_shift": 16,
+      "liunian_tint": 0,
+      "activation": 70,
+      "volatility": 30,
+      "confidence": 85,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "辛",
+          "target": "伤官"
+        },
+        {
+          "channel": "应局_同干",
+          "value": "辛",
+          "target": "伤官"
+        },
+        {
+          "channel": "禄引动",
+          "value": "酉",
+          "target": "伤官"
+        }
+      ],
+      "evidence": [
+        "引动事业星 伤官（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 1982,
+      "age": 21,
+      "liunian": "壬戌",
+      "dayun": "癸丑",
+      "yunxian": "月",
+      "yunxian_career": "事业宫·立业窗口（事业起点社会层级）",
+      "direction": "中性",
+      "rule": "none",
+      "reason": "无明显引动",
+      "base_capacity": 66,
+      "state_score": 88,
+      "state_score_engine": 66,
+      "decade_shift": 16,
+      "liunian_tint": 6,
+      "activation": 30,
+      "volatility": 73,
+      "confidence": 35,
+      "inducements": [],
+      "evidence": [
+        "转折信号·反吟日柱：岁运 壬戌 反吟日柱 戊辰"
+      ]
+    },
+    {
+      "year": 1983,
+      "age": 22,
+      "liunian": "癸亥",
+      "dayun": "癸丑",
+      "yunxian": "月",
+      "yunxian_career": "事业宫·立业窗口（事业起点社会层级）",
+      "direction": "中性",
+      "rule": "none",
+      "reason": "无明显引动",
+      "base_capacity": 66,
+      "state_score": 88,
+      "state_score_engine": 66,
+      "decade_shift": 16,
+      "liunian_tint": 6,
+      "activation": 28,
+      "volatility": 53,
+      "confidence": 35,
+      "inducements": [
+        {
+          "channel": "应局_同支",
+          "value": "亥",
+          "target": "原局支重现"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "year": 1984,
+      "age": 23,
+      "liunian": "甲子",
+      "dayun": "癸丑",
+      "yunxian": "月",
+      "yunxian_career": "事业宫·立业窗口（事业起点社会层级）",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 93,
+      "state_score_engine": 77,
+      "decade_shift": 16,
+      "liunian_tint": 0,
+      "activation": 54,
+      "volatility": 32,
+      "confidence": 75,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "甲",
+          "target": "七杀"
+        },
+        {
+          "channel": "原身引动",
+          "value": "甲",
+          "target": "七杀"
+        }
+      ],
+      "evidence": [
+        "引动事业星 七杀（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 1985,
+      "age": 24,
+      "liunian": "乙丑",
+      "dayun": "癸丑",
+      "yunxian": "月",
+      "yunxian_career": "事业宫·立业窗口（事业起点社会层级）",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 91,
+      "state_score_engine": 75,
+      "decade_shift": 16,
+      "liunian_tint": 0,
+      "activation": 44,
+      "volatility": 46,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "乙",
+          "target": "正官"
+        },
+        {
+          "channel": "应局_同支",
+          "value": "丑",
+          "target": "原局支重现"
+        }
+      ],
+      "evidence": [
+        "引动事业星 正官（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 1986,
+      "age": 25,
+      "liunian": "丙寅",
+      "dayun": "甲寅",
+      "yunxian": "月",
+      "yunxian_career": "事业宫·立业窗口（事业起点社会层级）",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 63,
+      "state_score_engine": 79,
+      "decade_shift": -16,
+      "liunian_tint": 0,
+      "activation": 60,
+      "volatility": 35,
+      "confidence": 75,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "丙",
+          "target": "偏印"
+        },
+        {
+          "channel": "应局_同支",
+          "value": "寅",
+          "target": "原局支重现"
+        },
+        {
+          "channel": "禄引动",
+          "value": "寅",
+          "target": "七杀"
+        }
+      ],
+      "evidence": [
+        "引动事业星 偏印（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 1987,
+      "age": 26,
+      "liunian": "丁卯",
+      "dayun": "甲寅",
+      "yunxian": "月",
+      "yunxian_career": "事业宫·立业窗口（事业起点社会层级）",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 58,
+      "state_score_engine": 74,
+      "decade_shift": -16,
+      "liunian_tint": 0,
+      "activation": 38,
+      "volatility": 30,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "丁",
+          "target": "正印"
+        }
+      ],
+      "evidence": [
+        "引动事业星 正印（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 1988,
+      "age": 27,
+      "liunian": "戊辰",
+      "dayun": "甲寅",
+      "yunxian": "月",
+      "yunxian_career": "事业宫·立业窗口（事业起点社会层级）",
+      "direction": "中性",
+      "rule": "none",
+      "reason": "无明显引动",
+      "base_capacity": 66,
+      "state_score": 56,
+      "state_score_engine": 66,
+      "decade_shift": -16,
+      "liunian_tint": 6,
+      "activation": 34,
+      "volatility": 23,
+      "confidence": 35,
+      "inducements": [
+        {
+          "channel": "日主到位",
+          "value": "戊",
+          "target": "比肩"
+        },
+        {
+          "channel": "应局_同干",
+          "value": "戊",
+          "target": "比肩"
+        },
+        {
+          "channel": "应局_同支",
+          "value": "辰",
+          "target": "原局支重现"
+        },
+        {
+          "channel": "原身引动",
+          "value": "戊",
+          "target": "比肩"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "year": 1989,
+      "age": 28,
+      "liunian": "己巳",
+      "dayun": "甲寅",
+      "yunxian": "月",
+      "yunxian_career": "事业宫·立业窗口（事业起点社会层级）",
+      "direction": "中性",
+      "rule": "none",
+      "reason": "无明显引动",
+      "base_capacity": 66,
+      "state_score": 56,
+      "state_score_engine": 66,
+      "decade_shift": -16,
+      "liunian_tint": 6,
+      "activation": 34,
+      "volatility": 27,
+      "confidence": 35,
+      "inducements": [
+        {
+          "channel": "日主到位",
+          "value": "己",
+          "target": "劫财"
+        },
+        {
+          "channel": "禄引动",
+          "value": "巳",
+          "target": "比肩"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "year": 1990,
+      "age": 29,
+      "liunian": "庚午",
+      "dayun": "甲寅",
+      "yunxian": "月",
+      "yunxian_career": "事业宫·立业窗口（事业起点社会层级）",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 64,
+      "state_score_engine": 77,
+      "decade_shift": -16,
+      "liunian_tint": 3,
+      "activation": 50,
+      "volatility": 54,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "庚",
+          "target": "食神"
+        },
+        {
+          "channel": "禄引动",
+          "value": "午",
+          "target": "劫财"
+        },
+        {
+          "channel": "引阳刃",
+          "value": "午",
+          "target": "阳刃"
+        }
+      ],
+      "evidence": [
+        "引动事业星 食神（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 1991,
+      "age": 30,
+      "liunian": "辛未",
+      "dayun": "甲寅",
+      "yunxian": "月",
+      "yunxian_career": "事业宫·立业窗口（事业起点社会层级）",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 64,
+      "state_score_engine": 77,
+      "decade_shift": -16,
+      "liunian_tint": 3,
+      "activation": 54,
+      "volatility": 37,
+      "confidence": 75,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "辛",
+          "target": "伤官"
+        },
+        {
+          "channel": "应局_同干",
+          "value": "辛",
+          "target": "伤官"
+        }
+      ],
+      "evidence": [
+        "引动事业星 伤官（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 1992,
+      "age": 31,
+      "liunian": "壬申",
+      "dayun": "甲寅",
+      "yunxian": "月",
+      "yunxian_career": "事业宫·立业窗口（事业起点社会层级）",
+      "direction": "中性",
+      "rule": "none",
+      "reason": "无明显引动",
+      "base_capacity": 66,
+      "state_score": 53,
+      "state_score_engine": 66,
+      "decade_shift": -16,
+      "liunian_tint": 3,
+      "activation": 22,
+      "volatility": 8,
+      "confidence": 35,
+      "inducements": [],
+      "evidence": []
+    },
+    {
+      "year": 1993,
+      "age": 32,
+      "liunian": "癸酉",
+      "dayun": "甲寅",
+      "yunxian": "月",
+      "yunxian_career": "事业宫·立业窗口（事业起点社会层级）",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 61,
+      "state_score_engine": 74,
+      "decade_shift": -16,
+      "liunian_tint": 3,
+      "activation": 38,
+      "volatility": 52,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "禄引动",
+          "value": "酉",
+          "target": "伤官"
+        }
+      ],
+      "evidence": [
+        "引动事业星 伤官（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 1994,
+      "age": 33,
+      "liunian": "甲戌",
+      "dayun": "甲寅",
+      "yunxian": "日",
+      "yunxian_career": "事业主轴·权责承载",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 66,
+      "state_score_engine": 82,
+      "decade_shift": -16,
+      "liunian_tint": 0,
+      "activation": 78,
+      "volatility": 58,
+      "confidence": 85,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "甲",
+          "target": "七杀"
+        },
+        {
+          "channel": "应局_同干",
+          "value": "甲",
+          "target": "七杀"
+        },
+        {
+          "channel": "原身引动",
+          "value": "甲",
+          "target": "七杀"
+        }
+      ],
+      "evidence": [
+        "转折信号·反吟日柱：岁运 甲戌 反吟日柱 戊辰",
+        "引动事业星 七杀（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 1995,
+      "age": 34,
+      "liunian": "乙亥",
+      "dayun": "甲寅",
+      "yunxian": "日",
+      "yunxian_career": "事业主轴·权责承载",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 59,
+      "state_score_engine": 75,
+      "decade_shift": -16,
+      "liunian_tint": 0,
+      "activation": 44,
+      "volatility": 26,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "乙",
+          "target": "正官"
+        },
+        {
+          "channel": "应局_同支",
+          "value": "亥",
+          "target": "原局支重现"
+        }
+      ],
+      "evidence": [
+        "引动事业星 正官（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 1996,
+      "age": 35,
+      "liunian": "丙子",
+      "dayun": "乙卯",
+      "yunxian": "日",
+      "yunxian_career": "事业主轴·权责承载",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 64,
+      "state_score_engine": 74,
+      "decade_shift": -16,
+      "liunian_tint": 6,
+      "activation": 38,
+      "volatility": 39,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "丙",
+          "target": "偏印"
+        }
+      ],
+      "evidence": [
+        "引动事业星 偏印（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 1997,
+      "age": 36,
+      "liunian": "丁丑",
+      "dayun": "乙卯",
+      "yunxian": "日",
+      "yunxian_career": "事业主轴·权责承载",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 65,
+      "state_score_engine": 75,
+      "decade_shift": -16,
+      "liunian_tint": 6,
+      "activation": 44,
+      "volatility": 31,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "丁",
+          "target": "正印"
+        },
+        {
+          "channel": "应局_同支",
+          "value": "丑",
+          "target": "原局支重现"
+        }
+      ],
+      "evidence": [
+        "引动事业星 正印（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 1998,
+      "age": 37,
+      "liunian": "戊寅",
+      "dayun": "乙卯",
+      "yunxian": "日",
+      "yunxian_career": "事业主轴·权责承载",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 61,
+      "state_score_engine": 77,
+      "decade_shift": -16,
+      "liunian_tint": 0,
+      "activation": 50,
+      "volatility": 34,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "日主到位",
+          "value": "戊",
+          "target": "比肩"
+        },
+        {
+          "channel": "应局_同干",
+          "value": "戊",
+          "target": "比肩"
+        },
+        {
+          "channel": "应局_同支",
+          "value": "寅",
+          "target": "原局支重现"
+        },
+        {
+          "channel": "禄引动",
+          "value": "寅",
+          "target": "七杀"
+        },
+        {
+          "channel": "原身引动",
+          "value": "戊",
+          "target": "比肩"
+        }
+      ],
+      "evidence": [
+        "引动事业星 七杀（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 1999,
+      "age": 38,
+      "liunian": "己卯",
+      "dayun": "乙卯",
+      "yunxian": "日",
+      "yunxian_career": "事业主轴·权责承载",
+      "direction": "中性",
+      "rule": "none",
+      "reason": "无明显引动",
+      "base_capacity": 66,
+      "state_score": 50,
+      "state_score_engine": 66,
+      "decade_shift": -16,
+      "liunian_tint": 0,
+      "activation": 34,
+      "volatility": 16,
+      "confidence": 35,
+      "inducements": [
+        {
+          "channel": "日主到位",
+          "value": "己",
+          "target": "劫财"
+        },
+        {
+          "channel": "应局_同支",
+          "value": "卯",
+          "target": "原局支重现"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "year": 2000,
+      "age": 39,
+      "liunian": "庚辰",
+      "dayun": "乙卯",
+      "yunxian": "日",
+      "yunxian_career": "事业主轴·权责承载",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 62,
+      "state_score_engine": 75,
+      "decade_shift": -16,
+      "liunian_tint": 3,
+      "activation": 44,
+      "volatility": 62,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "庚",
+          "target": "食神"
+        },
+        {
+          "channel": "应局_同支",
+          "value": "辰",
+          "target": "原局支重现"
+        }
+      ],
+      "evidence": [
+        "引动事业星 食神（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 2001,
+      "age": 40,
+      "liunian": "辛巳",
+      "dayun": "乙卯",
+      "yunxian": "日",
+      "yunxian_career": "事业主轴·权责承载",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 66,
+      "state_score_engine": 79,
+      "decade_shift": -16,
+      "liunian_tint": 3,
+      "activation": 60,
+      "volatility": 46,
+      "confidence": 75,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "辛",
+          "target": "伤官"
+        },
+        {
+          "channel": "应局_同干",
+          "value": "辛",
+          "target": "伤官"
+        },
+        {
+          "channel": "禄引动",
+          "value": "巳",
+          "target": "比肩"
+        }
+      ],
+      "evidence": [
+        "引动事业星 伤官（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 2002,
+      "age": 41,
+      "liunian": "壬午",
+      "dayun": "乙卯",
+      "yunxian": "日",
+      "yunxian_career": "事业主轴·权责承载",
+      "direction": "中性",
+      "rule": "none",
+      "reason": "无明显引动",
+      "base_capacity": 66,
+      "state_score": 56,
+      "state_score_engine": 66,
+      "decade_shift": -16,
+      "liunian_tint": 6,
+      "activation": 34,
+      "volatility": 5,
+      "confidence": 35,
+      "inducements": [
+        {
+          "channel": "禄引动",
+          "value": "午",
+          "target": "劫财"
+        },
+        {
+          "channel": "引阳刃",
+          "value": "午",
+          "target": "阳刃"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "year": 2003,
+      "age": 42,
+      "liunian": "癸未",
+      "dayun": "乙卯",
+      "yunxian": "日",
+      "yunxian_career": "事业主轴·权责承载",
+      "direction": "中性",
+      "rule": "none",
+      "reason": "无明显引动",
+      "base_capacity": 66,
+      "state_score": 56,
+      "state_score_engine": 66,
+      "decade_shift": -16,
+      "liunian_tint": 6,
+      "activation": 22,
+      "volatility": 25,
+      "confidence": 35,
+      "inducements": [],
+      "evidence": []
+    },
+    {
+      "year": 2004,
+      "age": 43,
+      "liunian": "甲申",
+      "dayun": "乙卯",
+      "yunxian": "日",
+      "yunxian_career": "事业主轴·权责承载",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 58,
+      "state_score_engine": 77,
+      "decade_shift": -16,
+      "liunian_tint": -3,
+      "activation": 54,
+      "volatility": 54,
+      "confidence": 75,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "甲",
+          "target": "七杀"
+        },
+        {
+          "channel": "原身引动",
+          "value": "甲",
+          "target": "七杀"
+        }
+      ],
+      "evidence": [
+        "引动事业星 七杀（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 2005,
+      "age": 44,
+      "liunian": "乙酉",
+      "dayun": "乙卯",
+      "yunxian": "日",
+      "yunxian_career": "事业主轴·权责承载",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 62,
+      "state_score_engine": 81,
+      "decade_shift": -16,
+      "liunian_tint": -3,
+      "activation": 70,
+      "volatility": 61,
+      "confidence": 85,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "乙",
+          "target": "正官"
+        },
+        {
+          "channel": "应局_同干",
+          "value": "乙",
+          "target": "正官"
+        },
+        {
+          "channel": "禄引动",
+          "value": "酉",
+          "target": "伤官"
+        }
+      ],
+      "evidence": [
+        "引动事业星 正官（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 2006,
+      "age": 45,
+      "liunian": "丙戌",
+      "dayun": "丙辰",
+      "yunxian": "日",
+      "yunxian_career": "事业主轴·权责承载",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 98,
+      "state_score_engine": 77,
+      "decade_shift": 16,
+      "liunian_tint": 6,
+      "activation": 54,
+      "volatility": 41,
+      "confidence": 75,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "丙",
+          "target": "偏印"
+        },
+        {
+          "channel": "应局_同干",
+          "value": "丙",
+          "target": "偏印"
+        }
+      ],
+      "evidence": [
+        "引动事业星 偏印（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 2007,
+      "age": 46,
+      "liunian": "丁亥",
+      "dayun": "丙辰",
+      "yunxian": "日",
+      "yunxian_career": "事业主轴·权责承载",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 97,
+      "state_score_engine": 75,
+      "decade_shift": 16,
+      "liunian_tint": 6,
+      "activation": 44,
+      "volatility": 57,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "丁",
+          "target": "正印"
+        },
+        {
+          "channel": "应局_同支",
+          "value": "亥",
+          "target": "原局支重现"
+        }
+      ],
+      "evidence": [
+        "引动事业星 正印（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 2008,
+      "age": 47,
+      "liunian": "戊子",
+      "dayun": "丙辰",
+      "yunxian": "日",
+      "yunxian_career": "事业主轴·权责承载",
+      "direction": "中性",
+      "rule": "none",
+      "reason": "无明显引动",
+      "base_capacity": 66,
+      "state_score": 88,
+      "state_score_engine": 66,
+      "decade_shift": 16,
+      "liunian_tint": 6,
+      "activation": 34,
+      "volatility": 73,
+      "confidence": 35,
+      "inducements": [
+        {
+          "channel": "日主到位",
+          "value": "戊",
+          "target": "比肩"
+        },
+        {
+          "channel": "应局_同干",
+          "value": "戊",
+          "target": "比肩"
+        },
+        {
+          "channel": "原身引动",
+          "value": "戊",
+          "target": "比肩"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "year": 2009,
+      "age": 48,
+      "liunian": "己丑",
+      "dayun": "丙辰",
+      "yunxian": "日",
+      "yunxian_career": "事业主轴·权责承载",
+      "direction": "中性",
+      "rule": "none",
+      "reason": "无明显引动",
+      "base_capacity": 66,
+      "state_score": 88,
+      "state_score_engine": 66,
+      "decade_shift": 16,
+      "liunian_tint": 6,
+      "activation": 34,
+      "volatility": 54,
+      "confidence": 35,
+      "inducements": [
+        {
+          "channel": "日主到位",
+          "value": "己",
+          "target": "劫财"
+        },
+        {
+          "channel": "应局_同支",
+          "value": "丑",
+          "target": "原局支重现"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "year": 2010,
+      "age": 49,
+      "liunian": "庚寅",
+      "dayun": "丙辰",
+      "yunxian": "时",
+      "yunxian_career": "事业收成、退居或滑坡",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 92,
+      "state_score_engine": 79,
+      "decade_shift": 16,
+      "liunian_tint": -3,
+      "activation": 60,
+      "volatility": 29,
+      "confidence": 75,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "庚",
+          "target": "食神"
+        },
+        {
+          "channel": "应局_同支",
+          "value": "寅",
+          "target": "原局支重现"
+        },
+        {
+          "channel": "禄引动",
+          "value": "寅",
+          "target": "七杀"
+        }
+      ],
+      "evidence": [
+        "引动事业星 食神（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 2011,
+      "age": 50,
+      "liunian": "辛卯",
+      "dayun": "丙辰",
+      "yunxian": "时",
+      "yunxian_career": "事业收成、退居或滑坡",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 90,
+      "state_score_engine": 77,
+      "decade_shift": 16,
+      "liunian_tint": -3,
+      "activation": 54,
+      "volatility": 41,
+      "confidence": 75,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "辛",
+          "target": "伤官"
+        },
+        {
+          "channel": "应局_同干",
+          "value": "辛",
+          "target": "伤官"
+        }
+      ],
+      "evidence": [
+        "引动事业星 伤官（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 2012,
+      "age": 51,
+      "liunian": "壬辰",
+      "dayun": "丙辰",
+      "yunxian": "时",
+      "yunxian_career": "事业收成、退居或滑坡",
+      "direction": "中性",
+      "rule": "none",
+      "reason": "无明显引动",
+      "base_capacity": 66,
+      "state_score": 88,
+      "state_score_engine": 66,
+      "decade_shift": 16,
+      "liunian_tint": 6,
+      "activation": 28,
+      "volatility": 57,
+      "confidence": 35,
+      "inducements": [
+        {
+          "channel": "应局_同支",
+          "value": "辰",
+          "target": "原局支重现"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "year": 2013,
+      "age": 52,
+      "liunian": "癸巳",
+      "dayun": "丙辰",
+      "yunxian": "时",
+      "yunxian_career": "事业收成、退居或滑坡",
+      "direction": "中性",
+      "rule": "none",
+      "reason": "无明显引动",
+      "base_capacity": 66,
+      "state_score": 88,
+      "state_score_engine": 66,
+      "decade_shift": 16,
+      "liunian_tint": 6,
+      "activation": 28,
+      "volatility": 53,
+      "confidence": 35,
+      "inducements": [
+        {
+          "channel": "禄引动",
+          "value": "巳",
+          "target": "比肩"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "year": 2014,
+      "age": 53,
+      "liunian": "甲午",
+      "dayun": "丙辰",
+      "yunxian": "时",
+      "yunxian_career": "事业收成、退居或滑坡",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 96,
+      "state_score_engine": 80,
+      "decade_shift": 16,
+      "liunian_tint": 0,
+      "activation": 66,
+      "volatility": 28,
+      "confidence": 75,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "甲",
+          "target": "七杀"
+        },
+        {
+          "channel": "禄引动",
+          "value": "午",
+          "target": "劫财"
+        },
+        {
+          "channel": "原身引动",
+          "value": "甲",
+          "target": "七杀"
+        },
+        {
+          "channel": "引阳刃",
+          "value": "午",
+          "target": "阳刃"
+        }
+      ],
+      "evidence": [
+        "引动事业星 七杀（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 2015,
+      "age": 54,
+      "liunian": "乙未",
+      "dayun": "丙辰",
+      "yunxian": "时",
+      "yunxian_career": "事业收成、退居或滑坡",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 90,
+      "state_score_engine": 74,
+      "decade_shift": 16,
+      "liunian_tint": 0,
+      "activation": 38,
+      "volatility": 54,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "乙",
+          "target": "正官"
+        }
+      ],
+      "evidence": [
+        "引动事业星 正官（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 2016,
+      "age": 55,
+      "liunian": "丙申",
+      "dayun": "丁巳",
+      "yunxian": "时",
+      "yunxian_career": "事业收成、退居或滑坡",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 93,
+      "state_score_engine": 74,
+      "decade_shift": 16,
+      "liunian_tint": 3,
+      "activation": 38,
+      "volatility": 41,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "丙",
+          "target": "偏印"
+        }
+      ],
+      "evidence": [
+        "引动事业星 偏印（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 2017,
+      "age": 56,
+      "liunian": "丁酉",
+      "dayun": "丁巳",
+      "yunxian": "时",
+      "yunxian_career": "事业收成、退居或滑坡",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 98,
+      "state_score_engine": 81,
+      "decade_shift": 16,
+      "liunian_tint": 3,
+      "activation": 70,
+      "volatility": 37,
+      "confidence": 85,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "丁",
+          "target": "正印"
+        },
+        {
+          "channel": "应局_同干",
+          "value": "丁",
+          "target": "正印"
+        },
+        {
+          "channel": "禄引动",
+          "value": "酉",
+          "target": "伤官"
+        }
+      ],
+      "evidence": [
+        "引动事业星 正印（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 2018,
+      "age": 57,
+      "liunian": "戊戌",
+      "dayun": "丁巳",
+      "yunxian": "时",
+      "yunxian_career": "事业收成、退居或滑坡",
+      "direction": "中性",
+      "rule": "none",
+      "reason": "无明显引动",
+      "base_capacity": 66,
+      "state_score": 88,
+      "state_score_engine": 66,
+      "decade_shift": 16,
+      "liunian_tint": 6,
+      "activation": 34,
+      "volatility": 76,
+      "confidence": 35,
+      "inducements": [
+        {
+          "channel": "日主到位",
+          "value": "戊",
+          "target": "比肩"
+        },
+        {
+          "channel": "应局_同干",
+          "value": "戊",
+          "target": "比肩"
+        },
+        {
+          "channel": "原身引动",
+          "value": "戊",
+          "target": "比肩"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "year": 2019,
+      "age": 58,
+      "liunian": "己亥",
+      "dayun": "丁巳",
+      "yunxian": "时",
+      "yunxian_career": "事业收成、退居或滑坡",
+      "direction": "中性",
+      "rule": "none",
+      "reason": "无明显引动",
+      "base_capacity": 66,
+      "state_score": 88,
+      "state_score_engine": 66,
+      "decade_shift": 16,
+      "liunian_tint": 6,
+      "activation": 34,
+      "volatility": 54,
+      "confidence": 35,
+      "inducements": [
+        {
+          "channel": "日主到位",
+          "value": "己",
+          "target": "劫财"
+        },
+        {
+          "channel": "应局_同支",
+          "value": "亥",
+          "target": "原局支重现"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "year": 2020,
+      "age": 59,
+      "liunian": "庚子",
+      "dayun": "丁巳",
+      "yunxian": "时",
+      "yunxian_career": "事业收成、退居或滑坡",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 93,
+      "state_score_engine": 74,
+      "decade_shift": 16,
+      "liunian_tint": 3,
+      "activation": 38,
+      "volatility": 37,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "庚",
+          "target": "食神"
+        }
+      ],
+      "evidence": [
+        "引动事业星 食神（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 2021,
+      "age": 60,
+      "liunian": "辛丑",
+      "dayun": "丁巳",
+      "yunxian": "时",
+      "yunxian_career": "事业收成、退居或滑坡",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 98,
+      "state_score_engine": 79,
+      "decade_shift": 16,
+      "liunian_tint": 3,
+      "activation": 60,
+      "volatility": 40,
+      "confidence": 75,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "辛",
+          "target": "伤官"
+        },
+        {
+          "channel": "应局_同干",
+          "value": "辛",
+          "target": "伤官"
+        },
+        {
+          "channel": "应局_同支",
+          "value": "丑",
+          "target": "原局支重现"
+        }
+      ],
+      "evidence": [
+        "引动事业星 伤官（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 2022,
+      "age": 61,
+      "liunian": "壬寅",
+      "dayun": "丁巳",
+      "yunxian": "时",
+      "yunxian_career": "事业收成、退居或滑坡",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 91,
+      "state_score_engine": 75,
+      "decade_shift": 16,
+      "liunian_tint": 0,
+      "activation": 44,
+      "volatility": 57,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "应局_同支",
+          "value": "寅",
+          "target": "原局支重现"
+        },
+        {
+          "channel": "禄引动",
+          "value": "寅",
+          "target": "七杀"
+        }
+      ],
+      "evidence": [
+        "引动事业星 七杀（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 2023,
+      "age": 62,
+      "liunian": "癸卯",
+      "dayun": "丁巳",
+      "yunxian": "时",
+      "yunxian_career": "事业收成、退居或滑坡",
+      "direction": "中性",
+      "rule": "none",
+      "reason": "无明显引动",
+      "base_capacity": 66,
+      "state_score": 82,
+      "state_score_engine": 66,
+      "decade_shift": 16,
+      "liunian_tint": 0,
+      "activation": 22,
+      "volatility": 58,
+      "confidence": 35,
+      "inducements": [],
+      "evidence": []
+    },
+    {
+      "year": 2024,
+      "age": 63,
+      "liunian": "甲辰",
+      "dayun": "丁巳",
+      "yunxian": "时",
+      "yunxian_career": "事业收成、退居或滑坡",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 95,
+      "state_score_engine": 79,
+      "decade_shift": 16,
+      "liunian_tint": 0,
+      "activation": 60,
+      "volatility": 16,
+      "confidence": 75,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "甲",
+          "target": "七杀"
+        },
+        {
+          "channel": "应局_同支",
+          "value": "辰",
+          "target": "原局支重现"
+        },
+        {
+          "channel": "原身引动",
+          "value": "甲",
+          "target": "七杀"
+        }
+      ],
+      "evidence": [
+        "引动事业星 七杀（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 2025,
+      "age": 64,
+      "liunian": "乙巳",
+      "dayun": "丁巳",
+      "yunxian": "时",
+      "yunxian_career": "事业收成、退居或滑坡",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 94,
+      "state_score_engine": 78,
+      "decade_shift": 16,
+      "liunian_tint": 0,
+      "activation": 58,
+      "volatility": 46,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "乙",
+          "target": "正官"
+        },
+        {
+          "channel": "应局_同支",
+          "value": "巳",
+          "target": "原局支重现"
+        },
+        {
+          "channel": "禄引动",
+          "value": "巳",
+          "target": "比肩"
+        }
+      ],
+      "evidence": [
+        "转折信号·冲提运：岁运 乙巳 反吟月柱 辛亥（吉凶随所引动成分定）",
+        "引动事业星 正官（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 2026,
+      "age": 65,
+      "liunian": "丙午",
+      "dayun": "戊午",
+      "yunxian": "时",
+      "yunxian_career": "时柱延伸（权重衰减）",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 98,
+      "state_score_engine": 77,
+      "decade_shift": 16,
+      "liunian_tint": 6,
+      "activation": 50,
+      "volatility": 45,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "丙",
+          "target": "偏印"
+        },
+        {
+          "channel": "应局_同支",
+          "value": "午",
+          "target": "原局支重现"
+        },
+        {
+          "channel": "禄引动",
+          "value": "午",
+          "target": "劫财"
+        },
+        {
+          "channel": "引阳刃",
+          "value": "午",
+          "target": "阳刃"
+        }
+      ],
+      "evidence": [
+        "引动事业星 偏印（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 2027,
+      "age": 66,
+      "liunian": "丁未",
+      "dayun": "戊午",
+      "yunxian": "时",
+      "yunxian_career": "时柱延伸（权重衰减）",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 96,
+      "state_score_engine": 74,
+      "decade_shift": 16,
+      "liunian_tint": 6,
+      "activation": 38,
+      "volatility": 59,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "丁",
+          "target": "正印"
+        }
+      ],
+      "evidence": [
+        "引动事业星 正印（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 2028,
+      "age": 67,
+      "liunian": "戊申",
+      "dayun": "戊午",
+      "yunxian": "时",
+      "yunxian_career": "时柱延伸（权重衰减）",
+      "direction": "中性",
+      "rule": "none",
+      "reason": "无明显引动",
+      "base_capacity": 66,
+      "state_score": 85,
+      "state_score_engine": 66,
+      "decade_shift": 16,
+      "liunian_tint": 3,
+      "activation": 34,
+      "volatility": 71,
+      "confidence": 35,
+      "inducements": [
+        {
+          "channel": "日主到位",
+          "value": "戊",
+          "target": "比肩"
+        },
+        {
+          "channel": "应局_同干",
+          "value": "戊",
+          "target": "比肩"
+        },
+        {
+          "channel": "原身引动",
+          "value": "戊",
+          "target": "比肩"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "year": 2029,
+      "age": 68,
+      "liunian": "己酉",
+      "dayun": "戊午",
+      "yunxian": "时",
+      "yunxian_career": "时柱延伸（权重衰减）",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 94,
+      "state_score_engine": 75,
+      "decade_shift": 16,
+      "liunian_tint": 3,
+      "activation": 44,
+      "volatility": 29,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "日主到位",
+          "value": "己",
+          "target": "劫财"
+        },
+        {
+          "channel": "禄引动",
+          "value": "酉",
+          "target": "伤官"
+        }
+      ],
+      "evidence": [
+        "引动事业星 伤官（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 2030,
+      "age": 69,
+      "liunian": "庚戌",
+      "dayun": "戊午",
+      "yunxian": "时",
+      "yunxian_career": "时柱延伸（权重衰减）",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 93,
+      "state_score_engine": 74,
+      "decade_shift": 16,
+      "liunian_tint": 3,
+      "activation": 38,
+      "volatility": 50,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "庚",
+          "target": "食神"
+        }
+      ],
+      "evidence": [
+        "引动事业星 食神（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 2031,
+      "age": 70,
+      "liunian": "辛亥",
+      "dayun": "戊午",
+      "yunxian": "时",
+      "yunxian_career": "时柱延伸（权重衰减）",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 98,
+      "state_score_engine": 79,
+      "decade_shift": 16,
+      "liunian_tint": 3,
+      "activation": 60,
+      "volatility": 40,
+      "confidence": 75,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "辛",
+          "target": "伤官"
+        },
+        {
+          "channel": "应局_同干",
+          "value": "辛",
+          "target": "伤官"
+        },
+        {
+          "channel": "应局_同支",
+          "value": "亥",
+          "target": "原局支重现"
+        }
+      ],
+      "evidence": [
+        "引动事业星 伤官（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 2032,
+      "age": 71,
+      "liunian": "壬子",
+      "dayun": "戊午",
+      "yunxian": "时",
+      "yunxian_career": "时柱延伸（权重衰减）",
+      "direction": "中性",
+      "rule": "none",
+      "reason": "无明显引动",
+      "base_capacity": 66,
+      "state_score": 88,
+      "state_score_engine": 66,
+      "decade_shift": 16,
+      "liunian_tint": 6,
+      "activation": 22,
+      "volatility": 74,
+      "confidence": 35,
+      "inducements": [],
+      "evidence": []
+    },
+    {
+      "year": 2033,
+      "age": 72,
+      "liunian": "癸丑",
+      "dayun": "戊午",
+      "yunxian": "时",
+      "yunxian_career": "时柱延伸（权重衰减）",
+      "direction": "中性",
+      "rule": "none",
+      "reason": "无明显引动",
+      "base_capacity": 66,
+      "state_score": 88,
+      "state_score_engine": 66,
+      "decade_shift": 16,
+      "liunian_tint": 6,
+      "activation": 28,
+      "volatility": 53,
+      "confidence": 35,
+      "inducements": [
+        {
+          "channel": "应局_同支",
+          "value": "丑",
+          "target": "原局支重现"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "year": 2034,
+      "age": 73,
+      "liunian": "甲寅",
+      "dayun": "戊午",
+      "yunxian": "时",
+      "yunxian_career": "时柱延伸（权重衰减）",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 92,
+      "state_score_engine": 82,
+      "decade_shift": 16,
+      "liunian_tint": -6,
+      "activation": 76,
+      "volatility": 25,
+      "confidence": 85,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "甲",
+          "target": "七杀"
+        },
+        {
+          "channel": "应局_同支",
+          "value": "寅",
+          "target": "原局支重现"
+        },
+        {
+          "channel": "禄引动",
+          "value": "寅",
+          "target": "七杀"
+        },
+        {
+          "channel": "原身引动",
+          "value": "甲",
+          "target": "七杀"
+        }
+      ],
+      "evidence": [
+        "引动事业星 七杀（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 2035,
+      "age": 74,
+      "liunian": "乙卯",
+      "dayun": "戊午",
+      "yunxian": "时",
+      "yunxian_career": "时柱延伸（权重衰减）",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 84,
+      "state_score_engine": 74,
+      "decade_shift": 16,
+      "liunian_tint": -6,
+      "activation": 38,
+      "volatility": 45,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "乙",
+          "target": "正官"
+        }
+      ],
+      "evidence": [
+        "引动事业星 正官（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 2036,
+      "age": 75,
+      "liunian": "丙辰",
+      "dayun": "己未",
+      "yunxian": "时",
+      "yunxian_career": "时柱延伸（权重衰减）",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 97,
+      "state_score_engine": 75,
+      "decade_shift": 16,
+      "liunian_tint": 6,
+      "activation": 44,
+      "volatility": 26,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "丙",
+          "target": "偏印"
+        },
+        {
+          "channel": "应局_同支",
+          "value": "辰",
+          "target": "原局支重现"
+        }
+      ],
+      "evidence": [
+        "引动事业星 偏印（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 2037,
+      "age": 76,
+      "liunian": "丁巳",
+      "dayun": "己未",
+      "yunxian": "时",
+      "yunxian_career": "时柱延伸（权重衰减）",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 98,
+      "state_score_engine": 77,
+      "decade_shift": 16,
+      "liunian_tint": 6,
+      "activation": 52,
+      "volatility": 52,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "丁",
+          "target": "正印"
+        },
+        {
+          "channel": "禄引动",
+          "value": "巳",
+          "target": "比肩"
+        }
+      ],
+      "evidence": [
+        "转折信号·冲提运：岁运 丁巳 反吟月柱 辛亥（吉凶随所引动成分定）",
+        "引动事业星 正印（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 2038,
+      "age": 77,
+      "liunian": "戊午",
+      "dayun": "己未",
+      "yunxian": "时",
+      "yunxian_career": "时柱延伸（权重衰减）",
+      "direction": "中性",
+      "rule": "none",
+      "reason": "无明显引动",
+      "base_capacity": 66,
+      "state_score": 88,
+      "state_score_engine": 66,
+      "decade_shift": 16,
+      "liunian_tint": 6,
+      "activation": 34,
+      "volatility": 76,
+      "confidence": 35,
+      "inducements": [
+        {
+          "channel": "日主到位",
+          "value": "戊",
+          "target": "比肩"
+        },
+        {
+          "channel": "应局_同干",
+          "value": "戊",
+          "target": "比肩"
+        },
+        {
+          "channel": "禄引动",
+          "value": "午",
+          "target": "劫财"
+        },
+        {
+          "channel": "原身引动",
+          "value": "戊",
+          "target": "比肩"
+        },
+        {
+          "channel": "引阳刃",
+          "value": "午",
+          "target": "阳刃"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "year": 2039,
+      "age": 78,
+      "liunian": "己未",
+      "dayun": "己未",
+      "yunxian": "时",
+      "yunxian_career": "时柱延伸（权重衰减）",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 98,
+      "state_score_engine": 77,
+      "decade_shift": 16,
+      "liunian_tint": 6,
+      "activation": 50,
+      "volatility": 32,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "日主到位",
+          "value": "己",
+          "target": "劫财"
+        },
+        {
+          "channel": "应局_同干",
+          "value": "己",
+          "target": "劫财"
+        },
+        {
+          "channel": "应局_同支",
+          "value": "未",
+          "target": "原局支重现"
+        }
+      ],
+      "evidence": [
+        "引动事业星 劫财（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 2040,
+      "age": 79,
+      "liunian": "庚申",
+      "dayun": "己未",
+      "yunxian": "时",
+      "yunxian_career": "时柱延伸（权重衰减）",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 90,
+      "state_score_engine": 74,
+      "decade_shift": 16,
+      "liunian_tint": 0,
+      "activation": 38,
+      "volatility": 59,
+      "confidence": 65,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "庚",
+          "target": "食神"
+        }
+      ],
+      "evidence": [
+        "引动事业星 食神（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 2041,
+      "age": 80,
+      "liunian": "辛酉",
+      "dayun": "己未",
+      "yunxian": "时",
+      "yunxian_career": "时柱延伸（权重衰减）",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 97,
+      "state_score_engine": 81,
+      "decade_shift": 16,
+      "liunian_tint": 0,
+      "activation": 70,
+      "volatility": 30,
+      "confidence": 85,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "辛",
+          "target": "伤官"
+        },
+        {
+          "channel": "应局_同干",
+          "value": "辛",
+          "target": "伤官"
+        },
+        {
+          "channel": "禄引动",
+          "value": "酉",
+          "target": "伤官"
+        }
+      ],
+      "evidence": [
+        "引动事业星 伤官（得制化/喜性）"
+      ]
+    },
+    {
+      "year": 2042,
+      "age": 81,
+      "liunian": "壬戌",
+      "dayun": "己未",
+      "yunxian": "时",
+      "yunxian_career": "时柱延伸（权重衰减）",
+      "direction": "凶",
+      "rule": "R1",
+      "reason": "结构坍塌：扭曲提纲/日柱、连环刑冲或拔日主禄根",
+      "base_capacity": 66,
+      "state_score": 73,
+      "state_score_engine": 51,
+      "decade_shift": 16,
+      "liunian_tint": 6,
+      "activation": 50,
+      "volatility": 100,
+      "confidence": 55,
+      "inducements": [],
+      "evidence": [
+        "拔根坍塌：岁运冲净日主 戊 全部强根（辰丑），普通格失依",
+        "转折信号·反吟日柱：岁运 壬戌 反吟日柱 戊辰"
+      ]
+    },
+    {
+      "year": 2043,
+      "age": 82,
+      "liunian": "癸亥",
+      "dayun": "己未",
+      "yunxian": "时",
+      "yunxian_career": "时柱延伸（权重衰减）",
+      "direction": "中性",
+      "rule": "none",
+      "reason": "无明显引动",
+      "base_capacity": 66,
+      "state_score": 88,
+      "state_score_engine": 66,
+      "decade_shift": 16,
+      "liunian_tint": 6,
+      "activation": 28,
+      "volatility": 20,
+      "confidence": 35,
+      "inducements": [
+        {
+          "channel": "应局_同支",
+          "value": "亥",
+          "target": "原局支重现"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "year": 2044,
+      "age": 83,
+      "liunian": "甲子",
+      "dayun": "己未",
+      "yunxian": "时",
+      "yunxian_career": "时柱延伸（权重衰减）",
+      "direction": "吉",
+      "rule": "R3",
+      "reason": "事业星被引动且得制化（七杀有印/食/刃；伤官有印/财）",
+      "base_capacity": 66,
+      "state_score": 93,
+      "state_score_engine": 77,
+      "decade_shift": 16,
+      "liunian_tint": 0,
+      "activation": 54,
+      "volatility": 32,
+      "confidence": 75,
+      "inducements": [
+        {
+          "channel": "透干引动",
+          "value": "甲",
+          "target": "七杀"
+        },
+        {
+          "channel": "原身引动",
+          "value": "甲",
+          "target": "七杀"
+        }
+      ],
+      "evidence": [
+        "引动事业星 七杀（得制化/喜性）"
+      ]
+    }
+  ]
+}

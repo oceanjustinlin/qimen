@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>人生变化轴 · Demo</title>
+<style>
+  :root{
+    --bg:#0a0e1a; --bg2:#0e1424; --panel:#131c33; --panel2:#0f1730;
+    --line:#22304f; --line2:#1a2540;
+    --txt:#e8eefc; --txt2:#9fb0d4; --txt3:#64759c;
+    --gold:#e3bd63; --cyan:#4fd1e0; --green:#52d6a0; --rose:#ef7aa6; --amber:#f2a93f;
+    --career:#4fd1e0; --study:#7fd66f; --relationship:#ef7aa6; --wealth:#e6a64a; --overall:#e3bd63;
+    --risk:#ff7676; --opp:#52d6a0; --mixed:#c79cf0;
+    --radius:14px;
+    font-synthesis:none;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:radial-gradient(1200px 700px at 70% -10%, #14203c 0%, var(--bg) 55%);color:var(--txt);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1180px;margin:0 auto;padding:26px 22px 60px;}
+  .head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:18px;}
+  .title h1{font-size:21px;font-weight:600;margin:0 0 4px;letter-spacing:.5px;}
+  .title .sub{color:var(--txt3);font-size:12.5px;}
+  .natal{display:flex;gap:8px;align-items:center;}
+  .pillar{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:7px 11px;text-align:center;min-width:52px;}
+  .pillar .lbl{font-size:10px;color:var(--txt3);margin-bottom:3px;}
+  .pillar .gz{font-size:17px;font-weight:600;letter-spacing:2px;}
+  .pillar.day .gz{color:var(--gold);}
+  .rely{display:flex;gap:6px;margin-top:8px;justify-content:flex-end;flex-wrap:wrap;}
+  .chip{font-size:10.5px;padding:3px 8px;border-radius:20px;border:1px solid var(--line);color:var(--txt2);background:#0e1730;}
+  .chip b{color:var(--txt);font-weight:600;}
+  .chip.hi{border-color:#2e6b54;color:#9be9c5;} .chip.med{border-color:#6b5e2e;color:#e6d18a;} .chip.lo{border-color:#6b3a3a;color:#f0a0a0;}
+
+  .card{background:linear-gradient(180deg,var(--panel) 0%, var(--panel2) 100%);border:1px solid var(--line);border-radius:var(--radius);}
+  .chart-card{padding:16px 18px 10px;margin-bottom:16px;position:relative;}
+  .toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px;}
+  .domains{display:flex;gap:6px;flex-wrap:wrap;}
+  .dbtn{cursor:pointer;font-size:12.5px;padding:5px 12px;border-radius:8px;border:1px solid var(--line);background:#0e1730;color:var(--txt2);display:flex;align-items:center;gap:6px;transition:.15s;}
+  .dbtn .dot{width:9px;height:9px;border-radius:50%;}
+  .dbtn.active{color:var(--txt);background:#172a4d;border-color:currentColor;}
+  .dbtn:hover{border-color:var(--txt3);}
+  .yearjump{margin-left:auto;display:flex;align-items:center;gap:8px;color:var(--txt3);font-size:12px;}
+  .yearjump b{color:var(--gold);font-size:15px;}
+  svg{display:block;width:100%;}
+  .axis-x text{fill:var(--txt3);font-size:10px;}
+  .grid line{stroke:var(--line2);}
+  .hint{color:var(--txt3);font-size:11px;text-align:center;margin:4px 0 2px;}
+
+  .gauges{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px;}
+  .gauge{padding:13px 15px;}
+  .gauge .gl{font-size:11.5px;color:var(--txt2);display:flex;justify-content:space-between;}
+  .gauge .gv{font-size:26px;font-weight:600;margin:3px 0 6px;}
+  .gauge .bar{height:6px;border-radius:4px;background:#0c1428;overflow:hidden;}
+  .gauge .bar i{display:block;height:100%;border-radius:4px;}
+  .gauge .note{font-size:10.5px;color:var(--txt3);margin-top:6px;}
+
+  .grid2{display:grid;grid-template-columns:1.05fr .95fr;gap:16px;}
+  @media(max-width:880px){.grid2{grid-template-columns:1fr}.gauges{grid-template-columns:repeat(2,1fr)}}
+  .sec{padding:15px 17px;margin-bottom:16px;}
+  .sec h3{font-size:13px;margin:0 0 12px;font-weight:600;letter-spacing:.5px;display:flex;align-items:center;gap:8px;}
+  .sec h3 .tag{font-size:10px;color:var(--txt3);font-weight:400;}
+
+  .tctx{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;}
+  .tcell{background:#0e1730;border:1px solid var(--line2);border-radius:9px;padding:9px 11px;}
+  .tcell .k{font-size:10.5px;color:var(--txt3);margin-bottom:3px;}
+  .tcell .v{font-size:14px;font-weight:600;}
+  .tcell .v small{font-weight:400;color:var(--txt2);font-size:11px;margin-left:4px;}
+
+  .rel{border-left:3px solid var(--line);padding:8px 11px;margin-bottom:8px;background:#0e1730;border-radius:0 9px 9px 0;}
+  .rel.supportive{border-left-color:var(--opp);} .rel.harmful{border-left-color:var(--risk);} .rel.mixed{border-left-color:var(--mixed);} .rel.neutral{border-left-color:var(--txt3);}
+  .rel .top{display:flex;justify-content:space-between;align-items:center;gap:8px;}
+  .rel .mech{font-size:13px;font-weight:600;}
+  .rel .scope{font-size:10px;color:var(--txt3);}
+  .rel .body{font-size:11.5px;color:var(--txt2);margin-top:3px;line-height:1.5;}
+  .rel .doms{margin-top:5px;display:flex;gap:5px;flex-wrap:wrap;}
+  .mini{font-size:9.5px;padding:1.5px 6px;border-radius:5px;background:#172a4d;color:var(--txt2);border:1px solid var(--line2);}
+
+  .dom-row{display:flex;align-items:center;gap:10px;margin-bottom:11px;}
+  .dom-row .nm{width:38px;font-size:12px;color:var(--txt2);flex-shrink:0;}
+  .dom-row .track{flex:1;height:22px;background:#0c1428;border-radius:6px;position:relative;overflow:hidden;}
+  .dom-row .fill{position:absolute;left:0;top:0;height:100%;border-radius:6px;opacity:.85;}
+  .dom-row .neutral-mark{position:absolute;left:50%;top:0;height:100%;width:1px;background:#33446b;}
+  .dom-row .sc{width:30px;text-align:right;font-size:13px;font-weight:600;}
+  .dom-row .dir{width:34px;text-align:center;font-size:11px;}
+  .dir.up{color:var(--opp);} .dir.down{color:var(--risk);} .dir.flat{color:var(--txt3);} .dir.mixed{color:var(--mixed);}
+
+  .ev{background:#0e1730;border:1px solid var(--line2);border-radius:11px;padding:12px 14px;margin-bottom:10px;position:relative;overflow:hidden;}
+  .ev::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;}
+  .ev.opportunity::before{background:var(--opp);} .ev.risk::before{background:var(--risk);} .ev.mixed::before{background:var(--mixed);}
+  .ev .et{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:5px;}
+  .ev .ttl{font-size:14px;font-weight:600;}
+  .ev .badges{display:flex;gap:5px;flex-shrink:0;}
+  .ev .desc{font-size:12px;color:var(--txt2);line-height:1.55;}
+  .ev .evd{font-size:10.5px;color:var(--txt3);margin-top:7px;border-top:1px dashed var(--line);padding-top:6px;}
+  .ev .evd b{color:var(--txt2);font-weight:500;}
+  .pol{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:600;}
+  .pol.opportunity{background:#143728;color:#7ef0b8;} .pol.risk{background:#3a1717;color:#ffa0a0;} .pol.mixed{background:#2a1f3e;color:#cfa8f5;}
+  .lvl{font-size:10px;padding:2px 8px;border-radius:20px;background:#172a4d;color:var(--txt2);border:1px solid var(--line2);}
+  .empty{color:var(--txt3);font-size:12px;text-align:center;padding:18px;}
+
+  .foot{margin-top:8px;color:var(--txt3);font-size:11px;line-height:1.6;border-top:1px solid var(--line);padding-top:14px;}
+  .foot b{color:var(--txt2);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <div class="title">
+      <h1>人生变化轴 <span style="color:var(--txt3);font-weight:400;font-size:13px;">· 数据原型 Demo</span></h1>
+      <div class="sub">仿真数据，演示数据契约与交互形态，不代表真实命理结论</div>
+    </div>
+    <div>
+      <div class="natal" id="natal"></div>
+      <div class="rely" id="rely"></div>
+    </div>
+  </div>
+
+  <div class="card chart-card">
+    <div class="toolbar">
+      <div class="domains" id="domains"></div>
+      <div class="yearjump">选中年份 <b id="yj">—</b></div>
+    </div>
+    <svg id="chart" viewBox="0 0 1000 300" preserveAspectRatio="none" style="height:300px;cursor:crosshair;"></svg>
+    <div class="hint">点击或拖动选择年份 · 金色虚线＝综合（非五领域平均）· 当前领域＝实线 · 其他领域＝淡线</div>
+  </div>
+
+  <div class="gauges" id="gauges"></div>
+
+  <div class="grid2">
+    <div>
+      <div class="card sec">
+        <h3>时空上下文 <span class="tag">temporal_context</span></h3>
+        <div class="tctx" id="tctx"></div>
+      </div>
+      <div class="card sec">
+        <h3>领域落点 <span class="tag">domain_impacts · 五领域同时计算</span></h3>
+        <div id="domimp"></div>
+      </div>
+    </div>
+    <div>
+      <div class="card sec">
+        <h3>动态关系 <span class="tag">dynamic_relations</span></h3>
+        <div id="relations"></div>
+      </div>
+      <div class="card sec">
+        <h3>可能事件 <span class="tag">possible_events · 最多 3 条 · 带证据</span></h3>
+        <div id="events"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <b>设计原则演示：</b>① 状态分 / 激活度 / 波动度 是三条独立指标，互不换算；② 综合分由全局适配独立计算，不是五领域平均；③ 同一年允许"事业高、婚姻低"等背离；④ 高激活 ≠ 好运，需结合方向判断机会/风险窗口；⑤ 事件均带支持/阻断证据与免责声明，不做必然性断言。<br/>
+    <span style="color:var(--txt3)">本页为产品形态原型，命理体系口径＝陆致极动态分析（theory_profile）。所有数值为演示用仿真，非真实排盘。</span>
+  </div>
+</div>
+
+<script>
+"use strict";
+// ---------- 基础常量 ----------
+const GAN = ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"];
+const ZHI = ["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"];
+const DOMAINS = [
+  {key:"overall", name:"综合", color:"var(--overall)"},
+  {key:"career", name:"事业", color:"var(--career)"},
+  {key:"study", name:"学业", color:"var(--study)"},
+  {key:"relationship", name:"婚姻", color:"var(--relationship)"},
+  {key:"wealth", name:"财富", color:"var(--wealth)"},
+];
+const DOM_COLOR = {overall:"#e3bd63",career:"#4fd1e0",study:"#7fd66f",relationship:"#ef7aa6",wealth:"#e6a64a"};
+
+// ---------- 样例命主（仿真） ----------
+const natal = {
+  birthYear:1990, gender:"male", dayStem:"丙",
+  pillars:[
+    {name:"年",gz:"庚午"},{name:"月",gz:"戊寅"},{name:"日",gz:"丙子",day:true},{name:"时",gz:"己亥"},
+  ],
+  reliability:{birth_time:"high", dayun_timing:"medium", chart_structure:"high"},
+  baseCapacity:{overall:62, career:66, study:55, relationship:48, wealth:58},
+};
+const START_AGE_LUCK = 7; // 起运虚岁
+// 大运：阳男顺行，从月柱 戊寅(gan4,zhi2) 下一柱起
+function dayunList(){
+  const out=[]; let gi=(4+1), zi=(2+1);
+  for(let i=0;i<9;i++){
+    out.push({gan:GAN[gi%10],zhi:ZHI[zi%12],ganzhi:GAN[gi%10]+ZHI[zi%12],
+      startAge:START_AGE_LUCK+10*i, endAge:START_AGE_LUCK+10*i+9});
+    gi++; zi++;
+  }
+  return out;
+}
+const DAYUN = dayunList();
+function dayunAt(age){
+  if(age<START_AGE_LUCK) return {ganzhi:"未起运",gan:"—",zhi:"—",startAge:0,endAge:START_AGE_LUCK-1};
+  return DAYUN.find(d=>age>=d.startAge&&age<=d.endAge) || DAYUN[DAYUN.length-1];
+}
+function liunian(year){const g=((year-4)%10+10)%10,z=((year-4)%12+12)%12;return {gan:GAN[g],zhi:ZHI[z],ganzhi:GAN[g]+ZHI[z]};}
+function yunxian(age){
+  if(age<=16) return {pillar:"年",topic:"家庭根基 / 童年环境"};
+  if(age<=32) return {pillar:"月",topic:"门户事业 / 求学立身"};
+  if(age<=48) return {pillar:"日",topic:"自身婚姻 / 中年主轴"};
+  if(age<=64) return {pillar:"时",topic:"子女晚境 / 收成归宿"};
+  return {pillar:"延伸",topic:"时柱延伸（权重衰减）"};
+}
+
+// ---------- 仿真分数生成（确定性、平滑） ----------
+function seeded(n){let t=n+0x6D2B79F5;return function(){t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296;};}
+const clamp=(v)=>Math.max(2,Math.min(98,v));
+function rawScores(age){
+  const career = 50 + 18*Math.sin(age/13+1.1) + 8*Math.sin(age/4.5) + 5*Math.sin(age/2.3+2);
+  const study  = 42 + 20*Math.sin(age/15+3) + 16*Math.exp(-Math.pow((age-19)/13,2)) + 6*Math.sin(age/3.1);
+  const relationship = 50 + 21*Math.sin(age/16+4.2) + 9*Math.sin(age/3.7+1) - 6*Math.exp(-Math.pow((age-41)/5,2));
+  const wealth = 46 + 15*Math.sin(age/14+0.3) + 7*Math.sin(age/6) + Math.min(14, age*0.22);
+  // 综合：独立全局适配，含偏权 + 自有慢波，刻意不是均值
+  const overall = 50 + 0.30*(career-50)+0.20*(wealth-50)+0.16*(relationship-50)+0.10*(study-50) + 11*Math.sin(age/18+2);
+  return {career:clamp(career),study:clamp(study),relationship:clamp(relationship),wealth:clamp(wealth),overall:clamp(overall)};
+}
+function activationAt(age){
+  const d=dayunAt(age);
+  const nearBoundary = d.startAge?Math.exp(-Math.pow((age-d.startAge)/1.6,2)):0; // 换运附近激活高
+  const base = 28 + 34*Math.pow(Math.abs(Math.sin(age/4.3+0.7)),2) + 26*nearBoundary + 8*Math.sin(age/2.0);
+  return clamp(base);
+}
+
+// 预计算整条人生轴
+const RANGE = {startYear:natal.birthYear, endYear:natal.birthYear+82};
+const axis=[];
+for(let y=RANGE.startYear;y<=RANGE.endYear;y++){
+  const age=y-natal.birthYear+1; // 虚岁简化
+  axis.push({year:y,age,scores:rawScores(age),activation:activationAt(age),ln:liunian(y),dy:dayunAt(age),yx:yunxian(age)});
+}
+// 波动度＝综合分相邻差幅；置信度＝慢波，远未来/极幼年降低
+for(let i=0;i<axis.length;i++){
+  const prev=axis[i-1], cur=axis[i];
+  const dv = prev? Math.abs(cur.scores.overall-prev.scores.overall):0;
+  cur.volatility = clamp(22 + dv*4.2 + 14*Math.pow(Math.abs(Math.sin(cur.age/3.5)),2));
+  let conf = 60 + 16*Math.sin(cur.age/22+1);
+  if(cur.age>64) conf-=14; if(cur.age<6) conf-=8;
+  if(natal.reliability.dayun_timing!=="high") conf-=6;
+  cur.confidence=clamp(conf);
+}
+
+// ---------- 关系 / 事件 生成（按年确定性） ----------
+const MECHS=[
+  {m:"应局_同支",dir:"mixed",dom:["overall"]},
+  {m:"应局_同干",dir:"mixed",dom:["career"]},
+  {m:"禄引动",dir:"supportive",dom:["career","wealth"]},
+  {m:"原身引动",dir:"supportive",dom:["overall"]},
+  {m:"透干引动",dir:"supportive",dom:["wealth"]},
+  {m:"冲动",dir:"harmful",dom:["relationship"]},
+  {m:"合动",dir:"supportive",dom:["relationship"]},
+  {m:"合化",dir:"mixed",dom:["overall","career"]},
+  {m:"三合",dir:"supportive",dom:["wealth","career"]},
+  {m:"入墓",dir:"harmful",dom:["study","overall"]},
+  {m:"开墓库",dir:"mixed",dom:["wealth"]},
+  {m:"反吟",dir:"harmful",dom:["overall"]},
+];
+const PALACES=["年柱","月柱","日支夫妻宫","时柱"];
+function relationsFor(pt){
+  const rng=seeded(pt.year*131+7);
+  const n=1+Math.floor(rng()*3); // 1~3 条
+  const picks=[];const used=new Set();
+  for(let i=0;i<n;i++){
+    let idx=Math.floor(rng()*MECHS.length);while(used.has(idx)){idx=(idx+1)%MECHS.length;}used.add(idx);
+    const base=MECHS[idx];
+    const scope=["liunian_to_natal","dayun_to_natal","liunian_to_dayun"][Math.floor(rng()*3)];
+    const strength=Math.round(40+rng()*55);
+    picks.push({...base,scope,strength,effective:strength>=55,
+      pillar:PALACES[Math.floor(rng()*PALACES.length)],
+      ln:pt.ln.ganzhi});
+  }
+  return picks;
+}
+const EVT={
+  career:{opportunity:["事业平台跃迁","获权责或晋升机会","贵人提携、岗位上行"],risk:["官杀攻身、责任过载","与上级或体制摩擦"]},
+  study:{opportunity:["考试评审顺遂","学业或资格突破"],risk:["枭神夺食、思路受阻","心神不宁、印星受损"]},
+  relationship:{opportunity:["桃花显、感情升温","婚姻状态推进"],risk:["夫妻宫受冲、感情波动","争合争克、聚少离多"]},
+  wealth:{opportunity:["财源拓展、食伤生财","求财得位、进财机会"],risk:["比劫夺财、破耗","任财不及、投资受挫"]},
+};
+const TRANS={entry:"进入",persistence:"持续",exit:"退出",change:"转折"};
+function eventsFor(pt,rels){
+  if(pt.activation<58) return []; // 激活不足不硬凑
+  const rng=seeded(pt.year*977+3);
+  const cand=["career","study","relationship","wealth"].map(dom=>{
+    const sc=pt.scores[dom];
+    const pol = sc>=62?"opportunity":(sc<=42?"risk":"mixed");
+    const pool = EVT[dom][pol==="mixed"?(rng()>.5?"opportunity":"risk"):pol];
+    const title = pool[Math.floor(rng()*pool.length)];
+    const support = rels.filter(r=>r.dom.includes(dom)&&r.dir!=="harmful"&&r.effective).length;
+    const block = rels.filter(r=>r.dom.includes(dom)&&r.dir==="harmful").length;
+    const score = pt.activation*0.6 + Math.abs(sc-50)*0.8 + support*6 - block*3;
+    const level = (pt.activation>74&&(support>0))?"high":(pt.activation>62?"medium":"low");
+    return {dom,pol,title,support,block,level,score,sc};
+  }).sort((a,b)=>b.score-a.score).slice(0,3);
+  return cand.map((c,i)=>({
+    domain:c.dom, polarity:c.pol, title:c.title,
+    likelihood:c.level, activation:Math.round(pt.activation), confidence:Math.round(pt.confidence),
+    phase: c.support? "liunian_trigger":"dayun_field",
+    transition: i===0?(pt.activation>78?"entry":"change"):"change",
+    support:c.support, block:c.block,
+    desc: descFor(c, pt),
+  }));
+}
+function domName(k){return (DOMAINS.find(d=>d.key===k)||{}).name||k;}
+function descFor(c,pt){
+  const dir = c.pol==="opportunity"?"条件较有利，结构与激活同向":(c.pol==="risk"?"结构偏弱叠加高激活，属风险窗口":"条件混合，方向未定");
+  return `${domName(c.dom)}领域${dir}。当年状态分 ${Math.round(c.sc)}，激活度 ${Math.round(pt.activation)}。`;
+}
+
+// ---------- 状态 ----------
+let selectedDomain="overall";
+let selectedYear=2026<=RANGE.endYear&&2026>=RANGE.startYear?2026:natal.birthYear+30;
+
+// ---------- 渲染：命主 / 可靠度 ----------
+function renderNatal(){
+  document.getElementById("natal").innerHTML = natal.pillars.map(p=>
+    `<div class="pillar${p.day?' day':''}"><div class="lbl">${p.name}</div><div class="gz">${p.gz}</div></div>`).join("");
+  const r=natal.reliability;
+  const lab={high:"高",medium:"中",low:"低"};
+  document.getElementById("rely").innerHTML =
+    `<span class="chip ${r.birth_time}">出生时辰 <b>${lab[r.birth_time]}</b></span>`+
+    `<span class="chip ${r.dayun_timing}">起运定位 <b>${lab[r.dayun_timing]}</b></span>`+
+    `<span class="chip ${r.chart_structure}">格局判定 <b>${lab[r.chart_structure]}</b></span>`;
+}
+// ---------- 渲染：领域按钮 ----------
+function renderDomains(){
+  document.getElementById("domains").innerHTML = DOMAINS.map(d=>
+    `<div class="dbtn${d.key===selectedDomain?' active':''}" data-k="${d.key}" style="${d.key===selectedDomain?`color:${DOM_COLOR[d.key]}`:''}">
+       <span class="dot" style="background:${DOM_COLOR[d.key]}"></span>${d.name}</div>`).join("");
+  document.querySelectorAll(".dbtn").forEach(b=>b.onclick=()=>{selectedDomain=b.dataset.k;renderAll();});
+}
+// ---------- 渲染：折线图 ----------
+const PAD={l:42,r:16,t:16,b:30}, W=1000, H=300;
+function xOf(y){return PAD.l + (y-RANGE.startYear)/(RANGE.endYear-RANGE.startYear)*(W-PAD.l-PAD.r);}
+function yOf(s){return H-PAD.b - s/100*(H-PAD.t-PAD.b);}
+function yearAtX(px){const t=(px-PAD.l)/(W-PAD.l-PAD.r);return Math.round(RANGE.startYear+t*(RANGE.endYear-RANGE.startYear));}
+function pathFor(key){return axis.map((p,i)=>`${i?'L':'M'}${xOf(p.year).toFixed(1)},${yOf(p.scores[key]).toFixed(1)}`).join(" ");}
+function renderChart(){
+  const svg=document.getElementById("chart");
+  let g="";
+  // 网格
+  for(let s=0;s<=100;s+=25){const y=yOf(s);g+=`<g class="grid"><line x1="${PAD.l}" y1="${y}" x2="${W-PAD.r}" y2="${y}"/></g><text x="${PAD.l-6}" y="${y+3}" text-anchor="end" fill="var(--txt3)" font-size="9">${s}</text>`;}
+  // 中性线 50 强调
+  g+=`<line x1="${PAD.l}" y1="${yOf(50)}" x2="${W-PAD.r}" y2="${yOf(50)}" stroke="#33446b" stroke-dasharray="2 4"/>`;
+  // x 轴大运分段
+  DAYUN.forEach(d=>{const yr=natal.birthYear+d.startAge-1;if(yr>=RANGE.startYear&&yr<=RANGE.endYear){const x=xOf(yr);
+    g+=`<line x1="${x}" y1="${PAD.t}" x2="${x}" y2="${H-PAD.b}" stroke="var(--line2)" stroke-dasharray="1 5"/>`;
+    g+=`<text x="${x+3}" y="${PAD.t+10}" fill="var(--txt3)" font-size="9">${d.ganzhi}</text>`;}});
+  // 其他领域淡线
+  DOMAINS.forEach(d=>{if(d.key!==selectedDomain&&d.key!=="overall")
+    g+=`<path d="${pathFor(d.key)}" fill="none" stroke="${DOM_COLOR[d.key]}" stroke-width="1" opacity="0.22"/>`;});
+  // 综合（金虚线，常显）
+  g+=`<path d="${pathFor("overall")}" fill="none" stroke="${DOM_COLOR.overall}" stroke-width="1.6" stroke-dasharray="5 4" opacity="${selectedDomain==='overall'?1:0.55}"/>`;
+  // 选中领域实线
+  if(selectedDomain!=="overall")
+    g+=`<path d="${pathFor(selectedDomain)}" fill="none" stroke="${DOM_COLOR[selectedDomain]}" stroke-width="2.4"/>`;
+  // 激活度底部条
+  axis.forEach(p=>{const x=xOf(p.year);const h=p.activation/100*22;
+    g+=`<rect x="${x-1.4}" y="${H-PAD.b-h}" width="2.8" height="${h}" fill="#f2a93f" opacity="0.0"/>`;});
+  // 播放头
+  const sx=xOf(selectedYear);const sp=axis.find(a=>a.year===selectedYear);
+  g+=`<line x1="${sx}" y1="${PAD.t}" x2="${sx}" y2="${H-PAD.b}" stroke="#fff" stroke-opacity="0.5" stroke-width="1"/>`;
+  if(sp){const cy=yOf(sp.scores[selectedDomain]);g+=`<circle cx="${sx}" cy="${cy}" r="5" fill="${DOM_COLOR[selectedDomain]}" stroke="#fff" stroke-width="1.5"/>`;}
+  // x 轴年龄刻度
+  for(let age=10;age<=80;age+=10){const yr=natal.birthYear+age-1;if(yr<=RANGE.endYear)g+=`<text x="${xOf(yr)}" y="${H-8}" text-anchor="middle" fill="var(--txt3)" font-size="9">${age}岁</text>`;}
+  svg.innerHTML=g;
+}
+// 拖动
+function bindDrag(){
+  const svg=document.getElementById("chart");let dragging=false;
+  function pick(e){const r=svg.getBoundingClientRect();const px=(e.clientX-r.left)/r.width*W;
+    let y=yearAtX(px);y=Math.max(RANGE.startYear,Math.min(RANGE.endYear,y));if(y!==selectedYear){selectedYear=y;renderAll();}}
+  svg.addEventListener("pointerdown",e=>{dragging=true;svg.setPointerCapture(e.pointerId);pick(e);});
+  svg.addEventListener("pointermove",e=>{if(dragging)pick(e);});
+  svg.addEventListener("pointerup",()=>dragging=false);
+}
+// ---------- 渲染：三类指标 + 置信 ----------
+function gauge(label,val,color,note){
+  return `<div class="card gauge"><div class="gl"><span>${label}</span><span style="color:${color}">${Math.round(val)}</span></div>
+    <div class="gv" style="color:${color}">${Math.round(val)}</div>
+    <div class="bar"><i style="width:${val}%;background:${color}"></i></div>
+    <div class="note">${note}</div></div>`;
+}
+function renderGauges(p){
+  const sc=p.scores[selectedDomain];
+  const dirHint = sc>=61?"结构较有利":(sc<=39?"结构偏弱/风险":"中性或条件混合");
+  document.getElementById("gauges").innerHTML =
+    gauge(`状态分 · ${domName(selectedDomain)}`, sc, DOM_COLOR[selectedDomain], dirHint+"（≠概率）") +
+    gauge("激活度", p.activation, "#f2a93f", p.activation>70?"事情更易被触发（≠好坏）":"触发偏弱") +
+    gauge("波动度", p.volatility, "#c79cf0", p.volatility>60?"状态变化幅度大":"相对平稳") +
+    gauge("置信度", p.confidence, "#7fb4ff", "证据一致度（≠吉凶）");
+}
+// ---------- 渲染：时空上下文 ----------
+function renderTemporal(p){
+  document.getElementById("yj").textContent = `${p.year} · ${p.age}岁`;
+  const dy=p.dy;
+  document.getElementById("tctx").innerHTML =
+    `<div class="tcell"><div class="k">公历 / 年龄</div><div class="v">${p.year} <small>${p.age}岁${p.year===2026?' · 当前':''}</small></div></div>`+
+    `<div class="tcell"><div class="k">流年</div><div class="v">${p.ln.ganzhi}</div></div>`+
+    `<div class="tcell"><div class="k">大运</div><div class="v">${dy.ganzhi} <small>${dy.startAge?dy.startAge+'-'+dy.endAge+'岁':''}</small></div></div>`+
+    `<div class="tcell"><div class="k">四柱运限</div><div class="v">${p.yx.pillar}柱 <small>${p.yx.topic}</small></div></div>`;
+}
+// ---------- 渲染：领域落点 ----------
+function renderDomainImpacts(p,prev){
+  document.getElementById("domimp").innerHTML = DOMAINS.map(d=>{
+    const sc=p.scores[d.key];const pv=prev?prev.scores[d.key]:sc;const dv=sc-pv;
+    const dir = Math.abs(dv)<1.2?"flat":(dv>0?"up":"down");
+    const arrow = dir==="up"?"↑":dir==="down"?"↓":"→";
+    const cap=natal.baseCapacity[d.key];
+    return `<div class="dom-row">
+      <div class="nm">${d.name}</div>
+      <div class="track"><div class="neutral-mark"></div>
+        <div class="fill" style="width:${sc}%;background:${DOM_COLOR[d.key]}"></div>
+        <div style="position:absolute;left:${cap}%;top:0;height:100%;width:2px;background:#fff;opacity:.35" title="先天承载 ${cap}"></div>
+      </div>
+      <div class="sc" style="color:${DOM_COLOR[d.key]}">${Math.round(sc)}</div>
+      <div class="dir ${dir}">${arrow}${dv?(dv>0?'+':'')+Math.round(dv):''}</div>
+    </div>`;
+  }).join("") + `<div style="font-size:10.5px;color:var(--txt3);margin-top:4px">白竖线＝先天承载上限 base_capacity · 五领域同源同时计算 · 综合为独立全局适配</div>`;
+}
+// ---------- 渲染：动态关系 ----------
+function renderRelations(rels){
+  if(!rels.length){document.getElementById("relations").innerHTML='<div class="empty">本年无显著动态关系</div>';return;}
+  const scopeLab={liunian_to_natal:"流年→原局",dayun_to_natal:"大运→原局",liunian_to_dayun:"流年→大运"};
+  const dirLab={supportive:"偏利",harmful:"偏害",mixed:"混合",neutral:"中性"};
+  document.getElementById("relations").innerHTML = rels.map(r=>
+    `<div class="rel ${r.dir}">
+      <div class="top"><span class="mech">${r.m.replace(/_/,'·')}</span>
+        <span class="scope">${scopeLab[r.scope]} · 强度${r.strength}${r.effective?' · 已引动':' · 未达阈'}</span></div>
+      <div class="body">流年 ${r.ln} 作用于${r.pillar}，方向${dirLab[r.dir]}。</div>
+      <div class="doms">${r.dom.map(d=>`<span class="mini">${domName(d)}</span>`).join("")}</div>
+    </div>`).join("");
+}
+// ---------- 渲染：事件 ----------
+function renderEvents(evs){
+  const polLab={opportunity:"机会",risk:"风险",mixed:"混合"};
+  const lvlLab={high:"较可能",medium:"可能",low:"偏低"};
+  const transLab={entry:"进入",change:"转折",persistence:"持续",exit:"退出"};
+  if(!evs.length){document.getElementById("events").innerHTML='<div class="empty">激活不足，本年不输出明确事件（避免凑数）</div>';return;}
+  document.getElementById("events").innerHTML = evs.map(e=>
+    `<div class="ev ${e.polarity}">
+      <div class="et"><span class="ttl">${domName(e.domain)} · ${e.title}</span>
+        <span class="badges"><span class="pol ${e.polarity}">${polLab[e.polarity]}</span><span class="lvl">${lvlLab[e.likelihood]}·${transLab[e.transition]}</span></span></div>
+      <div class="desc">${e.desc}</div>
+      <div class="evd"><b>证据：</b>支持关系 ${e.support} · 阻断关系 ${e.block} · 阶段 ${e.phase==='liunian_trigger'?'流年触发':'大运建场'} · 置信 ${e.confidence}　<span style="opacity:.8">｜ 规则证据分级，非统计概率，不构成确定性预测</span></div>
+    </div>`).join("");
+}
+// ---------- 总渲染 ----------
+function renderAll(){
+  renderDomains();
+  renderChart();
+  const p=axis.find(a=>a.year===selectedYear);
+  const prev=axis.find(a=>a.year===selectedYear-1);
+  const rels=relationsFor(p);
+  const evs=eventsFor(p,rels);
+  renderGauges(p);
+  renderTemporal(p);
+  renderDomainImpacts(p,prev);
+  renderRelations(rels);
+  renderEvents(evs);
+}
+renderNatal();
+bindDrag();
+renderAll();
+</script>
+</body>
+</html>

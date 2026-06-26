@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>事业线 · 真引擎 Demo</title>
+<style>
+  :root{
+    --bg:#0a0e1a; --panel:#131c33; --panel2:#0f1730; --line:#22304f; --line2:#1a2540;
+    --txt:#e8eefc; --txt2:#9fb0d4; --txt3:#64759c;
+    --gold:#e3bd63; --cyan:#4fd1e0; --green:#52d6a0; --rose:#ef7aa6; --amber:#f2a93f; --violet:#c79cf0; --blue:#7fb4ff;
+    --ji:#52d6a0; --xiong:#ff7676; --neutral:#64759c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:radial-gradient(1200px 700px at 70% -10%, #14203c 0%, var(--bg) 55%);color:var(--txt);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1180px;margin:0 auto;padding:24px 22px 60px;}
+  .head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:16px;}
+  h1{font-size:20px;font-weight:600;margin:0 0 4px;letter-spacing:.5px;}
+  .sub{color:var(--txt3);font-size:12.5px;max-width:560px;line-height:1.5;}
+  .badge{font-size:11px;padding:3px 10px;border-radius:20px;background:#143728;color:#7ef0b8;border:1px solid #2e6b54;font-weight:600;}
+  .sbtn{cursor:pointer;font-size:12.5px;padding:5px 12px;border-radius:8px;border:1px solid var(--line);background:#0e1730;color:var(--txt2);transition:.15s;}
+  .sbtn:hover{border-color:var(--txt3);} .sbtn.active{color:var(--txt);border-color:var(--gold);background:#1a2440;}
+  .natal{display:flex;gap:7px;}
+  .pillar{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:6px 10px;text-align:center;min-width:48px;}
+  .pillar .lbl{font-size:10px;color:var(--txt3);} .pillar .gz{font-size:16px;font-weight:600;letter-spacing:2px;}
+  .pillar.day .gz{color:var(--gold);}
+  .card{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:14px;}
+  .chart-card{padding:14px 16px 8px;margin-bottom:16px;}
+  .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--txt2);margin-bottom:4px;}
+  .legend i{display:inline-block;width:11px;height:11px;border-radius:3px;vertical-align:-1px;margin-right:4px;}
+  svg{display:block;width:100%;height:300px;cursor:crosshair;}
+  .hint{color:var(--txt3);font-size:11px;text-align:center;margin:3px 0;}
+  .gauges{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px;}
+  @media(max-width:760px){.gauges{grid-template-columns:repeat(2,1fr)}}
+  .gauge{padding:11px 13px;}
+  .gauge .gl{font-size:11px;color:var(--txt2);} .gauge .gv{font-size:23px;font-weight:600;margin:2px 0 5px;}
+  .gauge .bar{height:5px;border-radius:3px;background:#0c1428;overflow:hidden;} .gauge .bar i{display:block;height:100%;}
+  .gauge .note{font-size:10px;color:var(--txt3);margin-top:5px;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr}}
+  .sec{padding:14px 16px;} .sec h3{font-size:13px;margin:0 0 10px;font-weight:600;display:flex;gap:8px;align-items:center;}
+  .sec h3 .tag{font-size:10px;color:var(--txt3);font-weight:400;}
+  .kv{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
+  .kv .cell{background:#0e1730;border:1px solid var(--line2);border-radius:8px;padding:8px 10px;}
+  .kv .k{font-size:10px;color:var(--txt3);} .kv .v{font-size:14px;font-weight:600;}
+  .dirpill{font-size:12px;padding:3px 10px;border-radius:20px;font-weight:600;}
+  .dirpill.吉{background:#143728;color:#7ef0b8;} .dirpill.凶{background:#3a1717;color:#ffa0a0;} .dirpill.中性{background:#1a2540;color:#9fb0d4;}
+  .chip{display:inline-block;font-size:10.5px;padding:2px 8px;border-radius:6px;background:#172a4d;color:var(--txt2);border:1px solid var(--line2);margin:2px 3px 0 0;}
+  .ev{font-size:11.5px;color:var(--txt2);line-height:1.6;border-left:3px solid var(--line);padding:2px 0 2px 9px;margin-bottom:5px;}
+  .reason{font-size:12.5px;color:var(--txt);line-height:1.5;margin:6px 0;}
+  .empty{color:var(--txt3);font-size:12px;}
+  .foot{margin-top:8px;color:var(--txt3);font-size:11px;line-height:1.6;border-top:1px solid var(--line);padding-top:12px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <div>
+      <h1>事业线 · 真引擎 Demo <span class="badge">真引擎驱动</span></h1>
+      <div class="sub" id="sub">加载中…</div>
+      <div id="samples" style="margin-top:8px;display:flex;gap:7px;flex-wrap:wrap;">
+        <button class="sbtn" data-k="A">A · 升主席（晚发）</button>
+        <button class="sbtn" data-k="D">D · 落马（高位崩）</button>
+        <button class="sbtn" data-k="F">F · 阎锡山（掌权）</button>
+        <button class="sbtn" data-k="K">K · 破败（长期低迷）</button>
+        <button class="sbtn" data-k="U">U · 武贵（波动高）</button>
+      </div>
+    </div>
+    <div class="natal" id="natal"></div>
+  </div>
+
+  <div class="card chart-card">
+    <div class="legend">
+      <span><i style="background:var(--gold)"></i>事业状态分 state_score</span>
+      <span><i style="background:#33446b"></i>先天承载 base</span>
+      <span><i style="background:var(--amber)"></i>激活度</span>
+      <span><i style="background:var(--ji)"></i>吉</span>
+      <span><i style="background:var(--xiong)"></i>凶</span>
+      <span><i style="background:var(--neutral)"></i>中性</span>
+      <span style="color:var(--txt3)">竖带=大运</span>
+    </div>
+    <svg id="chart" viewBox="0 0 1000 300" preserveAspectRatio="none"></svg>
+    <div class="hint">点击/拖动选择年份 · 金线=引擎逐年事业状态分 · 圆点颜色=方向 · 底部橙条=激活度</div>
+  </div>
+
+  <div class="gauges" id="gauges"></div>
+
+  <div class="grid2">
+    <div class="card sec">
+      <h3>时空 + 方向 <span class="tag">assessCareer 输出</span></h3>
+      <div class="kv" id="kv"></div>
+      <div class="reason" id="reason"></div>
+    </div>
+    <div class="card sec">
+      <h3>引动 + 证据 <span class="tag">inducements / evidence</span></h3>
+      <div id="inds"></div>
+      <div id="evid" style="margin-top:8px;"></div>
+    </div>
+  </div>
+
+  <div class="foot" id="foot"></div>
+</div>
+
+<script>
+"use strict";
+const DIR_COLOR = { '吉':'var(--ji)', '凶':'var(--xiong)', '中性':'var(--neutral)' };
+let DATA=null, sel=2017, SAMPLE_KEY='A';
+const DEFAULT_YEAR={A:2017, D:2015, F:1920, K:1997, U:1960};
+const PAD={l:40,r:16,t:14,b:28}, W=1000, H=300;
+
+function loadSample(key){
+  SAMPLE_KEY=key;
+  document.querySelectorAll('.sbtn').forEach(b=>b.classList.toggle('active', b.dataset.k===key));
+  fetch('career-axis-'+key+'.json').then(r=>r.json()).then(d=>{ DATA=d; sel=DEFAULT_YEAR[key]||DATA.years[0].year; init(); }).catch(e=>{
+    document.getElementById('sub').textContent='无法加载 career-axis-'+key+'.json（请先 node scripts/build_career_axis.cjs）';
+  });
+}
+document.querySelectorAll('.sbtn').forEach(b=>b.onclick=()=>loadSample(b.dataset.k));
+loadSample('A');
+
+function init(){
+  const m=DATA._meta, n=DATA.natal;
+  document.getElementById('sub').innerHTML = `${m.sample}<br/><span style="color:var(--txt3)">${m.note}　|　引擎：${m.engine}</span>`;
+  document.getElementById('natal').innerHTML = ['年','月','日','时'].map((nm,i)=>{
+    const gz=[n.pillars.year,n.pillars.month,n.pillars.day,n.pillars.hour][i];
+    return `<div class="pillar${nm==='日'?' day':''}"><div class="lbl">${nm}</div><div class="gz">${gz}</div></div>`;
+  }).join('');
+  document.getElementById('foot').innerHTML = `<b>评分构成：</b>${m.scoring||''}<br/>`+
+    `<b>命局喜忌：</b>喜 ${(m.yongshen&&m.yongshen.favorable||[]).join('')||'-'} / 忌 ${(m.yongshen&&m.yongshen.unfavorable||[]).join('')||'-'}（${m.yongshen&&m.yongshen.geju||''}）。`+
+    `验证点：2017 丁酉年（丁巳火运·喜）引擎自动识别"丁应局激活正印"→状态分冲顶；青年壬子水运(忌)曲线下探。<br/>`+
+    `<span style="color:var(--txt3)">${m.caveat||''}</span>`;
+  if(DATA.years.length && DATA.years.find(y=>y.year===sel)===undefined) sel=DATA.years[Math.floor(DATA.years.length/2)].year;
+  bindDrag(); render();
+}
+
+const RANGE=()=>DATA.range;
+function xOf(y){const r=RANGE();return PAD.l+(y-r.start_year)/(r.end_year-r.start_year)*(W-PAD.l-PAD.r);}
+function yOf(s){return H-PAD.b - s/100*(H-PAD.t-PAD.b);}
+function yearAtX(px){const r=RANGE();const t=(px-PAD.l)/(W-PAD.l-PAD.r);return Math.round(r.start_year+t*(r.end_year-r.start_year));}
+
+function render(){
+  drawChart();
+  const y=DATA.years.find(v=>v.year===sel)||DATA.years[0];
+  drawGauges(y); drawDetail(y);
+}
+
+function drawChart(){
+  const svg=document.getElementById('chart'); let g='';
+  // grid
+  for(let s=0;s<=100;s+=25){const yy=yOf(s);g+=`<line x1="${PAD.l}" y1="${yy}" x2="${W-PAD.r}" y2="${yy}" stroke="var(--line2)"/><text x="${PAD.l-5}" y="${yy+3}" text-anchor="end" fill="var(--txt3)" font-size="9">${s}</text>`;}
+  g+=`<line x1="${PAD.l}" y1="${yOf(50)}" x2="${W-PAD.r}" y2="${yOf(50)}" stroke="#33446b" stroke-dasharray="2 4"/>`;
+  // dayun bands
+  DATA.dayun_segments.forEach((d,i)=>{const x0=xOf(d.start_year);const x1=xOf(Math.min(d.start_year+10,RANGE().end_year));
+    if(i%2===0) g+=`<rect x="${x0}" y="${PAD.t}" width="${x1-x0}" height="${H-PAD.b-PAD.t}" fill="#ffffff" opacity="0.018"/>`;
+    g+=`<text x="${x0+3}" y="${PAD.t+10}" fill="var(--txt3)" font-size="8.5">${d.ganzhi}</text>`;});
+  // activation bars
+  DATA.years.forEach(y=>{const x=xOf(y.year);const h=y.activation/100*30;g+=`<rect x="${x-2}" y="${H-PAD.b-h}" width="4" height="${h}" fill="var(--amber)" opacity="0.28"/>`;});
+  // base capacity faint line
+  g+=`<path d="${DATA.years.map((y,i)=>`${i?'L':'M'}${xOf(y.year).toFixed(1)},${yOf(y.base_capacity).toFixed(1)}`).join(' ')}" fill="none" stroke="#33446b" stroke-width="1.2" stroke-dasharray="4 4"/>`;
+  // state_score line
+  g+=`<path d="${DATA.years.map((y,i)=>`${i?'L':'M'}${xOf(y.year).toFixed(1)},${yOf(y.state_score).toFixed(1)}`).join(' ')}" fill="none" stroke="var(--gold)" stroke-width="2.2"/>`;
+  // direction dots
+  DATA.years.forEach(y=>{if(y.direction==='中性')return;const x=xOf(y.year),yy=yOf(y.state_score);g+=`<circle cx="${x}" cy="${yy}" r="2.6" fill="${DIR_COLOR[y.direction]}"/>`;});
+  // playhead
+  const sx=xOf(sel);const sy=DATA.years.find(v=>v.year===sel);
+  g+=`<line x1="${sx}" y1="${PAD.t}" x2="${sx}" y2="${H-PAD.b}" stroke="#fff" stroke-opacity="0.5"/>`;
+  if(sy){g+=`<circle cx="${sx}" cy="${yOf(sy.state_score)}" r="5" fill="${DIR_COLOR[sy.direction]}" stroke="#fff" stroke-width="1.5"/>`;}
+  // age axis
+  for(let age=10;age<=80;age+=10){const yr=DATA.natal.birth_year+age-1;g+=`<text x="${xOf(yr)}" y="${H-8}" text-anchor="middle" fill="var(--txt3)" font-size="9">${age}岁</text>`;}
+  svg.innerHTML=g;
+}
+
+function gauge(label,val,color,note){return `<div class="card gauge"><div class="gl">${label}</div><div class="gv" style="color:${color}">${val}</div><div class="bar"><i style="width:${val}%;background:${color}"></i></div><div class="note">${note}</div></div>`;}
+function drawGauges(y){
+  document.getElementById('gauges').innerHTML =
+    gauge('状态分',y.state_score,'var(--gold)','先天承载 '+y.base_capacity) +
+    gauge('激活度',y.activation,'var(--amber)','事件触发强度') +
+    gauge('波动度',y.volatility,'var(--violet)','较上年变化') +
+    gauge('置信度',y.confidence,'var(--blue)','证据一致度') +
+    gauge('承载 base',y.base_capacity,'#8aa0c8','先天事业上限');
+}
+function drawDetail(y){
+  document.getElementById('kv').innerHTML =
+    `<div class="cell"><div class="k">公历 / 年龄</div><div class="v">${y.year} · ${y.age}岁${y.year===2017?' ★':''}</div></div>`+
+    `<div class="cell"><div class="k">流年 / 大运</div><div class="v">${y.liunian} / ${y.dayun||'未起运'}</div></div>`+
+    `<div class="cell"><div class="k">四柱运限</div><div class="v">${y.yunxian?y.yunxian+'柱':'-'}<span style="font-size:10px;color:var(--txt3)"> ${y.yunxian_career||''}</span></div></div>`+
+    `<div class="cell"><div class="k">方向 / 规则</div><div class="v"><span class="dirpill ${y.direction}">${y.direction}</span> <span style="font-size:11px;color:var(--txt3)">${y.rule}</span></div></div>`;
+  document.getElementById('reason').textContent = '判据：'+(y.reason||'-');
+  const inds=document.getElementById('inds');
+  inds.innerHTML = y.inducements.length
+    ? y.inducements.map(i=>`<span class="chip">${i.channel.replace(/_/,'·')} · ${i.value}${i.target?'→'+i.target:''}</span>`).join('')
+    : '<span class="empty">本年无引动</span>';
+  const evid=document.getElementById('evid');
+  evid.innerHTML = y.evidence.length ? y.evidence.map(e=>`<div class="ev">${e}</div>`).join('') : '<div class="empty">—</div>';
+}
+
+function bindDrag(){
+  const svg=document.getElementById('chart');let drag=false;
+  function pick(e){const r=svg.getBoundingClientRect();const px=(e.clientX-r.left)/r.width*W;let yr=yearAtX(px);
+    const R=RANGE();yr=Math.max(R.start_year,Math.min(R.end_year,yr));if(yr!==sel){sel=yr;render();}}
+  svg.addEventListener('pointerdown',e=>{drag=true;svg.setPointerCapture(e.pointerId);pick(e);});
+  svg.addEventListener('pointermove',e=>{if(drag)pick(e);});
+  svg.addEventListener('pointerup',()=>drag=false);
+}
+</script>
+</body>
+</html>
