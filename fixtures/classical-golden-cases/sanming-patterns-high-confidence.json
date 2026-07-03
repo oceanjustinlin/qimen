@@ -1,0 +1,592 @@
+{
+  "_meta": {
+    "title": "《图解三命通会 第2部》高置信变格扩展 gold cases（扫描页核验）",
+    "source_title": "图解三命通会 第2部 吉凶推断",
+    "source_file": "图解三命通会_第2部吉凶推断_-_2009.pdf",
+    "source_sha256": "cffa4a19b26911d911d47c59663e097a4c356c195c10ca4fa383b749d3df27f3",
+    "extracted_at": "2026-06-30",
+    "theory_profile": "三命通会变格体系／现代图解编注口径",
+    "count": 44,
+    "pillars_order": ["year", "month", "day", "hour"],
+    "policy": [
+      "四柱与格名或法名必须在扫描页同一小节直接目视确认",
+      "仅评分原文明示的格局、断法或成格方法；未明示喜忌不进入硬评分",
+      "跨页命例必须上下页连续，且前后文同属同一小节",
+      "该 PDF 是现代图解编注本，本集记录其书内口径，不将编者白话冒充为古籍原文"
+    ]
+  },
+  "cases": [
+    {
+      "id": "sm2_pdf_001_chonglu_gengyin",
+      "label": "冲禄：庚寅并冲申禄",
+      "input": { "pillars": ["己巳", "丁丑", "庚寅", "戊寅"], "gender": null },
+      "gold": {
+        "geju": { "primary": "冲禄格", "aliases": [] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["冲禄", "并冲禄位", "三命合格"],
+        "eventOrCheck": "合格，贵"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 457, "printed_page": 457, "case_number": 1, "visual_verified": true, "ocr_only": false, "source_excerpt": "如己巳、丁丑、庚寅、戊寅", "evidence_summary": "冲禄小节原文列三命并言合格贵，第一页末与次页首连续。"}
+    },
+    {
+      "id": "sm2_pdf_002_chonglu_jiashen",
+      "label": "冲禄：甲申并冲寅禄",
+      "input": { "pillars": ["辛巳", "乙未", "甲申", "壬申"], "gender": null },
+      "gold": {
+        "geju": { "primary": "冲禄格", "aliases": [] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["冲禄", "并冲禄位", "三命合格"],
+        "eventOrCheck": "合格，贵"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 457, "printed_page": 457, "case_number": 2, "visual_verified": true, "ocr_only": false, "source_excerpt": "辛巳、乙未、甲申、壬申", "evidence_summary": "冲禄小节原文列入三命合格贵，四柱在同段可见。"}
+    },
+    {
+      "id": "sm2_pdf_003_chonglu_xinmao",
+      "label": "冲禄：辛卯并冲酉禄",
+      "input": { "pillars": ["乙卯", "甲申", "辛卯", "辛卯"], "gender": null },
+      "gold": {
+        "geju": { "primary": "冲禄格", "aliases": [] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["冲禄", "并冲禄位", "三命合格"],
+        "eventOrCheck": "合格，贵"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 457, "printed_page": 457, "case_number": 3, "visual_verified": true, "ocr_only": false, "source_excerpt": "乙卯、甲申、辛卯、辛卯，三命合格，贵。", "evidence_summary": "跨页首行收束第三命，明确三命合格贵。"}
+    },
+    {
+      "id": "sm2_pdf_004_caiguan_shuangmei_rengwu",
+      "label": "财官双美：壬午日财官归禄",
+      "input": { "pillars": ["己丑", "丁卯", "壬午", "癸卯"], "gender": null },
+      "gold": {
+        "geju": { "primary": "财官双美格", "aliases": ["禄马同乡"] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["财官双美", "禄马同乡", "归禄日下"],
+        "eventOrCheck": "大贵"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 461, "printed_page": 461, "case_number": 4, "visual_verified": true, "ocr_only": false, "source_excerpt": "归禄日下，合此，大贵。", "evidence_summary": "财官双美入格条件页直接列四柱，并说明丁己透出、归禄日下、大贵。"}
+    },
+    {
+      "id": "sm2_pdf_005_caiguan_shuangmei_taizong",
+      "label": "财官双美：唐太宗禄马同乡",
+      "input": { "pillars": ["丙午", "庚子", "壬午", "丙午"], "gender": null },
+      "gold": {
+        "geju": { "primary": "财官双美格", "aliases": ["禄马同乡", "六壬移换"] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["禄马同乡", "水火既济", "六壬移换"],
+        "eventOrCheck": "主大贵"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 462, "printed_page": 462, "case_number": 5, "visual_verified": true, "ocr_only": false, "source_excerpt": "又水火既济，又名六壬移换，因此主大贵。", "evidence_summary": "财官双美喜忌页以唐太宗命造为例，明言禄马同乡、水火既济、六壬移换。"}
+    },
+    {
+      "id": "sm2_pdf_006_caiguan_shuangmei_feitian",
+      "label": "财官双美：三奇禄马飞天",
+      "input": { "pillars": ["甲子", "丙寅", "壬戌", "辛丑"], "gender": null },
+      "gold": {
+        "geju": { "primary": "财官双美格", "aliases": ["三奇禄马飞天"] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["财官双美", "三奇禄马飞天", "无合有合"],
+        "eventOrCheck": "大贵"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 462, "printed_page": 462, "case_number": 6, "visual_verified": true, "ocr_only": false, "source_excerpt": "变为三奇禄马飞天，无合有合，故亦大贵。", "evidence_summary": "同页又例如命造，说明冲害出财官禄马并成三奇禄马飞天。"}
+    },
+    {
+      "id": "sm2_pdf_007_caiguan_shuangmei_huaxiang",
+      "label": "财官双美：丁壬从火化象",
+      "input": { "pillars": ["丙午", "甲午", "壬戌", "丙午"], "gender": null },
+      "gold": {
+        "geju": { "primary": "财官双美格", "aliases": ["化象"] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["财官双美", "丁壬从火", "化象"],
+        "eventOrCheck": "一官未去，一官来"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 462, "printed_page": 462, "case_number": 7, "visual_verified": true, "ocr_only": false, "source_excerpt": "当以丁壬从火，运行西方官旺之地。", "evidence_summary": "同页财官双美喜忌，原文说明丁壬从火、化象之美及官职相继。"}
+    },
+    {
+      "id": "sm2_pdf_008_jinshen_fangfengshi",
+      "label": "金神贵格：方逢时火制得宜",
+      "input": { "pillars": ["壬午", "乙巳", "甲辰", "己巳"], "gender": null },
+      "gold": {
+        "geju": { "primary": "金神贵格", "aliases": ["金神格"] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["金神", "火制得宜", "火地发达"],
+        "eventOrCheck": "兵部尚书，少年科第"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 471, "printed_page": 471, "case_number": 8, "visual_verified": true, "ocr_only": false, "source_excerpt": "金神主事，巳、午纯火，制之得宜。", "evidence_summary": "金神贵格歌诀后直接列方逢时命造，并说明火制得宜、官至兵部尚书。"}
+    },
+    {
+      "id": "sm2_pdf_009_ride_zhuangzhu",
+      "label": "日德：张烛运同",
+      "input": { "pillars": ["甲申", "戊辰", "戊辰", "壬戌"], "gender": null },
+      "gold": {
+        "geju": { "primary": "日德格", "aliases": [] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["日德", "戊辰日", "性情慈善"],
+        "eventOrCheck": "由学官而腰金衣紫，得五品官诰"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 473, "printed_page": 473, "case_number": 9, "visual_verified": true, "ocr_only": false, "source_excerpt": "由学官而腰金衣紫，得五品官诰，是此格也。", "evidence_summary": "日德小节列张烛运同命造，直接说是此格。"}
+    },
+    {
+      "id": "sm2_pdf_010_ride_sanwei",
+      "label": "日德：三位日德犯忌",
+      "input": { "pillars": ["庚辰", "己卯", "戊辰", "甲寅"], "gender": null },
+      "gold": {
+        "geju": { "primary": "日德格", "aliases": ["三位日德"] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["日德", "三位日德", "犯日德所忌"],
+        "eventOrCheck": "寿止三十八"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 473, "printed_page": 473, "case_number": 10, "visual_verified": true, "ocr_only": false, "source_excerpt": "三位日德，作此格论。", "evidence_summary": "日德小节第二命直接说明三位日德作此格，并记犯忌应事。"}
+    },
+    {
+      "id": "sm2_pdf_011_kuigang_zhangshi",
+      "label": "魁罡：张时佥事",
+      "input": { "pillars": ["庚午", "丁亥", "戊戌", "丙辰"], "gender": null },
+      "gold": {
+        "geju": { "primary": "魁罡格", "aliases": [] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["魁罡", "财官印取用"],
+        "eventOrCheck": "二命魁罡日，只取财官印"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 475, "printed_page": 475, "case_number": 11, "visual_verified": true, "ocr_only": false, "source_excerpt": "如张时佥事：庚午、丁亥、戊戌、丙辰。", "evidence_summary": "魁罡小节跨页列张时佥事与刘大受二命，并说明二命魁罡日。"}
+    },
+    {
+      "id": "sm2_pdf_012_kuigang_liudashou",
+      "label": "魁罡：刘大受少卿",
+      "input": { "pillars": ["丁亥", "癸丑", "庚戌", "戊寅"], "gender": null },
+      "gold": {
+        "geju": { "primary": "魁罡格", "aliases": [] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["魁罡", "财官印取用"],
+        "eventOrCheck": "二命魁罡日，只取财官印"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 475, "printed_page": 475, "case_number": 12, "visual_verified": true, "ocr_only": false, "source_excerpt": "刘大受少卿：丁亥、癸丑、庚戌、戊寅。", "evidence_summary": "魁罡小节同段列刘大受命造，并说明二命魁罡日。"}
+    },
+    {
+      "id": "sm2_pdf_013_sanqi_zuojian",
+      "label": "三奇真贵：左鉴郎中外三奇",
+      "input": { "pillars": ["己卯", "癸酉", "甲午", "辛未"], "gender": null },
+      "gold": {
+        "geju": { "primary": "三奇真贵格", "aliases": ["天干三奇"] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["三奇真贵", "天干三奇", "财官印兼全"],
+        "eventOrCheck": "恐不大贵"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 479, "printed_page": 479, "case_number": 13, "visual_verified": true, "ocr_only": false, "source_excerpt": "是天干三奇。但日干衰而财官旺。", "evidence_summary": "三奇真贵入格条件页以左鉴郎中为外三奇例，并说明不大贵原因。"}
+    },
+    {
+      "id": "sm2_pdf_014_sanqi_zhangjuzheng",
+      "label": "三奇真贵：张居正一品",
+      "input": { "pillars": ["乙酉", "辛巳", "辛酉", "辛卯"], "gender": null },
+      "gold": {
+        "geju": { "primary": "三奇真贵格", "aliases": ["男遇三奇"] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["三奇真贵", "官印建禄", "辛乙互换归禄"],
+        "eventOrCheck": "少年拜相，为少师"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 481, "printed_page": 481, "case_number": 14, "visual_verified": true, "ocr_only": false, "source_excerpt": "如张居正阁老：乙酉、辛巳、辛酉、辛卯。", "evidence_summary": "男遇三奇小节直接列张居正命造，并说明官印建禄与少年拜相。"}
+    },
+    {
+      "id": "sm2_pdf_015_sanqi_tanlun",
+      "label": "三奇真贵：谭纶尚书军功显贵",
+      "input": { "pillars": ["庚辰", "甲申", "丁未", "丙午"], "gender": null },
+      "gold": {
+        "geju": { "primary": "三奇真贵格", "aliases": ["男遇三奇"] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["三奇真贵", "财官印俱在", "归禄于时"],
+        "eventOrCheck": "平生以军功显贵，至一品"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 481, "printed_page": 481, "case_number": 15, "visual_verified": true, "ocr_only": false, "source_excerpt": "财官印俱在，月令丁未八专，又归禄于时。", "evidence_summary": "男遇三奇同段列谭纶命造，说明身旺得三奇、军功显贵。"}
+    },
+    {
+      "id": "sm2_pdf_016_tianyuan_anlu_wenyuan",
+      "label": "天元暗禄：闻渊尚书",
+      "input": { "pillars": ["庚子", "甲申", "庚寅", "丙戌"], "gender": null },
+      "gold": {
+        "geju": { "primary": "天元暗禄格", "aliases": [] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["天元暗禄", "庚寅日", "数命此日生"],
+        "eventOrCheck": "闻渊尚书"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 485, "printed_page": 485, "case_number": 16, "visual_verified": true, "ocr_only": false, "source_excerpt": "闻渊尚书：庚子、甲申、庚寅、丙戌。", "evidence_summary": "天元暗禄小节列五个此日生命例，闻渊尚书为首例。"}
+    },
+    {
+      "id": "sm2_pdf_017_tianyuan_anlu_panhuang",
+      "label": "天元暗禄：潘潢尚书",
+      "input": { "pillars": ["丙辰", "丙申", "丙申", "壬辰"], "gender": null },
+      "gold": {
+        "geju": { "primary": "天元暗禄格", "aliases": [] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["天元暗禄", "丙申日", "数命此日生"],
+        "eventOrCheck": "潘潢尚书"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 485, "printed_page": 485, "case_number": 17, "visual_verified": true, "ocr_only": false, "source_excerpt": "潘潢尚书：丙辰、丙申、丙申、壬辰。", "evidence_summary": "天元暗禄小节同段列潘潢尚书命造。"}
+    },
+    {
+      "id": "sm2_pdf_018_tianyuan_anlu_duchayuan",
+      "label": "天元暗禄：一都宪己亥日",
+      "input": { "pillars": ["辛巳", "辛丑", "己亥", "丙寅"], "gender": null },
+      "gold": {
+        "geju": { "primary": "天元暗禄格", "aliases": [] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["天元暗禄", "己亥日", "数命此日生"],
+        "eventOrCheck": "一都宪"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 485, "printed_page": 485, "case_number": 18, "visual_verified": true, "ocr_only": false, "source_excerpt": "一都宪：辛巳、辛丑、己亥、丙寅。", "evidence_summary": "天元暗禄小节同段列一都宪命造。"}
+    },
+    {
+      "id": "sm2_pdf_019_tianyuan_anlu_fushi",
+      "label": "天元暗禄：一副使己亥日",
+      "input": { "pillars": ["丁亥", "壬寅", "己亥", "乙亥"], "gender": null },
+      "gold": {
+        "geju": { "primary": "天元暗禄格", "aliases": [] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["天元暗禄", "己亥日", "数命此日生"],
+        "eventOrCheck": "一副使"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 485, "printed_page": 485, "case_number": 19, "visual_verified": true, "ocr_only": false, "source_excerpt": "一副使：丁亥、壬寅、己亥、乙亥。", "evidence_summary": "天元暗禄小节同段列一副使命造。"}
+    },
+    {
+      "id": "sm2_pdf_020_tianyuan_anlu_zhixian",
+      "label": "天元暗禄：知县乙巳日",
+      "input": { "pillars": ["甲子", "丁卯", "乙巳", "丙子"], "gender": null },
+      "gold": {
+        "geju": { "primary": "天元暗禄格", "aliases": [] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["天元暗禄", "乙巳日", "数命此日生"],
+        "eventOrCheck": "知县"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 485, "printed_page": 485, "case_number": 20, "visual_verified": true, "ocr_only": false, "source_excerpt": "知县：甲子、丁卯、乙巳、丙子。", "evidence_summary": "天元暗禄小节同段列知县命造。"}
+    },
+    {
+      "id": "sm2_pdf_021_luyuan_huhuan_guihai",
+      "label": "禄元互换：癸亥壬戌命",
+      "input": { "pillars": ["癸亥", "壬戌", "丙子", "癸巳"], "gender": null },
+      "gold": {
+        "geju": { "primary": "禄元互换格", "aliases": [] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["禄元互换", "互换禄旺", "各临官贵"],
+        "eventOrCheck": "故贵"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 486, "printed_page": 486, "case_number": 21, "visual_verified": true, "ocr_only": false, "source_excerpt": "互换禄旺，各临官贵，无刑冲破害，故贵。", "evidence_summary": "禄元互换小节列此命，说明互换禄旺、各临官贵。"}
+    },
+    {
+      "id": "sm2_pdf_022_luyuan_huhuan_jiwei",
+      "label": "禄元互换：己未辛未命",
+      "input": { "pillars": ["己未", "辛未", "丙子", "癸巳"], "gender": null },
+      "gold": {
+        "geju": { "primary": "禄元互换格", "aliases": [] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["禄元互换", "合格"],
+        "eventOrCheck": "大贵"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 486, "printed_page": 486, "case_number": 22, "visual_verified": true, "ocr_only": false, "source_excerpt": "又：己未、辛未、丙子、癸巳，合格，大贵。", "evidence_summary": "禄元互换小节第二例直接说明合格大贵。"}
+    },
+    {
+      "id": "sm2_pdf_023_liuren_yihuan_jisi",
+      "label": "六壬移换：己巳癸酉大贵",
+      "input": { "pillars": ["己巳", "癸酉", "丁卯", "癸卯"], "gender": null },
+      "gold": {
+        "geju": { "primary": "六壬移换格", "aliases": [] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["六壬移换", "卯酉冲", "各逢贵地"],
+        "eventOrCheck": "所以大贵"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 487, "printed_page": 487, "case_number": 23, "visual_verified": true, "ocr_only": false, "source_excerpt": "各逢贵地，所以大贵。", "evidence_summary": "六壬移换小节第一命，说明卯酉冲撼动天干并各逢贵地。"}
+    },
+    {
+      "id": "sm2_pdf_024_liuren_yihuan_renqilongbei",
+      "label": "六壬移换：壬骑龙背",
+      "input": { "pillars": ["甲午", "甲戌", "戊辰", "壬子"], "gender": null },
+      "gold": {
+        "geju": { "primary": "六壬移换格", "aliases": ["壬骑龙背", "财官双美"] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["六壬移换", "壬骑龙背", "财官双美"],
+        "eventOrCheck": "日时俱财官双美"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 487, "printed_page": 487, "case_number": 24, "visual_verified": true, "ocr_only": false, "source_excerpt": "壬归辰位为壬骑龙背。", "evidence_summary": "六壬移换同页又例，明确变成壬骑龙背且日时财官双美。"}
+    },
+    {
+      "id": "sm2_pdf_025_liuren_yihuan_zaohua",
+      "label": "六壬移换：官印俱全",
+      "input": { "pillars": ["丙子", "丙申", "庚辰", "壬午"], "gender": null },
+      "gold": {
+        "geju": { "primary": "六壬移换格", "aliases": ["造化之妙"] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["六壬移换", "官印俱全", "造化之妙"],
+        "eventOrCheck": "合成造化之妙"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 487, "printed_page": 487, "case_number": 25, "visual_verified": true, "ocr_only": false, "source_excerpt": "各得官印俱全，且七月丙不能克壬水。", "evidence_summary": "六壬移换同页第三例，说明壬午冲克丙子后官印俱全。"}
+    },
+    {
+      "id": "sm2_pdf_026_liuren_yihuan_gonggui",
+      "label": "六壬移换：戊午戊申拱贵",
+      "input": { "pillars": ["乙亥", "戊子", "壬午", "戊申"], "gender": null },
+      "gold": {
+        "geju": { "primary": "六壬移换格", "aliases": ["拱贵格"] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["六壬移换", "子午冲动", "拱贵"],
+        "eventOrCheck": "变成戊午、戊申拱贵之格"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 487, "printed_page": 487, "case_number": 26, "visual_verified": true, "ocr_only": false, "source_excerpt": "变成戊午、戊申拱贵之格。", "evidence_summary": "六壬移换同页第四例，说明子午冲动后成为拱贵格。"}
+    },
+    {
+      "id": "sm2_pdf_027_liuren_yihuan_buce",
+      "label": "六壬移换：晚年不测",
+      "input": { "pillars": ["癸亥", "丁巳", "甲子", "庚午"], "gender": null },
+      "gold": {
+        "geju": { "primary": "六壬移换格", "aliases": [] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["六壬移换", "地支冲动", "偏官有制"],
+        "eventOrCheck": "晚年致不测之祸"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 487, "printed_page": 487, "case_number": 27, "visual_verified": true, "ocr_only": false, "source_excerpt": "地支巳、亥、子、午冲动，天干亦动。", "evidence_summary": "六壬移换同页第五例，说明冲动与不测之祸。"}
+    },
+    {
+      "id": "sm2_pdf_028_ziwu_shuangbao_liangwu_liangzi",
+      "label": "子午双包：两午两子",
+      "input": { "pillars": ["壬午", "壬子", "戊午", "壬子"], "gender": null },
+      "gold": {
+        "geju": { "primary": "子午双包格", "aliases": [] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["子午双包", "两午两子", "水火既济"],
+        "eventOrCheck": "俱贵命"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 490, "printed_page": 490, "case_number": 28, "visual_verified": true, "ocr_only": false, "source_excerpt": "壬午、壬子、戊午、壬子，两午两子。", "evidence_summary": "子午双包小节列六命，说明两午两子或包午包子者俱贵。"}
+    },
+    {
+      "id": "sm2_pdf_029_ziwu_shuangbao_baowu_1",
+      "label": "子午双包：两个包午之一",
+      "input": { "pillars": ["壬子", "癸丑", "戊午", "壬子"], "gender": null },
+      "gold": {
+        "geju": { "primary": "子午双包格", "aliases": [] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["子午双包", "两个包午", "水火既济"],
+        "eventOrCheck": "俱贵命"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 490, "printed_page": 490, "case_number": 29, "visual_verified": true, "ocr_only": false, "source_excerpt": "壬子、癸丑、戊午、壬子。", "evidence_summary": "子午双包小节列为两个包午之例。"}
+    },
+    {
+      "id": "sm2_pdf_030_ziwu_shuangbao_baowu_2",
+      "label": "子午双包：两个包午之二",
+      "input": { "pillars": ["甲子", "庚午", "丙申", "戊子"], "gender": null },
+      "gold": {
+        "geju": { "primary": "子午双包格", "aliases": [] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["子午双包", "两个包午", "水火既济"],
+        "eventOrCheck": "俱贵命"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 490, "printed_page": 490, "case_number": 30, "visual_verified": true, "ocr_only": false, "source_excerpt": "甲子、庚午、丙申、戊子。", "evidence_summary": "子午双包小节列为两个包午之例。"}
+    },
+    {
+      "id": "sm2_pdf_031_ziwu_shuangbao_baowu_3",
+      "label": "子午双包：两个包午之三",
+      "input": { "pillars": ["戊子", "戊午", "丁未", "庚子"], "gender": null },
+      "gold": {
+        "geju": { "primary": "子午双包格", "aliases": [] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["子午双包", "两个包午", "水火既济"],
+        "eventOrCheck": "俱贵命"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 490, "printed_page": 490, "case_number": 31, "visual_verified": true, "ocr_only": false, "source_excerpt": "戊子、戊午、丁未、庚子。", "evidence_summary": "子午双包小节列为两个包午之例。"}
+    },
+    {
+      "id": "sm2_pdf_032_ziwu_shuangbao_baozi_1",
+      "label": "子午双包：两午包子之一",
+      "input": { "pillars": ["戊午", "甲子", "甲申", "庚午"], "gender": null },
+      "gold": {
+        "geju": { "primary": "子午双包格", "aliases": [] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["子午双包", "两午包子", "水火既济"],
+        "eventOrCheck": "俱贵命"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 490, "printed_page": 490, "case_number": 32, "visual_verified": true, "ocr_only": false, "source_excerpt": "戊午、甲子、甲申、庚午。", "evidence_summary": "子午双包小节列为两午包子之例。"}
+    },
+    {
+      "id": "sm2_pdf_033_musha_zaoyao",
+      "label": "墓煞：夹煞持丘早夭",
+      "input": { "pillars": ["己巳", "戊辰", "癸丑", "丙辰"], "gender": null },
+      "gold": {
+        "geju": { "primary": "墓煞格", "aliases": ["七煞入墓", "夹煞持丘"] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["墓煞", "七煞入墓", "夹煞持丘"],
+        "eventOrCheck": "多主早发早夭"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 509, "printed_page": 509, "case_number": 33, "visual_verified": true, "ocr_only": false, "source_excerpt": "己巳、戊辰、癸丑、丙辰。", "evidence_summary": "墓煞小节原文列此命，说明七煞入墓、夹煞持丘，多主早发早夭。"}
+    },
+    {
+      "id": "sm2_pdf_034_bazhuan_zhuzi",
+      "label": "八专禄旺：朱文公化煞为权",
+      "input": { "pillars": ["庚戌", "丙戌", "甲寅", "庚午"], "gender": null },
+      "gold": {
+        "geju": { "primary": "八专禄旺格", "aliases": ["专禄"] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["八专禄旺", "专禄", "化煞为权"],
+        "eventOrCheck": "宜成大儒"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 499, "printed_page": 499, "case_number": 34, "visual_verified": true, "ocr_only": false, "source_excerpt": "专禄得火局为食，二庚为煞。", "evidence_summary": "八专禄旺喜忌页以朱文公命造说明专禄得火局、化煞为权。"}
+    },
+    {
+      "id": "sm2_pdf_035_bazhuan_dongchengxiang",
+      "label": "八专禄旺：董丞相专禄木局",
+      "input": { "pillars": ["己巳", "辛未", "乙卯", "丁亥"], "gender": null },
+      "gold": {
+        "geju": { "primary": "八专禄旺格", "aliases": ["专禄"] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["八专禄旺", "专禄", "木局"],
+        "eventOrCheck": "所以大贵"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 499, "printed_page": 499, "case_number": 35, "visual_verified": true, "ocr_only": false, "source_excerpt": "专禄而得木局，金日干聚生旺秀气。", "evidence_summary": "同页列董丞相命造，明言专禄得木局和大贵。"}
+    },
+    {
+      "id": "sm2_pdf_036_tuju_runxia_muxi",
+      "label": "土局润下：土虚目疾为军",
+      "input": { "pillars": ["戊辰", "甲子", "戊申", "乙卯"], "gender": null },
+      "gold": {
+        "geju": { "primary": "土局润下格", "aliases": [] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["土局润下", "土虚逢润下", "申子辰水局"],
+        "eventOrCheck": "主目疾为军"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 504, "printed_page": 504, "case_number": 36, "visual_verified": true, "ocr_only": false, "source_excerpt": "是土虚逢润下，故主目疾为军。", "evidence_summary": "土局润下小节列此命，说明土虚又逢润下水局。"}
+    },
+    {
+      "id": "sm2_pdf_037_tuju_runxia_pingzhang",
+      "label": "土局润下：土从众水得堤防",
+      "input": { "pillars": ["辛未", "庚子", "戊辰", "壬子"], "gender": null },
+      "gold": {
+        "geju": { "primary": "土局润下格", "aliases": [] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["土局润下", "土从众水", "土堤防"],
+        "eventOrCheck": "复得平章之职"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 504, "printed_page": 504, "case_number": 37, "visual_verified": true, "ocr_only": false, "source_excerpt": "土从众水，得土堤防。", "evidence_summary": "土局润下同页第二命，说明水多有土堤防，后得平章。"}
+    },
+    {
+      "id": "sm2_pdf_038_huotu_jiaza_1",
+      "label": "火土夹杂：平常命一",
+      "input": { "pillars": ["戊申", "己未", "丙午", "乙未"], "gender": null },
+      "gold": {
+        "geju": { "primary": "火土夹杂格", "aliases": [] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["火土夹杂", "火虚土聚", "平常"],
+        "eventOrCheck": "三命皆火土夹杂，平常"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 507, "printed_page": 507, "case_number": 38, "visual_verified": true, "ocr_only": false, "source_excerpt": "三命皆火土夹杂，平常。", "evidence_summary": "火土夹杂小节列三命，直接说明皆火土夹杂、平常。"}
+    },
+    {
+      "id": "sm2_pdf_039_guixiang_canji",
+      "label": "鬼象：鬼旺身衰残疾",
+      "input": { "pillars": ["癸卯", "辛酉", "乙亥", "辛巳"], "gender": null },
+      "gold": {
+        "geju": { "primary": "鬼象格", "aliases": ["煞旺身衰"] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["鬼象", "鬼旺身衰", "二辛煞旺"],
+        "eventOrCheck": "故主残疾"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 531, "printed_page": 531, "case_number": 39, "visual_verified": true, "ocr_only": false, "source_excerpt": "癸卯、辛酉、乙亥、辛巳，乙木八月无气，二辛煞旺，故主残疾。", "evidence_summary": "鬼象小节跨页列首命，说明乙木八月无气、二辛煞旺而主残疾。"}
+    },
+    {
+      "id": "sm2_pdf_040_huotu_jiaza_3",
+      "label": "火土夹杂：平常命三",
+      "input": { "pillars": ["戊戌", "丁巳", "己未", "丙寅"], "gender": null },
+      "gold": {
+        "geju": { "primary": "火土夹杂格", "aliases": [] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["火土夹杂", "火虚土聚", "平常"],
+        "eventOrCheck": "三命皆火土夹杂，平常"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 507, "printed_page": 507, "case_number": 40, "visual_verified": true, "ocr_only": false, "source_excerpt": "戊戌、丁巳、己未、丙寅。", "evidence_summary": "火土夹杂小节第三命，同段明言三命皆火土夹杂。"}
+    },
+    {
+      "id": "sm2_pdf_041_jiaku_chengxiang",
+      "label": "夹库：虚拱辰中水库",
+      "input": { "pillars": ["乙亥", "己卯", "己巳", "甲子"], "gender": null },
+      "gold": {
+        "geju": { "primary": "夹库格", "aliases": [] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["夹库", "虚拱库位", "辰中水库"],
+        "eventOrCheck": "乃丞相命"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 509, "printed_page": 509, "case_number": 41, "visual_verified": true, "ocr_only": false, "source_excerpt": "虚拱辰中水库为财，柱无辰字填实。", "evidence_summary": "夹库小节列此命，说明巳卯虚拱辰中水库为财，乃丞相命。"}
+    },
+    {
+      "id": "sm2_pdf_042_zhaoxiang_wushang",
+      "label": "照象：四柱无伤",
+      "input": { "pillars": ["戊戌", "戊午", "丙午", "戊戌"], "gender": null },
+      "gold": {
+        "geju": { "primary": "照象格", "aliases": [] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["照象", "火土高明", "四柱无伤"],
+        "eventOrCheck": "皆大贵"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 530, "printed_page": 530, "case_number": 42, "visual_verified": true, "ocr_only": false, "source_excerpt": "四柱无伤，午、戌亦能冲子辰之官星。", "evidence_summary": "照象小节第一命，说明火旺生土、四柱无伤。"}
+    },
+    {
+      "id": "sm2_pdf_043_zhaoxiang_wuweishang",
+      "label": "照象：四位无伤",
+      "input": { "pillars": ["戊戌", "甲寅", "丙午", "甲午"], "gender": null },
+      "gold": {
+        "geju": { "primary": "照象格", "aliases": [] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["照象", "火土高明", "四位无伤"],
+        "eventOrCheck": "宰相命"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 530, "printed_page": 530, "case_number": 43, "visual_verified": true, "ocr_only": false, "source_excerpt": "又：戊戌、甲寅、丙午、甲午，四位无伤。", "evidence_summary": "照象小节同段列此命，归入照象且四位无伤。"}
+    },
+    {
+      "id": "sm2_pdf_044_zhaoxiang_zaixiang",
+      "label": "照象：照上无破",
+      "input": { "pillars": ["甲戌", "丙寅", "丙午", "庚寅"], "gender": null },
+      "gold": {
+        "geju": { "primary": "照象格", "aliases": [] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["照象", "火土高明", "照上无破"],
+        "eventOrCheck": "宰相命"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": { "pdf_page": 530, "printed_page": 530, "case_number": 44, "visual_verified": true, "ocr_only": false, "source_excerpt": "甲戌、丙寅、丙午、庚寅，照上无破。", "evidence_summary": "照象小节同段列此命，明言照上无破、宰相命。"}
+    }
+  ]
+}

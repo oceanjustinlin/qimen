@@ -1,0 +1,372 @@
+{
+  "_meta": {
+    "title": "《图解穷通宝鉴》高置信原局 gold cases（扫描页核验）",
+    "source_title": "图解穷通宝鉴",
+    "source_file": "图解穷通宝鉴.pdf",
+    "source_sha256": "b56bf54a1490d6581c328b79413cea5b12faedbfeb4b9ca77654bdd901ae5d97",
+    "extracted_at": "2026-06-22",
+    "theory_profile": "穷通宝鉴调候体系／书中命例评注口径",
+    "count": 18,
+    "pillars_order": ["year", "month", "day", "hour"],
+    "policy": [
+      "四柱必须从扫描页直接目视确认，不以 OCR 单独固化",
+      "四柱与断语必须在同一扫描页且属于同一编号命例",
+      "仅评分原文明示的格局、用神、喜忌或方法；未明示维度保持 null 或不进入 scoring_scope",
+      "该 PDF 是现代图解编注本，本集记录其书内口径，不将编者分析冒充为古籍原文"
+    ]
+  },
+  "cases": [
+    {
+      "id": "qt_pdf_001_kewenmin_shishengcai",
+      "label": "柯文敏：食神生财为用",
+      "input": { "pillars": ["戊辰", "丙辰", "甲寅", "甲子"], "gender": null },
+      "gold": {
+        "geju": { "primary": "食神生财格", "aliases": [] },
+        "strength": null,
+        "yong": [{ "shen": "食神", "wuxing": "火", "stem": "丙", "method": "食神生财" }],
+        "xi": [], "ji": [], "image": null,
+        "methodTags": ["食神生财"],
+        "eventOrCheck": "官至大学士"
+      },
+      "scoringScope": ["geju", "yong", "method"],
+      "source": {
+        "pdf_page": 39, "printed_page": 98, "case_number": 6,
+        "visual_verified": true, "ocr_only": false,
+        "source_excerpt": "柯文敏命：食神生财为用，官至大学士。",
+        "evidence_summary": "命例行直列四柱，紧接着明言食神生财为用及官阶。"
+      }
+    },
+    {
+      "id": "qt_pdf_002_zhangzhiwan_binghuo",
+      "label": "张之万：甲木申月专用丙火",
+      "input": { "pillars": ["辛未", "丙申", "甲申", "丙寅"], "gender": null },
+      "gold": {
+        "geju": null, "strength": null,
+        "yong": [{ "shen": "食神", "wuxing": "火", "stem": "丙", "method": "秋木以火制金" }],
+        "xi": [{ "wuxing": "火" }], "ji": [], "image": null,
+        "methodTags": ["秋木得金砍劈", "专用丙火"],
+        "eventOrCheck": "鼎甲出身，位至大学士"
+      },
+      "scoringScope": ["yong", "xiji", "method"],
+      "source": {
+        "pdf_page": 47, "printed_page": 113, "case_number": 6,
+        "visual_verified": true, "ocr_only": false,
+        "source_excerpt": "专用时上丙火，鼎甲出身，位至大学士。",
+        "evidence_summary": "扫描页明列张之万四柱，并明言时上丙火为专用。"
+      }
+    },
+    {
+      "id": "qt_pdf_003_hanmu_dinghuo_rootless",
+      "label": "丑月甲木：丁火无强根，富而不贵",
+      "input": { "pillars": ["己丑", "丁丑", "甲辰", "甲子"], "gender": null },
+      "gold": {
+        "geju": { "primary": "伤官生财格", "aliases": [] },
+        "strength": null,
+        "yong": [{ "shen": "伤官", "wuxing": "火", "stem": "丁", "method": "寒木吐秀生财" }],
+        "xi": [{ "wuxing": "火" }], "ji": [], "image": null,
+        "methodTags": ["寒木向阳", "伤官生财", "调候火根不足"],
+        "eventOrCheck": "富而不贵"
+      },
+      "scoringScope": ["geju", "yong", "xiji", "method"],
+      "source": {
+        "pdf_page": 54, "printed_page": 130, "case_number": 1,
+        "visual_verified": true, "ocr_only": false,
+        "source_excerpt": "按伤官生财格，无丙，一富而已矣。",
+        "evidence_summary": "扫描页将本造定为伤官生财，同时指出寒木火力不足只富不贵。"
+      }
+    },
+    {
+      "id": "qt_pdf_004_hanmu_dinghuo_rooted",
+      "label": "丑月甲木：午中丁火得根，富贵皆成",
+      "input": { "pillars": ["己丑", "丁丑", "甲辰", "庚午"], "gender": null },
+      "gold": {
+        "geju": null, "strength": null,
+        "yong": [{ "shen": "伤官", "wuxing": "火", "stem": "丁", "method": "寒木向阳，丁火得根" }],
+        "xi": [{ "wuxing": "火" }], "ji": [], "image": null,
+        "methodTags": ["寒木向阳", "丁火得根", "庚金劈甲引丁"],
+        "eventOrCheck": "大富大贵"
+      },
+      "scoringScope": ["yong", "xiji", "method"],
+      "source": {
+        "pdf_page": 54, "printed_page": 130, "case_number": 9,
+        "visual_verified": true, "ocr_only": false,
+        "source_excerpt": "大富大贵，午中丁火，帮助丁势故也。",
+        "evidence_summary": "与同页第 1 例前三柱相同，本造时支午为丁火强根，原文明言因此大富大贵。"
+      }
+    },
+    {
+      "id": "qt_pdf_005_yangren_sharenxianghe",
+      "label": "甲木阳刃：杀刃相合掌兵",
+      "input": { "pillars": ["乙酉", "庚辰", "甲寅", "庚午"], "gender": null },
+      "gold": {
+        "geju": { "primary": "阳刃格", "aliases": ["羊刃格", "杀刃相合"] },
+        "strength": null, "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["木旺见金", "杀刃相合"],
+        "eventOrCheck": "总摄兵柄，至丙运贵为巡抚"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": {
+        "pdf_page": 39, "printed_page": 98, "case_number": 9,
+        "visual_verified": true, "ocr_only": false,
+        "source_excerpt": "此阳刃也，杀刃相合，总摄兵柄。",
+        "evidence_summary": "扫描页直接定性阳刃与杀刃相合，并记掌兵、巡抚之应。"
+      }
+    },
+    {
+      "id": "qt_pdf_006_binghuo_yanshang_shishi",
+      "label": "丙火寅月：炎上失时，庚财无根不用",
+      "input": { "pillars": ["丙午", "庚寅", "丙午", "庚寅"], "gender": null },
+      "gold": {
+        "geju": { "primary": "炎上格", "aliases": ["炎上失时", "两干不杂"] },
+        "strength": null, "yong": [],
+        "xi": [{ "wuxing": "木" }, { "wuxing": "火" }],
+        "ji": [{ "wuxing": "金" }],
+        "image": { "category": "SINGLE_IMAGE", "subtype": "炎上格", "shouldOverrideNormalPattern": false },
+        "methodTags": ["两干不杂", "炎上失时", "财星无根不用"],
+        "eventOrCheck": "喜行东南，贵为按察使"
+      },
+      "scoringScope": ["geju", "image", "xiji", "method"],
+      "source": {
+        "pdf_page": 79, "printed_page": 188, "case_number": 1,
+        "visual_verified": true, "ocr_only": false,
+        "source_excerpt": "庚金无根，不能用财，乃炎上失时，喜其运行东南。",
+        "evidence_summary": "原文区分无根庚财与火势，明言不用财、喜东南木火运。"
+      }
+    },
+    {
+      "id": "qt_pdf_007_binghuo_true_yanshang",
+      "label": "丙火午月：真炎上遇西北运破格",
+      "input": { "pillars": ["甲午", "庚午", "丙午", "甲午"], "gender": null },
+      "gold": {
+        "geju": { "primary": "炎上格", "aliases": ["真炎上格"] },
+        "strength": null,
+        "yong": [{ "wuxing": "木", "method": "炎上顺势" }, { "wuxing": "火", "method": "炎上顺势" }],
+        "xi": [{ "wuxing": "木" }, { "wuxing": "火" }],
+        "ji": [{ "wuxing": "金" }, { "wuxing": "水" }],
+        "image": { "category": "SINGLE_IMAGE", "subtype": "炎上格", "shouldOverrideNormalPattern": true },
+        "methodTags": ["真炎上", "顺势", "比劫争财", "西北运破格"],
+        "eventOrCheck": "行运西北，失势向下，成格转破格"
+      },
+      "scoringScope": ["geju", "image", "yong", "xiji", "method"],
+      "source": {
+        "pdf_page": 87, "printed_page": 205, "case_number": 10,
+        "visual_verified": true, "ocr_only": false,
+        "source_excerpt": "真炎上格也，惜乎行运西北，比劫争财，成格破格。",
+        "evidence_summary": "原文明定真炎上，又以西北运、比劫争财解释由成转破。"
+      }
+    },
+    {
+      "id": "qt_pdf_008_xinjin_caiwangshengsha",
+      "label": "辛金丑月：财旺生杀，丁火得用",
+      "input": { "pillars": ["甲申", "丁丑", "辛卯", "己亥"], "gender": null },
+      "gold": {
+        "geju": { "primary": "财旺生杀格", "aliases": ["财杀取贵"] },
+        "strength": null,
+        "yong": [{ "shen": "七杀", "wuxing": "火", "stem": "丁", "method": "财旺生杀兼调候" }],
+        "xi": [{ "wuxing": "木" }, { "wuxing": "火" }],
+        "ji": [], "image": null,
+        "methodTags": ["财旺生杀", "甲木引丁", "冬金用火"],
+        "eventOrCheck": "财杀取贵"
+      },
+      "scoringScope": ["geju", "yong", "xiji", "method"],
+      "source": {
+        "pdf_page": 193, "printed_page": 420, "case_number": 1,
+        "visual_verified": true, "ocr_only": false,
+        "source_excerpt": "丁火得用，故可以财杀取贵也。",
+        "evidence_summary": "扫描图直读四柱为甲申、丁丑、辛卯、己亥；OCR 曾误读多柱，本记录以版面为准。"
+      }
+    },
+    {
+      "id": "qt_pdf_009_jiaxu_fake_shangguan",
+      "label": "戌月甲木：假伤官得地，壬水泄杀扶身",
+      "input": { "pillars": ["壬午", "庚戌", "甲午", "庚午"], "gender": null },
+      "gold": {
+        "geju": { "primary": "假伤官格", "aliases": ["假伤官得地"] },
+        "strength": null,
+        "yong": [{ "shen": "偏印", "wuxing": "水", "stem": "壬", "method": "泄杀制火扶身" }],
+        "xi": [{ "wuxing": "水" }], "ji": [], "image": null,
+        "methodTags": ["假伤官得地", "壬水泄庚", "制火扶身"],
+        "eventOrCheck": "贵为巡抚"
+      },
+      "scoringScope": ["geju", "yong", "xiji", "method"],
+      "source": {
+        "pdf_page": 49, "printed_page": 120, "case_number": 1,
+        "visual_verified": true, "ocr_only": false,
+        "source_excerpt": "用壬水泄庚制火扶身，正合假伤官得地。",
+        "evidence_summary": "同一命例段明确给出假伤官定性、壬水的具体作用及贵应。"
+      }
+    },
+    {
+      "id": "qt_pdf_010_jitu_hunren_true_yong",
+      "label": "亥月丙火：己土混壬，真正用神仍为甲木",
+      "input": { "pillars": ["辛巳", "己亥", "丙子", "壬辰"], "gender": null },
+      "gold": {
+        "geju": { "primary": "己土混壬格", "aliases": ["绝地逢生"] },
+        "strength": null,
+        "yong": [{ "shen": "偏印", "wuxing": "木", "stem": "甲", "method": "印绶长生，取印化杀" }],
+        "xi": [{ "wuxing": "木" }], "ji": [], "image": null,
+        "methodTags": ["己土混壬", "绝地逢生", "印化杀", "辅药不等于用神"],
+        "eventOrCheck": "大富贵、寿考、生贵子"
+      },
+      "scoringScope": ["geju", "yong", "method"],
+      "source": {
+        "pdf_page": 93, "printed_page": 217, "case_number": 1,
+        "visual_verified": true, "ocr_only": false,
+        "source_excerpt": "格局为己土混壬，用神仍在甲木。",
+        "evidence_summary": "前段称取己土，后段明确己土用于混壬培木、真正用神仍是甲木；按最终定论编码。"
+      }
+    },
+    {
+      "id": "qt_pdf_011_dinghuo_caizisha",
+      "label": "三月丁火：郭干卿，财滋杀为用但用神不真",
+      "input": { "pillars": ["癸未", "丙辰", "丁酉", "乙巳"], "gender": null },
+      "gold": {
+        "geju": null, "strength": null,
+        "yong": [{ "shen": "七杀", "wuxing": "水", "stem": "癸", "method": "财滋杀为用" }],
+        "xi": [], "ji": [], "image": null,
+        "methodTags": ["财滋杀", "可用财杀", "用神不真"],
+        "eventOrCheck": "富而不贵"
+      },
+      "scoringScope": ["yong", "method"],
+      "source": {
+        "pdf_page": 104, "printed_page": 239, "case_number": 3,
+        "visual_verified": true, "ocr_only": false,
+        "source_excerpt": "财滋杀为用，丙火出干，得禄于巳。",
+        "evidence_summary": "同例段明言财滋杀为用，并补充丙火得禄使丁火有气但用神不真。"
+      }
+    },
+    {
+      "id": "qt_pdf_012_chen_gongxia_shishang_zhisha",
+      "label": "三月丁火：陈公侠，戊土制杀喜用同宫",
+      "input": { "pillars": ["癸未", "丙辰", "丁未", "戊申"], "gender": null },
+      "gold": {
+        "geju": null, "strength": null,
+        "yong": [{ "shen": "伤官", "wuxing": "土", "stem": "戊", "method": "制杀为用" }],
+        "xi": [{ "wuxing": "土" }], "ji": [], "image": null,
+        "methodTags": ["申辰会局", "戊土制杀", "喜用同宫"],
+        "eventOrCheck": "位至省主席"
+      },
+      "scoringScope": ["yong", "xiji", "method"],
+      "source": {
+        "pdf_page": 104, "printed_page": 239, "case_number": 4,
+        "visual_verified": true, "ocr_only": false,
+        "source_excerpt": "以戊土制杀为用，喜用同宫。",
+        "evidence_summary": "原评先点申辰会局与癸水出干，再明确以戊土制杀为用且喜用同宫。"
+      }
+    },
+    {
+      "id": "qt_pdf_013_luowengan_gengxie_tuqi",
+      "label": "三月丁火：罗文干，土重晦光用庚泄土",
+      "input": { "pillars": ["己丑", "戊辰", "丁巳", "庚戌"], "gender": null },
+      "gold": {
+        "geju": null, "strength": null,
+        "yong": [{ "shen": "正财", "wuxing": "金", "stem": "庚", "method": "泄土之气" }],
+        "xi": [{ "wuxing": "金" }], "ji": [], "image": null,
+        "methodTags": ["土重晦光", "庚金泄土", "无金运失用"],
+        "eventOrCheck": "一生无金运"
+      },
+      "scoringScope": ["yong", "xiji", "method"],
+      "source": {
+        "pdf_page": 104, "printed_page": 239, "case_number": 6,
+        "visual_verified": true, "ocr_only": false,
+        "source_excerpt": "土重晦光，用庚金泄土之气。",
+        "evidence_summary": "命例段明确病在土重晦丁光，取庚金泄土；一生无金运作为用神不到位校验。"
+      }
+    },
+    {
+      "id": "qt_pdf_014_dinghuo_zhuanyong_gengjin",
+      "label": "四月丁火：庚辰辛巳，专用庚金富而兼贵",
+      "input": { "pillars": ["庚辰", "辛巳", "丁酉", "乙巳"], "gender": null },
+      "gold": {
+        "geju": null, "strength": null,
+        "yong": [{ "shen": "正财", "wuxing": "金", "stem": "庚", "method": "身强财旺，专用庚金" }],
+        "xi": [{ "wuxing": "金" }], "ji": [], "image": null,
+        "methodTags": ["支联辰巳酉", "夹午禄", "专用庚金"],
+        "eventOrCheck": "位至国公，富而兼贵"
+      },
+      "scoringScope": ["yong", "xiji", "method"],
+      "source": {
+        "pdf_page": 105, "printed_page": 242, "case_number": 3,
+        "visual_verified": true, "ocr_only": false,
+        "source_excerpt": "支联辰巳酉夹午禄，专用庚金。",
+        "evidence_summary": "扫描页同例直列四柱，评语明确专用庚金，并以胎元壬申说明富贵兼备。"
+      }
+    },
+    {
+      "id": "qt_pdf_015_dinghuo_zhuanyong_guanxing",
+      "label": "四月丁火：乙亥辛巳，专用官星至省长",
+      "input": { "pillars": ["乙亥", "辛巳", "丁丑", "壬寅"], "gender": null },
+      "gold": {
+        "geju": null, "strength": null,
+        "yong": [{ "shen": "正官", "wuxing": "水", "stem": "壬", "method": "专用官星" }],
+        "xi": [{ "wuxing": "水" }], "ji": [], "image": null,
+        "methodTags": ["专用官星", "天乙贵人"],
+        "eventOrCheck": "位至省长"
+      },
+      "scoringScope": ["yong", "xiji", "method"],
+      "source": {
+        "pdf_page": 105, "printed_page": 242, "case_number": 5,
+        "visual_verified": true, "ocr_only": false,
+        "source_excerpt": "专用官星，加临天乙，位至省长。",
+        "evidence_summary": "原文直接写专用官星与贵应；本造壬水透时，按丁日正官入用记录。"
+      }
+    },
+    {
+      "id": "qt_pdf_016_hu_hanyi_yong_guanxing",
+      "label": "四月丁火：胡汉翼，专用官星总领师旅",
+      "input": { "pillars": ["壬辰", "乙巳", "丁卯", "丙午"], "gender": null },
+      "gold": {
+        "geju": null, "strength": null,
+        "yong": [{ "shen": "正官", "wuxing": "水", "stem": "壬", "method": "专用官星" }],
+        "xi": [{ "wuxing": "水" }], "ji": [], "image": null,
+        "methodTags": ["专用官星", "卯辰巳午联珠", "上下三奇"],
+        "eventOrCheck": "总领师旅，位至都督"
+      },
+      "scoringScope": ["yong", "xiji", "method"],
+      "source": {
+        "pdf_page": 105, "printed_page": 242, "case_number": 7,
+        "visual_verified": true, "ocr_only": false,
+        "source_excerpt": "专用官星，得月官星，位至都督。",
+        "evidence_summary": "同一命例段明称专用官星，且以乙丙丁、卯巳午等结构说明统军贵应。"
+      }
+    },
+    {
+      "id": "qt_pdf_017_zhu_jiaqing_wuren_yonggui",
+      "label": "四月丁火：朱家骅，无壬用癸官得财生",
+      "input": { "pillars": ["癸巳", "丁巳", "丁卯", "丙午"], "gender": null },
+      "gold": {
+        "geju": null, "strength": null,
+        "yong": [{ "shen": "七杀", "wuxing": "水", "stem": "癸", "method": "无壬用癸，官杀得财生" }],
+        "xi": [{ "wuxing": "水" }], "ji": [], "image": null,
+        "methodTags": ["无壬用癸", "官得财生", "三奇"],
+        "eventOrCheck": "位至总长、省主席"
+      },
+      "scoringScope": ["yong", "xiji", "method"],
+      "source": {
+        "pdf_page": 105, "printed_page": 242, "case_number": 8,
+        "visual_verified": true, "ocr_only": false,
+        "source_excerpt": "无壬用癸，胎元申宫，官得财生。",
+        "evidence_summary": "原评以无壬用癸确定取用，虽泛称官，按丁日癸水十神校正为七杀。"
+      }
+    },
+    {
+      "id": "qt_pdf_018_zhou_fohai_haigong_guan",
+      "label": "四月丁火：周佛海，取亥宫官贵为用",
+      "input": { "pillars": ["丁酉", "乙巳", "丁亥", "甲辰"], "gender": null },
+      "gold": {
+        "geju": null, "strength": null,
+        "yong": [{ "shen": "正官", "wuxing": "水", "method": "取亥宫官贵为用" }],
+        "xi": [{ "wuxing": "水" }, { "wuxing": "木" }], "ji": [], "image": null,
+        "methodTags": ["巳酉会局", "亥宫官贵", "甲木引丁"],
+        "eventOrCheck": "位至部长"
+      },
+      "scoringScope": ["yong", "xiji", "method"],
+      "source": {
+        "pdf_page": 105, "printed_page": 242, "case_number": 9,
+        "visual_verified": true, "ocr_only": false,
+        "source_excerpt": "取亥宫官贵为用，喜天干甲木引丁。",
+        "evidence_summary": "原文直称取亥宫官贵为用，并补充甲木引丁；官星藏于亥，故不标显干。"
+      }
+    }
+  ]
+}

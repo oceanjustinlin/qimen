@@ -1229,7 +1229,7 @@ const getFortuneStorage = () => (typeof window === 'undefined' ? null : window.l
 
 // 与后端 lib/baziCore.js 的 BAZI_ENGINE_VERSION 保持同步
 // 升级时同步修改两处，前端会自动检测版本旧档案并触发引擎刷新
-const BAZI_ENGINE_VERSION = '1.8.13'
+const BAZI_ENGINE_VERSION = '1.8.19'
 
 // 兼容 Cloudflare Pages preview 域名，相对路径在 Pages 上会 404
 const _apiBase = (() => {

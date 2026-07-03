@@ -1,0 +1,141 @@
+{
+  "_meta": {
+    "title": "《图解子平真诠》高置信格局取用 gold cases（扫描页核验）",
+    "source_title": "图解子平真诠",
+    "source_file": "图解子平真诠.pdf",
+    "source_sha256": "9f58db3c6bc5046231848243ce8ee0b704741613e74e49973500140f8effd0cc",
+    "extracted_at": "2026-06-22",
+    "theory_profile": "子平真诠月令格局／扶抑、专旺与通关取用",
+    "count": 6,
+    "pillars_order": ["year", "month", "day", "hour"],
+    "policy": [
+      "四柱和评语必须在同一扫描页的同一示例块中",
+      "格局只记录原文直称或可由月令十神唯一确定者；不确定则保持 null",
+      "用神区分格局主体、成格机制与真正施力之神，不把相神或辅药误标成首用",
+      "扫描图优先于 OCR，OCR 只用于候选定位"
+    ]
+  },
+  "cases": [
+    {
+      "id": "zp_pdf_001_shangguan_yongcai",
+      "label": "未月丙火：伤官过重，用财泄伤",
+      "input": { "pillars": ["戊戌", "己未", "丙子", "庚寅"], "gender": null },
+      "gold": {
+        "geju": { "primary": "伤官格", "aliases": [] },
+        "strength": null,
+        "yong": [{ "shen": "偏财", "wuxing": "金", "stem": "庚", "method": "用财泄伤" }],
+        "xi": [{ "wuxing": "金" }], "ji": [], "image": null,
+        "methodTags": ["伤官格", "伤官过重", "用财泄伤"],
+        "eventOrCheck": "合肥李君命造"
+      },
+      "scoringScope": ["geju", "yong", "xiji", "method"],
+      "source": {
+        "pdf_page": 72, "printed_page": 151, "case_number": 3,
+        "visual_verified": true, "ocr_only": false,
+        "source_excerpt": "月令己土伤官透出，泄气太重，用财泄伤为用。",
+        "evidence_summary": "示例明列四柱，月令伤官、透庚财星及用财泄伤路径均直接写出。"
+      }
+    },
+    {
+      "id": "zp_pdf_002_jianlu_shangguan_shengcai",
+      "label": "亥月壬水：身旺气寒，取伤官生财",
+      "input": { "pillars": ["己巳", "乙亥", "壬子", "乙巳"], "gender": null },
+      "gold": {
+        "geju": null, "strength": null,
+        "yong": [{ "shen": "伤官", "wuxing": "木", "stem": "乙", "method": "伤官生财" }],
+        "xi": [{ "wuxing": "木" }, { "wuxing": "火" }], "ji": [], "image": null,
+        "methodTags": ["身旺气寒", "伤官生财", "扶弱用神"],
+        "eventOrCheck": "前内阁总理靳云鹏命造"
+      },
+      "scoringScope": ["yong", "xiji", "method"],
+      "source": {
+        "pdf_page": 72, "printed_page": 151, "case_number": 5,
+        "visual_verified": true, "ocr_only": false,
+        "source_excerpt": "身旺气寒，取伤官生财为用，亦用神弱者扶之。",
+        "evidence_summary": "原文直接给出伤官生财取用；未把可推导的建禄名称列入硬评分。"
+      }
+    },
+    {
+      "id": "zp_pdf_003_piancai_guan_zhijie",
+      "label": "子月己土：偏财当令，官星制劫护财",
+      "input": { "pillars": ["戊戌", "甲子", "己巳", "戊辰"], "gender": null },
+      "gold": {
+        "geju": { "primary": "偏财格", "aliases": [] },
+        "strength": null,
+        "yong": [{ "shen": "正官", "wuxing": "木", "stem": "甲", "method": "官星制劫护财" }],
+        "xi": [{ "wuxing": "木" }], "ji": [], "image": null,
+        "methodTags": ["偏财当令", "比劫争财", "官星制劫", "护财"],
+        "eventOrCheck": "国民政府林森命造"
+      },
+      "scoringScope": ["geju", "yong", "xiji", "method"],
+      "source": {
+        "pdf_page": 72, "printed_page": 152, "case_number": 6,
+        "visual_verified": true, "ocr_only": false,
+        "source_excerpt": "月令偏财当令，比劫争财为病，取甲木官星制劫为用。",
+        "evidence_summary": "偏财格、病在比劫、甲官制劫护财三层关系均由原评明示。"
+      }
+    },
+    {
+      "id": "zp_pdf_004_wutingfang_congsha",
+      "label": "伍廷芳：木势成局，从杀顺势",
+      "input": { "pillars": ["壬寅", "丁未", "己卯", "乙亥"], "gender": null },
+      "gold": {
+        "geju": { "primary": "从杀格", "aliases": ["从官杀格"] },
+        "strength": null,
+        "yong": [{ "shen": "七杀", "wuxing": "木", "stem": "乙", "method": "从其旺势" }],
+        "xi": [{ "wuxing": "木" }], "ji": [],
+        "image": { "category": "FOLLOW_IMAGE", "subtype": "从杀格", "shouldOverrideNormalPattern": true },
+        "methodTags": ["亥卯未木局", "从其旺势", "从杀格"],
+        "eventOrCheck": "前外交总长伍廷芳命造"
+      },
+      "scoringScope": ["geju", "image", "yong", "xiji", "method"],
+      "source": {
+        "pdf_page": 73, "printed_page": 154, "case_number": 1,
+        "visual_verified": true, "ocr_only": false,
+        "source_excerpt": "气偏于木，从其旺势为用，为从杀格。",
+        "evidence_summary": "示例直接定为从杀格，并明确以顺从木旺之势取用。"
+      }
+    },
+    {
+      "id": "zp_pdf_005_duanqirui_quzhi",
+      "label": "段祺瑞：春木成局，曲直仁寿",
+      "input": { "pillars": ["乙丑", "己卯", "乙亥", "癸未"], "gender": null },
+      "gold": {
+        "geju": { "primary": "曲直仁寿格", "aliases": ["曲直格"] },
+        "strength": null,
+        "yong": [{ "wuxing": "木", "method": "专旺顺势" }],
+        "xi": [], "ji": [],
+        "image": { "category": "SINGLE_IMAGE", "subtype": "曲直格", "shouldOverrideNormalPattern": true },
+        "methodTags": ["春木成局", "四柱无金", "曲直仁寿"],
+        "eventOrCheck": "段祺瑞命造"
+      },
+      "scoringScope": ["geju", "image", "yong", "method"],
+      "source": {
+        "pdf_page": 73, "printed_page": 154, "case_number": 3,
+        "visual_verified": true, "ocr_only": false,
+        "source_excerpt": "春木成局，四柱无金，为曲直仁寿格。",
+        "evidence_summary": "原评明定曲直仁寿格；喜木水、忌金仅作结构背景，不进入喜忌硬评分。"
+      }
+    },
+    {
+      "id": "zp_pdf_006_lujianzhang_shayin",
+      "label": "陆建章：金木相战，取水通关成杀印相生",
+      "input": { "pillars": ["癸亥", "庚申", "甲寅", "乙亥"], "gender": null },
+      "gold": {
+        "geju": { "primary": "七杀格", "aliases": ["杀印相生"] },
+        "strength": null,
+        "yong": [{ "shen": "印绶", "wuxing": "水", "method": "金木通关，杀印相生" }],
+        "xi": [{ "wuxing": "水" }], "ji": [], "image": null,
+        "methodTags": ["金木相战", "取水通关", "杀印相生"],
+        "eventOrCheck": "陆建章命造"
+      },
+      "scoringScope": ["geju", "yong", "xiji", "method"],
+      "source": {
+        "pdf_page": 74, "printed_page": 155, "case_number": 2,
+        "visual_verified": true, "ocr_only": false,
+        "source_excerpt": "金木相战，取水通关，以杀印相生为用。",
+        "evidence_summary": "申月庚杀透出，原文明言以水印通关并形成杀印相生。"
+      }
+    }
+  ]
+}

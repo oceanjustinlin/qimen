@@ -1,0 +1,155 @@
+{
+  "_meta": {
+    "title": "《图解三命通会 第2部》高置信日禄归时格 gold cases（扫描页核验）",
+    "source_title": "图解三命通会 第2部 吉凶推断",
+    "source_file": "图解三命通会_第2部吉凶推断_-_2009.pdf",
+    "source_sha256": "cffa4a19b26911d911d47c59663e097a4c356c195c10ca4fa383b749d3df27f3",
+    "extracted_at": "2026-06-30",
+    "theory_profile": "三命通会日禄归时格／现代图解编注口径",
+    "count": 7,
+    "pillars_order": ["year", "month", "day", "hour"],
+    "policy": [
+      "四柱与法名必须在扫描页同一小节直接目视确认",
+      "仅评分原文明示的格局、用神或成格方法；未明示喜忌不进入硬评分",
+      "该 PDF 是现代图解编注本，本集记录其书内口径，不将编者白话冒充为古籍原文"
+    ]
+  },
+  "cases": [
+    {
+      "id": "sm_pdf_001_riluguishi_qingyun",
+      "label": "日禄归时：青云得路",
+      "input": { "pillars": ["戊子", "甲寅", "乙亥", "己卯"], "gender": null },
+      "gold": {
+        "geju": { "primary": "日禄归时格", "aliases": ["青云得路"] },
+        "strength": null,
+        "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["日禄归时", "青云得路", "柱中无官星", "印生助"],
+        "eventOrCheck": "贵命"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": {
+        "pdf_page": 451, "printed_page": 451, "case_number": 1,
+        "visual_verified": true, "ocr_only": false,
+        "source_excerpt": "柱中无一点官星，身旺得局，有印生助。",
+        "evidence_summary": "扫描页日禄归时七法第一法，原文列四柱并明言青云得路与贵。"
+      }
+    },
+    {
+      "id": "sm_pdf_002_riluguishi_guanzuo",
+      "label": "日禄归时：官星坐禄",
+      "input": { "pillars": ["丙申", "丙申", "丙申", "癸巳"], "gender": null },
+      "gold": {
+        "geju": { "primary": "日禄归时格", "aliases": ["官星坐禄"] },
+        "strength": null,
+        "yong": [{ "shen": "正官", "wuxing": "水", "stem": "癸", "method": "用神坐贵" }],
+        "xi": [], "ji": [], "image": null,
+        "methodTags": ["日禄归时", "官星坐禄", "用神坐贵", "财官双美"],
+        "eventOrCheck": "少年及第，中年拜相"
+      },
+      "scoringScope": ["geju", "yong", "method"],
+      "source": {
+        "pdf_page": 453, "printed_page": 453, "case_number": 2,
+        "visual_verified": true, "ocr_only": false,
+        "source_excerpt": "癸官临巳，用神坐贵，得财官双美。",
+        "evidence_summary": "扫描页列第二法官星坐禄，四柱、癸官、用神坐贵和财官双美同段出现。"
+      }
+    },
+    {
+      "id": "sm_pdf_003_riluguishi_erde",
+      "label": "日禄归时：归禄逢二德",
+      "input": { "pillars": ["辛亥", "辛卯", "甲寅", "丙寅"], "gender": null },
+      "gold": {
+        "geju": { "primary": "日禄归时格", "aliases": ["归禄逢二德"] },
+        "strength": null,
+        "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["日禄归时", "归禄逢二德", "食神会禄", "月德逢归禄"],
+        "eventOrCheck": "平章辅国英雄"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": {
+        "pdf_page": 453, "printed_page": 453, "case_number": 3,
+        "visual_verified": true, "ocr_only": false,
+        "source_excerpt": "甲专禄，而得丙寅为食会禄。",
+        "evidence_summary": "扫描页第三法直接列四柱，说明甲专禄、丙寅食会禄和月德逢归禄。"
+      }
+    },
+    {
+      "id": "sm_pdf_004_riluguishi_yinshou",
+      "label": "日禄归时：归禄逢印绶",
+      "input": { "pillars": ["丙戌", "癸巳", "戊午", "丁巳"], "gender": null },
+      "gold": {
+        "geju": { "primary": "日禄归时格", "aliases": ["归禄逢印绶"] },
+        "strength": null,
+        "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["日禄归时", "归禄逢印绶", "日时禄互换", "印绶生身"],
+        "eventOrCheck": "少年登第，官至三品"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": {
+        "pdf_page": 453, "printed_page": 453, "case_number": 4,
+        "visual_verified": true, "ocr_only": false,
+        "source_excerpt": "丙丁印戊，日时禄互换。",
+        "evidence_summary": "扫描页第四法列四柱，明言柱无官星、丙丁印戊、日时禄互换。"
+      }
+    },
+    {
+      "id": "sm_pdf_005_riluguishi_shangguan",
+      "label": "日禄归时：归禄逢伤官",
+      "input": { "pillars": ["壬辰", "乙巳", "己亥", "庚午"], "gender": null },
+      "gold": {
+        "geju": { "primary": "日禄归时格", "aliases": ["归禄逢伤官"] },
+        "strength": null,
+        "yong": [{ "shen": "正财", "wuxing": "水", "stem": "壬", "method": "伤官去煞，生出财气" }],
+        "xi": [], "ji": [], "image": null,
+        "methodTags": ["日禄归时", "归禄逢伤官", "伤官去煞", "生出财气"],
+        "eventOrCheck": "英灵秀实之贵"
+      },
+      "scoringScope": ["geju", "yong", "method"],
+      "source": {
+        "pdf_page": 454, "printed_page": 454, "case_number": 5,
+        "visual_verified": true, "ocr_only": false,
+        "source_excerpt": "伤官去煞，生出财气，有用。",
+        "evidence_summary": "扫描页第五法列四柱，明言以壬为财，庚合为伤官，伤官去煞生财。"
+      }
+    },
+    {
+      "id": "sm_pdf_006_riluguishi_sha",
+      "label": "日禄归时：归禄逢煞",
+      "input": { "pillars": ["甲申", "丙寅", "戊申", "丁巳"], "gender": null },
+      "gold": {
+        "geju": { "primary": "日禄归时格", "aliases": ["归禄逢煞"] },
+        "strength": null,
+        "yong": [], "xi": [], "ji": [], "image": null,
+        "methodTags": ["日禄归时", "归禄逢煞", "七煞有制", "无官混杂"],
+        "eventOrCheck": "掌握兵权，威镇边疆"
+      },
+      "scoringScope": ["geju", "method"],
+      "source": {
+        "pdf_page": 454, "printed_page": 454, "case_number": 6,
+        "visual_verified": true, "ocr_only": false,
+        "source_excerpt": "年干透甲为煞，归禄于寅，二申制之。",
+        "evidence_summary": "扫描页第六法列四柱，明言甲煞、归禄、二申制煞及无官混杂。"
+      }
+    },
+    {
+      "id": "sm_pdf_007_riluguishi_cai",
+      "label": "日禄归时：归禄逢财",
+      "input": { "pillars": ["己亥", "丙寅", "丁丑", "丙午"], "gender": null },
+      "gold": {
+        "geju": { "primary": "日禄归时格", "aliases": ["归禄逢财"] },
+        "strength": null,
+        "yong": [{ "shen": "食神", "wuxing": "土", "stem": "己", "method": "制其官煞" }],
+        "xi": [], "ji": [], "image": null,
+        "methodTags": ["日禄归时", "归禄逢财", "自坐财库", "食神制官煞"],
+        "eventOrCheck": "贵命"
+      },
+      "scoringScope": ["geju", "yong", "method"],
+      "source": {
+        "pdf_page": 454, "printed_page": 454, "case_number": 7,
+        "visual_verified": true, "ocr_only": false,
+        "source_excerpt": "自坐财库，丙夺财，亥中壬制。",
+        "evidence_summary": "扫描页第七法列四柱，原文和次页白话共同确认归禄逢财、食神制官煞。"
+      }
+    }
+  ]
+}
