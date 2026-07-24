@@ -8,7 +8,7 @@
     "build:nopre": "vite build",
     "data:birthplaces": "node scripts/generate_birthplaces_from_geonames.mjs",
     "preview": "vite preview",
-    "test": "node --test lib/*.test.js src/**/*.test.mjs"
+    "test": "node --test lib/*.test.js scripts/*.test.cjs src/**/*.test.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.39.0",
