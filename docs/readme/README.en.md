@@ -21,6 +21,24 @@
 
 ---
 
+## 🧭 Two Conversational Reasoning Skills (Agent Skills)
+
+> **Ready to use**: any command-line-capable AI agent can directly invoke the two "conversational chart-casting" skills distilled from this project — the conversational side and the web app share the same deterministic rule foundation.
+
+Both skills are **isomorphic**, following an **interview → deterministic computation (script) → AI interpretation** three-stage flow: clarify the question first, run fixed calculations via script (never let the model do chart math in its head), then translate the structured conclusion into readable, actionable language. The compute core is fully local and needs no API key — the agent only needs to run a script.
+
+| Skill | What it reads | Compute core | Definition |
+| --- | --- | --- | --- |
+| **Qimen Dunjia** `qimen-dunjia` | concrete events, timing windows, direction, avoidance | `scripts/qimen_cli.py` (Shi Jia turning-plate, Python) | [SKILL.md](../skills/qimen-dunjia/SKILL.md) |
+| **Four Pillars (Bazi)** `bazi` | natal structure, disposition, luck cycles, timing of a matter | `scripts/bazi_cli.cjs` (reuses the production engine, Node) | [SKILL.md](../../.claude/skills/bazi/SKILL.md) |
+
+- **Why not let the model cast the chart itself**: chart generation, patterns, strength, favorable/unfavorable gods, and question reasoning are all deterministic — handed entirely to the script; the model only interviews and interprets, avoiding non-reproducible errors from "mentally computing" day pillars and luck cycles.
+- **The Bazi skill ships with layered checks**: `scripts/bazi_cli.test.cjs` (lossless-wrapper parity test, wired into `npm test`) plus [`eval/bazi-skill/`](../../eval/bazi-skill/) (triggering accuracy, route prediction, interpretation faithfulness).
+
+See the [Qimen Dunjia Agent Skill](#qimen-dunjia-agent-skill-conversational-reasoning-skill) and [Bazi Agent Skill](#bazi-agent-skill-conversational-reading-skill) under "Core Features" below.
+
+---
+
 ## Overview
 
 Most Bazi/Qimen tools either stop at chart generation or repeat mystical-sounding phrases without structure. This project aims for something different: **implement the "situation–time–action" structured framework at the heart of classical Chinese decision philosophy as a deterministic rule engine, and let AI handle expression — not let a language model improvise metaphysics out of nothing.**
@@ -73,6 +91,14 @@ The natal chart is the potential (the seed); the luck cycle is the environment (
 ## Core Features
 
 ### Changelog
+
+**2026-07-24 · Bazi analysis distilled into an Agent Skill**
+
+Distilled Bazi natal decisions and question reasoning into a reusable Agent Skill (see "Bazi Agent Skill"), isomorphic to the Qimen skill: interview → `scripts/bazi_cli.cjs` fixed computation → AI interpretation, with the conversational side and web app sharing the same deterministic engine.
+
+- **Thin compute wrapper**: `scripts/bazi_cli.cjs` reuses the production-identical `buildCompleteBaziDetail` + `buildBaziQuestionPrompt`, fully local and key-free; v1 is solar-calendar only and uses the mainline engine only.
+- **Lossless-wrapper guarantee**: the `scripts/bazi_cli.test.cjs` parity smoke test proves the CLI output matches a direct engine call field by field, wired into `npm test`.
+- **Skill-level eval kickoff**: added `eval/bazi-skill/` — Phase 0 triggering/routing (quantifies the script's routing heuristic at ~50%, confirming the need for LLM prediction), and Phase 1's interpretation-faithfulness checker (hard-contradiction gate = `0` between the reading's claims and the deterministic chart; deterministic self-test passes).
 
 **2026-07-09 · BaziEngine 1.8.28 · Natal-accuracy calibration release**
 
@@ -157,6 +183,16 @@ Consolidates the Qimen event pipeline above into a technique an AI agent can cal
 - **Four hard rules**: chart facts must come from the script; low-confidence targets may be derived by the model but must pass a whitelist and chart check; model-derived targets can only participate in scoring in a bounded, capped way; the report's structure is free-form, but key content (direct answer, reasoning, evidence, risk, timing, advice, limitations) may never be omitted
 - **Casting-time convention**: Shi Jia Qimen casts at "the moment of asking" (Beijing time, script-resolved hour); any event time the user mentions is background only, never the casting time
 - **Report conventions**: renders the Luoshu nine-grid up front, expands named patterns by the palace they land in, reads seasonal strength and heaven/earth stem relations palace by palace, and closes with a note on the reasoning's boundaries
+
+### Bazi Agent Skill (conversational reading skill)
+
+Distills the web app's Bazi natal decisions and question reasoning into a skill an AI agent can call directly ([`.claude/skills/bazi/SKILL.md`](../../.claude/skills/bazi/SKILL.md)), isomorphic to Qimen — "interview → fixed script computation → AI interpretation," never letting the model do chart math in its head.
+
+- **Thin wrapper, identical computation**: `scripts/bazi_cli.cjs` reuses the production engine's `buildCompleteBaziDetail` and question pipeline (`buildBaziQuestionPrompt`); one call outputs structured JSON for the four-pillar chart, natal decisions (pattern / strength / favorable-unfavorable gods), and dynamic question reasoning (target locus / natal state / luck-cycle induction / candidate timing years)
+- **Fully local, no key**: the compute core depends only on Node and `lunar-javascript` — no network, no API key; the connecting agent itself acts as the interpreting model
+- **Interview first, route prediction**: confirm solar birth data, gender, the matter, and time range first, asking for anything missing; the agent predicts the analysis type (timing / status / pattern / character) before calling the script, with a script heuristic as fallback
+- **Convention aligned with production**: v1 accepts solar dates only, treats the late-Zi hour as the same day, shares the web engine's criteria, and relies on the mainline engine only
+- **Layered verification**: `scripts/bazi_cli.test.cjs` locks "wrapper == engine, lossless" via a parity test wired into `npm test`; [`eval/bazi-skill/`](../../eval/bazi-skill/) provides a skill-level eval plan (triggering accuracy, route prediction, interpretation faithfulness — hard-contradiction gate `0` between the reading's claims and the deterministic chart)
 
 ### Bazi System
 
