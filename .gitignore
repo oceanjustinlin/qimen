@@ -75,6 +75,7 @@ compatibility/
 
 # Codex local configuration
 .codex/
+.worktrees/
 
 # Claude Flow runtime data
 .claude-flow/data/
