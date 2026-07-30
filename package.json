@@ -13,6 +13,7 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.39.0",
     "@vueuse/core": "^10.7.0",
+    "iztro": "^2.5.8",
     "lunar-javascript": "^1.6.12",
     "pinia": "^2.1.7",
     "vue": "^3.4.0",
