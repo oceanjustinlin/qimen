@@ -1,0 +1,37 @@
+{
+  "schema_version": "ziwei-sources/v1",
+  "sources": [
+    {
+      "id": "mingli-tianji",
+      "title": "命理天机：紫微斗数规则的运用与分析",
+      "authors": ["周德元"],
+      "attribution_status": "publisher_metadata",
+      "original_filename": "命理天机  紫微斗数规则的运用与分析_13200484.pdf",
+      "media_type": "application/pdf",
+      "page_count": 504,
+      "text_layer": "none",
+      "scan_type": "image-only",
+      "file_sha256": "2a7b47ac9a2ffd86bf8f8a03381fd4d338a183cc52201982526cd0b990209d22",
+      "ocr_languages": ["chi_sim", "chi_tra"],
+      "usage": "internal-research",
+      "school_tags": ["sanhe-core", "feixing-aux"],
+      "notes": "现代综合型资料，适合提取分析次序、运限层级和解释命题；具体事件断语需要安全降级。"
+    },
+    {
+      "id": "feixing-ziwei",
+      "title": "飞星紫微斗数",
+      "authors": ["（宋）陈抟"],
+      "attribution_status": "unverified_metadata",
+      "original_filename": "飞星紫微斗数_11191278.pdf",
+      "media_type": "application/pdf",
+      "page_count": 336,
+      "text_layer": "none",
+      "scan_type": "image-only",
+      "file_sha256": "c673778a0f366c4f7e28e41ea68a6624b3fdabde1a8ff05f933fdefbba509782",
+      "ocr_languages": ["chi_sim", "chi_tra"],
+      "usage": "internal-research",
+      "school_tags": ["classical-reference", "feixing-aux"],
+      "notes": "PDF 作者字段仅作未验证书目线索；古籍规则需原页复核和第二来源交叉验证后才能进入正式规则库。"
+    }
+  ]
+}

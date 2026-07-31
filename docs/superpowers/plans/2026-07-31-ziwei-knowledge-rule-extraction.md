@@ -380,11 +380,11 @@ draft_ocr
 - Create: `knowledge/ziwei/sources/feixing-ziwei/excerpts.jsonl`
 - Test: `scripts/ziwei_source_catalog.test.cjs`
 
-- [ ] **Step 1: 写测试验证书目 ID、PDF 页、印刷页和 OCR 状态**
-- [ ] **Step 2: 运行测试，确认空目录无法通过**
-- [ ] **Step 3: 登记两本书及首批规则涉及页面**
-- [ ] **Step 4: 只录入支撑首批规则所需的最短校订摘录**
-- [ ] **Step 5: 运行测试并提交 `docs(ziwei): catalog rule sources and page mappings`**
+- [x] **Step 1: 写测试验证书目 ID、PDF 页、印刷页和 OCR 状态**
+- [x] **Step 2: 运行测试，确认空目录无法通过**
+- [x] **Step 3: 登记两本书及首批规则涉及页面**
+- [x] **Step 4: 只录入支撑首批规则所需的最短校订摘录**
+- [x] **Step 5: 运行测试并提交 `docs(ziwei): catalog rule sources and page mappings`**
 
 ### Task 3: 提取 P0 确定性规则
 
