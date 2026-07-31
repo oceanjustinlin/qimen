@@ -1,0 +1,17 @@
+schema_version: ziwei-report-template/v1
+id: report.overall.v1
+topic: overall
+title: 本命整体结构
+description: 先读命宫与福德宫，再用迁移、官禄、财帛交叉观察，星曜为主体，四化只作增减与触发辅助。
+school_order: [sanhe-core, feixing-aux]
+scope_order: [natal, cross-period]
+palace_priority: [命宫, 福德宫, 迁移宫, 官禄宫, 财帛宫]
+reading_order: [palace, star, mutagen]
+include_overall_context: true
+requires_horoscope: false
+evidence_policy:
+  require_matched_fact: true
+  require_reviewed_proposition: true
+  require_reviewed_claim_text: true
+  require_visually_verified_source: true
+  safety_policy: ziwei-safety/v1

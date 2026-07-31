@@ -1,0 +1,120 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://qimen.local/schemas/ziwei/report.schema.json",
+  "title": "Ziwei Report Template",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "topic",
+    "title",
+    "description",
+    "school_order",
+    "scope_order",
+    "palace_priority",
+    "reading_order",
+    "include_overall_context",
+    "requires_horoscope",
+    "evidence_policy"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "ziwei-report-template/v1"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^report\\.[a-z0-9-]+\\.v[1-9][0-9]*$"
+    },
+    "topic": {
+      "enum": ["overall", "career", "wealth", "relationship", "annual"]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "school_order": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": ["sanhe-core", "feixing-aux"]
+      }
+    },
+    "scope_order": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": ["natal", "decadal", "yearly", "monthly", "daily", "hourly", "cross-period"]
+      }
+    },
+    "palace_priority": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "命宫",
+          "兄弟宫",
+          "夫妻宫",
+          "子女宫",
+          "财帛宫",
+          "疾厄宫",
+          "迁移宫",
+          "交友宫",
+          "官禄宫",
+          "田宅宫",
+          "福德宫",
+          "父母宫"
+        ]
+      }
+    },
+    "reading_order": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": ["period", "palace", "star", "mutagen"]
+      }
+    },
+    "include_overall_context": {
+      "type": "boolean"
+    },
+    "requires_horoscope": {
+      "type": "boolean"
+    },
+    "evidence_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "require_matched_fact",
+        "require_reviewed_proposition",
+        "require_reviewed_claim_text",
+        "require_visually_verified_source",
+        "safety_policy"
+      ],
+      "properties": {
+        "require_matched_fact": {
+          "const": true
+        },
+        "require_reviewed_proposition": {
+          "const": true
+        },
+        "require_reviewed_claim_text": {
+          "const": true
+        },
+        "require_visually_verified_source": {
+          "const": true
+        },
+        "safety_policy": {
+          "const": "ziwei-safety/v1"
+        }
+      }
+    }
+  }
+}

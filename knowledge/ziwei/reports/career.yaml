@@ -1,0 +1,17 @@
+schema_version: ziwei-report-template/v1
+id: report.career.v1
+topic: career
+title: 职业与工作方式
+description: 以官禄宫为主题宫，结合命宫的能力表达、迁移宫的外部环境、财帛宫的收入方式与福德宫的持续投入。
+school_order: [sanhe-core, feixing-aux]
+scope_order: [natal, cross-period]
+palace_priority: [官禄宫, 命宫, 迁移宫, 财帛宫, 福德宫]
+reading_order: [palace, star, mutagen]
+include_overall_context: true
+requires_horoscope: false
+evidence_policy:
+  require_matched_fact: true
+  require_reviewed_proposition: true
+  require_reviewed_claim_text: true
+  require_visually_verified_source: true
+  safety_policy: ziwei-safety/v1

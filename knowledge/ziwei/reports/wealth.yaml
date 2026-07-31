@@ -1,0 +1,17 @@
+schema_version: ziwei-report-template/v1
+id: report.wealth.v1
+topic: wealth
+title: 收入与资源管理
+description: 以财帛宫为入口，结合福德宫的消费与满足、田宅宫的储备、官禄宫的工作来源以及命宫的行动方式。
+school_order: [sanhe-core, feixing-aux]
+scope_order: [natal, cross-period]
+palace_priority: [财帛宫, 福德宫, 田宅宫, 官禄宫, 命宫]
+reading_order: [palace, star, mutagen]
+include_overall_context: true
+requires_horoscope: false
+evidence_policy:
+  require_matched_fact: true
+  require_reviewed_proposition: true
+  require_reviewed_claim_text: true
+  require_visually_verified_source: true
+  safety_policy: ziwei-safety/v1

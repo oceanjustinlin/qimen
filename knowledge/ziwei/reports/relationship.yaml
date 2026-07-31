@@ -1,0 +1,17 @@
+schema_version: ziwei-report-template/v1
+id: report.relationship.v1
+topic: relationship
+title: 长期关系与互动模式
+description: 以夫妻宫为主题宫，结合命宫的表达方式、福德宫的内在需求、迁移宫的外部互动与子女宫的共同创造议题。
+school_order: [sanhe-core, feixing-aux]
+scope_order: [natal, cross-period]
+palace_priority: [夫妻宫, 命宫, 福德宫, 迁移宫, 子女宫]
+reading_order: [palace, star, mutagen]
+include_overall_context: true
+requires_horoscope: false
+evidence_policy:
+  require_matched_fact: true
+  require_reviewed_proposition: true
+  require_reviewed_claim_text: true
+  require_visually_verified_source: true
+  safety_policy: ziwei-safety/v1

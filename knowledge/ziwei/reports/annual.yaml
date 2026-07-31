@@ -1,0 +1,17 @@
+schema_version: ziwei-report-template/v1
+id: report.annual.v1
+topic: annual
+title: 流年主题与触发
+description: 先确认流年层级与被引动宫位，再回看本命主题；当前只发布已有年度命题支持的结论，不能把本命倾向冒充流年事件。
+school_order: [sanhe-core, feixing-aux]
+scope_order: [yearly, cross-period, natal]
+palace_priority: [命宫, 官禄宫, 财帛宫, 迁移宫, 福德宫, 夫妻宫, 疾厄宫, 田宅宫, 交友宫, 父母宫, 兄弟宫, 子女宫]
+reading_order: [period, palace, star, mutagen]
+include_overall_context: false
+requires_horoscope: true
+evidence_policy:
+  require_matched_fact: true
+  require_reviewed_proposition: true
+  require_reviewed_claim_text: true
+  require_visually_verified_source: true
+  safety_policy: ziwei-safety/v1

@@ -441,11 +441,11 @@ draft_ocr
 - Create: `knowledge/ziwei/reports/annual.yaml`
 - Create: `scripts/ziwei_report_evidence.test.cjs`
 
-- [ ] **Step 1: 写失败测试，要求针对性结论同时包含盘面事实和来源 ID**
-- [ ] **Step 2: 定义各主题的宫位优先级和阅读顺序**
-- [ ] **Step 3: 实现报告输出证据校验**
-- [ ] **Step 4: 验证没有证据的结论被拒绝，高风险文案被安全策略阻止**
-- [ ] **Step 5: 提交 `feat(ziwei): add evidence-backed report composition`**
+- [x] **Step 1: 写失败测试，要求针对性结论同时包含盘面事实和来源 ID**
+- [x] **Step 2: 定义各主题的宫位优先级和阅读顺序**
+- [x] **Step 3: 实现报告输出证据校验**
+- [x] **Step 4: 验证没有证据的结论被拒绝，高风险文案被安全策略阻止**
+- [x] **Step 5: 提交 `feat(ziwei): add evidence-backed report composition`**
 
 ### Task 7: 建立回归基线
 
