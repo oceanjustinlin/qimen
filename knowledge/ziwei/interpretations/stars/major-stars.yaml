@@ -1,0 +1,271 @@
+{
+  "schema_version": "ziwei-interpretations/v1",
+  "propositions": [
+    {
+      "id": "interp.star.ziwei.base.v1",
+      "title": "紫微的统筹与权责倾向",
+      "school": "sanhe-core",
+      "scope": "natal",
+      "status": "reviewed",
+      "topics": ["overall"],
+      "subject": {"stars": ["紫微"]},
+      "conditions": {"all": [{"feature": "palace_has_star", "star": "紫微"}]},
+      "claim": {"tendency": "更容易表现为统筹、承担责任和处理多线任务的倾向，但不等同于必然拥有权位。", "strength": "medium"},
+      "modifiers": {
+        "strengthen": ["庙旺且获辅弼或禄权科会照时，统筹与责任面更清楚"],
+        "weaken": ["落陷或煞忌集中时，需留意控制感过强及判断脱离现实"]
+      },
+      "language_policy": {"deterministic": false, "forbidden_phrases": ["天生帝王", "注定掌权"]},
+      "evidence": ["source.mingli-tianji.p51.ziwei"],
+      "confidence": "medium",
+      "risk": "low"
+    },
+    {
+      "id": "interp.star.tianji.base.v1",
+      "title": "天机的思考与应变倾向",
+      "school": "sanhe-core",
+      "scope": "natal",
+      "status": "reviewed",
+      "topics": ["overall"],
+      "subject": {"stars": ["天机"]},
+      "conditions": {"all": [{"feature": "palace_has_star", "star": "天机"}]},
+      "claim": {"tendency": "更容易通过思考、学习和调整方案应对变化；节奏过快时也可能反复或考虑不足。", "strength": "medium"},
+      "modifiers": {
+        "strengthen": ["庙旺并见昌曲、辅弼或化科时，条理与学习能力更易发挥"],
+        "weaken": ["化忌或煞曜集中时，反复思虑和变动成本可能增加"]
+      },
+      "language_policy": {"deterministic": false, "forbidden_phrases": ["必是天才", "注定多变"]},
+      "evidence": ["source.mingli-tianji.p73.tianji"],
+      "confidence": "medium",
+      "risk": "low"
+    },
+    {
+      "id": "interp.star.taiyang.base.v1",
+      "title": "太阳的公开表达与责任倾向",
+      "school": "sanhe-core",
+      "scope": "natal",
+      "status": "reviewed",
+      "topics": ["overall"],
+      "subject": {"stars": ["太阳"]},
+      "conditions": {"all": [{"feature": "palace_has_star", "star": "太阳"}]},
+      "claim": {"tendency": "更重视公开表达、责任感与社会可见度，成果往往先体现为认可度而非直接收益。", "strength": "medium"},
+      "modifiers": {
+        "strengthen": ["庙旺并获禄权科或吉曜会照时，承担与传播能力更稳定"],
+        "weaken": ["落陷或化忌时，需要降低名望推断并关注精力分配"]
+      },
+      "language_policy": {"deterministic": false, "forbidden_phrases": ["必定显贵", "注定成名"]},
+      "evidence": ["source.mingli-tianji.p92.taiyang"],
+      "confidence": "medium",
+      "risk": "low"
+    },
+    {
+      "id": "interp.star.wuqu.base.v1",
+      "title": "武曲的执行与资源管理倾向",
+      "school": "sanhe-core",
+      "scope": "natal",
+      "status": "reviewed",
+      "topics": ["overall"],
+      "subject": {"stars": ["武曲"]},
+      "conditions": {"all": [{"feature": "palace_has_star", "star": "武曲"}]},
+      "claim": {"tendency": "更偏向以执行、纪律和资源管理解决问题，优势通常需要通过实际行动体现。", "strength": "medium"},
+      "modifiers": {
+        "strengthen": ["庙旺或化禄化权时，执行和资源调度倾向更明显"],
+        "weaken": ["化忌或煞曜集中时，需防过度刚硬及资源压力"]
+      },
+      "language_policy": {"deterministic": false, "forbidden_phrases": ["必然发财", "注定经商"]},
+      "evidence": ["source.mingli-tianji.p111.wuqu"],
+      "confidence": "medium",
+      "risk": "low"
+    },
+    {
+      "id": "interp.star.tiantong.base.v1",
+      "title": "天同的温和与协调倾向",
+      "school": "sanhe-core",
+      "scope": "natal",
+      "status": "reviewed",
+      "topics": ["overall"],
+      "subject": {"stars": ["天同"]},
+      "conditions": {"all": [{"feature": "palace_has_star", "star": "天同"}]},
+      "claim": {"tendency": "更重视温和、协调和精神舒适，长处在细腻与多面性，也需留意行动动力。", "strength": "medium"},
+      "modifiers": {
+        "strengthen": ["庙旺或获吉曜会照时，协调、包容与生活感受更稳定"],
+        "weaken": ["化忌或结构过于安逸时，主动推进和取舍能力可能不足"]
+      },
+      "language_policy": {"deterministic": false, "forbidden_phrases": ["一生享福", "注定懒散"]},
+      "evidence": ["source.mingli-tianji.p129.tiantong"],
+      "confidence": "medium",
+      "risk": "low"
+    },
+    {
+      "id": "interp.star.lianzhen.base.v1",
+      "title": "廉贞的规范与表达倾向",
+      "school": "sanhe-core",
+      "scope": "natal",
+      "status": "reviewed",
+      "topics": ["overall"],
+      "subject": {"stars": ["廉贞"]},
+      "conditions": {"all": [{"feature": "palace_has_star", "star": "廉贞"}]},
+      "claim": {"tendency": "常呈现理想、规范意识与外在表达并存的结构，适合在明确边界中发挥管理和协调能力。", "strength": "medium"},
+      "modifiers": {
+        "strengthen": ["庙旺并有吉曜或正向四化时，原则与管理能力更易落实"],
+        "weaken": ["化忌或煞曜集中时，边界冲突和情绪化表达可能增加"]
+      },
+      "language_policy": {"deterministic": false, "forbidden_phrases": ["必有官非", "桃花成性"]},
+      "evidence": ["source.mingli-tianji.p143.lianzhen"],
+      "confidence": "medium",
+      "risk": "low"
+    },
+    {
+      "id": "interp.star.tianfu.base.v1",
+      "title": "天府的守成与储备倾向",
+      "school": "sanhe-core",
+      "scope": "natal",
+      "status": "reviewed",
+      "topics": ["overall"],
+      "subject": {"stars": ["天府"]},
+      "conditions": {"all": [{"feature": "palace_has_star", "star": "天府"}]},
+      "claim": {"tendency": "更偏向守成、储备、治理与稳步发展，适合维护现有资源，开创性需由其他结构补足。", "strength": "medium"},
+      "modifiers": {
+        "strengthen": ["庙旺并获辅弼或禄曜会照时，稳健治理与资源保全更明显"],
+        "weaken": ["受煞忌冲照或环境要求快速创新时，谨慎可能转为迟滞"]
+      },
+      "language_policy": {"deterministic": false, "forbidden_phrases": ["天生富贵", "必有财库"]},
+      "evidence": ["source.mingli-tianji.p162.tianfu"],
+      "confidence": "medium",
+      "risk": "low"
+    },
+    {
+      "id": "interp.star.taiyin.base.v1",
+      "title": "太阴的观察与收敛倾向",
+      "school": "sanhe-core",
+      "scope": "natal",
+      "status": "reviewed",
+      "topics": ["overall"],
+      "subject": {"stars": ["太阴"]},
+      "conditions": {"all": [{"feature": "palace_has_star", "star": "太阴"}]},
+      "claim": {"tendency": "更偏向内在观察、感受和收敛式判断，细腻度较高，也容易在信息不足时反复揣摩。", "strength": "medium"},
+      "modifiers": {
+        "strengthen": ["庙旺并获吉曜或禄科会照时，规划与细节感更稳定"],
+        "weaken": ["落陷或化忌时，需防信息不足带来的犹疑与内耗"]
+      },
+      "language_policy": {"deterministic": false, "forbidden_phrases": ["必定多疑", "女命才吉"]},
+      "evidence": ["source.mingli-tianji.p175.taiyin"],
+      "confidence": "medium",
+      "risk": "low"
+    },
+    {
+      "id": "interp.star.tanlang.base.v1",
+      "title": "贪狼的尝试与社交倾向",
+      "school": "sanhe-core",
+      "scope": "natal",
+      "status": "reviewed",
+      "topics": ["overall"],
+      "subject": {"stars": ["贪狼"]},
+      "conditions": {"all": [{"feature": "palace_has_star", "star": "贪狼"}]},
+      "claim": {"tendency": "更偏向尝试、社交、兴趣扩展与方案规划；机会较多时也需检验计划的落地性。", "strength": "medium"},
+      "modifiers": {
+        "strengthen": ["庙旺或与禄权科、吉曜同向时，资源整合和社交适应更易发挥"],
+        "weaken": ["化忌或煞曜集中时，兴趣分散与计划落空的概率可能增加"]
+      },
+      "language_policy": {"deterministic": false, "forbidden_phrases": ["桃花泛滥", "感情不专"]},
+      "evidence": ["source.mingli-tianji.p192.tanlang"],
+      "confidence": "medium",
+      "risk": "low"
+    },
+    {
+      "id": "interp.star.jumen.base.v1",
+      "title": "巨门的表达与辨析倾向",
+      "school": "sanhe-core",
+      "scope": "natal",
+      "status": "reviewed",
+      "topics": ["overall"],
+      "subject": {"stars": ["巨门"]},
+      "conditions": {"all": [{"feature": "palace_has_star", "star": "巨门"}]},
+      "claim": {"tendency": "更容易通过表达、提问、辨析和研究理解问题；若沟通条件不足，也可能放大争议与猜疑。", "strength": "medium"},
+      "modifiers": {
+        "strengthen": ["庙旺或化禄化权并见昌曲时，表达、研究和解释能力更清晰"],
+        "weaken": ["化忌或煞曜集中时，需要降低争议性判断并核对沟通事实"]
+      },
+      "language_policy": {"deterministic": false, "forbidden_phrases": ["必犯口舌", "搬弄是非"]},
+      "evidence": ["source.mingli-tianji.p210.jumen"],
+      "confidence": "medium",
+      "risk": "low"
+    },
+    {
+      "id": "interp.star.tianxiang.base.v1",
+      "title": "天相的支持与协调倾向",
+      "school": "sanhe-core",
+      "scope": "natal",
+      "status": "reviewed",
+      "topics": ["overall"],
+      "subject": {"stars": ["天相"]},
+      "conditions": {"all": [{"feature": "palace_has_star", "star": "天相"}]},
+      "claim": {"tendency": "更偏向支持、服务、协调和制度执行，其表现高度依赖同宫、会照星曜与环境。", "strength": "medium"},
+      "modifiers": {
+        "strengthen": ["得吉曜、禄曜或结构性支持时，协调与承接能力更稳定"],
+        "weaken": ["受煞忌夹制或环境权责不清时，服务倾向可能转为被动消耗"]
+      },
+      "language_policy": {"deterministic": false, "forbidden_phrases": ["注定辅佐他人", "必居高位"]},
+      "evidence": ["source.mingli-tianji.p227.tianxiang"],
+      "confidence": "medium",
+      "risk": "low"
+    },
+    {
+      "id": "interp.star.tianliang.base.v1",
+      "title": "天梁的规划与监督倾向",
+      "school": "sanhe-core",
+      "scope": "natal",
+      "status": "reviewed",
+      "topics": ["overall"],
+      "subject": {"stars": ["天梁"]},
+      "conditions": {"all": [{"feature": "palace_has_star", "star": "天梁"}]},
+      "claim": {"tendency": "更偏向规划、原则、监督和风险缓冲，优势在经验判断与照护，失衡时可能显得固执或节奏偏慢。", "strength": "medium"},
+      "modifiers": {
+        "strengthen": ["庙旺并见昌曲、辅弼或化科时，规划与监督能力更易发挥"],
+        "weaken": ["煞忌集中或权责不匹配时，原则性可能转为拖延或固执"]
+      },
+      "language_policy": {"deterministic": false, "forbidden_phrases": ["必能逢凶化吉", "注定长寿"]},
+      "evidence": ["source.mingli-tianji.p241.tianliang"],
+      "confidence": "medium",
+      "risk": "low"
+    },
+    {
+      "id": "interp.star.qisha.base.v1",
+      "title": "七杀的压力承担与执行倾向",
+      "school": "sanhe-core",
+      "scope": "natal",
+      "status": "reviewed",
+      "topics": ["overall"],
+      "subject": {"stars": ["七杀"]},
+      "conditions": {"all": [{"feature": "palace_has_star", "star": "七杀"}]},
+      "claim": {"tendency": "更偏向主动承担压力、快速决断和具体执行，适合开路型任务；需以规则和协作约束过强冲劲。", "strength": "medium"},
+      "modifiers": {
+        "strengthen": ["与紫微、天府或稳定支持结构同向时，先锋执行更有方向"],
+        "weaken": ["煞忌集中或缺少规则约束时，强硬和孤立倾向可能增加"]
+      },
+      "language_policy": {"deterministic": false, "forbidden_phrases": ["必有刑伤", "司生死"]},
+      "evidence": ["source.mingli-tianji.p257.qisha"],
+      "confidence": "medium",
+      "risk": "low"
+    },
+    {
+      "id": "interp.star.pojun.base.v1",
+      "title": "破军的变革与重建倾向",
+      "school": "sanhe-core",
+      "scope": "natal",
+      "status": "reviewed",
+      "topics": ["overall"],
+      "subject": {"stars": ["破军"]},
+      "conditions": {"all": [{"feature": "palace_has_star", "star": "破军"}]},
+      "claim": {"tendency": "更偏向打破旧结构、承受调整成本并重建新局面，适合变革任务，但应评估资源消耗。", "strength": "medium"},
+      "modifiers": {
+        "strengthen": ["有稳定资源、明确目标或禄曜支持时，变革更容易形成建设结果"],
+        "weaken": ["煞忌集中或缺少承接资源时，改变可能只留下消耗和反复"]
+      },
+      "language_policy": {"deterministic": false, "forbidden_phrases": ["必然破败", "注定离散"]},
+      "evidence": ["source.mingli-tianji.p273.pojun"],
+      "confidence": "medium",
+      "risk": "low"
+    }
+  ]
+}

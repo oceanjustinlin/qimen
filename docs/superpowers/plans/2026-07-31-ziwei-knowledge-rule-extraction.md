@@ -425,11 +425,11 @@ draft_ocr
 - Create: `knowledge/ziwei/policies/safety.yaml`
 - Test: `knowledge/ziwei/fixtures/report-cases/core-interpretations.json`
 
-- [ ] **Step 1: 写命宫、官禄、财帛等主题的命中与不命中 fixture**
-- [ ] **Step 2: 提取十四主星的中性基础语义，每条声明增强和减弱项**
-- [ ] **Step 3: 将确定性、高风险和性别刻板断语标为禁止发布**
-- [ ] **Step 4: 运行 Schema 与 fixture 测试**
-- [ ] **Step 5: 提交 `feat(ziwei): add reviewed interpretation propositions`**
+- [x] **Step 1: 写命宫、官禄、财帛等主题的命中与不命中 fixture**
+- [x] **Step 2: 提取十四主星的中性基础语义，每条声明增强和减弱项**
+- [x] **Step 3: 将确定性、高风险和性别刻板断语标为禁止发布**
+- [x] **Step 4: 运行 Schema 与 fixture 测试**
+- [x] **Step 5: 提交 `feat(ziwei): add reviewed interpretation propositions`**
 
 ### Task 6: 建立报告编排与证据校验
 

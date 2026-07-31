@@ -185,6 +185,7 @@
       "properties": {
         "feature": {
           "enum": [
+            "chart_has_palace",
             "palace_has_star",
             "star_has_mutagen",
             "palace_has_mutagen",

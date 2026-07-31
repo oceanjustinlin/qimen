@@ -1,0 +1,81 @@
+{
+  "schema_version": "ziwei-interpretations/v1",
+  "propositions": [
+    {
+      "id": "interp.mutagen.lu.base.v1",
+      "title": "化禄的资源增益观察",
+      "school": "feixing-aux",
+      "scope": "cross-period",
+      "status": "reviewed",
+      "topics": ["overall", "wealth"],
+      "subject": {"mutagens": ["禄"]},
+      "conditions": {"all": [{"feature": "star_has_mutagen", "mutagen": "禄"}]},
+      "claim": {"tendency": "化禄提示相关星曜或宫位的资源、机会与顺势程度被放大；是否形成实际收益仍需结合星曜、宫位和运限。", "strength": "medium"},
+      "modifiers": {
+        "strengthen": ["所化星曜庙旺，且宫位主题、三方四正与运限层级同向"],
+        "weaken": ["与化忌或煞曜冲突，或只见化禄而缺少现实资源承接"]
+      },
+      "language_policy": {"deterministic": false, "forbidden_phrases": ["必然发财", "见禄必富"]},
+      "evidence": ["source.feixing-ziwei.p249.mutagen-context", "source.mingli-tianji.p409.period-scope"],
+      "confidence": "medium",
+      "risk": "low"
+    },
+    {
+      "id": "interp.mutagen.quan.base.v1",
+      "title": "化权的推动强度观察",
+      "school": "feixing-aux",
+      "scope": "cross-period",
+      "status": "reviewed",
+      "topics": ["overall", "career"],
+      "subject": {"mutagens": ["权"]},
+      "conditions": {"all": [{"feature": "star_has_mutagen", "mutagen": "权"}]},
+      "claim": {"tendency": "化权提示相关主题的主导、推动和执行强度上升；能否形成有效影响仍取决于权责边界和全盘配合。", "strength": "medium"},
+      "modifiers": {
+        "strengthen": ["所化星曜本身适合执行或管理，且宫位与运限主题一致"],
+        "weaken": ["煞忌集中、权责不匹配或现实环境缺少授权"]
+      },
+      "language_policy": {"deterministic": false, "forbidden_phrases": ["必然掌权", "见权必升职"]},
+      "evidence": ["source.feixing-ziwei.p249.mutagen-context", "source.mingli-tianji.p409.period-scope"],
+      "confidence": "medium",
+      "risk": "low"
+    },
+    {
+      "id": "interp.mutagen.ke.base.v1",
+      "title": "化科的规范与认可观察",
+      "school": "feixing-aux",
+      "scope": "cross-period",
+      "status": "reviewed",
+      "topics": ["overall", "learning", "career"],
+      "subject": {"mutagens": ["科"]},
+      "conditions": {"all": [{"feature": "star_has_mutagen", "mutagen": "科"}]},
+      "claim": {"tendency": "化科提示规范、呈现、认可或可解释性增强；不能脱离所化星曜与宫位直接等同名望或学历。", "strength": "medium"},
+      "modifiers": {
+        "strengthen": ["所化星曜与学习、表达、专业认证等现实主题相符"],
+        "weaken": ["只见化科而缺少成果、制度或公开呈现的现实载体"]
+      },
+      "language_policy": {"deterministic": false, "forbidden_phrases": ["注定有名", "见科必有学历"]},
+      "evidence": ["source.feixing-ziwei.p249.mutagen-context", "source.mingli-tianji.p409.period-scope"],
+      "confidence": "medium",
+      "risk": "low"
+    },
+    {
+      "id": "interp.mutagen.ji.base.v1",
+      "title": "化忌的阻滞与代价观察",
+      "school": "feixing-aux",
+      "scope": "cross-period",
+      "status": "reviewed",
+      "topics": ["overall"],
+      "subject": {"mutagens": ["忌"]},
+      "conditions": {"all": [{"feature": "star_has_mutagen", "mutagen": "忌"}]},
+      "claim": {"tendency": "化忌提示牵挂、阻滞、代价或需要处理的课题被凸显，不可直接等同灾祸或具体事件。", "strength": "medium"},
+      "modifiers": {
+        "strengthen": ["同一主题在本命与运限重复引动，并有清楚的现实压力证据"],
+        "weaken": ["吉曜、化解结构或现实支持足以降低阻滞，且没有重复引动"]
+      },
+      "language_policy": {"deterministic": false, "forbidden_phrases": ["必有灾祸", "见忌必凶"]},
+      "evidence": ["source.feixing-ziwei.p249.mutagen-context", "source.mingli-tianji.p409.period-scope"],
+      "confidence": "medium",
+      "risk": "low"
+    }
+  ]
+}

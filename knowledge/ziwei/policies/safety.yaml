@@ -1,0 +1,56 @@
+{
+  "schema_version": "ziwei-safety/v1",
+  "default_action": "conditional_language",
+  "principles": [
+    "只描述结构倾向、成立条件和可行动建议，不把盘面写成不可改变的命运。",
+    "针对用户的结论必须同时具备命中事实与正式来源。",
+    "健康、法律和财务内容只能作一般性提醒，并建议咨询现实专业人士。"
+  ],
+  "blocked_phrases": [
+    "注定",
+    "短寿",
+    "淫乱",
+    "克夫",
+    "克妻",
+    "牢狱",
+    "犯罪",
+    "必然发财",
+    "必有灾祸",
+    "必定离婚"
+  ],
+  "policies": [
+    {
+      "id": "policy.deterministic-outcome.v1",
+      "categories": ["deterministic_outcome", "fixed_fate"],
+      "action": "block",
+      "reason": "单一星曜、宫位或四化不能支持必然事件与固定命运。",
+      "replacement": "改写为倾向，并列出增强、减弱条件及现实可验证因素。"
+    },
+    {
+      "id": "policy.high-risk-event.v1",
+      "categories": [
+        "death_or_lifespan",
+        "serious_disease",
+        "crime_or_imprisonment",
+        "legal_outcome",
+        "financial_guarantee"
+      ],
+      "action": "block",
+      "reason": "命理材料不能替代医疗、法律或财务专业判断，也不能预测死亡、犯罪与确定损失。",
+      "replacement": "只保留一般风险管理提醒；涉及现实风险时建议咨询专业人士。"
+    },
+    {
+      "id": "policy.gender-stereotype.v1",
+      "categories": ["gender_stereotype", "sexual_morality", "marital_blame"],
+      "action": "block",
+      "reason": "古籍中的性别角色、贞操评判与克夫克妻断语不作为现代解释知识。",
+      "replacement": "改写为不区分性别的沟通、边界、关系需求与现实行为观察。"
+    }
+  ],
+  "release_gate": {
+    "required_status": "reviewed",
+    "require_matched_fact": true,
+    "require_evidence": true,
+    "require_nondeterministic_language": true
+  }
+}

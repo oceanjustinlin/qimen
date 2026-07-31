@@ -1,0 +1,80 @@
+{
+  "schema_version": "ziwei-interpretation-cases/v1",
+  "cases": [
+    {
+      "id": "命宫含紫微命中宫位与主星基础语义",
+      "facts": [
+        {"feature": "chart_has_palace", "palace": "命宫"},
+        {"feature": "palace_has_star", "palace": "命宫", "star": "紫微"}
+      ],
+      "expected_matches": [
+        "interp.palace.ming.base.v1",
+        "interp.star.ziwei.base.v1"
+      ],
+      "expected_non_matches": [
+        "interp.palace.guanlu.base.v1",
+        "interp.star.tianji.base.v1"
+      ]
+    },
+    {
+      "id": "官禄宫含武曲命中事业与执行语义",
+      "facts": [
+        {"feature": "chart_has_palace", "palace": "官禄宫"},
+        {"feature": "palace_has_star", "palace": "官禄宫", "star": "武曲"}
+      ],
+      "expected_matches": [
+        "interp.palace.guanlu.base.v1",
+        "interp.star.wuqu.base.v1"
+      ],
+      "expected_non_matches": [
+        "interp.palace.caibo.base.v1",
+        "interp.star.ziwei.base.v1"
+      ]
+    },
+    {
+      "id": "财帛宫含天府命中资源与守成语义",
+      "facts": [
+        {"feature": "chart_has_palace", "palace": "财帛宫"},
+        {"feature": "palace_has_star", "palace": "财帛宫", "star": "天府"}
+      ],
+      "expected_matches": [
+        "interp.palace.caibo.base.v1",
+        "interp.star.tianfu.base.v1"
+      ],
+      "expected_non_matches": [
+        "interp.palace.guanlu.base.v1",
+        "interp.star.wuqu.base.v1"
+      ]
+    },
+    {
+      "id": "官禄宫太阳化权同时命中星曜与四化语义",
+      "facts": [
+        {"feature": "chart_has_palace", "palace": "官禄宫"},
+        {"feature": "palace_has_star", "palace": "官禄宫", "star": "太阳"},
+        {"feature": "star_has_mutagen", "star": "太阳", "mutagen": "权"}
+      ],
+      "expected_matches": [
+        "interp.palace.guanlu.base.v1",
+        "interp.star.taiyang.base.v1",
+        "interp.mutagen.quan.base.v1"
+      ],
+      "expected_non_matches": [
+        "interp.mutagen.lu.base.v1",
+        "interp.mutagen.ji.base.v1"
+      ]
+    },
+    {
+      "id": "只有宫位事实时不命中任一主星语义",
+      "facts": [
+        {"feature": "chart_has_palace", "palace": "命宫"}
+      ],
+      "expected_matches": [
+        "interp.palace.ming.base.v1"
+      ],
+      "expected_non_matches": [
+        "interp.star.ziwei.base.v1",
+        "interp.star.tianji.base.v1"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "schema_version": "ziwei-interpretations/v1",
+  "propositions": [
+    {
+      "id": "interp.palace.ming.base.v1",
+      "title": "命宫作为全盘总枢纽",
+      "school": "sanhe-core",
+      "scope": "natal",
+      "status": "reviewed",
+      "topics": ["overall"],
+      "subject": {"palace": "命宫"},
+      "conditions": {"all": [{"feature": "chart_has_palace", "palace": "命宫"}]},
+      "claim": {
+        "tendency": "命宫用于组织个人整体表达、能力倾向和关系方式，是后续诸宫判断的总枢纽；不能单独替代全盘综合。",
+        "strength": "weak"
+      },
+      "modifiers": {
+        "strengthen": ["结合命宫主星、身宫、福德宫及三方四正后，整体结构更清楚"],
+        "weaken": ["只有宫名而缺少星曜、庙旺与四化信息时，只能作为阅读入口"]
+      },
+      "language_policy": {
+        "deterministic": false,
+        "forbidden_phrases": ["注定如此", "一生命运已定"]
+      },
+      "evidence": ["source.mingli-tianji.p21.ming", "source.mingli-tianji.p416.analysis-order"],
+      "confidence": "high",
+      "risk": "low"
+    },
+    {
+      "id": "interp.palace.guanlu.base.v1",
+      "title": "官禄宫的职业与协作主题",
+      "school": "sanhe-core",
+      "scope": "natal",
+      "status": "reviewed",
+      "topics": ["career"],
+      "subject": {"palace": "官禄宫"},
+      "conditions": {"all": [{"feature": "chart_has_palace", "palace": "官禄宫"}]},
+      "claim": {
+        "tendency": "官禄宫用于观察职业类型、工作方式、创业倾向及职场协作；职位和发展仍需结合命宫、迁移宫与财帛宫。",
+        "strength": "weak"
+      },
+      "modifiers": {
+        "strengthen": ["官禄宫主星与命宫、迁移宫和财帛宫形成同向结构"],
+        "weaken": ["只依据官禄宫单宫星曜推断具体职位或成就"]
+      },
+      "language_policy": {
+        "deterministic": false,
+        "forbidden_phrases": ["必定升职", "注定创业成功"]
+      },
+      "evidence": ["source.mingli-tianji.p37.guanlu"],
+      "confidence": "high",
+      "risk": "low"
+    },
+    {
+      "id": "interp.palace.caibo.base.v1",
+      "title": "财帛宫的收入与资源管理主题",
+      "school": "sanhe-core",
+      "scope": "natal",
+      "status": "reviewed",
+      "topics": ["wealth"],
+      "subject": {"palace": "财帛宫"},
+      "conditions": {"all": [{"feature": "chart_has_palace", "palace": "财帛宫"}]},
+      "claim": {
+        "tendency": "财帛宫用于观察收入方式、理财能力和资源流动，不直接给出固定财富等级。",
+        "strength": "weak"
+      },
+      "modifiers": {
+        "strengthen": ["结合财帛宫主星、福德宫、田宅宫及运限引动后再判断资源表现"],
+        "weaken": ["只有单颗财星或单次化禄时，不足以推出稳定财富结论"]
+      },
+      "language_policy": {
+        "deterministic": false,
+        "forbidden_phrases": ["必然发财", "注定贫穷"]
+      },
+      "evidence": ["source.mingli-tianji.p33.caibo"],
+      "confidence": "high",
+      "risk": "low"
+    },
+    {
+      "id": "interp.palace.qianyi.base.v1",
+      "title": "迁移宫的外部环境主题",
+      "school": "sanhe-core",
+      "scope": "natal",
+      "status": "reviewed",
+      "topics": ["travel"],
+      "subject": {"palace": "迁移宫"},
+      "conditions": {"all": [{"feature": "chart_has_palace", "palace": "迁移宫"}]},
+      "claim": {
+        "tendency": "迁移宫用于观察外部环境、流动迁徙和社交适应，也是命宫的对照面。",
+        "strength": "weak"
+      },
+      "modifiers": {
+        "strengthen": ["迁移宫与命宫对照，并结合三方四正和运限触发"],
+        "weaken": ["不结合现实迁居、职业和社交背景时，只能描述适应倾向"]
+      },
+      "language_policy": {
+        "deterministic": false,
+        "forbidden_phrases": ["必定移民", "外出必有灾"]
+      },
+      "evidence": ["source.mingli-tianji.p36.qianyi"],
+      "confidence": "high",
+      "risk": "low"
+    },
+    {
+      "id": "interp.palace.fude.base.v1",
+      "title": "福德宫的内在状态主题",
+      "school": "sanhe-core",
+      "scope": "natal",
+      "status": "reviewed",
+      "topics": ["overall"],
+      "subject": {"palace": "福德宫"},
+      "conditions": {"all": [{"feature": "chart_has_palace", "palace": "福德宫"}]},
+      "claim": {
+        "tendency": "福德宫用于观察内在满足、劳逸感受、兴趣品位与支出管理，不用于推断具体寿数。",
+        "strength": "weak"
+      },
+      "modifiers": {
+        "strengthen": ["结合命宫、财帛宫及福德宫主星的庙旺与四化"],
+        "weaken": ["把福德宫单独解释为寿命或具体健康事件"]
+      },
+      "language_policy": {
+        "deterministic": false,
+        "forbidden_phrases": ["寿数已定", "必然短寿"]
+      },
+      "evidence": ["source.mingli-tianji.p40.fude", "source.mingli-tianji.p416.analysis-order"],
+      "confidence": "high",
+      "risk": "low"
+    }
+  ]
+}
