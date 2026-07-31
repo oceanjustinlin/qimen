@@ -8,7 +8,8 @@
     "build:nopre": "vite build",
     "data:birthplaces": "node scripts/generate_birthplaces_from_geonames.mjs",
     "preview": "vite preview",
-    "test": "node --test lib/*.test.js scripts/*.test.cjs src/**/*.test.mjs"
+    "test": "node --test lib/*.test.js scripts/*.test.cjs src/**/*.test.mjs",
+    "test:ziwei-knowledge": "node --test scripts/ziwei_cli.test.cjs scripts/ziwei_knowledge_validate.test.cjs scripts/ziwei_source_catalog.test.cjs scripts/ziwei_p0_rules.test.cjs scripts/ziwei_rule_eval.test.cjs scripts/ziwei_interpretations.test.cjs scripts/ziwei_report_evidence.test.cjs scripts/eval-ziwei-knowledge.test.cjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.39.0",

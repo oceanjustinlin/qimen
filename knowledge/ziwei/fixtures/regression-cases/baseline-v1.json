@@ -1,0 +1,99 @@
+{
+  "schema_version": "ziwei-knowledge-regression-cases/v1",
+  "baseline_id": "ziwei-knowledge-baseline-v1",
+  "privacy": {
+    "origin": "synthetic",
+    "contains_real_identity": false,
+    "note": "以下日期、时刻和档案 ID 均为测试构造，不对应已知用户或公开人物。"
+  },
+  "report_topics": ["overall", "career", "wealth", "relationship", "annual"],
+  "report_cases": [
+    {
+      "id": "synthetic-alpha",
+      "profile": {
+        "profile_id": "synthetic-alpha",
+        "gender": "女",
+        "birth_date": "1986-02-03 04:20:00",
+        "adjusted_birth_date": "1986-02-03 04:20:00",
+        "solar_time_mode": "apparent",
+        "solar_time_adjustment_minutes": 0
+      },
+      "target_datetime": "2026-07-31 12:00:00",
+      "expected_conclusion_counts": {
+        "overall": 11,
+        "career": 12,
+        "wealth": 12,
+        "relationship": 9,
+        "annual": 0
+      }
+    },
+    {
+      "id": "synthetic-beta",
+      "profile": {
+        "profile_id": "synthetic-beta",
+        "gender": "男",
+        "birth_date": "2004-11-19 21:10:00",
+        "adjusted_birth_date": "2004-11-19 21:10:00",
+        "solar_time_mode": "apparent",
+        "solar_time_adjustment_minutes": 0
+      },
+      "target_datetime": "2026-07-31 12:00:00",
+      "expected_conclusion_counts": {
+        "overall": 9,
+        "career": 10,
+        "wealth": 11,
+        "relationship": 11,
+        "annual": 0
+      }
+    },
+    {
+      "id": "synthetic-gamma",
+      "profile": {
+        "profile_id": "synthetic-gamma",
+        "gender": "女",
+        "birth_date": "1973-05-08 12:00:00",
+        "adjusted_birth_date": "1973-05-08 12:00:00",
+        "solar_time_mode": "apparent",
+        "solar_time_adjustment_minutes": 0
+      },
+      "target_datetime": "2026-07-31 12:00:00",
+      "expected_conclusion_counts": {
+        "overall": 10,
+        "career": 11,
+        "wealth": 12,
+        "relationship": 8,
+        "annual": 0
+      }
+    }
+  ],
+  "thresholds": {
+    "p0_rule_hit_rate_min": 1,
+    "p0_conflict_rate_max": 0,
+    "p1_interpretation_hit_rate_min": 1,
+    "no_evidence_conclusion_count_max": 0,
+    "invalid_report_count_max": 0
+  },
+  "expected_baseline": {
+    "p0": {
+      "compiled_rule_count": 12,
+      "case_count": 14,
+      "passed_case_count": 14,
+      "rule_hit_rate": 1,
+      "conflict_count": 0,
+      "conflict_rate": 0
+    },
+    "p1": {
+      "reviewed_proposition_count": 23,
+      "case_count": 5,
+      "passed_case_count": 5,
+      "interpretation_hit_rate": 1
+    },
+    "reports": {
+      "profile_count": 3,
+      "report_count": 15,
+      "conclusion_count": 126,
+      "no_evidence_conclusion_count": 0,
+      "invalid_report_count": 0
+    }
+  }
+}

@@ -454,11 +454,11 @@ draft_ocr
 - Create: `scripts/eval-ziwei-knowledge.cjs`
 - Modify: `package.json`
 
-- [ ] **Step 1: 收录虚构或公开命例，不使用真实用户身份资料**
-- [ ] **Step 2: 为 P0/P1 规则定义命中率、冲突率、无证据结论数**
-- [ ] **Step 3: 增加 `npm run test:ziwei-knowledge`**
-- [ ] **Step 4: 运行 CLI 测试、知识 Schema 测试和知识回归**
-- [ ] **Step 5: 记录首个基线并提交 `test(ziwei): establish knowledge regression baseline`**
+- [x] **Step 1: 收录虚构或公开命例，不使用真实用户身份资料**
+- [x] **Step 2: 为 P0/P1 规则定义命中率、冲突率、无证据结论数**
+- [x] **Step 3: 增加 `npm run test:ziwei-knowledge`**
+- [x] **Step 4: 运行 CLI 测试、知识 Schema 测试和知识回归**
+- [x] **Step 5: 记录首个基线并提交 `test(ziwei): establish knowledge regression baseline`**
 
 ## 11. 完成标准
 
