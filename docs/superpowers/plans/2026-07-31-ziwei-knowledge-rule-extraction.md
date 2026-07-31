@@ -409,12 +409,12 @@ draft_ocr
 - Create: `scripts/ziwei_rule_eval.test.cjs`
 - Create: `knowledge/ziwei/dist/.gitkeep`
 
-- [ ] **Step 1: 写失败测试，覆盖受限操作符、未知操作符拒绝和稳定输出**
-- [ ] **Step 2: 运行测试，确认编译器和执行器尚不存在**
-- [ ] **Step 3: 实现 YAML 到规范 JSON 的编译及 Schema 校验**
-- [ ] **Step 4: 实现白名单操作符，不执行任意代码**
-- [ ] **Step 5: 对同一 CLI fixture 连续执行两次，断言 `RuleMatch` 完全一致**
-- [ ] **Step 6: 提交 `feat(ziwei): compile and evaluate structured rules`**
+- [x] **Step 1: 写失败测试，覆盖受限操作符、未知操作符拒绝和稳定输出**
+- [x] **Step 2: 运行测试，确认编译器和执行器尚不存在**
+- [x] **Step 3: 实现 YAML 到规范 JSON 的编译及 Schema 校验**
+- [x] **Step 4: 实现白名单操作符，不执行任意代码**
+- [x] **Step 5: 对同一 CLI fixture 连续执行两次，断言 `RuleMatch` 完全一致**
+- [x] **Step 6: 提交 `feat(ziwei): compile and evaluate structured rules`**
 
 ### Task 5: 建立第一批解释命题
 
