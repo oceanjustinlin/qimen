@@ -128,7 +128,7 @@
         "deprecated"
       ]
     },
-    "operator": {
+    "predicateOperator": {
       "enum": [
         "equals",
         "contains",
@@ -136,8 +136,15 @@
         "same_palace",
         "opposite",
         "trine",
-        "has_mutagen",
-        "palace_offset"
+        "has_mutagen"
+      ]
+    },
+    "derivationOperator": {
+      "enum": [
+        "opposite",
+        "trine",
+        "palace_offset",
+        "assign"
       ]
     },
     "predicate": {
@@ -153,7 +160,7 @@
           "pattern": "^[a-z][a-z0-9_]*$"
         },
         "operator": {
-          "$ref": "#/definitions/operator"
+          "$ref": "#/definitions/predicateOperator"
         },
         "value": {}
       }
@@ -207,7 +214,7 @@
           "pattern": "^[a-z][a-z0-9_]*$"
         },
         "operator": {
-          "$ref": "#/definitions/operator"
+          "$ref": "#/definitions/derivationOperator"
         },
         "arguments": {
           "type": "object",

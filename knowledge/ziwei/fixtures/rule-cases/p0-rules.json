@@ -1,0 +1,164 @@
+{
+  "schema_version": "ziwei-rule-cases/v1",
+  "expected_rule_ids": [
+    "rule.relation.opposite.v1",
+    "rule.relation.trine.v1",
+    "rule.flow.doujun.v1",
+    "rule.flow.month.v1",
+    "rule.flow.day.v1",
+    "rule.flow.hour.v1",
+    "rule.activation.birth-mutagen.v1",
+    "rule.activation.decadal-mutagen.v1",
+    "rule.activation.yearly-mutagen.v1",
+    "rule.activation.monthly-mutagen.v1",
+    "rule.activation.daily-mutagen.v1",
+    "rule.activation.hourly-mutagen.v1"
+  ],
+  "cases": [
+    {
+      "id": "opposite-from-index-2",
+      "rule_id": "rule.relation.opposite.v1",
+      "input": {
+        "palace_index": 2
+      },
+      "expected": 8
+    },
+    {
+      "id": "trine-from-index-2",
+      "rule_id": "rule.relation.trine.v1",
+      "input": {
+        "palace_index": 2
+      },
+      "expected": [6, 10]
+    },
+    {
+      "id": "doujun-reverse-month-forward-hour",
+      "rule_id": "rule.flow.doujun.v1",
+      "input": {
+        "yearly_palace_index": 0,
+        "lunar_birth_month": 7,
+        "birth_time_index": 9
+      },
+      "expected": 3
+    },
+    {
+      "id": "doujun-late-zi-normalizes-to-zi",
+      "rule_id": "rule.flow.doujun.v1",
+      "input": {
+        "yearly_palace_index": 0,
+        "lunar_birth_month": 7,
+        "birth_time_index": 12
+      },
+      "expected": 6
+    },
+    {
+      "id": "flow-month-starts-from-doujun",
+      "rule_id": "rule.flow.month.v1",
+      "input": {
+        "yearly_doujun_palace_index": 3,
+        "target_lunar_month": 7
+      },
+      "expected": 9
+    },
+    {
+      "id": "flow-day-starts-from-first-day",
+      "rule_id": "rule.flow.day.v1",
+      "input": {
+        "flow_month_palace_index": 9,
+        "target_lunar_day": 26
+      },
+      "expected": 10
+    },
+    {
+      "id": "flow-hour-starts-from-zi",
+      "rule_id": "rule.flow.hour.v1",
+      "input": {
+        "flow_day_palace_index": 10,
+        "target_time_index": 9
+      },
+      "expected": 7
+    },
+    {
+      "id": "flow-hour-late-zi-normalizes-to-zi",
+      "rule_id": "rule.flow.hour.v1",
+      "input": {
+        "flow_day_palace_index": 10,
+        "target_time_index": 12
+      },
+      "expected": 10
+    },
+    {
+      "id": "birth-mutagen-scopes",
+      "rule_id": "rule.activation.birth-mutagen.v1",
+      "input": {
+        "mutagen_layer": "birth"
+      },
+      "expected": {
+        "primary": [
+          "decadal",
+          "minor-limit",
+          "yearly",
+          "monthly",
+          "daily",
+          "hourly"
+        ],
+        "secondary": []
+      }
+    },
+    {
+      "id": "decadal-mutagen-scopes",
+      "rule_id": "rule.activation.decadal-mutagen.v1",
+      "input": {
+        "mutagen_layer": "decadal"
+      },
+      "expected": {
+        "primary": ["decadal", "yearly"],
+        "secondary": ["monthly", "daily"]
+      }
+    },
+    {
+      "id": "yearly-mutagen-scopes",
+      "rule_id": "rule.activation.yearly-mutagen.v1",
+      "input": {
+        "mutagen_layer": "yearly"
+      },
+      "expected": {
+        "primary": ["yearly", "monthly", "daily"],
+        "secondary": []
+      }
+    },
+    {
+      "id": "monthly-mutagen-scopes",
+      "rule_id": "rule.activation.monthly-mutagen.v1",
+      "input": {
+        "mutagen_layer": "monthly"
+      },
+      "expected": {
+        "primary": ["monthly", "daily"],
+        "secondary": []
+      }
+    },
+    {
+      "id": "daily-mutagen-scopes",
+      "rule_id": "rule.activation.daily-mutagen.v1",
+      "input": {
+        "mutagen_layer": "daily"
+      },
+      "expected": {
+        "primary": ["daily", "hourly"],
+        "secondary": []
+      }
+    },
+    {
+      "id": "hourly-mutagen-scopes",
+      "rule_id": "rule.activation.hourly-mutagen.v1",
+      "input": {
+        "mutagen_layer": "hourly"
+      },
+      "expected": {
+        "primary": ["hourly"],
+        "secondary": []
+      }
+    }
+  ]
+}

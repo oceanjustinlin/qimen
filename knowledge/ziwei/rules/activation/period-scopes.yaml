@@ -1,0 +1,204 @@
+{
+  "schema_version": "ziwei-rules/v1",
+  "rules": [
+    {
+      "id": "rule.activation.birth-mutagen.v1",
+      "name": "生年干四化作用范围",
+      "rule_type": "activation",
+      "school": "feixing-aux",
+      "scope": "cross-period",
+      "status": "reviewed",
+      "priority": 80,
+      "inputs": ["mutagen_layer"],
+      "when": {
+        "all": [
+          {
+            "fact": "mutagen_layer",
+            "operator": "equals",
+            "value": "birth"
+          }
+        ]
+      },
+      "derive": {
+        "fact": "mutagen_effective_scopes",
+        "operator": "assign",
+        "arguments": {
+          "value": {
+            "primary": [
+              "decadal",
+              "minor-limit",
+              "yearly",
+              "monthly",
+              "daily",
+              "hourly"
+            ],
+            "secondary": []
+          }
+        }
+      },
+      "evidence": ["source.mingli-tianji.p409.period-scope"],
+      "confidence": "high",
+      "risk": "low"
+    },
+    {
+      "id": "rule.activation.decadal-mutagen.v1",
+      "name": "大限宫干四化作用范围",
+      "rule_type": "activation",
+      "school": "feixing-aux",
+      "scope": "cross-period",
+      "status": "reviewed",
+      "priority": 80,
+      "inputs": ["mutagen_layer"],
+      "when": {
+        "all": [
+          {
+            "fact": "mutagen_layer",
+            "operator": "equals",
+            "value": "decadal"
+          }
+        ]
+      },
+      "derive": {
+        "fact": "mutagen_effective_scopes",
+        "operator": "assign",
+        "arguments": {
+          "value": {
+            "primary": ["decadal", "yearly"],
+            "secondary": ["monthly", "daily"]
+          }
+        }
+      },
+      "evidence": ["source.mingli-tianji.p409.period-scope"],
+      "confidence": "high",
+      "risk": "low"
+    },
+    {
+      "id": "rule.activation.yearly-mutagen.v1",
+      "name": "流年干四化作用范围",
+      "rule_type": "activation",
+      "school": "feixing-aux",
+      "scope": "cross-period",
+      "status": "reviewed",
+      "priority": 80,
+      "inputs": ["mutagen_layer"],
+      "when": {
+        "all": [
+          {
+            "fact": "mutagen_layer",
+            "operator": "equals",
+            "value": "yearly"
+          }
+        ]
+      },
+      "derive": {
+        "fact": "mutagen_effective_scopes",
+        "operator": "assign",
+        "arguments": {
+          "value": {
+            "primary": ["yearly", "monthly", "daily"],
+            "secondary": []
+          }
+        }
+      },
+      "evidence": ["source.mingli-tianji.p409.period-scope"],
+      "confidence": "high",
+      "risk": "low"
+    },
+    {
+      "id": "rule.activation.monthly-mutagen.v1",
+      "name": "流月干四化作用范围",
+      "rule_type": "activation",
+      "school": "feixing-aux",
+      "scope": "cross-period",
+      "status": "reviewed",
+      "priority": 80,
+      "inputs": ["mutagen_layer"],
+      "when": {
+        "all": [
+          {
+            "fact": "mutagen_layer",
+            "operator": "equals",
+            "value": "monthly"
+          }
+        ]
+      },
+      "derive": {
+        "fact": "mutagen_effective_scopes",
+        "operator": "assign",
+        "arguments": {
+          "value": {
+            "primary": ["monthly", "daily"],
+            "secondary": []
+          }
+        }
+      },
+      "evidence": ["source.mingli-tianji.p409.period-scope"],
+      "confidence": "high",
+      "risk": "low"
+    },
+    {
+      "id": "rule.activation.daily-mutagen.v1",
+      "name": "流日干四化作用范围",
+      "rule_type": "activation",
+      "school": "feixing-aux",
+      "scope": "cross-period",
+      "status": "reviewed",
+      "priority": 80,
+      "inputs": ["mutagen_layer"],
+      "when": {
+        "all": [
+          {
+            "fact": "mutagen_layer",
+            "operator": "equals",
+            "value": "daily"
+          }
+        ]
+      },
+      "derive": {
+        "fact": "mutagen_effective_scopes",
+        "operator": "assign",
+        "arguments": {
+          "value": {
+            "primary": ["daily", "hourly"],
+            "secondary": []
+          }
+        }
+      },
+      "evidence": ["source.mingli-tianji.p409.period-scope"],
+      "confidence": "high",
+      "risk": "low"
+    },
+    {
+      "id": "rule.activation.hourly-mutagen.v1",
+      "name": "流时干四化作用范围",
+      "rule_type": "activation",
+      "school": "feixing-aux",
+      "scope": "cross-period",
+      "status": "reviewed",
+      "priority": 80,
+      "inputs": ["mutagen_layer"],
+      "when": {
+        "all": [
+          {
+            "fact": "mutagen_layer",
+            "operator": "equals",
+            "value": "hourly"
+          }
+        ]
+      },
+      "derive": {
+        "fact": "mutagen_effective_scopes",
+        "operator": "assign",
+        "arguments": {
+          "value": {
+            "primary": ["hourly"],
+            "secondary": []
+          }
+        }
+      },
+      "evidence": ["source.mingli-tianji.p409.period-scope"],
+      "confidence": "high",
+      "risk": "low"
+    }
+  ]
+}

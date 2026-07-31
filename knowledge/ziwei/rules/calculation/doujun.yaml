@@ -1,0 +1,64 @@
+{
+  "schema_version": "ziwei-rules/v1",
+  "rules": [
+    {
+      "id": "rule.flow.doujun.v1",
+      "name": "流年斗君定位",
+      "rule_type": "calculation",
+      "school": "sanhe-core",
+      "scope": "yearly",
+      "status": "reviewed",
+      "priority": 100,
+      "inputs": [
+        "yearly_palace_index",
+        "lunar_birth_month",
+        "birth_time_index"
+      ],
+      "when": {
+        "all": [
+          {
+            "fact": "yearly_palace_index",
+            "operator": "between",
+            "value": [0, 11]
+          },
+          {
+            "fact": "lunar_birth_month",
+            "operator": "between",
+            "value": [1, 12]
+          },
+          {
+            "fact": "birth_time_index",
+            "operator": "between",
+            "value": [0, 12]
+          }
+        ]
+      },
+      "derive": {
+        "fact": "yearly_doujun_palace_index",
+        "operator": "palace_offset",
+        "arguments": {
+          "start": "yearly_palace_index",
+          "reverse": [
+            {
+              "input": "lunar_birth_month",
+              "subtract": 1
+            }
+          ],
+          "forward": [
+            {
+              "input": "birth_time_index",
+              "modulo": 12
+            }
+          ],
+          "modulus": 12
+        }
+      },
+      "evidence": [
+        "source.mingli-tianji.p408.doujun",
+        "source.feixing-ziwei.p127.doujun"
+      ],
+      "confidence": "high",
+      "risk": "low"
+    }
+  ]
+}

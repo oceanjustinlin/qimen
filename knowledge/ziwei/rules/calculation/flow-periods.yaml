@@ -1,0 +1,146 @@
+{
+  "schema_version": "ziwei-rules/v1",
+  "rules": [
+    {
+      "id": "rule.flow.month.v1",
+      "name": "斗君宫起流月",
+      "rule_type": "calculation",
+      "school": "sanhe-core",
+      "scope": "monthly",
+      "status": "reviewed",
+      "priority": 90,
+      "inputs": [
+        "yearly_doujun_palace_index",
+        "target_lunar_month"
+      ],
+      "when": {
+        "all": [
+          {
+            "fact": "yearly_doujun_palace_index",
+            "operator": "between",
+            "value": [0, 11]
+          },
+          {
+            "fact": "target_lunar_month",
+            "operator": "between",
+            "value": [1, 12]
+          }
+        ]
+      },
+      "derive": {
+        "fact": "flow_month_palace_index",
+        "operator": "palace_offset",
+        "arguments": {
+          "start": "yearly_doujun_palace_index",
+          "forward": [
+            {
+              "input": "target_lunar_month",
+              "subtract": 1
+            }
+          ],
+          "modulus": 12
+        }
+      },
+      "evidence": [
+        "source.mingli-tianji.p408.doujun",
+        "source.feixing-ziwei.p127.doujun"
+      ],
+      "confidence": "high",
+      "risk": "low"
+    },
+    {
+      "id": "rule.flow.day.v1",
+      "name": "流月宫起流日",
+      "rule_type": "calculation",
+      "school": "sanhe-core",
+      "scope": "daily",
+      "status": "reviewed",
+      "priority": 90,
+      "inputs": [
+        "flow_month_palace_index",
+        "target_lunar_day"
+      ],
+      "when": {
+        "all": [
+          {
+            "fact": "flow_month_palace_index",
+            "operator": "between",
+            "value": [0, 11]
+          },
+          {
+            "fact": "target_lunar_day",
+            "operator": "between",
+            "value": [1, 30]
+          }
+        ]
+      },
+      "derive": {
+        "fact": "flow_day_palace_index",
+        "operator": "palace_offset",
+        "arguments": {
+          "start": "flow_month_palace_index",
+          "forward": [
+            {
+              "input": "target_lunar_day",
+              "subtract": 1
+            }
+          ],
+          "modulus": 12
+        }
+      },
+      "evidence": [
+        "source.mingli-tianji.p408.flow-day-hour",
+        "source.feixing-ziwei.p128.flow-day-hour"
+      ],
+      "confidence": "high",
+      "risk": "low"
+    },
+    {
+      "id": "rule.flow.hour.v1",
+      "name": "流日宫起流时",
+      "rule_type": "calculation",
+      "school": "sanhe-core",
+      "scope": "hourly",
+      "status": "reviewed",
+      "priority": 90,
+      "inputs": [
+        "flow_day_palace_index",
+        "target_time_index"
+      ],
+      "when": {
+        "all": [
+          {
+            "fact": "flow_day_palace_index",
+            "operator": "between",
+            "value": [0, 11]
+          },
+          {
+            "fact": "target_time_index",
+            "operator": "between",
+            "value": [0, 12]
+          }
+        ]
+      },
+      "derive": {
+        "fact": "flow_hour_palace_index",
+        "operator": "palace_offset",
+        "arguments": {
+          "start": "flow_day_palace_index",
+          "forward": [
+            {
+              "input": "target_time_index",
+              "modulo": 12
+            }
+          ],
+          "modulus": 12
+        }
+      },
+      "evidence": [
+        "source.mingli-tianji.p408.flow-day-hour",
+        "source.feixing-ziwei.p128.flow-day-hour"
+      ],
+      "confidence": "high",
+      "risk": "low"
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "schema_version": "ziwei-rules/v1",
+  "rules": [
+    {
+      "id": "rule.relation.opposite.v1",
+      "name": "十二宫对宫关系",
+      "rule_type": "relation",
+      "school": "sanhe-core",
+      "scope": "cross-period",
+      "status": "reviewed",
+      "priority": 100,
+      "inputs": ["palace_index"],
+      "when": {
+        "all": [
+          {
+            "fact": "palace_index",
+            "operator": "between",
+            "value": [0, 11]
+          }
+        ]
+      },
+      "derive": {
+        "fact": "opposite_palace_index",
+        "operator": "opposite",
+        "arguments": {
+          "start": "palace_index",
+          "offset": 6,
+          "modulus": 12
+        }
+      },
+      "evidence": [
+        "source.feixing-ziwei.p250.relations",
+        "source.mingli-tianji.p416.analysis-order"
+      ],
+      "confidence": "high",
+      "risk": "low"
+    },
+    {
+      "id": "rule.relation.trine.v1",
+      "name": "十二宫三合关系",
+      "rule_type": "relation",
+      "school": "sanhe-core",
+      "scope": "cross-period",
+      "status": "reviewed",
+      "priority": 100,
+      "inputs": ["palace_index"],
+      "when": {
+        "all": [
+          {
+            "fact": "palace_index",
+            "operator": "between",
+            "value": [0, 11]
+          }
+        ]
+      },
+      "derive": {
+        "fact": "trine_palace_indexes",
+        "operator": "trine",
+        "arguments": {
+          "start": "palace_index",
+          "offsets": [4, 8],
+          "modulus": 12
+        }
+      },
+      "evidence": [
+        "source.feixing-ziwei.p250.relations",
+        "source.mingli-tianji.p416.analysis-order"
+      ],
+      "confidence": "high",
+      "risk": "low"
+    }
+  ]
+}

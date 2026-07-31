@@ -395,11 +395,11 @@ draft_ocr
 - Create: `knowledge/ziwei/rules/activation/period-scopes.yaml`
 - Test: `knowledge/ziwei/fixtures/rule-cases/p0-rules.json`
 
-- [ ] **Step 1: 写斗君、流月/流日/流时、三方四正的期望 fixture**
-- [ ] **Step 2: 将书中候选规则以 `extracted` 状态录入**
-- [ ] **Step 3: 对照原页，将通过视觉复核的规则提升为 `visually_verified`**
-- [ ] **Step 4: 用第二本书或 CLI 对照完成交叉验证**
-- [ ] **Step 5: 将无冲突规则提升为 `reviewed` 并提交 `feat(ziwei): add verified foundational rules`**
+- [x] **Step 1: 写斗君、流月/流日/流时、三方四正的期望 fixture**
+- [x] **Step 2: 将书中候选规则以 `extracted` 状态录入**
+- [x] **Step 3: 对照原页，将通过视觉复核的规则提升为 `visually_verified`**
+- [x] **Step 4: 用第二本书或 CLI 对照完成交叉验证**
+- [x] **Step 5: 将无冲突规则提升为 `reviewed` 并提交 `feat(ziwei): add verified foundational rules`**
 
 ### Task 4: 建立规则编译与执行器
 

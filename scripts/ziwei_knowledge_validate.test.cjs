@@ -86,6 +86,31 @@ test('规则 Schema 要求正式流派、受限操作符和至少一条证据', 
     ...validRule,
     derive: { ...validRule.derive, operator: 'eval_javascript' },
   });
+  assertInvalid(validate, {
+    ...validRule,
+    when: {
+      all: [
+        {
+          fact: 'lunar_birth_month',
+          operator: 'assign',
+          value: 7,
+        },
+      ],
+    },
+  });
+  assertValid(validate, {
+    ...validRule,
+    derive: {
+      fact: 'mutagen_effective_scopes',
+      operator: 'assign',
+      arguments: {
+        value: {
+          primary: ['yearly'],
+          secondary: [],
+        },
+      },
+    },
+  });
 });
 
 test('解释命题 Schema 要求命中条件、修正项、证据和非确定性语言策略', () => {
