@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://qimen.local/schemas/ziwei/source.schema.json",
+  "title": "Ziwei Source Excerpt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "source_id",
+    "title",
+    "pdf_page",
+    "printed_page",
+    "section",
+    "corrected_text",
+    "ocr_status",
+    "content_hash"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^source\\.[a-z0-9-]+\\.[a-z0-9.-]+$"
+    },
+    "source_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "pdf_page": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "printed_page": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 1
+        },
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "section": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ocr_text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "corrected_text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "correction_notes": {
+      "type": "string"
+    },
+    "ocr_status": {
+      "enum": [
+        "draft_ocr",
+        "extracted",
+        "visually_verified",
+        "cross_checked",
+        "reviewed",
+        "deprecated"
+      ]
+    },
+    "content_hash": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    }
+  }
+}

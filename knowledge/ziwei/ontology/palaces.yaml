@@ -1,0 +1,65 @@
+{
+  "schema_version": "ziwei-ontology/palaces/v1",
+  "palaces": [
+    {
+      "id": "命宫",
+      "aliases": ["命", "本命宫"],
+      "topics": ["overall", "personality"]
+    },
+    {
+      "id": "兄弟宫",
+      "aliases": ["兄弟"],
+      "topics": ["siblings", "peers"]
+    },
+    {
+      "id": "夫妻宫",
+      "aliases": ["夫妻", "婚姻宫"],
+      "topics": ["relationship", "marriage"]
+    },
+    {
+      "id": "子女宫",
+      "aliases": ["子女"],
+      "topics": ["children", "creation"]
+    },
+    {
+      "id": "财帛宫",
+      "aliases": ["财帛", "财富宫"],
+      "topics": ["wealth", "income"]
+    },
+    {
+      "id": "疾厄宫",
+      "aliases": ["疾厄", "健康宫"],
+      "topics": ["health", "stress"]
+    },
+    {
+      "id": "迁移宫",
+      "aliases": ["迁移"],
+      "topics": ["travel", "external_environment"]
+    },
+    {
+      "id": "交友宫",
+      "aliases": ["交友", "仆役宫", "仆役"],
+      "topics": ["friends", "network", "collaboration"]
+    },
+    {
+      "id": "官禄宫",
+      "aliases": ["官禄", "事业宫", "事业"],
+      "topics": ["career", "responsibility"]
+    },
+    {
+      "id": "田宅宫",
+      "aliases": ["田宅"],
+      "topics": ["property", "home"]
+    },
+    {
+      "id": "福德宫",
+      "aliases": ["福德"],
+      "topics": ["inner_state", "wellbeing"]
+    },
+    {
+      "id": "父母宫",
+      "aliases": ["父母"],
+      "topics": ["parents", "elders", "support"]
+    }
+  ]
+}

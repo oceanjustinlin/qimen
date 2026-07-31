@@ -23,6 +23,7 @@
   "devDependencies": {
     "@claude-flow/codex": "^3.0.0-alpha.9",
     "@vitejs/plugin-vue": "^5.0.0",
+    "ajv": "^8.17.1",
     "playwright": "^1.59.1",
     "vite": "^5.0.0"
   }

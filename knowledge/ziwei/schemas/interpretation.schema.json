@@ -1,0 +1,317 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://qimen.local/schemas/ziwei/interpretation.schema.json",
+  "title": "Ziwei Interpretation Proposition",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "title",
+    "school",
+    "scope",
+    "status",
+    "topics",
+    "subject",
+    "conditions",
+    "claim",
+    "modifiers",
+    "language_policy",
+    "evidence",
+    "confidence"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^interp\\.[a-z0-9._-]+\\.v[1-9][0-9]*$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "school": {
+      "$ref": "#/definitions/school"
+    },
+    "scope": {
+      "$ref": "#/definitions/scope"
+    },
+    "status": {
+      "$ref": "#/definitions/status"
+    },
+    "topics": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/definitions/topic"
+      }
+    },
+    "subject": {
+      "$ref": "#/definitions/subject"
+    },
+    "conditions": {
+      "$ref": "#/definitions/conditionGroup"
+    },
+    "claim": {
+      "$ref": "#/definitions/claim"
+    },
+    "modifiers": {
+      "$ref": "#/definitions/modifiers"
+    },
+    "language_policy": {
+      "$ref": "#/definitions/languagePolicy"
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^source\\.[a-z0-9-]+\\.[a-z0-9.-]+$"
+      }
+    },
+    "confidence": {
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "risk": {
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "prohibited"
+      ]
+    }
+  },
+  "definitions": {
+    "school": {
+      "enum": [
+        "iztro-default",
+        "sanhe-core",
+        "feixing-aux",
+        "classical-reference"
+      ]
+    },
+    "scope": {
+      "enum": [
+        "natal",
+        "decadal",
+        "yearly",
+        "monthly",
+        "daily",
+        "hourly",
+        "cross-period"
+      ]
+    },
+    "status": {
+      "enum": [
+        "draft_ocr",
+        "extracted",
+        "visually_verified",
+        "cross_checked",
+        "reviewed",
+        "deprecated"
+      ]
+    },
+    "topic": {
+      "enum": [
+        "overall",
+        "career",
+        "wealth",
+        "relationship",
+        "health",
+        "family",
+        "travel",
+        "learning",
+        "annual"
+      ]
+    },
+    "palace": {
+      "enum": [
+        "命宫",
+        "兄弟宫",
+        "夫妻宫",
+        "子女宫",
+        "财帛宫",
+        "疾厄宫",
+        "迁移宫",
+        "交友宫",
+        "官禄宫",
+        "田宅宫",
+        "福德宫",
+        "父母宫"
+      ]
+    },
+    "subject": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "palace": {
+          "$ref": "#/definitions/palace"
+        },
+        "stars": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "mutagens": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "禄",
+              "权",
+              "科",
+              "忌"
+            ]
+          }
+        }
+      }
+    },
+    "featurePredicate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "feature"
+      ],
+      "properties": {
+        "feature": {
+          "enum": [
+            "palace_has_star",
+            "star_has_mutagen",
+            "palace_has_mutagen",
+            "palace_has_brightness",
+            "palace_has_relation",
+            "period_activates",
+            "combination_matches"
+          ]
+        },
+        "palace": {
+          "$ref": "#/definitions/palace"
+        },
+        "star": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mutagen": {
+          "enum": [
+            "禄",
+            "权",
+            "科",
+            "忌"
+          ]
+        },
+        "value": {}
+      }
+    },
+    "condition": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/featurePredicate"
+        },
+        {
+          "$ref": "#/definitions/conditionGroup"
+        }
+      ]
+    },
+    "conditionGroup": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "maxProperties": 1,
+      "properties": {
+        "all": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/condition"
+          }
+        },
+        "any": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/condition"
+          }
+        },
+        "not": {
+          "$ref": "#/definitions/condition"
+        }
+      }
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tendency",
+        "strength"
+      ],
+      "properties": {
+        "tendency": {
+          "type": "string",
+          "minLength": 1
+        },
+        "strength": {
+          "enum": [
+            "weak",
+            "medium",
+            "strong"
+          ]
+        }
+      }
+    },
+    "modifiers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "strengthen",
+        "weaken"
+      ],
+      "properties": {
+        "strengthen": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "weaken": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "languagePolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "deterministic",
+        "forbidden_phrases"
+      ],
+      "properties": {
+        "deterministic": {
+          "const": false
+        },
+        "forbidden_phrases": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}

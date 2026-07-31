@@ -1,0 +1,32 @@
+{
+  "schema_version": "ziwei-ontology/schools/v1",
+  "calculation_authority": "iztro-default",
+  "default_interpretation_school": "sanhe-core",
+  "auxiliary_interpretation_schools": ["feixing-aux"],
+  "schools": [
+    {
+      "id": "iztro-default",
+      "role": "calculation",
+      "description": "当前 ziwei-cli/v1 锁定的排盘事实口径。",
+      "enabled_by_default": true
+    },
+    {
+      "id": "sanhe-core",
+      "role": "interpretation",
+      "description": "以命身、宫位、星情和三方四正为主体的默认解释口径。",
+      "enabled_by_default": true
+    },
+    {
+      "id": "feixing-aux",
+      "role": "interpretation",
+      "description": "以生年、宫干和运限四化为辅助观察，不覆盖排盘事实。",
+      "enabled_by_default": true
+    },
+    {
+      "id": "classical-reference",
+      "role": "research",
+      "description": "保存古籍规则、版本差异和历史断语，默认不进入用户结论。",
+      "enabled_by_default": false
+    }
+  ]
+}

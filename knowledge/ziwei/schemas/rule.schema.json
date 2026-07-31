@@ -1,0 +1,220 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://qimen.local/schemas/ziwei/rule.schema.json",
+  "title": "Ziwei Rule",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "name",
+    "rule_type",
+    "school",
+    "scope",
+    "status",
+    "priority",
+    "inputs",
+    "when",
+    "derive",
+    "evidence",
+    "confidence",
+    "risk"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^rule\\.[a-z0-9._-]+\\.v[1-9][0-9]*$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "rule_type": {
+      "enum": [
+        "calculation",
+        "relation",
+        "activation",
+        "composition"
+      ]
+    },
+    "school": {
+      "$ref": "#/definitions/school"
+    },
+    "scope": {
+      "$ref": "#/definitions/scope"
+    },
+    "status": {
+      "$ref": "#/definitions/status"
+    },
+    "priority": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000
+    },
+    "inputs": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_]*$"
+      }
+    },
+    "when": {
+      "$ref": "#/definitions/conditionGroup"
+    },
+    "derive": {
+      "$ref": "#/definitions/derivation"
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^source\\.[a-z0-9-]+\\.[a-z0-9.-]+$"
+      }
+    },
+    "confidence": {
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "risk": {
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "prohibited"
+      ]
+    },
+    "conflicts_with": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^rule\\.[a-z0-9._-]+\\.v[1-9][0-9]*$"
+      }
+    }
+  },
+  "definitions": {
+    "school": {
+      "enum": [
+        "iztro-default",
+        "sanhe-core",
+        "feixing-aux",
+        "classical-reference"
+      ]
+    },
+    "scope": {
+      "enum": [
+        "natal",
+        "decadal",
+        "yearly",
+        "monthly",
+        "daily",
+        "hourly",
+        "cross-period"
+      ]
+    },
+    "status": {
+      "enum": [
+        "draft_ocr",
+        "extracted",
+        "visually_verified",
+        "cross_checked",
+        "reviewed",
+        "deprecated"
+      ]
+    },
+    "operator": {
+      "enum": [
+        "equals",
+        "contains",
+        "between",
+        "same_palace",
+        "opposite",
+        "trine",
+        "has_mutagen",
+        "palace_offset"
+      ]
+    },
+    "predicate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fact",
+        "operator"
+      ],
+      "properties": {
+        "fact": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "operator": {
+          "$ref": "#/definitions/operator"
+        },
+        "value": {}
+      }
+    },
+    "condition": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/predicate"
+        },
+        {
+          "$ref": "#/definitions/conditionGroup"
+        }
+      ]
+    },
+    "conditionGroup": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "maxProperties": 1,
+      "properties": {
+        "all": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/condition"
+          }
+        },
+        "any": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/condition"
+          }
+        },
+        "not": {
+          "$ref": "#/definitions/condition"
+        }
+      }
+    },
+    "derivation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fact",
+        "operator",
+        "arguments"
+      ],
+      "properties": {
+        "fact": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "operator": {
+          "$ref": "#/definitions/operator"
+        },
+        "arguments": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": true
+        }
+      }
+    }
+  }
+}
