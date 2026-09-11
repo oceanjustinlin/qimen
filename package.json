@@ -12,6 +12,9 @@
     "test:ziwei-knowledge": "node --test scripts/ziwei_cli.test.cjs scripts/ziwei_knowledge_validate.test.cjs scripts/ziwei_source_catalog.test.cjs scripts/ziwei_p0_rules.test.cjs scripts/ziwei_rule_eval.test.cjs scripts/ziwei_interpretations.test.cjs scripts/ziwei_report_evidence.test.cjs scripts/eval-ziwei-knowledge.test.cjs"
   },
   "dependencies": {
+    "@langfuse/otel": "^5.11.1",
+    "@langfuse/tracing": "^5.11.1",
+    "@opentelemetry/sdk-trace-node": "^2.11.0",
     "@supabase/supabase-js": "^2.39.0",
     "@vueuse/core": "^10.7.0",
     "iztro": "^2.5.8",

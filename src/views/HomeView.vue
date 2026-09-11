@@ -51,7 +51,7 @@
               <div class="d-hist-meta">
                 <span>{{ item.dateStr }}</span><span>·</span>
                 <span>{{ item.catLabel }}</span><span v-if="!isBaziRecord(item)">·</span>
-                <span v-if="!isBaziRecord(item)">{{ item.score }}分</span>
+                <span v-if="!isBaziRecord(item)">参考指数 {{ item.score }}</span>
               </div>
             </div>
             <span v-if="!isBaziRecord(item)" class="d-hist-badge" :class="'verdict-' + getVerdictInfo(item.score).cls">{{ getVerdictInfo(item.score).label }}</span>
@@ -492,7 +492,7 @@
           <div class="feedback-meta">
             <span>{{ feedbackTargetRecord.dateStr }}</span>
             <span>{{ feedbackTargetRecord.catLabel }}</span>
-            <span>{{ feedbackTargetRecord.score }}分</span>
+            <span>参考指数 {{ feedbackTargetRecord.score }}</span>
           </div>
           <p v-if="feedbackConclusion" class="feedback-conclusion">{{ feedbackConclusion }}</p>
         </div>
@@ -4371,7 +4371,7 @@ const buildCardHTML = (data, opts = {}) => {
   return `<div class="mag-result tone-${heroTone}" style="--theme-color:${THEME};--theme-color-dim:${THEME_DIM};">
     <section class="mag-hero" id="mag-hero">
       <div class="mag-hero-panel">
-        ${summary.score !== null && summary.score !== undefined ? `<div class="mag-score-inline"><strong id="vueScoreValue">${score}</strong><span>分</span></div>` : ''}
+        ${summary.score !== null && summary.score !== undefined ? `<div class="mag-score-inline"><span>参考指数</span><strong id="vueScoreValue">${score}</strong></div>` : ''}
         <div class="mag-hero-tags">
           <span class="mag-verdict-badge mag-verdict-${vd.cls}">${vd.label}</span>
           <span>${orSkel(reportM1.keyword || summary.keyword, '本局总判', 1)}</span>

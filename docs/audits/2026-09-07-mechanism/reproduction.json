@@ -1,0 +1,388 @@
+{
+  "star": {
+    "star": "天蓬",
+    "month": "寅",
+    "actual": "旺"
+  },
+  "fiveNotMeet": {
+    "dayStem": "甲",
+    "hourStem": "辛",
+    "actual": []
+  },
+  "punishment": {
+    "xunHeadZhifuInPunishmentPalace": [
+      "六仪击刑"
+    ],
+    "fixedEarthWuWithoutZhifu": []
+  },
+  "threeQi": {
+    "yiOnJiNoDuty": [
+      "三奇得使"
+    ],
+    "yiOnRenWithDuty": []
+  },
+  "jade": {
+    "dutyEarthDing": [
+      "玉女守门"
+    ],
+    "dutySkyDing": [
+      "奇仪相合·丁壬",
+      "三奇得使"
+    ]
+  },
+  "monthPattern": {
+    "input": {
+      "year": "壬申",
+      "month": "壬寅",
+      "day": "辛酉",
+      "time": "丙申"
+    },
+    "actual": {
+      "geju": "正官格",
+      "basis": "主格候选",
+      "monthMainGan": "丙",
+      "tenGod": "官",
+      "monthMergeInfo": null,
+      "patternCandidates": [
+        {
+          "type": "birth_month_revealed_hidden",
+          "name": "正官格",
+          "stem": "丙",
+          "tenGod": "官",
+          "priority": 84,
+          "evidence": [
+            "四生月寅本气甲不透",
+            "丙由月令藏干透出作主"
+          ]
+        },
+        {
+          "type": "base_month",
+          "name": "正财格",
+          "stem": "甲",
+          "tenGod": "财",
+          "priority": 50,
+          "evidence": [
+            "寅中甲取格"
+          ]
+        }
+      ],
+      "note": "主格候选提升：四生月寅本气甲不透；丙由月令藏干透出作主。"
+    }
+  },
+  "waterHurt": {
+    "input": {
+      "year": "己酉",
+      "month": "丁卯",
+      "day": "壬申",
+      "time": "乙巳"
+    },
+    "actual": {
+      "yongShen": "乙",
+      "yongShenTenGod": "伤",
+      "chengGe": "伤官格",
+      "chengGeResult": "败格",
+      "chengGeReason": "伤官见官",
+      "xianShen": "",
+      "basis": "月令本气",
+      "patternEffects": {
+        "protectedShens": [],
+        "invalidatedShens": [],
+        "demotedShens": [],
+        "promotedShens": [],
+        "assistantShens": [],
+        "methodTags": [],
+        "qiongTongPriority": false
+      }
+    }
+  },
+  "completeBaziCases": [
+    {
+      "time": "1909-03-13 10:00:00",
+      "pillars": {
+        "year": "己酉",
+        "month": "丁卯",
+        "day": "壬申",
+        "time": "乙巳"
+      },
+      "geju": "伤官格",
+      "strongWeak": "身弱",
+      "chengge": {
+        "yongShen": "乙",
+        "yongShenTenGod": "伤",
+        "chengGe": "伤官格",
+        "chengGeResult": "败格",
+        "chengGeReason": "伤官见官",
+        "xianShen": "",
+        "basis": "月令本气",
+        "patternEffects": {
+          "protectedShens": [],
+          "invalidatedShens": [],
+          "demotedShens": [],
+          "promotedShens": [],
+          "assistantShens": [],
+          "methodTags": [],
+          "qiongTongPriority": false
+        }
+      },
+      "fiveShens": {
+        "yong": "正印",
+        "yong_confidence": "HIGH",
+        "xi": [
+          "偏印"
+        ],
+        "ji": [
+          "伤官"
+        ],
+        "chou": [],
+        "xian": [
+          "七杀",
+          "比肩",
+          "劫财",
+          "正财",
+          "偏财",
+          "食神",
+          "正官"
+        ],
+        "favorable": [
+          "正印",
+          "偏印"
+        ],
+        "unfavorable": [
+          "伤官"
+        ]
+      }
+    },
+    {
+      "time": "1932-03-01 16:00:00",
+      "pillars": {
+        "year": "壬申",
+        "month": "壬寅",
+        "day": "辛酉",
+        "time": "丙申"
+      },
+      "geju": "正官格",
+      "strongWeak": "身中",
+      "chengge": {
+        "yongShen": "丙",
+        "yongShenTenGod": "官",
+        "chengGe": "正官格",
+        "chengGeResult": "败格",
+        "chengGeReason": "伤官见官",
+        "xianShen": "",
+        "basis": "主格候选",
+        "patternEffects": {
+          "protectedShens": [],
+          "invalidatedShens": [],
+          "demotedShens": [],
+          "promotedShens": [],
+          "assistantShens": [],
+          "methodTags": [],
+          "qiongTongPriority": false
+        }
+      },
+      "fiveShens": {
+        "yong": "偏印",
+        "yong_confidence": "HIGH",
+        "xi": [
+          "伤官"
+        ],
+        "ji": [
+          "正官"
+        ],
+        "chou": [],
+        "xian": [
+          "正财",
+          "偏财",
+          "七杀",
+          "食神",
+          "正印",
+          "劫财",
+          "比肩"
+        ],
+        "favorable": [
+          "偏印",
+          "伤官"
+        ],
+        "unfavorable": [
+          "正官"
+        ]
+      }
+    }
+  ],
+  "targetPhase": {
+    "actual": [
+      {
+        "shishen": "印",
+        "pillar": "日",
+        "position": "zhi_main",
+        "gan": "癸",
+        "zhi": "子",
+        "element": "水",
+        "twelve_phase": "临官",
+        "month_phase": "绝",
+        "month_element_state": "囚",
+        "roots": [
+          {
+            "pillar": "日",
+            "zhi": "子",
+            "gan": "癸",
+            "qi": "本气",
+            "is_kong": false
+          }
+        ],
+        "has_root": true,
+        "vigor": 0.9,
+        "vigor_basis": "target_stem_self_seat_proxy",
+        "model_note": "数值为项目排序指标，非古籍定量、完整旺衰结论或事件概率；须结合月令、通根及全局生克。",
+        "twelve_phase_for_dayStem": "沐浴",
+        "phase_score": 4,
+        "is_kong": false,
+        "is_in_tomb": false,
+        "gaitou_jiejiao": "neutral",
+        "gaitou_jiejiao_note": "干支相生或无克，关系正常",
+        "relationships": [
+          {
+            "type": "六冲",
+            "base_weight": 80,
+            "model_note": "数值为项目排序指标，非古籍定量、完整旺衰结论或事件概率；须结合月令、通根及全局生克。",
+            "target_vigor": 0.25,
+            "partner_vigor": 1,
+            "effective_strength": 80,
+            "strength_tier": "dominant",
+            "strength_label": "强烈",
+            "clash_direction": "loses",
+            "partner_pillar": "月",
+            "partner_gan": null,
+            "partner_zhi": "午",
+            "is_transformed": false,
+            "transformed_element": null,
+            "note": "子与午六冲（月柱）。目标衰，被对方冲拔"
+          },
+          {
+            "type": "拱合",
+            "base_weight": 10,
+            "model_note": "数值为项目排序指标，非古籍定量、完整旺衰结论或事件概率；须结合月令、通根及全局生克。",
+            "target_vigor": 0.25,
+            "partner_vigor": 0.35,
+            "effective_strength": 3,
+            "strength_tier": "latent",
+            "strength_label": "潜伏",
+            "clash_direction": null,
+            "partner_pillar": "年",
+            "partner_gan": null,
+            "partner_zhi": "寅",
+            "is_transformed": false,
+            "transformed_element": null,
+            "note": "子与寅拱合虚拱丑（年柱），填实则失效"
+          }
+        ],
+        "status_tags": [
+          "临官",
+          "有根",
+          "被冲"
+        ],
+        "verdict": "印自坐十二长生为临官，月令五行状态为囚；四柱藏干见根（日支子藏癸），根气是否受损须合看刑冲合化；子与午六冲（月柱）。目标衰，被对方冲拔"
+      }
+    ],
+    "dayMasterPhase": "沐浴",
+    "targetStemPhase": "临官"
+  },
+  "center": [
+    {
+      "time": [
+        2026,
+        9,
+        6,
+        4
+      ],
+      "ju": {
+        "zhi_fu": "天禽",
+        "zhi_fu_palace": "落坤2宫",
+        "zhi_fu_original_palace": "中5宫",
+        "zhi_fu_is_hosted": true,
+        "zhi_shi_palace": "落坤2宫",
+        "jieqi": "處暑",
+        "yuan": "上元",
+        "zhi_shi": "死門",
+        "name": "陰遁1局",
+        "xun_shou": "甲寅"
+      },
+      "godPalace": "坤2宫"
+    }
+  ],
+  "pillarBoundary": [
+    {
+      "time": "2026-02-04 09:00:00",
+      "chart": {
+        "hour": "己巳",
+        "month": "庚寅",
+        "day": "己酉",
+        "year": "丙午"
+      },
+      "exactYear": "丙午",
+      "exactMonth": "庚寅"
+    },
+    {
+      "time": "2026-02-04 15:00:00",
+      "chart": {
+        "hour": "壬申",
+        "month": "庚寅",
+        "day": "己酉",
+        "year": "丙午"
+      },
+      "exactYear": "丙午",
+      "exactMonth": "庚寅"
+    },
+    {
+      "time": "2026-02-04 21:00:00",
+      "chart": {
+        "hour": "乙亥",
+        "month": "庚寅",
+        "day": "己酉",
+        "year": "丙午"
+      },
+      "exactYear": "丙午",
+      "exactMonth": "庚寅"
+    }
+  ],
+  "subjectLocation": {
+    "time": [
+      2026,
+      9,
+      1,
+      2
+    ],
+    "dayStem": "戊",
+    "dayStemVisible": "戊",
+    "effectiveSkyPalaces": [
+      {
+        "index": 6,
+        "name": "艮8宫",
+        "sky": "戊",
+        "ji_sky": ""
+      }
+    ],
+    "earthOnlyPalaces": [
+      {
+        "index": 5,
+        "name": "兑7宫",
+        "earth": "戊",
+        "ji_earth": ""
+      }
+    ],
+    "intentKeys": [
+      "branch",
+      "category",
+      "subcategory",
+      "yearStem",
+      "monthStem",
+      "dayStem",
+      "hourStem",
+      "dayStemVisible",
+      "hourStemVisible",
+      "xunHead",
+      "isFuYin",
+      "isFanYin"
+    ]
+  }
+}

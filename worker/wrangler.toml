@@ -14,7 +14,7 @@ WHITELIST_EMAILS = "linjunyan0726@vip.qq.com,blairzbz1112@gmail.com,caoyuwei819@
 QUESTION_MODEL = "gemini-3-flash-preview"
 # Langfuse trace 上报 base URL（JP 区域）
 LANGFUSE_BASE_URL = "https://jp.cloud.langfuse.com"
-LANGFUSE_ENVIRONMENT = "production"
+LANGFUSE_TRACING_ENVIRONMENT = "production"
 
 [secrets]
 required = [
@@ -50,7 +50,7 @@ WHITELIST_EMAILS = "linjunyan0726@vip.qq.com,blairzbz1112@gmail.com,caoyuwei819@
 # preview 试用 flash，对比 pro 的稳定性与质量
 QUESTION_MODEL = "gemini-3-flash-preview"
 LANGFUSE_BASE_URL = "https://jp.cloud.langfuse.com"
-LANGFUSE_ENVIRONMENT = "preview"
+LANGFUSE_TRACING_ENVIRONMENT = "preview"
 
 [env.preview.secrets]
 required = [

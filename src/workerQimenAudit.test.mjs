@@ -39,12 +39,21 @@ test('qimen worker writes backend supplements back into qimen_report', () => {
   assert.match(source, /qimen_report:\s*enrichedQimenReport/)
 })
 
-test('固定时间起局：worker 走 buildQimenChart + parsePanTime，并支持 engineOnly 短路', () => {
+test('qimen worker treats LLM score review as advisory and never changes deterministic score', () => {
+  assert.match(source, /const auditDelta = 0;/)
+  assert.match(source, /const finalScore = Math\.round\(clampNumber\(backendScoreAudit\.final_score, 0, 100\)\)/)
+  assert.match(source, /advisory_only: true/)
+  assert.doesNotMatch(source, /backendScoreAudit\.final_score \+ auditDelta/)
+})
+
+test('固定时间起局：worker 走统一证据管线 + parsePanTime，并支持 engineOnly 短路', () => {
   // 起盘单一源（与 lib/qimenChart.test.js 同源）
-  assert.match(source, /import \{ buildQimenChart \} from '\.\.\/\.\.\/lib\/qimenChart\.js'/)
+  assert.match(source, /import \{ buildQimenEvidence \} from '\.\.\/\.\.\/lib\/qimenPipeline\.js'/)
+  assert.doesNotMatch(source, /import \{ buildQimenChart \}/)
   assert.match(source, /import \{ parsePanTime \} from '\.\.\/\.\.\/lib\/panTime\.js'/)
   assert.match(source, /const panTimeParts = parsePanTime\(body\.panTime\)/)
-  assert.match(source, /const chart = buildQimenChart\(\{ year, month, day, hour, minute \}\)/)
+  assert.match(source, /const ev = buildQimenEvidence\(\{/)
+  assert.match(source, /year, month, day, hour, minute,/)
   // 固定时刻不做时区二次偏移
   assert.match(source, /\(\{ year, month, day, hour, minute \} = panTimeParts\)/)
   // engineOnly：跳过 LLM，零 API 花费

@@ -2,6 +2,8 @@
 
 > 前置材料：[langfuse-prompt-inventory.md](langfuse-prompt-inventory.md)（函数级 prompt 清单）
 > 目标：解决当前"分场景分 chunk 的 prompt 全是 JS 硬编码字符串，版本管理靠 git commit 记忆、看不到实际拼装结果"的问题。
+>
+> 2026-09 v4 更新：仓库观测层已经迁移到 `@langfuse/tracing` + `@langfuse/otel` 的 observations-first 模型；当前 Cloud 目标为 JP。项目侧 evaluator、dataset evaluator 和 export/integration 仍需在目标项目中用 Migration Assistant 复核。执行和回滚步骤见 [langfuse-phase0-execution-plan.md](langfuse-phase0-execution-plan.md)。
 
 ---
 
@@ -24,12 +26,11 @@
 
 > 已确定采用 **Langfuse Cloud 免费层**（不自托管）。详细可执行步骤见 [langfuse-phase0-execution-plan.md](langfuse-phase0-execution-plan.md)，下面只保留要点。
 
-1. **自托管 Langfuse**（`docker-compose`，完全免费，不依赖外部 SaaS 额度）。
-2. **收敛 LLM 调用出口**：当前 5 个 wrapper 分散在 `worker/src/index.js`（`classifyByGeminiFlashWithEnv`/`requestLLM`/`requestLLMText`/`requestLLMSimpleStream`/`requestLLMStreamSections`，见清单第 6 节），建议先重构成一个内部基础函数 `callLLM({ prompt, mode, stream, ... })`，四种调用形态（流式/非流式、JSON/纯文本）都走这一个函数，**只在这一处插桩 Langfuse trace**，而不是在每个 `handle*` 业务函数里分别插。这样收益最大、改动面最小。
-   - 这是一处有回归风险的重构，建议先确认 `lib/bazi-api.test.js`/`lib/qimenPipeline.test.js` 等现有测试能覆盖到调用这些 wrapper 的路径，重构后跑一遍。
-3. **确定 trace span 边界**：以 `handle*` 函数为 span（`handleQimen`/`handleBaziQuestion`/`handleQimenFollowup`/`handleBaziFollowup`/`handleBazi`/`handleBaziCalibrate`/`handleFortuneDailyInterpretation`/`handleFortuneMonthlyInterpretation`/`handleDivinationRoute`），每个 span 内记录：用到的 prompt 组装函数名 + 各 chunk 是否命中（比如 `polarityPromptSection` 常见为空）+ 渲染后的完整 prompt 全文 + 模型返回。
-4. **异步上报**：Cloudflare Worker 环境下用 `ctx.waitUntil()` 发送 trace，不阻塞用户响应。
-5. **脱敏策略先行**：见清单第 7 节列出的用户自由文本插入点，尤其 `src/utils/buildCalibrationPrompt.mjs` 里的 `e.description`（婚姻/疾病/官司等隐私描述）。在 Phase 0 就要定好脱敏规则（哪些字段直接上报、哪些做打码/摘要），不要等接入完了再补。
+1. **Cloud 目标**：使用 Langfuse Cloud JP；项目凭证保留在本地 `.dev.vars` / Cloudflare secrets，不进入 git。
+2. **统一 instrumentation**：5 个 LLM wrapper 通过 `beginLangfuseGeneration` 进入同一个 SDK adapter。每次调用建立 root span + nested generation，不再调用 legacy ingestion API。
+3. **trace 边界**：root observation 保存经过截断/脱敏的整体输入输出，generation 保存模型、temperature 和 token usage；业务场景通过 name、tag、user、session、environment 和 metadata 检索。
+4. **异步上报**：Cloudflare Worker 使用 immediate export，并通过 `ctx.waitUntil(forceFlush())` 完成发送。
+5. **脱敏策略**：用户自由文本统一经过截断；定盘纠偏的高隐私描述只记录 `{profileId, promptLength}` 摘要。
 
 **验收标准**：随便发起一次真实的奇门或八字问事请求，能在 Langfuse UI 里看到这次请求完整的 trace，包括最终发给 Gemini 的完整 prompt 文本、各 chunk 是否命中、模型返回内容。
 
@@ -98,7 +99,7 @@
 
 | Phase | 内容 | 工作量估计 | 前置依赖 |
 |---|---|---|---|
-| 0 | Langfuse 自托管 + LLM 调用出口收敛为 `callLLM` + 埋点 + 脱敏策略 | 1-2 天 | 无 |
+| 0 | Langfuse Cloud v4 SDK instrumentation + 埋点 + 脱敏策略 | ✅ 代码完成，待项目侧 canary | 无 |
 | 1 | 6 组高频纯静态模板纳管（P0/P1/P2） | 每组 0.5-1 天，共约 3-4 天 | Phase 0 |
 | 2 | 混合型框架打观测点 | 与 Phase 0 埋点同步完成，无需额外大改 | Phase 0 |
 | 3 | 逻辑重输出观测 | 与 Phase 0 埋点同步完成 | Phase 0 |
@@ -110,7 +111,7 @@
 
 ## 风险与注意事项
 
-1. **`callLLM` 收敛重构有回归风险**：5 个 wrapper 目前分别处理不同的请求形态（流式/非流式/JSON/纯文本），合并时要逐个验证 `handle*` 调用方没有依赖某个 wrapper 的隐藏行为差异，建议先跑通现有测试再合并。
+1. **Worker runtime 兼容性需要 preview canary**：SDK 基于 OpenTelemetry，代码测试和 dry-run bundle 通过后仍要用真实 Worker 请求确认 observation 能 flush 到 JP 项目。
 2. **不要把"上报到 Langfuse"和"用户输入脱敏"搞反**：`worker/src/index.js:173-181` 的 `sanitizeUserText` 是清洗 LLM 输出（防内部指标泄漏），跟这里说的"用户自由文本上报前脱敏"是反方向的两件事，实现时容易混淆复用。
 3. **两套哨兵协议尚未统一**（`<<<SEC:key>>>` vs `<<<SECTION:key>>>`），迁移方案不强制统一，但如果 Phase 1 做到 `SENTINEL_INSTRUCTION` 时顺手讨论一下是否合并，属于低成本顺带收益。
 4. **方案 A 不解决"改 prompt 还要手动部署"的问题**——这是当前部署架构的既有约束（见 memory：`lib/` 改动需手动 `wrangler deploy`），Langfuse 迁移不改变这一点，只是让"这次线上到底发了什么 prompt"变得可查、可 diff。

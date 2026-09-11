@@ -3,12 +3,14 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 
 const source = readFileSync(new URL('../worker/src/index.js', import.meta.url), 'utf8')
+const langfuseSource = readFileSync(new URL('../worker/src/langfuse.mjs', import.meta.url), 'utf8')
 const wranglerConfig = readFileSync(new URL('../worker/wrangler.toml', import.meta.url), 'utf8')
 
-test('Langfuse sends a userId on the trace and generation events', () => {
-  assert.match(source, /async function reportToLangfuse\(\{[^}]*userId/)
-  assert.match(source, /type: 'trace-create',[\s\S]{0,500}userId: langfuseUserId/)
-  assert.match(source, /type: 'generation-create',[\s\S]{0,500}userId: langfuseUserId/)
+test('Langfuse uses the v5 observations-first SDK and no legacy ingestion events', () => {
+  assert.match(source, /import \{ langfuseTelemetry \} from '\.\/langfuse\.mjs'/)
+  assert.match(source, /langfuseTelemetry\.startGeneration\(/)
+  assert.doesNotMatch(source, /\/api\/public\/ingestion/)
+  assert.doesNotMatch(source, /trace-create|generation-create/)
 })
 
 test('authenticated and guest AI flows pass their stable user ID to Langfuse', () => {
@@ -19,8 +21,18 @@ test('authenticated and guest AI flows pass their stable user ID to Langfuse', (
   assert.match(source, /qimen-followup-patch'[\s\S]{0,240}userId: userId \|\| guestId/)
 })
 
-test('Langfuse events distinguish production from preview', () => {
-  assert.match(source, /environment: langfuseEnvironment/)
-  assert.match(wranglerConfig, /\[vars\][\s\S]*LANGFUSE_ENVIRONMENT = "production"/)
-  assert.match(wranglerConfig, /\[env\.preview\.vars\][\s\S]*LANGFUSE_ENVIRONMENT = "preview"/)
+test('follow-up generation calls propagate a stable Langfuse session ID', () => {
+  assert.match(source, /qimen-followup-classify'[\s\S]{0,240}sessionId: recordId \|\| requestId/)
+  assert.match(source, /qimen-followup-patch'[\s\S]{0,280}sessionId: recordId \|\| requestId/)
+  assert.match(source, /bazi-followup-decide'[\s\S]{0,280}sessionId: profileId/)
+})
+
+test('Langfuse v5 distinguishes production from preview', () => {
+  assert.match(langfuseSource, /LANGFUSE_TRACING_ENVIRONMENT/)
+  assert.match(wranglerConfig, /\[vars\][\s\S]*LANGFUSE_TRACING_ENVIRONMENT = "production"/)
+  assert.match(wranglerConfig, /\[env\.preview\.vars\][\s\S]*LANGFUSE_TRACING_ENVIRONMENT = "preview"/)
+})
+
+test('all instrumented LLM wrappers close failed observations', () => {
+  assert.equal(source.match(/langfuse\.fail\(error\)/g)?.length, 5)
 })

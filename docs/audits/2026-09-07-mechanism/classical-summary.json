@@ -1,0 +1,90 @@
+{
+  "result_file": "/tmp/qimen-mechanism-classical.json",
+  "summary": {
+    "total": 24,
+    "weighted_accuracy": 0.9108333333333333,
+    "yong_top1_accuracy": 0.918181818181818,
+    "xiji_direction_accuracy": 1,
+    "strength_accuracy": null,
+    "geju_accuracy": 0.9230769230769231,
+    "yong_case_count": 22,
+    "xiji_case_count": 19,
+    "strength_case_count": 0,
+    "geju_case_count": 13,
+    "critical_fail_count": 0,
+    "pass_count": 20,
+    "minor_count": 4,
+    "major_count": 0,
+    "critical_count": 0
+  },
+  "core_summary_without_method": {
+    "total": 24,
+    "weighted_accuracy_without_method": 0.9566666666666666,
+    "pass_count": 20,
+    "minor_count": 4,
+    "major_count": 0
+  },
+  "scope_summary": {
+    "geju": {
+      "count": 13,
+      "accuracy": 0.9230769230769231
+    },
+    "image": {
+      "count": 4,
+      "accuracy": 1
+    },
+    "yong": {
+      "count": 22,
+      "accuracy": 0.918181818181818
+    },
+    "xiji": {
+      "count": 19,
+      "accuracy": 1
+    },
+    "method": {
+      "count": 24,
+      "accuracy": 0.6284722222222223
+    },
+    "strength": {
+      "count": 0,
+      "accuracy": null
+    }
+  },
+  "fixture_summary": {
+    "图解穷通宝鉴": {
+      "total": 18,
+      "weighted_accuracy": 0.9322222222222221,
+      "yong_top1_accuracy": 0.98125,
+      "xiji_direction_accuracy": 1,
+      "strength_accuracy": null,
+      "geju_accuracy": 0.875,
+      "yong_case_count": 16,
+      "xiji_case_count": 14,
+      "strength_case_count": 0,
+      "geju_case_count": 8,
+      "critical_fail_count": 0,
+      "pass_count": 16,
+      "minor_count": 2,
+      "major_count": 0,
+      "critical_count": 0
+    },
+    "图解子平真诠": {
+      "total": 6,
+      "weighted_accuracy": 0.8466666666666667,
+      "yong_top1_accuracy": 0.75,
+      "xiji_direction_accuracy": 1,
+      "strength_accuracy": null,
+      "geju_accuracy": 1,
+      "yong_case_count": 6,
+      "xiji_case_count": 5,
+      "strength_case_count": 0,
+      "geju_case_count": 5,
+      "critical_fail_count": 0,
+      "pass_count": 4,
+      "minor_count": 2,
+      "major_count": 0,
+      "critical_count": 0
+    }
+  },
+  "failures": []
+}

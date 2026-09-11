@@ -14,19 +14,16 @@ import U from '../../lib/QimenUtils.js';
 import Calc from '../../lib/QimenCalculations.js';
 import { buildFrontendCopyProtocolSection, buildQimenInferenceRulesSection, buildQimenOutputContractSection, buildReportSchemaPromptSection, buildScoreAuditPromptSection, buildSummaryPromptSection } from '../../lib/qimenPromptSections.js';
 import { buildFollowupClassifierPrompt, buildFollowupPatchPrompt, normalizeFollowupRoute, buildBaziFollowupPrompt, normalizeBaziFollowupDecision, PATCHABLE_SECTIONS } from '../../lib/wenshiFollowup.js';
-import { buildDomainViewPromptSection, buildYongshenPromptSection, getYongshenRule } from '../../lib/qimenYongshenRules.js';
-import { buildTimingAnalysis, buildTimingPromptSection } from '../../lib/qimenTimingRules.js';
-import { buildPolarityPromptSection, detectPolarityOverrides } from '../../lib/qimenPolarityRules.js';
-import { calculateQimenScore } from '../../lib/qimenScoringEngine.js';
-import { annotateProsperity } from '../../lib/qimenProsperity.js';
-import { getMaXing, maXingMap, zhiToPalace, palaceBranches, getKongIndices } from '../../lib/qimenCore.js';
-import { buildQimenChart } from '../../lib/qimenChart.js';
+import { buildDomainViewPromptSection, buildYongshenPromptSection } from '../../lib/qimenYongshenRules.js';
+import { buildTimingPromptSection } from '../../lib/qimenTimingRules.js';
+import { buildPolarityPromptSection } from '../../lib/qimenPolarityRules.js';
 import { buildQimenEvidence } from '../../lib/qimenPipeline.js';
 import { parsePanTime } from '../../lib/panTime.js';
 import baziCore from '../../lib/baziCore.js';
 import qimenLlmOutput from '../../lib/qimenLlmOutput.js';
 import accountQuota from '../../lib/accountQuota.js';
 import baziLlmSections from '../../lib/baziLlmSections.js';
+import { langfuseTelemetry } from './langfuse.mjs';
 
 const { buildCompleteBaziDetail, buildQualitativeSections, hasCompleteLlmCache, hasLatestEngineCache, hasExistingLlm, CALIBRATION_VERSION, computeEventsHash, hasValidCalibration } = baziCore;
 const { normalizeQimenLlmOutput } = qimenLlmOutput;
@@ -86,27 +83,6 @@ function parseAuditDelta(value) {
   if (typeof value === 'number') return Math.round(clampNumber(value, -20, 20));
   const match = String(value || '').match(/[+-]?\d+/);
   return Math.round(clampNumber(match ? Number(match[0]) : 0, -20, 20));
-}
-
-function suppressDuplicateNegativeAuditDelta(delta, rawScoreAudit = {}, backendScoreAudit = {}) {
-  if (delta >= 0) return { delta, suppressed: false, reason: '' };
-  const backendEvidence = JSON.stringify(backendScoreAudit.adjustments || []);
-  const auditEvidence = JSON.stringify({
-    reason: rawScoreAudit.audit_reason,
-    layer_reviews: rawScoreAudit.layer_reviews,
-    missed_or_overweighted_factors: rawScoreAudit.missed_or_overweighted_factors,
-    audit_delta_breakdown: rawScoreAudit.audit_delta_breakdown
-  });
-  const duplicateKeywords = ['空亡', '杜门', '庚格', '凶格', '白虎', '朱雀', '奇格', '主客', '阴时', '值使'];
-  const repeatsBackendEvidence = duplicateKeywords.some((keyword) => (
-    backendEvidence.includes(keyword) && auditEvidence.includes(keyword)
-  ));
-  if (!repeatsBackendEvidence) return { delta, suppressed: false, reason: '' };
-  return {
-    delta: 0,
-    suppressed: true,
-    reason: 'LLM 负向审计与后端已计入的空亡/杜门/庚格/凶格/主客动静等证据重复，V4.1 后处理将重复扣分归零。'
-  };
 }
 
 function deriveScoreBasisFromM3(m3Inference, formationAdjustments, finalScore) {
@@ -342,9 +318,12 @@ async function classifyByGeminiFlashWithEnv(question, ruleResult, env, ctx, trac
     throw new Error('GEMINI_API_KEY is not configured');
   }
 
-  const startTime = Date.now();
   const prompt = buildGeminiRoutePrompt(question, ruleResult);
   const model = 'gemini-3-flash-preview';
+  const langfuse = beginLangfuseGeneration({
+    name: traceMeta.name || 'divination-route-l1', model, input: prompt, temperature: 0.1, traceMeta,
+  }, env, ctx);
+  try {
   const response = await fetch(LLM_API_URL, {
     method: 'POST',
     headers: {
@@ -366,13 +345,12 @@ async function classifyByGeminiFlashWithEnv(question, ruleResult, env, ctx, trac
   const apiData = await response.json();
   const content = apiData.choices?.[0]?.message?.content || '{}';
   const parsed = JSON.parse(content.replace(/```json/g, '').replace(/```/g, '').trim());
-  reportToLangfuse({
-    name: traceMeta.name || 'divination-route-l1',
-    model, input: prompt, output: content,
-    startTime, endTime: Date.now(),
-    metadata: traceMeta, tags: traceMeta.tags, usage: toLangfuseUsage(apiData.usage), userId: traceMeta.userId,
-  }, env, ctx);
+  langfuse.end({ output: content, usage: toLangfuseUsage(apiData.usage) });
   return parsed;
+  } catch (error) {
+    langfuse.fail(error);
+    throw error;
+  }
 }
 
 async function classifyBaziSemanticRouteWithEnv(question, routeHint, env, ctx, traceMeta = {}) {
@@ -563,15 +541,9 @@ function redactForTrace(text, { maxLen = 20000 } = {}) {
   return text.length > maxLen ? `${text.slice(0, maxLen)}…[截断:${text.length}字符]` : text;
 }
 
-// Phase 0 可观测性：手写调用 Langfuse legacy ingestion API，不用官方 JS SDK。
-// 原因：@langfuse/otel 要求 Node.js>=20，在 Cloudflare Workers 上不可靠（SDK flushAsync()
-// 会静默丢数据，见 github.com/langfuse/langfuse/issues/11984）；直接调 ingestion API 才稳定。
-// trace-create 字段结构已通过官方 API reference + 真实用户在 Workers 上跑通的例子交叉验证。
-// generation-create 字段是尽力而为：若字段有误，只会体现在响应的 errors 数组里（打 warn 日志），
-// 不影响 trace-create 本身成功——所以两个 event 放同一个 batch 里发送，风险可控。
-// 必须 fail-open：Langfuse 故障绝不能影响主链路给用户的响应。
-// 把上游 OpenAI 兼容响应里的 usage（prompt_tokens/completion_tokens/total_tokens）
-// 转成 Langfuse ingestion API 的 usage 形状（input/output/total/unit）。
+// Langfuse v4 observations-first instrumentation. A root observation owns the
+// overall I/O and a nested generation owns model/usage data. The SDK exporter is
+// fail-open and flushed through ctx.waitUntil() for the Worker lifecycle.
 function toLangfuseUsage(usage) {
   if (!usage) return undefined;
   const input = usage.prompt_tokens ?? usage.input_tokens;
@@ -581,83 +553,44 @@ function toLangfuseUsage(usage) {
   return { input, output, total, unit: 'TOKENS' };
 }
 
-async function reportToLangfuse({ name, model, input, output, startTime, endTime, metadata, tags, usage, userId }, env, ctx) {
-  if (!env.LANGFUSE_PUBLIC_KEY || !env.LANGFUSE_SECRET_KEY) return;
-  // Langfuse accepts string user IDs up to 200 characters. Keep personal contact
-  // data out of traces: Supabase and guest IDs are stable pseudonymous identifiers.
-  const langfuseUserId = typeof userId === 'string' && userId.length <= 200 ? userId : undefined;
-  const langfuseEnvironment = /^[a-z0-9][a-z0-9_-]{0,39}$/.test(env.LANGFUSE_ENVIRONMENT || '')
-    ? env.LANGFUSE_ENVIRONMENT
-    : 'default';
-
-  const promise = (async () => {
-    try {
-      const traceId = crypto.randomUUID();
-      const nowIso = new Date().toISOString();
-      const auth = btoa(`${env.LANGFUSE_PUBLIC_KEY}:${env.LANGFUSE_SECRET_KEY}`);
-      const startIso = new Date(startTime).toISOString();
-      const endIso = new Date(endTime).toISOString();
-      const body = {
-        batch: [
-          {
-            id: crypto.randomUUID(),
-            timestamp: nowIso,
-            type: 'trace-create',
-            body: {
-              id: traceId,
-              timestamp: startIso,
-              name,
-              input: redactForTrace(input),
-              output: redactForTrace(output),
-              metadata,
-              tags,
-              userId: langfuseUserId,
-              environment: langfuseEnvironment,
-            },
-          },
-          {
-            id: crypto.randomUUID(),
-            timestamp: nowIso,
-            type: 'generation-create',
-            body: {
-              id: crypto.randomUUID(),
-              traceId,
-              name,
-              model,
-              input: redactForTrace(input),
-              output: redactForTrace(output),
-              startTime: startIso,
-              endTime: endIso,
-              metadata,
-              usage,
-              userId: langfuseUserId,
-              environment: langfuseEnvironment,
-            },
-          },
-        ],
-      };
-
-      const res = await fetch(`${env.LANGFUSE_BASE_URL}/api/public/ingestion`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Authorization: `Basic ${auth}` },
-        body: JSON.stringify(body),
-      });
-      const result = await res.json().catch(() => null);
-      if (result?.errors?.length) {
-        console.warn('[langfuse] ingestion partial errors:', JSON.stringify(result.errors).slice(0, 500));
-      }
-    } catch (err) {
-      console.warn('[langfuse] report failed:', err.message);
-    }
-  })();
-
-  if (ctx?.waitUntil) ctx.waitUntil(promise); else await promise;
+function beginLangfuseGeneration({ name, model, input, temperature, traceMeta = {} }, env, ctx) {
+  const {
+    name: traceMetaName,
+    userId,
+    sessionId,
+    tags,
+    version,
+    traceInputOverride,
+    ...metadata
+  } = traceMeta;
+  const handle = langfuseTelemetry.startGeneration({
+    name: name || traceMetaName,
+    model,
+    input: redactForTrace(traceInputOverride ?? input),
+    userId,
+    sessionId,
+    tags,
+    version,
+    metadata,
+    modelParameters: Number.isFinite(temperature) ? { temperature } : undefined,
+  }, env, ctx);
+  return {
+    end({ output, usage } = {}) {
+      return handle.end({ output: redactForTrace(output), usage });
+    },
+    fail(error) {
+      return handle.end({ error });
+    },
+  };
 }
 
 async function requestLLM(prompt, env, model = 'gemini-3.1-pro-preview', temperature = 0.5, ctx, traceMeta = {}) {
   if (!env.GEMINI_API_KEY) throw new Error('GEMINI_API_KEY not configured');
 
-  const startTime = Date.now();
+  const langfuse = beginLangfuseGeneration({
+    name: traceMeta.name || 'requestLLM', model, input: prompt, temperature, traceMeta,
+  }, env, ctx);
+  try {
   const response = await fetch('https://yinli.one/v1/chat/completions', {
     method: 'POST',
     headers: {
@@ -686,20 +619,22 @@ async function requestLLM(prompt, env, model = 'gemini-3.1-pro-preview', tempera
   const rawContent = data.choices?.[0]?.message?.content || '{}';
   const cleaned = rawContent.replace(/```json/g, '').replace(/```/g, '').trim();
   const parsed = JSON.parse(cleaned);
-  reportToLangfuse({
-    name: traceMeta.name || 'requestLLM',
-    model, input: traceMeta.traceInputOverride ?? prompt, output: rawContent,
-    startTime, endTime: Date.now(),
-    metadata: traceMeta, tags: traceMeta.tags, usage: toLangfuseUsage(data.usage), userId: traceMeta.userId,
-  }, env, ctx);
+  langfuse.end({ output: rawContent, usage: toLangfuseUsage(data.usage) });
   return parsed;
+  } catch (error) {
+    langfuse.fail(error);
+    throw error;
+  }
 }
 
 // Non-streaming plain-text fallback — used for empty-stream retry.
 // Returns the full response text (no JSON format constraint, stream: false).
 async function requestLLMText(prompt, env, model = 'gemini-3.1-pro-preview', temperature = 0.65, ctx, traceMeta = {}) {
   if (!env.GEMINI_API_KEY) throw new Error('GEMINI_API_KEY not configured');
-  const startTime = Date.now();
+  const langfuse = beginLangfuseGeneration({
+    name: traceMeta.name || 'requestLLMText', model, input: prompt, temperature, traceMeta,
+  }, env, ctx);
+  try {
   const response = await fetch(LLM_API_URL, {
     method: 'POST',
     headers: {
@@ -723,22 +658,24 @@ async function requestLLMText(prompt, env, model = 'gemini-3.1-pro-preview', tem
   const data = await response.json();
   if (data.error) throw new Error(data.error.message || JSON.stringify(data.error));
   const content = data.choices?.[0]?.message?.content || '';
-  reportToLangfuse({
-    name: traceMeta.name || 'requestLLMText',
-    model, input: prompt, output: content,
-    startTime, endTime: Date.now(),
-    metadata: traceMeta, tags: traceMeta.tags, usage: toLangfuseUsage(data.usage), userId: traceMeta.userId,
-  }, env, ctx);
+  langfuse.end({ output: content, usage: toLangfuseUsage(data.usage) });
   return content;
+  } catch (error) {
+    langfuse.fail(error);
+    throw error;
+  }
 }
 
 // Streams plain text chunks from the LLM (no JSON format constraint).
 // Yields raw text deltas for SSE forwarding.
 async function* requestLLMSimpleStream(prompt, env, model = 'gemini-3.1-pro-preview', temperature = 0.65, ctx, traceMeta = {}) {
   if (!env.GEMINI_API_KEY) throw new Error('GEMINI_API_KEY not configured');
-  const startTime = Date.now();
+  const langfuse = beginLangfuseGeneration({
+    name: traceMeta.name || 'requestLLMSimpleStream', model, input: prompt, temperature, traceMeta,
+  }, env, ctx);
   let fullOutput = '';
 
+  try {
   const response = await fetch(LLM_API_URL, {
     method: 'POST',
     headers: {
@@ -769,12 +706,7 @@ async function* requestLLMSimpleStream(prompt, env, model = 'gemini-3.1-pro-prev
     if (data.error) throw new Error(data.error.message || JSON.stringify(data.error));
     const content = data.choices?.[0]?.message?.content || '';
     if (content) yield content;
-    reportToLangfuse({
-      name: traceMeta.name || 'requestLLMSimpleStream',
-      model, input: prompt, output: content,
-      startTime, endTime: Date.now(),
-      metadata: traceMeta, tags: traceMeta.tags, usage: toLangfuseUsage(data.usage), userId: traceMeta.userId,
-    }, env, ctx);
+    langfuse.end({ output: content, usage: toLangfuseUsage(data.usage) });
     return;
   }
 
@@ -807,12 +739,11 @@ async function* requestLLMSimpleStream(prompt, env, model = 'gemini-3.1-pro-prev
       }
     }
   }
-  reportToLangfuse({
-    name: traceMeta.name || 'requestLLMSimpleStream',
-    model, input: prompt, output: fullOutput,
-    startTime, endTime: Date.now(),
-    metadata: traceMeta, tags: traceMeta.tags, usage: toLangfuseUsage(streamUsage), userId: traceMeta.userId,
-  }, env, ctx);
+  langfuse.end({ output: fullOutput, usage: toLangfuseUsage(streamUsage) });
+  } catch (error) {
+    langfuse.fail(error);
+    throw error;
+  }
 }
 
 // Replaces the JSON schema block in a bazi-question prompt with a plain-text output instruction.
@@ -959,7 +890,7 @@ function convertQimenPromptToTextMode(prompt) {
   "intent_audit": { "route_confidence": "high|medium|low", "is_route_acceptable": true, "is_role_acceptable": true, "suggested_category": "", "suggested_subcategory": "", "suggested_role": "", "reason": "" },
   "timing_review": { "summary": "评价后端应期候选是否可用", "usable_candidates": [], "limitations": [] }
 }
-其中 score_review.audit_delta 必须是 -20 到 +20 的整数；如无需修正写 0。
+其中 score_review.audit_delta 必须写整数 0；模型复核只提供文字意见，不改动后端确定性工程指标。
 <<<END:data_json>>>
 
 严格要求：只输出上述 9 段，不要在哨兵标记之外写任何文字。`;
@@ -1085,8 +1016,11 @@ function baziSectionsAreBad(sec, mode) {
 
 async function requestLLMStreamSections(prompt, env, handlers = {}, model = 'gemini-3.1-pro-preview', temperature = 0.65, ctx, traceMeta = {}) {
   if (!env.GEMINI_API_KEY) throw new Error('GEMINI_API_KEY not configured');
-  const startTime = Date.now();
+  const langfuse = beginLangfuseGeneration({
+    name: traceMeta.name || 'requestLLMStreamSections', model, input: prompt, temperature, traceMeta,
+  }, env, ctx);
 
+  try {
   const response = await fetch(LLM_API_URL, {
     method: 'POST',
     headers: {
@@ -1122,12 +1056,7 @@ async function requestLLMStreamSections(prompt, env, handlers = {}, model = 'gem
       handlers.onDelta?.(section, text);
       handlers.onSectionDone?.(section, text);
     }
-    reportToLangfuse({
-      name: traceMeta.name || 'requestLLMStreamSections',
-      model, input: prompt, output: JSON.stringify(parsed.sections),
-      startTime, endTime: Date.now(),
-      metadata: traceMeta, tags: traceMeta.tags, usage: toLangfuseUsage(data.usage), userId: traceMeta.userId,
-    }, env, ctx);
+    langfuse.end({ output: JSON.stringify(parsed.sections), usage: toLangfuseUsage(data.usage) });
     return parsed.sections;
   }
 
@@ -1159,13 +1088,12 @@ async function requestLLMStreamSections(prompt, env, handlers = {}, model = 'gem
   }
 
   const finishedSections = parser.finish().sections;
-  reportToLangfuse({
-    name: traceMeta.name || 'requestLLMStreamSections',
-    model, input: prompt, output: JSON.stringify(finishedSections),
-    startTime, endTime: Date.now(),
-    metadata: traceMeta, tags: traceMeta.tags, usage: toLangfuseUsage(streamUsage), userId: traceMeta.userId,
-  }, env, ctx);
+  langfuse.end({ output: JSON.stringify(finishedSections), usage: toLangfuseUsage(streamUsage) });
   return finishedSections;
+  } catch (error) {
+    langfuse.fail(error);
+    throw error;
+  }
 }
 
 async function assertProfileOwnership(userId, profileId, env) {
@@ -1927,7 +1855,7 @@ async function handleQimenFollowup(request, env, ctx) {
     if (env.FOLLOWUP_DEBUG === '1') console.log('[followup][prompt:classifier]\n' + classifierPrompt);
     let routeRaw;
     try {
-      routeRaw = await requestLLM(classifierPrompt, env, 'gemini-3-flash-preview', 0.1, ctx, { name: 'qimen-followup-classify', scenario: 'qimen-followup', branch, userId: userId || guestId });
+      routeRaw = await requestLLM(classifierPrompt, env, 'gemini-3-flash-preview', 0.1, ctx, { name: 'qimen-followup-classify', scenario: 'qimen-followup', branch, userId: userId || guestId, sessionId: recordId || requestId });
     } catch (e) {
       console.warn('[followup] classifier failed, defaulting to same_casting:', e.message);
       routeRaw = { scope: 'same_casting' };
@@ -1975,7 +1903,7 @@ async function handleQimenFollowup(request, env, ctx) {
     const parser = createSentinelStreamParser(visible, {
       onVisibleDelta: (section, text) => emit({ type: 'patch_delta', section, text }),
     });
-    const _followupTraceMeta = { name: 'qimen-followup-patch', scenario: 'qimen-followup', branch, nature: fr.nature, tags: ['qimen-followup'], userId: userId || guestId };
+    const _followupTraceMeta = { name: 'qimen-followup-patch', scenario: 'qimen-followup', branch, nature: fr.nature, tags: ['qimen-followup'], userId: userId || guestId, sessionId: recordId || requestId };
     let full = '';
     for await (const chunk of requestLLMSimpleStream(patchPrompt, env, patchModel, 0.6, ctx, _followupTraceMeta)) {
       full += chunk;
@@ -2117,7 +2045,7 @@ async function handleBaziFollowup(request, env, ctx) {
       },
     });
 
-    const _baziFollowupTraceMeta = { name: 'bazi-followup-decide', scenario: 'bazi-followup', analysisMode: originRoute.analysis_mode, tags: ['bazi-followup'], userId: user.id };
+    const _baziFollowupTraceMeta = { name: 'bazi-followup-decide', scenario: 'bazi-followup', analysisMode: originRoute.analysis_mode, tags: ['bazi-followup'], userId: user.id, sessionId: profileId };
     let full = '';
     for await (const chunk of requestLLMSimpleStream(prompt, env, model, 0.6, ctx, _baziFollowupTraceMeta)) {
       full += chunk;
@@ -2288,7 +2216,7 @@ async function handleQimen(request, env, ctx) {
     const qimenRouteHint = ruleRouteHint(userQuestion, { forceBranch: 'qimen' });
     const routeRaw = body.route
         ? { ...body.route, source: body.route.source || 'client' }
-        : await classifyDivinationQuestion({ question: userQuestion, forceBranch: 'qimen', llmFallback: true, llmClassifier: (text, ruleResult) => classifyByGeminiFlashWithEnv(text, ruleResult, env, ctx, { name: 'qimen-route-l1', scenario: 'qimen' }) });
+        : await classifyDivinationQuestion({ question: userQuestion, forceBranch: 'qimen', llmFallback: true, llmClassifier: (text, ruleResult) => classifyByGeminiFlashWithEnv(text, ruleResult, env, ctx, { name: 'qimen-route-l1', scenario: 'qimen', userId: userId || guestId }) });
     const detectedIntent = normalizeDivinationRoute(routeRaw);
 
     const ev = buildQimenEvidence({
@@ -2382,7 +2310,7 @@ async function handleQimen(request, env, ctx) {
 
     const finalPrompt = `你是一位精通“时家奇门拆补转盘法”的奇门遁甲预测大师。
 起局时间：${timestamp_solar}(${timestamp_lunar})。
-干支四柱：${lunar.getYearInGanZhi()} ${lunar.getMonthInGanZhi()} ${ganzhiDay} ${ganzhiHour}。${qimen_structure}。${juResult.jieQiName} ${juResult.yuanName} ；
+干支四柱：${qimenData.pillars.year} ${qimenData.pillars.month} ${qimenData.pillars.day} ${qimenData.pillars.hour}。${qimen_structure}。${juResult.jieQiName} ${juResult.yuanName} ；
 旬首:${xunHead}。值符:${zhiFuStar}。值使:${zhiShiDoor}。空亡：日空${dayKongObj} 时空${hourKongObj}。驿马星：日马${dayMa} 时马${hourMa}。
 ${palacesText}
 
@@ -2392,7 +2320,7 @@ ${effectiveBaziInfo}
 **【核心推演逻辑】**
 1. ${yongshenPromptSection}
    - **补充限制**：如果上文提供了“求测人八字/命理信息”，请务必提取其出生年的天干作为“年命”落宫，结合日干落宫综合判断；若未提供，直接以“日干”代表求测人。
-   - **审计要求**：你必须把当前 category/subcategory 对应的取用神规则作为审计依据。若你认为上游分类或子分类不贴合用户问题，必须在 intent_audit 中说明，并评估这是否导致后端初分偏差。
+   - **审计要求**：你必须把当前 category/subcategory 对应的取用神规则作为审计依据。若你认为上游分类或子分类不贴合用户问题，必须在 intent_audit 中说明，并评估这是否导致后端工程指标偏差。
 
 ${inferenceRulesSection}
 
@@ -2512,16 +2440,16 @@ ${outputContractSection}
     const rawLlmScoreAudit = aiJsonData.score_review || aiJsonData.score_audit || {};
     const rawLlmTimingReview = aiJsonData.timing_review || aiJsonData.timing_analysis || null;
     const parsedAuditDelta = parseAuditDelta(rawLlmScoreAudit.audit_delta);
-    const auditDeltaGuard = suppressDuplicateNegativeAuditDelta(parsedAuditDelta, rawLlmScoreAudit, backendScoreAudit);
-    const auditDelta = auditDeltaGuard.delta;
-    const finalScore = Math.round(clampNumber(backendScoreAudit.final_score + auditDelta, 0, 100));
+    const auditDelta = 0;
+    const finalScore = Math.round(clampNumber(backendScoreAudit.final_score, 0, 100));
     const postprocessAudit = {
         raw_score_review: rawLlmScoreAudit,
         raw_timing_review: rawLlmTimingReview,
         raw_parsed_audit_delta: parsedAuditDelta,
         parsed_audit_delta: auditDelta,
-        duplicate_audit_delta_suppressed: auditDeltaGuard.suppressed,
-        duplicate_audit_delta_reason: auditDeltaGuard.reason,
+        advisory_only: true,
+        model_suggested_delta_ignored: parsedAuditDelta,
+        model_suggested_delta_reason: 'LLM 只复核文字，不得改动后端确定性工程指标。',
         backend_pre_score: backendScoreAudit.final_score,
         final_score: finalScore
     };
@@ -2531,7 +2459,8 @@ ${outputContractSection}
         backend_pre_score: backendScoreAudit.final_score,
         audit_delta: auditDelta,
         raw_audit_delta: parsedAuditDelta,
-        duplicate_audit_delta_suppressed: auditDeltaGuard.suppressed,
+        advisory_only: true,
+        model_suggested_delta_ignored: parsedAuditDelta,
         final_score_suggestion: finalScore,
         confidence: ['low', 'medium', 'high'].includes(rawLlmScoreAudit.confidence) ? rawLlmScoreAudit.confidence : backendScoreAudit.confidence,
         role_review: rawLlmScoreAudit.role_review || null,
@@ -2541,7 +2470,7 @@ ${outputContractSection}
         missed_or_overweighted_factors: Array.isArray(rawLlmScoreAudit.missed_or_overweighted_factors)
             ? rawLlmScoreAudit.missed_or_overweighted_factors
             : [],
-        audit_reason: rawLlmScoreAudit.audit_reason || '模型未给出额外修正理由，本次沿用后端初算。'
+        audit_reason: rawLlmScoreAudit.audit_reason || '模型未给出额外复核意见；工程指标沿用后端确定性结果。'
     };
 
     const m3Inference = (aiJsonData.qimen_report || {}).m3_inference;
@@ -2788,63 +2717,8 @@ async function handleBazi(request, env, ctx) {
         current_liunian: baziDetail.engine_current_liunian
     };
 
-    // ── 模式 2：版本过期但 LLM 已有 → 仅更新引擎数据，保留旧 LLM 断语 ────────
-    if (!forceRegenerate && !engineUpToDate && llmExists) {
-        console.log('[bazi] 引擎版本升级，仅更新运算数据，保留 LLM 断语');
-        const existingLlmData = {
-            yuanju_core: existingProfile.llm_yuanju_core,
-            current_dayun: existingProfile.llm_current_dayun,
-            current_liunian: existingProfile.llm_current_liunian,
-        };
-        const qualitative = buildQualitativeSections({
-            llmSucceeded: true,
-            llmQualitativeData: existingLlmData,
-            engineQualitativeData
-        });
-        const finalBaziDetail = {
-            ...baziDetail,
-            llm_yuanju_core: existingLlmData.yuanju_core,
-            llm_current_dayun: existingLlmData.current_dayun,
-            llm_current_liunian: existingLlmData.current_liunian,
-            engine_yuanju_core: qualitative.engine.yuanju_core,
-            engine_current_dayun: qualitative.engine.current_dayun,
-            engine_current_liunian: qualitative.engine.current_liunian,
-            qualitative
-        };
-        const combinedResultText = existingProfile.bazi_summary || '';
-        const dbUpdatePayload = {
-            bazi_detail: finalBaziDetail,
-            strong_weak: finalBaziDetail.strong_weak,
-            geju: finalBaziDetail.geju,
-            shensha: JSON.stringify(finalBaziDetail.shensha),
-            engine_yuanju_core: qualitative.engine.yuanju_core,
-            engine_current_dayun: qualitative.engine.current_dayun,
-            engine_current_liunian: qualitative.engine.current_liunian,
-            favorable_elements: finalBaziDetail.favorable_gods,
-            unfavorable_elements: finalBaziDetail.unfavorable_gods,
-            day_zhi: finalBaziDetail.day_zhi,
-            year_zhi: finalBaziDetail.year_zhi,
-            month_zhi: finalBaziDetail.month_zhi,
-            ri_zhu: finalBaziDetail.ri_zhu
-        };
-        const { error: dbError } = await supabase.from('bazi_profiles').update(dbUpdatePayload).eq('id', promptData.profileId);
-        if (dbError) console.error('[bazi] 引擎刷新写入失败:', dbError);
-        await recordProfileAction({
-            supabase,
-            userId: user.id,
-            profileId: promptData.profileId,
-            metadata: { mode: 'engine_refresh', force: false }
-        });
-        return json({
-            result: combinedResultText,
-            bazi_detail: finalBaziDetail,
-            favorable_elements: dbUpdatePayload.favorable_elements,
-            unfavorable_elements: dbUpdatePayload.unfavorable_elements,
-            engine_refreshed: true,
-        }, { status: 200 }, request, env);
-    }
-
-    // ── 模式 3：全量重推（force=true 或首次无 LLM）→ SSE：引擎先出，LLM 分区流式补齐 ─────────
+    // 引擎版本变化时，旧 LLM 文本可能建立在已废弃规则上，必须随新版引擎重新生成。
+    // ── 全量重推（force=true、首次无 LLM 或引擎版本变化）→ SSE ─────────
     const { emit, close, response: sseResponse } = createSSEResponse(request, env);
 
     (async () => {
