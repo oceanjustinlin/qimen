@@ -6833,7 +6833,7 @@ const getShenColor = (shen) => {
     overflow: visible;
     padding: var(--hero-pad-top, 24px) 16px var(--hero-pad-bottom, 10px);
     background: rgba(var(--paper-rgb), var(--hero-bg-alpha, .72));
-    border-bottom: 1px solid rgba(214, 209, 198, var(--hero-border-alpha, .18));
+    border-bottom: 1px solid rgba(var(--hero-line-rgb, 214, 209, 198), var(--hero-border-alpha, .18));
     backdrop-filter: blur(var(--hero-blur, 2px));
     box-shadow: 0 var(--hero-shadow-y, 0) var(--hero-shadow-blur, 0) rgba(38, 31, 20, var(--hero-shadow-alpha, 0));
     transition: padding .12s linear, background-color .12s linear, border-color .12s linear, box-shadow .12s linear;
@@ -7279,6 +7279,8 @@ const getShenColor = (shen) => {
 
 <!-- 深色模式覆盖：只改颜色，不动结构 -->
 <style>
+/* 暗色主题下吸顶档案条底边改用低亮度描边，避免滚动后出现一条亮线 */
+[data-theme="dark"] .profile-hero-block { --hero-line-rgb: 255, 255, 255; --hero-border-alpha: .08 !important; }
 [data-theme="dark"] .shensha-ji          { background: rgba(72,187,120,0.12); color: #68D391; }
 [data-theme="dark"] .shensha-ji .shensha-section-label { color: #68D391; }
 [data-theme="dark"] .shensha-xiong       { background: rgba(245,101,101,0.1); color: #FC8181; }
