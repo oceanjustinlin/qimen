@@ -60,7 +60,7 @@
           <div class="zw-center">
             <h3>{{ profile?.name || '命主' }} <small>{{ centerInfo.yinyang }}{{ astrolabe.gender }} · {{ astrolabe.fiveElementsClass }}</small></h3>
             <dl>
-              <dt>{{ input.timeSource === 'profile_adjusted' ? '真太阳时' : '出生时间' }}</dt>
+              <dt>{{ isSolarTime ? '真太阳时' : '钟表时间' }}</dt>
               <dd>{{ astrolabe.solarDate }} {{ pad(input.hour) }}:{{ pad(input.minute) }}</dd>
               <dt>农历</dt><dd>{{ astrolabe.lunarDate }} {{ astrolabe.time }}</dd>
             </dl>
@@ -78,7 +78,6 @@
                 <span v-for="m in MUTAGENS" :key="m" class="zw-inline">{{ centerInfo.natal[m] }}<i :class="['mu', 'mu-' + m]">{{ m }}</i></span>
               </dd>
             </dl>
-            <p v-if="input.timeSource !== 'profile_adjusted'" class="zw-warn">档案没有真太阳时，按出生钟表时间起盘。</p>
           </div>
 
           <svg class="zw-lines" :viewBox="`0 0 ${lines.width} ${lines.height}`" aria-hidden="true">
@@ -189,6 +188,8 @@ const uid = Math.random().toString(36).slice(2, 8)
 const astrolabe = shallowRef(null)
 const horoscope = shallowRef(null)
 const input = ref(null)
+// 只有档案勾选了真太阳时（apparent/mean）才算真太阳时；clock 模式的 adjusted_birth_date 只含夏令时校正
+const isSolarTime = computed(() => input.value?.timeSource === 'profile_adjusted' && ['apparent', 'mean'].includes(props.profile?.solar_time_mode))
 const error = ref('')
 const view = ref('sanhe')
 const layer = ref('natal')
@@ -423,11 +424,12 @@ onUnmounted(() => { window.removeEventListener('resize', onResize); clearTimeout
 .zw-state { padding: 32px 12px; text-align: center; color: var(--ink-muted); font-size: 14px; }
 .zw-error { color: var(--zw-ji); }
 
-.zw-toolbar { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; justify-content: space-between; }
-.zw-seg { display: inline-flex; padding: 3px; border-radius: 10px; background: var(--paper-soft); border: 1px solid var(--line); }
-.zw-seg button { border: 0; background: none; padding: 5px 16px; border-radius: 8px; cursor: pointer; font: inherit; font-size: 14px; color: var(--ink-muted); }
+/* 切换器固定单行，「当前：」说明另起一行 */
+.zw-toolbar { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+.zw-seg { flex: none; display: inline-flex; flex-wrap: nowrap; padding: 3px; border-radius: 10px; background: var(--paper-soft); border: 1px solid var(--line); }
+.zw-seg button { flex: none; white-space: nowrap; border: 0; background: none; padding: 5px 16px; border-radius: 8px; cursor: pointer; font: inherit; font-size: 14px; color: var(--ink-muted); }
 .zw-seg button[aria-pressed="true"] { background: var(--gold); color: var(--paper); font-weight: 600; }
-.zw-layer-note { font-size: 13px; color: var(--ink-muted); display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: center; }
+.zw-layer-note { width: 100%; font-size: 13px; color: var(--ink-muted); display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: center; }
 .zw-layer-note b { color: var(--zw-period); font-weight: 600; }
 .zw-inline { display: inline-flex; align-items: center; gap: 1px; white-space: nowrap; }
 .zw-gap { margin-right: 10px; }
@@ -482,7 +484,6 @@ onUnmounted(() => { window.removeEventListener('resize', onResize); clearTimeout
 .zw-pillars b { font-size: 19px; text-align: center; font-weight: 700; line-height: 1.25; font-family: var(--font-ganzhi, var(--font-serif)); }
 .zw-decades { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 0 2px; text-align: center; font-size: 12px; color: var(--ink); line-height: 1.35; font-variant-numeric: tabular-nums; }
 .zw-decades small { font-size: 9.5px; color: var(--ink-dim); }
-.zw-warn { margin: 0; font-size: 11px; color: var(--zw-period); }
 .wx-jin { color: #9a7a1a; } .wx-mu { color: #2e7d32; } .wx-shui { color: #1565c0; } .wx-huo { color: #c62828; } .wx-tu { color: #7b5e00; }
 [data-theme="dark"] .wx-jin { color: #e8cc80; } [data-theme="dark"] .wx-mu { color: #6fcf7a; } [data-theme="dark"] .wx-shui { color: #6aa8f0; }
 [data-theme="dark"] .wx-huo { color: #ff7b6b; } [data-theme="dark"] .wx-tu { color: #d9b45a; }
@@ -518,10 +519,9 @@ onUnmounted(() => { window.removeEventListener('resize', onResize); clearTimeout
 /* 手机：盘面 + 运限条压进一屏。宫内只留星曜、大限、宫名、干支，岁数与十二神放到宫位详情 */
 @media (max-width: 560px) {
   .ziwei-panel { gap: 8px; margin-top: 8px; }
-  .zw-toolbar { gap: 6px 10px; }
+  .zw-toolbar { gap: 6px; }
   .zw-seg button { padding: 3px 12px; font-size: 13px; }
   .zw-layer-note { font-size: 11.5px; }
-  .zw-toolbar { flex-wrap: nowrap; justify-content: flex-start; }
   .zw-hint { display: none; }
   .zw-board { grid-template-rows: repeat(4, minmax(92px, auto)); }
   .zw-palace { padding: 3px 3px 2px; gap: 1px; }
