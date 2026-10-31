@@ -1,7 +1,7 @@
 # Qimen Dunjia · AI Decision Engine
 
 > **A classical framework for structure and change, rebuilt as a modern AI reasoning system — and reconnected to the language modern psychology uses to describe the self.**  
-> Spatiotemporal situation modeling × individual disposition-structure analysis × cross-validation with psychology × classical case validation × dual-axis semantic routing × auditable reasoning trail × Gemini × Vue
+> Spatiotemporal situation modeling × individual disposition-structure analysis × cross-validation with psychology × classical case validation × dual-axis semantic routing × auditable reasoning trail × DeepSeek × Vue
 
 > *"When a structure is exhausted, it changes; having changed, it finds a way through; having found a way through, it endures."* — I Ching. Change itself is not the exception, it is the object of study — that is this project's starting point, and the line that separates it from fortune-telling.
 
@@ -407,7 +407,7 @@ The scoring framework is distilled from the author's private NotebookLM study no
 Frontend       Vue 3, Composition API, Pinia, Vue Router, vue-i18n
 Backend        Cloudflare Workers
 Database       Supabase Auth, Postgres, row-level security
-AI             Gemini-compatible API (question model set per environment via QUESTION_MODEL, currently flash), SSE streaming
+AI             DeepSeek (OpenAI-compatible API; question model set per environment via QUESTION_MODEL), SSE streaming
 Calendar       lunar-javascript
 Build Tool     Vite
 Tests          Node.js Test Runner
@@ -454,7 +454,7 @@ The backend starts at `http://localhost:8787`, and the frontend proxy forwards `
 
 ## Operations
 
-This is a personal website maintained by the author. The live service runs on Cloudflare Workers, Cloudflare Pages, Supabase, and a Gemini-compatible model endpoint. This document describes the project shape and local development flow only; it does not provide public deployment instructions, secret configuration, or self-hosting steps.
+This is a personal website maintained by the author. The live service runs on Cloudflare Workers, Cloudflare Pages, Supabase, and the DeepSeek API. This document describes the project shape and local development flow only; it does not provide public deployment instructions, secret configuration, or self-hosting steps.
 
 Database migration scripts are kept in `docs/sql/` for the author's own maintenance and feature evolution.
 
@@ -546,7 +546,7 @@ Qimen and Bazi hand you a reference for "which paths look smoother, which moment
 
 - Lu Zhiji, *In Search of Destiny* / *A Course in Dynamic Bazi Analysis* — dynamic analysis theory (target element → natal state → luck-cycle activation)
 - [lunar-javascript](https://github.com/6tail/lunar-javascript) — sexagenary calendar calculations
-- [Google Gemini](https://deepmind.google/technologies/gemini/) — AI reasoning engine
+- [DeepSeek](https://www.deepseek.com/) — AI reasoning engine
 - [Supabase](https://supabase.com) — database and authentication
 - [Vue 3](https://vuejs.org) — frontend framework
 - [Vite](https://vitejs.dev) — build tooling
