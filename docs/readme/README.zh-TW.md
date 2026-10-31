@@ -1,7 +1,7 @@
 # 奇門遁甲 · AI 決策引擎
 
 > **把一套關於結構與變化的古典認知體系，接入現代 AI 推理引擎——也接上現代心理學的自我認知語言。**  
-> 時空局勢建模 × 個體稟賦結構分析 × 心理學視角互證 × 古籍命例校驗 × 雙軸語意路由 × 可稽核推演過程 × Gemini 大模型 × Vue 全端應用
+> 時空局勢建模 × 個體稟賦結構分析 × 心理學視角互證 × 古籍命例校驗 × 雙軸語意路由 × 可稽核推演過程 × DeepSeek 大模型 × Vue 全端應用
 
 > *「窮則變，變則通，通則久。」* —— 結構終將變化，而變化本身可以被認知、被建模。這是整個專案的方法論起點，也是它與「算命」的分界線。
 
@@ -398,7 +398,7 @@ flowchart TD
 前端框架      Vue 3、組合式 API、Pinia、Vue Router、vue-i18n
 後端          Cloudflare Workers
 資料庫        Supabase Auth、Postgres、行級安全策略
-AI 模型       Gemini 相容介面（問事模型經 QUESTION_MODEL 逐環境設定，目前切 flash 驗證），SSE 串流輸出
+AI 模型       DeepSeek（OpenAI 相容介面；問事模型經 QUESTION_MODEL 逐環境設定），SSE 串流輸出
 曆法計算      lunar-javascript
 建置工具      Vite
 測試          Node.js Test Runner
@@ -441,7 +441,7 @@ npx wrangler dev
 
 ## 維運說明
 
-這是作者維護的個人網站，線上服務由 Cloudflare Workers、Cloudflare Pages、Supabase 與 Gemini 相容介面組成。本文件只保留專案形態與本地開發說明，不提供公開部署教學、金鑰設定或自建實例步驟。
+這是作者維護的個人網站，線上服務由 Cloudflare Workers、Cloudflare Pages、Supabase 與 DeepSeek 介面組成。本文件只保留專案形態與本地開發說明，不提供公開部署教學、金鑰設定或自建實例步驟。
 
 資料庫遷移腳本保留在 `docs/sql/`，用於作者維護表結構與功能迭代。
 
@@ -539,7 +539,7 @@ npx wrangler dev
 - 《周易》「窮則變，變則通，通則久」——把變化本身當作可以被結構化認知的對象，這是整個專案方法論上的起點
 - 陸致極《命運的求索》《八字命理動態分析教程》— 動態分析理論（目標元素 → 原局狀態 → 歲運引動）
 - [lunar-javascript](https://github.com/6tail/lunar-javascript) — 干支曆法底層計算
-- [Google Gemini](https://deepmind.google/technologies/gemini/) — AI 推演引擎
+- [DeepSeek](https://www.deepseek.com/) — AI 推演引擎
 - [Supabase](https://supabase.com) — 資料庫與認證服務
 - [Vue 3](https://vuejs.org) — 前端框架
 - [Vite](https://vitejs.dev) — 建置工具

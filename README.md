@@ -1,7 +1,7 @@
 # 奇门遁甲 · AI 决策引擎
 
 > **把一套关于结构与变化的古典认知体系，接入现代 AI 推理引擎——也接上现代心理学的自我认知语言。**  
-> 时空局势建模 × 个体禀赋结构分析 × 心理学视角互证 × 古籍命例校验 × 双轴语义路由 × 可审计推演过程 × Gemini 大模型 × Vue 全栈应用
+> 时空局势建模 × 个体禀赋结构分析 × 心理学视角互证 × 古籍命例校验 × 双轴语义路由 × 可审计推演过程 × DeepSeek 大模型 × Vue 全栈应用
 
 > *"穷则变，变则通，通则久。"* —— 结构终将变化，而变化本身可以被认知、被建模。这是整个项目的方法论起点，也是它与"算命"的分界线。
 
@@ -15,7 +15,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/license-MIT-gold?style=flat-square"/>
-  <img src="https://img.shields.io/badge/powered%20by-Gemini-blue?style=flat-square"/>
+  <img src="https://img.shields.io/badge/powered%20by-DeepSeek-blue?style=flat-square"/>
   <img src="https://img.shields.io/badge/cloud-Cloudflare-F38020?style=flat-square"/>
   <img src="https://img.shields.io/badge/db-Supabase-3ECF8E?style=flat-square"/>
   <img src="https://img.shields.io/badge/frontend-Vue%203-41B883?style=flat-square"/>
@@ -528,7 +528,7 @@ flowchart TD
 前端框架      Vue 3、组合式接口、Pinia、Vue Router、vue-i18n
 后端          Cloudflare Workers
 数据库        Supabase Auth、Postgres、行级安全策略
-AI 模型       Gemini 兼容接口（问事模型经 QUESTION_MODEL 逐环境配置，当前切 flash 验证），SSE 流式输出
+AI 模型       DeepSeek（OpenAI 兼容接口；问事模型经 QUESTION_MODEL 逐环境配置），SSE 流式输出
 历法计算      lunar-javascript
 构建工具      Vite
 测试          Node.js Test Runner
@@ -575,7 +575,7 @@ npx wrangler dev
 
 ## 运维说明
 
-这是作者维护的个人网站，线上服务由 Cloudflare Workers、Cloudflare Pages、Supabase 与 Gemini 兼容接口组成。本文档只保留项目形态与本地开发说明，不提供公开部署教程、密钥配置或自建实例步骤。
+这是作者维护的个人网站，线上服务由 Cloudflare Workers、Cloudflare Pages、Supabase 与 DeepSeek 接口组成。本文档只保留项目形态与本地开发说明，不提供公开部署教程、密钥配置或自建实例步骤。
 
 数据库迁移脚本保留在 `docs/sql/`，用于作者维护表结构与功能迭代。
 
@@ -710,7 +710,7 @@ npx wrangler dev
 - 荀子《天论》"制天命而用之"——承认规律的存在，但不因此放弃行动的主动权
 - 陆致极《当代八字》— 动态分析理论（目标元素 → 原局状态 → 岁运引动）
 - [lunar-javascript](https://github.com/6tail/lunar-javascript) — 干支历法底层计算
-- [Google Gemini](https://deepmind.google/technologies/gemini/) — AI 推演引擎
+- [DeepSeek](https://www.deepseek.com/) — AI 推演引擎
 - [Supabase](https://supabase.com) — 数据库与认证服务
 - [Vue 3](https://vuejs.org) — 前端框架
 - [Vite](https://vitejs.dev) — 构建工具

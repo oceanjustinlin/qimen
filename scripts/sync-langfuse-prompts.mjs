@@ -80,7 +80,7 @@ async function main() {
 
   results.push(await pushPrompt({
     name: 'router/gemini-route-l1',
-    prompt: divinationRouter.buildGeminiRoutePrompt(SAMPLE_QIMEN_QUESTION, {}),
+    prompt: divinationRouter.buildLlmRoutePrompt(SAMPLE_QIMEN_QUESTION, {}),
     tags: ['router'],
   }));
 

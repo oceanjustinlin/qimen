@@ -23,15 +23,17 @@ import baziCore from '../../lib/baziCore.js';
 import qimenLlmOutput from '../../lib/qimenLlmOutput.js';
 import accountQuota from '../../lib/accountQuota.js';
 import baziLlmSections from '../../lib/baziLlmSections.js';
+import llmFetch from '../../lib/llmFetch.js';
 import { langfuseTelemetry } from './langfuse.mjs';
 
 const { buildCompleteBaziDetail, buildQualitativeSections, hasCompleteLlmCache, hasLatestEngineCache, hasExistingLlm, CALIBRATION_VERSION, computeEventsHash, hasValidCalibration } = baziCore;
 const { normalizeQimenLlmOutput } = qimenLlmOutput;
 const { assertDailyProfileActionQuota, assertDailyQimenQuota, isWhitelistedEmail, recordProfileAction } = accountQuota;
 const { buildBaziProfileSectionPrompt, buildBaziSummaryFromSections, createBaziSectionStreamParser, parseBaziSectionText } = baziLlmSections;
+const { LLM_JSON_TIMEOUTS, LLM_STREAM_TIMEOUTS, fetchWithLlmTimeout } = llmFetch;
 
 
-const { buildBaziSemanticRoutePrompt, buildGeminiRoutePrompt, classifyDivinationQuestion, ruleRouteHint } = divinationRouter;
+const { buildBaziSemanticRoutePrompt, buildLlmRoutePrompt, classifyDivinationQuestion, ruleRouteHint } = divinationRouter;
 const { buildAnnualRangePayload } = fortuneAnnualCore;
 const { buildFortunePeriodKey: buildWeeklyPeriodKey, buildWeeklyFortunePayload, getSecondsUntilWeeklyExpiry, getWeekRange, getWeeklyExpiry } = fortuneWeeklyCore;
 const { buildFortunePeriodKey: buildMonthlyPeriodKey, buildMonthlyFortunePayload, getFlowMonthInfo } = fortuneMonthlyCore;
@@ -52,18 +54,19 @@ const deepModel = env => env.LLM_DEEP_MODEL || DEFAULT_LLM_DEEP_MODEL;
 const resolveQuestionModel = env => env.QUESTION_MODEL || fastModel(env);
 
 // DeepSeek 默认开思考：temperature 失效、首 token 变慢且推理 token 计费，统一关掉。
+// 超时见 lib/llmFetch.js：非流式总时限，流式按首包 / 空闲 / 总时限，超时抛 504。
 function fetchLLM(env, body) {
   const payload = String(body.model || '').startsWith('deepseek')
     ? { ...body, thinking: { type: 'disabled' } }
     : body;
-  return fetch(env.LLM_API_URL || DEFAULT_LLM_API_URL, {
+  return fetchWithLlmTimeout(env.LLM_API_URL || DEFAULT_LLM_API_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${env.LLM_API_KEY}`,
     },
     body: JSON.stringify(payload),
-  });
+  }, body.stream ? LLM_STREAM_TIMEOUTS : LLM_JSON_TIMEOUTS);
 }
 const BAZI_PROFILE_BASE_FIELDS = 'id, user_id, name, gender, birth_date, bazi_str, bazi_detail, strong_weak, geju, favorable_elements, unfavorable_elements';
 const BAZI_PROFILE_QUESTION_SELECT = BAZI_PROFILE_BASE_FIELDS;
@@ -337,12 +340,12 @@ async function readJson(request) {
   return request.json();
 }
 
-async function classifyByGeminiFlashWithEnv(question, ruleResult, env, ctx, traceMeta = {}) {
+async function classifyByFastLlmWithEnv(question, ruleResult, env, ctx, traceMeta = {}) {
   if (!env.LLM_API_KEY) {
     throw new Error('LLM_API_KEY is not configured');
   }
 
-  const prompt = buildGeminiRoutePrompt(question, ruleResult);
+  const prompt = buildLlmRoutePrompt(question, ruleResult);
   const model = fastModel(env);
   const langfuse = beginLangfuseGeneration({
     name: traceMeta.name || 'divination-route-l1', model, input: prompt, temperature: 0.1, traceMeta,
@@ -389,7 +392,7 @@ async function handleDivinationRoute(request, env, ctx) {
   const route = await classifyDivinationQuestion({
     question,
     llmFallback: true,
-    llmClassifier: (text, ruleResult) => classifyByGeminiFlashWithEnv(text, ruleResult, env, ctx, { name: 'divination-route-l1', scenario: 'divination-route' }),
+    llmClassifier: (text, ruleResult) => classifyByFastLlmWithEnv(text, ruleResult, env, ctx, { name: 'divination-route-l1', scenario: 'divination-route' }),
   });
 
   // CP2：用户显式指定了起局时刻 → 视为「为此刻起一卦」的具体事件意图，不落 bazi/clarify。
@@ -992,7 +995,7 @@ function createSentinelStreamParser(visibleKeys = new Set(), { onVisibleDelta } 
 }
 
 
-// 宽松解析哨兵 data_json 段：Gemini 常无视"不要 markdown 代码块"把 JSON 包进 ```json 围栏，
+// 宽松解析哨兵 data_json 段：模型常无视"不要 markdown 代码块"把 JSON 包进 ```json 围栏，
 // 或在 JSON 前后掺杂零碎说明文字。先剥围栏，再退而抽取最外层 {...}，最后才 JSON.parse。
 // 解析失败抛错（交给调用方按 bad structure 处理）；调用方需要兜底时自行 try/catch。
 function parseSentinelDataJson(raw) {
@@ -2228,7 +2231,7 @@ async function handleQimen(request, env, ctx) {
     const qimenRouteHint = ruleRouteHint(userQuestion, { forceBranch: 'qimen' });
     const routeRaw = body.route
         ? { ...body.route, source: body.route.source || 'client' }
-        : await classifyDivinationQuestion({ question: userQuestion, forceBranch: 'qimen', llmFallback: true, llmClassifier: (text, ruleResult) => classifyByGeminiFlashWithEnv(text, ruleResult, env, ctx, { name: 'qimen-route-l1', scenario: 'qimen', userId: userId || guestId }) });
+        : await classifyDivinationQuestion({ question: userQuestion, forceBranch: 'qimen', llmFallback: true, llmClassifier: (text, ruleResult) => classifyByFastLlmWithEnv(text, ruleResult, env, ctx, { name: 'qimen-route-l1', scenario: 'qimen', userId: userId || guestId }) });
     const detectedIntent = normalizeDivinationRoute(routeRaw);
 
     const ev = buildQimenEvidence({
