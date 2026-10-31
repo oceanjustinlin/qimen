@@ -92,6 +92,13 @@ The natal chart is the potential (the seed); the luck cycle is the environment (
 
 ### Changelog
 
+**2026-10-31 · Zi Wei Dou Shu chart**
+
+- The Bazi profile page has a new "Zi Wei" tab that casts a Zi Wei Dou Shu chart from the same profile (true solar time when available, plus gender). Guests can use it too.
+- Powered by iztro, lazy-loaded so the main bundle stays small. Conventions: late Zi hour counts as the next day, the year starts at lunar New Year, leap months split with fixLeap, and the Four Transformations follow the 《飞星紫微斗数》 table.
+- Twelve palaces with vertical star names and brightness, natal transformations, self-transformation (↓) and transformation from the opposite palace (↗), San He / Si Hua views with flying-star lines, and decade / year / month period sliders.
+- On mobile the chart and period sliders fit on one screen; per-palace details open on tap.
+
 **2026-07-24 · Bazi analysis distilled into an Agent Skill**
 
 Distilled Bazi natal decisions and question reasoning into a reusable Agent Skill (see "Bazi Agent Skill"), isomorphic to the Qimen skill: interview → `scripts/bazi_cli.cjs` fixed computation → AI interpretation, with the conversational side and web app sharing the same deterministic engine.
@@ -204,6 +211,14 @@ Distills the web app's Bazi natal decisions and question reasoning into a skill 
 - Provides five-element power visualization, scoring details, Bazi Q&A, feedback-based recalibration, and decision notes
 - Supports follow-up deep-dives on the same natal chart, presenting new information as "original verdict → adjusted to …" rather than a silent overwrite
 - Supports linked luck pillars, annual cycles, and monthly cycles to show how the natal chart interacts with current time
+
+### Zi Wei Dou Shu Chart
+
+- Casts the chart straight from the Bazi profile: `src/utils/ziweiChart.mjs` (input rules match `lib/ziweiProfileAdapter.cjs`, tested for parity) + `src/components/ZiweiChartPanel.vue`
+- Major, minor and miscellaneous stars with brightness, life / body masters, five-element bureau, body palace, natal Four Transformations
+- San He view (palace plus its triad and opposite) and Si Hua view (palace-stem transformations drawn as flying lines)
+- Linked decade, year and month periods
+- Computed live in the browser and not stored yet; `scripts/ziwei_cli.cjs` gives the same chart for agent use. Zi Wei readings and Bazi cross-checks are planned
 
 ### Fortune Scoring
 
