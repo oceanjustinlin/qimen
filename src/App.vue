@@ -48,42 +48,6 @@
     
     <div class="viewport-overlay" :class="{ open: globalState.isDrawerOpen }" @click="globalState.isDrawerOpen = false"></div>
   </div>
-
-  <InstallPrompt />
-
-  <Teleport to="body">
-    <transition name="update-notice">
-      <div v-if="showUpdateNotice" class="update-notice-overlay" role="dialog" aria-modal="true" aria-labelledby="updateNoticeTitle">
-        <section class="update-notice-panel">
-          <button class="update-notice-close" type="button" aria-label="关闭更新说明" @click="dismissUpdateNotice">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
-              <path d="M6 6l12 12M18 6L6 18" />
-            </svg>
-          </button>
-
-          <div class="update-panel-demo" aria-label="八字 Panel 更新示例">
-            <BaziStaticPanel
-              :matrix="UPDATE_PANEL_MATRIX"
-              :state-report="UPDATE_PANEL_REPORT"
-              :target-spec="UPDATE_PANEL_TARGET"
-              shishen-theory="Panel 会把目标十神、宫位、形象与岁运触发拆开展示，先看结构，再看应期。"
-              gongwei-theory="日支为关系承载位，宫位是否受冲合刑害会直接影响判断稳定性。"
-            />
-          </div>
-
-          <div class="update-notice-copy">
-            <p class="update-notice-version">v{{ APP_RELEASE_VERSION }}</p>
-            <h2 id="updateNoticeTitle">八字 Panel 全新升级</h2>
-            <p>本期把原局、格局、喜忌与岁运触发拆成更清晰的 Panel。排盘结果会更容易扫读，也会结合新版从化判断重新生成关键结构。</p>
-          </div>
-
-          <div class="update-notice-actions">
-            <button class="update-notice-primary" type="button" @click="dismissUpdateNotice">知道了，去看看</button>
-          </div>
-        </section>
-      </div>
-    </transition>
-  </Teleport>
 </template>
 
 <script setup>
@@ -92,88 +56,9 @@ import { useRoute } from 'vue-router'
 import { supabase } from './lib/supabase.mjs'
 import { globalState, setCurrentUser } from './store.js'
 import { initTheme } from './composables/useTheme.js'
-import InstallPrompt from './components/InstallPrompt.vue'
-import BaziStaticPanel from './components/BaziStaticPanel.vue'
 
 const route = useRoute()
 const cosmosCanvas = ref(null)
-const APP_RELEASE_VERSION = '1.1.2'
-const UPDATE_NOTICE_KEY = `qimen:update-notice:${APP_RELEASE_VERSION}`
-const showUpdateNotice = ref(false)
-const UPDATE_PANEL_MATRIX = {
-    pillars: [
-        { name: '年', gan: '庚', zhi: '辰', hidden_stems: ['戊', '乙', '癸'], is_kong: false },
-        { name: '月', gan: '甲', zhi: '寅', hidden_stems: ['甲', '丙', '戊'], is_kong: true },
-        { name: '日', gan: '壬', zhi: '午', hidden_stems: ['丁', '己'], is_kong: false },
-        { name: '时', gan: '丙', zhi: '申', hidden_stems: ['庚', '壬', '戊'], is_kong: false },
-    ],
-}
-const UPDATE_PANEL_TARGET = {
-    primary_shishen: ['正财', '偏财'],
-    primary_gongwei: ['日支'],
-    analysis_mode: 'both',
-}
-const UPDATE_PANEL_REPORT = {
-    shishen_assessments: [
-        {
-            shishen: '才', pillar: '月', position: 'hidden',
-            gan: '丙', zhi: '寅', element: '火',
-            twelve_phase: '病', phase_score: 1, vigor: 0.1,
-            is_kong: true, is_in_tomb: false, gaitou_jiejiao: 'neutral',
-            relationships: [
-                { type: '六冲', effective_strength: 60, strength_tier: 'strong', clash_direction: 'loses', note: '寅与申六冲，目标被冲拔' },
-            ],
-            status_tags: ['死绝', '空亡', '被冲'],
-            verdict: '才处病，逢空亡且被冲，力量大减。',
-        },
-        {
-            shishen: '财', pillar: '日', position: 'zhi_main',
-            gan: '丁', zhi: '午', element: '火',
-            twelve_phase: '胎', phase_score: 2, vigor: 0.4,
-            is_kong: false, is_in_tomb: false, gaitou_jiejiao: 'same',
-            relationships: [],
-            status_tags: ['星宫得正'],
-            verdict: '财坐日支，星宫得正。',
-        },
-        {
-            shishen: '才', pillar: '时', position: 'gan',
-            gan: '丙', zhi: '申', element: '火',
-            twelve_phase: '长生', phase_score: 3, vigor: 0.38,
-            is_kong: false, is_in_tomb: false, gaitou_jiejiao: 'gaitou',
-            relationships: [
-                { type: '六冲', effective_strength: 60, strength_tier: 'strong', clash_direction: 'wins', note: '申与寅六冲，冲动对方' },
-            ],
-            status_tags: ['长生', '盖头', '冲他支'],
-            verdict: '才透时干，处长生，有明显触发点。',
-        },
-    ],
-    gongwei_assessments: [{
-        gongwei: '日支', pillar_name: '日', zhi: '午', element: '火',
-        twelve_phase_for_dayStem: '胎', vigor: 0.4,
-        is_kong: false, seat_shishen: '财', seat_element: '火',
-        is_correct_star: true, is_hostile_occupied: false, is_tomb_for_target: false,
-        relationships: [
-            { type: '半三合', effective_strength: 11, strength_tier: 'weak', note: '午寅半合火，合力未全' },
-        ],
-        status_tags: ['星宫得正', '宫位稳固'],
-        verdict: '日支午火为财星本位，关系承载力较明确。',
-    }],
-    extra_checks: [{ check: '从化/形象校验已纳入 Panel 结构' }],
-    overall_stability: 'dynamic',
-    stability_label: '动中见机',
-    base_state: '时干才星透出，日支财星得位；月令空亡受冲，需看岁运何时引动。',
-    favorable_wuxing: ['木', '火'],
-    unfavorable_wuxing: ['金', '土'],
-    geju: '食神格（月令寅木，甲木食神透干）',
-    tiaohou: '寅月初春，调候需丙丁火温暖。',
-    image_context: {
-        subtype: '化气候选',
-        match_label: '重点复核',
-        match_level: 'medium',
-        match_score: 72,
-        override_normal_pattern: false,
-    },
-}
 const secondaryRoutes = new Set(['reset-password', 'feedback'])
 const isBottomNavVisible = computed(() => !secondaryRoutes.has(route.name) && globalState.authReady && (globalState.currentUser || globalState.isGuest))
 let animationId = null
@@ -213,29 +98,14 @@ const initVisuals = () => {
     window.addEventListener('resize', resize)
 }
 
-const dismissUpdateNotice = () => {
-    showUpdateNotice.value = false
-    window.localStorage.setItem(UPDATE_NOTICE_KEY, 'seen')
-}
-
-function maybeShowUpdateNotice(user) {
-    if (!user) {
-        showUpdateNotice.value = false
-        return
-    }
-    showUpdateNotice.value = !window.localStorage.getItem(UPDATE_NOTICE_KEY)
-}
-
 onMounted(() => {
     initTheme()
     initVisuals()
     supabase.auth.getSession().then(({ data: { session } }) => {
         setCurrentUser(session?.user || null)
-        maybeShowUpdateNotice(session?.user || null)
     })
     const { data } = supabase.auth.onAuthStateChange((_event, session) => {
         setCurrentUser(session?.user || null)
-        maybeShowUpdateNotice(session?.user || null)
     })
     authSubscription = data?.subscription
 })
@@ -320,193 +190,4 @@ onUnmounted(() => {
 /* 丝滑的页面切换动画 */
 .fade-enter-active, .fade-leave-active { transition: opacity 0.3s ease; }
 .fade-enter-from, .fade-leave-to { opacity: 0; }
-
-.update-notice-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 100000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 22px;
-  background: rgba(11, 10, 8, 0.48);
-  backdrop-filter: blur(10px);
-}
-
-.update-notice-panel {
-  position: relative;
-  width: min(94vw, 560px);
-  max-height: min(88dvh, 760px);
-  box-sizing: border-box;
-  padding: 18px;
-  overflow-y: auto;
-  border: 1px solid rgba(181, 141, 59, 0.28);
-  border-radius: 8px;
-  background: linear-gradient(180deg, #fffaf0 0%, #f4ecdc 100%);
-  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.24);
-  color: #1b1710;
-}
-
-.update-notice-close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 34px;
-  height: 34px;
-  border: 0;
-  border-radius: 50%;
-  background: rgba(27, 23, 16, 0.08);
-  color: #1b1710;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.update-notice-close svg {
-  width: 18px;
-  height: 18px;
-}
-
-.update-notice-copy {
-  padding: 16px 34px 0 2px;
-}
-
-.update-notice-version {
-  margin: 0 0 8px;
-  color: #8f6b2b;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0;
-}
-
-.update-notice-copy h2 {
-  margin: 0;
-  font-size: 24px;
-  line-height: 1.18;
-  letter-spacing: 0;
-}
-
-.update-notice-copy p:last-child {
-  margin: 12px 0 0;
-  color: rgba(27, 23, 16, 0.72);
-  font-size: 14px;
-  line-height: 1.7;
-}
-
-.update-panel-demo {
-  max-height: 430px;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
-  border: 1px solid rgba(27, 23, 16, 0.1);
-  border-radius: 8px;
-  background: #fffdf8;
-}
-
-.update-panel-demo :deep(.static-panel) {
-  padding: 14px;
-  background: #fffdf8;
-}
-
-.update-panel-demo :deep(.pillar-grid) {
-  gap: 6px;
-}
-
-.update-panel-demo :deep(.pillar-col) {
-  min-width: 0;
-  padding: 9px 4px;
-}
-
-.update-panel-demo :deep(.panel-section),
-.update-panel-demo :deep(.meta-block) {
-  margin-top: 12px;
-}
-
-.update-panel-demo :deep(.analysis-card:nth-of-type(n+3)),
-.update-panel-demo :deep(.hidden-stem-toggle) {
-  display: none;
-}
-
-[data-theme="dark"] .update-notice-overlay {
-  background: rgba(0, 0, 0, 0.72);
-}
-
-[data-theme="dark"] .update-notice-panel {
-  border-color: rgba(212, 175, 55, 0.22);
-  background: linear-gradient(180deg, #141421 0%, #090910 100%);
-  box-shadow: 0 26px 80px rgba(0, 0, 0, 0.58);
-  color: var(--ink);
-}
-
-[data-theme="dark"] .update-notice-close {
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--ink);
-}
-
-[data-theme="dark"] .update-notice-version {
-  color: var(--gold-light);
-}
-
-[data-theme="dark"] .update-notice-copy p:last-child {
-  color: var(--ink-muted);
-}
-
-[data-theme="dark"] .update-panel-demo {
-  border-color: rgba(212, 175, 55, 0.18);
-  background: #0e0e1f;
-}
-
-[data-theme="dark"] .update-panel-demo :deep(.static-panel) {
-  background: #0e0e1f;
-}
-
-[data-theme="dark"] .update-notice-primary {
-  background: var(--gold);
-  color: #08080d;
-}
-
-.update-notice-actions {
-  display: flex;
-  margin-top: 18px;
-}
-
-.update-notice-primary {
-  width: 100%;
-  min-height: 44px;
-  border: 0;
-  border-radius: 8px;
-  background: #1b1710;
-  color: #fffaf0;
-  font-size: 14px;
-  font-weight: 800;
-  cursor: pointer;
-}
-
-.update-notice-enter-active,
-.update-notice-leave-active {
-  transition: opacity 0.2s ease;
-}
-
-.update-notice-enter-from,
-.update-notice-leave-to {
-  opacity: 0;
-}
-
-@media (max-width: 420px) {
-  .update-notice-overlay {
-    align-items: flex-end;
-    padding: 14px;
-  }
-
-  .update-notice-panel {
-    width: 100%;
-    max-height: 86dvh;
-    padding: 14px;
-  }
-
-  .update-panel-demo {
-    max-height: 390px;
-  }
-}
 </style>
