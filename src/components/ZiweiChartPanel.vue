@@ -383,14 +383,18 @@ function drawLines() {
     return
   }
   lines.points = null
+  // 四条线都从本宫中心出发；只有多颗星飞入同一宫时才把终点左右错开
+  const sameTarget = (t) => flyIndexes.value.filter((x) => x === t)
   lines.fly = flyIndexes.value.map((t, k) => {
     if (t < 0 || t === selected.value) return null // 落本宫：用 ↓ 自化标记表示
     const e = center(t)
-    const off = (k - 1.5) * 6 // 四条线错开
     const dx = e[0] - s[0]; const dy = e[1] - s[1]; const len = Math.hypot(dx, dy) || 1
-    const nx = (-dy / len) * off; const ny = (dx / len) * off
-    const x2 = e[0] + nx - (dx / len) * 22; const y2 = e[1] + ny - (dy / len) * 22
-    return { k, mutagen: MUTAGENS[k], x1: s[0] + nx, y1: s[1] + ny, x2, y2, tx: x2 + nx * 0.6, ty: y2 + ny * 0.6 - 4 }
+    const ux = dx / len; const uy = dy / len
+    const peers = sameTarget(t).length
+    const rank = flyIndexes.value.slice(0, k).filter((x) => x === t).length
+    const off = (rank - (peers - 1) / 2) * 16
+    const x2 = e[0] - uy * off - ux * 22; const y2 = e[1] + ux * off - uy * 22
+    return { k, mutagen: MUTAGENS[k], x1: s[0], y1: s[1], x2, y2, tx: x2 - uy * 9, ty: y2 + ux * 9 + 4 }
   }).filter(Boolean)
 }
 
