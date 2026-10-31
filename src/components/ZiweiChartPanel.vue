@@ -9,7 +9,7 @@
           <button type="button" :aria-pressed="view === 'sihua'" @click="view = 'sihua'">四化</button>
         </div>
         <div class="zw-layer-note">
-          <template v-if="!layerInfo">当前：<b>本命盘</b>，可在盘下选择大限 / 流年 / 流月</template>
+          <template v-if="!layerInfo">当前：<b>本命盘</b><span class="zw-hint">，可在盘下选择大限 / 流年 / 流月</span></template>
           <template v-else>
             当前：<b>{{ layerInfo.title }} · {{ layerInfo.ganzhi }}</b>
             <span v-for="(star, k) in layerInfo.mutagens" :key="star" class="zw-inline">{{ star }}<i :class="['mu', 'o', 'mu-' + MUTAGENS[k]]">{{ MUTAGENS[k] }}</i></span>
@@ -151,6 +151,7 @@
           <span>{{ detail.stem }}干：<span v-for="f in detail.flying" :key="f.mutagen" class="zw-inline zw-gap">{{ f.star }}<i :class="['mu', 'mu-' + f.mutagen]">{{ f.mutagen }}</i>→{{ f.where }}</span></span>
         </div>
         <div class="row"><span>十二神</span><span>{{ detail.gods }}</span></div>
+        <div class="row"><span>大限 / 岁数</span><span>{{ detail.ages }}</span></div>
         <div class="row"><span>三方四正</span><span>{{ detail.related }}</span></div>
       </div>
 
@@ -349,6 +350,7 @@ const detail = computed(() => {
       mutagen: MUTAGENS[k],
       where: targets[k] < 0 ? '盘中无此星' : targets[k] === selected.value ? '本宫（自化）' : pname(a.palaces[targets[k]].name),
     })),
+    ages: `大限 ${palace.decadal.range[0]}–${palace.decadal.range[1]} 岁；流年 ${flowYearAges(birthYear.value, palace.earthlyBranch).join('、')}；小限 ${palace.ages.slice(0, 6).join('、')}`,
     gods: `长生：${palace.changsheng12} · 博士：${palace.boshi12} · 将前：${palace.jiangqian12} · 岁前：${palace.suiqian12}`,
     related: `对宫 ${nameOf(related.opposite)}；三合 ${nameOf(related.trines[0])}、${nameOf(related.trines[1])}`,
   }
@@ -513,19 +515,41 @@ onUnmounted(() => { window.removeEventListener('resize', onResize); clearTimeout
 .zw-detail .dim { color: var(--ink-dim); }
 .zw-note { margin: 0; font-size: 12px; color: var(--ink-dim); line-height: 1.7; }
 
+/* 手机：盘面 + 运限条压进一屏。宫内只留星曜、大限、宫名、干支，岁数与十二神放到宫位详情 */
 @media (max-width: 560px) {
-  .zw-board { grid-template-rows: repeat(4, minmax(168px, auto)); }
-  .st.major .nm { font-size: 13px; }
-  .st.minor .nm { font-size: 12px; }
-  .st.adj, .zw-ages .xl, .gods { display: none; }
+  .ziwei-panel { gap: 8px; margin-top: 8px; }
+  .zw-toolbar { gap: 6px 10px; }
+  .zw-seg button { padding: 3px 12px; font-size: 13px; }
+  .zw-layer-note { font-size: 11.5px; }
+  .zw-toolbar { flex-wrap: nowrap; justify-content: flex-start; }
+  .zw-hint { display: none; }
+  .zw-board { grid-template-rows: repeat(4, minmax(92px, auto)); }
+  .zw-palace { padding: 3px 3px 2px; gap: 1px; }
+  .zw-stars { gap: 2px 1px; }
+  .st { min-width: 13px; gap: 0; }
+  .st.major .nm { font-size: 12.5px; }
+  .st.minor .nm { font-size: 11.5px; }
+  .st .br { font-size: 9px; min-height: 10px; line-height: 1.1; }
+  .mu { font-size: 9px; line-height: 12px; width: 12px; }
+  .mu.o { line-height: 10px; }
+  .zi { font-size: 10px; line-height: 10px; }
+  .st.adj, .zw-ages, .gods, .cs { display: none; }
+  .zw-foot { margin-top: auto; gap: 0 2px; }
+  .range { font-size: 10px; }
   .pname, .gz { font-size: 12px; }
-  .zw-center { padding: 8px; font-size: 11px; gap: 5px; }
-  .zw-center h3 { font-size: 15px; }
-  .zw-pillars b { font-size: 15px; }
-  .zw-decades { font-size: 10.5px; }
-  .strip { grid-template-columns: 40px minmax(0, 1fr); }
-  .strip .lab { font-size: 13px; }
-  .cell { min-width: 54px; }
+  .gz { line-height: 1.05; }
+  .tag { font-size: 9px; line-height: 13px; padding: 0 2px; }
+  .zw-center { padding: 6px 8px; font-size: 10.5px; gap: 3px; }
+  .zw-center h3 { font-size: 14px; gap: 6px; }
+  .zw-center h3 small { font-size: 11px; }
+  .zw-center dl { gap: 1px 8px; }
+  .zw-pillars b { font-size: 14px; line-height: 1.15; }
+  .zw-decades { display: none; }
+  .zw-strips { border-radius: 10px; }
+  .strip { grid-template-columns: 36px minmax(0, 1fr); }
+  .strip .lab { font-size: 12px; }
+  .cell { min-width: 50px; padding: 3px 4px; font-size: 10.5px; line-height: 1.25; }
+  .cell b { font-size: 12.5px; }
 }
 @media (prefers-reduced-motion: reduce) { .zw-palace { transition: none; } }
 </style>
