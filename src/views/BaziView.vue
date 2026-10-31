@@ -127,6 +127,7 @@
                 <div v-if="activeProfile" class="bazi-tab-bar" ref="tabBarRef">
                     <button :class="['bazi-tab', { active: currentTab === 'basic' }]" @click="currentTab = 'basic'">基础排盘</button>
                     <button :class="['bazi-tab', { active: currentTab === 'pro' }]" @click="currentTab = 'pro'">专业细盘</button>
+                    <button :class="['bazi-tab', { active: currentTab === 'ziwei' }]" @click="currentTab = 'ziwei'">紫微盘</button>
                     <button
                         v-if="activeProfile && !needsUpgrade && !isGuest"
                         :class="['bazi-tab', { active: currentTab === 'events' }]"
@@ -642,8 +643,10 @@
                 </div>
                 <!-- ══ /命主断事笔记 ══ -->
 
+                <ZiweiChartPanel v-if="currentTab === 'ziwei'" :profile="activeProfile" />
+
                 <BaziPillarTable
-                    v-if="resolvedMatrix && currentTab !== 'events'"
+                    v-if="resolvedMatrix && isBaziChartTab"
                     :columns="displayColumns"
                     :show-pillar-suffix="currentTab === 'basic'"
                     @shensha-click="showShensha"
@@ -1004,7 +1007,7 @@
                 </Teleport>
 
                 <!-- 命局天机分析版块 -->
-                <div v-if="currentTab !== 'events' && activeProfile.bazi_detail && activeProfile.bazi_detail.scoring_details" class="rpt-section">
+                <div v-if="isBaziChartTab && activeProfile.bazi_detail && activeProfile.bazi_detail.scoring_details" class="rpt-section">
                     <div class="rpt-head">
                         <span class="rpt-kicker">命局天机</span>
                         <button class="info-button" title="查看命局判定" @click="openInsightPanel('strength')">i</button>
@@ -1061,7 +1064,7 @@
                 </div>
 
                 <!-- 天机锦囊 -->
-                <div v-if="currentTab !== 'events' && shouldShowBaziInterpretationSection" class="rpt-section">
+                <div v-if="isBaziChartTab && shouldShowBaziInterpretationSection" class="rpt-section">
                     <div class="rpt-head">
                         <span class="rpt-kicker">天机锦囊</span>
                         <button class="info-button" title="查看用神决策链与四维剖析" @click="activeInfoPanel = 'scoring'">i</button>
@@ -1142,12 +1145,12 @@
                     </div>
                 </div>
 
-                <div v-else-if="currentTab !== 'events' && !isBaziLlmLoading && activeProfile.bazi_summary" class="legacy-summary" style="display: block;">
+                <div v-else-if="isBaziChartTab && !isBaziLlmLoading && activeProfile.bazi_summary" class="legacy-summary" style="display: block;">
                     {{ activeProfile.bazi_summary }}
                 </div>
 
                 <!-- 古籍断语 -->
-                <div v-if="currentTab !== 'events' && classicVerdictText" class="rpt-section">
+                <div v-if="isBaziChartTab && classicVerdictText" class="rpt-section">
                     <div class="rpt-head">
                         <div class="rpt-head-left">
                             <span class="rpt-kicker">古籍断语</span>
@@ -1187,6 +1190,7 @@ import OpenSourceLinks from '../components/OpenSourceLinks.vue'
 import AccountMenu from '../components/AccountMenu.vue'
 import BaziBackingPanel from '../components/BaziBackingPanel.vue'
 import BaziPillarTable from '../components/BaziPillarTable.vue'
+import ZiweiChartPanel from '../components/ZiweiChartPanel.vue'
 import { BAZI_PROFILE_FULL_SELECT, BAZI_PROFILE_LIST_SELECT } from '../baziProfileFields.mjs'
 import {
     buildBaziProfileInsertPayload,
@@ -1336,6 +1340,7 @@ const profileDetailCache = ref({})   // id → full bazi_detail data
 const isLoadingProfileDetail = ref(false)
 const selectedProfileId = ref('')
 const currentTab = ref('basic')
+const isBaziChartTab = computed(() => currentTab.value === 'basic' || currentTab.value === 'pro')
 const showAdd = ref(false)
 const showRename = ref(false)
 const isProfileMenuOpen = ref(false)
@@ -4098,7 +4103,7 @@ const getShenColor = (shen) => {
 .profile-switch-name { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--font-serif); font-size: 20px; letter-spacing: 1px; line-height: 1.15; }
 .profile-switch-symbol { color: var(--gold); font-size: 21px; line-height: 1; opacity: .92; }
 .profile-switcher.open .profile-switch-trigger { box-shadow: inset 0 0 0 1px var(--gold-border); }
-.profile-flyout { position: absolute; top: calc(100% + 10px); left: 0; right: 0; z-index: 120; padding: 8px; border-radius: 16px; background: var(--bg-card); border: 1px solid var(--line); box-shadow: 0 12px 36px rgba(0,0,0,.12); }
+.profile-flyout { position: absolute; top: calc(100% + 10px); left: 0; right: 0; z-index: 120; padding: 8px; border-radius: 16px; background: var(--bg-card); border: 1px solid var(--line); box-shadow: 0 12px 36px rgba(0,0,0,.12); max-height: min(56vh, 420px); overflow-y: auto; overscroll-behavior: contain; }
 .profile-flyout-item { width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 12px; padding: 12px 14px; border: none; border-radius: 12px; background: transparent; color: var(--text-primary); cursor: pointer; text-align: left; }
 .profile-flyout-item + .profile-flyout-item { margin-top: 4px; }
 .profile-flyout-item.active { background: var(--gold-dim); box-shadow: inset 0 0 0 1px var(--gold-border); }

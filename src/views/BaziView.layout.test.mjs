@@ -189,8 +189,8 @@ test('LLM 等待态只显示骨架不混用兜底文案', () => {
 test('LLM 等待态不回落到 legacy summary 兜底卡片', () => {
   assert.match(source, /const isBaziLlmLoading = computed/)
   assert.match(source, /const shouldShowBaziInterpretationSection = computed/)
-  assert.match(source, /v-if="currentTab !== 'events' && shouldShowBaziInterpretationSection"/)
-  assert.match(source, /v-else-if="currentTab !== 'events' && !isBaziLlmLoading && activeProfile\.bazi_summary"/)
+  assert.match(source, /v-if="isBaziChartTab && shouldShowBaziInterpretationSection"/)
+  assert.match(source, /v-else-if="isBaziChartTab && !isBaziLlmLoading && activeProfile\.bazi_summary"/)
 })
 
 test('推演完成提示提供关闭按钮', () => {
@@ -229,4 +229,12 @@ test('从档案切换层新增档案时先收起切换层', () => {
   assert.match(block, /isProfileMenuOpen\.value = false/)
   assert.match(block, /swipedProfileId\.value = null/)
   assert.match(block, /showAdd\.value = true/)
+})
+
+test('紫微盘标签复用当前档案，八字区块只在基础/专业排盘显示', () => {
+  assert.match(source, /import ZiweiChartPanel from '\.\.\/components\/ZiweiChartPanel\.vue'/)
+  assert.match(source, /@click="currentTab = 'ziwei'">紫微盘</)
+  assert.match(source, /<ZiweiChartPanel v-if="currentTab === 'ziwei'" :profile="activeProfile" \/>/)
+  assert.match(source, /const isBaziChartTab = computed\(\(\) => currentTab\.value === 'basic' \|\| currentTab\.value === 'pro'\)/)
+  assert.doesNotMatch(source, /currentTab !== 'events'/)
 })
