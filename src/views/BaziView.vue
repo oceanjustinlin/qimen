@@ -127,6 +127,7 @@
                 <div v-if="activeProfile" class="bazi-tab-bar" ref="tabBarRef">
                     <button :class="['bazi-tab', { active: currentTab === 'basic' }]" @click="currentTab = 'basic'">基础排盘</button>
                     <button :class="['bazi-tab', { active: currentTab === 'pro' }]" @click="currentTab = 'pro'">专业细盘</button>
+                    <button :class="['bazi-tab', { active: currentTab === 'ziwei' }]" @click="currentTab = 'ziwei'">紫微盘</button>
                     <button
                         v-if="activeProfile && !needsUpgrade && !isGuest"
                         :class="['bazi-tab', { active: currentTab === 'events' }]"
@@ -642,8 +643,10 @@
                 </div>
                 <!-- ══ /命主断事笔记 ══ -->
 
+                <ZiweiChartPanel v-if="currentTab === 'ziwei'" :profile="activeProfile" />
+
                 <BaziPillarTable
-                    v-if="resolvedMatrix && currentTab !== 'events'"
+                    v-if="resolvedMatrix && isBaziChartTab"
                     :columns="displayColumns"
                     :show-pillar-suffix="currentTab === 'basic'"
                     @shensha-click="showShensha"
@@ -1004,7 +1007,7 @@
                 </Teleport>
 
                 <!-- 命局天机分析版块 -->
-                <div v-if="currentTab !== 'events' && activeProfile.bazi_detail && activeProfile.bazi_detail.scoring_details" class="rpt-section">
+                <div v-if="isBaziChartTab && activeProfile.bazi_detail && activeProfile.bazi_detail.scoring_details" class="rpt-section">
                     <div class="rpt-head">
                         <span class="rpt-kicker">命局天机</span>
                         <button class="info-button" title="查看命局判定" @click="openInsightPanel('strength')">i</button>
@@ -1061,7 +1064,7 @@
                 </div>
 
                 <!-- 天机锦囊 -->
-                <div v-if="currentTab !== 'events' && shouldShowBaziInterpretationSection" class="rpt-section">
+                <div v-if="isBaziChartTab && shouldShowBaziInterpretationSection" class="rpt-section">
                     <div class="rpt-head">
                         <span class="rpt-kicker">天机锦囊</span>
                         <button class="info-button" title="查看用神决策链与四维剖析" @click="activeInfoPanel = 'scoring'">i</button>
@@ -1142,12 +1145,12 @@
                     </div>
                 </div>
 
-                <div v-else-if="currentTab !== 'events' && !isBaziLlmLoading && activeProfile.bazi_summary" class="legacy-summary" style="display: block;">
+                <div v-else-if="isBaziChartTab && !isBaziLlmLoading && activeProfile.bazi_summary" class="legacy-summary" style="display: block;">
                     {{ activeProfile.bazi_summary }}
                 </div>
 
                 <!-- 古籍断语 -->
-                <div v-if="currentTab !== 'events' && classicVerdictText" class="rpt-section">
+                <div v-if="isBaziChartTab && classicVerdictText" class="rpt-section">
                     <div class="rpt-head">
                         <div class="rpt-head-left">
                             <span class="rpt-kicker">古籍断语</span>
@@ -1187,6 +1190,7 @@ import OpenSourceLinks from '../components/OpenSourceLinks.vue'
 import AccountMenu from '../components/AccountMenu.vue'
 import BaziBackingPanel from '../components/BaziBackingPanel.vue'
 import BaziPillarTable from '../components/BaziPillarTable.vue'
+import ZiweiChartPanel from '../components/ZiweiChartPanel.vue'
 import { BAZI_PROFILE_FULL_SELECT, BAZI_PROFILE_LIST_SELECT } from '../baziProfileFields.mjs'
 import {
     buildBaziProfileInsertPayload,
@@ -1336,6 +1340,7 @@ const profileDetailCache = ref({})   // id → full bazi_detail data
 const isLoadingProfileDetail = ref(false)
 const selectedProfileId = ref('')
 const currentTab = ref('basic')
+const isBaziChartTab = computed(() => currentTab.value === 'basic' || currentTab.value === 'pro')
 const showAdd = ref(false)
 const showRename = ref(false)
 const isProfileMenuOpen = ref(false)
