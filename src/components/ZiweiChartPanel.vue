@@ -60,7 +60,7 @@
           <div class="zw-center">
             <h3>{{ profile?.name || '命主' }} <small>{{ centerInfo.yinyang }}{{ astrolabe.gender }} · {{ astrolabe.fiveElementsClass }}</small></h3>
             <dl>
-              <dt>{{ input.timeSource === 'profile_adjusted' ? '真太阳时' : '出生时间' }}</dt>
+              <dt>{{ isSolarTime ? '真太阳时' : '钟表时间' }}</dt>
               <dd>{{ astrolabe.solarDate }} {{ pad(input.hour) }}:{{ pad(input.minute) }}</dd>
               <dt>农历</dt><dd>{{ astrolabe.lunarDate }} {{ astrolabe.time }}</dd>
             </dl>
@@ -78,7 +78,6 @@
                 <span v-for="m in MUTAGENS" :key="m" class="zw-inline">{{ centerInfo.natal[m] }}<i :class="['mu', 'mu-' + m]">{{ m }}</i></span>
               </dd>
             </dl>
-            <p v-if="input.timeSource !== 'profile_adjusted'" class="zw-warn">档案没有真太阳时，按出生钟表时间起盘。</p>
           </div>
 
           <svg class="zw-lines" :viewBox="`0 0 ${lines.width} ${lines.height}`" aria-hidden="true">
@@ -189,6 +188,8 @@ const uid = Math.random().toString(36).slice(2, 8)
 const astrolabe = shallowRef(null)
 const horoscope = shallowRef(null)
 const input = ref(null)
+// 只有档案勾选了真太阳时（apparent/mean）才算真太阳时；clock 模式的 adjusted_birth_date 只含夏令时校正
+const isSolarTime = computed(() => input.value?.timeSource === 'profile_adjusted' && ['apparent', 'mean'].includes(props.profile?.solar_time_mode))
 const error = ref('')
 const view = ref('sanhe')
 const layer = ref('natal')
@@ -483,7 +484,6 @@ onUnmounted(() => { window.removeEventListener('resize', onResize); clearTimeout
 .zw-pillars b { font-size: 19px; text-align: center; font-weight: 700; line-height: 1.25; font-family: var(--font-ganzhi, var(--font-serif)); }
 .zw-decades { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 0 2px; text-align: center; font-size: 12px; color: var(--ink); line-height: 1.35; font-variant-numeric: tabular-nums; }
 .zw-decades small { font-size: 9.5px; color: var(--ink-dim); }
-.zw-warn { margin: 0; font-size: 11px; color: var(--zw-period); }
 .wx-jin { color: #9a7a1a; } .wx-mu { color: #2e7d32; } .wx-shui { color: #1565c0; } .wx-huo { color: #c62828; } .wx-tu { color: #7b5e00; }
 [data-theme="dark"] .wx-jin { color: #e8cc80; } [data-theme="dark"] .wx-mu { color: #6fcf7a; } [data-theme="dark"] .wx-shui { color: #6aa8f0; }
 [data-theme="dark"] .wx-huo { color: #ff7b6b; } [data-theme="dark"] .wx-tu { color: #d9b45a; }
