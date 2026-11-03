@@ -6,6 +6,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const Ajv = require('ajv');
 const YAML = require('yaml');
+const { assertModifiers } = require('../lib/ziweiFeatureConditions.cjs');
 
 const ROOT = path.join(__dirname, '..');
 const KNOWLEDGE_ROOT = path.join(ROOT, 'knowledge', 'ziwei');
@@ -55,7 +56,7 @@ function loadJsonLines(relativePath) {
 function loadPropositions() {
   return PROPOSITION_FILES.flatMap((relativePath) => {
     const document = loadYaml(relativePath);
-    assert.equal(document.schema_version, 'ziwei-interpretations/v1');
+    assert.equal(document.schema_version, 'ziwei-interpretations/v2');
     assert.ok(Array.isArray(document.propositions));
     return document.propositions;
   });
@@ -104,8 +105,15 @@ test('23 条解释命题通过 Schema，证据可追溯且不使用确定性语�
     );
     assert.equal(proposition.status, 'reviewed');
     assert.equal(proposition.language_policy.deterministic, false);
-    assert.ok(proposition.modifiers.strengthen.length > 0);
-    assert.ok(proposition.modifiers.weaken.length > 0);
+    assert.ok(proposition.modifier_notes.strengthen.length > 0);
+    assert.ok(proposition.modifier_notes.weaken.length > 0);
+    assert.ok(Array.isArray(proposition.modifiers));
+    assert.doesNotThrow(() => assertModifiers(proposition), proposition.id);
+    proposition.modifiers.forEach((modifier) => {
+      modifier.evidence.forEach((evidenceId) => {
+        assert.equal(sourceById.get(evidenceId)?.ocr_status, 'visually_verified', modifier.id);
+      });
+    });
     proposition.evidence.forEach((evidenceId) => {
       const source = sourceById.get(evidenceId);
       assert.ok(source, `${proposition.id} 引用了不存在的证据 ${evidenceId}`);

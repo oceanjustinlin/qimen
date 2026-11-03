@@ -15,11 +15,11 @@ const {
 const ROOT = path.join(__dirname, '..');
 const KNOWLEDGE_ROOT = path.join(ROOT, 'knowledge', 'ziwei');
 const EXPECTED_PRIORITIES = {
-  overall: ['命宫', '福德宫', '迁移宫', '官禄宫', '财帛宫'],
-  career: ['官禄宫', '命宫', '迁移宫', '财帛宫', '福德宫'],
-  wealth: ['财帛宫', '福德宫', '田宅宫', '官禄宫', '命宫'],
-  relationship: ['夫妻宫', '命宫', '福德宫', '迁移宫', '子女宫'],
-  annual: [
+  'overall:standard': ['命宫', '福德宫', '迁移宫', '官禄宫', '财帛宫'],
+  'career:standard': ['官禄宫', '命宫', '迁移宫', '财帛宫', '福德宫'],
+  'wealth:standard': ['财帛宫', '福德宫', '田宅宫', '官禄宫', '命宫'],
+  'relationship:standard': ['夫妻宫', '命宫', '福德宫', '迁移宫', '子女宫'],
+  'overall:annual_overview': [
     '命宫',
     '官禄宫',
     '财帛宫',
@@ -63,8 +63,10 @@ test('五类报告模板声明宫位优先级、阅读顺序和证据发布门�
   const templates = loadReportTemplates({ knowledgeRoot: KNOWLEDGE_ROOT });
 
   assert.deepEqual([...templates.keys()].sort(), Object.keys(EXPECTED_PRIORITIES).sort());
-  Object.entries(EXPECTED_PRIORITIES).forEach(([topic, palacePriority]) => {
-    const template = templates.get(topic);
+  Object.entries(EXPECTED_PRIORITIES).forEach(([key, palacePriority]) => {
+    const template = templates.get(key);
+    assert.notEqual(template.topic, 'annual');
+    assert.equal(`${template.topic}:${template.report_preset}`, key);
     assert.deepEqual(template.palace_priority, palacePriority);
     assert.deepEqual(template.school_order, ['sanhe-core', 'feixing-aux']);
     assert.ok(template.reading_order.includes('palace'));
@@ -77,26 +79,48 @@ test('五类报告模板声明宫位优先级、阅读顺序和证据发布门�
   });
 });
 
-test('命盘事实统一仆役宫别名，并仅把运限命宫落点记为焦点激活', () => {
+test('静态事实统一仆役宫别名、只含本命，并携带 fact_id、scope 与来源路径', () => {
   const chart = buildChart();
   const facts = projectChartFacts(chart);
   const palaceFacts = facts.filter((fact) => fact.feature === 'chart_has_palace');
-  const yearlyActivations = facts.filter((fact) => (
-    fact.feature === 'period_activates' && fact.period === 'yearly'
-  ));
-  const yearlyFocus = chart.natal.palaces[chart.horoscope.yearly.index];
-  const expectedPalace = yearlyFocus.palace_key === '仆役宫'
-    ? '交友宫'
-    : yearlyFocus.palace_key;
+  const canonicalFeatures = new Set([
+    'chart_has_palace',
+    'palace_role',
+    'palace_has_star',
+    'star_brightness',
+    'star_mutagen',
+    'palace_relation',
+  ]);
 
   assert.equal(palaceFacts.some((fact) => fact.palace === '仆役宫'), false);
   assert.equal(palaceFacts.some((fact) => fact.palace === '交友宫'), true);
-  assert.deepEqual(yearlyActivations, [{
-    feature: 'period_activates',
-    palace: expectedPalace,
-    period: 'yearly',
-    value: '命宫',
-  }]);
+  assert.equal(new Set(facts.map((fact) => fact.fact_id)).size, facts.length);
+  facts.forEach((fact) => {
+    assert.equal(canonicalFeatures.has(fact.feature), true, fact.feature);
+    assert.equal(fact.scope, 'natal');
+    assert.match(fact.fact_id, /^fact\.natal\./);
+    assert.match(fact.origin.path, /^natal\.palaces\[\d+\]/);
+  });
+
+  // 运限快照存在时，静态投影仍不产生任何动态事实。
+  assert.ok(chart.horoscope);
+  assert.deepEqual(projectChartFacts({ ...chart, horoscope: null }), facts);
+
+  // 每颗四化星只有一条 star_mutagen 事实，且与 CLI 本命四化一致。
+  const mutagenFacts = facts.filter((fact) => fact.feature === 'star_mutagen');
+  assert.deepEqual(
+    Object.fromEntries(mutagenFacts.map((fact) => [fact.mutagen, fact.star])),
+    chart.natal.natal_mutagens,
+  );
+  assert.equal(mutagenFacts.length, 4);
+
+  // 关系拆成独立的类型边：每宫一条对宫、两条三合、两条邻宫。
+  const relationFacts = facts.filter((fact) => fact.feature === 'palace_relation');
+  assert.equal(relationFacts.length, 12 * 5);
+  assert.ok(relationFacts.some((fact) => (
+    fact.palace === '命宫' && fact.relation === 'opposite' && fact.to === '迁移宫'
+  )));
+  assert.equal(facts.filter((fact) => fact.feature === 'palace_role' && fact.role === 'body_palace').length, 1);
 });
 
 test('报告只输出实际命中的结论，并为每条结论附盘面事实和来源 ID', () => {
@@ -141,14 +165,40 @@ test('关系报告明确区分通用背景，流年报告不以本命命题冒�
   });
   const annual = composeEvidenceReport({
     chart,
-    topic: 'annual',
+    topic: 'overall',
+    report_preset: 'annual_overview',
     knowledgeRoot: KNOWLEDGE_ROOT,
   });
 
   assert.ok(relationship.conclusions.length > 0);
   assert.ok(relationship.conclusions.every((item) => item.context_role === 'overall_context'));
+  assert.equal(relationship.report_preset, 'standard');
+  assert.equal(relationship.time_scope, 'natal');
+  assert.equal(annual.topic, 'overall');
+  assert.equal(annual.report_preset, 'annual_overview');
+  assert.equal(annual.time_scope, 'yearly');
   assert.deepEqual(annual.conclusions, []);
   assert.ok(annual.warnings.includes('ZIWEI_NO_REVIEWED_PROPOSITION_MATCHED'));
+  assert.equal(annual.warnings.includes('ZIWEI_LEGACY_TOPIC_ANNUAL'), false);
+});
+
+test('旧 topic=annual 只经兼容层读取，输出不再写出 annual', () => {
+  const chart = buildChart();
+  const legacy = composeEvidenceReport({ chart, topic: 'annual', knowledgeRoot: KNOWLEDGE_ROOT });
+
+  assert.equal(legacy.topic, 'overall');
+  assert.equal(legacy.report_preset, 'annual_overview');
+  assert.equal(legacy.template_id, 'report.overall-annual-overview.v1');
+  assert.ok(legacy.warnings.includes('ZIWEI_LEGACY_TOPIC_ANNUAL'));
+  assert.equal(JSON.stringify(legacy).includes('"annual"'), false);
+  assert.throws(
+    () => composeEvidenceReport({ chart, topic: 'annual', report_preset: 'standard', knowledgeRoot: KNOWLEDGE_ROOT }),
+    (error) => error.code === 'REPORT_TOPIC_UNKNOWN',
+  );
+  assert.throws(
+    () => composeEvidenceReport({ chart, topic: 'career', report_preset: 'annual_overview', knowledgeRoot: KNOWLEDGE_ROOT }),
+    (error) => error.code === 'REPORT_TOPIC_UNKNOWN',
+  );
 });
 
 test('报告校验拒绝缺少命中事实、缺少来源和伪造盘面事实的结论', () => {
@@ -210,5 +260,167 @@ test('报告校验拒绝未知来源和安全策略禁止的高风险文案', ()
   assert.throws(
     () => validateReportOutput(unsupportedCopy, { chart, knowledgeRoot: KNOWLEDGE_ROOT }),
     (error) => error.code === 'REPORT_TEXT_NOT_REVIEWED',
+  );
+});
+
+test('知识包按根目录缓存、不可变，清缓存后重新加载结果一致', () => {
+  const {
+    clearKnowledgeCache,
+    loadPropositions,
+  } = require('./ziwei_report_evidence.cjs');
+  clearKnowledgeCache();
+  const first = loadPropositions(KNOWLEDGE_ROOT);
+  assert.equal(loadPropositions(KNOWLEDGE_ROOT), first);
+  assert.equal(Object.isFrozen(first), true);
+  assert.equal(Object.isFrozen(first[0].claim), true);
+  assert.throws(() => { first[0].claim.tendency = '篡改'; }, TypeError);
+
+  clearKnowledgeCache();
+  const reloaded = loadPropositions(KNOWLEDGE_ROOT);
+  assert.notEqual(reloaded, first);
+  assert.deepEqual(reloaded, first);
+
+  const chart = buildChart();
+  const report = composeEvidenceReport({ chart, topic: 'career', knowledgeRoot: KNOWLEDGE_ROOT });
+  report.conclusions[0].evidence_ids.push('source.local.mutation');
+  const again = composeEvidenceReport({ chart, topic: 'career', knowledgeRoot: KNOWLEDGE_ROOT });
+  assert.equal(again.conclusions[0].evidence_ids.includes('source.local.mutation'), false);
+});
+
+test('命盘不变量失败时报告组装直接终止', () => {
+  const chart = buildChart();
+  chart.natal.palaces[0].relations.opposite = chart.natal.palaces[1].palace_key;
+  assert.throws(
+    () => composeEvidenceReport({ chart, topic: 'career', knowledgeRoot: KNOWLEDGE_ROOT }),
+    (error) => error.code === 'ZIWEI_FACT_INVARIANT_FAILED',
+  );
+});
+
+function knowledgeCopy(mutate) {
+  const fs = require('node:fs');
+  const os = require('node:os');
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'ziwei-dimensions-'));
+  fs.cpSync(KNOWLEDGE_ROOT, root, { recursive: true });
+  mutate(root, {
+    read: (relative) => JSON.parse(fs.readFileSync(path.join(root, relative), 'utf8')),
+    write: (relative, value) => fs.writeFileSync(path.join(root, relative), JSON.stringify(value)),
+    readText: (relative) => fs.readFileSync(path.join(root, relative), 'utf8'),
+    writeText: (relative, value) => fs.writeFileSync(path.join(root, relative), value),
+  });
+  return root;
+}
+
+const STARS_FILE = 'interpretations/stars/major-stars.yaml';
+
+test('报告挂到共享主题树，草稿标注不进入结论但计入待审核数量', () => {
+  const chart = buildChart();
+  const career = composeEvidenceReport({ chart, topic: 'career', knowledgeRoot: KNOWLEDGE_ROOT });
+  const overall = composeEvidenceReport({ chart, topic: 'overall', knowledgeRoot: KNOWLEDGE_ROOT });
+
+  assert.equal(career.dimension_coverage.category, 'career_business');
+  assert.deepEqual(career.dimension_coverage.subcategories, ['career_direction', 'industry_fit', 'entrepreneurship_vs_job']);
+  assert.ok(career.dimension_coverage.facets.length > 0);
+  assert.equal(career.dimension_coverage.facets.every((item) => item.covered === false), true);
+  assert.deepEqual(career.dimension_coverage.slots, {});
+  assert.ok(career.dimension_coverage.draft_annotation_count > 0);
+  assert.ok(career.conclusions.every((item) => Array.isArray(item.dimensions) && item.dimensions.length === 0));
+
+  assert.equal(overall.dimension_coverage.category, null);
+  assert.deepEqual(overall.dimension_coverage.facets, []);
+});
+
+test('审核通过的标注进入结论维度与覆盖统计', () => {
+  const root = knowledgeCopy((_, io) => {
+    const document = io.read(STARS_FILE);
+    document.propositions.forEach((proposition) => {
+      proposition.facet_annotations = [
+        { slot: 'subject_state', polarity: 'neutral', review_status: 'reviewed' },
+        {
+          slot: 'subject_state',
+          category: 'career_business',
+          subcategory: 'career_direction',
+          facet: 'work_style',
+          polarity: 'neutral',
+          review_status: 'reviewed',
+        },
+        {
+          slot: 'subject_state',
+          category: 'relationship',
+          subcategory: 'marriage_pattern',
+          facet: 'interaction_style',
+          polarity: 'neutral',
+          review_status: 'reviewed',
+        },
+      ];
+    });
+    io.write(STARS_FILE, document);
+  });
+  const chart = buildChart();
+  const career = composeEvidenceReport({ chart, topic: 'career', knowledgeRoot: root });
+  const starConclusions = career.conclusions.filter((item) => item.kind === 'star');
+
+  assert.ok(starConclusions.length > 0);
+  starConclusions.forEach((conclusion) => {
+    // 关系类标注不进入事业报告。
+    assert.deepEqual(conclusion.dimensions, [
+      { slot: 'subject_state', polarity: 'neutral' },
+      { slot: 'subject_state', category: 'career_business', subcategory: 'career_direction', facet: 'work_style', polarity: 'neutral' },
+    ]);
+  });
+  assert.equal(career.dimension_coverage.slots.subject_state, starConclusions.length * 2);
+  assert.ok(!career.dimension_coverage.uncovered_facets.includes('career_direction.work_style'));
+  assert.ok(career.dimension_coverage.uncovered_facets.includes('career_direction.role_fit'));
+
+  const tampered = clone(career);
+  tampered.conclusions.find((item) => item.kind === 'star').dimensions = [];
+  assert.throws(
+    () => validateReportOutput(tampered, { chart, knowledgeRoot: root }),
+    (error) => error.code === 'REPORT_DIMENSION_MISMATCH',
+  );
+});
+
+test('标注或模板不在共享维度注册表内时拒绝加载', () => {
+  const chart = buildChart();
+  const slotMismatch = knowledgeCopy((_, io) => {
+    const document = io.read(STARS_FILE);
+    document.propositions[0].facet_annotations = [{
+      slot: 'support',
+      category: 'career_business',
+      subcategory: 'career_direction',
+      facet: 'work_style',
+      polarity: 'neutral',
+      review_status: 'draft',
+    }];
+    io.write(STARS_FILE, document);
+  });
+  assert.throws(
+    () => composeEvidenceReport({ chart, topic: 'career', knowledgeRoot: slotMismatch }),
+    (error) => error.code === 'REPORT_PROPOSITION_INVALID' && /属于槽位/.test(error.message),
+  );
+
+  const unknownFacet = knowledgeCopy((_, io) => {
+    const document = io.read(STARS_FILE);
+    document.propositions[0].facet_annotations = [{
+      slot: 'subject_state',
+      category: 'career_business',
+      subcategory: 'job_search',
+      facet: 'work_style',
+      polarity: 'neutral',
+      review_status: 'draft',
+    }];
+    io.write(STARS_FILE, document);
+  });
+  assert.throws(
+    () => composeEvidenceReport({ chart, topic: 'career', knowledgeRoot: unknownFacet }),
+    (error) => error.code === 'REPORT_PROPOSITION_INVALID',
+  );
+
+  const qimenOnlySubcategory = knowledgeCopy((_, io) => {
+    io.writeText('reports/career.yaml', io.readText('reports/career.yaml')
+      .replace('subcategories: [career_direction, industry_fit, entrepreneurship_vs_job]', 'subcategories: [job_search]'));
+  });
+  assert.throws(
+    () => composeEvidenceReport({ chart, topic: 'career', knowledgeRoot: qimenOnlySubcategory }),
+    (error) => error.code === 'REPORT_TEMPLATE_INVALID' && /未标注紫微/.test(error.message),
   );
 });

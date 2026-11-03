@@ -1,6 +1,11 @@
 schema_version: ziwei-report-template/v1
 id: report.relationship.v1
 topic: relationship
+report_preset: standard
+time_scope: natal
+shared_dimension:
+  category: relationship
+  subcategories: [marriage_pattern, partner_profile, relationship_timing]
 title: 长期关系与互动模式
 description: 以夫妻宫为主题宫，结合命宫的表达方式、福德宫的内在需求、迁移宫的外部互动与子女宫的共同创造议题。
 school_order: [sanhe-core, feixing-aux]

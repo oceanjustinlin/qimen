@@ -14,6 +14,7 @@
     "subject",
     "conditions",
     "claim",
+    "modifier_notes",
     "modifiers",
     "language_policy",
     "evidence",
@@ -54,8 +55,20 @@
     "claim": {
       "$ref": "#/definitions/claim"
     },
+    "modifier_notes": {
+      "$ref": "#/definitions/modifierNotes"
+    },
     "modifiers": {
-      "$ref": "#/definitions/modifiers"
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/modifier"
+      }
+    },
+    "facet_annotations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/facetAnnotation"
+      }
     },
     "language_policy": {
       "$ref": "#/definitions/languagePolicy"
@@ -124,8 +137,7 @@
         "health",
         "family",
         "travel",
-        "learning",
-        "annual"
+        "learning"
       ]
     },
     "palace": {
@@ -186,13 +198,11 @@
         "feature": {
           "enum": [
             "chart_has_palace",
+            "palace_role",
             "palace_has_star",
-            "star_has_mutagen",
-            "palace_has_mutagen",
-            "palace_has_brightness",
-            "palace_has_relation",
-            "period_activates",
-            "combination_matches"
+            "star_brightness",
+            "star_mutagen",
+            "palace_relation"
           ]
         },
         "palace": {
@@ -210,7 +220,30 @@
             "忌"
           ]
         },
-        "value": {}
+        "value": {},
+        "role": {
+          "enum": [
+            "body_palace",
+            "origin_palace"
+          ]
+        },
+        "collection": {
+          "enum": [
+            "major",
+            "minor",
+            "adjective"
+          ]
+        },
+        "relation": {
+          "enum": [
+            "opposite",
+            "trine",
+            "adjacent"
+          ]
+        },
+        "to": {
+          "$ref": "#/definitions/palace"
+        }
       }
     },
     "condition": {
@@ -269,7 +302,7 @@
         }
       }
     },
-    "modifiers": {
+    "modifierNotes": {
       "type": "object",
       "additionalProperties": false,
       "required": [
@@ -291,6 +324,199 @@
             "minLength": 1
           }
         }
+      }
+    },
+    "featureLeaf": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "feature",
+        "operator"
+      ],
+      "properties": {
+        "feature": {
+          "enum": [
+            "palace_star_system",
+            "relation_set",
+            "brightness_state",
+            "sanfang_aggregate",
+            "jia_palace",
+            "flying_mutagen",
+            "empty_palace_borrow",
+            "overlay_map",
+            "period_mutagen",
+            "mutagen_stack"
+          ]
+        },
+        "palace": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/palace"
+            },
+            {
+              "const": "$matched_palace"
+            }
+          ]
+        },
+        "star": {
+          "type": "string",
+          "minLength": 1
+        },
+        "path": {
+          "type": "string",
+          "pattern": "^[a-z_]+(\\.[a-z_]+)*$"
+        },
+        "operator": {
+          "enum": [
+            "equals",
+            "contains",
+            "contains_any",
+            "contains_all",
+            "gte",
+            "lte",
+            "count_gte",
+            "exists",
+            "not_exists"
+          ]
+        },
+        "value": {}
+      }
+    },
+    "featureCondition": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/featureLeaf"
+        },
+        {
+          "$ref": "#/definitions/featureConditionGroup"
+        }
+      ]
+    },
+    "featureConditionGroup": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "maxProperties": 1,
+      "properties": {
+        "all": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/featureCondition"
+          }
+        },
+        "any": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/featureCondition"
+          }
+        },
+        "not": {
+          "$ref": "#/definitions/featureCondition"
+        }
+      }
+    },
+    "modifier": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "when",
+        "effect",
+        "evidence"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^mod\\.[a-z0-9._-]+$"
+        },
+        "when": {
+          "$ref": "#/definitions/featureConditionGroup"
+        },
+        "effect": {
+          "enum": [
+            "strengthen",
+            "weaken",
+            "redirect",
+            "negate"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^source\\.[a-z0-9-]+\\.[a-z0-9.-]+$"
+          }
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "facetAnnotation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "slot",
+        "polarity",
+        "review_status"
+      ],
+      "properties": {
+        "slot": {
+          "enum": [
+            "subject_state",
+            "target_state",
+            "environment",
+            "support",
+            "constraint",
+            "interaction",
+            "timing",
+            "portrait",
+            "guidance"
+          ]
+        },
+        "category": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subcategory": {
+          "type": "string",
+          "minLength": 1
+        },
+        "facet": {
+          "type": "string",
+          "pattern": "^[a-z_]+$"
+        },
+        "polarity": {
+          "enum": [
+            "positive",
+            "negative",
+            "neutral"
+          ]
+        },
+        "review_status": {
+          "enum": [
+            "draft",
+            "reviewed"
+          ]
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "dependencies": {
+        "facet": [
+          "category",
+          "subcategory"
+        ],
+        "subcategory": [
+          "category"
+        ]
       }
     },
     "languagePolicy": {

@@ -8,6 +8,9 @@
     "schema_version",
     "id",
     "topic",
+    "report_preset",
+    "time_scope",
+    "shared_dimension",
     "title",
     "description",
     "school_order",
@@ -27,7 +30,55 @@
       "pattern": "^report\\.[a-z0-9-]+\\.v[1-9][0-9]*$"
     },
     "topic": {
-      "enum": ["overall", "career", "wealth", "relationship", "annual"]
+      "enum": [
+        "overall",
+        "career",
+        "wealth",
+        "relationship"
+      ]
+    },
+    "report_preset": {
+      "enum": [
+        "standard",
+        "annual_overview"
+      ]
+    },
+    "time_scope": {
+      "enum": [
+        "natal",
+        "decadal",
+        "yearly",
+        "cross_period"
+      ]
+    },
+    "shared_dimension": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "category",
+        "subcategories"
+      ],
+      "properties": {
+        "category": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "subcategories": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
     },
     "title": {
       "type": "string",
@@ -42,7 +93,10 @@
       "minItems": 1,
       "uniqueItems": true,
       "items": {
-        "enum": ["sanhe-core", "feixing-aux"]
+        "enum": [
+          "sanhe-core",
+          "feixing-aux"
+        ]
       }
     },
     "scope_order": {
@@ -50,7 +104,15 @@
       "minItems": 1,
       "uniqueItems": true,
       "items": {
-        "enum": ["natal", "decadal", "yearly", "monthly", "daily", "hourly", "cross-period"]
+        "enum": [
+          "natal",
+          "decadal",
+          "yearly",
+          "monthly",
+          "daily",
+          "hourly",
+          "cross-period"
+        ]
       }
     },
     "palace_priority": {
@@ -79,7 +141,12 @@
       "minItems": 1,
       "uniqueItems": true,
       "items": {
-        "enum": ["period", "palace", "star", "mutagen"]
+        "enum": [
+          "period",
+          "palace",
+          "star",
+          "mutagen"
+        ]
       }
     },
     "include_overall_context": {

@@ -1,12 +1,34 @@
 {
-  "schema_version": "ziwei-knowledge-regression-cases/v1",
+  "schema_version": "ziwei-knowledge-regression-cases/v2",
   "baseline_id": "ziwei-knowledge-baseline-v1",
   "privacy": {
     "origin": "synthetic",
     "contains_real_identity": false,
     "note": "以下日期、时刻和档案 ID 均为测试构造，不对应已知用户或公开人物。"
   },
-  "report_topics": ["overall", "career", "wealth", "relationship", "annual"],
+  "report_requests": [
+    {
+      "id": "overall",
+      "topic": "overall"
+    },
+    {
+      "id": "career",
+      "topic": "career"
+    },
+    {
+      "id": "wealth",
+      "topic": "wealth"
+    },
+    {
+      "id": "relationship",
+      "topic": "relationship"
+    },
+    {
+      "id": "overall.annual_overview",
+      "topic": "overall",
+      "report_preset": "annual_overview"
+    }
+  ],
   "report_cases": [
     {
       "id": "synthetic-alpha",
@@ -24,7 +46,7 @@
         "career": 12,
         "wealth": 12,
         "relationship": 9,
-        "annual": 0
+        "overall.annual_overview": 0
       }
     },
     {
@@ -43,7 +65,7 @@
         "career": 10,
         "wealth": 11,
         "relationship": 11,
-        "annual": 0
+        "overall.annual_overview": 0
       }
     },
     {
@@ -62,7 +84,7 @@
         "career": 11,
         "wealth": 12,
         "relationship": 8,
-        "annual": 0
+        "overall.annual_overview": 0
       }
     }
   ],

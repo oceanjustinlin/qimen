@@ -1,6 +1,11 @@
 schema_version: ziwei-report-template/v1
 id: report.overall.v1
 topic: overall
+report_preset: standard
+time_scope: natal
+shared_dimension:
+  category: null
+  subcategories: []
 title: 本命整体结构
 description: 先读命宫与福德宫，再用迁移、官禄、财帛交叉观察，星曜为主体，四化只作增减与触发辅助。
 school_order: [sanhe-core, feixing-aux]

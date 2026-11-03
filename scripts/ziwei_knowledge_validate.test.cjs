@@ -134,7 +134,7 @@ test('解释命题 Schema 要求命中条件、修正项、证据和非确定性
           star: '武曲',
         },
         {
-          feature: 'star_has_mutagen',
+          feature: 'star_mutagen',
           star: '武曲',
           mutagen: '禄',
         },
@@ -144,10 +144,22 @@ test('解释命题 Schema 要求命中条件、修正项、证据和非确定性
       tendency: '资源管理、执行和经营能力更容易成为事业优势。',
       strength: 'medium',
     },
-    modifiers: {
+    modifier_notes: {
       strengthen: ['禄权科会照'],
       weaken: ['煞忌集中且大限重复引动'],
     },
+    modifiers: [
+      {
+        id: 'mod.wuqu.guanlu.example',
+        when: {
+          all: [
+            { feature: 'brightness_state', star: '武曲', path: 'rank', operator: 'gte', value: 6 },
+          ],
+        },
+        effect: 'strengthen',
+        evidence: ['source.mingli-tianji.example'],
+      },
+    ],
     language_policy: {
       deterministic: false,
       forbidden_phrases: ['必然发财', '注定富贵'],
@@ -159,6 +171,22 @@ test('解释命题 Schema 要求命中条件、修正项、证据和非确定性
   assertValid(validate, validInterpretation);
   assertInvalid(validate, { ...validInterpretation, conditions: undefined });
   assertInvalid(validate, { ...validInterpretation, evidence: [] });
+  assertInvalid(validate, { ...validInterpretation, modifiers: undefined });
+  assertInvalid(validate, {
+    ...validInterpretation,
+    modifiers: [{ ...validInterpretation.modifiers[0], effect: 'boost' }],
+  });
+  assertInvalid(validate, {
+    ...validInterpretation,
+    modifiers: [{
+      ...validInterpretation.modifiers[0],
+      when: { all: [{ feature: 'brightness_state', operator: 'regex', value: '.*' }] },
+    }],
+  });
+  assertInvalid(validate, {
+    ...validInterpretation,
+    modifiers: [{ ...validInterpretation.modifiers[0], evidence: [] }],
+  });
   assertInvalid(validate, {
     ...validInterpretation,
     language_policy: {

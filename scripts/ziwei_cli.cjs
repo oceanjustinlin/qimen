@@ -32,7 +32,9 @@ function buildInput() {
   const flags = parseFlags(process.argv.slice(2));
   if (flags.file) return JSON.parse(fs.readFileSync(flags.file, 'utf8'));
 
-  const stdin = readStdin();
+  // 人工诊断用 flags 时不读 stdin：终端或未关闭的管道会让 readFileSync(0) 一直阻塞。
+  const hasFlagProfile = Boolean(flags.date && flags.time && flags.gender);
+  const stdin = hasFlagProfile || process.stdin.isTTY ? null : readStdin();
   if (stdin) {
     try {
       return JSON.parse(stdin);
@@ -137,7 +139,7 @@ function normalizePeriod(period) {
   };
 }
 
-function normalizeHoroscope(astrolabe, targetDateTime) {
+function normalizeHoroscope(astrolabe, targetDateTime, birthDateTime) {
   if (!targetDateTime) return null;
   const isDateOnly = /^\d{4}-\d{1,2}-\d{1,2}$/.test(targetDateTime);
   let parsed;
@@ -153,7 +155,17 @@ function normalizeHoroscope(astrolabe, targetDateTime) {
       const timeIndex = minuteOfDay < 60 ? 0 : minuteOfDay >= 1380 ? 12 : Math.floor((minuteOfDay - 60) / 120) + 1;
       return { date_str: parsed.date_str, time_index: timeIndex, datetime: parsed.datetime };
     })();
+  // 补零后的 datetime 字符串可按字典序比较。早于出生的目标时间会让 iztro 返回 index=-1 的大限，
+  // 下游无法使用，因此在排盘阶段直接拒绝，而不是输出半张运限。
+  const targetComparable = isDateOnly ? `${parsed.datetime.slice(0, 10)} 23:59:59` : parsed.datetime;
+  if (birthDateTime && targetComparable < birthDateTime) {
+    throw makeZiweiError('TARGET_BEFORE_BIRTH', '运限目标时间不能早于出生时间。');
+  }
   const raw = astrolabe.horoscope(target.date_str, target.time_index);
+  // 虚岁超出全部十二个大限时，iztro 返回 index=-1、天干为拼音的无效大限，不能当作盘面事实输出。
+  if (!Number.isInteger(raw?.decadal?.index) || raw.decadal.index < 0) {
+    throw makeZiweiError('TARGET_OUT_OF_DECADAL_RANGE', '运限目标时间超出命盘十二个大限的覆盖范围。');
+  }
   return {
     target_datetime: target.datetime,
     decadal: normalizePeriod(raw.decadal),
@@ -226,7 +238,7 @@ function run(input) {
       time_correction_minutes: normalizedInput.source.time_correction_minutes,
     },
     natal,
-    horoscope: includeHoroscope ? normalizeHoroscope(astrolabe, input.target_datetime) : null,
+    horoscope: includeHoroscope ? normalizeHoroscope(astrolabe, input.target_datetime, normalizedInput.birth.solar_datetime) : null,
     warnings: normalizedInput.warnings,
   };
 }

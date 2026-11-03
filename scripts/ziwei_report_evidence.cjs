@@ -5,6 +5,15 @@ const fs = require('node:fs');
 const path = require('node:path');
 const Ajv = require('ajv');
 const YAML = require('yaml');
+const { deriveFeatureSet, loadFeatureKnowledge } = require('../lib/ziweiFeatureDeriver.cjs');
+const { assertModifiers, evaluateModifiers } = require('../lib/ziweiFeatureConditions.cjs');
+const { validateZiweiChart } = require('../lib/ziweiFactValidator.cjs');
+const { DIVINATION_CATEGORIES } = require('../lib/divinationCategories.js');
+const {
+  ANSWER_SLOTS,
+  findContentFacet,
+  getContentFacets,
+} = require('../lib/divinationDimensions.js');
 
 const DEFAULT_KNOWLEDGE_ROOT = path.join(__dirname, '..', 'knowledge', 'ziwei');
 const REPORT_SCHEMA_VERSION = 'ziwei-report-output/v1';
@@ -13,7 +22,7 @@ const REPORT_FILES = [
   'career.yaml',
   'wealth.yaml',
   'relationship.yaml',
-  'annual.yaml',
+  'overall-annual-overview.yaml',
 ];
 const INTERPRETATION_FILES = [
   'interpretations/palaces/core-palaces.yaml',
@@ -29,7 +38,6 @@ const STAR_COLLECTIONS = [
   ['minor_stars', 'minor'],
   ['adjective_stars', 'adjective'],
 ];
-const PERIODS = ['decadal', 'yearly', 'monthly', 'daily', 'hourly'];
 
 function makeReportError(code, message, details) {
   const error = new Error(message);
@@ -76,7 +84,70 @@ function readJsonLines(filePath) {
     .map((line) => JSON.parse(line));
 }
 
+function deepFreeze(value) {
+  if (value instanceof Map) {
+    value.forEach((item) => deepFreeze(item));
+    return value;
+  }
+  if (value && typeof value === 'object' && !Object.isFrozen(value)) {
+    Object.freeze(value);
+    Object.values(value).forEach((item) => deepFreeze(item));
+  }
+  return value;
+}
+
+// 知识包在进程内按根目录缓存：YAML 解析与 Ajv 编译占报告组装的大部分耗时，
+// 而组装和校验各需要一遍。加载失败不缓存；知识文件变更后调用 clearKnowledgeCache()。
+const knowledgeCache = new Map();
+
+function getKnowledge(knowledgeRoot = DEFAULT_KNOWLEDGE_ROOT) {
+  const key = path.resolve(knowledgeRoot);
+  if (!knowledgeCache.has(key)) {
+    knowledgeCache.set(key, deepFreeze({
+      templates: buildReportTemplates(key),
+      propositions: buildPropositions(key),
+      sources: buildSources(key),
+      safety: buildSafetyPolicy(key),
+      palaceAliases: buildPalaceAliases(key),
+      featureKnowledge: loadFeatureKnowledge({ knowledgeRoot: key }),
+    }));
+  }
+  return knowledgeCache.get(key);
+}
+
+function clearKnowledgeCache() {
+  knowledgeCache.clear();
+}
+
+const LEGACY_ANNUAL_TOPIC = 'annual';
+
+function templateKey(topic, reportPreset = 'standard') {
+  return `${topic}:${reportPreset}`;
+}
+
+/**
+ * 归一报告请求。topic 与时间维度相互独立（PRD §6）：旧的 topic=annual 只在此兼容层读取，
+ * 映射为 overall + annual_overview，并在输出中告警；任何输出都不再写出 annual。
+ */
+function normalizeReportRequest({ topic, report_preset: reportPreset }) {
+  if (topic === LEGACY_ANNUAL_TOPIC) {
+    if (reportPreset && reportPreset !== 'annual_overview') {
+      throw makeReportError('REPORT_TOPIC_UNKNOWN', 'topic=annual 只能映射到 annual_overview 预设。');
+    }
+    return { topic: 'overall', reportPreset: 'annual_overview', warnings: ['ZIWEI_LEGACY_TOPIC_ANNUAL'] };
+  }
+  return { topic, reportPreset: reportPreset || 'standard', warnings: [] };
+}
+
 function loadReportTemplates({ knowledgeRoot = DEFAULT_KNOWLEDGE_ROOT } = {}) {
+  return getKnowledge(knowledgeRoot).templates;
+}
+
+function loadPropositions(knowledgeRoot = DEFAULT_KNOWLEDGE_ROOT) {
+  return getKnowledge(knowledgeRoot).propositions;
+}
+
+function buildReportTemplates(knowledgeRoot) {
   const schema = readJson(path.join(knowledgeRoot, 'schemas', 'report.schema.json'));
   const validate = new Ajv({ allErrors: true, strict: true }).compile(schema);
   const templates = new Map();
@@ -91,16 +162,55 @@ function loadReportTemplates({ knowledgeRoot = DEFAULT_KNOWLEDGE_ROOT } = {}) {
         clone(validate.errors),
       );
     }
-    if (templates.has(template.topic)) {
-      throw makeReportError('REPORT_TEMPLATE_DUPLICATE', `报告主题重复：${template.topic}`);
+    assertSharedDimension(template, fileName);
+    const key = templateKey(template.topic, template.report_preset);
+    if (templates.has(key)) {
+      throw makeReportError('REPORT_TEMPLATE_DUPLICATE', `报告模板重复：${key}`);
     }
-    templates.set(template.topic, template);
+    templates.set(key, template);
   });
 
   return templates;
 }
 
-function loadPropositions(knowledgeRoot) {
+// 报告模板在共享主题树（lib/divinationCategories.js）上的坐标；category=null 表示跨类别（如整体报告）。
+function assertSharedDimension(template, fileName) {
+  const { category, subcategories } = template.shared_dimension;
+  const fail = (message) => {
+    throw makeReportError('REPORT_TEMPLATE_INVALID', `${fileName} 的 shared_dimension 无效：${message}`);
+  };
+  if (category === null) {
+    if (subcategories.length) fail('category 为 null 时不能声明子类');
+    return;
+  }
+  const node = DIVINATION_CATEGORIES[category];
+  if (!node) fail(`主题树中没有 ${category}`);
+  subcategories.forEach((subcategory) => {
+    const sub = node.subcategories?.[subcategory];
+    if (!sub) fail(`${category} 下没有子类 ${subcategory}`);
+    if (!sub.branches.includes('ziwei')) fail(`${category}.${subcategory} 未标注紫微可回答`);
+  });
+}
+
+function assertFacetAnnotations(proposition) {
+  (proposition.facet_annotations || []).forEach((annotation, index) => {
+    const label = `${proposition.id}.facet_annotations[${index}]`;
+    const fail = (message) => {
+      throw makeReportError('REPORT_PROPOSITION_INVALID', `${label} 无效：${message}`);
+    };
+    if (annotation.category && !DIVINATION_CATEGORIES[annotation.category]) fail(`主题树中没有 ${annotation.category}`);
+    if (annotation.subcategory && !DIVINATION_CATEGORIES[annotation.category].subcategories?.[annotation.subcategory]) {
+      fail(`${annotation.category} 下没有子类 ${annotation.subcategory}`);
+    }
+    if (annotation.facet) {
+      const facet = findContentFacet(annotation.category, annotation.subcategory, annotation.facet);
+      if (!facet) fail(`共享维度中没有 ${annotation.category}.${annotation.subcategory}.${annotation.facet}`);
+      if (facet.slot !== annotation.slot) fail(`维度 ${annotation.facet} 属于槽位 ${facet.slot}，不是 ${annotation.slot}`);
+    }
+  });
+}
+
+function buildPropositions(knowledgeRoot) {
   const schema = readJson(path.join(knowledgeRoot, 'schemas', 'interpretation.schema.json'));
   const validate = new Ajv({ allErrors: true, strict: true }).compile(schema);
   const propositions = [];
@@ -108,7 +218,7 @@ function loadPropositions(knowledgeRoot) {
 
   INTERPRETATION_FILES.forEach((relativePath) => {
     const document = readYaml(path.join(knowledgeRoot, relativePath));
-    if (document?.schema_version !== 'ziwei-interpretations/v1') {
+    if (document?.schema_version !== 'ziwei-interpretations/v2') {
       throw makeReportError(
         'REPORT_PROPOSITION_SET_INVALID',
         `${relativePath} 的 schema_version 无效。`,
@@ -122,6 +232,12 @@ function loadPropositions(knowledgeRoot) {
           clone(validate.errors),
         );
       }
+      assertFacetAnnotations(proposition);
+      try {
+        assertModifiers(proposition);
+      } catch (error) {
+        throw makeReportError('REPORT_PROPOSITION_INVALID', `${proposition.id} 的修正项无效：${error.message}`);
+      }
       if (ids.has(proposition.id)) {
         throw makeReportError('REPORT_PROPOSITION_DUPLICATE', `解释命题 ID 重复：${proposition.id}`);
       }
@@ -133,14 +249,14 @@ function loadPropositions(knowledgeRoot) {
   return propositions;
 }
 
-function loadSources(knowledgeRoot) {
+function buildSources(knowledgeRoot) {
   const sources = EXCERPT_FILES.flatMap((relativePath) => (
     readJsonLines(path.join(knowledgeRoot, relativePath))
   ));
   return new Map(sources.map((source) => [source.id, source]));
 }
 
-function loadSafetyPolicy(knowledgeRoot) {
+function buildSafetyPolicy(knowledgeRoot) {
   const safety = readYaml(path.join(knowledgeRoot, 'policies', 'safety.yaml'));
   if (safety?.schema_version !== 'ziwei-safety/v1') {
     throw makeReportError('REPORT_SAFETY_POLICY_INVALID', '紫微安全策略版本无效。');
@@ -148,7 +264,7 @@ function loadSafetyPolicy(knowledgeRoot) {
   return safety;
 }
 
-function loadPalaceAliases(knowledgeRoot) {
+function buildPalaceAliases(knowledgeRoot) {
   const ontology = readYaml(path.join(knowledgeRoot, 'ontology', 'palaces.yaml'));
   const aliases = new Map();
   (ontology?.palaces || []).forEach((palace) => {
@@ -175,78 +291,75 @@ function projectChartFacts(
     throw makeReportError('REPORT_CHART_INVALID', '报告输入必须是完整的 ziwei-cli/v1 命盘。');
   }
 
-  const palaceAliases = loadPalaceAliases(knowledgeRoot);
+  const { palaceAliases } = getKnowledge(knowledgeRoot);
+  const palaces = chart.natal.palaces;
+  const names = palaces.map((palace) => canonicalPalaceName(palace.palace_key, palaceAliases));
   const facts = [];
-  chart.natal.palaces.forEach((palace) => {
-    const palaceName = canonicalPalaceName(palace.palace_key, palaceAliases);
+  // 静态投影只读取 natal（PRD FR-13）：运限事实由 Dynamic Overlay 单独生成。
+  const push = (fact, idParts, originPath) => {
     facts.push({
-      feature: 'chart_has_palace',
-      palace: palaceName,
+      fact_id: ['fact', 'natal', fact.feature, ...idParts].join('.'),
+      scope: 'natal',
+      ...fact,
+      origin: { path: originPath },
     });
+  };
+
+  palaces.forEach((palace, palaceIndex) => {
+    const palaceName = names[palaceIndex];
+    const palacePath = `natal.palaces[${palaceIndex}]`;
+    push({ feature: 'chart_has_palace', palace: palaceName }, [palaceName], palacePath);
+    if (palace.is_body_palace) {
+      push({ feature: 'palace_role', palace: palaceName, role: 'body_palace' }, [palaceName, 'body_palace'], `${palacePath}.is_body_palace`);
+    }
+    if (palace.is_original_palace) {
+      push({ feature: 'palace_role', palace: palaceName, role: 'origin_palace' }, [palaceName, 'origin_palace'], `${palacePath}.is_original_palace`);
+    }
 
     STAR_COLLECTIONS.forEach(([collection, starClass]) => {
-      (palace[collection] || []).forEach((star) => {
-        facts.push({
+      (palace[collection] || []).forEach((star, starIndex) => {
+        const starPath = `${palacePath}.${collection}[${starIndex}]`;
+        push({
           feature: 'palace_has_star',
           palace: palaceName,
           star: star.name,
-          star_class: starClass,
-        });
+          collection: starClass,
+          star_type: star.type || '',
+        }, [palaceName, star.name], starPath);
         if (star.brightness) {
-          facts.push({
-            feature: 'palace_has_brightness',
+          push({
+            feature: 'star_brightness',
             palace: palaceName,
             star: star.name,
             value: star.brightness,
-          });
+          }, [palaceName, star.name], `${starPath}.brightness`);
         }
         if (star.mutagen) {
-          facts.push({
-            feature: 'star_has_mutagen',
+          // 一颗四化星只生成一条同时含宫位、星曜和四化的事实（PRD §6 Stage 4）。
+          push({
+            feature: 'star_mutagen',
             palace: palaceName,
             star: star.name,
             mutagen: star.mutagen,
-          });
-          facts.push({
-            feature: 'palace_has_mutagen',
-            palace: palaceName,
-            star: star.name,
-            mutagen: star.mutagen,
-          });
+          }, [palaceName, star.name, star.mutagen], `${starPath}.mutagen`);
         }
       });
     });
 
-    if (palace.relations) {
-      facts.push({
-        feature: 'palace_has_relation',
-        palace: palaceName,
-        value: {
-          opposite: canonicalPalaceName(palace.relations.opposite, palaceAliases),
-          trine: palace.relations.trine.map((item) => (
-            canonicalPalaceName(item, palaceAliases)
-          )),
-        },
+    const relations = [
+      ['opposite', [(palaceIndex + 6) % 12]],
+      ['trine', [(palaceIndex + 4) % 12, (palaceIndex + 8) % 12]],
+      ['adjacent', [(palaceIndex + 11) % 12, (palaceIndex + 1) % 12]],
+    ];
+    relations.forEach(([relation, targets]) => {
+      targets.forEach((targetIndex) => {
+        push({
+          feature: 'palace_relation',
+          palace: palaceName,
+          relation,
+          to: names[targetIndex],
+        }, [palaceName, relation, names[targetIndex]], `${palacePath}.index`);
       });
-    }
-  });
-
-  PERIODS.forEach((period) => {
-    const snapshot = chart.horoscope?.[period];
-    if (!snapshot || !Number.isInteger(snapshot.index)) return;
-    const natalPalace = chart.natal.palaces[snapshot.index];
-    const periodPalace = canonicalPalaceName(
-      snapshot.palace_keys?.[snapshot.index],
-      palaceAliases,
-    );
-    if (!natalPalace || periodPalace !== '命宫') {
-      throw makeReportError('REPORT_CHART_INVALID', `${period} 运限命宫索引无效。`);
-    }
-    facts.push({
-      feature: 'period_activates',
-      palace: canonicalPalaceName(natalPalace.palace_key, palaceAliases),
-      period,
-      value: '命宫',
     });
   });
 
@@ -285,6 +398,66 @@ function conditionMatchFacts(condition, facts) {
 
   const matched = facts.filter((fact) => predicateMatchesFact(condition, fact));
   return matched.length ? matched : null;
+}
+
+function modifierBindings(proposition, palace) {
+  return {
+    matched_palace: palace,
+    subject_star: proposition.subject.stars?.length === 1 ? proposition.subject.stars[0] : undefined,
+  };
+}
+
+/**
+ * 结论在共享维度上的落点：只采用 review_status=reviewed 的标注；
+ * 未指定 category 的标注是跨类别的槽位标注，其余须落在模板声明的类别与子类内。
+ */
+function conclusionDimensions(proposition, template) {
+  const { category, subcategories } = template.shared_dimension;
+  return (proposition.facet_annotations || [])
+    .filter((annotation) => annotation.review_status === 'reviewed')
+    .filter((annotation) => (
+      !annotation.category
+      || (annotation.category === category
+        && (!annotation.subcategory || subcategories.includes(annotation.subcategory)))
+    ))
+    .map(({ slot, category: annotationCategory, subcategory, facet, polarity }) => ({
+      slot,
+      ...(annotationCategory ? { category: annotationCategory } : {}),
+      ...(subcategory ? { subcategory } : {}),
+      ...(facet ? { facet } : {}),
+      polarity,
+    }));
+}
+
+function dimensionCoverage(conclusions, template, propositionById) {
+  const { category, subcategories } = template.shared_dimension;
+  const slotCounts = {};
+  const coveredFacets = new Set();
+  let draftAnnotationCount = 0;
+  conclusions.forEach((conclusion) => {
+    conclusion.dimensions.forEach((dimension) => {
+      slotCounts[dimension.slot] = (slotCounts[dimension.slot] || 0) + 1;
+      if (dimension.facet) coveredFacets.add(`${dimension.subcategory}.${dimension.facet}`);
+    });
+    draftAnnotationCount += (propositionById.get(conclusion.proposition_id).facet_annotations || [])
+      .filter((annotation) => annotation.review_status === 'draft').length;
+  });
+  const facets = subcategories.flatMap((subcategory) => getContentFacets(category, subcategory).map((facet) => ({
+    subcategory,
+    facet: facet.id,
+    slot: facet.slot,
+    covered: coveredFacets.has(`${subcategory}.${facet.id}`),
+  })));
+  return {
+    category,
+    subcategories: [...subcategories],
+    slots: Object.fromEntries(Object.keys(ANSWER_SLOTS)
+      .filter((slot) => slotCounts[slot])
+      .map((slot) => [slot, slotCounts[slot]])),
+    facets,
+    uncovered_facets: facets.filter((item) => !item.covered).map((item) => `${item.subcategory}.${item.facet}`),
+    draft_annotation_count: draftAnnotationCount,
+  };
 }
 
 function propositionType(proposition) {
@@ -342,25 +515,32 @@ function validateReportOutput(
     !report
     || report.schema_version !== REPORT_SCHEMA_VERSION
     || typeof report.topic !== 'string'
+    || typeof report.report_preset !== 'string'
     || !Array.isArray(report.conclusions)
   ) {
     throw makeReportError('REPORT_OUTPUT_INVALID', '报告输出结构或版本无效。');
   }
 
-  const templates = loadReportTemplates({ knowledgeRoot });
-  const template = templates.get(report.topic);
-  if (!template || report.template_id !== template.id) {
-    throw makeReportError('REPORT_TEMPLATE_UNKNOWN', `报告主题或模板不存在：${report.topic}`);
+  const knowledge = getKnowledge(knowledgeRoot);
+  const template = knowledge.templates.get(templateKey(report.topic, report.report_preset));
+  if (
+    !template
+    || report.template_id !== template.id
+    || report.time_scope !== template.time_scope
+  ) {
+    throw makeReportError(
+      'REPORT_TEMPLATE_UNKNOWN',
+      `报告主题或模板不存在：${templateKey(report.topic, report.report_preset)}`,
+    );
   }
   if (template.requires_horoscope && !chart?.horoscope) {
     throw makeReportError('REPORT_HOROSCOPE_REQUIRED', `${report.topic} 报告需要运限快照。`);
   }
 
-  const propositions = loadPropositions(knowledgeRoot);
-  const propositionById = new Map(propositions.map((item) => [item.id, item]));
-  const sources = loadSources(knowledgeRoot);
-  const safety = loadSafetyPolicy(knowledgeRoot);
+  const propositionById = new Map(knowledge.propositions.map((item) => [item.id, item]));
+  const { sources, safety } = knowledge;
   const chartFacts = projectChartFacts(chart, { knowledgeRoot });
+  const featureSet = deriveFeatureSet(chart, { knowledge: knowledge.featureKnowledge });
 
   report.conclusions.forEach((conclusion, index) => {
     const label = conclusion?.proposition_id || `<conclusion:${index}>`;
@@ -423,6 +603,21 @@ function validateReportOutput(
       }
     });
 
+    const expectedModifiers = evaluateModifiers(proposition, featureSet, {
+      sources,
+      bindings: modifierBindings(proposition, conclusion.palace),
+    });
+    if (
+      !valuesEqual(conclusion.applied_modifiers, expectedModifiers.applied)
+      || !valuesEqual(conclusion.skipped_modifiers, expectedModifiers.skipped)
+    ) {
+      throw makeReportError('REPORT_MODIFIER_MISMATCH', `${label} 的修正项与当前命盘求值结果不一致。`);
+    }
+
+    if (!valuesEqual(conclusion.dimensions, conclusionDimensions(proposition, template))) {
+      throw makeReportError('REPORT_DIMENSION_MISMATCH', `${label} 的共享维度标注与已审核命题不一致。`);
+    }
+
     if (typeof conclusion.text !== 'string' || !conclusion.text.trim()) {
       throw makeReportError('REPORT_TEXT_MISSING', `${label} 缺少结论文本。`);
     }
@@ -445,6 +640,10 @@ function validateReportOutput(
     }
   });
 
+  if (!valuesEqual(report.dimension_coverage, dimensionCoverage(report.conclusions, template, propositionById))) {
+    throw makeReportError('REPORT_DIMENSION_MISMATCH', '报告的共享维度覆盖统计与结论不一致。');
+  }
+
   return {
     valid: true,
     conclusion_count: report.conclusions.length,
@@ -453,21 +652,31 @@ function validateReportOutput(
 
 function composeEvidenceReport({
   chart,
-  topic,
+  topic: requestedTopic,
+  report_preset: requestedPreset,
   knowledgeRoot = DEFAULT_KNOWLEDGE_ROOT,
 }) {
-  const templates = loadReportTemplates({ knowledgeRoot });
-  const template = templates.get(topic);
+  const { topic, reportPreset, warnings: requestWarnings } = normalizeReportRequest({
+    topic: requestedTopic,
+    report_preset: requestedPreset,
+  });
+  const knowledge = getKnowledge(knowledgeRoot);
+  const template = knowledge.templates.get(templateKey(topic, reportPreset));
   if (!template) {
-    throw makeReportError('REPORT_TOPIC_UNKNOWN', `不支持的报告主题：${topic}`);
+    throw makeReportError('REPORT_TOPIC_UNKNOWN', `不支持的报告主题：${templateKey(topic, reportPreset)}`);
   }
   if (template.requires_horoscope && !chart?.horoscope) {
     throw makeReportError('REPORT_HOROSCOPE_REQUIRED', `${topic} 报告需要运限快照。`);
   }
+  // Stage 2：命盘不变量未通过时不进入解读，也不修复或猜测盘面。
+  validateZiweiChart(chart, {
+    requiredScopes: template.requires_horoscope ? ['natal', 'yearly'] : ['natal'],
+  });
 
   const facts = projectChartFacts(chart, { knowledgeRoot });
-  const propositions = loadPropositions(knowledgeRoot);
-  const conclusions = propositions
+  const featureSet = deriveFeatureSet(chart, { knowledge: knowledge.featureKnowledge });
+  const { sources } = knowledge;
+  const conclusions = knowledge.propositions
     .filter((proposition) => proposition.status === 'reviewed')
     .filter((proposition) => propositionRelevant(proposition, template))
     .map((proposition) => {
@@ -475,6 +684,10 @@ function composeEvidenceReport({
       if (matchedFacts === null) return null;
       const palace = highestPriorityPalace(matchedFacts, template);
       if (!palace) return null;
+      const modifiers = evaluateModifiers(proposition, featureSet, {
+        sources,
+        bindings: modifierBindings(proposition, palace),
+      });
       return {
         proposition_id: proposition.id,
         context_role: propositionContextRole(proposition, template),
@@ -487,6 +700,9 @@ function composeEvidenceReport({
         scope: proposition.scope,
         confidence: proposition.confidence,
         risk: proposition.risk || 'low',
+        applied_modifiers: modifiers.applied,
+        skipped_modifiers: modifiers.skipped,
+        dimensions: conclusionDimensions(proposition, template),
       };
     })
     .filter(Boolean)
@@ -499,6 +715,8 @@ function composeEvidenceReport({
     schema_version: REPORT_SCHEMA_VERSION,
     template_id: template.id,
     topic: template.topic,
+    report_preset: template.report_preset,
+    time_scope: template.time_scope,
     title: template.title,
     methodology: {
       school_order: clone(template.school_order),
@@ -508,9 +726,16 @@ function composeEvidenceReport({
       safety_policy: template.evidence_policy.safety_policy,
     },
     conclusions,
-    warnings: conclusions.length
-      ? clone(chart.warnings || [])
-      : [...clone(chart.warnings || []), 'ZIWEI_NO_REVIEWED_PROPOSITION_MATCHED'],
+    dimension_coverage: dimensionCoverage(
+      conclusions,
+      template,
+      new Map(knowledge.propositions.map((item) => [item.id, item])),
+    ),
+    warnings: [
+      ...clone(chart.warnings || []),
+      ...requestWarnings,
+      ...(conclusions.length ? [] : ['ZIWEI_NO_REVIEWED_PROPOSITION_MATCHED']),
+    ],
   };
 
   validateReportOutput(report, { chart, knowledgeRoot });
@@ -543,8 +768,10 @@ if (require.main === module) {
 
 module.exports = {
   REPORT_SCHEMA_VERSION,
+  clearKnowledgeCache,
   composeEvidenceReport,
   conditionMatchFacts,
+  loadPropositions,
   loadReportTemplates,
   projectChartFacts,
   validateReportOutput,

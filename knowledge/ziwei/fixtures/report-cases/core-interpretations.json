@@ -51,7 +51,7 @@
       "facts": [
         {"feature": "chart_has_palace", "palace": "官禄宫"},
         {"feature": "palace_has_star", "palace": "官禄宫", "star": "太阳"},
-        {"feature": "star_has_mutagen", "star": "太阳", "mutagen": "权"}
+        {"feature": "star_mutagen", "star": "太阳", "mutagen": "权"}
       ],
       "expected_matches": [
         "interp.palace.guanlu.base.v1",

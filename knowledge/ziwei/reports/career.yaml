@@ -1,6 +1,11 @@
 schema_version: ziwei-report-template/v1
 id: report.career.v1
 topic: career
+report_preset: standard
+time_scope: natal
+shared_dimension:
+  category: career_business
+  subcategories: [career_direction, industry_fit, entrepreneurship_vs_job]
 title: 职业与工作方式
 description: 以官禄宫为主题宫，结合命宫的能力表达、迁移宫的外部环境、财帛宫的收入方式与福德宫的持续投入。
 school_order: [sanhe-core, feixing-aux]

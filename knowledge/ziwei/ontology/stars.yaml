@@ -1,0 +1,24 @@
+{
+  "schema_version": "ziwei-ontology/stars/v1",
+  "status": "pending_source",
+  "notes": "星曜吉煞分组、成对星和亮度等级属于解读口径，必须补齐原书摘录后才能升为 reviewed。依赖本文件的派生特征在此之前只能用于测试和 trace，不得进入线上命题条件。CLI 输出中的 star.type 仅作交叉校验，不作为分组依据。",
+  "groups": {
+    "major": ["紫微", "天机", "太阳", "武曲", "天同", "廉贞", "天府", "太阴", "贪狼", "巨门", "天相", "天梁", "七杀", "破军"],
+    "auspicious": ["左辅", "右弼", "文昌", "文曲", "天魁", "天钺"],
+    "malefic": ["擎羊", "陀罗", "火星", "铃星", "地空", "地劫"],
+    "lucun": ["禄存"],
+    "horse": ["天马"]
+  },
+  "pairs": [
+    {"id": "zuofu-youbi", "stars": ["左辅", "右弼"], "group": "auspicious"},
+    {"id": "wenchang-wenqu", "stars": ["文昌", "文曲"], "group": "auspicious"},
+    {"id": "tiankui-tianyue", "stars": ["天魁", "天钺"], "group": "auspicious"},
+    {"id": "qingyang-tuoluo", "stars": ["擎羊", "陀罗"], "group": "malefic"},
+    {"id": "huoxing-lingxing", "stars": ["火星", "铃星"], "group": "malefic"},
+    {"id": "dikong-dijie", "stars": ["地空", "地劫"], "group": "malefic"}
+  ],
+  "brightness_scale": {
+    "status": "pending_source",
+    "order_high_to_low": ["庙", "旺", "得", "利", "平", "不", "陷"]
+  }
+}

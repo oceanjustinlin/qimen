@@ -1,6 +1,11 @@
 schema_version: ziwei-report-template/v1
 id: report.wealth.v1
 topic: wealth
+report_preset: standard
+time_scope: natal
+shared_dimension:
+  category: finance_wealth
+  subcategories: [general_wealth, wealth_capacity, income_model]
 title: 收入与资源管理
 description: 以财帛宫为入口，结合福德宫的消费与满足、田宅宫的储备、官禄宫的工作来源以及命宫的行动方式。
 school_order: [sanhe-core, feixing-aux]

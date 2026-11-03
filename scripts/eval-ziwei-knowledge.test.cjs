@@ -28,7 +28,7 @@ function loadFixture() {
 test('回归命例明确声明为虚构资料，且不包含用户身份字段', () => {
   const fixture = loadFixture();
 
-  assert.equal(fixture.schema_version, 'ziwei-knowledge-regression-cases/v1');
+  assert.equal(fixture.schema_version, 'ziwei-knowledge-regression-cases/v2');
   assert.equal(fixture.privacy.origin, 'synthetic');
   assert.equal(fixture.privacy.contains_real_identity, false);
   assert.ok(fixture.report_cases.length >= 3);

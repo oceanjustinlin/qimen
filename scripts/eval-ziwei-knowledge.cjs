@@ -3,7 +3,6 @@
 
 const fs = require('node:fs');
 const path = require('node:path');
-const YAML = require('yaml');
 
 const { run: runZiweiCli } = require('./ziwei_cli.cjs');
 const { compileRules } = require('./ziwei_rule_compile.cjs');
@@ -11,6 +10,7 @@ const { evaluateCompiledRules } = require('./ziwei_rule_eval.cjs');
 const {
   composeEvidenceReport,
   conditionMatchFacts,
+  loadPropositions,
   validateReportOutput,
 } = require('./ziwei_report_evidence.cjs');
 
@@ -21,12 +21,6 @@ const DEFAULT_FIXTURE_PATH = path.join(
   'regression-cases',
   'baseline-v1.json',
 );
-const INTERPRETATION_FILES = [
-  'interpretations/palaces/core-palaces.yaml',
-  'interpretations/stars/major-stars.yaml',
-  'interpretations/transformations/core-mutagens.yaml',
-];
-
 function makeEvalError(code, message, details) {
   const error = new Error(message);
   error.code = code;
@@ -55,22 +49,6 @@ function ratio(numerator, denominator) {
 
 function loadJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
-}
-
-function loadPropositions(knowledgeRoot) {
-  return INTERPRETATION_FILES.flatMap((relativePath) => {
-    const document = YAML.parse(fs.readFileSync(path.join(knowledgeRoot, relativePath), 'utf8'));
-    if (
-      document?.schema_version !== 'ziwei-interpretations/v1'
-      || !Array.isArray(document.propositions)
-    ) {
-      throw makeEvalError(
-        'ZIWEI_EVAL_PROPOSITIONS_INVALID',
-        `解释命题文件无效：${relativePath}`,
-      );
-    }
-    return document.propositions;
-  });
 }
 
 function evaluateP0Rules(knowledgeRoot) {
@@ -175,10 +153,16 @@ function evaluateReports(knowledgeRoot, fixture) {
     });
     const topics = {};
 
-    fixture.report_topics.forEach((topic) => {
+    fixture.report_requests.forEach((request) => {
+      const topic = request.id;
       reportCount += 1;
       try {
-        const report = composeEvidenceReport({ chart, topic, knowledgeRoot });
+        const report = composeEvidenceReport({
+          chart,
+          topic: request.topic,
+          report_preset: request.report_preset,
+          knowledgeRoot,
+        });
         validateReportOutput(report, { chart, knowledgeRoot });
         const count = report.conclusions.length;
         const expectedCount = fixtureCase.expected_conclusion_counts[topic];
@@ -233,7 +217,7 @@ function evaluateZiweiKnowledge({
 } = {}) {
   const fixture = loadJson(fixturePath);
   if (
-    fixture?.schema_version !== 'ziwei-knowledge-regression-cases/v1'
+    fixture?.schema_version !== 'ziwei-knowledge-regression-cases/v2'
     || fixture?.privacy?.origin !== 'synthetic'
     || fixture?.privacy?.contains_real_identity !== false
   ) {
