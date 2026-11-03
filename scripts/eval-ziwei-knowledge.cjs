@@ -153,10 +153,16 @@ function evaluateReports(knowledgeRoot, fixture) {
     });
     const topics = {};
 
-    fixture.report_topics.forEach((topic) => {
+    fixture.report_requests.forEach((request) => {
+      const topic = request.id;
       reportCount += 1;
       try {
-        const report = composeEvidenceReport({ chart, topic, knowledgeRoot });
+        const report = composeEvidenceReport({
+          chart,
+          topic: request.topic,
+          report_preset: request.report_preset,
+          knowledgeRoot,
+        });
         validateReportOutput(report, { chart, knowledgeRoot });
         const count = report.conclusions.length;
         const expectedCount = fixtureCase.expected_conclusion_counts[topic];
@@ -211,7 +217,7 @@ function evaluateZiweiKnowledge({
 } = {}) {
   const fixture = loadJson(fixturePath);
   if (
-    fixture?.schema_version !== 'ziwei-knowledge-regression-cases/v1'
+    fixture?.schema_version !== 'ziwei-knowledge-regression-cases/v2'
     || fixture?.privacy?.origin !== 'synthetic'
     || fixture?.privacy?.contains_real_identity !== false
   ) {

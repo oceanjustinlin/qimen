@@ -15,11 +15,11 @@ const {
 const ROOT = path.join(__dirname, '..');
 const KNOWLEDGE_ROOT = path.join(ROOT, 'knowledge', 'ziwei');
 const EXPECTED_PRIORITIES = {
-  overall: ['命宫', '福德宫', '迁移宫', '官禄宫', '财帛宫'],
-  career: ['官禄宫', '命宫', '迁移宫', '财帛宫', '福德宫'],
-  wealth: ['财帛宫', '福德宫', '田宅宫', '官禄宫', '命宫'],
-  relationship: ['夫妻宫', '命宫', '福德宫', '迁移宫', '子女宫'],
-  annual: [
+  'overall:standard': ['命宫', '福德宫', '迁移宫', '官禄宫', '财帛宫'],
+  'career:standard': ['官禄宫', '命宫', '迁移宫', '财帛宫', '福德宫'],
+  'wealth:standard': ['财帛宫', '福德宫', '田宅宫', '官禄宫', '命宫'],
+  'relationship:standard': ['夫妻宫', '命宫', '福德宫', '迁移宫', '子女宫'],
+  'overall:annual_overview': [
     '命宫',
     '官禄宫',
     '财帛宫',
@@ -63,8 +63,10 @@ test('五类报告模板声明宫位优先级、阅读顺序和证据发布门�
   const templates = loadReportTemplates({ knowledgeRoot: KNOWLEDGE_ROOT });
 
   assert.deepEqual([...templates.keys()].sort(), Object.keys(EXPECTED_PRIORITIES).sort());
-  Object.entries(EXPECTED_PRIORITIES).forEach(([topic, palacePriority]) => {
-    const template = templates.get(topic);
+  Object.entries(EXPECTED_PRIORITIES).forEach(([key, palacePriority]) => {
+    const template = templates.get(key);
+    assert.notEqual(template.topic, 'annual');
+    assert.equal(`${template.topic}:${template.report_preset}`, key);
     assert.deepEqual(template.palace_priority, palacePriority);
     assert.deepEqual(template.school_order, ['sanhe-core', 'feixing-aux']);
     assert.ok(template.reading_order.includes('palace'));
@@ -163,14 +165,40 @@ test('关系报告明确区分通用背景，流年报告不以本命命题冒�
   });
   const annual = composeEvidenceReport({
     chart,
-    topic: 'annual',
+    topic: 'overall',
+    report_preset: 'annual_overview',
     knowledgeRoot: KNOWLEDGE_ROOT,
   });
 
   assert.ok(relationship.conclusions.length > 0);
   assert.ok(relationship.conclusions.every((item) => item.context_role === 'overall_context'));
+  assert.equal(relationship.report_preset, 'standard');
+  assert.equal(relationship.time_scope, 'natal');
+  assert.equal(annual.topic, 'overall');
+  assert.equal(annual.report_preset, 'annual_overview');
+  assert.equal(annual.time_scope, 'yearly');
   assert.deepEqual(annual.conclusions, []);
   assert.ok(annual.warnings.includes('ZIWEI_NO_REVIEWED_PROPOSITION_MATCHED'));
+  assert.equal(annual.warnings.includes('ZIWEI_LEGACY_TOPIC_ANNUAL'), false);
+});
+
+test('旧 topic=annual 只经兼容层读取，输出不再写出 annual', () => {
+  const chart = buildChart();
+  const legacy = composeEvidenceReport({ chart, topic: 'annual', knowledgeRoot: KNOWLEDGE_ROOT });
+
+  assert.equal(legacy.topic, 'overall');
+  assert.equal(legacy.report_preset, 'annual_overview');
+  assert.equal(legacy.template_id, 'report.overall-annual-overview.v1');
+  assert.ok(legacy.warnings.includes('ZIWEI_LEGACY_TOPIC_ANNUAL'));
+  assert.equal(JSON.stringify(legacy).includes('"annual"'), false);
+  assert.throws(
+    () => composeEvidenceReport({ chart, topic: 'annual', report_preset: 'standard', knowledgeRoot: KNOWLEDGE_ROOT }),
+    (error) => error.code === 'REPORT_TOPIC_UNKNOWN',
+  );
+  assert.throws(
+    () => composeEvidenceReport({ chart, topic: 'career', report_preset: 'annual_overview', knowledgeRoot: KNOWLEDGE_ROOT }),
+    (error) => error.code === 'REPORT_TOPIC_UNKNOWN',
+  );
 });
 
 test('报告校验拒绝缺少命中事实、缺少来源和伪造盘面事实的结论', () => {

@@ -15,7 +15,7 @@ const REPORT_FILES = [
   'career.yaml',
   'wealth.yaml',
   'relationship.yaml',
-  'annual.yaml',
+  'overall-annual-overview.yaml',
 ];
 const INTERPRETATION_FILES = [
   'interpretations/palaces/core-palaces.yaml',
@@ -112,6 +112,26 @@ function clearKnowledgeCache() {
   knowledgeCache.clear();
 }
 
+const LEGACY_ANNUAL_TOPIC = 'annual';
+
+function templateKey(topic, reportPreset = 'standard') {
+  return `${topic}:${reportPreset}`;
+}
+
+/**
+ * 归一报告请求。topic 与时间维度相互独立（PRD §6）：旧的 topic=annual 只在此兼容层读取，
+ * 映射为 overall + annual_overview，并在输出中告警；任何输出都不再写出 annual。
+ */
+function normalizeReportRequest({ topic, report_preset: reportPreset }) {
+  if (topic === LEGACY_ANNUAL_TOPIC) {
+    if (reportPreset && reportPreset !== 'annual_overview') {
+      throw makeReportError('REPORT_TOPIC_UNKNOWN', 'topic=annual 只能映射到 annual_overview 预设。');
+    }
+    return { topic: 'overall', reportPreset: 'annual_overview', warnings: ['ZIWEI_LEGACY_TOPIC_ANNUAL'] };
+  }
+  return { topic, reportPreset: reportPreset || 'standard', warnings: [] };
+}
+
 function loadReportTemplates({ knowledgeRoot = DEFAULT_KNOWLEDGE_ROOT } = {}) {
   return getKnowledge(knowledgeRoot).templates;
 }
@@ -135,10 +155,11 @@ function buildReportTemplates(knowledgeRoot) {
         clone(validate.errors),
       );
     }
-    if (templates.has(template.topic)) {
-      throw makeReportError('REPORT_TEMPLATE_DUPLICATE', `报告主题重复：${template.topic}`);
+    const key = templateKey(template.topic, template.report_preset);
+    if (templates.has(key)) {
+      throw makeReportError('REPORT_TEMPLATE_DUPLICATE', `报告模板重复：${key}`);
     }
-    templates.set(template.topic, template);
+    templates.set(key, template);
   });
 
   return templates;
@@ -395,15 +416,23 @@ function validateReportOutput(
     !report
     || report.schema_version !== REPORT_SCHEMA_VERSION
     || typeof report.topic !== 'string'
+    || typeof report.report_preset !== 'string'
     || !Array.isArray(report.conclusions)
   ) {
     throw makeReportError('REPORT_OUTPUT_INVALID', '报告输出结构或版本无效。');
   }
 
   const knowledge = getKnowledge(knowledgeRoot);
-  const template = knowledge.templates.get(report.topic);
-  if (!template || report.template_id !== template.id) {
-    throw makeReportError('REPORT_TEMPLATE_UNKNOWN', `报告主题或模板不存在：${report.topic}`);
+  const template = knowledge.templates.get(templateKey(report.topic, report.report_preset));
+  if (
+    !template
+    || report.template_id !== template.id
+    || report.time_scope !== template.time_scope
+  ) {
+    throw makeReportError(
+      'REPORT_TEMPLATE_UNKNOWN',
+      `报告主题或模板不存在：${templateKey(report.topic, report.report_preset)}`,
+    );
   }
   if (template.requires_horoscope && !chart?.horoscope) {
     throw makeReportError('REPORT_HOROSCOPE_REQUIRED', `${report.topic} 报告需要运限快照。`);
@@ -516,13 +545,18 @@ function validateReportOutput(
 
 function composeEvidenceReport({
   chart,
-  topic,
+  topic: requestedTopic,
+  report_preset: requestedPreset,
   knowledgeRoot = DEFAULT_KNOWLEDGE_ROOT,
 }) {
+  const { topic, reportPreset, warnings: requestWarnings } = normalizeReportRequest({
+    topic: requestedTopic,
+    report_preset: requestedPreset,
+  });
   const knowledge = getKnowledge(knowledgeRoot);
-  const template = knowledge.templates.get(topic);
+  const template = knowledge.templates.get(templateKey(topic, reportPreset));
   if (!template) {
-    throw makeReportError('REPORT_TOPIC_UNKNOWN', `不支持的报告主题：${topic}`);
+    throw makeReportError('REPORT_TOPIC_UNKNOWN', `不支持的报告主题：${templateKey(topic, reportPreset)}`);
   }
   if (template.requires_horoscope && !chart?.horoscope) {
     throw makeReportError('REPORT_HOROSCOPE_REQUIRED', `${topic} 报告需要运限快照。`);
@@ -569,6 +603,8 @@ function composeEvidenceReport({
     schema_version: REPORT_SCHEMA_VERSION,
     template_id: template.id,
     topic: template.topic,
+    report_preset: template.report_preset,
+    time_scope: template.time_scope,
     title: template.title,
     methodology: {
       school_order: clone(template.school_order),
@@ -578,9 +614,11 @@ function composeEvidenceReport({
       safety_policy: template.evidence_policy.safety_policy,
     },
     conclusions,
-    warnings: conclusions.length
-      ? clone(chart.warnings || [])
-      : [...clone(chart.warnings || []), 'ZIWEI_NO_REVIEWED_PROPOSITION_MATCHED'],
+    warnings: [
+      ...clone(chart.warnings || []),
+      ...requestWarnings,
+      ...(conclusions.length ? [] : ['ZIWEI_NO_REVIEWED_PROPOSITION_MATCHED']),
+    ],
   };
 
   validateReportOutput(report, { chart, knowledgeRoot });
