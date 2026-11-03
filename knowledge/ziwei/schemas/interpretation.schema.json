@@ -336,7 +336,10 @@
             "sanfang_aggregate",
             "jia_palace",
             "flying_mutagen",
-            "empty_palace_borrow"
+            "empty_palace_borrow",
+            "overlay_map",
+            "period_mutagen",
+            "mutagen_stack"
           ]
         },
         "palace": {

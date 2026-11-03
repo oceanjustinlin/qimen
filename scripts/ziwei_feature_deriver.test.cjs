@@ -9,6 +9,7 @@ const path = require('node:path');
 const { run: runZiweiCli } = require('./ziwei_cli.cjs');
 const {
   FEATURES,
+  NATAL_FEATURES,
   deriveFeatureSet,
   loadFeatureKnowledge,
 } = require('../lib/ziweiFeatureDeriver.cjs');
@@ -17,6 +18,7 @@ const {
   evaluateFeatureCondition,
   evaluateModifiers,
 } = require('../lib/ziweiFeatureConditions.cjs');
+const { deriveDynamicFeatureSet } = require('../lib/ziweiDynamicFeatures.cjs');
 
 const KNOWLEDGE_ROOT = path.join(__dirname, '..', 'knowledge', 'ziwei');
 const VERIFIED_SOURCE = 'source.mingli-tianji.p273.pojun';
@@ -60,7 +62,13 @@ test('特征方法全部登记，未补来源的方法保持 pending_source', ()
   const { methods } = loadFeatureKnowledge({ knowledgeRoot: KNOWLEDGE_ROOT });
   assert.deepEqual([...methods.keys()].sort(), [...FEATURES].sort());
   const reviewed = [...methods.values()].filter((method) => method.status === 'reviewed');
-  assert.deepEqual(reviewed.map((method) => method.feature).sort(), ['palace_star_system', 'relation_set']);
+  assert.deepEqual(
+    reviewed.map((method) => method.feature).sort(),
+    ['overlay_map', 'palace_star_system', 'period_mutagen', 'relation_set'].sort(),
+  );
+  reviewed.filter((method) => method.basis === 'chart_fact').forEach((method) => {
+    assert.equal(method.school, 'iztro-default', method.id);
+  });
 });
 
 test('reviewed 方法缺少来源或依赖未审核本体时拒绝加载', () => {
@@ -104,6 +112,7 @@ test('派生结果确定、不修改命盘，且只含本命特征', () => {
     assert.equal(item.method.status, first.methods[item.feature].status);
   });
   assert.equal(first.features.some((item) => item.palace === '仆役宫'), false);
+  assert.deepEqual(Object.keys(first.methods).sort(), [...NATAL_FEATURES].sort());
 });
 
 test('星系、关系与亮度特征', () => {
@@ -294,4 +303,100 @@ test('修正项按来源、方法状态和条件三道门禁求值', () => {
     () => evaluateModifiers({ id: 'x', modifiers: [{ ...proposition.modifiers[0], effect: 'boost' }] }, featureSet, { sources: sources() }),
     (error) => error.code === 'FEATURE_MODIFIER_INVALID',
   );
+});
+
+test('动态特征与本命隔离：只含大限、流年，拒绝流月及以下', () => {
+  const chart = buildChart({ withHoroscope: true });
+  const before = clone(chart);
+  const dynamic = deriveDynamicFeatureSet(chart, { scopes: ['decadal', 'yearly', 'monthly'] });
+
+  assert.deepEqual(chart, before);
+  assert.deepEqual(deriveDynamicFeatureSet(chart, { scopes: ['decadal', 'yearly', 'monthly'] }), dynamic);
+  assert.equal(dynamic.schema_version, 'ziwei-dynamic-feature-set/v1');
+  assert.deepEqual(dynamic.scopes, ['decadal', 'yearly']);
+  assert.deepEqual(dynamic.unsupported_scopes, ['monthly']);
+  assert.equal(new Set(dynamic.features.map((item) => item.feature_id)).size, dynamic.features.length);
+  dynamic.features.forEach((item) => {
+    assert.ok(['decadal', 'yearly'].includes(item.scope), item.feature_id);
+    assert.ok(item.origin.paths.some((p) => p.startsWith(`horoscope.${item.scope}`)) || item.feature === 'mutagen_stack', item.feature_id);
+  });
+  // 本命特征集不受运限快照影响。
+  assert.deepEqual(deriveFeatureSet(chart), deriveFeatureSet({ ...chart, horoscope: null }));
+
+  assert.throws(
+    () => deriveDynamicFeatureSet(buildChart(), { scopes: ['yearly'] }),
+    (error) => error.code === 'ZIWEI_DYNAMIC_SNAPSHOT_MISSING',
+  );
+  assert.throws(
+    () => deriveDynamicFeatureSet(chart, { scopes: ['weekly'] }),
+    (error) => error.code === 'ZIWEI_DYNAMIC_SCOPE_INVALID',
+  );
+});
+
+test('运限宫位映射与运限四化落点', () => {
+  const chart = buildChart({ withHoroscope: true });
+  const dynamic = deriveDynamicFeatureSet(chart);
+  const pick = (feature, scope, predicate) => dynamic.features.filter((item) => (
+    item.feature === feature && item.scope === scope && predicate(item)
+  ));
+
+  // 2026 流年：大限命宫在本命田宅宫，流年命宫在本命迁移宫。
+  assert.deepEqual(
+    dynamic.snapshots.map((item) => [item.scope, item.life_palace_maps_to]),
+    [['decadal', '田宅宫'], ['yearly', '迁移宫']],
+  );
+  assert.deepEqual(
+    pick('overlay_map', 'decadal', (item) => item.value.period_role === '官禄宫').map((item) => item.palace),
+    ['疾厄宫'],
+  );
+  ['decadal', 'yearly'].forEach((scope) => {
+    const roles = pick('overlay_map', scope, () => true).map((item) => item.value.period_role);
+    assert.equal(new Set(roles).size, 12, scope);
+    const mutagens = pick('period_mutagen', scope, () => true);
+    assert.deepEqual(mutagens.map((item) => item.value.star), chart.horoscope[scope].mutagens, scope);
+  });
+  assert.deepEqual(
+    pick('period_mutagen', 'yearly', (item) => item.value.mutagen === '忌')[0].value,
+    { mutagen: '忌', star: '廉贞', natal_palace: '迁移宫', period_role: '命宫' },
+  );
+});
+
+test('多层四化叠加记录每层化曜与重复的化曜', () => {
+  const chart = buildChart({ withHoroscope: true });
+  const stacks = deriveDynamicFeatureSet(chart).features.filter((item) => item.feature === 'mutagen_stack');
+
+  assert.deepEqual(
+    stacks.map((item) => item.value),
+    [
+      { star: '天同', natal_palace: '子女宫', layers: [{ scope: 'natal', mutagen: '忌' }, { scope: 'yearly', mutagen: '禄' }], repeated_mutagens: [] },
+      { star: '武曲', natal_palace: '夫妻宫', layers: [{ scope: 'natal', mutagen: '权' }, { scope: 'decadal', mutagen: '禄' }], repeated_mutagens: [] },
+    ],
+  );
+  stacks.forEach((item) => assert.equal(item.method.status, 'pending_source'));
+
+  const repeated = clone(chart);
+  repeated.horoscope.yearly.mutagens = [...repeated.horoscope.yearly.mutagens];
+  repeated.horoscope.yearly.mutagens[3] = '天同';
+  const tiantong = deriveDynamicFeatureSet(repeated).features
+    .find((item) => item.feature === 'mutagen_stack' && item.value.star === '天同');
+  assert.deepEqual(tiantong.value.repeated_mutagens, ['忌']);
+});
+
+test('动态特征可被条件引用，pending 方法的修正项在线上被跳过', () => {
+  const chart = buildChart({ withHoroscope: true });
+  const dynamic = deriveDynamicFeatureSet(chart);
+  assert.ok(evaluateFeatureCondition(
+    { all: [{ feature: 'overlay_map', palace: '疾厄宫', path: 'period_role', operator: 'equals', value: '官禄宫' }] },
+    dynamic,
+  ));
+  const result = evaluateModifiers({
+    id: 'interp.test.dynamic.v1',
+    modifiers: [{
+      id: 'mod.test.stack',
+      when: { all: [{ feature: 'mutagen_stack', operator: 'exists' }] },
+      effect: 'strengthen',
+      evidence: [VERIFIED_SOURCE],
+    }],
+  }, dynamic, { sources: sources() });
+  assert.deepEqual(result.skipped, [{ modifier_id: 'mod.test.stack', reason: 'feature_method_pending_source', details: ['mutagen_stack'] }]);
 });

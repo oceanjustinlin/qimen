@@ -70,6 +70,36 @@
       "evidence": [],
       "depends_on": [],
       "description": "空宫借对宫主星。是否同时借辅煞与四化以原书为准，当前只借主星。"
+    },
+    {
+      "id": "method.feature.overlay-map.v1",
+      "feature": "overlay_map",
+      "school": "iztro-default",
+      "basis": "chart_fact",
+      "status": "reviewed",
+      "evidence": [],
+      "depends_on": [],
+      "description": "运限层十二宫与本命宫位的对应（如大限官禄 = 本命迁移），直接取自 CLI 运限快照的 palace_keys，只重组盘面事实。"
+    },
+    {
+      "id": "method.feature.period-mutagen.v1",
+      "feature": "period_mutagen",
+      "school": "iztro-default",
+      "basis": "chart_fact",
+      "status": "reviewed",
+      "evidence": [],
+      "depends_on": [],
+      "description": "运限层四化星的落点：CLI 给出的该层四化星，定位到所在本命宫及其在该层的宫位角色。"
+    },
+    {
+      "id": "method.feature.mutagen-stack.v1",
+      "feature": "mutagen_stack",
+      "school": "feixing-aux",
+      "basis": "sourced_method",
+      "status": "pending_source",
+      "evidence": [],
+      "depends_on": [],
+      "description": "同一星曜在本命、大限、流年多层同时化禄权科忌的叠加。各层作用范围见 p409；叠加的解读口径待原书摘录。"
     }
   ]
 }

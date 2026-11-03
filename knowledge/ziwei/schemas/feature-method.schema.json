@@ -4,7 +4,16 @@
   "title": "Ziwei Feature Derivation Method",
   "type": "object",
   "additionalProperties": false,
-  "required": ["id", "feature", "school", "basis", "status", "evidence", "depends_on", "description"],
+  "required": [
+    "id",
+    "feature",
+    "school",
+    "basis",
+    "status",
+    "evidence",
+    "depends_on",
+    "description"
+  ],
   "properties": {
     "id": {
       "type": "string",
@@ -18,17 +27,31 @@
         "sanfang_aggregate",
         "jia_palace",
         "flying_mutagen",
-        "empty_palace_borrow"
+        "empty_palace_borrow",
+        "overlay_map",
+        "period_mutagen",
+        "mutagen_stack"
       ]
     },
     "school": {
-      "enum": ["iztro-default", "sanhe-core", "feixing-aux", "classical-reference"]
+      "enum": [
+        "iztro-default",
+        "sanhe-core",
+        "feixing-aux",
+        "classical-reference"
+      ]
     },
     "basis": {
-      "enum": ["chart_fact", "sourced_method"]
+      "enum": [
+        "chart_fact",
+        "sourced_method"
+      ]
     },
     "status": {
-      "enum": ["reviewed", "pending_source"]
+      "enum": [
+        "reviewed",
+        "pending_source"
+      ]
     },
     "evidence": {
       "type": "array",
@@ -41,7 +64,10 @@
     "depends_on": {
       "type": "array",
       "uniqueItems": true,
-      "items": {"type": "string", "minLength": 1}
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
     },
     "description": {
       "type": "string",

@@ -450,10 +450,10 @@ knowledge/ziwei/
 | 现有内容 | 迁移方式 |
 | --- | --- |
 | 14 条主星命题 | `subject` 改为 `{type: star_system, contains: X, palace_role: any}`；按语义补 `facets`；保持 `reviewed` |
-| 4 条四化命题 | 条件从 `star_has_mutagen` 改为 PRD 规范的 `star_mutagen`；补 `facets` |
+| 4 条四化命题 | 条件已从 `star_has_mutagen` 改为 PRD 规范的 `star_mutagen`（已完成）；补 `facets` |
 | 5 条宫位命题 | 作为 L4 的宫位背景说明，不参与维度合成 |
 | `modifiers.strengthen/weaken` 字符串 | 迁移为 `modifiers[].note`；可执行修正项待来源补齐后新增 |
-| `reports/annual.yaml` | 按 PRD 迁移为 `overall + yearly + annual_overview` |
+| `reports/annual.yaml` | 已迁移为 `reports/overall-annual-overview.yaml`（`overall + yearly + annual_overview`），旧 `topic=annual` 仅经兼容层读取 |
 
 迁移不得改变现有 `reviewed` 命题的 claim 原文；新增 `facets` 字段需要重新审核，审核前命题保持旧行为。
 
@@ -517,3 +517,14 @@ M1 可以立即开始，是后续所有层的地基。
 **下一步**
 
 补齐 `stars.yaml` 和亮度等级的原书摘录后，可把 `sanfang_aggregate`、`jia_palace`、`brightness_state` 升为 `reviewed`；随后在 M2 为「星 × 宫」命题编写首批可执行修正项。
+
+## 17. 不依赖原书的后续实现记录
+
+| 内容 | 位置 | 说明 |
+| --- | --- | --- |
+| 静态事实对齐 PRD 规范事实 | `scripts/ziwei_report_evidence.cjs` | 只读 natal；`chart_has_palace`、`palace_role`、`palace_has_star`、`star_brightness`、`star_mutagen`、`palace_relation`；每条带 `fact_id`、`scope`、`origin.path` |
+| 流年报告契约迁移 | `knowledge/ziwei/reports/overall-annual-overview.yaml` | 模板按 `topic:report_preset` 索引；流年预设作用域只放 `yearly`，避免本命命题冒充流年结论 |
+| Stage 2 命盘不变量校验 | `lib/ziweiFactValidator.cjs` | 报告组装前强制执行；CLI 同时拒绝早于出生或超出十二大限的目标时间 |
+| L5 动态特征 | `lib/ziweiDynamicFeatures.cjs` | `overlay_map`、`period_mutagen`（盘面事实，reviewed）与 `mutagen_stack`（pending_source）；只支持大限、流年，与本命特征集分开输出 |
+
+尚未实现、需要先确定语义的部分见 [`ziwei-todos.md`](./ziwei-todos.md)。
