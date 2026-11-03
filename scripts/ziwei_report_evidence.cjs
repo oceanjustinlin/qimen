@@ -5,7 +5,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const Ajv = require('ajv');
 const YAML = require('yaml');
-const { deriveFeatureSet } = require('../lib/ziweiFeatureDeriver.cjs');
+const { deriveFeatureSet, loadFeatureKnowledge } = require('../lib/ziweiFeatureDeriver.cjs');
 const { assertModifiers, evaluateModifiers } = require('../lib/ziweiFeatureConditions.cjs');
 
 const DEFAULT_KNOWLEDGE_ROOT = path.join(__dirname, '..', 'knowledge', 'ziwei');
@@ -78,7 +78,50 @@ function readJsonLines(filePath) {
     .map((line) => JSON.parse(line));
 }
 
+function deepFreeze(value) {
+  if (value instanceof Map) {
+    value.forEach((item) => deepFreeze(item));
+    return value;
+  }
+  if (value && typeof value === 'object' && !Object.isFrozen(value)) {
+    Object.freeze(value);
+    Object.values(value).forEach((item) => deepFreeze(item));
+  }
+  return value;
+}
+
+// 知识包在进程内按根目录缓存：YAML 解析与 Ajv 编译占报告组装的大部分耗时，
+// 而组装和校验各需要一遍。加载失败不缓存；知识文件变更后调用 clearKnowledgeCache()。
+const knowledgeCache = new Map();
+
+function getKnowledge(knowledgeRoot = DEFAULT_KNOWLEDGE_ROOT) {
+  const key = path.resolve(knowledgeRoot);
+  if (!knowledgeCache.has(key)) {
+    knowledgeCache.set(key, deepFreeze({
+      templates: buildReportTemplates(key),
+      propositions: buildPropositions(key),
+      sources: buildSources(key),
+      safety: buildSafetyPolicy(key),
+      palaceAliases: buildPalaceAliases(key),
+      featureKnowledge: loadFeatureKnowledge({ knowledgeRoot: key }),
+    }));
+  }
+  return knowledgeCache.get(key);
+}
+
+function clearKnowledgeCache() {
+  knowledgeCache.clear();
+}
+
 function loadReportTemplates({ knowledgeRoot = DEFAULT_KNOWLEDGE_ROOT } = {}) {
+  return getKnowledge(knowledgeRoot).templates;
+}
+
+function loadPropositions(knowledgeRoot = DEFAULT_KNOWLEDGE_ROOT) {
+  return getKnowledge(knowledgeRoot).propositions;
+}
+
+function buildReportTemplates(knowledgeRoot) {
   const schema = readJson(path.join(knowledgeRoot, 'schemas', 'report.schema.json'));
   const validate = new Ajv({ allErrors: true, strict: true }).compile(schema);
   const templates = new Map();
@@ -102,7 +145,7 @@ function loadReportTemplates({ knowledgeRoot = DEFAULT_KNOWLEDGE_ROOT } = {}) {
   return templates;
 }
 
-function loadPropositions(knowledgeRoot) {
+function buildPropositions(knowledgeRoot) {
   const schema = readJson(path.join(knowledgeRoot, 'schemas', 'interpretation.schema.json'));
   const validate = new Ajv({ allErrors: true, strict: true }).compile(schema);
   const propositions = [];
@@ -140,14 +183,14 @@ function loadPropositions(knowledgeRoot) {
   return propositions;
 }
 
-function loadSources(knowledgeRoot) {
+function buildSources(knowledgeRoot) {
   const sources = EXCERPT_FILES.flatMap((relativePath) => (
     readJsonLines(path.join(knowledgeRoot, relativePath))
   ));
   return new Map(sources.map((source) => [source.id, source]));
 }
 
-function loadSafetyPolicy(knowledgeRoot) {
+function buildSafetyPolicy(knowledgeRoot) {
   const safety = readYaml(path.join(knowledgeRoot, 'policies', 'safety.yaml'));
   if (safety?.schema_version !== 'ziwei-safety/v1') {
     throw makeReportError('REPORT_SAFETY_POLICY_INVALID', '紫微安全策略版本无效。');
@@ -155,7 +198,7 @@ function loadSafetyPolicy(knowledgeRoot) {
   return safety;
 }
 
-function loadPalaceAliases(knowledgeRoot) {
+function buildPalaceAliases(knowledgeRoot) {
   const ontology = readYaml(path.join(knowledgeRoot, 'ontology', 'palaces.yaml'));
   const aliases = new Map();
   (ontology?.palaces || []).forEach((palace) => {
@@ -182,7 +225,7 @@ function projectChartFacts(
     throw makeReportError('REPORT_CHART_INVALID', '报告输入必须是完整的 ziwei-cli/v1 命盘。');
   }
 
-  const palaceAliases = loadPalaceAliases(knowledgeRoot);
+  const { palaceAliases } = getKnowledge(knowledgeRoot);
   const facts = [];
   chart.natal.palaces.forEach((palace) => {
     const palaceName = canonicalPalaceName(palace.palace_key, palaceAliases);
@@ -361,8 +404,8 @@ function validateReportOutput(
     throw makeReportError('REPORT_OUTPUT_INVALID', '报告输出结构或版本无效。');
   }
 
-  const templates = loadReportTemplates({ knowledgeRoot });
-  const template = templates.get(report.topic);
+  const knowledge = getKnowledge(knowledgeRoot);
+  const template = knowledge.templates.get(report.topic);
   if (!template || report.template_id !== template.id) {
     throw makeReportError('REPORT_TEMPLATE_UNKNOWN', `报告主题或模板不存在：${report.topic}`);
   }
@@ -370,12 +413,10 @@ function validateReportOutput(
     throw makeReportError('REPORT_HOROSCOPE_REQUIRED', `${report.topic} 报告需要运限快照。`);
   }
 
-  const propositions = loadPropositions(knowledgeRoot);
-  const propositionById = new Map(propositions.map((item) => [item.id, item]));
-  const sources = loadSources(knowledgeRoot);
-  const safety = loadSafetyPolicy(knowledgeRoot);
+  const propositionById = new Map(knowledge.propositions.map((item) => [item.id, item]));
+  const { sources, safety } = knowledge;
   const chartFacts = projectChartFacts(chart, { knowledgeRoot });
-  const featureSet = deriveFeatureSet(chart, { knowledgeRoot });
+  const featureSet = deriveFeatureSet(chart, { knowledge: knowledge.featureKnowledge });
 
   report.conclusions.forEach((conclusion, index) => {
     const label = conclusion?.proposition_id || `<conclusion:${index}>`;
@@ -482,8 +523,8 @@ function composeEvidenceReport({
   topic,
   knowledgeRoot = DEFAULT_KNOWLEDGE_ROOT,
 }) {
-  const templates = loadReportTemplates({ knowledgeRoot });
-  const template = templates.get(topic);
+  const knowledge = getKnowledge(knowledgeRoot);
+  const template = knowledge.templates.get(topic);
   if (!template) {
     throw makeReportError('REPORT_TOPIC_UNKNOWN', `不支持的报告主题：${topic}`);
   }
@@ -492,10 +533,9 @@ function composeEvidenceReport({
   }
 
   const facts = projectChartFacts(chart, { knowledgeRoot });
-  const featureSet = deriveFeatureSet(chart, { knowledgeRoot });
-  const sources = loadSources(knowledgeRoot);
-  const propositions = loadPropositions(knowledgeRoot);
-  const conclusions = propositions
+  const featureSet = deriveFeatureSet(chart, { knowledge: knowledge.featureKnowledge });
+  const { sources } = knowledge;
+  const conclusions = knowledge.propositions
     .filter((proposition) => proposition.status === 'reviewed')
     .filter((proposition) => propositionRelevant(proposition, template))
     .map((proposition) => {
@@ -577,8 +617,10 @@ if (require.main === module) {
 
 module.exports = {
   REPORT_SCHEMA_VERSION,
+  clearKnowledgeCache,
   composeEvidenceReport,
   conditionMatchFacts,
+  loadPropositions,
   loadReportTemplates,
   projectChartFacts,
   validateReportOutput,

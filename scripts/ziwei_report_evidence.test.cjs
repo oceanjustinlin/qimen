@@ -212,3 +212,27 @@ test('报告校验拒绝未知来源和安全策略禁止的高风险文案', ()
     (error) => error.code === 'REPORT_TEXT_NOT_REVIEWED',
   );
 });
+
+test('知识包按根目录缓存、不可变，清缓存后重新加载结果一致', () => {
+  const {
+    clearKnowledgeCache,
+    loadPropositions,
+  } = require('./ziwei_report_evidence.cjs');
+  clearKnowledgeCache();
+  const first = loadPropositions(KNOWLEDGE_ROOT);
+  assert.equal(loadPropositions(KNOWLEDGE_ROOT), first);
+  assert.equal(Object.isFrozen(first), true);
+  assert.equal(Object.isFrozen(first[0].claim), true);
+  assert.throws(() => { first[0].claim.tendency = '篡改'; }, TypeError);
+
+  clearKnowledgeCache();
+  const reloaded = loadPropositions(KNOWLEDGE_ROOT);
+  assert.notEqual(reloaded, first);
+  assert.deepEqual(reloaded, first);
+
+  const chart = buildChart();
+  const report = composeEvidenceReport({ chart, topic: 'career', knowledgeRoot: KNOWLEDGE_ROOT });
+  report.conclusions[0].evidence_ids.push('source.local.mutation');
+  const again = composeEvidenceReport({ chart, topic: 'career', knowledgeRoot: KNOWLEDGE_ROOT });
+  assert.equal(again.conclusions[0].evidence_ids.includes('source.local.mutation'), false);
+});

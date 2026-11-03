@@ -121,3 +121,26 @@ test('CLI 将无效运限目标统一为 TARGET_DATETIME_INVALID', () => {
   assert.equal(out.ok, false);
   assert.equal(out.error.code, 'TARGET_DATETIME_INVALID');
 });
+
+test('使用 --date/--time/--gender 时不等待 stdin，即使 stdin 是未关闭的管道', async () => {
+  const { spawn } = require('node:child_process');
+  const child = spawn(process.execPath, [
+    path.join(ROOT, 'scripts', 'ziwei_cli.cjs'),
+    '--date', '1990-05-15', '--time', '10:30', '--gender', '男',
+  ], { stdio: ['pipe', 'pipe', 'pipe'] });
+  let stdout = '';
+  child.stdout.on('data', (chunk) => { stdout += chunk; });
+  const exitCode = await new Promise((resolve, reject) => {
+    const timer = setTimeout(() => {
+      child.kill();
+      reject(new Error('CLI 在 stdin 未关闭时阻塞超过 10 秒'));
+    }, 10000);
+    child.on('exit', (code) => {
+      clearTimeout(timer);
+      resolve(code);
+    });
+  });
+  child.stdin.destroy();
+  assert.equal(exitCode, 0);
+  assert.equal(JSON.parse(stdout).schema_version, 'ziwei-cli/v1');
+});

@@ -32,7 +32,9 @@ function buildInput() {
   const flags = parseFlags(process.argv.slice(2));
   if (flags.file) return JSON.parse(fs.readFileSync(flags.file, 'utf8'));
 
-  const stdin = readStdin();
+  // 人工诊断用 flags 时不读 stdin：终端或未关闭的管道会让 readFileSync(0) 一直阻塞。
+  const hasFlagProfile = Boolean(flags.date && flags.time && flags.gender);
+  const stdin = hasFlagProfile || process.stdin.isTTY ? null : readStdin();
   if (stdin) {
     try {
       return JSON.parse(stdin);
