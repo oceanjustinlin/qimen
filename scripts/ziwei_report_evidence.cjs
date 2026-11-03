@@ -7,6 +7,7 @@ const Ajv = require('ajv');
 const YAML = require('yaml');
 const { deriveFeatureSet, loadFeatureKnowledge } = require('../lib/ziweiFeatureDeriver.cjs');
 const { assertModifiers, evaluateModifiers } = require('../lib/ziweiFeatureConditions.cjs');
+const { validateZiweiChart } = require('../lib/ziweiFactValidator.cjs');
 
 const DEFAULT_KNOWLEDGE_ROOT = path.join(__dirname, '..', 'knowledge', 'ziwei');
 const REPORT_SCHEMA_VERSION = 'ziwei-report-output/v1';
@@ -561,6 +562,10 @@ function composeEvidenceReport({
   if (template.requires_horoscope && !chart?.horoscope) {
     throw makeReportError('REPORT_HOROSCOPE_REQUIRED', `${topic} 报告需要运限快照。`);
   }
+  // Stage 2：命盘不变量未通过时不进入解读，也不修复或猜测盘面。
+  validateZiweiChart(chart, {
+    requiredScopes: template.requires_horoscope ? ['natal', 'yearly'] : ['natal'],
+  });
 
   const facts = projectChartFacts(chart, { knowledgeRoot });
   const featureSet = deriveFeatureSet(chart, { knowledge: knowledge.featureKnowledge });

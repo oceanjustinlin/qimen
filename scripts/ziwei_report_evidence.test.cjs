@@ -286,3 +286,12 @@ test('知识包按根目录缓存、不可变，清缓存后重新加载结果�
   const again = composeEvidenceReport({ chart, topic: 'career', knowledgeRoot: KNOWLEDGE_ROOT });
   assert.equal(again.conclusions[0].evidence_ids.includes('source.local.mutation'), false);
 });
+
+test('命盘不变量失败时报告组装直接终止', () => {
+  const chart = buildChart();
+  chart.natal.palaces[0].relations.opposite = chart.natal.palaces[1].palace_key;
+  assert.throws(
+    () => composeEvidenceReport({ chart, topic: 'career', knowledgeRoot: KNOWLEDGE_ROOT }),
+    (error) => error.code === 'ZIWEI_FACT_INVARIANT_FAILED',
+  );
+});
