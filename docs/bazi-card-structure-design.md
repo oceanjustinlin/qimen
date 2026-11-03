@@ -3,6 +3,8 @@
 > 结论来源：10个真实问事用例横向评测（Claude/ChatGPT/Gemini）+ 陆致极理论框架 + BaziEngine 代码审查
 >
 > 关联文档：[bazi-dynamic-analysis-theory.md](./bazi-dynamic-analysis-theory.md)
+>
+> 2026-11-03 更新：第二、三、五、六节的字段名、路由规则与代码位置已按 `lib/baziQuestionCore.js` 当前的统一输出 envelope v2 与双轴路由（`framework` ⟂ `target_source`）校正。第三节各模式下的「评测发现」与第七节是改版前的评测记录，保留当时的字段名，并注明对应的现行字段。各字段与奇门、紫微共享答案槽位的对应见 `lib/divinationDimensions.js` 的 `BAZI_SLOT_MAP`。
 
 ---
 
@@ -21,6 +23,16 @@
 
 ## 二、10 个问事类型 → analysis_mode 映射
 
+`analysis_mode` 是旧的扁平路由字段，现由 `migrateLegacyRoute()` 迁移为双轴：`framework`（分析框架）与 `target_source`（目标从哪来：`backend_shishen` / `yongshen` / `llm_derived`）。两者对应关系：
+
+| analysis_mode（旧） | framework（现行） | 含义 |
+|---|---|---|
+| `status` | `dynamic_current` | 当下大运流年引动 |
+| `timing` | `dynamic_scan` | 逐年应期扫描 |
+| `pattern` | `static_structure` | 先天结构容量 |
+| `character` | `portrait` | 他人十神画像 |
+| `profile_driven` | `open_strategy` | 开放战略、多路径 |
+
 ### 映射表
 
 | # | 领域 | 问题示例 | analysis_mode | secondary_mode | 静/动 比重 |
@@ -36,129 +48,165 @@
 | Q9 | 生育-孩子时机 | 何时有孩子+孩子特征？ | `timing` | `character` | 动+静双输出 |
 | Q10 | 创业-行业适配 | 适合做品牌吗？做哪行？ | `pattern` | — | 静为主（先天容量） |
 
-### 路由判断逻辑（`inferBaziRouteFromQuestion`）
+### 规则路由（`inferBaziRouteFromQuestion`）
+
+按顺序匹配，命中即停：
 
 ```
-含"哪年/何时/什么时候/未来几年"  →  timing
-含"什么样/画像/性格/老公/老婆"   →  character
-含"适合/格局/行业/创业"         →  pattern（无时间限定）
-A vs B 战略选择（无明确目标元素）  →  profile_driven
-其余（今年/当前/现在）           →  status（默认）
+含"什么时候/哪年/几岁/何时/未来几年/未来五年/未来十年"                 →  timing
+含"什么样/画像/长相/性格/对象/老婆/老公/伴侣" 且含"今年/现在/当前/这步大运/状态/怎么样"
+                                                                      →  character，secondary=status
+含上述画像词且不含"今年/现在/当前/这步大运"                             →  character
+含"适合/格局/命里/有没有/先天/上限/容量/创业还是打工/行业" 且不含当下时间词 →  pattern
+含"适合/格局/命里/先天/创业/打工/行业" 且含"今年/现在/当前/这步大运/能不能做"
+                                                                      →  pattern，secondary=status
+其余                                                                  →  status（默认）
 ```
+
+规则层不会产出 `profile_driven`；该模式只由 LLM 语义路由（`lib/divinationRouter.js` 的 analysis_mode 判断）给出。
 
 ---
 
-## 三、各 analysis_mode 的段落结构
+## 三、统一输出 envelope v2 与各模式的 readings 结构
 
-### `status`（当年气候判断）
+所有模式共用同一个 envelope（`buildUnifiedOutputSchemaBlock`），模式之间只有 `readings` 不同（`buildReadingsSchema`）。
+
+### 公共 envelope
+
+```
+┌─ envelope v2（全部模式）───────────────────────────────────────────┐
+│ meta          analysis_mode / secondary_mode / branch / category /   │
+│               subcategory / target{shishen,gongwei,fallback_level,   │
+│               llm_derived_target} / confidence / limitations         │
+│ summary       title（≤16字）/ conclusion（40-80字）/ basis（80-160字）│
+│               score 恒为 null，不输出数字分数                        │
+│ key_signals[] title（≤20字）/ reading（60-120字）                    │
+│ readings      各模式不同，见下                                       │
+│ rhythm        segments[]：period / dayun_shishen / phenomenon /      │
+│               strategy / key_liunians[]{year,gz,shishen,note}        │
+│ action_guide  text（80-160字）/ items[1-4]                           │
+└──────────────────────────────────────────────────────────────────┘
+```
+
+`rhythm` 只做大运级宏观定调，逐年判断由 `readings.trigger_windows` 负责。禁止输出 `trigger_vigor`、`activation_strength` 等 pipeline 内部数值字段。
+
+### `status` / `dynamic_current`（当年气候判断）
 
 适用：Q1 薪资、Q3 工作异动
 
 ```
-┌─ status 输出段落 ─────────────────────────────────────────────────┐
-│ dayun_reading        大运如何建场/压制/承接本命题（80-140字）        │
-│ liunian_reading      流年如何触发/放大/缓解（80-140字）             │
-│ target_state_reading 目标十神/宫位当前状态（80-140字）              │
-│ psychological_mirror 第一人称心理镜像，禁用命理术语（40-70字）      │
-│ movement_nature      { type: 主动换|被动换|..., quality, evidence } │
-│ outcome_projection   { if_happens, satisfaction_forecast,          │
-│                        hidden_catch }                              │
+┌─ readings ────────────────────────────────────────────────────────┐
+│ base_foundation  { text（80-160字）, signals[]{title, detail} }     │
+│                  原局底盘；高置信时须贴合静态面板                     │
+│ target_state[]   { title（≤15字）, text（≤50字）}                   │
+│                  目标用神为何被选、当前状态                           │
+│ dayun_field      { text（80-240字）}                                │
+│                  大运建场，须映射到自身变化与外部环境变化             │
+│ liunian_trigger  { text（80-240字）, phenomena[]{tag, explain} }    │
+│                  流年触发，phenomena 引用引动机制清单                 │
 └──────────────────────────────────────────────────────────────────┘
 ```
 
-**Q1 vs Q3 差异**：target 不同（Q1→财/食伤，Q3→官/伤官），`target_state_reading` 和 `movement_nature` 的描述语言随 target 切换。
+**Q1 vs Q3 差异**：target 不同（Q1→财/食伤，Q3→官/伤官），`target_state` 与 `liunian_trigger.phenomena` 的描述语言随 target 切换。
 
-**评测发现的缺口**：三个模型均未输出 `psychological_mirror` 和 `outcome_projection.hidden_catch`，是当前最大的内容空洞。
+**评测发现（改版前）**：三个模型均未输出当时的 `psychological_mirror`（心理镜像）和 `outcome_projection.hidden_catch`（隐藏代价）。v2 已移除这两个字段，心理与现实映射要求并入 `dayun_field` / `liunian_trigger` 的「须映射到自身与外部环境变化」。
 
 ---
 
-### `timing`（应期扫描）
+### `timing` / `dynamic_scan`（应期扫描）
 
 适用：Q4 考研、Q6 财富自由、Q7 结婚、Q9 孩子时机
 
 ```
-┌─ timing 输出段落 ──────────────────────────────────────────────────┐
-│ scanned_years        系统逐年遍历的候选年份列表                      │
-│ trigger_windows[]    每个入选年的：                                  │
-│   year / ganzhi / dayun_ganzhi                                     │
-│   verdict            为什么被选中（70-130字）                        │
-│   mechanisms_text    核心触发机制（40-90字）                         │
-│   supporting_evidence / blocking_evidence                           │
-│ best_window          最强窗口（引用已筛选年份）                       │
-│ avoid_window         要规避的时段                                    │
+┌─ readings ────────────────────────────────────────────────────────┐
+│ base_foundation  { text, signals[] }（同 status）                   │
+│ target_state[]   { title, text }                                    │
+│ trigger_windows[]                                                   │
+│   year / ganzhi / dayun_ganzhi                                      │
+│   verdict（≤80字，须引用具体干支机制，须与咨询领域年龄段契合）       │
+│   phenomena[]{tag, explain}                                         │
+│ best_window   { year, reason }（可选，有明显建议时间偏好时填）       │
+│ worst_window  { year, reason }（可选，有明显规避时间偏好时填）       │
 └──────────────────────────────────────────────────────────────────┘
 ```
+
+`trigger_windows` 只能来自后端「候选年份断语包」，由 LLM 筛选（topN≤5）。
 
 **各 timing 问题的特殊处理**：
 
 | 问题 | 特殊要求 |
 |------|---------|
 | Q4 考研 | 年龄语境决定深造类型（53岁≠22岁）；历史年份仅作一句验证，不占主体 |
-| Q6 财富自由 | 非离散事件，trigger_windows 宜以"阶段里程碑"呈现而非单一时间点；**建议增加 `milestone_stages` 字段** |
+| Q6 财富自由 | 非离散事件，trigger_windows 宜以"阶段里程碑"呈现而非单一时间点；**建议增加 `milestone_stages` 字段（尚未实现）** |
 | Q7 结婚 | 每个窗口附加"感情发展路径"描述（见面→稳定→成婚的时序）|
 | Q9 孩子时机 | 需双模式输出：timing（何时）+ secondary character（孩子画像）|
 
 ---
 
-### `pattern`（先天容量判断）
+### `pattern` / `static_structure`（先天容量判断）
 
 适用：Q10 创业行业适配
 
 ```
-┌─ pattern 输出段落 ─────────────────────────────────────────────────┐
-│ capacity_level       strong | medium | weak | unknown              │
-│ verdict              综合先天适配、容量、优势与风险（120-220字）      │
-│ structural_supports  支撑结构列表                                   │
-│ structural_risks     风险结构列表                                   │
-│ real_world_expression 日常行为场景描述（禁止写十神白话翻译）（60-100字）│
-│ how_to_leverage      可执行方向（行业/岗位/合作模式）（60-100字）    │
-│ [current_status_note] secondary=status 时追加：当前大运是否适合推进 │
+┌─ readings ────────────────────────────────────────────────────────┐
+│ base_foundation      { text, signals[] }，侧重先天结构容量          │
+│ target_state[]       { title, text }                                │
+│ structural_supports  ≤3条：原局支撑本领域的现象（引用柱位/十神/关系）│
+│ structural_risks     ≤3条：原局制约本领域的现象                     │
+│ structural_verdict   ≤120字：先天容量与适配方向的综合断语           │
+│ [current_status_note] secondary=status 时追加（≤80字）：当前大运流年 │
+│                      是否适合推进，不展开成应期预测                 │
 └──────────────────────────────────────────────────────────────────┘
 ```
 
-**评测发现的缺口**：`real_world_expression` 三个模型均输出了"食神旺=才华强"的十神翻译，没有一个写出具体行为场景（如：开会习惯主导议程、遇到模糊任务主动定义边界）。
+**评测发现（改版前）**：当时的 `real_world_expression`（日常行为场景）三个模型均输出了"食神旺=才华强"的十神翻译，没有写出具体行为场景。v2 已移除该字段；`capacity_level`、`verdict`、`how_to_leverage` 分别并入 `structural_verdict` 与 envelope 的 `action_guide`。
 
 ---
 
-### `character`（人物画像）
+### `character` / `portrait`（人物画像）
 
 适用：Q8 伴侣特征，Q9 孩子特征（secondary）
 
 ```
-┌─ character 输出段落 ────────────────────────────────────────────────┐
-│ portrait_subject     spouse | partner | boss | child | other       │
-│ appearance_tendency  { text, confidence, evidence[] }              │
-│ personality_tendency { text, confidence, evidence[] }              │
-│ career_style         { text, confidence, evidence[] }              │
-│ relationship_dynamic 相处模式/关系动态                              │
-│ do_not_overclaim     标准免责声明                                   │
+┌─ readings ────────────────────────────────────────────────────────┐
+│ portrait_subject       spouse | partner | boss | child | other     │
+│ target_resolution      backend_mapped | llm_derived                │
+│ llm_derived_target_note                                            │
+│ appearance_tendency    { text, confidence, evidence[] }            │
+│ personality_tendency   { text, confidence, evidence[] }            │
+│ career_style           { text, confidence, evidence[] }            │
+│ relationship_dynamic   相处模式/关系动态                            │
+│ do_not_overclaim       标准免责声明                                 │
 └──────────────────────────────────────────────────────────────────┘
 ```
 
-**结构性缺口**：character 模式没有 timing 字段。用户问"伴侣什么样"时天然想知道"大概什么时候出现"。建议：
+**结构性缺口（仍存在）**：portrait 的 readings 没有 timing 字段。用户问"伴侣什么样"时天然想知道"大概什么时候出现"。建议：
 - 伴侣特征（character）→ 自发延伸：结婚时机的大致区间（一段话，不需要完整 timing 扫描）
 - 结婚时机（timing）→ 自发延伸：伴侣类型线索（一段话，帮用户识别对象）
 
 ---
 
-### `profile_driven`（开放战略问题）
+### `profile_driven` / `open_strategy`（开放战略问题）
 
 适用：Q2 主副业方向、Q5 城市方位
 
 ```
-┌─ profile_driven 输出段落 ──────────────────────────────────────────┐
-│ framework_used       说明用了哪套分析框架                            │
-│ psychological_mirror 第一人称内心状态（40-80字）                     │
-│ structural_reading   命局结构评估，A vs B 分别评估（120-200字）      │
-│ path_readings[]      每条路径：                                     │
-│   path / structural_fit / likely_experience / satisfaction_prediction│
-│   peak_period / risk                                               │
-│ strategic_recommendation 主线策略，有优先排序（80-120字）            │
-│ timeline[]           按大运分组 + 关键流年说明                       │
+┌─ readings ────────────────────────────────────────────────────────┐
+│ base_foundation  { text, signals[] }                                │
+│                  无后端目标定位，LLM 自主选择最相关的干支线索        │
+│ target_state[]   { title, text, confidence: "low" }                 │
+│                  LLM 自拟的关注十神/方向                             │
+│ dayun_field      { text }：当前大运建场                              │
+│ liunian_trigger  { text, phenomena[] }：当前流年触发                │
+│ path_readings[]                                                     │
+│   path / structural_fit / likely_experience（80-120字）/            │
+│   satisfaction_prediction / peak_period / risk / confidence         │
 └──────────────────────────────────────────────────────────────────┘
 ```
 
-**Q2 评测发现**：Gemini 使用了错误的日主（乙木，应为丁火），且回答了错误问题（工作异动）。Claude 和 ChatGPT 的输出结构最接近 `profile_driven` schema，但均缺少 `psychological_mirror`。
+改版前的 `framework_used`、`structural_reading`、`strategic_recommendation`、`timeline` 已移除：结构评估并入 `base_foundation`，主线策略并入 envelope 的 `action_guide`，按大运分组的时间线并入 envelope 的 `rhythm`。
+
+**Q2 评测发现（改版前）**：Gemini 使用了错误的日主（乙木，应为丁火），且回答了错误问题（工作异动）。Claude 和 ChatGPT 的输出结构最接近当时的 `profile_driven` schema，但均缺少 `psychological_mirror`。
 
 ---
 
@@ -206,7 +254,7 @@ A vs B 战略选择（无明确目标元素）  →  profile_driven
 └─────────────────────────────────────────────┘
 ```
 
-**适用 mode**：`pattern`、`character`、`profile_driven` 的 structural_reading 部分、`status`/`timing` 的底盘说明
+**适用 mode**：`pattern`、`character`，以及其余模式 readings 中的 `base_foundation`、`target_state` 底盘说明
 
 **参考截图**：婚恋结婚时机卡片上半部分「婚姻用神推算」区域
 
@@ -233,11 +281,11 @@ A vs B 战略选择（无明确目标元素）  →  profile_driven
 │  每行：[年份] [干支] [激烈程度] [核心机制]        │
 ├──────────────────────────────────────────────────┤
 │  综合结论（高亮框）                               │
-│  best_window + avoid_window + 一句话结论          │
+│  best_window + worst_window + 一句话结论          │
 └─────────────────────────────────────────────────┘
 ```
 
-**适用 mode**：`status`（当年一行）、`timing`（多年列表）、`profile_driven` 的 timeline 部分
+**适用 mode**：`status`（`dayun_field` + `liunian_trigger`，当年一行）、`timing`（`trigger_windows` 多年列表），以及全部模式 envelope 中的 `rhythm`（按大运分组的时间线）
 
 **参考截图**：婚恋结婚时机卡片下半部分「未来十年年运推演」年表 + 「综合结论」紫色高亮框
 
@@ -250,13 +298,13 @@ A vs B 战略选择（无明确目标元素）  →  profile_driven
 | 陆致极步骤 | 实现状态 | 位置 |
 |-----------|---------|------|
 | 强弱（扶抑用神） | 依赖上游 ctx 字段，不自算 | `favorableWuxing` 透传 |
-| 调候 | 依赖上游 ctx，文字透传至 prompt | `baziQuestionCore.js:552` |
+| 调候 | 依赖上游 ctx，文字透传至 prompt | `baziQuestionCore.js:52` |
 | 格局 | 依赖上游 ctx，文字透传至 prompt | `baziQuestionCore.js:51` |
 | 形象/从化 | **完全缺失** | — |
 | 目标十神定位评估 | **完整实现**（12长生+vigor+刑冲合害+状态标签） | `assessOneShishen()` |
 | 宫位独立评估 | **完整实现**（星宫得正/鸠占鹊巢） | `assessGongwei()` |
-| 格局层静态规则 | **部分实现**（仅婚姻类 8 条规则） | `STATIC_CHECK_RULES` |
-| 合化对用神的影响 | 标记了 `合_化`/`合_不化` 标签，不重新计算用神 | `baziStateAssessor.js:183` |
+| 格局层静态规则 | **部分实现**（仅婚姻类 9 条规则） | `STATIC_CHECK_RULES`（`baziStateAssessor.js`） |
+| 合化对用神的影响 | 标记了 `合_化`/`合_不化` 标签，不重新计算用神 | `baziStateAssessor.js:193` |
 
 ### 动态分析覆盖
 
@@ -266,7 +314,7 @@ A vs B 战略选择（无明确目标元素）  →  profile_driven
 | 冲动 | **完整** | `MECH.CHONG_DONG` |
 | 合动 | **完整** | `MECH.HE_DONG` |
 | 合化/合而不化 | **完整** | `MECH.HE_HUA/HE_BU_HUA` |
-| 伏吟/反吟 | **完整** | `isFuyin()/isFanyin()` |
+| 伏吟/反吟 | **完整** | `isFuyin()` / `isFantin()`（`baziDynamicAssessor.js`，反吟函数名在代码中拼作 Fantin） |
 | 开墓库 | **完整** | `MECH.KAI_MU` |
 | 透干引动 | **完整** | `MECH.TOU_GAN` |
 | 填实三合 | **完整** | `MECH.TIAN_SHI` |
@@ -309,4 +357,4 @@ A vs B 战略选择（无明确目标元素）  →  profile_driven
 
 | 模型 | 问题 | 原因 |
 |------|------|------|
-| ChatGPT Q1（薪资） | status 问题里大篇幅输出 profile_driven 战略分析 | status 的 outcome_projection.if_happens 提一句路径即可 |
+| ChatGPT Q1（薪资） | status 问题里大篇幅输出 profile_driven 战略分析 | 改版前应在 `outcome_projection.if_happens` 提一句路径；v2 中路径建议放在 envelope 的 `action_guide` |
