@@ -77,26 +77,48 @@ test('五类报告模板声明宫位优先级、阅读顺序和证据发布门�
   });
 });
 
-test('命盘事实统一仆役宫别名，并仅把运限命宫落点记为焦点激活', () => {
+test('静态事实统一仆役宫别名、只含本命，并携带 fact_id、scope 与来源路径', () => {
   const chart = buildChart();
   const facts = projectChartFacts(chart);
   const palaceFacts = facts.filter((fact) => fact.feature === 'chart_has_palace');
-  const yearlyActivations = facts.filter((fact) => (
-    fact.feature === 'period_activates' && fact.period === 'yearly'
-  ));
-  const yearlyFocus = chart.natal.palaces[chart.horoscope.yearly.index];
-  const expectedPalace = yearlyFocus.palace_key === '仆役宫'
-    ? '交友宫'
-    : yearlyFocus.palace_key;
+  const canonicalFeatures = new Set([
+    'chart_has_palace',
+    'palace_role',
+    'palace_has_star',
+    'star_brightness',
+    'star_mutagen',
+    'palace_relation',
+  ]);
 
   assert.equal(palaceFacts.some((fact) => fact.palace === '仆役宫'), false);
   assert.equal(palaceFacts.some((fact) => fact.palace === '交友宫'), true);
-  assert.deepEqual(yearlyActivations, [{
-    feature: 'period_activates',
-    palace: expectedPalace,
-    period: 'yearly',
-    value: '命宫',
-  }]);
+  assert.equal(new Set(facts.map((fact) => fact.fact_id)).size, facts.length);
+  facts.forEach((fact) => {
+    assert.equal(canonicalFeatures.has(fact.feature), true, fact.feature);
+    assert.equal(fact.scope, 'natal');
+    assert.match(fact.fact_id, /^fact\.natal\./);
+    assert.match(fact.origin.path, /^natal\.palaces\[\d+\]/);
+  });
+
+  // 运限快照存在时，静态投影仍不产生任何动态事实。
+  assert.ok(chart.horoscope);
+  assert.deepEqual(projectChartFacts({ ...chart, horoscope: null }), facts);
+
+  // 每颗四化星只有一条 star_mutagen 事实，且与 CLI 本命四化一致。
+  const mutagenFacts = facts.filter((fact) => fact.feature === 'star_mutagen');
+  assert.deepEqual(
+    Object.fromEntries(mutagenFacts.map((fact) => [fact.mutagen, fact.star])),
+    chart.natal.natal_mutagens,
+  );
+  assert.equal(mutagenFacts.length, 4);
+
+  // 关系拆成独立的类型边：每宫一条对宫、两条三合、两条邻宫。
+  const relationFacts = facts.filter((fact) => fact.feature === 'palace_relation');
+  assert.equal(relationFacts.length, 12 * 5);
+  assert.ok(relationFacts.some((fact) => (
+    fact.palace === '命宫' && fact.relation === 'opposite' && fact.to === '迁移宫'
+  )));
+  assert.equal(facts.filter((fact) => fact.feature === 'palace_role' && fact.role === 'body_palace').length, 1);
 });
 
 test('报告只输出实际命中的结论，并为每条结论附盘面事实和来源 ID', () => {

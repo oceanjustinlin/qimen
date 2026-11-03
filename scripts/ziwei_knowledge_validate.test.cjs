@@ -134,7 +134,7 @@ test('解释命题 Schema 要求命中条件、修正项、证据和非确定性
           star: '武曲',
         },
         {
-          feature: 'star_has_mutagen',
+          feature: 'star_mutagen',
           star: '武曲',
           mutagen: '禄',
         },

@@ -193,13 +193,11 @@
         "feature": {
           "enum": [
             "chart_has_palace",
+            "palace_role",
             "palace_has_star",
-            "star_has_mutagen",
-            "palace_has_mutagen",
-            "palace_has_brightness",
-            "palace_has_relation",
-            "period_activates",
-            "combination_matches"
+            "star_brightness",
+            "star_mutagen",
+            "palace_relation"
           ]
         },
         "palace": {
@@ -217,7 +215,30 @@
             "忌"
           ]
         },
-        "value": {}
+        "value": {},
+        "role": {
+          "enum": [
+            "body_palace",
+            "origin_palace"
+          ]
+        },
+        "collection": {
+          "enum": [
+            "major",
+            "minor",
+            "adjective"
+          ]
+        },
+        "relation": {
+          "enum": [
+            "opposite",
+            "trine",
+            "adjacent"
+          ]
+        },
+        "to": {
+          "$ref": "#/definitions/palace"
+        }
       }
     },
     "condition": {

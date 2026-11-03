@@ -31,7 +31,6 @@ const STAR_COLLECTIONS = [
   ['minor_stars', 'minor'],
   ['adjective_stars', 'adjective'],
 ];
-const PERIODS = ['decadal', 'yearly', 'monthly', 'daily', 'hourly'];
 
 function makeReportError(code, message, details) {
   const error = new Error(message);
@@ -226,77 +225,74 @@ function projectChartFacts(
   }
 
   const { palaceAliases } = getKnowledge(knowledgeRoot);
+  const palaces = chart.natal.palaces;
+  const names = palaces.map((palace) => canonicalPalaceName(palace.palace_key, palaceAliases));
   const facts = [];
-  chart.natal.palaces.forEach((palace) => {
-    const palaceName = canonicalPalaceName(palace.palace_key, palaceAliases);
+  // 静态投影只读取 natal（PRD FR-13）：运限事实由 Dynamic Overlay 单独生成。
+  const push = (fact, idParts, originPath) => {
     facts.push({
-      feature: 'chart_has_palace',
-      palace: palaceName,
+      fact_id: ['fact', 'natal', fact.feature, ...idParts].join('.'),
+      scope: 'natal',
+      ...fact,
+      origin: { path: originPath },
     });
+  };
+
+  palaces.forEach((palace, palaceIndex) => {
+    const palaceName = names[palaceIndex];
+    const palacePath = `natal.palaces[${palaceIndex}]`;
+    push({ feature: 'chart_has_palace', palace: palaceName }, [palaceName], palacePath);
+    if (palace.is_body_palace) {
+      push({ feature: 'palace_role', palace: palaceName, role: 'body_palace' }, [palaceName, 'body_palace'], `${palacePath}.is_body_palace`);
+    }
+    if (palace.is_original_palace) {
+      push({ feature: 'palace_role', palace: palaceName, role: 'origin_palace' }, [palaceName, 'origin_palace'], `${palacePath}.is_original_palace`);
+    }
 
     STAR_COLLECTIONS.forEach(([collection, starClass]) => {
-      (palace[collection] || []).forEach((star) => {
-        facts.push({
+      (palace[collection] || []).forEach((star, starIndex) => {
+        const starPath = `${palacePath}.${collection}[${starIndex}]`;
+        push({
           feature: 'palace_has_star',
           palace: palaceName,
           star: star.name,
-          star_class: starClass,
-        });
+          collection: starClass,
+          star_type: star.type || '',
+        }, [palaceName, star.name], starPath);
         if (star.brightness) {
-          facts.push({
-            feature: 'palace_has_brightness',
+          push({
+            feature: 'star_brightness',
             palace: palaceName,
             star: star.name,
             value: star.brightness,
-          });
+          }, [palaceName, star.name], `${starPath}.brightness`);
         }
         if (star.mutagen) {
-          facts.push({
-            feature: 'star_has_mutagen',
+          // 一颗四化星只生成一条同时含宫位、星曜和四化的事实（PRD §6 Stage 4）。
+          push({
+            feature: 'star_mutagen',
             palace: palaceName,
             star: star.name,
             mutagen: star.mutagen,
-          });
-          facts.push({
-            feature: 'palace_has_mutagen',
-            palace: palaceName,
-            star: star.name,
-            mutagen: star.mutagen,
-          });
+          }, [palaceName, star.name, star.mutagen], `${starPath}.mutagen`);
         }
       });
     });
 
-    if (palace.relations) {
-      facts.push({
-        feature: 'palace_has_relation',
-        palace: palaceName,
-        value: {
-          opposite: canonicalPalaceName(palace.relations.opposite, palaceAliases),
-          trine: palace.relations.trine.map((item) => (
-            canonicalPalaceName(item, palaceAliases)
-          )),
-        },
+    const relations = [
+      ['opposite', [(palaceIndex + 6) % 12]],
+      ['trine', [(palaceIndex + 4) % 12, (palaceIndex + 8) % 12]],
+      ['adjacent', [(palaceIndex + 11) % 12, (palaceIndex + 1) % 12]],
+    ];
+    relations.forEach(([relation, targets]) => {
+      targets.forEach((targetIndex) => {
+        push({
+          feature: 'palace_relation',
+          palace: palaceName,
+          relation,
+          to: names[targetIndex],
+        }, [palaceName, relation, names[targetIndex]], `${palacePath}.index`);
       });
-    }
-  });
-
-  PERIODS.forEach((period) => {
-    const snapshot = chart.horoscope?.[period];
-    if (!snapshot || !Number.isInteger(snapshot.index)) return;
-    const natalPalace = chart.natal.palaces[snapshot.index];
-    const periodPalace = canonicalPalaceName(
-      snapshot.palace_keys?.[snapshot.index],
-      palaceAliases,
-    );
-    if (!natalPalace || periodPalace !== '命宫') {
-      throw makeReportError('REPORT_CHART_INVALID', `${period} 运限命宫索引无效。`);
-    }
-    facts.push({
-      feature: 'period_activates',
-      palace: canonicalPalaceName(natalPalace.palace_key, palaceAliases),
-      period,
-      value: '命宫',
     });
   });
 
