@@ -16,6 +16,7 @@
         "weaken": ["落陷或煞忌集中时，需留意控制感过强及判断脱离现实"]
       },
       "modifiers": [],
+      "facet_annotations": [{"slot": "subject_state", "polarity": "neutral", "review_status": "draft", "note": "星情总论描述命主自身的行事倾向；未绑定具体子类。"}],
       "language_policy": {"deterministic": false, "forbidden_phrases": ["天生帝王", "注定掌权"]},
       "evidence": ["source.mingli-tianji.p51.ziwei"],
       "confidence": "medium",
@@ -36,6 +37,7 @@
         "weaken": ["化忌或煞曜集中时，反复思虑和变动成本可能增加"]
       },
       "modifiers": [],
+      "facet_annotations": [{"slot": "subject_state", "polarity": "neutral", "review_status": "draft", "note": "星情总论描述命主自身的行事倾向；未绑定具体子类。"}],
       "language_policy": {"deterministic": false, "forbidden_phrases": ["必是天才", "注定多变"]},
       "evidence": ["source.mingli-tianji.p73.tianji"],
       "confidence": "medium",
@@ -56,6 +58,7 @@
         "weaken": ["落陷或化忌时，需要降低名望推断并关注精力分配"]
       },
       "modifiers": [],
+      "facet_annotations": [{"slot": "subject_state", "polarity": "neutral", "review_status": "draft", "note": "星情总论描述命主自身的行事倾向；未绑定具体子类。"}],
       "language_policy": {"deterministic": false, "forbidden_phrases": ["必定显贵", "注定成名"]},
       "evidence": ["source.mingli-tianji.p92.taiyang"],
       "confidence": "medium",
@@ -76,6 +79,7 @@
         "weaken": ["化忌或煞曜集中时，需防过度刚硬及资源压力"]
       },
       "modifiers": [],
+      "facet_annotations": [{"slot": "subject_state", "polarity": "neutral", "review_status": "draft", "note": "星情总论描述命主自身的行事倾向；未绑定具体子类。"}],
       "language_policy": {"deterministic": false, "forbidden_phrases": ["必然发财", "注定经商"]},
       "evidence": ["source.mingli-tianji.p111.wuqu"],
       "confidence": "medium",
@@ -96,6 +100,7 @@
         "weaken": ["化忌或结构过于安逸时，主动推进和取舍能力可能不足"]
       },
       "modifiers": [],
+      "facet_annotations": [{"slot": "subject_state", "polarity": "neutral", "review_status": "draft", "note": "星情总论描述命主自身的行事倾向；未绑定具体子类。"}],
       "language_policy": {"deterministic": false, "forbidden_phrases": ["一生享福", "注定懒散"]},
       "evidence": ["source.mingli-tianji.p129.tiantong"],
       "confidence": "medium",
@@ -116,6 +121,7 @@
         "weaken": ["化忌或煞曜集中时，边界冲突和情绪化表达可能增加"]
       },
       "modifiers": [],
+      "facet_annotations": [{"slot": "subject_state", "polarity": "neutral", "review_status": "draft", "note": "星情总论描述命主自身的行事倾向；未绑定具体子类。"}],
       "language_policy": {"deterministic": false, "forbidden_phrases": ["必有官非", "桃花成性"]},
       "evidence": ["source.mingli-tianji.p143.lianzhen"],
       "confidence": "medium",
@@ -136,6 +142,7 @@
         "weaken": ["受煞忌冲照或环境要求快速创新时，谨慎可能转为迟滞"]
       },
       "modifiers": [],
+      "facet_annotations": [{"slot": "subject_state", "polarity": "neutral", "review_status": "draft", "note": "星情总论描述命主自身的行事倾向；未绑定具体子类。"}],
       "language_policy": {"deterministic": false, "forbidden_phrases": ["天生富贵", "必有财库"]},
       "evidence": ["source.mingli-tianji.p162.tianfu"],
       "confidence": "medium",
@@ -156,6 +163,7 @@
         "weaken": ["落陷或化忌时，需防信息不足带来的犹疑与内耗"]
       },
       "modifiers": [],
+      "facet_annotations": [{"slot": "subject_state", "polarity": "neutral", "review_status": "draft", "note": "星情总论描述命主自身的行事倾向；未绑定具体子类。"}],
       "language_policy": {"deterministic": false, "forbidden_phrases": ["必定多疑", "女命才吉"]},
       "evidence": ["source.mingli-tianji.p175.taiyin"],
       "confidence": "medium",
@@ -176,6 +184,7 @@
         "weaken": ["化忌或煞曜集中时，兴趣分散与计划落空的概率可能增加"]
       },
       "modifiers": [],
+      "facet_annotations": [{"slot": "subject_state", "polarity": "neutral", "review_status": "draft", "note": "星情总论描述命主自身的行事倾向；未绑定具体子类。"}],
       "language_policy": {"deterministic": false, "forbidden_phrases": ["桃花泛滥", "感情不专"]},
       "evidence": ["source.mingli-tianji.p192.tanlang"],
       "confidence": "medium",
@@ -196,6 +205,7 @@
         "weaken": ["化忌或煞曜集中时，需要降低争议性判断并核对沟通事实"]
       },
       "modifiers": [],
+      "facet_annotations": [{"slot": "subject_state", "polarity": "neutral", "review_status": "draft", "note": "星情总论描述命主自身的行事倾向；未绑定具体子类。"}],
       "language_policy": {"deterministic": false, "forbidden_phrases": ["必犯口舌", "搬弄是非"]},
       "evidence": ["source.mingli-tianji.p210.jumen"],
       "confidence": "medium",
@@ -216,6 +226,7 @@
         "weaken": ["受煞忌夹制或环境权责不清时，服务倾向可能转为被动消耗"]
       },
       "modifiers": [],
+      "facet_annotations": [{"slot": "subject_state", "polarity": "neutral", "review_status": "draft", "note": "星情总论描述命主自身的行事倾向；未绑定具体子类。"}],
       "language_policy": {"deterministic": false, "forbidden_phrases": ["注定辅佐他人", "必居高位"]},
       "evidence": ["source.mingli-tianji.p227.tianxiang"],
       "confidence": "medium",
@@ -236,6 +247,7 @@
         "weaken": ["煞忌集中或权责不匹配时，原则性可能转为拖延或固执"]
       },
       "modifiers": [],
+      "facet_annotations": [{"slot": "subject_state", "polarity": "neutral", "review_status": "draft", "note": "星情总论描述命主自身的行事倾向；未绑定具体子类。"}],
       "language_policy": {"deterministic": false, "forbidden_phrases": ["必能逢凶化吉", "注定长寿"]},
       "evidence": ["source.mingli-tianji.p241.tianliang"],
       "confidence": "medium",
@@ -256,6 +268,7 @@
         "weaken": ["煞忌集中或缺少规则约束时，强硬和孤立倾向可能增加"]
       },
       "modifiers": [],
+      "facet_annotations": [{"slot": "subject_state", "polarity": "neutral", "review_status": "draft", "note": "星情总论描述命主自身的行事倾向；未绑定具体子类。"}],
       "language_policy": {"deterministic": false, "forbidden_phrases": ["必有刑伤", "司生死"]},
       "evidence": ["source.mingli-tianji.p257.qisha"],
       "confidence": "medium",
@@ -276,6 +289,7 @@
         "weaken": ["煞忌集中或缺少承接资源时，改变可能只留下消耗和反复"]
       },
       "modifiers": [],
+      "facet_annotations": [{"slot": "subject_state", "polarity": "neutral", "review_status": "draft", "note": "星情总论描述命主自身的行事倾向；未绑定具体子类。"}],
       "language_policy": {"deterministic": false, "forbidden_phrases": ["必然破败", "注定离散"]},
       "evidence": ["source.mingli-tianji.p273.pojun"],
       "confidence": "medium",

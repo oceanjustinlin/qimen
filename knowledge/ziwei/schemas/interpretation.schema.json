@@ -64,6 +64,12 @@
         "$ref": "#/definitions/modifier"
       }
     },
+    "facet_annotations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/facetAnnotation"
+      }
+    },
     "language_policy": {
       "$ref": "#/definitions/languagePolicy"
     },
@@ -449,6 +455,68 @@
           "type": "string",
           "minLength": 1
         }
+      }
+    },
+    "facetAnnotation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "slot",
+        "polarity",
+        "review_status"
+      ],
+      "properties": {
+        "slot": {
+          "enum": [
+            "subject_state",
+            "target_state",
+            "environment",
+            "support",
+            "constraint",
+            "interaction",
+            "timing",
+            "portrait",
+            "guidance"
+          ]
+        },
+        "category": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subcategory": {
+          "type": "string",
+          "minLength": 1
+        },
+        "facet": {
+          "type": "string",
+          "pattern": "^[a-z_]+$"
+        },
+        "polarity": {
+          "enum": [
+            "positive",
+            "negative",
+            "neutral"
+          ]
+        },
+        "review_status": {
+          "enum": [
+            "draft",
+            "reviewed"
+          ]
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "dependencies": {
+        "facet": [
+          "category",
+          "subcategory"
+        ],
+        "subcategory": [
+          "category"
+        ]
       }
     },
     "languagePolicy": {

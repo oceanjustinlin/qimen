@@ -10,6 +10,7 @@
     "topic",
     "report_preset",
     "time_scope",
+    "shared_dimension",
     "title",
     "description",
     "school_order",
@@ -49,6 +50,35 @@
         "yearly",
         "cross_period"
       ]
+    },
+    "shared_dimension": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "category",
+        "subcategories"
+      ],
+      "properties": {
+        "category": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "subcategories": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
     },
     "title": {
       "type": "string",

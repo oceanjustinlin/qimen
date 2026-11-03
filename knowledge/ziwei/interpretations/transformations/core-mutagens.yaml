@@ -16,6 +16,7 @@
         "weaken": ["与化忌或煞曜冲突，或只见化禄而缺少现实资源承接"]
       },
       "modifiers": [],
+      "facet_annotations": [{"slot": "support", "polarity": "positive", "review_status": "draft", "note": "四化通论；所化星曜与落宫决定具体落点，未绑定具体子类。"}],
       "language_policy": {"deterministic": false, "forbidden_phrases": ["必然发财", "见禄必富"]},
       "evidence": ["source.feixing-ziwei.p249.mutagen-context", "source.mingli-tianji.p409.period-scope"],
       "confidence": "medium",
@@ -36,6 +37,7 @@
         "weaken": ["煞忌集中、权责不匹配或现实环境缺少授权"]
       },
       "modifiers": [],
+      "facet_annotations": [{"slot": "support", "polarity": "positive", "review_status": "draft", "note": "四化通论；所化星曜与落宫决定具体落点，未绑定具体子类。"}],
       "language_policy": {"deterministic": false, "forbidden_phrases": ["必然掌权", "见权必升职"]},
       "evidence": ["source.feixing-ziwei.p249.mutagen-context", "source.mingli-tianji.p409.period-scope"],
       "confidence": "medium",
@@ -56,6 +58,7 @@
         "weaken": ["只见化科而缺少成果、制度或公开呈现的现实载体"]
       },
       "modifiers": [],
+      "facet_annotations": [{"slot": "support", "polarity": "positive", "review_status": "draft", "note": "四化通论；所化星曜与落宫决定具体落点，未绑定具体子类。"}],
       "language_policy": {"deterministic": false, "forbidden_phrases": ["注定有名", "见科必有学历"]},
       "evidence": ["source.feixing-ziwei.p249.mutagen-context", "source.mingli-tianji.p409.period-scope"],
       "confidence": "medium",
@@ -76,6 +79,7 @@
         "weaken": ["吉曜、化解结构或现实支持足以降低阻滞，且没有重复引动"]
       },
       "modifiers": [],
+      "facet_annotations": [{"slot": "constraint", "polarity": "negative", "review_status": "draft", "note": "四化通论；所化星曜与落宫决定具体落点，未绑定具体子类。"}],
       "language_policy": {"deterministic": false, "forbidden_phrases": ["必有灾祸", "见忌必凶"]},
       "evidence": ["source.feixing-ziwei.p249.mutagen-context", "source.mingli-tianji.p409.period-scope"],
       "confidence": "medium",

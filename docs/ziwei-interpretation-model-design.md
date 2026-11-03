@@ -213,18 +213,30 @@ L1 是新增子阶段；其余层扩展现有 Stage 的输入输出契约，不�
 
 现有 14 条主星命题保留为 `star_system × any`（星情总论，`context_role: global_context`）。新增的 `star_system × 具体宫位` 命题优先级更高，命中时同一维度上取更具体的一条（见 8.2）。
 
-### 6.2 维度（facet）：结论落点
+### 6.2 维度：复用跨体系共享维度层
 
-命题不再只给一句泛化倾向，而是声明它在哪个维度上、以什么方向发生作用。每个主题定义少量固定维度：
+> 2026-11-03 修订：维度不再由紫微单独定义，改为奇门、八字、紫微共享。原草案中的「外部助力」「压力来源」与奇门 M3 的 `support_factors`、`constraint_factors` 是同一概念。
 
-| 主题 | 维度（v1 草案） |
-| --- | --- |
-| overall | `temperament` 性格基调、`drive_style` 行动方式、`stability` 稳定性、`support` 外部助力、`pressure` 压力来源 |
-| career | `work_style` 做事方式、`role_fit` 角色适配、`stability` 稳定性、`external_support` 外部助力、`pressure` 压力来源 |
-| wealth | `income_mode` 进财方式、`retention` 守财能力、`resource_support` 资源承接、`pressure` 压力来源 |
-| relationship | `interaction_style` 相处方式、`stability` 稳定性、`expectation` 期待落差、`pressure` 压力来源 |
+维度分三层，前两层共享，第三层各体系独立：
 
-维度表放在 `knowledge/ziwei/ontology/facets.yaml`，并在 `reports/*.yaml` 中以 `facet_template` 引用。维度是产品层的组织方式，不是命理断语，因此不需要原书来源；但每条命题选择哪个维度，必须与其来源原文语义一致，在审核时核对。
+| 层 | 内容 | 位置 | 是否共享 |
+| --- | --- | --- | --- |
+| A 问事主题树 | category → subcategory，如 `career_business.career_direction` | `lib/divinationCategories.js`（已有） | 共享 |
+| B 答案槽位 | 主体状态、目标状态、环境条件、助力、制约、主客互动、时机、画像、行动指引 | `lib/divinationDimensions.js` 的 `ANSWER_SLOTS` | 共享 |
+| C 内容维度 | 挂在子类下、归属某个槽位，如 `career_direction` 下的 `work_style`（做事方式，主体状态） | `lib/divinationDimensions.js` 的 `CONTENT_FACETS` | 八字、紫微在先天结构类子类上共用 |
+| 证据 | 宫星四化 / 十神五行 / 门星神 | 各体系自己的引擎 | 不共享 |
+
+各体系的映射：
+
+- **奇门**：`QIMEN_SLOT_MAP` 把 M3 六段与 M4 两段映射到槽位。
+- **八字**：`BAZI_SLOT_MAP` 按 framework 轴（`static_structure`、`dynamic_current`、`dynamic_scan`、`portrait`、`open_strategy`）把统一输出 envelope v2 的 `readings.*` 字段映射到槽位。测试会核对字段名确实存在于 `lib/baziQuestionCore.js` 的输出 schema 中。
+- **紫微**：报告模板用 `shared_dimension` 声明自己在主题树上的坐标（`career` → `career_business` 的职业方向、行业适配、创业还是打工；`wealth` → `finance_wealth`；`relationship` → `relationship`；`overall` 跨类别，category 为 null）。命题用 `facet_annotations` 标注槽位及可选的内容维度。
+
+紫微的规则：
+
+- 标注分 `draft` 与 `reviewed`，只有 `reviewed` 进入结论的 `dimensions`；每份报告输出 `dimension_coverage`，列出各槽位命中数、模板子类下哪些内容维度尚未覆盖，以及待审核的草稿标注数量。
+- 标注的类别、子类、维度必须存在于共享注册表，维度归属的槽位必须一致；模板声明的子类必须在主题树上标注了紫微可回答。
+- 共享的是坐标，不是结论：不同体系的结论不在此合并（PRD 非目标）。
 
 ### 6.3 修正项：从文字改为可执行条件
 
@@ -528,3 +540,14 @@ M1 可以立即开始，是后续所有层的地基。
 | L5 动态特征 | `lib/ziweiDynamicFeatures.cjs` | `overlay_map`、`period_mutagen`（盘面事实，reviewed）与 `mutagen_stack`（pending_source）；只支持大限、流年，与本命特征集分开输出 |
 
 尚未实现、需要先确定语义的部分见 [`ziwei-todos.md`](./ziwei-todos.md)。
+
+## 18. 共享维度层实现记录
+
+| 内容 | 位置 |
+| --- | --- |
+| 答案槽位、内容维度、奇门与八字映射 | `lib/divinationDimensions.js`、`lib/divinationDimensions.test.js` |
+| 紫微模板的主题树坐标 | `knowledge/ziwei/reports/*.yaml` 的 `shared_dimension`、`schemas/report.schema.json` |
+| 紫微命题的维度标注 | `facet_annotations`（`schemas/interpretation.schema.json`）；14 条主星命题标为主体状态、4 条四化命题标为助力或制约，均为 `draft` |
+| 报告输出 | 结论的 `dimensions`、报告的 `dimension_coverage`，校验时重新计算比对 |
+
+未改动奇门、八字的运行时输出与路由；它们目前只是在共享层中登记了映射。

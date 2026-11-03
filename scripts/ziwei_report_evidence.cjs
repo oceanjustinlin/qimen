@@ -8,6 +8,12 @@ const YAML = require('yaml');
 const { deriveFeatureSet, loadFeatureKnowledge } = require('../lib/ziweiFeatureDeriver.cjs');
 const { assertModifiers, evaluateModifiers } = require('../lib/ziweiFeatureConditions.cjs');
 const { validateZiweiChart } = require('../lib/ziweiFactValidator.cjs');
+const { DIVINATION_CATEGORIES } = require('../lib/divinationCategories.js');
+const {
+  ANSWER_SLOTS,
+  findContentFacet,
+  getContentFacets,
+} = require('../lib/divinationDimensions.js');
 
 const DEFAULT_KNOWLEDGE_ROOT = path.join(__dirname, '..', 'knowledge', 'ziwei');
 const REPORT_SCHEMA_VERSION = 'ziwei-report-output/v1';
@@ -156,6 +162,7 @@ function buildReportTemplates(knowledgeRoot) {
         clone(validate.errors),
       );
     }
+    assertSharedDimension(template, fileName);
     const key = templateKey(template.topic, template.report_preset);
     if (templates.has(key)) {
       throw makeReportError('REPORT_TEMPLATE_DUPLICATE', `报告模板重复：${key}`);
@@ -164,6 +171,43 @@ function buildReportTemplates(knowledgeRoot) {
   });
 
   return templates;
+}
+
+// 报告模板在共享主题树（lib/divinationCategories.js）上的坐标；category=null 表示跨类别（如整体报告）。
+function assertSharedDimension(template, fileName) {
+  const { category, subcategories } = template.shared_dimension;
+  const fail = (message) => {
+    throw makeReportError('REPORT_TEMPLATE_INVALID', `${fileName} 的 shared_dimension 无效：${message}`);
+  };
+  if (category === null) {
+    if (subcategories.length) fail('category 为 null 时不能声明子类');
+    return;
+  }
+  const node = DIVINATION_CATEGORIES[category];
+  if (!node) fail(`主题树中没有 ${category}`);
+  subcategories.forEach((subcategory) => {
+    const sub = node.subcategories?.[subcategory];
+    if (!sub) fail(`${category} 下没有子类 ${subcategory}`);
+    if (!sub.branches.includes('ziwei')) fail(`${category}.${subcategory} 未标注紫微可回答`);
+  });
+}
+
+function assertFacetAnnotations(proposition) {
+  (proposition.facet_annotations || []).forEach((annotation, index) => {
+    const label = `${proposition.id}.facet_annotations[${index}]`;
+    const fail = (message) => {
+      throw makeReportError('REPORT_PROPOSITION_INVALID', `${label} 无效：${message}`);
+    };
+    if (annotation.category && !DIVINATION_CATEGORIES[annotation.category]) fail(`主题树中没有 ${annotation.category}`);
+    if (annotation.subcategory && !DIVINATION_CATEGORIES[annotation.category].subcategories?.[annotation.subcategory]) {
+      fail(`${annotation.category} 下没有子类 ${annotation.subcategory}`);
+    }
+    if (annotation.facet) {
+      const facet = findContentFacet(annotation.category, annotation.subcategory, annotation.facet);
+      if (!facet) fail(`共享维度中没有 ${annotation.category}.${annotation.subcategory}.${annotation.facet}`);
+      if (facet.slot !== annotation.slot) fail(`维度 ${annotation.facet} 属于槽位 ${facet.slot}，不是 ${annotation.slot}`);
+    }
+  });
 }
 
 function buildPropositions(knowledgeRoot) {
@@ -188,6 +232,7 @@ function buildPropositions(knowledgeRoot) {
           clone(validate.errors),
         );
       }
+      assertFacetAnnotations(proposition);
       try {
         assertModifiers(proposition);
       } catch (error) {
@@ -362,6 +407,59 @@ function modifierBindings(proposition, palace) {
   };
 }
 
+/**
+ * 结论在共享维度上的落点：只采用 review_status=reviewed 的标注；
+ * 未指定 category 的标注是跨类别的槽位标注，其余须落在模板声明的类别与子类内。
+ */
+function conclusionDimensions(proposition, template) {
+  const { category, subcategories } = template.shared_dimension;
+  return (proposition.facet_annotations || [])
+    .filter((annotation) => annotation.review_status === 'reviewed')
+    .filter((annotation) => (
+      !annotation.category
+      || (annotation.category === category
+        && (!annotation.subcategory || subcategories.includes(annotation.subcategory)))
+    ))
+    .map(({ slot, category: annotationCategory, subcategory, facet, polarity }) => ({
+      slot,
+      ...(annotationCategory ? { category: annotationCategory } : {}),
+      ...(subcategory ? { subcategory } : {}),
+      ...(facet ? { facet } : {}),
+      polarity,
+    }));
+}
+
+function dimensionCoverage(conclusions, template, propositionById) {
+  const { category, subcategories } = template.shared_dimension;
+  const slotCounts = {};
+  const coveredFacets = new Set();
+  let draftAnnotationCount = 0;
+  conclusions.forEach((conclusion) => {
+    conclusion.dimensions.forEach((dimension) => {
+      slotCounts[dimension.slot] = (slotCounts[dimension.slot] || 0) + 1;
+      if (dimension.facet) coveredFacets.add(`${dimension.subcategory}.${dimension.facet}`);
+    });
+    draftAnnotationCount += (propositionById.get(conclusion.proposition_id).facet_annotations || [])
+      .filter((annotation) => annotation.review_status === 'draft').length;
+  });
+  const facets = subcategories.flatMap((subcategory) => getContentFacets(category, subcategory).map((facet) => ({
+    subcategory,
+    facet: facet.id,
+    slot: facet.slot,
+    covered: coveredFacets.has(`${subcategory}.${facet.id}`),
+  })));
+  return {
+    category,
+    subcategories: [...subcategories],
+    slots: Object.fromEntries(Object.keys(ANSWER_SLOTS)
+      .filter((slot) => slotCounts[slot])
+      .map((slot) => [slot, slotCounts[slot]])),
+    facets,
+    uncovered_facets: facets.filter((item) => !item.covered).map((item) => `${item.subcategory}.${item.facet}`),
+    draft_annotation_count: draftAnnotationCount,
+  };
+}
+
 function propositionType(proposition) {
   if (proposition.subject.palace) return 'palace';
   if (proposition.subject.stars) return 'star';
@@ -516,6 +614,10 @@ function validateReportOutput(
       throw makeReportError('REPORT_MODIFIER_MISMATCH', `${label} 的修正项与当前命盘求值结果不一致。`);
     }
 
+    if (!valuesEqual(conclusion.dimensions, conclusionDimensions(proposition, template))) {
+      throw makeReportError('REPORT_DIMENSION_MISMATCH', `${label} 的共享维度标注与已审核命题不一致。`);
+    }
+
     if (typeof conclusion.text !== 'string' || !conclusion.text.trim()) {
       throw makeReportError('REPORT_TEXT_MISSING', `${label} 缺少结论文本。`);
     }
@@ -537,6 +639,10 @@ function validateReportOutput(
       );
     }
   });
+
+  if (!valuesEqual(report.dimension_coverage, dimensionCoverage(report.conclusions, template, propositionById))) {
+    throw makeReportError('REPORT_DIMENSION_MISMATCH', '报告的共享维度覆盖统计与结论不一致。');
+  }
 
   return {
     valid: true,
@@ -596,6 +702,7 @@ function composeEvidenceReport({
         risk: proposition.risk || 'low',
         applied_modifiers: modifiers.applied,
         skipped_modifiers: modifiers.skipped,
+        dimensions: conclusionDimensions(proposition, template),
       };
     })
     .filter(Boolean)
@@ -619,6 +726,11 @@ function composeEvidenceReport({
       safety_policy: template.evidence_policy.safety_policy,
     },
     conclusions,
+    dimension_coverage: dimensionCoverage(
+      conclusions,
+      template,
+      new Map(knowledge.propositions.map((item) => [item.id, item])),
+    ),
     warnings: [
       ...clone(chart.warnings || []),
       ...requestWarnings,
