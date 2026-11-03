@@ -1,0 +1,75 @@
+{
+  "schema_version": "ziwei-feature-methods/v1",
+  "methods": [
+    {
+      "id": "method.feature.palace-star-system.v1",
+      "feature": "palace_star_system",
+      "school": "iztro-default",
+      "basis": "chart_fact",
+      "status": "reviewed",
+      "evidence": [],
+      "depends_on": [],
+      "description": "按 CLI 顺序汇总宫内主星，标记空宫。只重组盘面事实，不含解读口径。"
+    },
+    {
+      "id": "method.feature.relation-set.v1",
+      "feature": "relation_set",
+      "school": "sanhe-core",
+      "basis": "sourced_method",
+      "status": "reviewed",
+      "evidence": ["source.feixing-ziwei.p250.relations", "source.mingli-tianji.p416.analysis-order"],
+      "depends_on": [],
+      "description": "由宫位索引计算本宫、对宫、三合与前后邻宫，并与 CLI relations 交叉校验。"
+    },
+    {
+      "id": "method.feature.brightness-state.v1",
+      "feature": "brightness_state",
+      "school": "sanhe-core",
+      "basis": "sourced_method",
+      "status": "pending_source",
+      "evidence": [],
+      "depends_on": ["ontology/stars.yaml#brightness_scale"],
+      "description": "把 CLI 亮度归一为有序等级（数值越大越亮）。等级顺序待原书摘录。"
+    },
+    {
+      "id": "method.feature.sanfang-aggregate.v1",
+      "feature": "sanfang_aggregate",
+      "school": "sanhe-core",
+      "basis": "sourced_method",
+      "status": "pending_source",
+      "evidence": [],
+      "depends_on": ["ontology/stars.yaml#groups"],
+      "description": "汇总某宫本宫、对宫、三合宫中的吉星、煞星、禄存、天马与生年四化，并保留所在宫和关系类型。星曜分组待原书摘录。"
+    },
+    {
+      "id": "method.feature.jia-palace.v1",
+      "feature": "jia_palace",
+      "school": "sanhe-core",
+      "basis": "sourced_method",
+      "status": "pending_source",
+      "evidence": [],
+      "depends_on": ["ontology/stars.yaml#pairs"],
+      "description": "识别成对星分居前后邻宫形成的夹宫。夹的定义见 p250，成对星清单待原书摘录。"
+    },
+    {
+      "id": "method.feature.flying-mutagen.v1",
+      "feature": "flying_mutagen",
+      "school": "feixing-aux",
+      "basis": "sourced_method",
+      "status": "pending_source",
+      "evidence": [],
+      "depends_on": [],
+      "description": "以宫干套 iztro-default 四化表，得出飞入宫位、自化与化忌所冲之宫。飞化细则待原书摘录。"
+    },
+    {
+      "id": "method.feature.empty-palace-borrow.v1",
+      "feature": "empty_palace_borrow",
+      "school": "sanhe-core",
+      "basis": "sourced_method",
+      "status": "pending_source",
+      "evidence": [],
+      "depends_on": [],
+      "description": "空宫借对宫主星。是否同时借辅煞与四化以原书为准，当前只借主星。"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # 紫微斗数解读知识模型设计
 
-> 状态：设计稿（不含实现代码）
+> 状态：设计稿；M1（L1 派生特征层 + 可执行修正项）已实现，见 §16
 > 日期：2026-11-03
 > 上游：`ziwei-cli/v1`（`scripts/ziwei_cli.cjs`，`iztro@2.5.8`）
 > 配套：[`tasks/prd-ziwei-forward-reasoning-pipeline.md`](../tasks/prd-ziwei-forward-reasoning-pipeline.md)、[`tasks/ziwei-forward-reasoning-pipeline-stage-contracts.md`](../tasks/ziwei-forward-reasoning-pipeline-stage-contracts.md)、[`knowledge/ziwei/README.md`](../knowledge/ziwei/README.md)
@@ -107,7 +107,7 @@ L1 是新增子阶段；其余层扩展现有 Stage 的输入输出契约，不�
 | `relation_set` | 某宫的本宫、对宫、三合、邻宫集合（复用现有 `palace-relations.yaml`） | CLI `relations` | p250（已有） |
 | `sanfang_aggregate` | 某宫三方四正内的吉星、煞星、四化清单，每项保留所在宫与关系类型 | `relation_set` + 星曜分类 | p250「正、合、拱」（已有）；星曜吉煞分类**待补摘录** |
 | `jia_palace` | 邻宫两侧星曜构成的夹，如 `左辅/右弼` 夹、`擎羊/陀罗` 夹 | 邻宫 | p250「夹前后」及本宫对夹宫的修正（已有） |
-| `flying_mutagen` | 宫干四化：某宫干使某星化禄权科忌，落入何宫；派生 `self_mutagen`（自化）、`ji_clash`（忌落对宫） | 宫干 + `iztro` 的 `getMutagensByHeavenlyStem` | p249 方法论（已有）；飞化细则**待补摘录** |
+| `flying_mutagen` | 宫干四化：某宫干使某星化禄权科忌，落入何宫；派生 `self`（自化）、`clash_palace`（化忌所入宫的对宫） | 宫干 + `iztro` 的 `getMutagensByHeavenlyStem` | p249 方法论（已有）；飞化细则**待补摘录** |
 | `mutagen_stack` | 同一宫或同一星在多个时间层同时化忌、化禄等的叠加 | 本命 + 运限四化 | p409 作用域（已有） |
 | `overlay_map` | 运限十二宫与本命十二宫的映射，如「大限官禄 = 本命迁移」 | 运限 `palace_keys` | p417（摘录**待入库**） |
 
@@ -246,14 +246,14 @@ L1 是新增子阶段；其余层扩展现有 Stage 的输入输出契约，不�
   "modifiers": [
     {
       "id": "mod.pojun.in-ming.bright",
-      "when": {"feature": "brightness_state", "star": "破军", "operator": ">=", "value": "旺"},
+      "when": {"all": [{"feature": "brightness_state", "star": "破军", "path": "rank", "operator": "gte", "value": 6}]},
       "effect": "strengthen",
       "facets": ["drive_style"],
       "evidence": ["pending_source"]
     },
     {
       "id": "mod.pojun.in-ming.kongjie",
-      "when": {"feature": "sanfang_aggregate.malefic", "palace": "命宫", "contains_any": ["地空", "地劫"]},
+      "when": {"all": [{"feature": "sanfang_aggregate", "palace": "命宫", "path": "malefic", "operator": "contains_any", "value": ["地空", "地劫"]}]},
       "effect": "weaken",
       "facets": ["stability"],
       "evidence": ["pending_source"]
@@ -271,15 +271,17 @@ L1 是新增子阶段；其余层扩展现有 Stage 的输入输出契约，不�
 - `effect` 只允许 `strengthen`、`weaken`、`redirect`、`negate` 四种，并声明作用于哪些维度。
 - 每个修正项独立绑定证据；证据未审核的修正项不参与线上求值，但在 trace 中记为 `modifier_skipped: unverified`，方便审核者看到缺口。
 - 修正项命中后不改写 `claim` 文本，只在 L4 中改变该维度条目的强度标签（见 8.1），并把 `modifier_id` 和命中特征写入结论的 `matched_facts`。
-- 现有 `modifiers.strengthen/weaken` 字符串迁移为 `modifiers[].note`，作为审核参考保留，不参与求值。
+- 现有 `modifiers.strengthen/weaken` 字符串整体改名为 `modifier_notes`，作为审核参考保留，不参与求值；`modifiers` 改为可执行修正项数组。
 
 ### 6.4 条件语法
 
-条件统一为 `all / any / not` 嵌套，叶子节点为 `{feature, 定位参数, operator, value}`。操作符登记在 `knowledge/ziwei/schemas/rule.schema.json` 中，v1 只允许：
+条件统一为 `all / any / not` 嵌套，叶子节点为 `{feature, palace?, star?, path?, operator, value?}`：`feature/palace/star` 选出候选特征，`path` 取特征 `value` 内的字段（如 `malefic`、`rank`），任一候选满足即命中。操作符登记在 `knowledge/ziwei/schemas/interpretation.schema.json` 与 `lib/ziweiFeatureConditions.cjs`，v1 只允许：
 
-`equals`、`contains`、`contains_any`、`contains_all`、`>=`、`<=`、`count >=`、`exists`、`not_exists`
+`equals`、`contains`、`contains_any`、`contains_all`、`gte`、`lte`、`count_gte`、`exists`、`not_exists`
 
-不允许正则、自由表达式或调用外部函数。未登记的操作符在编译期（`ziwei_rule_compile.cjs`）报错。
+亮度比较使用 `brightness_state` 的数值 `rank`（庙 7 … 陷 1）。`palace`、`star`、`value` 可以使用绑定 `$matched_palace`（命题命中的报告宫位）和 `$subject_star`（命题的单一主体星），使「任意宫」的星曜命题也能写出指向自身落宫的修正项。
+
+不允许正则、自由表达式或调用外部函数。未登记的特征、操作符或绑定在加载命题时（Schema 校验 + `assertModifiers`）报错。
 
 ## 7. 运行时求值顺序（Stage 5）
 
@@ -485,3 +487,33 @@ M1 可以立即开始，是后续所有层的地基。
 3. **格局与单星的关系**：格局成立时，是否压制同宫单星命题，还是只把它们降为 `supporting`（本文默认降级，不压制）。
 4. **飞化的产品可见度**：`feixing-aux` 结论在 UI 中默认展开还是折叠（PRD Open Question 3 的延伸）。
 5. **强度三档规则**：`strength` 由修正项方向推出的具体规则，需在 M2 前用金标盘校准，并确认不构成变相评分。
+
+## 16. M1 实现记录
+
+**已实现**
+
+| 内容 | 位置 |
+| --- | --- |
+| L1 派生特征（本命）：`palace_star_system`、`relation_set`、`brightness_state`、`sanfang_aggregate`、`jia_palace`、`flying_mutagen`、`empty_palace_borrow` | `lib/ziweiFeatureDeriver.cjs` |
+| 特征方法登记与审核状态 | `knowledge/ziwei/rules/derivation/feature-methods.yaml`、`schemas/feature-method.schema.json` |
+| 星曜分组、成对星、亮度等级本体（`pending_source`） | `knowledge/ziwei/ontology/stars.yaml` |
+| 特征条件求值与可执行修正项 | `lib/ziweiFeatureConditions.cjs` |
+| 命题文档升级为 `ziwei-interpretations/v2`：`modifier_notes` + `modifiers[]` | `knowledge/ziwei/interpretations/`、`schemas/interpretation.schema.json` |
+| 报告组装接入：每条结论输出 `applied_modifiers` / `skipped_modifiers`，校验时重新求值比对 | `scripts/ziwei_report_evidence.cjs` |
+| 测试 | `scripts/ziwei_feature_deriver.test.cjs`（新增）及既有紫微测试 |
+
+**门禁**
+
+- 特征方法只有 `palace_star_system`（纯盘面重组）与 `relation_set`（p250、p416）为 `reviewed`，其余五类为 `pending_source`。
+- 方法标 `reviewed` 时，加载器强制要求：`sourced_method` 至少一条已视觉复核来源；依赖的本体（如星曜分组）也必须是 `reviewed`。
+- 修正项依次检查：来源已视觉复核 → 所用特征方法为 `reviewed` → 条件命中。未通过的修正项写入 `skipped_modifiers` 并注明原因（`evidence_unverified`、`feature_method_pending_source`、`condition_not_met`），供审核者查看缺口；`allowPendingMethods` 仅供测试与 trace。
+
+**与设计的差异**
+
+- 所有现有命题的 `modifiers` 暂为空数组：旧的文字修正项没有逐条来源，不能直接转成可执行条件。回归基线（结论数量）保持不变。
+- `mutagen_stack`、`overlay_map` 依赖运限快照，留到 M5；M1 的特征集只读取 `natal`。
+- 宫干飞化用 `iztro` 的 `getMutagensByHeavenlyStem`，测试验证生年干飞化与 CLI 本命四化一致。
+
+**下一步**
+
+补齐 `stars.yaml` 和亮度等级的原书摘录后，可把 `sanfang_aggregate`、`jia_palace`、`brightness_state` 升为 `reviewed`；随后在 M2 为「星 × 宫」命题编写首批可执行修正项。

@@ -61,7 +61,7 @@ function loadPropositions(knowledgeRoot) {
   return INTERPRETATION_FILES.flatMap((relativePath) => {
     const document = YAML.parse(fs.readFileSync(path.join(knowledgeRoot, relativePath), 'utf8'));
     if (
-      document?.schema_version !== 'ziwei-interpretations/v1'
+      document?.schema_version !== 'ziwei-interpretations/v2'
       || !Array.isArray(document.propositions)
     ) {
       throw makeEvalError(

@@ -5,6 +5,8 @@ const fs = require('node:fs');
 const path = require('node:path');
 const Ajv = require('ajv');
 const YAML = require('yaml');
+const { deriveFeatureSet } = require('../lib/ziweiFeatureDeriver.cjs');
+const { assertModifiers, evaluateModifiers } = require('../lib/ziweiFeatureConditions.cjs');
 
 const DEFAULT_KNOWLEDGE_ROOT = path.join(__dirname, '..', 'knowledge', 'ziwei');
 const REPORT_SCHEMA_VERSION = 'ziwei-report-output/v1';
@@ -108,7 +110,7 @@ function loadPropositions(knowledgeRoot) {
 
   INTERPRETATION_FILES.forEach((relativePath) => {
     const document = readYaml(path.join(knowledgeRoot, relativePath));
-    if (document?.schema_version !== 'ziwei-interpretations/v1') {
+    if (document?.schema_version !== 'ziwei-interpretations/v2') {
       throw makeReportError(
         'REPORT_PROPOSITION_SET_INVALID',
         `${relativePath} 的 schema_version 无效。`,
@@ -121,6 +123,11 @@ function loadPropositions(knowledgeRoot) {
           `${proposition?.id || relativePath} 不符合解释命题 Schema。`,
           clone(validate.errors),
         );
+      }
+      try {
+        assertModifiers(proposition);
+      } catch (error) {
+        throw makeReportError('REPORT_PROPOSITION_INVALID', `${proposition.id} 的修正项无效：${error.message}`);
       }
       if (ids.has(proposition.id)) {
         throw makeReportError('REPORT_PROPOSITION_DUPLICATE', `解释命题 ID 重复：${proposition.id}`);
@@ -287,6 +294,13 @@ function conditionMatchFacts(condition, facts) {
   return matched.length ? matched : null;
 }
 
+function modifierBindings(proposition, palace) {
+  return {
+    matched_palace: palace,
+    subject_star: proposition.subject.stars?.length === 1 ? proposition.subject.stars[0] : undefined,
+  };
+}
+
 function propositionType(proposition) {
   if (proposition.subject.palace) return 'palace';
   if (proposition.subject.stars) return 'star';
@@ -361,6 +375,7 @@ function validateReportOutput(
   const sources = loadSources(knowledgeRoot);
   const safety = loadSafetyPolicy(knowledgeRoot);
   const chartFacts = projectChartFacts(chart, { knowledgeRoot });
+  const featureSet = deriveFeatureSet(chart, { knowledgeRoot });
 
   report.conclusions.forEach((conclusion, index) => {
     const label = conclusion?.proposition_id || `<conclusion:${index}>`;
@@ -423,6 +438,17 @@ function validateReportOutput(
       }
     });
 
+    const expectedModifiers = evaluateModifiers(proposition, featureSet, {
+      sources,
+      bindings: modifierBindings(proposition, conclusion.palace),
+    });
+    if (
+      !valuesEqual(conclusion.applied_modifiers, expectedModifiers.applied)
+      || !valuesEqual(conclusion.skipped_modifiers, expectedModifiers.skipped)
+    ) {
+      throw makeReportError('REPORT_MODIFIER_MISMATCH', `${label} 的修正项与当前命盘求值结果不一致。`);
+    }
+
     if (typeof conclusion.text !== 'string' || !conclusion.text.trim()) {
       throw makeReportError('REPORT_TEXT_MISSING', `${label} 缺少结论文本。`);
     }
@@ -466,6 +492,8 @@ function composeEvidenceReport({
   }
 
   const facts = projectChartFacts(chart, { knowledgeRoot });
+  const featureSet = deriveFeatureSet(chart, { knowledgeRoot });
+  const sources = loadSources(knowledgeRoot);
   const propositions = loadPropositions(knowledgeRoot);
   const conclusions = propositions
     .filter((proposition) => proposition.status === 'reviewed')
@@ -475,6 +503,10 @@ function composeEvidenceReport({
       if (matchedFacts === null) return null;
       const palace = highestPriorityPalace(matchedFacts, template);
       if (!palace) return null;
+      const modifiers = evaluateModifiers(proposition, featureSet, {
+        sources,
+        bindings: modifierBindings(proposition, palace),
+      });
       return {
         proposition_id: proposition.id,
         context_role: propositionContextRole(proposition, template),
@@ -487,6 +519,8 @@ function composeEvidenceReport({
         scope: proposition.scope,
         confidence: proposition.confidence,
         risk: proposition.risk || 'low',
+        applied_modifiers: modifiers.applied,
+        skipped_modifiers: modifiers.skipped,
       };
     })
     .filter(Boolean)
