@@ -314,7 +314,7 @@
 | 冲动 | **完整** | `MECH.CHONG_DONG` |
 | 合动 | **完整** | `MECH.HE_DONG` |
 | 合化/合而不化 | **完整** | `MECH.HE_HUA/HE_BU_HUA` |
-| 伏吟/反吟 | **完整** | `isFuyin()` / `isFantin()`（`baziDynamicAssessor.js`，反吟函数名在代码中拼作 Fantin） |
+| 伏吟/反吟 | **完整** | `isFuyin()` / `isFanyin()`（`baziDynamicAssessor.js`） |
 | 开墓库 | **完整** | `MECH.KAI_MU` |
 | 透干引动 | **完整** | `MECH.TOU_GAN` |
 | 填实三合 | **完整** | `MECH.TIAN_SHI` |
