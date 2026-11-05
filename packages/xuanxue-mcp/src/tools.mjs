@@ -71,18 +71,36 @@ function formatIssues(error) {
 let cached;
 const getEngine = () => (cached ??= loadEngine());
 
+// 引擎或 cliEnvelope 都加载失败时的本地兜底，绝不把原始异常或绝对路径带给客户端
+const ENGINE_FALLBACK = () => ({
+  ok: false,
+  code: 'ENGINE_ERROR',
+  message: '引擎加载失败（详情已隐藏）',
+  hint: '引擎出现非预期错误。请不要自行心算排盘；可检查输入后重试，仍失败请向用户如实说明',
+});
+
+// input_summary 只记录工具名与 mode/action，不含出生信息
+function summarize(name, args) {
+  const sel = args && typeof args === 'object' ? (args.mode ?? args.action) : undefined;
+  return typeof sel === 'string' ? `${name}:${sel}` : name;
+}
+
 function makeRun(name) {
   const schema = z.object(SHAPES[name]);
   return (args) => {
-    const { cliEnvelope, [name]: engineRun } = getEngine();
-    const parsed = schema.safeParse(args ?? {});
-    if (!parsed.success) {
-      return cliEnvelope.fail('BAD_JSON', `参数校验失败：${formatIssues(parsed.error)}`);
-    }
     try {
-      return engineRun(parsed.data);
-    } catch (err) {
-      return cliEnvelope.toFailure(err);
+      const { cliEnvelope, [name]: engineRun } = getEngine();
+      const parsed = schema.safeParse(args ?? {});
+      if (!parsed.success) {
+        return cliEnvelope.fail('BAD_JSON', `参数校验失败：${formatIssues(parsed.error)}`);
+      }
+      try {
+        return engineRun(parsed.data);
+      } catch (err) {
+        return cliEnvelope.toFailure(err, { input_summary: summarize(name, args) });
+      }
+    } catch {
+      return ENGINE_FALLBACK();
     }
   };
 }
@@ -100,4 +118,18 @@ export function toToolResult(env) {
     structuredContent: env,
     isError: env.ok === false,
   };
+}
+
+// 按工具名分发；未知工具返回失败外层而不是协议错误
+export function runTool(name, args) {
+  const tool = TOOLS.find((t) => t.name === name);
+  if (!tool) {
+    return {
+      ok: false,
+      code: 'BAD_JSON',
+      message: `未知工具：${name}。可用工具：${TOOLS.map((t) => t.name).join('、')}`,
+      hint: '输入不是合法 JSON。请检查引号、逗号和括号后重新生成输入',
+    };
+  }
+  return tool.run(args);
 }

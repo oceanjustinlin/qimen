@@ -45,6 +45,14 @@ test('参数校验失败 → BAD_JSON 外层而非 SDK 默认文本', async () =
   assert.doesNotMatch(r.content[0].text, /Input validation error/);
 });
 
+test('未知工具名 → BAD_JSON 外层，isError true', async () => {
+  const r = await call('nope', {});
+  assert.equal(r.isError, true);
+  assert.equal(r.structuredContent.code, 'BAD_JSON');
+  assert.match(r.structuredContent.message, /nope/);
+  assert.doesNotMatch(r.content[0].text, /not found/i);
+});
+
 test('ziwei evidence 正常；topic=health → TOPIC_UNSUPPORTED', async () => {
   const ok = await call('ziwei', { birth, mode: 'evidence', topic: 'career' });
   assert.equal(ok.structuredContent.ok, true);

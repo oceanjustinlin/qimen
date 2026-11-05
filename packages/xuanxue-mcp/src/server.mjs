@@ -3,20 +3,23 @@ import { realpathSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
-import { TOOLS, toToolResult } from './tools.mjs';
+import { CallToolRequestSchema } from '@modelcontextprotocol/sdk/types.js';
+import { TOOLS, runTool, toToolResult } from './tools.mjs';
 
 export function createServer() {
   const server = new McpServer({ name: 'xuanxue-mcp', version: '0.1.0' });
-  // 入参由 tools.mjs 自行 safeParse 并返回 BAD_JSON 外层；
-  // 这里跳过 SDK 自带校验，避免客户端收到 SDK 默认的错误文本（inputSchema 仍用于 listTools 展示）
-  server.validateToolInput = async (_tool, args) => args ?? {};
   for (const tool of TOOLS) {
+    // 注册仅用于 listTools 展示真实 inputSchema；调用由下方自定义 handler 接管
     server.registerTool(
       tool.name,
       { description: tool.description, inputSchema: tool.inputSchema },
       async (args) => toToolResult(tool.run(args)),
     );
   }
+  // 自行分发 tools/call：校验失败与未知工具都返回 BAD_JSON 外层，而不是 SDK 默认错误文本
+  server.server.setRequestHandler(CallToolRequestSchema, async (req) => (
+    toToolResult(runTool(req.params.name, req.params.arguments))
+  ));
   return server;
 }
 
