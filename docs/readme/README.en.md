@@ -25,12 +25,13 @@
 
 > **Ready to use**: any command-line-capable AI agent can directly invoke the two "conversational chart-casting" skills distilled from this project — the conversational side and the web app share the same deterministic rule foundation.
 
-Both skills are **isomorphic**, following an **interview → deterministic computation (script) → AI interpretation** three-stage flow: clarify the question first, run fixed calculations via script (never let the model do chart math in its head), then translate the structured conclusion into readable, actionable language. The compute core is fully local and needs no API key — the agent only needs to run a script.
+All three skills are **isomorphic**, following an **interview → deterministic computation (script) → AI interpretation** three-stage flow: clarify the question first, run fixed calculations via script (never let the model do chart math in its head), then translate the structured conclusion into readable, actionable language. The compute core is fully local and needs no API key — the agent only needs to run a script.
 
 | Skill | What it reads | Compute core | Definition |
 | --- | --- | --- | --- |
 | **Qimen Dunjia** `qimen-dunjia` | concrete events, timing windows, direction, avoidance | `scripts/qimen_cli.py` (Shi Jia turning-plate, Python) | [SKILL.md](../skills/qimen-dunjia/SKILL.md) |
 | **Four Pillars (Bazi)** `bazi` | natal structure, disposition, luck cycles, timing of a matter | `scripts/bazi_cli.cjs` (reuses the production engine, Node) | [SKILL.md](../../.claude/skills/bazi/SKILL.md) |
+| **Zi Wei Dou Shu** `ziwei` | twelve-palace structure, star traits and transformations, decade/annual shifts | `scripts/ziwei_skill_cli.cjs` (iztro chart + reviewed knowledge-base evidence, Node) | [SKILL.md](../../.claude/skills/ziwei/SKILL.md) |
 
 - **Why not let the model cast the chart itself**: chart generation, patterns, strength, favorable/unfavorable gods, and question reasoning are all deterministic — handed entirely to the script; the model only interviews and interprets, avoiding non-reproducible errors from "mentally computing" day pillars and luck cycles.
 - **The Bazi skill ships with layered checks**: `scripts/bazi_cli.test.cjs` (lossless-wrapper parity test, wired into `npm test`) plus [`eval/bazi-skill/`](../../eval/bazi-skill/) (triggering accuracy, route prediction, interpretation faithfulness).
