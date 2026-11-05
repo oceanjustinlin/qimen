@@ -29,8 +29,8 @@ compatibility: Requires Node.js + repo deps (iztro@2.5.8). Run scripts/ziwei_ski
 
 - **排盘口径唯一**：`iztro-default`（iztro 2.5.8，公历输入，早/晚子时分开）。不同流派安星或亮度表有差异时，以引擎为准，不得"按某书应该是……"改盘。
 - **三档证据**（详见 `references/reading-guide.md`）：
-  - **A 级·已审核命题**：`evidence.topic_report.conclusions` 与 `periods[].annual_overview.conclusions`。来源已原页复核，可作为结论主干。
-  - **B 级·确定性事实**：`chart`、方法状态为 `reviewed` 的派生特征（宫位星系、三方四正关系、运限叠宫、运限四化落宫）。可直接引用。
+  - **A 级·已审核命题**：`judgments.topic_report.conclusions` 与 `judgments.annual_overviews[].report.conclusions`（`evidence[]` 只列出处：规则 ID、书目、页码、章节，不含古籍正文）。来源已原页复核，可作为结论主干。
+  - **B 级·确定性事实**：`chart`（含 `chart.natal_features`、`chart.periods`）、方法状态为 `reviewed` 的派生特征（宫位星系、三方四正关系、运限叠宫、运限四化落宫）。可直接引用。
   - **C 级·结构推断**：方法状态为 `pending_source` 的特征（亮度分组、三方会照聚合、夹宫、宫干飞化、空宫借星、四化叠加）以及古籍象义。可以用，但措辞必须标明"按传统看法 / 结构推断"，且不得压过 A、B 级。
 - **流派隔离**：三合判断为主；四化飞星只作补充视角，冲突时并列说明，不静默合并。
 - **《飞星紫微斗数》前两卷是另一套"十八飞星"体系**（天虚、天贵、天印、毛头、天刃、天哭等），星曜与本引擎不通用，**严禁**拿来解读 iztro 盘。详见 `references/classical-feixing.md`。
@@ -48,8 +48,8 @@ compatibility: Requires Node.js + repo deps (iztro@2.5.8). Run scripts/ziwei_ski
 - **仅公历**。用户给农历时先协助换算成公历再排，并说明。
 - **出生时间必须到分钟**（至少能确定时辰）。紫微的命宫由时辰决定，时辰错则全盘错；不知道时辰时**不排盘**，可改为理论讲解或建议用八字。
 - **时辰边界**：出生时间离时辰交界（奇数整点）不足 15 分钟时，提醒用户命盘可能落在相邻时辰，必要时两盘对照。
-- **子时**：iztro 区分早子时（00:00–01:00）与晚子时（23:00–24:00），日期不做额外加减。
-- **真太阳时**：脚本不换算经度。用户明确给出的是真太阳时，传 `"time_basis":"true_solar"`；否则按民用钟表时间，脚本会带 `ZIWEI_USING_UNADJUSTED_PROFILE_TIME` 警告，解读时提一句即可。
+- **子时**：iztro 区分早子时（00:00–01:00）与晚子时（23:00–24:00），晚子时算次日（输出 `conventions.zi_hour`），日期不做额外加减。
+- **真太阳时**：给出出生地（`birth.location.place` 或 `longitude`）时，脚本自动换算真太阳时（含 1986–1991 夏令时）并以换算结果排盘，`input.solar_time` 记录换算过程，请在报告中说明。用户明确给出的已是真太阳时，传 `"time_basis":"true_solar"`；两者都没有则按民用钟表时间，脚本会带 `ZIWEI_USING_UNADJUSTED_PROFILE_TIME` 警告，解读时提一句即可。
 - **流年取值**：脚本以每年 7 月 1 日取运限快照，确保落在该干支流年内。流年按农历年（约春节起）计，跨年初的事要说明边界。
 
 ## 工作流
@@ -70,7 +70,7 @@ compatibility: Requires Node.js + repo deps (iztro@2.5.8). Run scripts/ziwei_ski
 
 ### 第 2 步：路由（topic × time_scope）
 
-主题与时间维度分开判断，**显式传入**脚本：
+主题与时间维度分开判断，**显式传入**脚本（顶层字段 `topic`、`time_scope`）：
 
 | topic | 适用 | 主宫 | 合参宫位 |
 | --- | --- | --- | --- |
@@ -96,17 +96,19 @@ compatibility: Requires Node.js + repo deps (iztro@2.5.8). Run scripts/ziwei_ski
 
 ```bash
 mkdir -p tmp && echo '{
-  "birth": {"date":"1990-05-01","time":"14:00","gender":"男"},
-  "question": "未来两年事业有什么变化",
-  "route": {"topic":"career","time_scope":{"type":"cross_period","start_year":2026,"end_year":2027}},
-  "currentYear": 2026
+  "birth": {"date":"1990-05-01","time":"14:00","gender":"男","location":{"place":"北京"}},
+  "mode": "evidence",
+  "topic": "career",
+  "time_scope": {"type":"cross_period","start_year":2026,"end_year":2027},
+  "current_year": 2026
 }' | node scripts/ziwei_skill_cli.cjs > tmp/ziwei-evidence.json
 ```
 
+- `mode`：`chart` 只输出盘面与运限事实（不含已审核命题）；`evidence` 额外输出 `judgments` 与 `evidence[]`。旧值 `natal` 视为 `chart`；不传时给了 `topic`/`time_scope` 即 `evidence`，否则 `chart`。
 - 只看命盘：省略 `time_scope` 或传 `{"type":"natal"}`。
-- 便捷路径：`node scripts/ziwei_skill_cli.cjs --date 1990-05-01 --time 14:00 --gender 男 --topic career --year 2026`。
+- 便捷路径：`node scripts/ziwei_skill_cli.cjs --date 1990-05-01 --time 14:00 --gender 男 --topic career --year 2026`（可加 `--place 北京` 或 `--longitude 116.4`、`--time-basis true_solar`）。缺 `--time` 或 `--gender` 会报错，不会默认。
 - 输出较大（约 50–100 KB），先存文件再按需读取字段。
-- 出错时输出 `{"ok":false,"code":...,"error":...}` 且退出码非 0：把 `error` 转成对用户的追问。脚本失败时停止正式解盘，**不得心算替代**。
+- 成功输出统一外层（`ok:true`、`system:"ziwei"`、`input`、`conventions`、`chart`、`judgments`、`evidence`、`confidence`、`limitations`、`warnings`）。出错时输出 `{"ok":false,"code":...,"message":...,"hint":...}` 且退出码非 0：按 `hint` 把问题转成对用户的追问（如 `TIME_REQUIRED` 追问出生时辰）。脚本失败时停止正式解盘，**不得心算替代**。
 
 完整字段说明见 `references/reading-guide.md`。
 
@@ -170,7 +172,7 @@ mkdir -p tmp && echo '{
 ## 同盘追问
 
 - 同一张盘的深挖：不重排，直接读已存的证据包。
-- 需要新的年份或主题：只改 `route` 重跑脚本，命盘部分应与上次一致；不一致说明出生信息被改动，先和用户确认。
+- 需要新的年份或主题：只改 `topic` / `time_scope` 重跑脚本，命盘部分应与上次一致；不一致说明出生信息被改动，先和用户确认。
 - 用户补充了新的出生信息：重新排盘，并用"原判断 → 因出生时间修正调整为……"说明变化。
 
 ## 禁止事项

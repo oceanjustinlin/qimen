@@ -12,6 +12,8 @@ const { run: runZiweiCli } = require('./ziwei_cli.cjs');
 const { composeEvidenceReport } = require('./ziwei_report_evidence.cjs');
 const { deriveFeatureSet } = require('../lib/ziweiFeatureDeriver.cjs');
 const { deriveDynamicFeatureSet } = require('../lib/ziweiDynamicFeatures.cjs');
+const { parseBirth } = require('../lib/birthInput.cjs');
+const { ok, toFailure } = require('../lib/cliEnvelope.cjs');
 
 const SCHEMA_VERSION = 'ziwei-skill/v1';
 const TOPICS = ['overall', 'career', 'wealth', 'relationship'];
@@ -50,18 +52,31 @@ function parseFlags(argv) {
 
 function readInput() {
   const flags = parseFlags(process.argv.slice(2));
-  if (flags.file) return JSON.parse(fs.readFileSync(flags.file, 'utf8'));
-  if (flags.date && flags.time && flags.gender) {
-    return {
-      birth: { date: flags.date, time: flags.time, gender: flags.gender },
-      question: typeof flags.question === 'string' ? flags.question : undefined,
-      route: {
-        topic: flags.topic || 'overall',
-        time_scope: flags.year
-          ? { type: flags.scope || 'cross_period', start_year: Number(flags.year), end_year: Number(flags['end-year'] || flags.year) }
-          : { type: 'natal' },
-      },
-    };
+  if (flags.file) {
+    try {
+      return JSON.parse(fs.readFileSync(flags.file, 'utf8'));
+    } catch (error) {
+      throw skillError('BAD_JSON', `--file 无法读取或不是合法 JSON：${error.message}`);
+    }
+  }
+  if (flags.date) {
+    // 不设默认：缺 --time / --gender 由 parseBirth 报 TIME_REQUIRED / BIRTH_INCOMPLETE
+    const birth = { date: String(flags.date) };
+    if (flags.time !== undefined) birth.time = String(flags.time);
+    if (flags.gender !== undefined) birth.gender = String(flags.gender);
+    if (flags.place !== undefined || flags.longitude !== undefined) {
+      birth.location = {};
+      if (typeof flags.place === 'string') birth.location.place = flags.place;
+      if (typeof flags.longitude === 'string') birth.location.longitude = Number(flags.longitude);
+    }
+    if (flags['time-basis'] !== undefined) birth.time_basis = String(flags['time-basis']);
+    const out = { birth, topic: flags.topic || 'overall' };
+    if (typeof flags.mode === 'string') out.mode = flags.mode;
+    if (typeof flags.question === 'string') out.question = flags.question;
+    if (flags.year) {
+      out.time_scope = { type: flags.scope || 'cross_period', start_year: Number(flags.year), end_year: Number(flags['end-year'] || flags.year) };
+    }
+    return out;
   }
   if (process.stdin.isTTY) {
     throw skillError('NO_INPUT', '请通过 stdin JSON、--file，或 --date/--time/--gender 提供输入。');
@@ -75,16 +90,18 @@ function readInput() {
   }
 }
 
-// birth.time_basis = "true_solar" 表示用户给的已是真太阳时，作为校正时间传入；
-// 其余情况按民用钟表时间传入，并保留引擎的 ZIWEI_USING_UNADJUSTED_PROFILE_TIME 警告。
-function toProfileSnapshot(birth = {}) {
-  if (!birth.date || !birth.time || !birth.gender) {
-    throw skillError('BIRTH_INCOMPLETE', '紫微排盘需要公历出生日期、精确到分钟的出生时间和性别。');
+const pad2 = (n) => String(n).padStart(2, '0');
+const fmtDateTime = (t) => `${t.year}-${pad2(t.month)}-${pad2(t.day)} ${pad2(t.hour)}:${pad2(t.minute)}:00`;
+
+// 入参为 parseBirth 的产物（NormalizedBirth）。
+// 有出生地换算（solar_time）或用户声明 time_basis=true_solar 时，把 effective 作为校正时间传入引擎（apparent）；
+// 其余情况只传民用钟表时间，并保留引擎的 ZIWEI_USING_UNADJUSTED_PROFILE_TIME 警告。
+function toProfileSnapshot(nb) {
+  const birthDate = fmtDateTime(nb.clock);
+  if (nb.solar_time || nb.time_basis === 'true_solar') {
+    return { gender: nb.gender, birth_date: birthDate, adjusted_birth_date: fmtDateTime(nb.effective), solar_time_mode: 'apparent' };
   }
-  const datetime = `${birth.date} ${birth.time.length === 5 ? `${birth.time}:00` : birth.time}`;
-  return birth.time_basis === 'true_solar'
-    ? { gender: birth.gender, birth_date: datetime, adjusted_birth_date: datetime, solar_time_mode: 'apparent' }
-    : { gender: birth.gender, birth_date: datetime };
+  return { gender: nb.gender, birth_date: birthDate };
 }
 
 function normalizeRoute(route = {}, currentYear) {
@@ -148,54 +165,145 @@ function summarizePeriod(period, natalPalaces) {
 }
 
 function runReport(chart, topic, preset) {
-  try {
-    return composeEvidenceReport({ chart, topic, report_preset: preset });
-  } catch (error) {
-    return { error: { code: error.code || 'REPORT_ERROR', message: error.message } };
-  }
+  return composeEvidenceReport({ chart, topic, report_preset: preset });
 }
 
-function run(input, { now = new Date() } = {}) {
-  const currentYear = Number(input.currentYear) || now.getFullYear();
-  const profile = input.profile_snapshot || toProfileSnapshot(input.birth);
-  const route = normalizeRoute(input.route, currentYear);
+// 证据来源元数据：只取登记信息（标题、页码、章节），绝不读取或输出摘录正文字段。
+let sourceMetaCache;
+function loadSourceMeta() {
+  if (sourceMetaCache) return sourceMetaCache;
+  sourceMetaCache = new Map();
+  const root = path.join(__dirname, '..', 'knowledge', 'ziwei', 'sources');
+  for (const dir of fs.readdirSync(root)) {
+    const file = path.join(root, dir, 'excerpts.jsonl');
+    if (!fs.existsSync(file)) continue;
+    for (const line of fs.readFileSync(file, 'utf8').split('\n')) {
+      if (!line.trim()) continue;
+      const row = JSON.parse(line);
+      sourceMetaCache.set(row.id, { title: row.title, printed_page: row.printed_page, section: row.section });
+    }
+  }
+  return sourceMetaCache;
+}
+
+function collectEvidence(reports) {
+  const meta = loadSourceMeta();
+  const seen = new Set();
+  const items = [];
+  for (const report of reports) {
+    for (const conclusion of report.conclusions) {
+      for (const sourceId of conclusion.evidence_ids) {
+        const key = `${conclusion.proposition_id}|${sourceId}`;
+        if (seen.has(key)) continue;
+        seen.add(key);
+        const m = meta.get(sourceId) || {};
+        const item = { rule_id: conclusion.proposition_id, source_id: sourceId };
+        if (typeof m.title === 'string') item.title = m.title;
+        if (typeof m.printed_page === 'string' || typeof m.printed_page === 'number') item.printed_page = m.printed_page;
+        if (typeof m.section === 'string') item.section = m.section;
+        items.push(item);
+      }
+    }
+  }
+  return items;
+}
+
+// 取引擎各结论自带 confidence 中最保守的一档；没有结论则为 null。
+const CONFIDENCE_RANK = { high: 3, medium: 2, low: 1 };
+function deriveConfidence(reports) {
+  let min = null;
+  for (const report of reports) {
+    for (const conclusion of report.conclusions) {
+      const rank = CONFIDENCE_RANK[conclusion.confidence];
+      if (rank && (min === null || rank < CONFIDENCE_RANK[min])) min = conclusion.confidence;
+    }
+  }
+  return min;
+}
+
+/**
+ * run(input) → 统一输出外层 Envelope（出错时抛带 code 的 Error，由调用方用 toFailure 转换）
+ * input: { birth, mode?: 'chart'|'evidence', topic?, time_scope?, current_year?, question? }
+ *   旧 mode 'natal' 视为 chart；旧 route:{topic,time_scope} 与 currentYear 仍兼容。
+ *   未指定 mode 时：给了 topic 或 time_scope 为 evidence，否则 chart。
+ */
+function run(input = {}, { now = new Date() } = {}) {
+  const inp = input && typeof input === 'object' ? input : {};
+  const route = inp.route && typeof inp.route === 'object' ? inp.route : {};
+  const topicIn = inp.topic !== undefined ? inp.topic : route.topic;
+  const scopeIn = inp.time_scope !== undefined ? inp.time_scope : route.time_scope;
+  let mode = inp.mode === 'natal' ? 'chart' : inp.mode;
+  if (mode === undefined) mode = (topicIn !== undefined || scopeIn !== undefined) ? 'evidence' : 'chart';
+  if (mode !== 'chart' && mode !== 'evidence') {
+    throw skillError('MODE_INVALID', `mode 只能是 chart 或 evidence，收到：${mode}`);
+  }
+  const rawYear = inp.current_year !== undefined ? inp.current_year : inp.currentYear;
+  const currentYear = Number.isFinite(Number(rawYear)) && rawYear !== undefined && rawYear !== null ? Number(rawYear) : now.getFullYear();
+
+  const nb = parseBirth(inp.birth);
+  const normalized = normalizeRoute({ topic: topicIn, time_scope: scopeIn }, currentYear);
+  const profile = toProfileSnapshot(nb);
 
   const natalChart = runZiweiCli({ mode: 'natal', profile_snapshot: profile });
   const { natal } = natalChart;
+  const evidenceMode = mode === 'evidence';
 
-  const periods = route.years.map((year) => {
+  const periods = [];
+  const annualOverviews = [];
+  for (const year of normalized.years) {
     // 取当年 7 月 1 日：确保落在该干支流年内（农历新年之后），避免 1–2 月仍属上一流年。
-    const target = `${year}-07-01`;
-    const chart = runZiweiCli({ mode: 'natal', profile_snapshot: profile, target_datetime: target });
+    let chart;
+    try {
+      chart = runZiweiCli({ mode: 'natal', profile_snapshot: profile, target_datetime: `${year}-07-01` });
+    } catch (error) {
+      // 运限年份早于出生或超出大限：属于调用方的时间范围问题，归为 TIME_SCOPE_INVALID 而非引擎错误
+      if (error.code === 'TARGET_BEFORE_BIRTH' || error.code === 'TARGET_OUT_OF_DECADAL_RANGE') {
+        throw skillError('TIME_SCOPE_INVALID', `${year} 年超出可推算范围：${error.message}`);
+      }
+      throw error;
+    }
     const dynamic = deriveDynamicFeatureSet(chart);
-    return {
+    periods.push({
       year,
       target_datetime: chart.horoscope.target_datetime,
       decadal: summarizePeriod(chart.horoscope.decadal, natal.palaces),
       yearly: summarizePeriod(chart.horoscope.yearly, natal.palaces),
       dynamic_snapshots: dynamic.snapshots,
       dynamic_features: dynamic.features,
-      annual_overview: runReport(chart, 'overall', 'annual_overview'),
-      ...(input.options?.include_raw_horoscope ? { raw_horoscope: chart.horoscope } : {}),
-    };
-  });
+      ...(inp.options?.include_raw_horoscope ? { raw_horoscope: chart.horoscope } : {}),
+    });
+    if (evidenceMode) annualOverviews.push({ year, report: runReport(chart, 'overall', 'annual_overview') });
+  }
 
-  const topicReport = runReport(natalChart, route.topic, 'standard');
+  const judgments = {};
   const limitations = [];
-  if (!topicReport.error && topicReport.conclusions.length === 0) {
-    limitations.push('该主题没有命中已审核命题，解读只能基于盘面结构推断，须如实标注。');
-  }
-  if (periods.length && periods.every((p) => !p.annual_overview.error && p.annual_overview.conclusions.length === 0)) {
-    limitations.push('流年层暂无已审核命题；运限部分只能读取叠宫与四化落点等确定性事实，再做标注过的推断。');
+  let evidence = [];
+  let confidence = null;
+  if (evidenceMode) {
+    const topicReport = runReport(natalChart, normalized.topic, 'standard');
+    judgments.topic_report = topicReport;
+    judgments.annual_overviews = annualOverviews;
+    const reports = [topicReport, ...annualOverviews.map((a) => a.report)];
+    evidence = collectEvidence(reports);
+    confidence = deriveConfidence(reports);
+    if (topicReport.conclusions.length === 0) {
+      limitations.push('该主题没有命中已审核命题，解读只能基于盘面结构推断，须如实标注。');
+    }
+    if (annualOverviews.length && annualOverviews.every((a) => a.report.conclusions.length === 0)) {
+      limitations.push('流年层暂无已审核命题；运限部分只能读取叠宫与四化落点等确定性事实，再做标注过的推断。');
+    }
   }
 
-  return {
-    ok: true,
-    schema_version: SCHEMA_VERSION,
-    engine: natalChart.engine,
-    input: natalChart.input,
-    question: input.question || null,
-    route,
+  const normalizedInput = { ...nb, mode, topic: normalized.topic, time_scope: normalized.time_scope, current_year: currentYear };
+  if (typeof inp.question === 'string' && inp.question.trim()) normalizedInput.question = inp.question.trim();
+
+  return ok({
+    system: 'ziwei',
+    mode,
+    engine_version: `${natalChart.engine.library}@${natalChart.engine.library_version}`,
+    ruleset: SCHEMA_VERSION,
+    input: normalizedInput,
+    conventions: { zi_hour: '晚子时算次日' },
     chart: {
       solar_date: natal.solar_date,
       lunar_date: natal.lunar_date,
@@ -209,21 +317,22 @@ function run(input, { now = new Date() } = {}) {
       board_layout: 'rows: 巳午未申 / 辰··酉 / 卯··戌 / 寅丑子亥；null 为中宫',
       board: buildBoard(natal),
       palaces: natal.palaces,
+      natal_features: deriveFeatureSet(natalChart),
+      periods,
     },
-    natal_features: deriveFeatureSet(natalChart),
-    evidence: { topic_report: topicReport },
-    periods,
-    warnings: natalChart.warnings,
+    judgments,
+    evidence,
+    confidence,
     limitations,
-  };
+    warnings: [...new Set([...nb.warnings, ...(natalChart.warnings || [])])],
+  });
 }
 
 function main() {
   try {
     process.stdout.write(`${JSON.stringify(run(readInput()))}\n`);
   } catch (error) {
-    const code = error.code || 'ZIWEI_SKILL_ERROR';
-    process.stdout.write(`${JSON.stringify({ ok: false, code, error: error.message })}\n`);
+    process.stdout.write(`${JSON.stringify(toFailure(error, {}))}\n`);
     process.exitCode = 1;
   }
 }
