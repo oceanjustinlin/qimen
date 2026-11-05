@@ -191,7 +191,7 @@
                                             @input="handleSolarInput"
                                             placeholder="输入 199303270255"
                                         >
-                                        <div class="date-input-hint">仅支持数字输入，格式为 YYYYMMDDHHmm，也可只输入到日期或小时。</div>
+                                        <div class="date-input-hint">仅支持数字输入，格式为 YYYYMMDDHHmm，也可只输入到日期或小时。请填写出生地当地的钟表时间（海外出生无需换算成北京时间，夏令时会自动扣除）。</div>
                                     </div>
                                     <div class="location-search-card">
                                         <label class="location-search-field">
@@ -224,7 +224,7 @@
                                                 @click="selectBirthplace(place)"
                                             >
                                                 <span>{{ place.label }}</span>
-                                                <small>北纬{{ place.lat }} 东经{{ place.lng }}</small>
+                                                <small>{{ place.lat >= 0 ? '北纬' : '南纬' }}{{ Math.abs(place.lat) }} {{ place.lng >= 0 ? '东经' : '西经' }}{{ Math.abs(place.lng) }}</small>
                                             </button>
                                             <div v-if="birthplaceQuery && !birthplaceSearchResults.length" class="location-empty">未找到匹配地址</div>
                                         </div>
@@ -248,7 +248,7 @@
                                     </div>
                                 </div>
                                 <div v-if="solarPreview" class="picker-preview-card">
-                                    <div>钟表阳历：{{ solarPreview.solarText }}</div>
+                                    <div>当地钟表时间：{{ solarPreview.solarText }}</div>
                                     <div v-if="solarTimeAdjustmentText">排盘时间：{{ solarPreview.adjustedSolarText }}（{{ solarTimeAdjustmentText }}）</div>
                                     <div>农历：{{ solarPreview.lunarText }}</div>
                                     <div>四柱：{{ solarPreview.baziStr }}</div>
@@ -1563,6 +1563,7 @@ const form = reactive({
     birthLocation: '',
     birthLatitude: '',
     birthLongitude: '',
+    birthTimeZone: '',
     solarTimeMode: 'clock'
 })
 
@@ -2890,6 +2891,7 @@ const solarPreview = computed(() => {
         longitude: form.birthLongitude,
         country: form.birthCountry,
         admin1: form.birthAdmin1,
+        timeZone: form.birthTimeZone,
         mode: form.solarTimeMode
     })
 })
@@ -3327,6 +3329,7 @@ const resetProfileEntry = () => {
     form.birthLocation = ''
     form.birthLatitude = ''
     form.birthLongitude = ''
+    form.birthTimeZone = ''
     form.solarTimeMode = 'clock'
     birthplaceQuery.value = ''
     isBirthplaceSearchOpen.value = false
@@ -3352,6 +3355,7 @@ const clearBirthplaceSelection = () => {
     form.birthLocation = ''
     form.birthLatitude = ''
     form.birthLongitude = ''
+    form.birthTimeZone = ''
     form.solarTimeMode = 'clock'
 }
 
@@ -3369,6 +3373,7 @@ const selectBirthplace = (place) => {
     form.birthLocation = place.label || `${place.country} ${place.admin1} ${place.name}`
     form.birthLatitude = String(place.lat)
     form.birthLongitude = String(place.lng)
+    form.birthTimeZone = place.timeZone || ''
     form.solarTimeMode = 'apparent'
     birthplaceQuery.value = place.label || form.birthLocation
     isBirthplaceSearchOpen.value = false
@@ -3453,6 +3458,7 @@ const buildProfilePayloadFromEntry = () => {
             birthAdmin1: form.birthAdmin1,
             birthLatitude: form.birthLatitude,
             birthLongitude: form.birthLongitude,
+            birthTimeZone: form.birthTimeZone,
             solarTimeMode: form.solarTimeMode
         })
     }

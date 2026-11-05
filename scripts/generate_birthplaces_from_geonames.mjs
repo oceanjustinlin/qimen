@@ -1,6 +1,7 @@
 import { execFileSync } from 'node:child_process'
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
+import { resolveBirthplaceTimeZone } from './lib/birthplaceTimeZones.mjs'
 
 const DEFAULT_SOURCE_DIR = resolve('.cache/geonames')
 const DEFAULT_OUTPUT = resolve('src/data/birthplaces.mjs')
@@ -141,6 +142,7 @@ const buildBirthplaces = () => {
     const countryCode = cols[8]
     const admin1Code = cols[10]
     const population = Number(cols[14] || 0)
+    const geonamesTimeZone = cols[17] || ''
 
     if (featureClass !== 'P') continue
     if (!Number.isFinite(lat) || !Number.isFinite(lng)) continue
@@ -165,6 +167,8 @@ const buildBirthplaces = () => {
       admin1Code,
       lat: Number(lat.toFixed(5)),
       lng: Number(lng.toFixed(5)),
+      // GeoNames 第 18 列即 IANA 时区；中国大陆统一改为 Asia/Shanghai（新疆等地 GeoNames 给的是 Asia/Urumqi）
+      timeZone: resolveBirthplaceTimeZone({ name: displayName, admin1, country, countryCode }, geonamesTimeZone),
       population,
       aliases: cleanAliases([name, asciiName, ...alternateNames], displayName, asciiName)
     })
