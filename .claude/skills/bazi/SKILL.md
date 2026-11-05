@@ -92,26 +92,13 @@ echo '{
 
 ### 第 4 步：解读脚本输出
 
-拿到 JSON 后按 `references/reading-guide.md` 解读，输出结构建议：
+拿到 JSON 后按 `references/reading-guide.md` 解读。解读顺序（四柱→强弱格局→喜用忌神→十神性格→问事推演→总结）、`engine_ran === false` 的处理见下方守则文件。
 
-1. 四柱排盘（用 `chart`；`input.solar_time` 有值时说明已做真太阳时校正：四柱、藏干、十神、神煞、大运列）。
-2. 日主强弱与格局（`judgments.strong_weak` / `judgments.geju` / `judgments.geju_info`）。
-3. 喜用忌神（`judgments.five_shens`：`yong`/`xi`/`ji`；`favorable_gods`/`unfavorable_gods`）。
-4. 十神配置与性格。
-5. 针对所问之事的推演（`judgments.question` 段：`target_spec` 用神落点、`state_report` 原局状态、`dynamic_report` 动态机制、`timing_candidates` 应期候选年）。
-6. 已发生事件校验清单（如用户提供过往事件，对齐 `timing_candidates`/大运节点）。
-7. 核心总结：核心特点、最需注意的风险、最值得把握的方向、关键年份。
-
-**当 `judgments.question.engine_ran === false`**（`llm_derived`/legacy）：说明该问题引擎未定出后端目标元素，此时依静态盘（`judgments`）自行推导，并在措辞上标明这是基于命局结构的推断。
+解读守则见 `packages/xuanxue-mcp/prompts/bazi_reading.md`（与 MCP prompt 共用）。
 
 ## 解读边界与风格
 
-- 命盘展示的是倾向、结构、课题与机会，不是绝对命定；不用"注定如此""无法改变"式表述。
-- 凶象转译成风险、课题、需要注意之处；不恐吓、不空泛玄谈。
-- 术语第一次出现用一句现代汉语解释。
-- 结论要有推演过程支撑；以脚本的确定性产物为据，经验口诀与推演冲突时**以推演为准**。
-- 健康、法律、财务只做命盘角度的结构提醒，不替代现实专业意见。
-- 不向用户展示完整内部推理链与原始 JSON，只呈现关键依据与必要结论。
+解读守则见 `packages/xuanxue-mcp/prompts/bazi_reading.md`（与 MCP prompt 共用）。通用安全规则、措辞边界、`limitations`/`warnings` 转告要求在 `packages/xuanxue-mcp/prompts/common.md`，开始解读前先读这两份文件。
 
 ## 结尾提醒
 
