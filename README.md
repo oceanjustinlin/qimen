@@ -46,6 +46,11 @@
 
 详见下方「核心能力」中的 [奇门遁甲 Agent Skill](#奇门遁甲-agent-skill对话式推演技能) 与 [四柱八字 Agent Skill](#四柱八字-agent-skill对话式命理分析技能)。
 
+
+## 🔌 MCP Server（xuanxue-mcp）
+
+八字、紫微斗数、奇门遁甲（外加历法工具）也以 stdio MCP server 的形式提供，可接入 Claude Code、Claude Desktop、Codex、Cursor 等客户端：`npx -y xuanxue-mcp`。纯本地计算，不联网、无需 API Key。配置方法与工具说明见 [packages/xuanxue-mcp/README.md](./packages/xuanxue-mcp/README.md)。
+
 ---
 
 ## 项目简介

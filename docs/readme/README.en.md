@@ -38,6 +38,11 @@ All three skills are **isomorphic**, following an **interview → deterministic 
 
 See the [Qimen Dunjia Agent Skill](#qimen-dunjia-agent-skill-conversational-reasoning-skill) and [Bazi Agent Skill](#bazi-agent-skill-conversational-reading-skill) under "Core Features" below.
 
+
+## 🔌 MCP Server (xuanxue-mcp)
+
+The Bazi, Zi Wei Dou Shu and Qimen Dunjia engines (plus calendar tools) are also available as a stdio MCP server for Claude Code, Claude Desktop, Codex, Cursor and other clients: `npx -y xuanxue-mcp`. Fully local, no network, no API key. Setup and tool reference: [packages/xuanxue-mcp/README.md](../../packages/xuanxue-mcp/README.md).
+
 ---
 
 ## Overview
