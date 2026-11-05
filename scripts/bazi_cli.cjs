@@ -79,7 +79,8 @@ function buildInput() {
   }
   // 3) flags 拼装（便捷路径）：--date --time --gender [--place|--longitude] [--question] [--mode] [--currentYear]
   if (flags.date) {
-    const birth = { date: String(flags.date), gender: flags.gender === undefined ? '男' : String(flags.gender) };
+    const birth = { date: String(flags.date) };
+    if (flags.gender !== undefined) birth.gender = String(flags.gender); // 不设默认：缺失由 parseBirth 报 BIRTH_INCOMPLETE
     if (flags.time !== undefined) birth.time = String(flags.time);
     if (flags.place !== undefined || flags.longitude !== undefined) {
       birth.location = {};

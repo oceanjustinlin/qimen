@@ -213,6 +213,10 @@ test('flags 路径仍可用：--date 1990-05-01 --time 14:00 --gender 男', () =
   assert.equal(out.chart.bazi_str, [gz.year, gz.month, gz.day, gz.time].join(' '));
 });
 
+test('flags 缺 --gender → BIRTH_INCOMPLETE（不再默认男）', () => {
+  assert.equal(runCliExpectFail(undefined, ['--date', '1990-05-01', '--time', '14:00']).code, 'BIRTH_INCOMPLETE');
+});
+
 test('flags 缺 --time → TIME_REQUIRED（不再默认 12 点）', () => {
   assert.equal(runCliExpectFail(undefined, ['--date', '1990-05-01', '--gender', '男']).code, 'TIME_REQUIRED');
 });
