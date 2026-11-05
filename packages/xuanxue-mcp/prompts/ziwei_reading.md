@@ -41,6 +41,7 @@
 
 - A 级，已审核命题：`judgments.topic_report.conclusions` 与 `judgments.annual_overviews[].report.conclusions`，可作为结论主干，直接陈述。
 - B 级，确定性事实：`chart`（含 `chart.natal_features`、`chart.periods`）与方法状态已审核的派生特征，可直接引用。
+- 输出带 `已精简输出` 的 warning 时（MCP 工具默认 `detail: "summary"`），`chart.natal_features` 换成按宫位的 `chart.natal_features_summary`，`chart.periods[].dynamic_features` 换成 `dynamic_features_summary`；各特征的方法审核状态看 `natal_features_summary.methods`。需要逐条特征及其来源路径时，带 `detail: "full"` 重新调用。
 - C 级，结构推断：方法状态为待审的特征（亮度分组、三方会照聚合、夹宫、宫干飞化、空宫借星、四化叠加）与古籍象义，措辞必须标明"按传统看法"或"从结构上看"，且不得压过 A、B 级。
 
 三合派判断为主，四化飞星只作补充，两者冲突时并列说明，不静默合并。若未命中任何已审核命题，要在局限里说明。

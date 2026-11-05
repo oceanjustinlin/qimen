@@ -72,6 +72,18 @@ args = ["-y", "xuanxue-mcp"]
 - `time_basis` 默认 `clock`（钟表时间）；`true_solar` 表示传入的已经是真太阳时。
 - 仅接受公历。
 
+### 输出详略：`detail`
+
+`bazi`、`ziwei`、`qimen` 都接受可选参数 `detail`：
+
+- `"summary"`（默认）：在 MCP 层精简已知的大块字段，并在 `warnings` 末尾追加 `已精简输出；如需完整数据请传 detail: "full"`。
+  - `bazi` 问事：`judgments.question.timing_candidates` 只保留引擎排序前 5 个，其余年份只在 `timing_candidates_omitted` 中列出年份与评分；同一大运重复的 `dayun_impact` 改为指向首次出现的年份；重复的 `model_note` 只保留一次；干支关系与通根压成一行文字；未入选的成象候选只留结论。排盘模式不变。
+  - `ziwei`：`chart.natal_features` 换成按宫位的 `chart.natal_features_summary`；`chart.periods[].dynamic_features` 换成 `dynamic_features_summary`（与 `role_to_natal` 重复的叠宫映射省略）。
+  - `qimen`：输出本身不大，当前 summary 与 full 相同。
+- `"full"`：原样返回引擎的完整外层（与 CLI 输出一致）。
+
+工具结果的文本内容是紧凑 JSON（无缩进）。按 CJK 字符记 1 token、其余每 3.5 个字符记 1 token 估算，默认 summary 下八字问事、紫微 evidence（含 10 个流年 `cross_period`）、奇门问事都在 2 万 token 以内。Claude Code 默认把单次 MCP 工具输出限制在 25000 token（环境变量 `MAX_MCP_OUTPUT_TOKENS`）；`detail: "full"` 可能超过这个上限（八字问事约 4 万、紫微 10 个流年约 6 万），确需完整数据时可调大该变量，例如 `MAX_MCP_OUTPUT_TOKENS=80000 claude`。
+
 ## Prompts
 
 | Prompt | 内容 |

@@ -35,6 +35,7 @@
    - `state_report`：原局对这件事的状态。
    - `dynamic_report`：当前大运流年的引动机制。
    - `timing_candidates`：应期候选年，只能从中挑，并解释"为什么是这几年"，不得自行推新年份。
+   - 输出带 `已精简输出` 的 warning 时（MCP 工具默认 `detail: "summary"`），`timing_candidates` 只保留引擎排序前 5 个，其余年份只在 `timing_candidates_omitted` 里列出年份与评分；干支关系压成一行文字。要逐年比较被省略的年份、或核对关系明细时，带 `detail: "full"` 重新调用。
 6. 用户提供过往已发生事件时，对照 `timing_candidates` 与大运节点做校验。
 7. 总结：核心特点、最需要注意的风险、最值得把握的方向、关键年份。
 

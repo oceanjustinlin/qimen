@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { loadEngine } from './engine.mjs';
+import { summarizeEnvelope } from './summarize.mjs';
 
 // 出生信息：字段全部宽松可选，缺失/非法值交给引擎给出 TIME_REQUIRED 等具体错误码；
 // looseObject 保留旧格式（year/month/day/hour/minute）等额外字段。
@@ -24,6 +25,9 @@ const timeScope = z.looseObject({
   end_year: z.number().int().optional().describe('一次最多 10 个流年'),
 });
 
+const detail = z.enum(['summary', 'full']).optional()
+  .describe('summary（默认）精简大块字段以控制输出长度；full 返回引擎完整外层');
+
 const DESCRIPTIONS = {
   bazi: '四柱八字排盘与问事：命局结构、性格禀赋、旺衰喜忌、大运流年、问事应期。Bazi (Four Pillars) chart and question analysis.',
   ziwei: '紫微斗数排盘与证据：十二宫、主星、四化、大限流年。Zi Wei Dou Shu chart and evidence.',
@@ -37,6 +41,7 @@ const SHAPES = {
     mode: z.enum(['chart', 'question']).optional().describe('chart（默认）| question'),
     question: z.string().optional().describe('question 模式必填'),
     current_year,
+    detail,
   },
   ziwei: {
     birth: birth.describe('出生信息（必填）'),
@@ -45,6 +50,7 @@ const SHAPES = {
     topic: z.string().optional().describe('overall | career | wealth | relationship'),
     time_scope: timeScope.optional().describe('时间范围，一次最多 10 个流年'),
     current_year,
+    detail,
   },
   qimen: {
     mode: z.enum(['chart', 'question']).optional().describe('chart（默认）| question'),
@@ -52,6 +58,7 @@ const SHAPES = {
     cast_time: z.string().optional().describe('起局时间（ISO），默认当前时刻'),
     timezone: z.string().optional().describe('IANA 时区，默认 Asia/Shanghai'),
     birth: birth.optional().describe('选填，作为八字背景'),
+    detail,
   },
   calendar: {
     action: z.enum(['convert', 'true_solar', 'jieqi']).describe('convert | true_solar | jieqi'),
@@ -94,8 +101,11 @@ function makeRun(name) {
       if (!parsed.success) {
         return cliEnvelope.fail('BAD_JSON', `参数校验失败：${formatIssues(parsed.error)}`);
       }
+      // detail 只属于 MCP 层，不传给引擎（CLI 契约不变）
+      const { detail: level = 'summary', ...engineArgs } = parsed.data;
       try {
-        return engineRun(parsed.data);
+        const env = engineRun(engineArgs);
+        return level === 'full' ? env : summarizeEnvelope(name, env);
       } catch (err) {
         return cliEnvelope.toFailure(err, { input_summary: summarize(name, args) });
       }
@@ -114,7 +124,8 @@ export const TOOLS = Object.keys(SHAPES).map((name) => ({
 
 export function toToolResult(env) {
   return {
-    content: [{ type: 'text', text: JSON.stringify(env, null, 2) }],
+    // 紧凑 JSON：缩进会让 token 数接近翻倍
+    content: [{ type: 'text', text: JSON.stringify(env) }],
     structuredContent: env,
     isError: env.ok === false,
   };
