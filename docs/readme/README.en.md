@@ -29,7 +29,7 @@ All three skills are **isomorphic**, following an **interview → deterministic 
 
 | Skill | What it reads | Compute core | Definition |
 | --- | --- | --- | --- |
-| **Qimen Dunjia** `qimen-dunjia` | concrete events, timing windows, direction, avoidance | `scripts/qimen_cli.py` (Shi Jia turning-plate, Python) | [SKILL.md](../skills/qimen-dunjia/SKILL.md) |
+| **Qimen Dunjia** `qimen-dunjia` | concrete events, timing windows, direction, avoidance | `scripts/qimen_cli.cjs` (Shi Jia turning-plate, Node) | [SKILL.md](../../.claude/skills/qimen-dunjia/SKILL.md) |
 | **Four Pillars (Bazi)** `bazi` | natal structure, disposition, luck cycles, timing of a matter | `scripts/bazi_cli.cjs` (reuses the production engine, Node) | [SKILL.md](../../.claude/skills/bazi/SKILL.md) |
 | **Zi Wei Dou Shu** `ziwei` | twelve-palace structure, star traits and transformations, decade/annual shifts | `scripts/ziwei_skill_cli.cjs` (iztro chart + reviewed knowledge-base evidence, Node) | [SKILL.md](../../.claude/skills/ziwei/SKILL.md) |
 
@@ -184,7 +184,7 @@ This is the system's dispatcher. Every question is first classified as a concret
 
 ### Qimen Dunjia Agent Skill (conversational reasoning skill)
 
-Consolidates the Qimen event pipeline above into a technique an AI agent can call directly ([`docs/skills/qimen-dunjia/SKILL.md`](../skills/qimen-dunjia/SKILL.md)), so a conversational casting shares the same deterministic rule foundation as the web app instead of letting the model freelance.
+Consolidates the Qimen event pipeline above into a technique an AI agent can call directly ([`.claude/skills/qimen-dunjia/SKILL.md`](../../.claude/skills/qimen-dunjia/SKILL.md)), so a conversational casting shares the same deterministic rule foundation as the web app instead of letting the model freelance.
 
 - **Interview first, cast second**: a structured interview confirms the matter, casting time, timezone, and judgment target before any casting; missing information is asked for, not guessed
 - **Fixed pipeline, no skipped steps**: structured interview → question routing → fixed casting → target-spec resolution → bounded scoring → timing scan → single evidence package → free-form report — the engine is never bypassed for freestyle reading

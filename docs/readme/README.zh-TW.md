@@ -29,7 +29,7 @@
 
 | 技能 | 看什麼 | 計算核心 | 技能定義 |
 | --- | --- | --- | --- |
-| **奇門遁甲** `qimen-dunjia` | 具體事件、時機窗口、方位、趨吉避凶 | `scripts/qimen_cli.py`（時家轉盤，Python） | [SKILL.md](../skills/qimen-dunjia/SKILL.md) |
+| **奇門遁甲** `qimen-dunjia` | 具體事件、時機窗口、方位、趨吉避凶 | `scripts/qimen_cli.cjs`（時家轉盤，Node） | [SKILL.md](../../.claude/skills/qimen-dunjia/SKILL.md) |
 | **四柱八字** `bazi` | 命局結構、性格稟賦、大運流年、問事應期 | `scripts/bazi_cli.cjs`（複用生產引擎，Node） | [SKILL.md](../../.claude/skills/bazi/SKILL.md) |
 | **紫微斗數** `ziwei` | 十二宮結構、星情四化、大限流年的階段變化 | `scripts/ziwei_skill_cli.cjs`（iztro 排盤 + 已審核知識庫證據，Node） | [SKILL.md](../../.claude/skills/ziwei/SKILL.md) |
 
@@ -180,7 +180,7 @@ flowchart TD
 
 ### 奇門遁甲 Agent Skill（對話式推演技能）
 
-把上面這套奇門事件鏈路沉澱成一個可被 AI Agent 直接呼叫的技能（[`docs/skills/qimen-dunjia/SKILL.md`](../skills/qimen-dunjia/SKILL.md)），讓「對話式排盤解盤」和網頁端走同一套確定性規則底座，而不是讓大模型憑空編玄學。
+把上面這套奇門事件鏈路沉澱成一個可被 AI Agent 直接呼叫的技能（[`.claude/skills/qimen-dunjia/SKILL.md`](../../.claude/skills/qimen-dunjia/SKILL.md)），讓「對話式排盤解盤」和網頁端走同一套確定性規則底座，而不是讓大模型憑空編玄學。
 
 - **先訪談、後起局**：正式起局前先做結構化訪談，確認所問事項、起局時間、時區與判斷目標，資訊不全先追問，不急著斷
 - **固定流程不跳步**：結構化訪談 → 問題路由 → 固定起局 → `targetSpec` 取用 → 有界評分 → 應期掃描 → 唯一證據包 → 自由結構報告
