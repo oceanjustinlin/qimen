@@ -43,17 +43,7 @@ compatibility: Requires Node.js + repo deps (lunar-javascript). Run scripts/bazi
 
 ### 第 1 步：访谈
 
-正式排盘前，先问清（模板见 `references/interview.md`）：
-
-1. 出生日期（公历优先；农历需先换算）。
-2. 出生时间（必填，精确到分钟；不知道时辰无法排盘）与出生地（用于真太阳时校正，可选）。
-3. 性别。
-4. 你要问什么事？一句话说清。
-5. 事情对应的时间范围？（今年 / 近三年 / 未来五年 / 某个具体阶段 / 只看命局）
-6. 你最想判断什么？（能不能成 / 什么时候动 / 选哪边 / 要避开什么 / 只想了解性格命局）
-7. 要"直接结论"还是"详细讲解"？
-
-信息不全不要进入正式排盘。
+解读守则见 `packages/xuanxue-mcp/prompts/bazi_reading.md`（与 MCP prompt 共用）。访谈要问什么（出生日期、时辰、出生地、性别、所问之事、时间范围、详略偏好）以该文件为准，模板另见 `references/interview.md`。信息不全不要进入正式排盘。
 
 ### 第 2 步：判定分析类型（route），再调脚本
 

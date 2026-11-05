@@ -1,12 +1,12 @@
 # 八字（四柱）解读流程
 
-本流程配合 `bazi` 工具使用。直接调用该工具，不要运行任何脚本。
+本流程配合 `bazi` 工具使用。在 MCP 客户端中调用 `bazi` 工具；在 Agent Skill 环境中运行 SKILL.md 给出的 CLI 命令（`node scripts/bazi_cli.cjs`），参数与输出字段相同。两种方式都禁止心算替代。
 
 ## 第 1 步：访谈
 
 信息不全不排盘。先问清：
 
-1. 公历出生日期。用户给农历时先用 `calendar` 工具（`action: "convert"`）换算再排，并说明。
+1. 公历出生日期。用户给农历时先换算再排（MCP 用 `calendar` 工具（`action: "convert"`），Skill 环境用 `node scripts/calendar_cli.cjs`），并说明。
 2. 出生时间，精确到分钟。缺时辰无法排盘，工具会返回 `TIME_REQUIRED`，此时必须追问，不得默认取午时。
 3. 出生地（可选）。给出后引擎会做真太阳时校正（含 1986–1991 年夏令时）；不给则按钟表时间排盘，`warnings` 会有提示。已经是真太阳时的，在 `birth.time_basis` 传 `true_solar`。
 4. 性别，只影响大运顺逆。
@@ -20,7 +20,7 @@
 - 只排盘、看命局与性格：`mode: "chart"`。
 - 针对具体事情：`mode: "question"`，并把问题写进 `question`；问法里带上时间范围，例如"未来五年事业哪年最有机会突破"，引擎据此推断是应期、近况、格局还是性格类问题。
 - `birth` 传 `{date, time, gender, location}`；需要时传 `current_year`。
-- 该工具不接收 `route` 参数，分析类型由引擎根据问题判断，不要自行构造。
+- 仅 MCP：`bazi` 工具不接收 `route` 参数，分析类型由引擎根据问题判断，不要自行构造。Skill 环境的 CLI 接受 `route`，用法见 SKILL.md。
 
 ## 第 3 步：按顺序解读
 

@@ -54,41 +54,9 @@ compatibility: Requires Node.js + repo deps (iztro@2.5.8). Run scripts/ziwei_ski
 
 ## 工作流
 
-### 第 1 步：访谈
+### 第 1、2 步：访谈与路由
 
-正式排盘前问清（模板见 `references/interview.md`）：
-
-1. 公历出生日期（农历先换算）。
-2. 出生时间到分钟；是钟表时间还是已换算的真太阳时。
-3. 性别（影响大限顺逆）。
-4. 要看什么事？一句话说清。
-5. 时间范围：只看命盘 / 当前大限 / 某几年流年。
-6. 最想判断什么：结构倾向 / 哪几年变化大 / 要注意什么。
-7. 要"直接结论"还是"详细讲解"。
-
-信息不全不进入正式排盘。
-
-### 第 2 步：路由（topic × time_scope）
-
-主题与时间维度分开判断，**显式传入**脚本（顶层字段 `topic`、`time_scope`）：
-
-| topic | 适用 | 主宫 | 合参宫位 |
-| --- | --- | --- | --- |
-| `overall` | 整体格局、性格、人生主线 | 命宫 | 福德、迁移、官禄、财帛 |
-| `career` | 事业、职业方向、工作方式 | 官禄宫 | 命宫、迁移、财帛、福德 |
-| `wealth` | 财运、理财、资源 | 财帛宫 | 官禄、田宅、福德、命宫 |
-| `relationship` | 婚恋、伴侣关系 | 夫妻宫 | 命宫、福德、迁移、子女 |
-
-| time_scope.type | 适用 | 年份参数 |
-| --- | --- | --- |
-| `natal` | 只看命盘结构 | 不需要 |
-| `decadal` | 当前或某个十年大限 | `start_year`（取该年所在大限） |
-| `yearly` | 某一年 | `start_year`（= `end_year`） |
-| `cross_period` | 几年间的变化、"哪年" | `start_year`、`end_year`，最多 10 年 |
-
-其他主题（健康、子女、父母、学业、搬迁等）暂不单列：归入最接近的 topic，并在解读里直接读对应宫位（疾厄、子女、父母、迁移、田宅等）的盘面事实，按 C 级标注。健康只做结构提醒，不做诊断。
-
-"今年整体运势"= `topic:"overall"` + `time_scope:{type:"yearly"}`。
+解读守则见 `packages/xuanxue-mcp/prompts/ziwei_reading.md`（与 MCP prompt 共用）。访谈内容、`topic` 与 `time_scope` 的取值和选择规则以该文件为准，模板另见 `references/interview.md`。显式把 `topic`、`time_scope` 作为顶层字段传给脚本（见下方示例）。信息不全不进入正式排盘。
 
 ### 第 3 步：调用 `ziwei_skill_cli.cjs`
 

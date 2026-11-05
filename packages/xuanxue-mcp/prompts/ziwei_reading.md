@@ -1,12 +1,12 @@
 # 紫微斗数解读流程
 
-本流程配合 `ziwei` 工具使用。直接调用该工具，不要运行任何脚本。排盘口径唯一：`iztro-default`，公历输入。
+本流程配合 `ziwei` 工具使用。在 MCP 客户端中调用 `ziwei` 工具；在 Agent Skill 环境中运行 SKILL.md 给出的 CLI 命令（`node scripts/ziwei_skill_cli.cjs`），参数与输出字段相同。两种方式都禁止心算替代。排盘口径唯一：`iztro-default`，公历输入。
 
 ## 第 1 步：访谈
 
 信息不全不排盘。先问清：
 
-1. 公历出生日期；农历先用 `calendar` 工具（`action: "convert"`）换算并说明。
+1. 公历出生日期；农历先换算并说明（MCP 用 `calendar` 工具（`action: "convert"`），Skill 环境用 `node scripts/calendar_cli.cjs`）。
 2. 出生时间，必须到分钟。命宫由时辰决定，时辰错则全盘错；不知道时辰时不排盘，可改为理论讲解或建议改看八字。出生时间离时辰交界不足 15 分钟时，提醒命盘可能落在相邻时辰，必要时两盘对照。
 3. 这个时间是钟表时间还是已换算的真太阳时（后者在 `birth.time_basis` 传 `true_solar`）；有出生地则传 `birth.location`，引擎会自动换算真太阳时。
 4. 性别，影响大限顺逆。

@@ -65,3 +65,9 @@ test('common.md 列出 safety.yaml 的每个 blocked_phrases 作禁用示例', (
 test('未知 prompt 报错', async () => {
   await assert.rejects(client.getPrompt({ name: 'nope_reading' }));
 });
+
+test('prompt 文件环境中立：不得禁止运行脚本', () => {
+  for (const f of ['common.md', ...NAMES.map((n) => `${n}.md`)]) {
+    assert.ok(!readPrompt(f).includes('不要运行任何脚本'), `${f} 含“不要运行任何脚本”`);
+  }
+});
