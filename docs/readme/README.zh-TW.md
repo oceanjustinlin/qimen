@@ -21,9 +21,9 @@
 
 ---
 
-## 🧭 兩大對話式推演技能（Agent Skills）
+## 🧭 三大對話式推演技能（Agent Skills）
 
-> **開箱即用**：任意支援命令列的 AI Agent，都能直接呼叫本專案沉澱的兩套「對話式排盤解盤」技能——對話端與網頁端共用同一套確定性規則底座。
+> **開箱即用**：任意支援命令列的 AI Agent，都能直接呼叫本專案沉澱的三套「對話式排盤解盤」技能——對話端與網頁端共用同一套確定性規則底座。
 
 三個技能**同構**，都走 **訪談 → 確定性計算（腳本）→ AI 解讀** 三段式：先問清所求，再用腳本做固定計算（絕不讓大模型心算排盤），最後才把結構化結論轉譯成可讀、可行動的語言。計算核心純本地、零 API Key，Agent 只需能跑腳本。
 
@@ -34,14 +34,20 @@
 | **紫微斗數** `ziwei` | 十二宮結構、星情四化、大限流年的階段變化 | `scripts/ziwei_skill_cli.cjs`（iztro 排盤 + 已審核知識庫證據，Node） | [SKILL.md](../../.claude/skills/ziwei/SKILL.md) |
 
 - **為什麼不讓大模型自己排盤**：排盤、格局、旺衰、喜忌、問事推演本就是確定性的，一律交給腳本；大模型只負責訪談與解讀，規避「心算」日柱大運帶來的不可復現錯誤。
+- **統一契約**：三個 CLI 共用同一套出生資訊輸入（`lib/birthInput.cjs`，時辰、性別必填，傳出生地可換算真太陽時）與同一種輸出外層（`lib/cliEnvelope.cjs`，含 `chart` / `judgments` / `evidence` / `confidence` / `limitations` / `warnings` / `conventions`）；另有曆法 CLI `scripts/calendar_cli.cjs`（公農曆轉換、真太陽時、節氣）。
+- **解讀守則單一來源**：三套技能的訪談與解讀守則統一放在 [`packages/xuanxue-mcp/prompts/`](../../packages/xuanxue-mcp/prompts/)，SKILL.md 與 MCP prompt 共用同一份正文。
 - **八字技能自帶分層校驗**：`scripts/bazi_cli.test.cjs`（封裝無損 parity 測試，已併入 `npm test`）＋ [`eval/bazi-skill/`](../../eval/bazi-skill/)（觸發準確度、路由預判、解讀忠實度評測）。
 
-詳見下方「核心能力」中的 [奇門遁甲 Agent Skill](#奇門遁甲-agent-skill對話式推演技能) 與 [四柱八字 Agent Skill](#四柱八字-agent-skill對話式命理分析技能)。
+詳見下方「核心能力」中的 [奇門遁甲 Agent Skill](#奇門遁甲-agent-skill對話式推演技能)、[四柱八字 Agent Skill](#四柱八字-agent-skill對話式命理分析技能) 與 [紫微斗數盤](#紫微斗數盤)。
 
 
 ## 🔌 MCP Server（xuanxue-mcp）
 
-八字、紫微斗數、奇門遁甲（外加曆法工具）也以 stdio MCP server 的形式提供，可接入 Claude Code、Claude Desktop、Codex、Cursor 等客戶端：`npx -y xuanxue-mcp`。純本地計算，不連網、無需 API Key。設定方法與工具說明見 [packages/xuanxue-mcp/README.md](../../packages/xuanxue-mcp/README.md)。
+八字、紫微斗數、奇門遁甲（外加曆法工具）也以 stdio MCP server 的形式提供，可接入 Claude Code、Claude Desktop、Codex、Cursor 等客戶端：4 個工具（`bazi` / `ziwei` / `qimen` / `calendar`）＋ 3 份解讀守則 prompt。純本地計算，不連網、無需 API Key，需要 Node ≥ 22.12。
+
+> **尚未發佈到 npm**。發佈前請從本倉庫直接執行，例如 Claude Code：`claude mcp add xuanxue -- node <倉庫絕對路徑>/packages/xuanxue-mcp/src/server.mjs`；發佈後可改用 `npx -y xuanxue-mcp`。
+
+設定方法、工具參數與輸出說明見 [packages/xuanxue-mcp/README.md](../../packages/xuanxue-mcp/README.md)。
 
 ---
 
@@ -97,6 +103,18 @@ flowchart TD
 ## 核心能力
 
 ### 更新歷史
+
+**2026-11-05 · 奇門技能修復、CLI 統一契約與 xuanxue-mcp**
+
+- 奇門技能改為呼叫 `scripts/qimen_cli.cjs`（封裝生產入口 `buildQimenEvidence`），並註冊到 `.claude/skills/`；此前文件引用的 Python 腳本從未存在。
+- 八字、紫微、奇門三個 CLI 統一出生資訊輸入與輸出外層；時辰、性別改為必填（以前缺時辰預設 12 點）；傳出生地可換算真太陽時（v1 只支援中國，含港澳台）。新增曆法 CLI。
+- 新增 MCP server [`packages/xuanxue-mcp`](../../packages/xuanxue-mcp/)：4 個工具、3 份解讀守則；預設精簡輸出，`detail: "full"` 取完整資料；打包時剝離紫微古籍摘錄原文。尚未發佈到 npm。
+
+**2026-09-09 · BaziEngine 1.8.29 / Qimen ruleset dunjia-yanyi-siku-v1 · 古籍規則審計修復**
+
+- 八字修正金水傷官適用範圍、目標干十二長生與通根、四生月透干變化；規則升級後不再複用舊 LLM 斷語。
+- 奇門統一按《遁甲演義》（四庫全書本）處理九星相旺廢休囚、六儀擊刑、五不遇時、三奇得使、玉女守門、三奇墓與天禽寄坤。
+- 數值明確標為專案參考指數；LLM 只提供文字複核，不能修改後端確定性指標。審計與修復證據見 [`../audits/2026-09-07-mechanism/REPORT.md`](../audits/2026-09-07-mechanism/REPORT.md)。
 
 **2026-10-31 · 紫微斗數盤上線**
 
@@ -188,8 +206,8 @@ flowchart TD
 把上面這套奇門事件鏈路沉澱成一個可被 AI Agent 直接呼叫的技能（[`.claude/skills/qimen-dunjia/SKILL.md`](../../.claude/skills/qimen-dunjia/SKILL.md)），讓「對話式排盤解盤」和網頁端走同一套確定性規則底座，而不是讓大模型憑空編玄學。
 
 - **先訪談、後起局**：正式起局前先做結構化訪談，確認所問事項、起局時間、時區與判斷目標，資訊不全先追問，不急著斷
-- **固定流程不跳步**：結構化訪談 → 問題路由 → 固定起局 → `targetSpec` 取用 → 有界評分 → 應期掃描 → 唯一證據包 → 自由結構報告
-- **四條底線**：盤面事實必須來自腳本；低置信目標可由模型推導但須過白名單與盤面校驗；模型目標只能有界參與評分；報告結構自由但關鍵語意不得遺漏
+- **固定流程不跳步**：結構化訪談 → `scripts/qimen_cli.cjs` 起局（與網頁端同一個 `buildQimenEvidence`）→ 讀取 `chart` 盤面與 `judgments`（用神、評分、格局落宮、應期、極性修正）→ 自由結構報告；v1 不做多時辰擇時
+- **四條底線**：盤面事實必須來自腳本；低置信目標可由模型推導，但所指符號必須能在 `chart.palaces` 中定位；模型推導的目標只能有界參與判斷，不得覆蓋腳本給出的用神與評分；報告結構自由但關鍵語意不得遺漏
 - **問事起局口徑**：時家奇門以「問事當下」起局（北京時間、腳本解析時辰），使用者提到的事件時間只作事項背景
 - **報告規範**：開頭渲染洛書九宮格，命中有名格按落宮展開，逐宮讀到旺衰與天地盤干生剋，結尾附推演邊界說明
 
@@ -198,9 +216,9 @@ flowchart TD
 把網頁端那套八字原局決策與問事推演，沉澱成一個可被 AI Agent 直接呼叫的技能（[`.claude/skills/bazi/SKILL.md`](../../.claude/skills/bazi/SKILL.md)），與奇門同構——「訪談 → 腳本固定計算 → AI 解讀」，不讓大模型心算排盤。
 
 - **薄封裝、同源計算**：`scripts/bazi_cli.cjs` 複用生產引擎的 `buildCompleteBaziDetail` 與問事 pipeline（`buildBaziQuestionPrompt`），一次呼叫即輸出四柱排盤、原局決策（格局 / 旺衰 / 喜忌五神）與動態問事（用神落點 / 原局狀態 / 歲運引動 / 應期候選年）的結構化 JSON
-- **純本地零 Key**：計算核心只依賴 Node 與 `lunar-javascript`，不聯網、不需 API Key——接入的 Agent 自己充當負責解讀的大模型
+- **純本地零 Key**：計算核心只在本地執行（Node ≥ 22.12），不聯網、不需 API Key——接入的 Agent 自己充當負責解讀的大模型
 - **訪談先行、路由預判**：先確認公曆生辰、性別、所問事項與時間範圍，資訊不全先追問；由 Agent 預判分析類型（timing / status / pattern / character）再交腳本，缺省則腳本啟發式兜底
-- **口徑對齊生產**：v1 僅收公曆、夜子時算當日，與網頁端引擎同一套判據；只用主線引擎，不含仍在分支的專題衍生能力
+- **口徑對齊生產**：v1 僅收公曆、夜子時算當日，與網頁端引擎同一套判據；時辰、性別必填，傳出生地時複用網頁端函式換算真太陽時（含 1986–1991 年大陸夏令時）；只用主線引擎，不含仍在分支的專題衍生能力
 - **分層可驗證**：`scripts/bazi_cli.test.cjs` 用 parity 測試鎖定「封裝 == 引擎、無損」並掛進 `npm test`；[`eval/bazi-skill/`](../../eval/bazi-skill/) 提供 skill 級評測方案（觸發準確度、路由預判、解讀忠實度——解讀斷語與確定性盤的硬矛盾門檻為 `0`）
 
 ### 全息八字系統
@@ -220,7 +238,7 @@ flowchart TD
 - 十二宮主星、輔星、雜曜與亮度，命主 / 身主、五行局、身宮、生年四化
 - 三合視圖與四化視圖（宮干四化飛入連線），自化 / 對宮化入標記
 - 大限、流年、流月三級聯動
-- 目前為瀏覽器即時排盤、不落庫；紫微解讀與八字交叉驗證規劃中
+- 目前為瀏覽器即時排盤、不落庫；對話端用 [`ziwei` 技能](../../.claude/skills/ziwei/SKILL.md) 呼叫 `scripts/ziwei_skill_cli.cjs` 輸出同口徑命盤與證據包，紫微與八字交叉驗證規劃中
 
 ### 運勢評分系統
 
@@ -420,7 +438,8 @@ flowchart TD
 後端          Cloudflare Workers
 資料庫        Supabase Auth、Postgres、行級安全策略
 AI 模型       DeepSeek（OpenAI 相容介面；問事模型經 QUESTION_MODEL 逐環境設定），SSE 串流輸出
-曆法計算      lunar-javascript
+曆法計算      lunar-javascript、iztro（紫微排盤）
+MCP           @modelcontextprotocol/sdk、zod（packages/xuanxue-mcp，stdio）
 建置工具      Vite
 測試          Node.js Test Runner
 線上形態      Cloudflare Pages + Cloudflare Workers
@@ -441,6 +460,8 @@ AI 模型       DeepSeek（OpenAI 相容介面；問事模型經 QUESTION_MODEL 
 ---
 
 ## 本地開發
+
+需要 Node ≥ 22.12（引擎透過 `require(esm)` 複用 `src/utils` 下的函式）。`npm test` 分兩段：先跑全部單元與 e2e 測試，再單獨串行跑 MCP 打包冒煙測試（需連網安裝一次依賴）。
 
 ```bash
 npm install
@@ -473,7 +494,12 @@ npx wrangler dev
 ```text
 /
 ├── worker/          # 後端介面入口與 Cloudflare Workers 設定
+├── packages/xuanxue-mcp/  # MCP server（工具、解讀守則 prompts、prepack 打包腳本）
+├── .claude/skills/  # 奇門 / 八字 / 紫微 Agent Skills（.agents/skills/ 為同內容副本）
+├── knowledge/ziwei/ # 紫微規則、釋義與出處元資料
+├── schemas/         # CLI 統一輸出外層的 JSON Schema
 ├── lib/             # 奇門、八字、運勢評分和提示詞建構核心邏輯
+├── scripts/         # bazi / ziwei_skill / qimen / calendar 四個 CLI 與評測腳本
 ├── src/             # Vue 前端應用
 ├── docs/sql/        # 資料庫遷移腳本
 ├── mock/            # 前端訪客與測試模擬資料
