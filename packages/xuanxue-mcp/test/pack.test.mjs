@@ -19,6 +19,7 @@ function walk(d) {
   });
 }
 
+// npm pack（含 prepack）+ npm install 可能较慢，单独给足超时
 before(() => {
   tmp = mkdtempSync(join(tmpdir(), 'xuanxue-pack-'));
   const out = execFileSync(npm, ['pack', '--json', '--pack-destination', tmp], { cwd: pkgDir, encoding: 'utf8', stdio: ['ignore', 'pipe', 'inherit'] });
@@ -30,10 +31,13 @@ before(() => {
   execFileSync(npm, ['init', '-y'], { cwd: app, stdio: 'ignore' });
   execFileSync(npm, ['install', tgz, '--no-audit', '--no-fund'], { cwd: app, stdio: 'inherit' });
   installed = join(app, 'node_modules', 'xuanxue-mcp');
-});
+}, { timeout: 180_000 });
 
+// 两项清理分开：before 失败时 tmp 可能未赋值，也不能因此漏删 engine/
 after(() => {
-  rmSync(tmp, { recursive: true, force: true });
+  if (tmp) rmSync(tmp, { recursive: true, force: true });
+});
+after(() => {
   // 避免遗留的 engine/ 让开发态 loadEngine() 误用打包副本
   rmSync(join(pkgDir, 'engine'), { recursive: true, force: true });
 });

@@ -1,12 +1,12 @@
 // prepack：把仓库引擎的依赖闭包复制到 packages/xuanxue-mcp/engine/，并剥离古籍正文字段。
-import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync, statSync, readdirSync, copyFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, mkdtempSync, rmSync, renameSync, existsSync, statSync, readdirSync, copyFileSync } from 'node:fs';
 import { builtinModules } from 'node:module';
-import { dirname, join, relative, resolve, sep } from 'node:path';
+import { basename, dirname, join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const pkgRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const repoRoot = resolve(pkgRoot, '../..');
-const outRoot = join(pkgRoot, 'engine');
+const defaultOutRoot = join(pkgRoot, 'engine');
 
 const ENTRIES = [
   'scripts/bazi_cli.cjs',
@@ -95,18 +95,45 @@ function walk(dir, skip = () => false) {
   return out;
 }
 
-function main() {
+// 先完整写入同级临时目录，再 rename 成 engine/：engine.mjs 以 engine/scripts/bazi_cli.cjs 是否存在
+// 判断用打包副本，原地 rm + 逐个复制会让并发加载的进程读到半成品。
+export function buildEngine({ outRoot = defaultOutRoot, onStaged } = {}) {
   const { files, bare } = collectClosure();
   const badBare = [...bare].filter((b) => !ALLOWED_BARE.has(b.split('\t')[0]));
   if (badBare.length) {
     throw new Error(`引擎依赖了非白名单的裸模块（疑似 web 专用代码）：\n${badBare.join('\n')}`);
   }
 
-  rmSync(outRoot, { recursive: true, force: true });
+  mkdirSync(dirname(outRoot), { recursive: true });
+  const staging = mkdtempSync(join(dirname(outRoot), `.${basename(outRoot)}-staging-`));
+  try {
+    writeTree(staging, files);
+    if (onStaged) onStaged(staging);
+    // 同一目录内 rename 是原子的；旧目录先挪开再删除，替换窗口内 engine/ 要么是旧的完整副本、要么不存在
+    let old = null;
+    if (existsSync(outRoot)) {
+      old = `${staging}-old`;
+      renameSync(outRoot, old);
+    }
+    try {
+      renameSync(staging, outRoot);
+    } catch (err) {
+      if (old) renameSync(old, outRoot); // 换不上新副本就把旧副本放回去
+      throw err;
+    }
+    if (old) rmSync(old, { recursive: true, force: true });
+  } catch (err) {
+    rmSync(staging, { recursive: true, force: true });
+    throw err;
+  }
+  console.error(`prepack: ${files.length} 个闭包文件；裸模块 ${[...new Set([...bare].map((b) => b.split('\t')[0]))].join(', ')}`);
+}
+
+function writeTree(outRoot, files) {
   for (const f of files) copyFile(f, join(outRoot, relative(repoRoot, f)));
 
   // 运行时按路径读取的目录
-  copyDir('schemas', () => false);
+  for (const f of walk(join(repoRoot, 'schemas'))) copyFile(f, join(outRoot, relative(repoRoot, f)));
   const zw = join(repoRoot, 'knowledge/ziwei');
   // fixtures/ 是测试数据不发布；reports/ 是运行时必读的报告模板（几百字节的 YAML），必须保留
   const skipDir = (p) => relative(zw, p) === 'fixtures';
@@ -125,11 +152,6 @@ function main() {
   }
   // 子包是 type:module，引擎的 .js 文件是 CommonJS，需在 engine/ 内显式声明
   writeFileSync(join(outRoot, 'package.json'), JSON.stringify({ private: true, type: 'commonjs' }, null, 2) + '\n');
-  console.error(`prepack: ${files.length} 个闭包文件；裸模块 ${[...new Set([...bare].map((b) => b.split('\t')[0]))].join(', ')}`);
 }
 
-function copyDir(rel, skip) {
-  for (const f of walk(join(repoRoot, rel), skip)) copyFile(f, join(outRoot, relative(repoRoot, f)));
-}
-
-if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main();
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) buildEngine();
