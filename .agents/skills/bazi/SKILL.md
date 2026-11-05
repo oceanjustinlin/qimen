@@ -33,7 +33,9 @@ compatibility: Requires Node.js + repo deps (lunar-javascript). Run scripts/bazi
 
 ## 默认口径
 
-- **仅公历**：与生产引擎口径一致，CLI 只收公历（`calendar:"solar"`）。用户给农历时，先协助换算成公历再排，并说明。
+- **仅公历**：与生产引擎口径一致，CLI 只收公历。用户给农历时，先协助换算成公历再排，并说明。
+- **出生时间必填**：不再默认取午时；缺时辰时 CLI 返回 `TIME_REQUIRED`，须向用户追问。
+- **真太阳时**：提供出生地（`location.place`）或经度（`location.longitude`）时自动做真太阳时校正（含 1986–1991 夏令时）并按校正后时间排盘；未提供则按钟表时间排盘，`warnings` 会提示。
 - **子时**：采用 `lunar-javascript` 默认流派（夜子时 23:00–00:00 算当日），与本仓紫微口径一致。
 - **性别**：只影响大运顺逆。
 
@@ -44,7 +46,7 @@ compatibility: Requires Node.js + repo deps (lunar-javascript). Run scripts/bazi
 正式排盘前，先问清（模板见 `references/interview.md`）：
 
 1. 出生日期（公历优先；农历需先换算）。
-2. 出生时间（至少到时辰，最好到分钟；不知道要说明，默认取午时会降低准确度）。
+2. 出生时间（必填，精确到分钟；不知道时辰无法排盘）与出生地（用于真太阳时校正，可选）。
 3. 性别。
 4. 你要问什么事？一句话说清。
 5. 事情对应的时间范围？（今年 / 近三年 / 未来五年 / 某个具体阶段 / 只看命局）
@@ -73,16 +75,18 @@ time_scope 常用取值：`current_year` / `next_3_years` / `next_5_years` / `ne
 ```bash
 echo '{
   "mode": "question",
-  "birth": {"calendar":"solar","year":1990,"month":5,"day":1,"hour":14,"minute":0,"gender":"男"},
+  "birth": {"date":"1990-05-01","time":"14:00","gender":"男","location":{"place":"北京"}},
   "question": "未来五年事业哪年最有机会突破",
   "route": {"analysis_mode":"timing","time_scope":{"type":"next_5_years"}},
-  "currentYear": 2026
+  "current_year": 2026
 }' | node scripts/bazi_cli.cjs
 ```
 
 - 只排盘（不问事）：`"mode":"chart"`，省略 `question`/`route`。
-- 便捷路径：`node scripts/bazi_cli.cjs --date 1990-05-01 --time 14:00 --gender 男 --question "..."`。
-- 出错时输出 `{"ok":false,"code":...,"error":...}` 且退出码非 0——把 `error` 转成对用户的追问（如缺时辰）。
+- 便捷路径：`node scripts/bazi_cli.cjs --date 1990-05-01 --time 14:00 --gender 男 --question "..."`（可加 `--place 北京` 或 `--longitude 116.4`）。
+- 旧格式 `birth: {calendar:"solar",year,month,day,hour,minute,gender}` 与 `currentYear` 仍兼容，但 `hour` 必填。
+- 输出为统一外层：`{ok,system,mode,engine_version,input,conventions,chart,judgments,confidence,limitations,warnings}`。
+- 出错时输出 `{"ok":false,"code":...,"message":...,"hint":...}` 且退出码非 0——按 `hint` 向用户追问（如缺时辰 `TIME_REQUIRED`、出生地不明 `PLACE_*`）。
 
 输入/输出字段的完整说明见 `references/reading-guide.md`。
 
@@ -90,15 +94,15 @@ echo '{
 
 拿到 JSON 后按 `references/reading-guide.md` 解读，输出结构建议：
 
-1. 四柱排盘（用 `chart`：四柱、藏干、十神、神煞、大运列）。
-2. 日主强弱与格局（`static.strong_weak` / `static.geju` / `static.geju_info`）。
-3. 喜用忌神（`static.five_shens`：`yong`/`xi`/`ji`；`favorable_gods`/`unfavorable_gods`）。
+1. 四柱排盘（用 `chart`；`input.solar_time` 有值时说明已做真太阳时校正：四柱、藏干、十神、神煞、大运列）。
+2. 日主强弱与格局（`judgments.strong_weak` / `judgments.geju` / `judgments.geju_info`）。
+3. 喜用忌神（`judgments.five_shens`：`yong`/`xi`/`ji`；`favorable_gods`/`unfavorable_gods`）。
 4. 十神配置与性格。
-5. 针对所问之事的推演（`question` 段：`target_spec` 用神落点、`state_report` 原局状态、`dynamic_report` 动态机制、`timing_candidates` 应期候选年）。
+5. 针对所问之事的推演（`judgments.question` 段：`target_spec` 用神落点、`state_report` 原局状态、`dynamic_report` 动态机制、`timing_candidates` 应期候选年）。
 6. 已发生事件校验清单（如用户提供过往事件，对齐 `timing_candidates`/大运节点）。
 7. 核心总结：核心特点、最需注意的风险、最值得把握的方向、关键年份。
 
-**当 `question.engine_ran === false`**（`llm_derived`/legacy）：说明该问题引擎未定出后端目标元素，此时依静态盘（`static`）自行推导，并在措辞上标明这是基于命局结构的推断。
+**当 `judgments.question.engine_ran === false`**（`llm_derived`/legacy）：说明该问题引擎未定出后端目标元素，此时依静态盘（`judgments`）自行推导，并在措辞上标明这是基于命局结构的推断。
 
 ## 解读边界与风格
 
