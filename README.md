@@ -29,9 +29,9 @@
 
 ---
 
-## 🧭 两大对话式推演技能（Agent Skills）
+## 🧭 三大对话式推演技能（Agent Skills）
 
-> **开箱即用**：任意支持命令行的 AI Agent，都能直接调用本项目沉淀的两套「对话式排盘解盘」技能——对话端与网页端共用同一套确定性规则底座。
+> **开箱即用**：任意支持命令行的 AI Agent，都能直接调用本项目沉淀的三套「对话式排盘解盘」技能——对话端与网页端共用同一套确定性规则底座。
 
 三个技能**同构**，都走 **访谈 → 确定性计算（脚本）→ AI 解读** 三段式：先问清所求，再用脚本做固定计算（绝不让大模型心算排盘），最后才把结构化结论转译成可读、可行动的语言。计算内核纯本地、零 API Key，Agent 只需能跑脚本。
 
@@ -42,14 +42,20 @@
 | **紫微斗数** `ziwei` | 十二宫结构、星情四化、大限流年的阶段变化 | `scripts/ziwei_skill_cli.cjs`（iztro 排盘 + 已审核知识库证据，Node） | [SKILL.md](./.claude/skills/ziwei/SKILL.md) |
 
 - **为什么不让大模型自己排盘**：排盘、格局、旺衰、喜忌、问事推演本就是确定性的，一律交给脚本；大模型只负责访谈与解读，规避「心算」日柱大运带来的不可复现错误。
+- **统一契约**：三个 CLI 共用同一套出生信息输入（`lib/birthInput.cjs`，时辰、性别必填，传出生地可换算真太阳时）与同一种输出外层（`lib/cliEnvelope.cjs`，含 `chart` / `judgments` / `evidence` / `confidence` / `limitations` / `warnings` / `conventions`）；另有历法 CLI `scripts/calendar_cli.cjs`（公农历转换、真太阳时、节气）。
+- **解读守则单一来源**：三套技能的访谈与解读守则统一放在 [`packages/xuanxue-mcp/prompts/`](./packages/xuanxue-mcp/prompts/)，SKILL.md 与 MCP prompt 共用同一份正文。
 - **八字技能自带分层校验**：`scripts/bazi_cli.test.cjs`（封装无损 parity 测试，已并入 `npm test`）＋ [`eval/bazi-skill/`](./eval/bazi-skill/)（触发准确度、路由预判、解读忠实度评测）。
 
-详见下方「核心能力」中的 [奇门遁甲 Agent Skill](#奇门遁甲-agent-skill对话式推演技能) 与 [四柱八字 Agent Skill](#四柱八字-agent-skill对话式命理分析技能)。
+详见下方「核心能力」中的 [奇门遁甲 Agent Skill](#奇门遁甲-agent-skill对话式推演技能)、[四柱八字 Agent Skill](#四柱八字-agent-skill对话式命理分析技能) 与 [紫微斗数盘](#紫微斗数盘)。
 
 
 ## 🔌 MCP Server（xuanxue-mcp）
 
-八字、紫微斗数、奇门遁甲（外加历法工具）也以 stdio MCP server 的形式提供，可接入 Claude Code、Claude Desktop、Codex、Cursor 等客户端：`npx -y xuanxue-mcp`。纯本地计算，不联网、无需 API Key。配置方法与工具说明见 [packages/xuanxue-mcp/README.md](./packages/xuanxue-mcp/README.md)。
+八字、紫微斗数、奇门遁甲（外加历法工具）也以 stdio MCP server 的形式提供，可接入 Claude Code、Claude Desktop、Codex、Cursor 等客户端：4 个工具（`bazi` / `ziwei` / `qimen` / `calendar`）＋ 3 份解读守则 prompt。纯本地计算，不联网、无需 API Key，需要 Node ≥ 22.12。
+
+> **尚未发布到 npm**。发布前请从本仓库直接运行，例如 Claude Code：`claude mcp add xuanxue -- node <仓库绝对路径>/packages/xuanxue-mcp/src/server.mjs`；发布后可改用 `npx -y xuanxue-mcp`。
+
+配置方法、工具参数与输出说明见 [packages/xuanxue-mcp/README.md](./packages/xuanxue-mcp/README.md)。
 
 ---
 
@@ -107,6 +113,12 @@ flowchart TD
 *从这里开始是工程实现——把上面的认识论立场，落到具体的分流、规则与评分逻辑上。*
 
 ### 更新历史
+
+**2026-11-05 · 奇门技能修复、CLI 统一契约与 xuanxue-mcp**
+
+- 奇门技能改为调用 `scripts/qimen_cli.cjs`（封装生产入口 `buildQimenEvidence`），并注册到 `.claude/skills/`；此前文档引用的 Python 脚本从未存在。
+- 八字、紫微、奇门三个 CLI 统一出生信息输入与输出外层；时辰、性别改为必填（以前缺时辰默认 12 点）；传出生地可换算真太阳时（v1 只支持中国，含港澳台）。新增历法 CLI。
+- 新增 MCP server [`packages/xuanxue-mcp`](./packages/xuanxue-mcp/)：4 个工具、3 份解读守则；默认精简输出，`detail: "full"` 取完整数据；打包时剥离紫微古籍摘录原文。尚未发布到 npm。
 
 **2026-10-31 · 紫微斗数盘上线**
 
@@ -208,8 +220,8 @@ flowchart TD
 把上面这套奇门事件链路沉淀成一个可被 AI Agent 直接调用的技能（[`.claude/skills/qimen-dunjia/SKILL.md`](./.claude/skills/qimen-dunjia/SKILL.md)），让"对话式排盘解盘"和网页端走同一套确定性规则底座，而不是让大模型凭空编玄学。
 
 - **先访谈、后起局**：正式起局前先做结构化访谈，确认所问事项、起局时间、时区与判断目标，信息不全先追问，不急着断
-- **固定流程不跳步**：结构化访谈 → 问题路由 → 固定起局 → `targetSpec` 取用 → 有界评分 → 应期扫描 → 唯一证据包 → 自由结构报告，全程不绕过引擎自由解盘
-- **四条底线**：盘面事实必须来自脚本；低置信目标可由模型推导但须过白名单与盘面校验；模型目标只能有界参与评分（带权、有上限）；报告结构自由但关键语义（直接答案、取用逻辑、证据、风险、应期、建议、限制）不得遗漏
+- **固定流程不跳步**：结构化访谈 → `scripts/qimen_cli.cjs` 起局（与网页端同一个 `buildQimenEvidence`）→ 读取 `chart` 盘面与 `judgments`（用神、评分、格局落宫、应期、极性修正）→ 自由结构报告，全程不绕过引擎自由解盘；v1 不做多时辰择时
+- **四条底线**：盘面事实必须来自脚本；低置信目标可由模型推导，但所指符号必须能在 `chart.palaces` 中定位；模型推导的目标只能有界参与判断，不得覆盖脚本给出的用神与评分；报告结构自由但关键语义（直接答案、取用逻辑、证据、风险、应期、建议、限制）不得遗漏
 - **问事起局口径**：时家奇门以「问事当下」起局（北京时间、脚本解析时辰），用户提到的事件时间只作事项背景，不当起局时间
 - **报告规范**：开头渲染洛书九宫格，命中有名格按落宫展开，逐宫读到旺衰与天地盘干生克，结尾附推演边界说明
 
@@ -218,9 +230,9 @@ flowchart TD
 把网页端那套八字原局决策与问事推演，沉淀成一个可被 AI Agent 直接调用的技能（[`.claude/skills/bazi/SKILL.md`](./.claude/skills/bazi/SKILL.md)），与奇门同构——「访谈 → 脚本固定计算 → AI 解读」，不让大模型心算排盘。
 
 - **薄封装、同源计算**：`scripts/bazi_cli.cjs` 复用生产引擎的 `buildCompleteBaziDetail` 与问事 pipeline（`buildBaziQuestionPrompt`），一次调用即输出四柱排盘、原局决策（格局 / 旺衰 / 喜忌五神）与动态问事（用神落点 / 原局状态 / 岁运引动 / 应期候选年）的结构化 JSON
-- **纯本地零 Key**：计算内核只依赖 Node 与 `lunar-javascript`，不联网、不需 API Key——接入的 Agent 自己充当负责解读的大模型
+- **纯本地零 Key**：计算内核只在本地运行（Node ≥ 22.12），不联网、不需 API Key——接入的 Agent 自己充当负责解读的大模型
 - **访谈先行、路由预判**：先确认公历生辰、性别、所问事项与时间范围，信息不全先追问；由 Agent 预判分析类型（timing / status / pattern / character）再交脚本，缺省则脚本启发式兜底
-- **口径对齐生产**：v1 仅收公历、夜子时算当日，与网页端引擎同一套判据；只用主线引擎，不含仍在分支的专题派生能力
+- **口径对齐生产**：v1 仅收公历、夜子时算当日，与网页端引擎同一套判据；时辰、性别必填，传出生地时复用网页端函数换算真太阳时（含 1986–1991 年大陆夏令时）；只用主线引擎，不含仍在分支的专题派生能力
 - **分层可验证**：`scripts/bazi_cli.test.cjs` 用 parity 测试锁定「封装 == 引擎、无损」并挂进 `npm test`；[`eval/bazi-skill/`](./eval/bazi-skill/) 提供 skill 级评测方案（触发准确度、路由预判、解读忠实度——解读断语与确定性盘的硬矛盾门禁为 `0`）
 
 ### 全息八字系统
@@ -550,7 +562,8 @@ flowchart TD
 后端          Cloudflare Workers
 数据库        Supabase Auth、Postgres、行级安全策略
 AI 模型       DeepSeek（OpenAI 兼容接口；问事模型经 QUESTION_MODEL 逐环境配置），SSE 流式输出
-历法计算      lunar-javascript
+历法计算      lunar-javascript、iztro（紫微排盘）
+MCP           @modelcontextprotocol/sdk、zod（packages/xuanxue-mcp，stdio）
 构建工具      Vite
 测试          Node.js Test Runner
 线上形态      Cloudflare Pages + Cloudflare Workers
@@ -575,6 +588,8 @@ AI 模型       DeepSeek（OpenAI 兼容接口；问事模型经 QUESTION_MODEL 
 ---
 
 ## 本地开发
+
+需要 Node ≥ 22.12（引擎通过 `require(esm)` 复用 `src/utils` 下的函数）。`npm test` 分两段：先跑全部单元与 e2e 测试，再单独串行跑 MCP 打包冒烟测试（需联网安装一次依赖）。
 
 ```bash
 npm install
@@ -607,7 +622,14 @@ npx wrangler dev
 ```text
 /
 ├── worker/          # 后端接口入口与 Cloudflare Workers 配置
+├── packages/
+│   └── xuanxue-mcp/  # MCP server（工具、解读守则 prompts、prepack 打包脚本）
+├── .claude/skills/  # 奇门 / 八字 / 紫微 Agent Skills（.agents/skills/ 为同内容副本）
+├── knowledge/ziwei/ # 紫微规则、释义与出处元数据
+├── schemas/         # CLI 统一输出外层的 JSON Schema
 ├── lib/             # 奇门、八字、运势评分和提示词构建核心逻辑
+│   ├── birthInput.cjs               # 统一出生信息解析与真太阳时
+│   ├── cliEnvelope.cjs              # CLI 统一输出外层与错误码
 │   ├── normalizeShenProfile.js      # 四维用神归一化
 │   ├── calculateTiaohouRatio.js     # 调候拦截器
 │   ├── calculateShenshaImpact.js    # 神煞旺衰折算
@@ -642,6 +664,10 @@ npx wrangler dev
 │   ├── qimen-scoring-engine-improvement.md    # 奇门评分引擎改进记录
 │   └── sql/                         # 数据库迁移脚本
 ├── scripts/
+│   ├── bazi_cli.cjs                  # 八字 CLI（技能 / MCP 共用）
+│   ├── ziwei_skill_cli.cjs           # 紫微 CLI
+│   ├── qimen_cli.cjs                 # 奇门 CLI
+│   ├── calendar_cli.cjs              # 历法 CLI
 │   └── eval-yongshen.mjs             # 用神评测复现脚本
 ├── mock/            # 前端访客与测试模拟数据
 ├── public/          # 静态资源与单页应用兜底配置

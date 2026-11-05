@@ -21,9 +21,9 @@
 
 ---
 
-## 🧭 Two Conversational Reasoning Skills (Agent Skills)
+## 🧭 Three Conversational Reasoning Skills (Agent Skills)
 
-> **Ready to use**: any command-line-capable AI agent can directly invoke the two "conversational chart-casting" skills distilled from this project — the conversational side and the web app share the same deterministic rule foundation.
+> **Ready to use**: any command-line-capable AI agent can directly invoke the three "conversational chart-casting" skills distilled from this project — the conversational side and the web app share the same deterministic rule foundation.
 
 All three skills are **isomorphic**, following an **interview → deterministic computation (script) → AI interpretation** three-stage flow: clarify the question first, run fixed calculations via script (never let the model do chart math in its head), then translate the structured conclusion into readable, actionable language. The compute core is fully local and needs no API key — the agent only needs to run a script.
 
@@ -34,14 +34,20 @@ All three skills are **isomorphic**, following an **interview → deterministic 
 | **Zi Wei Dou Shu** `ziwei` | twelve-palace structure, star traits and transformations, decade/annual shifts | `scripts/ziwei_skill_cli.cjs` (iztro chart + reviewed knowledge-base evidence, Node) | [SKILL.md](../../.claude/skills/ziwei/SKILL.md) |
 
 - **Why not let the model cast the chart itself**: chart generation, patterns, strength, favorable/unfavorable gods, and question reasoning are all deterministic — handed entirely to the script; the model only interviews and interprets, avoiding non-reproducible errors from "mentally computing" day pillars and luck cycles.
+- **One contract**: the three CLIs share one birth-input parser (`lib/birthInput.cjs`; hour and gender required, a birthplace enables true-solar-time correction) and one output envelope (`lib/cliEnvelope.cjs`: `chart` / `judgments` / `evidence` / `confidence` / `limitations` / `warnings` / `conventions`). A calendar CLI, `scripts/calendar_cli.cjs`, handles solar↔lunar conversion, true solar time and solar terms.
+- **One source for reading guidelines**: the interview and interpretation rules live in [`packages/xuanxue-mcp/prompts/`](../../packages/xuanxue-mcp/prompts/); the SKILL.md files and the MCP prompts share that text.
 - **The Bazi skill ships with layered checks**: `scripts/bazi_cli.test.cjs` (lossless-wrapper parity test, wired into `npm test`) plus [`eval/bazi-skill/`](../../eval/bazi-skill/) (triggering accuracy, route prediction, interpretation faithfulness).
 
-See the [Qimen Dunjia Agent Skill](#qimen-dunjia-agent-skill-conversational-reasoning-skill) and [Bazi Agent Skill](#bazi-agent-skill-conversational-reading-skill) under "Core Features" below.
+See the [Qimen Dunjia Agent Skill](#qimen-dunjia-agent-skill-conversational-reasoning-skill), [Bazi Agent Skill](#bazi-agent-skill-conversational-reading-skill) and [Zi Wei Dou Shu Chart](#zi-wei-dou-shu-chart) under "Core Features" below.
 
 
 ## 🔌 MCP Server (xuanxue-mcp)
 
-The Bazi, Zi Wei Dou Shu and Qimen Dunjia engines (plus calendar tools) are also available as a stdio MCP server for Claude Code, Claude Desktop, Codex, Cursor and other clients: `npx -y xuanxue-mcp`. Fully local, no network, no API key. Setup and tool reference: [packages/xuanxue-mcp/README.md](../../packages/xuanxue-mcp/README.md).
+The Bazi, Zi Wei Dou Shu and Qimen Dunjia engines (plus calendar tools) are also available as a stdio MCP server for Claude Code, Claude Desktop, Codex, Cursor and other clients: four tools (`bazi` / `ziwei` / `qimen` / `calendar`) plus three reading-guideline prompts. Fully local, no network, no API key; requires Node ≥ 22.12.
+
+> **Not published to npm yet.** Until then, run it from this repo, e.g. in Claude Code: `claude mcp add xuanxue -- node <absolute repo path>/packages/xuanxue-mcp/src/server.mjs`. After publishing, `npx -y xuanxue-mcp` will work.
+
+Setup, tool parameters and output reference: [packages/xuanxue-mcp/README.md](../../packages/xuanxue-mcp/README.md).
 
 ---
 
@@ -97,6 +103,18 @@ The natal chart is the potential (the seed); the luck cycle is the environment (
 ## Core Features
 
 ### Changelog
+
+**2026-11-05 · Qimen skill fix, unified CLI contract, xuanxue-mcp**
+
+- The Qimen skill now calls `scripts/qimen_cli.cjs` (wrapping the production entry `buildQimenEvidence`) and is registered under `.claude/skills/`; the Python scripts the old docs referenced never existed.
+- The Bazi, Zi Wei and Qimen CLIs share one birth input and one output envelope; hour and gender are now required (a missing hour used to default to 12:00); a birthplace enables true-solar-time correction (v1: China only, incl. Hong Kong, Macau and Taiwan). New calendar CLI.
+- New MCP server [`packages/xuanxue-mcp`](../../packages/xuanxue-mcp/): four tools, three reading guidelines; summary output by default, `detail: "full"` for everything; Zi Wei source-excerpt text is stripped at pack time. Not published to npm yet.
+
+**2026-09-09 · BaziEngine 1.8.29 / Qimen ruleset dunjia-yanyi-siku-v1 · classical-rule audit fixes**
+
+- Bazi: corrected the scope of the metal-water hurting-officer rule, target-stem growth phases and rooting, and stem changes in the four growth months; old LLM verdicts are no longer reused after the rule upgrade.
+- Qimen now follows 《遁甲演义》 (Siku Quanshu edition) for nine-star seasonal strength, the six-yi punishment, the five non-meeting hours, the three wonders meeting the envoy, the jade-maiden gate, three-wonder tombs, and Tian Qin lodging in Kun.
+- Scores are labeled as project reference indices; the LLM only reviews wording and cannot change backend deterministic metrics. Audit evidence: [`../audits/2026-09-07-mechanism/REPORT.md`](../audits/2026-09-07-mechanism/REPORT.md).
 
 **2026-10-31 · Zi Wei Dou Shu chart**
 
@@ -192,8 +210,8 @@ This is the system's dispatcher. Every question is first classified as a concret
 Consolidates the Qimen event pipeline above into a technique an AI agent can call directly ([`.claude/skills/qimen-dunjia/SKILL.md`](../../.claude/skills/qimen-dunjia/SKILL.md)), so a conversational casting shares the same deterministic rule foundation as the web app instead of letting the model freelance.
 
 - **Interview first, cast second**: a structured interview confirms the matter, casting time, timezone, and judgment target before any casting; missing information is asked for, not guessed
-- **Fixed pipeline, no skipped steps**: structured interview → question routing → fixed casting → target-spec resolution → bounded scoring → timing scan → single evidence package → free-form report — the engine is never bypassed for freestyle reading
-- **Four hard rules**: chart facts must come from the script; low-confidence targets may be derived by the model but must pass a whitelist and chart check; model-derived targets can only participate in scoring in a bounded, capped way; the report's structure is free-form, but key content (direct answer, reasoning, evidence, risk, timing, advice, limitations) may never be omitted
+- **Fixed pipeline, no skipped steps**: structured interview → cast with `scripts/qimen_cli.cjs` (the same `buildQimenEvidence` the web app uses) → read the `chart` and `judgments` (useful god, score, formations by palace, timing, polarity overrides) → free-form report — the engine is never bypassed for freestyle reading; v1 does not scan multiple hours for date selection
+- **Four hard rules**: chart facts must come from the script; low-confidence targets may be derived by the model, but the symbols they point to must be locatable in `chart.palaces`; model-derived targets participate only in a bounded way and never override the script's useful god or score; the report's structure is free-form, but key content (direct answer, reasoning, evidence, risk, timing, advice, limitations) may never be omitted
 - **Casting-time convention**: Shi Jia Qimen casts at "the moment of asking" (Beijing time, script-resolved hour); any event time the user mentions is background only, never the casting time
 - **Report conventions**: renders the Luoshu nine-grid up front, expands named patterns by the palace they land in, reads seasonal strength and heaven/earth stem relations palace by palace, and closes with a note on the reasoning's boundaries
 
@@ -202,9 +220,9 @@ Consolidates the Qimen event pipeline above into a technique an AI agent can cal
 Distills the web app's Bazi natal decisions and question reasoning into a skill an AI agent can call directly ([`.claude/skills/bazi/SKILL.md`](../../.claude/skills/bazi/SKILL.md)), isomorphic to Qimen — "interview → fixed script computation → AI interpretation," never letting the model do chart math in its head.
 
 - **Thin wrapper, identical computation**: `scripts/bazi_cli.cjs` reuses the production engine's `buildCompleteBaziDetail` and question pipeline (`buildBaziQuestionPrompt`); one call outputs structured JSON for the four-pillar chart, natal decisions (pattern / strength / favorable-unfavorable gods), and dynamic question reasoning (target locus / natal state / luck-cycle induction / candidate timing years)
-- **Fully local, no key**: the compute core depends only on Node and `lunar-javascript` — no network, no API key; the connecting agent itself acts as the interpreting model
+- **Fully local, no key**: the compute core runs locally (Node ≥ 22.12) — no network, no API key; the connecting agent itself acts as the interpreting model
 - **Interview first, route prediction**: confirm solar birth data, gender, the matter, and time range first, asking for anything missing; the agent predicts the analysis type (timing / status / pattern / character) before calling the script, with a script heuristic as fallback
-- **Convention aligned with production**: v1 accepts solar dates only, treats the late-Zi hour as the same day, shares the web engine's criteria, and relies on the mainline engine only
+- **Convention aligned with production**: v1 accepts solar dates only, treats the late-Zi hour as the same day, shares the web engine's criteria; hour and gender are required, and a birthplace triggers true-solar-time correction via the web app's own function (incl. mainland China's 1986–1991 daylight saving); relies on the mainline engine only
 - **Layered verification**: `scripts/bazi_cli.test.cjs` locks "wrapper == engine, lossless" via a parity test wired into `npm test`; [`eval/bazi-skill/`](../../eval/bazi-skill/) provides a skill-level eval plan (triggering accuracy, route prediction, interpretation faithfulness — hard-contradiction gate `0` between the reading's claims and the deterministic chart)
 
 ### Bazi System
@@ -224,7 +242,7 @@ Distills the web app's Bazi natal decisions and question reasoning into a skill 
 - Major, minor and miscellaneous stars with brightness, life / body masters, five-element bureau, body palace, natal Four Transformations
 - San He view (palace plus its triad and opposite) and Si Hua view (palace-stem transformations drawn as flying lines)
 - Linked decade, year and month periods
-- Computed live in the browser and not stored yet; `scripts/ziwei_cli.cjs` gives the same chart for agent use. Zi Wei readings and Bazi cross-checks are planned
+- Computed live in the browser and not stored yet; in conversation, the [`ziwei` skill](../../.claude/skills/ziwei/SKILL.md) calls `scripts/ziwei_skill_cli.cjs` for the same chart plus an evidence package. Zi Wei × Bazi cross-checks are planned
 
 ### Fortune Scoring
 
@@ -429,7 +447,8 @@ Frontend       Vue 3, Composition API, Pinia, Vue Router, vue-i18n
 Backend        Cloudflare Workers
 Database       Supabase Auth, Postgres, row-level security
 AI             DeepSeek (OpenAI-compatible API; question model set per environment via QUESTION_MODEL), SSE streaming
-Calendar       lunar-javascript
+Calendar       lunar-javascript, iztro (Zi Wei charts)
+MCP            @modelcontextprotocol/sdk, zod (packages/xuanxue-mcp, stdio)
 Build Tool     Vite
 Tests          Node.js Test Runner
 Production     Cloudflare Pages + Cloudflare Workers
@@ -454,6 +473,8 @@ Production     Cloudflare Pages + Cloudflare Workers
 ---
 
 ## Local Development
+
+Requires Node ≥ 22.12 (the engines reuse functions under `src/utils` via `require(esm)`). `npm test` runs in two stages: all unit and e2e tests first, then the MCP pack smoke test on its own (it installs dependencies once, so it needs network).
 
 ```bash
 npm install
@@ -486,7 +507,12 @@ Database migration scripts are kept in `docs/sql/` for the author's own maintena
 ```text
 /
 ├── worker/          # Backend API entry point and Cloudflare Workers config
+├── packages/xuanxue-mcp/  # MCP server (tools, reading-guideline prompts, prepack)
+├── .claude/skills/  # Qimen / Bazi / Zi Wei Agent Skills (.agents/skills/ mirrors them)
+├── knowledge/ziwei/ # Zi Wei rules, interpretations and source metadata
+├── schemas/         # JSON Schema for the unified CLI output envelope
 ├── lib/             # Qimen, Bazi, fortune scoring, and prompt-building core logic
+├── scripts/         # bazi / ziwei_skill / qimen / calendar CLIs and eval scripts
 ├── src/             # Vue frontend app
 ├── docs/sql/        # Database migration scripts
 ├── mock/            # Guest-mode and test mock data
