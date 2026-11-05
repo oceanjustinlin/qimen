@@ -12,6 +12,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.9,
     "lng": 116.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "100000",
     "population": 21893095,
     "aliases": [
@@ -30,6 +31,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.93,
     "lng": 116.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "100010",
     "population": 21893095,
     "aliases": [
@@ -49,6 +51,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.92,
     "lng": 116.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "100032",
     "population": 21893095,
     "aliases": [
@@ -68,6 +71,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.88,
     "lng": 116.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "100000",
     "population": 21893095,
     "aliases": [
@@ -87,6 +91,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.87,
     "lng": 116.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "100000",
     "population": 21893095,
     "aliases": [
@@ -106,6 +111,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.92,
     "lng": 116.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "100020",
     "population": 21893095,
     "aliases": [
@@ -125,6 +131,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.85,
     "lng": 116.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "100071",
     "population": 21893095,
     "aliases": [
@@ -144,6 +151,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.9,
     "lng": 116.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "100043",
     "population": 21893095,
     "aliases": [
@@ -163,6 +171,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.95,
     "lng": 116.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "100089",
     "population": 21893095,
     "aliases": [
@@ -182,6 +191,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.93,
     "lng": 116.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "102300",
     "population": 21893095,
     "aliases": [
@@ -201,6 +211,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.75,
     "lng": 116.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "102488",
     "population": 21893095,
     "aliases": [
@@ -220,6 +231,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.92,
     "lng": 116.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "101149",
     "population": 21893095,
     "aliases": [
@@ -239,6 +251,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.13,
     "lng": 116.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "101300",
     "population": 21893095,
     "aliases": [
@@ -258,6 +271,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.22,
     "lng": 116.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "102200",
     "population": 21893095,
     "aliases": [
@@ -277,6 +291,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.73,
     "lng": 116.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "102600",
     "population": 21893095,
     "aliases": [
@@ -296,6 +311,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.32,
     "lng": 116.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "101400",
     "population": 21893095,
     "aliases": [
@@ -315,6 +331,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.13,
     "lng": 117.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "101200",
     "population": 21893095,
     "aliases": [
@@ -334,6 +351,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.37,
     "lng": 116.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "101500",
     "population": 21893095,
     "aliases": [
@@ -353,6 +371,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.45,
     "lng": 115.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "102100",
     "population": 21893095,
     "aliases": [
@@ -372,6 +391,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.12,
     "lng": 117.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "300000",
     "population": 13866009,
     "aliases": [
@@ -389,6 +409,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.12,
     "lng": 117.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "300041",
     "population": 13866009,
     "aliases": [
@@ -407,6 +428,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.12,
     "lng": 117.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "300171",
     "population": 13866009,
     "aliases": [
@@ -425,6 +447,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.12,
     "lng": 117.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "300202",
     "population": 13866009,
     "aliases": [
@@ -443,6 +466,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.13,
     "lng": 117.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "300110",
     "population": 13866009,
     "aliases": [
@@ -461,6 +485,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.15,
     "lng": 117.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "300143",
     "population": 13866009,
     "aliases": [
@@ -479,6 +504,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.17,
     "lng": 117.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "300131",
     "population": 13866009,
     "aliases": [
@@ -497,6 +523,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.02,
     "lng": 117.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "300450",
     "population": 13866009,
     "aliases": [
@@ -515,6 +542,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.25,
     "lng": 117.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "300480",
     "population": 13866009,
     "aliases": [
@@ -533,6 +561,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.83,
     "lng": 117.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "300000",
     "population": 13866009,
     "aliases": [
@@ -551,6 +580,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.08,
     "lng": 117.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "300300",
     "population": 13866009,
     "aliases": [
@@ -569,6 +599,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.13,
     "lng": 117,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "300380",
     "population": 13866009,
     "aliases": [
@@ -587,6 +618,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.98,
     "lng": 117.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "300350",
     "population": 13866009,
     "aliases": [
@@ -605,6 +637,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.22,
     "lng": 117.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "300400",
     "population": 13866009,
     "aliases": [
@@ -623,6 +656,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.38,
     "lng": 117.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "301700",
     "population": 13866009,
     "aliases": [
@@ -641,6 +675,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.72,
     "lng": 117.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "301800",
     "population": 13866009,
     "aliases": [
@@ -659,6 +694,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.03,
     "lng": 117.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "300450",
     "population": 13866009,
     "aliases": [
@@ -677,6 +713,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.33,
     "lng": 117.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "301500",
     "population": 13866009,
     "aliases": [
@@ -695,6 +732,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.93,
     "lng": 116.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "301600",
     "population": 13866009,
     "aliases": [
@@ -713,6 +751,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.05,
     "lng": 117.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "301900",
     "population": 13866009,
     "aliases": [
@@ -731,6 +770,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.05,
     "lng": 114.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "050000",
     "population": 11235086,
     "aliases": [
@@ -750,6 +790,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.05,
     "lng": 114.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "050000",
     "population": 11235086,
     "aliases": [
@@ -770,6 +811,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.05,
     "lng": 114.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "050000",
     "population": 11235086,
     "aliases": [
@@ -790,6 +832,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.78,
     "lng": 114.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "050000",
     "population": 11235086,
     "aliases": [
@@ -810,6 +853,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.07,
     "lng": 114.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "050000",
     "population": 11235086,
     "aliases": [
@@ -830,6 +874,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.05,
     "lng": 114.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "050051",
     "population": 11235086,
     "aliases": [
@@ -850,6 +895,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.83,
     "lng": 114.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "050051",
     "population": 11235086,
     "aliases": [
@@ -870,6 +916,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.03,
     "lng": 114.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "050051",
     "population": 11235086,
     "aliases": [
@@ -890,6 +937,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.05,
     "lng": 114.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "453000",
     "population": 11235086,
     "aliases": [
@@ -910,6 +958,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.32,
     "lng": 116.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "453000",
     "population": 11235086,
     "aliases": [
@@ -930,6 +979,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.08,
     "lng": 114.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "050100",
     "population": 11235086,
     "aliases": [
@@ -950,6 +1000,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.02,
     "lng": 114.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "050011",
     "population": 11235086,
     "aliases": [
@@ -970,6 +1021,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.03,
     "lng": 114.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "050300",
     "population": 11235086,
     "aliases": [
@@ -990,6 +1042,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.15,
     "lng": 114.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "050800",
     "population": 11235086,
     "aliases": [
@@ -1010,6 +1063,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.88,
     "lng": 114.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "051430",
     "population": 11235086,
     "aliases": [
@@ -1030,6 +1084,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.43,
     "lng": 114.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "050600",
     "population": 11235086,
     "aliases": [
@@ -1050,6 +1105,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.3,
     "lng": 114.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "050500",
     "population": 11235086,
     "aliases": [
@@ -1070,6 +1126,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.6,
     "lng": 114.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "051330",
     "population": 11235086,
     "aliases": [
@@ -1090,6 +1147,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.18,
     "lng": 115.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "052560",
     "population": 11235086,
     "aliases": [
@@ -1110,6 +1168,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.67,
     "lng": 114.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "051230",
     "population": 11235086,
     "aliases": [
@@ -1130,6 +1189,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.18,
     "lng": 114.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "052460",
     "population": 11235086,
     "aliases": [
@@ -1150,6 +1210,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.25,
     "lng": 114.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "050400",
     "population": 11235086,
     "aliases": [
@@ -1170,6 +1231,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.75,
     "lng": 114.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "051130",
     "population": 11235086,
     "aliases": [
@@ -1190,6 +1252,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.75,
     "lng": 114.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "051530",
     "population": 11235086,
     "aliases": [
@@ -1210,6 +1273,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.92,
     "lng": 115.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "052360",
     "population": 11235086,
     "aliases": [
@@ -1231,6 +1295,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.03,
     "lng": 114.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "052160",
     "population": 11235086,
     "aliases": [
@@ -1252,6 +1317,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.03,
     "lng": 115.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "052260",
     "population": 11235086,
     "aliases": [
@@ -1273,6 +1339,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.35,
     "lng": 114.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "050700",
     "population": 11235086,
     "aliases": [
@@ -1294,6 +1361,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.08,
     "lng": 114.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "050200",
     "population": 11235086,
     "aliases": [
@@ -1315,6 +1383,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.63,
     "lng": 118.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "063000",
     "population": 1000,
     "aliases": [
@@ -1333,6 +1402,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.63,
     "lng": 118.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "063017",
     "population": 100,
     "aliases": [
@@ -1352,6 +1422,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.63,
     "lng": 118.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "063000",
     "population": 100,
     "aliases": [
@@ -1371,6 +1442,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.73,
     "lng": 118.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "063100",
     "population": 100,
     "aliases": [
@@ -1390,6 +1462,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.68,
     "lng": 118.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "063021",
     "population": 100,
     "aliases": [
@@ -1409,6 +1482,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.57,
     "lng": 118.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "063300",
     "population": 100,
     "aliases": [
@@ -1428,6 +1502,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.83,
     "lng": 118.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "064000",
     "population": 100,
     "aliases": [
@@ -1447,6 +1522,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.75,
     "lng": 118.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "063700",
     "population": 100,
     "aliases": [
@@ -1466,6 +1542,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.5,
     "lng": 118.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "063500",
     "population": 100,
     "aliases": [
@@ -1485,6 +1562,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.42,
     "lng": 118.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "063600",
     "population": 100,
     "aliases": [
@@ -1504,6 +1582,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.15,
     "lng": 118.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "064300",
     "population": 100,
     "aliases": [
@@ -1523,6 +1602,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.88,
     "lng": 117.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "064100",
     "population": 100,
     "aliases": [
@@ -1542,6 +1622,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.27,
     "lng": 118.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "063200",
     "population": 100,
     "aliases": [
@@ -1561,6 +1642,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.18,
     "lng": 117.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "064200",
     "population": 100,
     "aliases": [
@@ -1581,6 +1663,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.02,
     "lng": 118.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "064400",
     "population": 100,
     "aliases": [
@@ -1601,6 +1684,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.93,
     "lng": 119.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "066000",
     "population": 1000,
     "aliases": [
@@ -1619,6 +1703,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.93,
     "lng": 119.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "066000",
     "population": 100,
     "aliases": [
@@ -1638,6 +1723,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40,
     "lng": 119.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "066200",
     "population": 100,
     "aliases": [
@@ -1657,6 +1743,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.83,
     "lng": 119.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "066100",
     "population": 100,
     "aliases": [
@@ -1676,6 +1763,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.4,
     "lng": 118.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "066500",
     "population": 100,
     "aliases": [
@@ -1695,6 +1783,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.7,
     "lng": 119.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "066600",
     "population": 100,
     "aliases": [
@@ -1714,6 +1803,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.88,
     "lng": 119.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "066300",
     "population": 100,
     "aliases": [
@@ -1733,6 +1823,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.88,
     "lng": 118.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "066400",
     "population": 100,
     "aliases": [
@@ -1752,6 +1843,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.62,
     "lng": 114.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "056000",
     "population": 1000,
     "aliases": [
@@ -1770,6 +1862,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.6,
     "lng": 114.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "056001",
     "population": 100,
     "aliases": [
@@ -1789,6 +1882,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.63,
     "lng": 114.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "056004",
     "population": 100,
     "aliases": [
@@ -1808,6 +1902,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.63,
     "lng": 114.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "056002",
     "population": 100,
     "aliases": [
@@ -1827,6 +1922,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.42,
     "lng": 114.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "056200",
     "population": 100,
     "aliases": [
@@ -1846,6 +1942,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.6,
     "lng": 114.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "056100",
     "population": 100,
     "aliases": [
@@ -1865,6 +1962,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.35,
     "lng": 114.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "056600",
     "population": 100,
     "aliases": [
@@ -1884,6 +1982,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.43,
     "lng": 114.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "056700",
     "population": 100,
     "aliases": [
@@ -1903,6 +2002,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.28,
     "lng": 115.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "056900",
     "population": 100,
     "aliases": [
@@ -1922,6 +2022,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.57,
     "lng": 113.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "056400",
     "population": 100,
     "aliases": [
@@ -1941,6 +2042,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.35,
     "lng": 114.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "056500",
     "population": 100,
     "aliases": [
@@ -1960,6 +2062,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.55,
     "lng": 114.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "057550",
     "population": 100,
     "aliases": [
@@ -1979,6 +2082,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.78,
     "lng": 114.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "057150",
     "population": 100,
     "aliases": [
@@ -1998,6 +2102,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.82,
     "lng": 115.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "057450",
     "population": 100,
     "aliases": [
@@ -2017,6 +2122,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.92,
     "lng": 114.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "057350",
     "population": 100,
     "aliases": [
@@ -2036,6 +2142,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.48,
     "lng": 114.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "057650",
     "population": 100,
     "aliases": [
@@ -2055,6 +2162,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.53,
     "lng": 115.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "057750",
     "population": 100,
     "aliases": [
@@ -2074,6 +2182,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.37,
     "lng": 114.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "056800",
     "population": 100,
     "aliases": [
@@ -2093,6 +2202,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.78,
     "lng": 114.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "057250",
     "population": 100,
     "aliases": [
@@ -2112,6 +2222,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.7,
     "lng": 114.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "056300",
     "population": 100,
     "aliases": [
@@ -2132,6 +2243,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.07,
     "lng": 114.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "054000",
     "population": 1000,
     "aliases": [
@@ -2150,6 +2262,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.05,
     "lng": 114.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "054000",
     "population": 100,
     "aliases": [
@@ -2169,6 +2282,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.78,
     "lng": 114.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "054000",
     "population": 100,
     "aliases": [
@@ -2188,6 +2302,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.07,
     "lng": 114.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "054000",
     "population": 100,
     "aliases": [
@@ -2207,6 +2322,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.83,
     "lng": 114.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "054000",
     "population": 100,
     "aliases": [
@@ -2226,6 +2342,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.03,
     "lng": 114.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "054000",
     "population": 100,
     "aliases": [
@@ -2245,6 +2362,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.05,
     "lng": 114.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "054000",
     "population": 100,
     "aliases": [
@@ -2264,6 +2382,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.08,
     "lng": 114.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "054000",
     "population": 100,
     "aliases": [
@@ -2283,6 +2402,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.43,
     "lng": 114.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "054300",
     "population": 100,
     "aliases": [
@@ -2302,6 +2422,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.3,
     "lng": 114.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "054200",
     "population": 100,
     "aliases": [
@@ -2321,6 +2442,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.5,
     "lng": 114.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "055450",
     "population": 100,
     "aliases": [
@@ -2340,6 +2462,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.35,
     "lng": 114.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "055350",
     "population": 100,
     "aliases": [
@@ -2359,6 +2482,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.13,
     "lng": 114.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "055151",
     "population": 100,
     "aliases": [
@@ -2378,6 +2502,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37,
     "lng": 114.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "054400",
     "population": 100,
     "aliases": [
@@ -2397,6 +2522,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.62,
     "lng": 114.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "055550",
     "population": 100,
     "aliases": [
@@ -2416,6 +2542,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.22,
     "lng": 115.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "055250",
     "population": 100,
     "aliases": [
@@ -2435,6 +2562,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.53,
     "lng": 115.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "055650",
     "population": 100,
     "aliases": [
@@ -2454,6 +2582,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.07,
     "lng": 115.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "054600",
     "population": 100,
     "aliases": [
@@ -2473,6 +2602,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.07,
     "lng": 115.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "054500",
     "population": 100,
     "aliases": [
@@ -2492,6 +2622,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.98,
     "lng": 115.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "054700",
     "population": 100,
     "aliases": [
@@ -2511,6 +2642,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.07,
     "lng": 115.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "054800",
     "population": 100,
     "aliases": [
@@ -2530,6 +2662,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.85,
     "lng": 115.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "054900",
     "population": 100,
     "aliases": [
@@ -2549,6 +2682,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.35,
     "lng": 115.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "055750",
     "population": 100,
     "aliases": [
@@ -2569,6 +2703,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.85,
     "lng": 114.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "054100",
     "population": 100,
     "aliases": [
@@ -2589,6 +2724,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.87,
     "lng": 115.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "071000",
     "population": 1000,
     "aliases": [
@@ -2607,6 +2743,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.87,
     "lng": 115.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "071000",
     "population": 100,
     "aliases": [
@@ -2626,6 +2763,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.87,
     "lng": 115.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "071000",
     "population": 100,
     "aliases": [
@@ -2645,6 +2783,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.85,
     "lng": 115.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "071000",
     "population": 100,
     "aliases": [
@@ -2664,6 +2803,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.95,
     "lng": 115.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "072150",
     "population": 100,
     "aliases": [
@@ -2683,6 +2823,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.77,
     "lng": 115.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "071100",
     "population": 100,
     "aliases": [
@@ -2702,6 +2843,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.4,
     "lng": 115.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "074100",
     "population": 100,
     "aliases": [
@@ -2721,6 +2863,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.85,
     "lng": 114.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "073200",
     "population": 100,
     "aliases": [
@@ -2740,6 +2883,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.02,
     "lng": 115.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "072550",
     "population": 100,
     "aliases": [
@@ -2759,6 +2903,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.27,
     "lng": 115.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "072650",
     "population": 100,
     "aliases": [
@@ -2778,6 +2923,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.75,
     "lng": 114.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "072350",
     "population": 100,
     "aliases": [
@@ -2797,6 +2943,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.68,
     "lng": 115.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "071500",
     "population": 100,
     "aliases": [
@@ -2816,6 +2963,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.05,
     "lng": 115.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "071700",
     "population": 100,
     "aliases": [
@@ -2835,6 +2983,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.35,
     "lng": 114.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "074300",
     "population": 100,
     "aliases": [
@@ -2854,6 +3003,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.72,
     "lng": 115.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "072450",
     "population": 100,
     "aliases": [
@@ -2873,6 +3023,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.92,
     "lng": 115.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "071600",
     "population": 100,
     "aliases": [
@@ -2892,6 +3043,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.35,
     "lng": 115.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "074200",
     "population": 100,
     "aliases": [
@@ -2911,6 +3063,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.62,
     "lng": 114.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "073100",
     "population": 100,
     "aliases": [
@@ -2930,6 +3083,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.48,
     "lng": 115.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "071400",
     "population": 100,
     "aliases": [
@@ -2949,6 +3103,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.83,
     "lng": 115.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "072250",
     "population": 100,
     "aliases": [
@@ -2968,6 +3123,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.45,
     "lng": 115.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "071300",
     "population": 100,
     "aliases": [
@@ -2987,6 +3143,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.98,
     "lng": 116.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "071800",
     "population": 100,
     "aliases": [
@@ -3006,6 +3163,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.48,
     "lng": 115.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "072750",
     "population": 100,
     "aliases": [
@@ -3026,6 +3184,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.52,
     "lng": 114.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "073000",
     "population": 100,
     "aliases": [
@@ -3046,6 +3205,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.42,
     "lng": 115.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "071200",
     "population": 100,
     "aliases": [
@@ -3066,6 +3226,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.33,
     "lng": 115.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "074000",
     "population": 100,
     "aliases": [
@@ -3086,6 +3247,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.82,
     "lng": 114.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "075000",
     "population": 1000,
     "aliases": [
@@ -3104,6 +3266,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.05,
     "lng": 114.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "075000",
     "population": 100,
     "aliases": [
@@ -3123,6 +3286,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.78,
     "lng": 114.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "075000",
     "population": 100,
     "aliases": [
@@ -3142,6 +3306,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.07,
     "lng": 114.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "075000",
     "population": 100,
     "aliases": [
@@ -3161,6 +3326,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.83,
     "lng": 114.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "075061",
     "population": 100,
     "aliases": [
@@ -3180,6 +3346,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.03,
     "lng": 114.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "075061",
     "population": 100,
     "aliases": [
@@ -3199,6 +3366,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.05,
     "lng": 114.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "075061",
     "population": 100,
     "aliases": [
@@ -3218,6 +3386,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.6,
     "lng": 115.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "075100",
     "population": 100,
     "aliases": [
@@ -3237,6 +3406,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.48,
     "lng": 115.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "075300",
     "population": 100,
     "aliases": [
@@ -3256,6 +3426,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.55,
     "lng": 115.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "075100",
     "population": 100,
     "aliases": [
@@ -3275,6 +3446,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.15,
     "lng": 114.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "076450",
     "population": 100,
     "aliases": [
@@ -3294,6 +3466,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.85,
     "lng": 114.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "076650",
     "population": 100,
     "aliases": [
@@ -3313,6 +3486,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.67,
     "lng": 115.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "076550",
     "population": 100,
     "aliases": [
@@ -3332,6 +3506,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.08,
     "lng": 113.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "076750",
     "population": 100,
     "aliases": [
@@ -3351,6 +3526,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.85,
     "lng": 114.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "075700",
     "population": 100,
     "aliases": [
@@ -3370,6 +3546,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.12,
     "lng": 114.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "075800",
     "population": 100,
     "aliases": [
@@ -3389,6 +3566,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.67,
     "lng": 114.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "076150",
     "population": 100,
     "aliases": [
@@ -3408,6 +3586,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.75,
     "lng": 114.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "076250",
     "population": 100,
     "aliases": [
@@ -3427,6 +3606,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.4,
     "lng": 115.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "075400",
     "population": 100,
     "aliases": [
@@ -3446,6 +3626,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.38,
     "lng": 115.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "075600",
     "population": 100,
     "aliases": [
@@ -3465,6 +3646,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.92,
     "lng": 115.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "075500",
     "population": 100,
     "aliases": [
@@ -3484,6 +3666,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.97,
     "lng": 115.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "076350",
     "population": 100,
     "aliases": [
@@ -3503,6 +3686,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.97,
     "lng": 117.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "067000",
     "population": 1000,
     "aliases": [
@@ -3521,6 +3705,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.97,
     "lng": 117.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "067000",
     "population": 100,
     "aliases": [
@@ -3540,6 +3725,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.95,
     "lng": 117.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "067000",
     "population": 100,
     "aliases": [
@@ -3559,6 +3745,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.55,
     "lng": 117.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "067200",
     "population": 100,
     "aliases": [
@@ -3578,6 +3765,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.77,
     "lng": 118.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "067400",
     "population": 100,
     "aliases": [
@@ -3597,6 +3785,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.43,
     "lng": 117.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "067300",
     "population": 100,
     "aliases": [
@@ -3616,6 +3805,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41,
     "lng": 118.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "067500",
     "population": 100,
     "aliases": [
@@ -3635,6 +3825,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.93,
     "lng": 117.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "068250",
     "population": 100,
     "aliases": [
@@ -3654,6 +3845,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.32,
     "lng": 117.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "068150",
     "population": 100,
     "aliases": [
@@ -3673,6 +3865,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.2,
     "lng": 116.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "068350",
     "population": 100,
     "aliases": [
@@ -3692,6 +3885,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.6,
     "lng": 118.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "067600",
     "population": 100,
     "aliases": [
@@ -3711,6 +3905,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.93,
     "lng": 117.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "068450",
     "population": 100,
     "aliases": [
@@ -3730,6 +3925,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.3,
     "lng": 116.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "061000",
     "population": 1000,
     "aliases": [
@@ -3748,6 +3944,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.05,
     "lng": 114.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "061000",
     "population": 100,
     "aliases": [
@@ -3767,6 +3964,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.32,
     "lng": 116.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "061000",
     "population": 100,
     "aliases": [
@@ -3786,6 +3984,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.32,
     "lng": 116.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "061000",
     "population": 100,
     "aliases": [
@@ -3805,6 +4004,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.3,
     "lng": 116.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "061000",
     "population": 100,
     "aliases": [
@@ -3824,6 +4024,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.58,
     "lng": 116.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "062650",
     "population": 100,
     "aliases": [
@@ -3843,6 +4044,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.88,
     "lng": 116.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "061600",
     "population": 100,
     "aliases": [
@@ -3862,6 +4064,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.13,
     "lng": 117.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "061200",
     "population": 100,
     "aliases": [
@@ -3881,6 +4084,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.05,
     "lng": 117.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "061300",
     "population": 100,
     "aliases": [
@@ -3900,6 +4104,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.43,
     "lng": 115.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "062350",
     "population": 100,
     "aliases": [
@@ -3919,6 +4124,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.03,
     "lng": 116.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "061500",
     "population": 100,
     "aliases": [
@@ -3938,6 +4144,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.62,
     "lng": 116.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "061800",
     "population": 100,
     "aliases": [
@@ -3957,6 +4164,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.18,
     "lng": 116.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "062250",
     "population": 100,
     "aliases": [
@@ -3976,6 +4184,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.07,
     "lng": 117.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "061400",
     "population": 100,
     "aliases": [
@@ -3995,6 +4204,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.07,
     "lng": 116.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "062150",
     "population": 100,
     "aliases": [
@@ -4015,6 +4225,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.72,
     "lng": 116.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "062550",
     "population": 100,
     "aliases": [
@@ -4035,6 +4246,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.37,
     "lng": 117.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "061100",
     "population": 100,
     "aliases": [
@@ -4055,6 +4267,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.43,
     "lng": 116.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "062450",
     "population": 100,
     "aliases": [
@@ -4075,6 +4288,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.52,
     "lng": 116.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "065000",
     "population": 1000,
     "aliases": [
@@ -4093,6 +4307,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.52,
     "lng": 116.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "065000",
     "population": 100,
     "aliases": [
@@ -4112,6 +4327,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.53,
     "lng": 116.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "065000",
     "population": 100,
     "aliases": [
@@ -4131,6 +4347,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.43,
     "lng": 116.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "065500",
     "population": 100,
     "aliases": [
@@ -4150,6 +4367,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.32,
     "lng": 116.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "065600",
     "population": 100,
     "aliases": [
@@ -4169,6 +4387,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.77,
     "lng": 117,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "065400",
     "population": 100,
     "aliases": [
@@ -4188,6 +4407,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.7,
     "lng": 116.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "065900",
     "population": 100,
     "aliases": [
@@ -4207,6 +4427,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.87,
     "lng": 116.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "065800",
     "population": 100,
     "aliases": [
@@ -4226,6 +4447,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.88,
     "lng": 116.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "065300",
     "population": 100,
     "aliases": [
@@ -4245,6 +4467,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.1,
     "lng": 116.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "065700",
     "population": 100,
     "aliases": [
@@ -4265,6 +4488,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.98,
     "lng": 117.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "065200",
     "population": 100,
     "aliases": [
@@ -4285,6 +4509,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.73,
     "lng": 115.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "053000",
     "population": 1000,
     "aliases": [
@@ -4303,6 +4528,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.73,
     "lng": 115.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "053000",
     "population": 100,
     "aliases": [
@@ -4322,6 +4548,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.52,
     "lng": 115.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "053100",
     "population": 100,
     "aliases": [
@@ -4341,6 +4568,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.82,
     "lng": 115.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "053400",
     "population": 100,
     "aliases": [
@@ -4360,6 +4588,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.03,
     "lng": 115.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "053300",
     "population": 100,
     "aliases": [
@@ -4379,6 +4608,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.23,
     "lng": 115.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "053900",
     "population": 100,
     "aliases": [
@@ -4398,6 +4628,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.23,
     "lng": 115.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "053600",
     "population": 100,
     "aliases": [
@@ -4417,6 +4648,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.35,
     "lng": 115.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "253800",
     "population": 100,
     "aliases": [
@@ -4436,6 +4668,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.7,
     "lng": 116.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "053500",
     "population": 100,
     "aliases": [
@@ -4455,6 +4688,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.87,
     "lng": 116.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "053700",
     "population": 100,
     "aliases": [
@@ -4474,6 +4708,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.57,
     "lng": 115.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "053200",
     "population": 100,
     "aliases": [
@@ -4494,6 +4729,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.02,
     "lng": 115.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "053800",
     "population": 100,
     "aliases": [
@@ -4514,6 +4750,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.87,
     "lng": 112.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "030000",
     "population": 5304061,
     "aliases": [
@@ -4533,6 +4770,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.73,
     "lng": 112.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "030000",
     "population": 5304061,
     "aliases": [
@@ -4553,6 +4791,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.87,
     "lng": 112.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "030000",
     "population": 5304061,
     "aliases": [
@@ -4573,6 +4812,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.88,
     "lng": 112.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "030000",
     "population": 5304061,
     "aliases": [
@@ -4593,6 +4833,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.93,
     "lng": 112.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "030000",
     "population": 5304061,
     "aliases": [
@@ -4613,6 +4854,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.87,
     "lng": 112.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "030000",
     "population": 5304061,
     "aliases": [
@@ -4633,6 +4875,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.73,
     "lng": 112.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "030000",
     "population": 5304061,
     "aliases": [
@@ -4653,6 +4896,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.6,
     "lng": 112.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "030400",
     "population": 5304061,
     "aliases": [
@@ -4673,6 +4917,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.07,
     "lng": 112.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "030100",
     "population": 5304061,
     "aliases": [
@@ -4693,6 +4938,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.07,
     "lng": 111.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "030300",
     "population": 5304061,
     "aliases": [
@@ -4713,6 +4959,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.92,
     "lng": 112.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "030200",
     "population": 5304061,
     "aliases": [
@@ -4734,6 +4981,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.08,
     "lng": 113.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "037000",
     "population": 1000,
     "aliases": [
@@ -4752,6 +5000,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.08,
     "lng": 113.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "037006",
     "population": 100,
     "aliases": [
@@ -4771,6 +5020,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.85,
     "lng": 113.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "037006",
     "population": 100,
     "aliases": [
@@ -4790,6 +5040,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.22,
     "lng": 113.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "037006",
     "population": 100,
     "aliases": [
@@ -4809,6 +5060,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.5,
     "lng": 112.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "037006",
     "population": 100,
     "aliases": [
@@ -4828,6 +5080,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.03,
     "lng": 113.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "037001",
     "population": 100,
     "aliases": [
@@ -4847,6 +5100,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.87,
     "lng": 113.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "037001",
     "population": 100,
     "aliases": [
@@ -4866,6 +5120,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40,
     "lng": 113.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "037000",
     "population": 100,
     "aliases": [
@@ -4885,6 +5140,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.27,
     "lng": 113.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "037002",
     "population": 100,
     "aliases": [
@@ -4904,6 +5160,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.37,
     "lng": 113.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "038100",
     "population": 100,
     "aliases": [
@@ -4923,6 +5180,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.42,
     "lng": 114.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "038200",
     "population": 100,
     "aliases": [
@@ -4942,6 +5200,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.77,
     "lng": 114.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "037500",
     "population": 100,
     "aliases": [
@@ -4961,6 +5220,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.43,
     "lng": 114.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "034400",
     "population": 100,
     "aliases": [
@@ -4980,6 +5240,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.7,
     "lng": 113.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "037400",
     "population": 100,
     "aliases": [
@@ -4999,6 +5260,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40,
     "lng": 112.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "037100",
     "population": 100,
     "aliases": [
@@ -5018,6 +5280,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.03,
     "lng": 113.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "037300",
     "population": 100,
     "aliases": [
@@ -5037,6 +5300,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.85,
     "lng": 113.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "045000",
     "population": 1000,
     "aliases": [
@@ -5055,6 +5319,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.08,
     "lng": 113.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "045000",
     "population": 100,
     "aliases": [
@@ -5074,6 +5339,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.85,
     "lng": 113.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "045000",
     "population": 100,
     "aliases": [
@@ -5093,6 +5359,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.22,
     "lng": 113.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "045000",
     "population": 100,
     "aliases": [
@@ -5112,6 +5379,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.5,
     "lng": 112.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "045000",
     "population": 100,
     "aliases": [
@@ -5131,6 +5399,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.03,
     "lng": 113.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "045000",
     "population": 100,
     "aliases": [
@@ -5150,6 +5419,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.87,
     "lng": 113.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "045000",
     "population": 100,
     "aliases": [
@@ -5169,6 +5439,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.93,
     "lng": 113.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "045000",
     "population": 100,
     "aliases": [
@@ -5188,6 +5459,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.2,
     "lng": 113.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "045000",
     "population": 100,
     "aliases": [
@@ -5207,6 +5479,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.8,
     "lng": 113.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "045200",
     "population": 100,
     "aliases": [
@@ -5226,6 +5499,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.08,
     "lng": 113.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "045100",
     "population": 100,
     "aliases": [
@@ -5245,6 +5519,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.2,
     "lng": 113.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "046000",
     "population": 1000,
     "aliases": [
@@ -5263,6 +5538,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.08,
     "lng": 113.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "046000",
     "population": 100,
     "aliases": [
@@ -5282,6 +5558,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.85,
     "lng": 113.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "046000",
     "population": 100,
     "aliases": [
@@ -5301,6 +5578,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.22,
     "lng": 113.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "046000",
     "population": 100,
     "aliases": [
@@ -5320,6 +5598,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.5,
     "lng": 112.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "046000",
     "population": 100,
     "aliases": [
@@ -5339,6 +5618,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.93,
     "lng": 113.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "046000",
     "population": 100,
     "aliases": [
@@ -5358,6 +5638,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.2,
     "lng": 113.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "046000",
     "population": 100,
     "aliases": [
@@ -5377,6 +5658,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.05,
     "lng": 113.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "047100",
     "population": 100,
     "aliases": [
@@ -5396,6 +5678,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.53,
     "lng": 113.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "046200",
     "population": 100,
     "aliases": [
@@ -5415,6 +5698,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.32,
     "lng": 112.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "046100",
     "population": 100,
     "aliases": [
@@ -5434,6 +5718,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.2,
     "lng": 113.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "047400",
     "population": 100,
     "aliases": [
@@ -5453,6 +5738,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.5,
     "lng": 113.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "047600",
     "population": 100,
     "aliases": [
@@ -5472,6 +5758,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.12,
     "lng": 113.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "047300",
     "population": 100,
     "aliases": [
@@ -5491,6 +5778,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.12,
     "lng": 112.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "046600",
     "population": 100,
     "aliases": [
@@ -5510,6 +5798,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.83,
     "lng": 112.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "046300",
     "population": 100,
     "aliases": [
@@ -5529,6 +5818,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.75,
     "lng": 112.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "046400",
     "population": 100,
     "aliases": [
@@ -5548,6 +5838,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.5,
     "lng": 112.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "046500",
     "population": 100,
     "aliases": [
@@ -5567,6 +5858,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.33,
     "lng": 113.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "047500",
     "population": 100,
     "aliases": [
@@ -5587,6 +5879,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.5,
     "lng": 112.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "048000",
     "population": 1000,
     "aliases": [
@@ -5605,6 +5898,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.08,
     "lng": 113.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "048000",
     "population": 100,
     "aliases": [
@@ -5624,6 +5918,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.85,
     "lng": 113.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "048000",
     "population": 100,
     "aliases": [
@@ -5643,6 +5938,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.22,
     "lng": 113.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "048000",
     "population": 100,
     "aliases": [
@@ -5662,6 +5958,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.5,
     "lng": 112.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "048000",
     "population": 100,
     "aliases": [
@@ -5681,6 +5978,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.68,
     "lng": 112.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "048200",
     "population": 100,
     "aliases": [
@@ -5700,6 +5998,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.48,
     "lng": 112.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "048100",
     "population": 100,
     "aliases": [
@@ -5719,6 +6018,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.78,
     "lng": 113.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "048300",
     "population": 100,
     "aliases": [
@@ -5738,6 +6038,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.5,
     "lng": 112.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "048012",
     "population": 100,
     "aliases": [
@@ -5757,6 +6058,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.8,
     "lng": 112.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "048400",
     "population": 100,
     "aliases": [
@@ -5777,6 +6079,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.33,
     "lng": 112.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "036000",
     "population": 1000,
     "aliases": [
@@ -5795,6 +6098,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.33,
     "lng": 112.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "036002",
     "population": 100,
     "aliases": [
@@ -5814,6 +6118,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.52,
     "lng": 112.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "036900",
     "population": 100,
     "aliases": [
@@ -5833,6 +6138,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.55,
     "lng": 113.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "037600",
     "population": 100,
     "aliases": [
@@ -5852,6 +6158,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.98,
     "lng": 112.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "037200",
     "population": 100,
     "aliases": [
@@ -5871,6 +6178,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.83,
     "lng": 113.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "038300",
     "population": 100,
     "aliases": [
@@ -5890,6 +6198,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.68,
     "lng": 112.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "030600",
     "population": 1000,
     "aliases": [
@@ -5908,6 +6217,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.68,
     "lng": 112.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "030600",
     "population": 100,
     "aliases": [
@@ -5927,6 +6237,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.07,
     "lng": 112.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "031800",
     "population": 100,
     "aliases": [
@@ -5946,6 +6257,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.07,
     "lng": 113.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "032600",
     "population": 100,
     "aliases": [
@@ -5965,6 +6277,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.33,
     "lng": 113.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "032700",
     "population": 100,
     "aliases": [
@@ -5984,6 +6297,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.62,
     "lng": 113.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "045300",
     "population": 100,
     "aliases": [
@@ -6003,6 +6317,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.88,
     "lng": 113.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "045400",
     "population": 100,
     "aliases": [
@@ -6022,6 +6337,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.42,
     "lng": 112.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "030800",
     "population": 100,
     "aliases": [
@@ -6041,6 +6357,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.35,
     "lng": 112.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "030900",
     "population": 100,
     "aliases": [
@@ -6060,6 +6377,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.18,
     "lng": 112.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "031100",
     "population": 100,
     "aliases": [
@@ -6079,6 +6397,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.85,
     "lng": 111.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "031300",
     "population": 100,
     "aliases": [
@@ -6098,6 +6417,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.03,
     "lng": 111.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "032000",
     "population": 100,
     "aliases": [
@@ -6118,6 +6438,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.02,
     "lng": 110.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "044000",
     "population": 1000,
     "aliases": [
@@ -6136,6 +6457,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.02,
     "lng": 110.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "044000",
     "population": 100,
     "aliases": [
@@ -6155,6 +6477,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.15,
     "lng": 110.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "044100",
     "population": 100,
     "aliases": [
@@ -6174,6 +6497,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.42,
     "lng": 110.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "044200",
     "population": 100,
     "aliases": [
@@ -6193,6 +6517,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.35,
     "lng": 111.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "043800",
     "population": 100,
     "aliases": [
@@ -6212,6 +6537,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.6,
     "lng": 110.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "043200",
     "population": 100,
     "aliases": [
@@ -6231,6 +6557,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.62,
     "lng": 111.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "043100",
     "population": 100,
     "aliases": [
@@ -6250,6 +6577,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.48,
     "lng": 111.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "043600",
     "population": 100,
     "aliases": [
@@ -6269,6 +6597,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.3,
     "lng": 111.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "043700",
     "population": 100,
     "aliases": [
@@ -6288,6 +6617,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.15,
     "lng": 111.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "044400",
     "population": 100,
     "aliases": [
@@ -6307,6 +6637,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.83,
     "lng": 111.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "044300",
     "population": 100,
     "aliases": [
@@ -6326,6 +6657,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.7,
     "lng": 110.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "044600",
     "population": 100,
     "aliases": [
@@ -6345,6 +6677,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.6,
     "lng": 110.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "043300",
     "population": 100,
     "aliases": [
@@ -6365,6 +6698,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.42,
     "lng": 112.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "034000",
     "population": 1000,
     "aliases": [
@@ -6383,6 +6717,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.42,
     "lng": 112.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "034000",
     "population": 100,
     "aliases": [
@@ -6402,6 +6737,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.48,
     "lng": 112.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "035400",
     "population": 100,
     "aliases": [
@@ -6421,6 +6757,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.73,
     "lng": 113.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "035500",
     "population": 100,
     "aliases": [
@@ -6440,6 +6777,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.07,
     "lng": 112.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "034200",
     "population": 100,
     "aliases": [
@@ -6459,6 +6797,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.18,
     "lng": 113.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "034300",
     "population": 100,
     "aliases": [
@@ -6478,6 +6817,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39,
     "lng": 112.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "036700",
     "population": 100,
     "aliases": [
@@ -6497,6 +6837,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.37,
     "lng": 111.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "035100",
     "population": 100,
     "aliases": [
@@ -6516,6 +6857,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.08,
     "lng": 112.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "036100",
     "population": 100,
     "aliases": [
@@ -6535,6 +6877,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.9,
     "lng": 111.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "036200",
     "population": 100,
     "aliases": [
@@ -6554,6 +6897,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.7,
     "lng": 111.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "036300",
     "population": 100,
     "aliases": [
@@ -6573,6 +6917,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.38,
     "lng": 111.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "036500",
     "population": 100,
     "aliases": [
@@ -6592,6 +6937,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.43,
     "lng": 111.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "036400",
     "population": 100,
     "aliases": [
@@ -6611,6 +6957,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.73,
     "lng": 112.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "034100",
     "population": 100,
     "aliases": [
@@ -6631,6 +6978,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.08,
     "lng": 111.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "041000",
     "population": 1000,
     "aliases": [
@@ -6649,6 +6997,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.08,
     "lng": 111.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "041000",
     "population": 100,
     "aliases": [
@@ -6668,6 +7017,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.63,
     "lng": 111.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "043400",
     "population": 100,
     "aliases": [
@@ -6687,6 +7037,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.73,
     "lng": 111.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "043500",
     "population": 100,
     "aliases": [
@@ -6706,6 +7057,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.88,
     "lng": 111.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "041500",
     "population": 100,
     "aliases": [
@@ -6725,6 +7077,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.25,
     "lng": 111.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "041600",
     "population": 100,
     "aliases": [
@@ -6744,6 +7097,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.27,
     "lng": 111.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "042400",
     "population": 100,
     "aliases": [
@@ -6763,6 +7117,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.15,
     "lng": 112.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "042500",
     "population": 100,
     "aliases": [
@@ -6782,6 +7137,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.97,
     "lng": 111.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "042600",
     "population": 100,
     "aliases": [
@@ -6801,6 +7157,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.1,
     "lng": 110.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "042200",
     "population": 100,
     "aliases": [
@@ -6820,6 +7177,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.97,
     "lng": 110.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "042100",
     "population": 100,
     "aliases": [
@@ -6839,6 +7197,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.47,
     "lng": 110.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "042300",
     "population": 100,
     "aliases": [
@@ -6858,6 +7217,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.7,
     "lng": 110.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "041300",
     "population": 100,
     "aliases": [
@@ -6877,6 +7237,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.77,
     "lng": 110.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "041400",
     "population": 100,
     "aliases": [
@@ -6896,6 +7257,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.42,
     "lng": 111.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "041200",
     "population": 100,
     "aliases": [
@@ -6915,6 +7277,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.65,
     "lng": 111.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "031500",
     "population": 100,
     "aliases": [
@@ -6934,6 +7297,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.62,
     "lng": 111.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "043000",
     "population": 100,
     "aliases": [
@@ -6954,6 +7318,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.57,
     "lng": 111.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "031400",
     "population": 100,
     "aliases": [
@@ -6974,6 +7339,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.52,
     "lng": 111.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "033000",
     "population": 1000,
     "aliases": [
@@ -6992,6 +7358,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.52,
     "lng": 111.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "033000",
     "population": 100,
     "aliases": [
@@ -7011,6 +7378,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.43,
     "lng": 112.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "032100",
     "population": 100,
     "aliases": [
@@ -7030,6 +7398,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.55,
     "lng": 112.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "030500",
     "population": 100,
     "aliases": [
@@ -7049,6 +7418,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.47,
     "lng": 111.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "033600",
     "population": 100,
     "aliases": [
@@ -7068,6 +7438,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.95,
     "lng": 110.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "033200",
     "population": 100,
     "aliases": [
@@ -7087,6 +7458,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.43,
     "lng": 110.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "033300",
     "population": 100,
     "aliases": [
@@ -7106,6 +7478,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37,
     "lng": 110.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "032500",
     "population": 100,
     "aliases": [
@@ -7125,6 +7498,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.28,
     "lng": 111.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "035200",
     "population": 100,
     "aliases": [
@@ -7144,6 +7518,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.88,
     "lng": 111.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "033100",
     "population": 100,
     "aliases": [
@@ -7163,6 +7538,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.33,
     "lng": 111.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "033400",
     "population": 100,
     "aliases": [
@@ -7182,6 +7558,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.97,
     "lng": 111.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "032400",
     "population": 100,
     "aliases": [
@@ -7201,6 +7578,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.15,
     "lng": 111.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "032300",
     "population": 100,
     "aliases": [
@@ -7221,6 +7599,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.27,
     "lng": 111.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "032200",
     "population": 100,
     "aliases": [
@@ -7241,6 +7620,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.83,
     "lng": 111.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "010000",
     "population": 3446100,
     "aliases": [
@@ -7261,6 +7641,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.87,
     "lng": 111.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "010000",
     "population": 3446100,
     "aliases": [
@@ -7282,6 +7663,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.8,
     "lng": 111.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "010030",
     "population": 3446100,
     "aliases": [
@@ -7303,6 +7685,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.75,
     "lng": 111.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "010000",
     "population": 3446100,
     "aliases": [
@@ -7324,6 +7707,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.8,
     "lng": 111.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "010020",
     "population": 3446100,
     "aliases": [
@@ -7345,6 +7729,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.72,
     "lng": 111.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "010100",
     "population": 3446100,
     "aliases": [
@@ -7366,6 +7751,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.27,
     "lng": 111.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "010200",
     "population": 3446100,
     "aliases": [
@@ -7387,6 +7773,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.38,
     "lng": 111.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "011500",
     "population": 3446100,
     "aliases": [
@@ -7408,6 +7795,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.92,
     "lng": 111.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "011600",
     "population": 3446100,
     "aliases": [
@@ -7429,6 +7817,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.08,
     "lng": 111.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "011700",
     "population": 3446100,
     "aliases": [
@@ -7450,6 +7839,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.65,
     "lng": 109.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "014000",
     "population": 1000,
     "aliases": [
@@ -7468,6 +7858,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.58,
     "lng": 110.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "014040",
     "population": 100,
     "aliases": [
@@ -7487,6 +7878,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.63,
     "lng": 109.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "014010",
     "population": 100,
     "aliases": [
@@ -7506,6 +7898,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.65,
     "lng": 109.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "014030",
     "population": 100,
     "aliases": [
@@ -7525,6 +7918,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.68,
     "lng": 110.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "014070",
     "population": 100,
     "aliases": [
@@ -7544,6 +7938,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.6,
     "lng": 109.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "014060",
     "population": 100,
     "aliases": [
@@ -7563,6 +7958,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.57,
     "lng": 110.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "014100",
     "population": 100,
     "aliases": [
@@ -7582,6 +7978,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.03,
     "lng": 110.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "014200",
     "population": 100,
     "aliases": [
@@ -7601,6 +7998,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.7,
     "lng": 110.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "014500",
     "population": 100,
     "aliases": [
@@ -7620,6 +8018,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.67,
     "lng": 106.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "016000",
     "population": 1000,
     "aliases": [
@@ -7638,6 +8037,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.7,
     "lng": 106.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "016000",
     "population": 100,
     "aliases": [
@@ -7657,6 +8057,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.43,
     "lng": 106.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "016000",
     "population": 100,
     "aliases": [
@@ -7676,6 +8077,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.5,
     "lng": 106.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "016000",
     "population": 100,
     "aliases": [
@@ -7695,6 +8097,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.27,
     "lng": 118.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "024000",
     "population": 1000,
     "aliases": [
@@ -7713,6 +8116,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.28,
     "lng": 118.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "024000",
     "population": 100,
     "aliases": [
@@ -7732,6 +8136,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.03,
     "lng": 119.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "024000",
     "population": 100,
     "aliases": [
@@ -7751,6 +8156,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.28,
     "lng": 118.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "024000",
     "population": 100,
     "aliases": [
@@ -7770,6 +8176,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.88,
     "lng": 120.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "025550",
     "population": 100,
     "aliases": [
@@ -7789,6 +8196,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.98,
     "lng": 119.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "025450",
     "population": 100,
     "aliases": [
@@ -7808,6 +8216,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.52,
     "lng": 118.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "025150",
     "population": 100,
     "aliases": [
@@ -7827,6 +8236,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.6,
     "lng": 118.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "025350",
     "population": 100,
     "aliases": [
@@ -7846,6 +8256,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.25,
     "lng": 117.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "025350",
     "population": 100,
     "aliases": [
@@ -7865,6 +8276,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.93,
     "lng": 119.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "024500",
     "population": 100,
     "aliases": [
@@ -7884,6 +8296,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.93,
     "lng": 118.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "024400",
     "population": 100,
     "aliases": [
@@ -7903,6 +8316,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.6,
     "lng": 119.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "024200",
     "population": 100,
     "aliases": [
@@ -7922,6 +8336,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.28,
     "lng": 119.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "024300",
     "population": 100,
     "aliases": [
@@ -7941,6 +8356,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.62,
     "lng": 122.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "028000",
     "population": 1000,
     "aliases": [
@@ -7959,6 +8375,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.62,
     "lng": 122.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "028000",
     "population": 100,
     "aliases": [
@@ -7978,6 +8395,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.13,
     "lng": 123.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "029300",
     "population": 100,
     "aliases": [
@@ -7997,6 +8415,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.95,
     "lng": 122.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "028100",
     "population": 100,
     "aliases": [
@@ -8016,6 +8435,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.6,
     "lng": 121.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "028400",
     "population": 100,
     "aliases": [
@@ -8035,6 +8455,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.73,
     "lng": 121.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "028200",
     "population": 100,
     "aliases": [
@@ -8054,6 +8475,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.85,
     "lng": 120.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "028300",
     "population": 100,
     "aliases": [
@@ -8073,6 +8495,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.55,
     "lng": 120.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "029100",
     "population": 100,
     "aliases": [
@@ -8092,6 +8515,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.53,
     "lng": 119.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "029200",
     "population": 100,
     "aliases": [
@@ -8112,6 +8536,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.62,
     "lng": 109.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "017000",
     "population": 1000,
     "aliases": [
@@ -8130,6 +8555,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.82,
     "lng": 110,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "017000",
     "population": 100,
     "aliases": [
@@ -8149,6 +8575,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.4,
     "lng": 110.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "014300",
     "population": 100,
     "aliases": [
@@ -8168,6 +8595,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.87,
     "lng": 111.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "017100",
     "population": 100,
     "aliases": [
@@ -8187,6 +8615,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.18,
     "lng": 107.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "016200",
     "population": 100,
     "aliases": [
@@ -8206,6 +8635,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.1,
     "lng": 107.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "016100",
     "population": 100,
     "aliases": [
@@ -8225,6 +8655,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.83,
     "lng": 108.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "017400",
     "population": 100,
     "aliases": [
@@ -8244,6 +8675,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.6,
     "lng": 108.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "017300",
     "population": 100,
     "aliases": [
@@ -8263,6 +8695,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.57,
     "lng": 109.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "017200",
     "population": 100,
     "aliases": [
@@ -8282,6 +8715,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 49.22,
     "lng": 119.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "021000",
     "population": 1000,
     "aliases": [
@@ -8300,6 +8734,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 49.22,
     "lng": 119.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "021000",
     "population": 100,
     "aliases": [
@@ -8319,6 +8754,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 48.13,
     "lng": 123.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "162750",
     "population": 100,
     "aliases": [
@@ -8338,6 +8774,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 50.58,
     "lng": 123.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "022450",
     "population": 100,
     "aliases": [
@@ -8357,6 +8794,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 49.13,
     "lng": 119.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "021100",
     "population": 100,
     "aliases": [
@@ -8376,6 +8814,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 49.32,
     "lng": 119.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "021500",
     "population": 100,
     "aliases": [
@@ -8395,6 +8834,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 48.22,
     "lng": 118.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "021200",
     "population": 100,
     "aliases": [
@@ -8414,6 +8854,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 48.67,
     "lng": 116.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "021300",
     "population": 100,
     "aliases": [
@@ -8433,6 +8874,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 49.58,
     "lng": 117.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "021400",
     "population": 100,
     "aliases": [
@@ -8453,6 +8895,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 49.28,
     "lng": 120.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "022150",
     "population": 100,
     "aliases": [
@@ -8473,6 +8916,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.98,
     "lng": 122.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "162650",
     "population": 100,
     "aliases": [
@@ -8493,6 +8937,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 50.23,
     "lng": 120.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "022250",
     "population": 100,
     "aliases": [
@@ -8513,6 +8958,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 50.78,
     "lng": 121.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "022350",
     "population": 100,
     "aliases": [
@@ -8533,6 +8979,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.75,
     "lng": 107.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "015000",
     "population": 1000,
     "aliases": [
@@ -8551,6 +8998,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.75,
     "lng": 107.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "015000",
     "population": 100,
     "aliases": [
@@ -8570,6 +9018,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.1,
     "lng": 108.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "015100",
     "population": 100,
     "aliases": [
@@ -8589,6 +9038,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.33,
     "lng": 107.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "015200",
     "population": 100,
     "aliases": [
@@ -8608,6 +9058,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.72,
     "lng": 108.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "014400",
     "population": 100,
     "aliases": [
@@ -8627,6 +9078,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.57,
     "lng": 108.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "015300",
     "population": 100,
     "aliases": [
@@ -8646,6 +9098,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.1,
     "lng": 107.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "015543",
     "population": 100,
     "aliases": [
@@ -8665,6 +9118,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.88,
     "lng": 107.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "015400",
     "population": 100,
     "aliases": [
@@ -8684,6 +9138,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.98,
     "lng": 113.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "012000",
     "population": 1000,
     "aliases": [
@@ -8702,6 +9157,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.03,
     "lng": 113.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "012000",
     "population": 100,
     "aliases": [
@@ -8721,6 +9177,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.9,
     "lng": 112.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "012300",
     "population": 100,
     "aliases": [
@@ -8740,6 +9197,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.9,
     "lng": 114,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "013350",
     "population": 100,
     "aliases": [
@@ -8759,6 +9217,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.55,
     "lng": 113.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "013450",
     "population": 100,
     "aliases": [
@@ -8778,6 +9237,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.88,
     "lng": 113.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "013650",
     "population": 100,
     "aliases": [
@@ -8797,6 +9257,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.53,
     "lng": 112.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "013750",
     "population": 100,
     "aliases": [
@@ -8816,6 +9277,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.78,
     "lng": 113.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "012200",
     "population": 100,
     "aliases": [
@@ -8835,6 +9297,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.27,
     "lng": 112.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "013550",
     "population": 100,
     "aliases": [
@@ -8854,6 +9317,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.45,
     "lng": 113.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "012400",
     "population": 100,
     "aliases": [
@@ -8873,6 +9337,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.52,
     "lng": 111.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "011800",
     "population": 100,
     "aliases": [
@@ -8892,6 +9357,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.43,
     "lng": 113.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "012100",
     "population": 100,
     "aliases": [
@@ -8912,6 +9378,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.08,
     "lng": 122.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "137400",
     "population": 1000,
     "aliases": [
@@ -8929,6 +9396,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.08,
     "lng": 122.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "137400",
     "population": 100,
     "aliases": [
@@ -8948,6 +9416,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.18,
     "lng": 119.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "137805",
     "population": 100,
     "aliases": [
@@ -8967,6 +9436,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.07,
     "lng": 121.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "137423",
     "population": 100,
     "aliases": [
@@ -8985,6 +9455,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.05,
     "lng": 121.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "029400",
     "population": 100,
     "aliases": [
@@ -9003,6 +9474,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.73,
     "lng": 122.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "137600",
     "population": 100,
     "aliases": [
@@ -9021,6 +9493,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.38,
     "lng": 121.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "137500",
     "population": 100,
     "aliases": [
@@ -9039,6 +9512,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.95,
     "lng": 116.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "026000",
     "population": 1000,
     "aliases": [
@@ -9056,6 +9530,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.65,
     "lng": 111.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "012600",
     "population": 100,
     "aliases": [
@@ -9075,6 +9550,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.93,
     "lng": 116.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "026000",
     "population": 100,
     "aliases": [
@@ -9094,6 +9570,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.02,
     "lng": 114.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "011400",
     "population": 100,
     "aliases": [
@@ -9112,6 +9589,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.85,
     "lng": 113.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "011300",
     "population": 100,
     "aliases": [
@@ -9130,6 +9608,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.75,
     "lng": 112.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "011200",
     "population": 100,
     "aliases": [
@@ -9148,6 +9627,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.52,
     "lng": 116.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "026300",
     "population": 100,
     "aliases": [
@@ -9166,6 +9646,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.58,
     "lng": 117.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "026200",
     "population": 100,
     "aliases": [
@@ -9184,6 +9665,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.9,
     "lng": 115.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "027000",
     "population": 100,
     "aliases": [
@@ -9202,6 +9684,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.23,
     "lng": 113.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "013250",
     "population": 100,
     "aliases": [
@@ -9220,6 +9703,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.3,
     "lng": 115,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "013800",
     "population": 100,
     "aliases": [
@@ -9238,6 +9722,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.25,
     "lng": 116,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "027200",
     "population": 100,
     "aliases": [
@@ -9256,6 +9741,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.18,
     "lng": 116.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "027300",
     "population": 100,
     "aliases": [
@@ -9274,6 +9760,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.83,
     "lng": 105.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "750306",
     "population": 1000,
     "aliases": [
@@ -9291,6 +9778,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.83,
     "lng": 105.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "750306",
     "population": 100,
     "aliases": [
@@ -9309,6 +9797,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.2,
     "lng": 101.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "737300",
     "population": 100,
     "aliases": [
@@ -9327,6 +9816,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.97,
     "lng": 101.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "735400",
     "population": 100,
     "aliases": [
@@ -9345,6 +9835,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.8,
     "lng": 123.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "110000",
     "population": 9070093,
     "aliases": [
@@ -9365,6 +9856,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.78,
     "lng": 123.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "110000",
     "population": 9070093,
     "aliases": [
@@ -9386,6 +9878,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.8,
     "lng": 123.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "110000",
     "population": 9070093,
     "aliases": [
@@ -9407,6 +9900,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.8,
     "lng": 123.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "110041",
     "population": 9070093,
     "aliases": [
@@ -9428,6 +9922,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.82,
     "lng": 123.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "110000",
     "population": 9070093,
     "aliases": [
@@ -9449,6 +9944,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.12,
     "lng": 122.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "110020",
     "population": 9070093,
     "aliases": [
@@ -9470,6 +9966,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.8,
     "lng": 123.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "110020",
     "population": 9070093,
     "aliases": [
@@ -9491,6 +9988,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.67,
     "lng": 123.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "110101",
     "population": 9070093,
     "aliases": [
@@ -9512,6 +10010,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.77,
     "lng": 123.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "110000",
     "population": 9070093,
     "aliases": [
@@ -9533,6 +10032,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.05,
     "lng": 123.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "110121",
     "population": 9070093,
     "aliases": [
@@ -9554,6 +10054,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.78,
     "lng": 123.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "110000",
     "population": 9070093,
     "aliases": [
@@ -9575,6 +10076,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.52,
     "lng": 122.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "110200",
     "population": 9070093,
     "aliases": [
@@ -9596,6 +10098,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.75,
     "lng": 123.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "110500",
     "population": 9070093,
     "aliases": [
@@ -9617,6 +10120,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.5,
     "lng": 123.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "110400",
     "population": 9070093,
     "aliases": [
@@ -9638,6 +10142,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42,
     "lng": 122.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "110300",
     "population": 9070093,
     "aliases": [
@@ -9660,6 +10165,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.92,
     "lng": 121.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "116000",
     "population": 7450785,
     "aliases": [
@@ -9679,6 +10185,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.92,
     "lng": 121.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "116001",
     "population": 7450785,
     "aliases": [
@@ -9699,6 +10206,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.92,
     "lng": 121.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "116000",
     "population": 7450785,
     "aliases": [
@@ -9719,6 +10227,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.9,
     "lng": 121.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "116021",
     "population": 7450785,
     "aliases": [
@@ -9739,6 +10248,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.95,
     "lng": 121.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "116033",
     "population": 7450785,
     "aliases": [
@@ -9759,6 +10269,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.82,
     "lng": 121.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "116041",
     "population": 7450785,
     "aliases": [
@@ -9779,6 +10290,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.1,
     "lng": 121.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "116100",
     "population": 7450785,
     "aliases": [
@@ -9799,6 +10311,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.27,
     "lng": 122.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "116500",
     "population": 7450785,
     "aliases": [
@@ -9819,6 +10332,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.62,
     "lng": 122,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "116300",
     "population": 7450785,
     "aliases": [
@@ -9840,6 +10354,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.4,
     "lng": 121.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "116200",
     "population": 7450785,
     "aliases": [
@@ -9861,6 +10376,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.7,
     "lng": 122.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "116400",
     "population": 7450785,
     "aliases": [
@@ -9882,6 +10398,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.1,
     "lng": 122.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "114000",
     "population": 1000,
     "aliases": [
@@ -9900,6 +10417,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.1,
     "lng": 122.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "114001",
     "population": 100,
     "aliases": [
@@ -9919,6 +10437,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.12,
     "lng": 122.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "114014",
     "population": 100,
     "aliases": [
@@ -9938,6 +10457,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.8,
     "lng": 123.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "114014",
     "population": 100,
     "aliases": [
@@ -9957,6 +10477,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.15,
     "lng": 123,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "114031",
     "population": 100,
     "aliases": [
@@ -9976,6 +10497,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.07,
     "lng": 122.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "114000",
     "population": 100,
     "aliases": [
@@ -9995,6 +10517,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.38,
     "lng": 122.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "114100",
     "population": 100,
     "aliases": [
@@ -10014,6 +10537,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.28,
     "lng": 123.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "114300",
     "population": 100,
     "aliases": [
@@ -10033,6 +10557,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.88,
     "lng": 122.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "114200",
     "population": 100,
     "aliases": [
@@ -10053,6 +10578,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.88,
     "lng": 123.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "113006",
     "population": 1000,
     "aliases": [
@@ -10071,6 +10597,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.87,
     "lng": 123.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "113008",
     "population": 100,
     "aliases": [
@@ -10090,6 +10617,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.85,
     "lng": 124.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "113006",
     "population": 100,
     "aliases": [
@@ -10109,6 +10637,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.85,
     "lng": 123.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "113001",
     "population": 100,
     "aliases": [
@@ -10128,6 +10657,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.88,
     "lng": 123.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "113006",
     "population": 100,
     "aliases": [
@@ -10147,6 +10677,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.88,
     "lng": 123.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "113118",
     "population": 100,
     "aliases": [
@@ -10166,6 +10697,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.73,
     "lng": 125.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "113200",
     "population": 100,
     "aliases": [
@@ -10185,6 +10717,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.1,
     "lng": 124.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "113300",
     "population": 100,
     "aliases": [
@@ -10204,6 +10737,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.3,
     "lng": 123.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "117000",
     "population": 1000,
     "aliases": [
@@ -10222,6 +10756,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.3,
     "lng": 123.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "117000",
     "population": 100,
     "aliases": [
@@ -10241,6 +10776,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.33,
     "lng": 123.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "117000",
     "population": 100,
     "aliases": [
@@ -10260,6 +10796,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.3,
     "lng": 123.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "117000",
     "population": 100,
     "aliases": [
@@ -10279,6 +10816,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.1,
     "lng": 123.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "117000",
     "population": 100,
     "aliases": [
@@ -10298,6 +10836,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.3,
     "lng": 124.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "117100",
     "population": 100,
     "aliases": [
@@ -10317,6 +10856,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.27,
     "lng": 125.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "117200",
     "population": 100,
     "aliases": [
@@ -10336,6 +10876,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.13,
     "lng": 124.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "118000",
     "population": 1000,
     "aliases": [
@@ -10354,6 +10895,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.13,
     "lng": 124.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "118000",
     "population": 100,
     "aliases": [
@@ -10373,6 +10915,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.08,
     "lng": 124.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "118000",
     "population": 100,
     "aliases": [
@@ -10392,6 +10935,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.17,
     "lng": 124.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "118000",
     "population": 100,
     "aliases": [
@@ -10411,6 +10955,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.73,
     "lng": 124.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "118200",
     "population": 100,
     "aliases": [
@@ -10430,6 +10975,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.87,
     "lng": 124.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "118300",
     "population": 100,
     "aliases": [
@@ -10450,6 +10996,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.45,
     "lng": 124.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "118100",
     "population": 100,
     "aliases": [
@@ -10470,6 +11017,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.1,
     "lng": 121.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "121000",
     "population": 1000,
     "aliases": [
@@ -10488,6 +11036,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.13,
     "lng": 121.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "121000",
     "population": 100,
     "aliases": [
@@ -10507,6 +11056,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.12,
     "lng": 121.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "121000",
     "population": 100,
     "aliases": [
@@ -10526,6 +11076,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.1,
     "lng": 121.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "121011",
     "population": 100,
     "aliases": [
@@ -10545,6 +11096,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.7,
     "lng": 122.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "121400",
     "population": 100,
     "aliases": [
@@ -10564,6 +11116,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.53,
     "lng": 121.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "121100",
     "population": 100,
     "aliases": [
@@ -10583,6 +11136,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.17,
     "lng": 121.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "121200",
     "population": 100,
     "aliases": [
@@ -10603,6 +11157,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.67,
     "lng": 122.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "115000",
     "population": 1000,
     "aliases": [
@@ -10621,6 +11176,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.68,
     "lng": 122.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "115002",
     "population": 100,
     "aliases": [
@@ -10640,6 +11196,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.67,
     "lng": 122.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "115004",
     "population": 100,
     "aliases": [
@@ -10659,6 +11216,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.27,
     "lng": 122.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "115007",
     "population": 100,
     "aliases": [
@@ -10678,6 +11236,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.67,
     "lng": 122.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "115005",
     "population": 100,
     "aliases": [
@@ -10697,6 +11256,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.4,
     "lng": 122.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "115200",
     "population": 100,
     "aliases": [
@@ -10717,6 +11277,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.65,
     "lng": 122.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "115100",
     "population": 100,
     "aliases": [
@@ -10737,6 +11298,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.02,
     "lng": 121.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "123000",
     "population": 1000,
     "aliases": [
@@ -10755,6 +11317,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.02,
     "lng": 121.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "123000",
     "population": 100,
     "aliases": [
@@ -10774,6 +11337,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.02,
     "lng": 121.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "123003",
     "population": 100,
     "aliases": [
@@ -10793,6 +11357,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.75,
     "lng": 121.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "123006",
     "population": 100,
     "aliases": [
@@ -10812,6 +11377,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.03,
     "lng": 121.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "123000",
     "population": 100,
     "aliases": [
@@ -10831,6 +11397,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.07,
     "lng": 121.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "123100",
     "population": 100,
     "aliases": [
@@ -10850,6 +11417,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.38,
     "lng": 122.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "123200",
     "population": 100,
     "aliases": [
@@ -10869,6 +11437,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.27,
     "lng": 123.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "111000",
     "population": 1000,
     "aliases": [
@@ -10887,6 +11456,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.27,
     "lng": 123.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "111000",
     "population": 100,
     "aliases": [
@@ -10906,6 +11476,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.27,
     "lng": 123.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "111000",
     "population": 100,
     "aliases": [
@@ -10925,6 +11496,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.2,
     "lng": 123.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "111000",
     "population": 100,
     "aliases": [
@@ -10944,6 +11516,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.13,
     "lng": 123.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "111008",
     "population": 100,
     "aliases": [
@@ -10963,6 +11536,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.25,
     "lng": 123.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "111000",
     "population": 100,
     "aliases": [
@@ -10982,6 +11556,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.22,
     "lng": 123.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "111200",
     "population": 100,
     "aliases": [
@@ -11001,6 +11576,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.42,
     "lng": 123.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "111300",
     "population": 100,
     "aliases": [
@@ -11021,6 +11597,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.12,
     "lng": 122.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "124000",
     "population": 1000,
     "aliases": [
@@ -11039,6 +11616,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.2,
     "lng": 122.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "124000",
     "population": 100,
     "aliases": [
@@ -11058,6 +11636,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.12,
     "lng": 122.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "124010",
     "population": 100,
     "aliases": [
@@ -11077,6 +11656,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.98,
     "lng": 122.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "124200",
     "population": 100,
     "aliases": [
@@ -11096,6 +11676,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.25,
     "lng": 122.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "124100",
     "population": 100,
     "aliases": [
@@ -11115,6 +11696,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.28,
     "lng": 123.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "112000",
     "population": 1000,
     "aliases": [
@@ -11133,6 +11715,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.28,
     "lng": 123.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "112000",
     "population": 100,
     "aliases": [
@@ -11152,6 +11735,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.53,
     "lng": 124.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "112003",
     "population": 100,
     "aliases": [
@@ -11171,6 +11755,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.3,
     "lng": 123.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "112600",
     "population": 100,
     "aliases": [
@@ -11190,6 +11775,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.73,
     "lng": 124.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "112400",
     "population": 100,
     "aliases": [
@@ -11209,6 +11795,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.78,
     "lng": 124.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "112500",
     "population": 100,
     "aliases": [
@@ -11228,6 +11815,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.47,
     "lng": 123.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "112700",
     "population": 100,
     "aliases": [
@@ -11248,6 +11836,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.55,
     "lng": 124.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "112300",
     "population": 100,
     "aliases": [
@@ -11268,6 +11857,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.57,
     "lng": 120.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "122000",
     "population": 1000,
     "aliases": [
@@ -11286,6 +11876,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.57,
     "lng": 120.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "122000",
     "population": 100,
     "aliases": [
@@ -11305,6 +11896,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.6,
     "lng": 120.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "122000",
     "population": 100,
     "aliases": [
@@ -11324,6 +11916,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.58,
     "lng": 120.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "122000",
     "population": 100,
     "aliases": [
@@ -11343,6 +11936,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.4,
     "lng": 119.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "122400",
     "population": 100,
     "aliases": [
@@ -11362,6 +11956,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.8,
     "lng": 120.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "122100",
     "population": 100,
     "aliases": [
@@ -11382,6 +11977,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.25,
     "lng": 119.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "122500",
     "population": 100,
     "aliases": [
@@ -11402,6 +11998,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.72,
     "lng": 120.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "125000",
     "population": 1000,
     "aliases": [
@@ -11420,6 +12017,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.77,
     "lng": 120.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "125000",
     "population": 100,
     "aliases": [
@@ -11439,6 +12037,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.72,
     "lng": 120.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "125003",
     "population": 100,
     "aliases": [
@@ -11458,6 +12057,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.1,
     "lng": 120.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "125027",
     "population": 100,
     "aliases": [
@@ -11477,6 +12077,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.32,
     "lng": 120.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "125200",
     "population": 100,
     "aliases": [
@@ -11496,6 +12097,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.82,
     "lng": 119.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "125300",
     "population": 100,
     "aliases": [
@@ -11515,6 +12117,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.62,
     "lng": 120.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "125100",
     "population": 100,
     "aliases": [
@@ -11535,6 +12138,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.9,
     "lng": 125.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "130000",
     "population": 9066906,
     "aliases": [
@@ -11554,6 +12158,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.87,
     "lng": 125.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "130022",
     "population": 9066906,
     "aliases": [
@@ -11574,6 +12179,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.92,
     "lng": 125.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "130000",
     "population": 9066906,
     "aliases": [
@@ -11594,6 +12200,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.83,
     "lng": 125.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "130012",
     "population": 9066906,
     "aliases": [
@@ -11614,6 +12221,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.87,
     "lng": 125.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "130031",
     "population": 9066906,
     "aliases": [
@@ -11634,6 +12242,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.88,
     "lng": 125.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "130062",
     "population": 9066906,
     "aliases": [
@@ -11654,6 +12263,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.52,
     "lng": 125.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "130600",
     "population": 9066906,
     "aliases": [
@@ -11674,6 +12284,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.43,
     "lng": 125.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "130200",
     "population": 9066906,
     "aliases": [
@@ -11694,6 +12305,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.15,
     "lng": 125.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "130500",
     "population": 9066906,
     "aliases": [
@@ -11715,6 +12327,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.82,
     "lng": 126.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "130400",
     "population": 9066906,
     "aliases": [
@@ -11736,6 +12349,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.53,
     "lng": 125.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "130300",
     "population": 9066906,
     "aliases": [
@@ -11757,6 +12371,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.83,
     "lng": 126.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "132000",
     "population": 1000,
     "aliases": [
@@ -11774,6 +12389,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.88,
     "lng": 126.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "132000",
     "population": 100,
     "aliases": [
@@ -11792,6 +12408,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.92,
     "lng": 126.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "132000",
     "population": 100,
     "aliases": [
@@ -11810,6 +12427,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.83,
     "lng": 126.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "132000",
     "population": 100,
     "aliases": [
@@ -11828,6 +12446,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.82,
     "lng": 126.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "132113",
     "population": 100,
     "aliases": [
@@ -11846,6 +12465,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.67,
     "lng": 126.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "132100",
     "population": 100,
     "aliases": [
@@ -11864,6 +12484,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.72,
     "lng": 127.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "132500",
     "population": 100,
     "aliases": [
@@ -11883,6 +12504,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.97,
     "lng": 126.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "132400",
     "population": 100,
     "aliases": [
@@ -11902,6 +12524,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.42,
     "lng": 126.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "132600",
     "population": 100,
     "aliases": [
@@ -11921,6 +12544,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.95,
     "lng": 126.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "132300",
     "population": 100,
     "aliases": [
@@ -11940,6 +12564,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.17,
     "lng": 124.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "136000",
     "population": 1000,
     "aliases": [
@@ -11958,6 +12583,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.15,
     "lng": 124.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "136000",
     "population": 100,
     "aliases": [
@@ -11977,6 +12603,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.17,
     "lng": 124.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "136001",
     "population": 100,
     "aliases": [
@@ -11996,6 +12623,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.32,
     "lng": 124.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "136500",
     "population": 100,
     "aliases": [
@@ -12015,6 +12643,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.35,
     "lng": 125.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "130700",
     "population": 100,
     "aliases": [
@@ -12034,6 +12663,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.5,
     "lng": 124.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "136100",
     "population": 100,
     "aliases": [
@@ -12054,6 +12684,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.52,
     "lng": 123.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "136400",
     "population": 100,
     "aliases": [
@@ -12074,6 +12705,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.88,
     "lng": 125.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "136200",
     "population": 1000,
     "aliases": [
@@ -12092,6 +12724,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.9,
     "lng": 125.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "136200",
     "population": 100,
     "aliases": [
@@ -12111,6 +12744,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.92,
     "lng": 125.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "136201",
     "population": 100,
     "aliases": [
@@ -12130,6 +12764,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.68,
     "lng": 125.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "136300",
     "population": 100,
     "aliases": [
@@ -12149,6 +12784,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.92,
     "lng": 125,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "136600",
     "population": 100,
     "aliases": [
@@ -12168,6 +12804,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.73,
     "lng": 125.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "134000",
     "population": 1000,
     "aliases": [
@@ -12186,6 +12823,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.73,
     "lng": 125.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "134000",
     "population": 100,
     "aliases": [
@@ -12205,6 +12843,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.77,
     "lng": 126.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "134003",
     "population": 100,
     "aliases": [
@@ -12224,6 +12863,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.68,
     "lng": 125.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "134100",
     "population": 100,
     "aliases": [
@@ -12243,6 +12883,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.68,
     "lng": 126.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "135100",
     "population": 100,
     "aliases": [
@@ -12262,6 +12903,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.28,
     "lng": 125.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "135300",
     "population": 100,
     "aliases": [
@@ -12281,6 +12923,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.53,
     "lng": 125.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "135000",
     "population": 100,
     "aliases": [
@@ -12301,6 +12944,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.12,
     "lng": 126.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "134200",
     "population": 100,
     "aliases": [
@@ -12321,6 +12965,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.93,
     "lng": 126.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "134300",
     "population": 1000,
     "aliases": [
@@ -12339,6 +12984,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.93,
     "lng": 126.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "134300",
     "population": 100,
     "aliases": [
@@ -12358,6 +13004,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.33,
     "lng": 127.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "134500",
     "population": 100,
     "aliases": [
@@ -12377,6 +13024,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.4,
     "lng": 126.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "135200",
     "population": 100,
     "aliases": [
@@ -12396,6 +13044,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.42,
     "lng": 128.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "134400",
     "population": 100,
     "aliases": [
@@ -12415,6 +13064,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.8,
     "lng": 126.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "134600",
     "population": 100,
     "aliases": [
@@ -12435,6 +13085,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.13,
     "lng": 124.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "138000",
     "population": 1000,
     "aliases": [
@@ -12453,6 +13104,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.17,
     "lng": 124.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "138000",
     "population": 100,
     "aliases": [
@@ -12472,6 +13124,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.28,
     "lng": 123.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "131500",
     "population": 100,
     "aliases": [
@@ -12491,6 +13144,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.02,
     "lng": 124.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "131400",
     "population": 100,
     "aliases": [
@@ -12510,6 +13164,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.98,
     "lng": 126.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "131200",
     "population": 100,
     "aliases": [
@@ -12529,6 +13184,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.62,
     "lng": 122.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "137000",
     "population": 1000,
     "aliases": [
@@ -12547,6 +13203,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.62,
     "lng": 122.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "137000",
     "population": 100,
     "aliases": [
@@ -12566,6 +13223,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.85,
     "lng": 123.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "137300",
     "population": 100,
     "aliases": [
@@ -12585,6 +13243,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.82,
     "lng": 123.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "137200",
     "population": 100,
     "aliases": [
@@ -12604,6 +13263,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.33,
     "lng": 122.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "137100",
     "population": 100,
     "aliases": [
@@ -12624,6 +13284,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.5,
     "lng": 124.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "131300",
     "population": 100,
     "aliases": [
@@ -12644,6 +13305,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.88,
     "lng": 129.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "133000",
     "population": 1000,
     "aliases": [
@@ -12661,6 +13323,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.88,
     "lng": 129.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "133000",
     "population": 100,
     "aliases": [
@@ -12680,6 +13343,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.97,
     "lng": 129.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "133100",
     "population": 100,
     "aliases": [
@@ -12699,6 +13363,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.37,
     "lng": 128.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "133700",
     "population": 100,
     "aliases": [
@@ -12718,6 +13383,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.87,
     "lng": 130.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "133300",
     "population": 100,
     "aliases": [
@@ -12737,6 +13403,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.77,
     "lng": 129.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "133400",
     "population": 100,
     "aliases": [
@@ -12756,6 +13423,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.53,
     "lng": 129,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "133500",
     "population": 100,
     "aliases": [
@@ -12775,6 +13443,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.32,
     "lng": 129.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "133200",
     "population": 100,
     "aliases": [
@@ -12793,6 +13462,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.12,
     "lng": 128.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "133600",
     "population": 100,
     "aliases": [
@@ -12811,6 +13481,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.8,
     "lng": 126.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "150000",
     "population": 10009854,
     "aliases": [
@@ -12830,6 +13501,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.77,
     "lng": 126.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "150010",
     "population": 10009854,
     "aliases": [
@@ -12850,6 +13522,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.77,
     "lng": 126.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "150000",
     "population": 10009854,
     "aliases": [
@@ -12870,6 +13543,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.78,
     "lng": 126.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "150026",
     "population": 10009854,
     "aliases": [
@@ -12890,6 +13564,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.72,
     "lng": 126.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "150036",
     "population": 10009854,
     "aliases": [
@@ -12910,6 +13585,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.62,
     "lng": 126.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "150000",
     "population": 10009854,
     "aliases": [
@@ -12930,6 +13606,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.8,
     "lng": 126.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "150028",
     "population": 10009854,
     "aliases": [
@@ -12950,6 +13627,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.9,
     "lng": 126.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "150500",
     "population": 10009854,
     "aliases": [
@@ -12970,6 +13648,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.32,
     "lng": 129.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "154800",
     "population": 10009854,
     "aliases": [
@@ -12990,6 +13669,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.83,
     "lng": 128.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "150800",
     "population": 10009854,
     "aliases": [
@@ -13010,6 +13690,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.75,
     "lng": 127.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "150400",
     "population": 10009854,
     "aliases": [
@@ -13030,6 +13711,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.08,
     "lng": 127.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "151800",
     "population": 10009854,
     "aliases": [
@@ -13050,6 +13732,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.95,
     "lng": 128.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "151900",
     "population": 10009854,
     "aliases": [
@@ -13070,6 +13753,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.97,
     "lng": 128.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "150900",
     "population": 10009854,
     "aliases": [
@@ -13090,6 +13774,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.45,
     "lng": 128.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "150700",
     "population": 10009854,
     "aliases": [
@@ -13110,6 +13795,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.37,
     "lng": 126.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "150100",
     "population": 10009854,
     "aliases": [
@@ -13131,6 +13817,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.22,
     "lng": 127.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "150600",
     "population": 10009854,
     "aliases": [
@@ -13152,6 +13839,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.92,
     "lng": 127.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "150200",
     "population": 10009854,
     "aliases": [
@@ -13173,6 +13861,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.33,
     "lng": 123.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "161000",
     "population": 1000,
     "aliases": [
@@ -13191,6 +13880,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.32,
     "lng": 123.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "161005",
     "population": 100,
     "aliases": [
@@ -13210,6 +13900,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.35,
     "lng": 123.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "161000",
     "population": 100,
     "aliases": [
@@ -13229,6 +13920,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.35,
     "lng": 123.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "161002",
     "population": 100,
     "aliases": [
@@ -13248,6 +13940,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.15,
     "lng": 123.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "161031",
     "population": 100,
     "aliases": [
@@ -13267,6 +13960,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.2,
     "lng": 123.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "161000",
     "population": 100,
     "aliases": [
@@ -13286,6 +13980,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.33,
     "lng": 123.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "161100",
     "population": 100,
     "aliases": [
@@ -13305,6 +14000,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.88,
     "lng": 125.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "161500",
     "population": 100,
     "aliases": [
@@ -13324,6 +14020,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.4,
     "lng": 123.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "162400",
     "population": 100,
     "aliases": [
@@ -13343,6 +14040,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.92,
     "lng": 123.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "162100",
     "population": 100,
     "aliases": [
@@ -13362,6 +14060,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.82,
     "lng": 124.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "161200",
     "population": 100,
     "aliases": [
@@ -13381,6 +14080,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 48.03,
     "lng": 125.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "161600",
     "population": 100,
     "aliases": [
@@ -13400,6 +14100,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 48.03,
     "lng": 126.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "164800",
     "population": 100,
     "aliases": [
@@ -13419,6 +14120,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.6,
     "lng": 126.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "164700",
     "population": 100,
     "aliases": [
@@ -13438,6 +14140,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 48.48,
     "lng": 124.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "161300",
     "population": 100,
     "aliases": [
@@ -13458,6 +14161,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.3,
     "lng": 130.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "158100",
     "population": 1000,
     "aliases": [
@@ -13476,6 +14180,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.3,
     "lng": 130.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "158100",
     "population": 100,
     "aliases": [
@@ -13495,6 +14200,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.2,
     "lng": 130.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "158130",
     "population": 100,
     "aliases": [
@@ -13514,6 +14220,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.37,
     "lng": 130.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "158150",
     "population": 100,
     "aliases": [
@@ -13533,6 +14240,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.08,
     "lng": 130.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "158100",
     "population": 100,
     "aliases": [
@@ -13552,6 +14260,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.33,
     "lng": 131,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "158100",
     "population": 100,
     "aliases": [
@@ -13571,6 +14280,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.2,
     "lng": 130.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "158100",
     "population": 100,
     "aliases": [
@@ -13590,6 +14300,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.25,
     "lng": 131.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "158200",
     "population": 100,
     "aliases": [
@@ -13609,6 +14320,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.77,
     "lng": 132.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "158400",
     "population": 100,
     "aliases": [
@@ -13629,6 +14341,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.55,
     "lng": 131.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "158300",
     "population": 100,
     "aliases": [
@@ -13649,6 +14362,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.33,
     "lng": 130.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "154100",
     "population": 1000,
     "aliases": [
@@ -13667,6 +14381,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.33,
     "lng": 130.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "154100",
     "population": 100,
     "aliases": [
@@ -13686,6 +14401,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.8,
     "lng": 130.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "154100",
     "population": 100,
     "aliases": [
@@ -13705,6 +14421,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.32,
     "lng": 130.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "154100",
     "population": 100,
     "aliases": [
@@ -13724,6 +14441,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.3,
     "lng": 130.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "154100",
     "population": 100,
     "aliases": [
@@ -13743,6 +14461,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.27,
     "lng": 130.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "154102",
     "population": 100,
     "aliases": [
@@ -13762,6 +14481,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.33,
     "lng": 130.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "154100",
     "population": 100,
     "aliases": [
@@ -13781,6 +14501,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.37,
     "lng": 130.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "154100",
     "population": 100,
     "aliases": [
@@ -13800,6 +14521,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.58,
     "lng": 130.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "154200",
     "population": 100,
     "aliases": [
@@ -13819,6 +14541,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.28,
     "lng": 131.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "156200",
     "population": 100,
     "aliases": [
@@ -13838,6 +14561,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.63,
     "lng": 131.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "155100",
     "population": 1000,
     "aliases": [
@@ -13856,6 +14580,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.63,
     "lng": 131.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "155100",
     "population": 100,
     "aliases": [
@@ -13875,6 +14600,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.57,
     "lng": 131.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "155124",
     "population": 100,
     "aliases": [
@@ -13894,6 +14620,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.58,
     "lng": 131.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "155130",
     "population": 100,
     "aliases": [
@@ -13913,6 +14640,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.57,
     "lng": 131.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "155131",
     "population": 100,
     "aliases": [
@@ -13932,6 +14660,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.72,
     "lng": 131.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "155900",
     "population": 100,
     "aliases": [
@@ -13951,6 +14680,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.78,
     "lng": 131.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "155800",
     "population": 100,
     "aliases": [
@@ -13970,6 +14700,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.32,
     "lng": 132.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "155600",
     "population": 100,
     "aliases": [
@@ -13989,6 +14720,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.8,
     "lng": 134.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "155700",
     "population": 100,
     "aliases": [
@@ -14008,6 +14740,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.58,
     "lng": 125.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "163000",
     "population": 1000,
     "aliases": [
@@ -14026,6 +14759,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.6,
     "lng": 125.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "163000",
     "population": 100,
     "aliases": [
@@ -14045,6 +14779,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.53,
     "lng": 125.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "163711",
     "population": 100,
     "aliases": [
@@ -14064,6 +14799,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.65,
     "lng": 124.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "163712",
     "population": 100,
     "aliases": [
@@ -14083,6 +14819,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.4,
     "lng": 124.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "163511",
     "population": 100,
     "aliases": [
@@ -14102,6 +14839,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.03,
     "lng": 124.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "163000",
     "population": 100,
     "aliases": [
@@ -14121,6 +14859,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.7,
     "lng": 125.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "166400",
     "population": 100,
     "aliases": [
@@ -14140,6 +14879,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.52,
     "lng": 125.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "166500",
     "population": 100,
     "aliases": [
@@ -14159,6 +14899,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.18,
     "lng": 124.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "166300",
     "population": 100,
     "aliases": [
@@ -14178,6 +14919,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.87,
     "lng": 124.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "166200",
     "population": 100,
     "aliases": [
@@ -14197,6 +14939,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.73,
     "lng": 128.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "153000",
     "population": 1000,
     "aliases": [
@@ -14215,6 +14958,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.13,
     "lng": 129.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "153100",
     "population": 100,
     "aliases": [
@@ -14234,6 +14978,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.85,
     "lng": 128.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "153031",
     "population": 100,
     "aliases": [
@@ -14253,6 +14998,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.48,
     "lng": 129.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "153000",
     "population": 100,
     "aliases": [
@@ -14272,6 +15018,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.72,
     "lng": 128.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "153013",
     "population": 100,
     "aliases": [
@@ -14291,6 +15038,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 48.28,
     "lng": 129.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "153036",
     "population": 100,
     "aliases": [
@@ -14310,6 +15058,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.63,
     "lng": 129.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "153000",
     "population": 100,
     "aliases": [
@@ -14329,6 +15078,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.42,
     "lng": 129.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "153000",
     "population": 100,
     "aliases": [
@@ -14348,6 +15098,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 48.12,
     "lng": 129.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "153033",
     "population": 100,
     "aliases": [
@@ -14367,6 +15118,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.72,
     "lng": 128.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "153000",
     "population": 100,
     "aliases": [
@@ -14386,6 +15138,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 48.45,
     "lng": 129.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "153037",
     "population": 100,
     "aliases": [
@@ -14405,6 +15158,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.02,
     "lng": 129.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "153000",
     "population": 100,
     "aliases": [
@@ -14424,6 +15178,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 48.6,
     "lng": 129.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "153038",
     "population": 100,
     "aliases": [
@@ -14443,6 +15198,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 48.23,
     "lng": 129.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "153000",
     "population": 100,
     "aliases": [
@@ -14462,6 +15218,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.97,
     "lng": 129.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "153000",
     "population": 100,
     "aliases": [
@@ -14481,6 +15238,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 48.88,
     "lng": 130.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "153200",
     "population": 100,
     "aliases": [
@@ -14500,6 +15258,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.98,
     "lng": 128.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "152500",
     "population": 100,
     "aliases": [
@@ -14520,6 +15279,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.82,
     "lng": 130.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "154000",
     "population": 1000,
     "aliases": [
@@ -14538,6 +15298,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.33,
     "lng": 130.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "154000",
     "population": 100,
     "aliases": [
@@ -14557,6 +15318,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.8,
     "lng": 130.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "154000",
     "population": 100,
     "aliases": [
@@ -14576,6 +15338,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.82,
     "lng": 130.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "154002",
     "population": 100,
     "aliases": [
@@ -14595,6 +15358,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.82,
     "lng": 130.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "154000",
     "population": 100,
     "aliases": [
@@ -14614,6 +15378,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.8,
     "lng": 130.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "154004",
     "population": 100,
     "aliases": [
@@ -14633,6 +15398,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.23,
     "lng": 130.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "154400",
     "population": 100,
     "aliases": [
@@ -14652,6 +15418,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.02,
     "lng": 130.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "154300",
     "population": 100,
     "aliases": [
@@ -14671,6 +15438,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.73,
     "lng": 129.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "154700",
     "population": 100,
     "aliases": [
@@ -14690,6 +15458,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 48.37,
     "lng": 134.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "156500",
     "population": 100,
     "aliases": [
@@ -14709,6 +15478,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.65,
     "lng": 132.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "156400",
     "population": 100,
     "aliases": [
@@ -14729,6 +15499,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.25,
     "lng": 132.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "156100",
     "population": 100,
     "aliases": [
@@ -14749,6 +15520,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.78,
     "lng": 130.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "154600",
     "population": 1000,
     "aliases": [
@@ -14767,6 +15539,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.8,
     "lng": 130.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "154600",
     "population": 100,
     "aliases": [
@@ -14786,6 +15559,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.77,
     "lng": 130.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "154600",
     "population": 100,
     "aliases": [
@@ -14805,6 +15579,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.77,
     "lng": 131.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "154622",
     "population": 100,
     "aliases": [
@@ -14824,6 +15599,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.75,
     "lng": 130.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "154500",
     "population": 100,
     "aliases": [
@@ -14843,6 +15619,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.58,
     "lng": 129.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "157000",
     "population": 1000,
     "aliases": [
@@ -14861,6 +15638,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.58,
     "lng": 129.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "157000",
     "population": 100,
     "aliases": [
@@ -14880,6 +15658,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.6,
     "lng": 129.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "157000",
     "population": 100,
     "aliases": [
@@ -14899,6 +15678,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.58,
     "lng": 129.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "157009",
     "population": 100,
     "aliases": [
@@ -14918,6 +15698,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.57,
     "lng": 129.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "157000",
     "population": 100,
     "aliases": [
@@ -14937,6 +15718,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.07,
     "lng": 131.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "157200",
     "population": 100,
     "aliases": [
@@ -14956,6 +15738,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.3,
     "lng": 130.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "157800",
     "population": 100,
     "aliases": [
@@ -14975,6 +15758,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.42,
     "lng": 131.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "157300",
     "population": 100,
     "aliases": [
@@ -14995,6 +15779,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.57,
     "lng": 129.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "157100",
     "population": 100,
     "aliases": [
@@ -15015,6 +15800,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.35,
     "lng": 129.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "157400",
     "population": 100,
     "aliases": [
@@ -15035,6 +15821,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.92,
     "lng": 130.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "157500",
     "population": 100,
     "aliases": [
@@ -15055,6 +15842,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 50.25,
     "lng": 127.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "164300",
     "population": 1000,
     "aliases": [
@@ -15073,6 +15861,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 50.25,
     "lng": 127.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "164300",
     "population": 100,
     "aliases": [
@@ -15092,6 +15881,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 49.58,
     "lng": 128.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "164400",
     "population": 100,
     "aliases": [
@@ -15111,6 +15901,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 49.42,
     "lng": 127.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "164299",
     "population": 100,
     "aliases": [
@@ -15130,6 +15921,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 48.23,
     "lng": 126.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "164000",
     "population": 100,
     "aliases": [
@@ -15150,6 +15942,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 48.52,
     "lng": 126.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "164100",
     "population": 100,
     "aliases": [
@@ -15170,6 +15963,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.63,
     "lng": 126.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "152000",
     "population": 1000,
     "aliases": [
@@ -15188,6 +15982,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.63,
     "lng": 126.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "152000",
     "population": 100,
     "aliases": [
@@ -15207,6 +16002,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.83,
     "lng": 126.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "152101",
     "population": 100,
     "aliases": [
@@ -15226,6 +16022,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.27,
     "lng": 126.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "151500",
     "population": 100,
     "aliases": [
@@ -15245,6 +16042,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.68,
     "lng": 126.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "151600",
     "population": 100,
     "aliases": [
@@ -15264,6 +16062,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.88,
     "lng": 127.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "152400",
     "population": 100,
     "aliases": [
@@ -15283,6 +16082,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.18,
     "lng": 125.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "151700",
     "population": 100,
     "aliases": [
@@ -15302,6 +16102,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.25,
     "lng": 127.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "152200",
     "population": 100,
     "aliases": [
@@ -15321,6 +16122,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.4,
     "lng": 125.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "151400",
     "population": 100,
     "aliases": [
@@ -15341,6 +16143,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.07,
     "lng": 125.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "151100",
     "population": 100,
     "aliases": [
@@ -15361,6 +16164,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.47,
     "lng": 126.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "152300",
     "population": 100,
     "aliases": [
@@ -15381,6 +16185,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 50.42,
     "lng": 124.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "165000",
     "population": 1000,
     "aliases": [
@@ -15398,6 +16203,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 51.73,
     "lng": 126.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "165100",
     "population": 100,
     "aliases": [
@@ -15416,6 +16222,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 52.32,
     "lng": 124.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "165200",
     "population": 100,
     "aliases": [
@@ -15434,6 +16241,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 52.97,
     "lng": 122.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "165300",
     "population": 100,
     "aliases": [
@@ -15452,6 +16260,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.23,
     "lng": 121.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "200000",
     "population": 24870895,
     "aliases": [
@@ -15469,6 +16278,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.23,
     "lng": 121.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "200001",
     "population": 24870895,
     "aliases": [
@@ -15487,6 +16297,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.22,
     "lng": 121.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "200020",
     "population": 24870895,
     "aliases": [
@@ -15505,6 +16316,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.18,
     "lng": 121.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "200030",
     "population": 24870895,
     "aliases": [
@@ -15523,6 +16335,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.22,
     "lng": 121.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "200050",
     "population": 24870895,
     "aliases": [
@@ -15541,6 +16354,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.23,
     "lng": 121.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "200040",
     "population": 24870895,
     "aliases": [
@@ -15559,6 +16373,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.25,
     "lng": 121.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "200333",
     "population": 24870895,
     "aliases": [
@@ -15577,6 +16392,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.25,
     "lng": 121.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "200070",
     "population": 24870895,
     "aliases": [
@@ -15595,6 +16411,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.27,
     "lng": 121.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "200080",
     "population": 24870895,
     "aliases": [
@@ -15613,6 +16430,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.27,
     "lng": 121.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "200082",
     "population": 24870895,
     "aliases": [
@@ -15631,6 +16449,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.12,
     "lng": 121.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "201100",
     "population": 24870895,
     "aliases": [
@@ -15649,6 +16468,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.4,
     "lng": 121.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "201900",
     "population": 24870895,
     "aliases": [
@@ -15667,6 +16487,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.38,
     "lng": 121.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "201800",
     "population": 24870895,
     "aliases": [
@@ -15685,6 +16506,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.22,
     "lng": 121.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "200120",
     "population": 24870895,
     "aliases": [
@@ -15703,6 +16525,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.75,
     "lng": 121.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "201500",
     "population": 24870895,
     "aliases": [
@@ -15721,6 +16544,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.03,
     "lng": 121.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "201600",
     "population": 24870895,
     "aliases": [
@@ -15739,6 +16563,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.15,
     "lng": 121.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "201799",
     "population": 24870895,
     "aliases": [
@@ -15757,6 +16582,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.05,
     "lng": 121.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "201300",
     "population": 24870895,
     "aliases": [
@@ -15775,6 +16601,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.92,
     "lng": 121.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "201499",
     "population": 24870895,
     "aliases": [
@@ -15793,6 +16620,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.62,
     "lng": 121.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "202150",
     "population": 24870895,
     "aliases": [
@@ -15811,6 +16639,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.07,
     "lng": 118.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "210000",
     "population": 9314685,
     "aliases": [
@@ -15831,6 +16660,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.05,
     "lng": 118.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "210000",
     "population": 9314685,
     "aliases": [
@@ -15852,6 +16682,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.03,
     "lng": 118.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "210000",
     "population": 9314685,
     "aliases": [
@@ -15873,6 +16704,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.02,
     "lng": 118.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "210001",
     "population": 9314685,
     "aliases": [
@@ -15894,6 +16726,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.03,
     "lng": 118.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "210019",
     "population": 9314685,
     "aliases": [
@@ -15915,6 +16748,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.28,
     "lng": 117.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "210000",
     "population": 9314685,
     "aliases": [
@@ -15936,6 +16770,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.07,
     "lng": 118.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "210000",
     "population": 9314685,
     "aliases": [
@@ -15957,6 +16792,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.08,
     "lng": 118.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "210000",
     "population": 9314685,
     "aliases": [
@@ -15978,6 +16814,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.05,
     "lng": 118.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "211800",
     "population": 9314685,
     "aliases": [
@@ -15999,6 +16836,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.12,
     "lng": 118.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "210046",
     "population": 9314685,
     "aliases": [
@@ -16020,6 +16858,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32,
     "lng": 118.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "210012",
     "population": 9314685,
     "aliases": [
@@ -16041,6 +16880,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.95,
     "lng": 118.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "211100",
     "population": 9314685,
     "aliases": [
@@ -16062,6 +16902,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.35,
     "lng": 118.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "211500",
     "population": 9314685,
     "aliases": [
@@ -16083,6 +16924,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.65,
     "lng": 119.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "211200",
     "population": 9314685,
     "aliases": [
@@ -16104,6 +16946,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.33,
     "lng": 118.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "211300",
     "population": 9314685,
     "aliases": [
@@ -16125,6 +16968,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.57,
     "lng": 120.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "214000",
     "population": 1000,
     "aliases": [
@@ -16143,6 +16987,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.58,
     "lng": 120.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "214000",
     "population": 100,
     "aliases": [
@@ -16162,6 +17007,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.57,
     "lng": 120.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "214000",
     "population": 100,
     "aliases": [
@@ -16181,6 +17027,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.58,
     "lng": 120.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "214000",
     "population": 100,
     "aliases": [
@@ -16200,6 +17047,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.6,
     "lng": 120.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "214000",
     "population": 100,
     "aliases": [
@@ -16219,6 +17067,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.68,
     "lng": 120.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "214100",
     "population": 100,
     "aliases": [
@@ -16238,6 +17087,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.57,
     "lng": 120.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "214100",
     "population": 100,
     "aliases": [
@@ -16257,6 +17107,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.9,
     "lng": 120.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "214400",
     "population": 100,
     "aliases": [
@@ -16277,6 +17128,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.35,
     "lng": 119.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "214200",
     "population": 100,
     "aliases": [
@@ -16297,6 +17149,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.27,
     "lng": 117.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "221000",
     "population": 1000,
     "aliases": [
@@ -16315,6 +17168,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.28,
     "lng": 117.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "221005",
     "population": 100,
     "aliases": [
@@ -16334,6 +17188,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.07,
     "lng": 118.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "221005",
     "population": 100,
     "aliases": [
@@ -16353,6 +17208,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.25,
     "lng": 117.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "221000",
     "population": 100,
     "aliases": [
@@ -16372,6 +17228,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.3,
     "lng": 117.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "221140",
     "population": 100,
     "aliases": [
@@ -16391,6 +17248,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.45,
     "lng": 117.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "221011",
     "population": 100,
     "aliases": [
@@ -16410,6 +17268,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.25,
     "lng": 117.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "221000",
     "population": 100,
     "aliases": [
@@ -16429,6 +17288,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.7,
     "lng": 116.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "221700",
     "population": 100,
     "aliases": [
@@ -16448,6 +17308,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.73,
     "lng": 116.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "221600",
     "population": 100,
     "aliases": [
@@ -16467,6 +17328,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.18,
     "lng": 117.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "999999",
     "population": 100,
     "aliases": [
@@ -16486,6 +17348,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.9,
     "lng": 117.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "221200",
     "population": 100,
     "aliases": [
@@ -16505,6 +17368,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.38,
     "lng": 118.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "221400",
     "population": 100,
     "aliases": [
@@ -16525,6 +17389,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.32,
     "lng": 117.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "221300",
     "population": 100,
     "aliases": [
@@ -16545,6 +17410,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.78,
     "lng": 119.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "213000",
     "population": 1000,
     "aliases": [
@@ -16563,6 +17429,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.75,
     "lng": 119.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "213000",
     "population": 100,
     "aliases": [
@@ -16582,6 +17449,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.78,
     "lng": 119.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "213000",
     "population": 100,
     "aliases": [
@@ -16601,6 +17469,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.73,
     "lng": 120.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "213000",
     "population": 100,
     "aliases": [
@@ -16620,6 +17489,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.83,
     "lng": 119.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "213001",
     "population": 100,
     "aliases": [
@@ -16639,6 +17509,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.72,
     "lng": 119.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "213100",
     "population": 100,
     "aliases": [
@@ -16658,6 +17529,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.42,
     "lng": 119.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "213300",
     "population": 100,
     "aliases": [
@@ -16678,6 +17550,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.75,
     "lng": 119.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "213200",
     "population": 100,
     "aliases": [
@@ -16698,6 +17571,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.3,
     "lng": 120.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "215000",
     "population": 12748262,
     "aliases": [
@@ -16717,6 +17591,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.3,
     "lng": 120.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "215000",
     "population": 12748262,
     "aliases": [
@@ -16737,6 +17612,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.32,
     "lng": 120.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "215000",
     "population": 12748262,
     "aliases": [
@@ -16757,6 +17633,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.32,
     "lng": 120.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "215000",
     "population": 12748262,
     "aliases": [
@@ -16777,6 +17654,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.3,
     "lng": 120.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "215004",
     "population": 12748262,
     "aliases": [
@@ -16797,6 +17675,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.27,
     "lng": 120.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "215100",
     "population": 12748262,
     "aliases": [
@@ -16817,6 +17696,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.37,
     "lng": 120.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "215131",
     "population": 12748262,
     "aliases": [
@@ -16837,6 +17717,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.65,
     "lng": 120.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "215500",
     "population": 12748262,
     "aliases": [
@@ -16858,6 +17739,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.87,
     "lng": 120.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "215600",
     "population": 12748262,
     "aliases": [
@@ -16879,6 +17761,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.38,
     "lng": 120.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "215300",
     "population": 12748262,
     "aliases": [
@@ -16900,6 +17783,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.17,
     "lng": 120.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "215200",
     "population": 12748262,
     "aliases": [
@@ -16921,6 +17805,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.45,
     "lng": 121.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "215400",
     "population": 12748262,
     "aliases": [
@@ -16942,6 +17827,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.98,
     "lng": 120.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "226000",
     "population": 1000,
     "aliases": [
@@ -16960,6 +17846,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32,
     "lng": 120.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "226001",
     "population": 100,
     "aliases": [
@@ -16979,6 +17866,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.03,
     "lng": 120.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "226000",
     "population": 100,
     "aliases": [
@@ -16998,6 +17886,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.55,
     "lng": 120.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "226600",
     "population": 100,
     "aliases": [
@@ -17017,6 +17906,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.32,
     "lng": 121.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "226400",
     "population": 100,
     "aliases": [
@@ -17036,6 +17926,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.82,
     "lng": 121.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "226200",
     "population": 100,
     "aliases": [
@@ -17056,6 +17947,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.4,
     "lng": 120.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "226500",
     "population": 100,
     "aliases": [
@@ -17076,6 +17968,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.08,
     "lng": 121.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "999999",
     "population": 100,
     "aliases": [
@@ -17096,6 +17989,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.9,
     "lng": 121.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "226100",
     "population": 100,
     "aliases": [
@@ -17116,6 +18010,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.6,
     "lng": 119.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "222002",
     "population": 1000,
     "aliases": [
@@ -17134,6 +18029,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.75,
     "lng": 119.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "222042",
     "population": 100,
     "aliases": [
@@ -17153,6 +18049,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.6,
     "lng": 119.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "222000",
     "population": 100,
     "aliases": [
@@ -17172,6 +18069,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.57,
     "lng": 119.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "222000",
     "population": 100,
     "aliases": [
@@ -17191,6 +18089,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.83,
     "lng": 119.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "222100",
     "population": 100,
     "aliases": [
@@ -17210,6 +18109,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.53,
     "lng": 118.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "222300",
     "population": 100,
     "aliases": [
@@ -17229,6 +18129,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.3,
     "lng": 119.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "222200",
     "population": 100,
     "aliases": [
@@ -17248,6 +18149,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.08,
     "lng": 119.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "223500",
     "population": 100,
     "aliases": [
@@ -17267,6 +18169,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.62,
     "lng": 119.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "223001",
     "population": 1000,
     "aliases": [
@@ -17285,6 +18188,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.6,
     "lng": 119.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "223001",
     "population": 100,
     "aliases": [
@@ -17304,6 +18208,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.5,
     "lng": 119.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "223200",
     "population": 100,
     "aliases": [
@@ -17323,6 +18228,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.63,
     "lng": 119.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "223300",
     "population": 100,
     "aliases": [
@@ -17342,6 +18248,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.58,
     "lng": 119.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "223002",
     "population": 100,
     "aliases": [
@@ -17361,6 +18268,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.78,
     "lng": 119.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "223400",
     "population": 100,
     "aliases": [
@@ -17380,6 +18288,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.3,
     "lng": 118.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "223100",
     "population": 100,
     "aliases": [
@@ -17399,6 +18308,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33,
     "lng": 118.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "211700",
     "population": 100,
     "aliases": [
@@ -17418,6 +18328,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.02,
     "lng": 119.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "211600",
     "population": 100,
     "aliases": [
@@ -17437,6 +18348,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.35,
     "lng": 120.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "224000",
     "population": 1000,
     "aliases": [
@@ -17455,6 +18367,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.4,
     "lng": 120.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "224001",
     "population": 100,
     "aliases": [
@@ -17474,6 +18387,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.33,
     "lng": 120.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "224006",
     "population": 100,
     "aliases": [
@@ -17493,6 +18407,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.2,
     "lng": 119.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "224600",
     "population": 100,
     "aliases": [
@@ -17512,6 +18427,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.98,
     "lng": 119.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "224500",
     "population": 100,
     "aliases": [
@@ -17531,6 +18447,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.78,
     "lng": 119.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "224400",
     "population": 100,
     "aliases": [
@@ -17550,6 +18467,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.78,
     "lng": 120.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "224300",
     "population": 100,
     "aliases": [
@@ -17569,6 +18487,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.47,
     "lng": 119.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "224700",
     "population": 100,
     "aliases": [
@@ -17588,6 +18507,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.85,
     "lng": 120.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "224200",
     "population": 100,
     "aliases": [
@@ -17608,6 +18528,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.2,
     "lng": 120.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "224100",
     "population": 100,
     "aliases": [
@@ -17628,6 +18549,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.4,
     "lng": 119.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "225000",
     "population": 1000,
     "aliases": [
@@ -17646,6 +18568,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.38,
     "lng": 119.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "225002",
     "population": 100,
     "aliases": [
@@ -17665,6 +18588,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.38,
     "lng": 119.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "225100",
     "population": 100,
     "aliases": [
@@ -17684,6 +18608,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.42,
     "lng": 119.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "999999",
     "population": 100,
     "aliases": [
@@ -17703,6 +18628,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.23,
     "lng": 119.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "225800",
     "population": 100,
     "aliases": [
@@ -17722,6 +18648,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.27,
     "lng": 119.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "211400",
     "population": 100,
     "aliases": [
@@ -17742,6 +18669,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.78,
     "lng": 119.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "225600",
     "population": 100,
     "aliases": [
@@ -17762,6 +18690,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.43,
     "lng": 119.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "225200",
     "population": 100,
     "aliases": [
@@ -17782,6 +18711,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.2,
     "lng": 119.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "212000",
     "population": 1000,
     "aliases": [
@@ -17800,6 +18730,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.2,
     "lng": 119.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "212001",
     "population": 100,
     "aliases": [
@@ -17819,6 +18750,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.2,
     "lng": 119.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "212004",
     "population": 100,
     "aliases": [
@@ -17838,6 +18770,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.13,
     "lng": 119.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "212100",
     "population": 100,
     "aliases": [
@@ -17857,6 +18790,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32,
     "lng": 119.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "212300",
     "population": 100,
     "aliases": [
@@ -17877,6 +18811,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.23,
     "lng": 119.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "212200",
     "population": 100,
     "aliases": [
@@ -17897,6 +18832,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.95,
     "lng": 119.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "212400",
     "population": 100,
     "aliases": [
@@ -17917,6 +18853,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.45,
     "lng": 119.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "225300",
     "population": 1000,
     "aliases": [
@@ -17935,6 +18872,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.92,
     "lng": 119.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "225700",
     "population": 100,
     "aliases": [
@@ -17955,6 +18893,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.02,
     "lng": 120.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "214500",
     "population": 100,
     "aliases": [
@@ -17975,6 +18914,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.17,
     "lng": 120.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "225400",
     "population": 100,
     "aliases": [
@@ -17995,6 +18935,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.52,
     "lng": 120.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "225500",
     "population": 100,
     "aliases": [
@@ -18015,6 +18956,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.97,
     "lng": 118.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "223800",
     "population": 1000,
     "aliases": [
@@ -18033,6 +18975,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.97,
     "lng": 118.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "223800",
     "population": 100,
     "aliases": [
@@ -18052,6 +18995,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.95,
     "lng": 118.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "223800",
     "population": 100,
     "aliases": [
@@ -18071,6 +19015,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.13,
     "lng": 118.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "223600",
     "population": 100,
     "aliases": [
@@ -18090,6 +19035,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.72,
     "lng": 118.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "223700",
     "population": 100,
     "aliases": [
@@ -18109,6 +19055,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.47,
     "lng": 118.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "223900",
     "population": 100,
     "aliases": [
@@ -18128,6 +19075,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.28,
     "lng": 120.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "310000",
     "population": 11936010,
     "aliases": [
@@ -18147,6 +19095,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.25,
     "lng": 120.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "310002",
     "population": 11936010,
     "aliases": [
@@ -18167,6 +19116,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.28,
     "lng": 120.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "310006",
     "population": 11936010,
     "aliases": [
@@ -18187,6 +19137,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.27,
     "lng": 120.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "310016",
     "population": 11936010,
     "aliases": [
@@ -18207,6 +19158,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.32,
     "lng": 120.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "310011",
     "population": 11936010,
     "aliases": [
@@ -18227,6 +19179,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.27,
     "lng": 120.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "310012",
     "population": 11936010,
     "aliases": [
@@ -18247,6 +19200,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.2,
     "lng": 120.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "310051",
     "population": 11936010,
     "aliases": [
@@ -18267,6 +19221,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.17,
     "lng": 120.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "311200",
     "population": 11936010,
     "aliases": [
@@ -18287,6 +19242,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.42,
     "lng": 120.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "311100",
     "population": 11936010,
     "aliases": [
@@ -18307,6 +19263,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.8,
     "lng": 119.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "311500",
     "population": 11936010,
     "aliases": [
@@ -18327,6 +19284,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.6,
     "lng": 119.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "311700",
     "population": 11936010,
     "aliases": [
@@ -18347,6 +19305,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.48,
     "lng": 119.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "311600",
     "population": 11936010,
     "aliases": [
@@ -18368,6 +19327,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.05,
     "lng": 119.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "311400",
     "population": 11936010,
     "aliases": [
@@ -18389,6 +19349,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.23,
     "lng": 119.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "311300",
     "population": 11936010,
     "aliases": [
@@ -18410,6 +19371,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.88,
     "lng": 121.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "315000",
     "population": 9404283,
     "aliases": [
@@ -18429,6 +19391,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.87,
     "lng": 121.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "315000",
     "population": 9404283,
     "aliases": [
@@ -18449,6 +19412,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.87,
     "lng": 121.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "315040",
     "population": 9404283,
     "aliases": [
@@ -18469,6 +19433,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.88,
     "lng": 121.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "315000",
     "population": 9404283,
     "aliases": [
@@ -18489,6 +19454,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.93,
     "lng": 121.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "315800",
     "population": 9404283,
     "aliases": [
@@ -18509,6 +19475,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.95,
     "lng": 121.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "315200",
     "population": 9404283,
     "aliases": [
@@ -18529,6 +19496,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.83,
     "lng": 121.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "315100",
     "population": 9404283,
     "aliases": [
@@ -18549,6 +19517,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.48,
     "lng": 121.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "315700",
     "population": 9404283,
     "aliases": [
@@ -18569,6 +19538,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.28,
     "lng": 121.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "315600",
     "population": 9404283,
     "aliases": [
@@ -18589,6 +19559,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.03,
     "lng": 121.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "315400",
     "population": 9404283,
     "aliases": [
@@ -18610,6 +19581,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.17,
     "lng": 121.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "315300",
     "population": 9404283,
     "aliases": [
@@ -18631,6 +19603,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.65,
     "lng": 121.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "315500",
     "population": 9404283,
     "aliases": [
@@ -18652,6 +19625,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28,
     "lng": 120.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "325000",
     "population": 1000,
     "aliases": [
@@ -18670,6 +19644,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.02,
     "lng": 120.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "325000",
     "population": 100,
     "aliases": [
@@ -18689,6 +19664,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.93,
     "lng": 120.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "325024",
     "population": 100,
     "aliases": [
@@ -18708,6 +19684,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.83,
     "lng": 121.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "325700",
     "population": 100,
     "aliases": [
@@ -18727,6 +19704,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.15,
     "lng": 120.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "325100",
     "population": 100,
     "aliases": [
@@ -18746,6 +19724,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.67,
     "lng": 120.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "325400",
     "population": 100,
     "aliases": [
@@ -18765,6 +19744,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.5,
     "lng": 120.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "325800",
     "population": 100,
     "aliases": [
@@ -18784,6 +19764,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.78,
     "lng": 120.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "325300",
     "population": 100,
     "aliases": [
@@ -18803,6 +19784,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.57,
     "lng": 119.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "325500",
     "population": 100,
     "aliases": [
@@ -18822,6 +19804,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.78,
     "lng": 120.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "325200",
     "population": 100,
     "aliases": [
@@ -18842,6 +19825,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.13,
     "lng": 120.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "325600",
     "population": 100,
     "aliases": [
@@ -18862,6 +19846,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.75,
     "lng": 120.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "314000",
     "population": 1000,
     "aliases": [
@@ -18880,6 +19865,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.77,
     "lng": 120.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "314000",
     "population": 100,
     "aliases": [
@@ -18899,6 +19885,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.85,
     "lng": 120.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "314100",
     "population": 100,
     "aliases": [
@@ -18918,6 +19905,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.53,
     "lng": 120.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "314300",
     "population": 100,
     "aliases": [
@@ -18937,6 +19925,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.53,
     "lng": 120.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "314400",
     "population": 100,
     "aliases": [
@@ -18957,6 +19946,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.7,
     "lng": 121.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "314200",
     "population": 100,
     "aliases": [
@@ -18977,6 +19967,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.63,
     "lng": 120.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "314500",
     "population": 100,
     "aliases": [
@@ -18997,6 +19988,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.9,
     "lng": 120.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "313000",
     "population": 1000,
     "aliases": [
@@ -19015,6 +20007,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.87,
     "lng": 120.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "313000",
     "population": 100,
     "aliases": [
@@ -19034,6 +20027,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.88,
     "lng": 120.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "313009",
     "population": 100,
     "aliases": [
@@ -19053,6 +20047,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.53,
     "lng": 119.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "313200",
     "population": 100,
     "aliases": [
@@ -19072,6 +20067,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.02,
     "lng": 119.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "313100",
     "population": 100,
     "aliases": [
@@ -19091,6 +20087,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.63,
     "lng": 119.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "313300",
     "population": 100,
     "aliases": [
@@ -19110,6 +20107,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30,
     "lng": 120.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "312000",
     "population": 1000,
     "aliases": [
@@ -19128,6 +20126,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30,
     "lng": 120.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "312000",
     "population": 100,
     "aliases": [
@@ -19147,6 +20146,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.08,
     "lng": 120.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "312000",
     "population": 100,
     "aliases": [
@@ -19166,6 +20166,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.5,
     "lng": 120.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "312500",
     "population": 100,
     "aliases": [
@@ -19185,6 +20186,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.72,
     "lng": 120.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "311800",
     "population": 100,
     "aliases": [
@@ -19205,6 +20207,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.03,
     "lng": 120.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "312300",
     "population": 100,
     "aliases": [
@@ -19225,6 +20228,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.58,
     "lng": 120.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "312400",
     "population": 100,
     "aliases": [
@@ -19245,6 +20249,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.08,
     "lng": 119.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "321000",
     "population": 1000,
     "aliases": [
@@ -19263,6 +20268,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.08,
     "lng": 119.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "321000",
     "population": 100,
     "aliases": [
@@ -19282,6 +20288,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.08,
     "lng": 119.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "321015",
     "population": 100,
     "aliases": [
@@ -19301,6 +20308,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.9,
     "lng": 119.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "321200",
     "population": 100,
     "aliases": [
@@ -19320,6 +20328,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.45,
     "lng": 119.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "322200",
     "population": 100,
     "aliases": [
@@ -19339,6 +20348,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.05,
     "lng": 120.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "322300",
     "population": 100,
     "aliases": [
@@ -19358,6 +20368,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.22,
     "lng": 119.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "321100",
     "population": 100,
     "aliases": [
@@ -19378,6 +20389,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.3,
     "lng": 120.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "322000",
     "population": 100,
     "aliases": [
@@ -19398,6 +20410,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.28,
     "lng": 120.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "322100",
     "population": 100,
     "aliases": [
@@ -19418,6 +20431,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.9,
     "lng": 120.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "321300",
     "population": 100,
     "aliases": [
@@ -19438,6 +20452,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.93,
     "lng": 118.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "324000",
     "population": 1000,
     "aliases": [
@@ -19456,6 +20471,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.93,
     "lng": 118.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "324000",
     "population": 100,
     "aliases": [
@@ -19475,6 +20491,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.98,
     "lng": 118.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "324022",
     "population": 100,
     "aliases": [
@@ -19494,6 +20511,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.9,
     "lng": 118.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "324200",
     "population": 100,
     "aliases": [
@@ -19513,6 +20531,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.13,
     "lng": 118.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "324300",
     "population": 100,
     "aliases": [
@@ -19532,6 +20551,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.03,
     "lng": 119.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "324400",
     "population": 100,
     "aliases": [
@@ -19551,6 +20571,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.75,
     "lng": 118.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "324100",
     "population": 100,
     "aliases": [
@@ -19571,6 +20592,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30,
     "lng": 122.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "316000",
     "population": 1000,
     "aliases": [
@@ -19589,6 +20611,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.02,
     "lng": 122.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "316000",
     "population": 100,
     "aliases": [
@@ -19608,6 +20631,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.95,
     "lng": 122.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "316100",
     "population": 100,
     "aliases": [
@@ -19627,6 +20651,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.25,
     "lng": 122.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "316200",
     "population": 100,
     "aliases": [
@@ -19646,6 +20671,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.73,
     "lng": 122.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "202450",
     "population": 100,
     "aliases": [
@@ -19665,6 +20691,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.68,
     "lng": 121.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "318000",
     "population": 1000,
     "aliases": [
@@ -19683,6 +20710,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.68,
     "lng": 121.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "318000",
     "population": 100,
     "aliases": [
@@ -19702,6 +20730,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.65,
     "lng": 121.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "318020",
     "population": 100,
     "aliases": [
@@ -19721,6 +20750,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.58,
     "lng": 121.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "318050",
     "population": 100,
     "aliases": [
@@ -19740,6 +20770,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.13,
     "lng": 121.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "317600",
     "population": 100,
     "aliases": [
@@ -19759,6 +20790,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.12,
     "lng": 121.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "317100",
     "population": 100,
     "aliases": [
@@ -19778,6 +20810,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.13,
     "lng": 121.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "317200",
     "population": 100,
     "aliases": [
@@ -19797,6 +20830,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.87,
     "lng": 120.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "317300",
     "population": 100,
     "aliases": [
@@ -19816,6 +20850,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.37,
     "lng": 121.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "317500",
     "population": 100,
     "aliases": [
@@ -19836,6 +20871,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.85,
     "lng": 121.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "317000",
     "population": 100,
     "aliases": [
@@ -19856,6 +20892,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.45,
     "lng": 119.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "323000",
     "population": 1000,
     "aliases": [
@@ -19874,6 +20911,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.45,
     "lng": 119.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "323000",
     "population": 100,
     "aliases": [
@@ -19893,6 +20931,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.15,
     "lng": 120.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "323900",
     "population": 100,
     "aliases": [
@@ -19912,6 +20951,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.65,
     "lng": 120.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "321400",
     "population": 100,
     "aliases": [
@@ -19931,6 +20971,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.6,
     "lng": 119.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "323300",
     "population": 100,
     "aliases": [
@@ -19950,6 +20991,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.45,
     "lng": 119.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "323400",
     "population": 100,
     "aliases": [
@@ -19969,6 +21011,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.12,
     "lng": 119.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "323600",
     "population": 100,
     "aliases": [
@@ -19988,6 +21031,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.62,
     "lng": 119.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "323800",
     "population": 100,
     "aliases": [
@@ -20007,6 +21051,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.98,
     "lng": 119.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "323500",
     "population": 100,
     "aliases": [
@@ -20026,6 +21071,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.08,
     "lng": 119.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "323700",
     "population": 100,
     "aliases": [
@@ -20046,6 +21092,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.83,
     "lng": 117.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "230000",
     "population": 9369881,
     "aliases": [
@@ -20065,6 +21112,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.87,
     "lng": 117.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "230011",
     "population": 9369881,
     "aliases": [
@@ -20085,6 +21133,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.88,
     "lng": 117.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "230001",
     "population": 9369881,
     "aliases": [
@@ -20105,6 +21154,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.85,
     "lng": 117.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "230031",
     "population": 9369881,
     "aliases": [
@@ -20125,6 +21175,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.8,
     "lng": 117.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "230041",
     "population": 9369881,
     "aliases": [
@@ -20145,6 +21196,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.48,
     "lng": 117.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "231100",
     "population": 9369881,
     "aliases": [
@@ -20165,6 +21217,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.88,
     "lng": 117.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "231600",
     "population": 9369881,
     "aliases": [
@@ -20185,6 +21238,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.72,
     "lng": 117.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "231200",
     "population": 9369881,
     "aliases": [
@@ -20205,6 +21259,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.33,
     "lng": 118.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "241000",
     "population": 1000,
     "aliases": [
@@ -20223,6 +21278,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.35,
     "lng": 118.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "340202",
     "population": 100,
     "aliases": [
@@ -20242,6 +21298,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.37,
     "lng": 118.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "241000",
     "population": 100,
     "aliases": [
@@ -20261,6 +21318,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.15,
     "lng": 118.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "241100",
     "population": 100,
     "aliases": [
@@ -20280,6 +21338,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.08,
     "lng": 118.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "241200",
     "population": 100,
     "aliases": [
@@ -20299,6 +21358,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.92,
     "lng": 118.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "242400",
     "population": 100,
     "aliases": [
@@ -20318,6 +21378,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.92,
     "lng": 117.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "233000",
     "population": 1000,
     "aliases": [
@@ -20336,6 +21397,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.95,
     "lng": 117.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "233000",
     "population": 100,
     "aliases": [
@@ -20355,6 +21417,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.95,
     "lng": 117.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "233000",
     "population": 100,
     "aliases": [
@@ -20374,6 +21437,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.93,
     "lng": 117.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "233010",
     "population": 100,
     "aliases": [
@@ -20393,6 +21457,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.97,
     "lng": 117.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "233002",
     "population": 100,
     "aliases": [
@@ -20412,6 +21477,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.97,
     "lng": 117.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "233400",
     "population": 100,
     "aliases": [
@@ -20431,6 +21497,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.15,
     "lng": 117.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "233300",
     "population": 100,
     "aliases": [
@@ -20450,6 +21517,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.32,
     "lng": 117.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "233700",
     "population": 100,
     "aliases": [
@@ -20469,6 +21537,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.63,
     "lng": 117,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "232000",
     "population": 1000,
     "aliases": [
@@ -20487,6 +21556,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.63,
     "lng": 117.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "232000",
     "population": 100,
     "aliases": [
@@ -20506,6 +21576,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.67,
     "lng": 117,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "232000",
     "population": 100,
     "aliases": [
@@ -20525,6 +21596,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.6,
     "lng": 116.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "232000",
     "population": 100,
     "aliases": [
@@ -20544,6 +21616,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.63,
     "lng": 116.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "232072",
     "population": 100,
     "aliases": [
@@ -20563,6 +21636,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.78,
     "lng": 116.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "232000",
     "population": 100,
     "aliases": [
@@ -20582,6 +21656,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.7,
     "lng": 116.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "232100",
     "population": 100,
     "aliases": [
@@ -20601,6 +21676,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.7,
     "lng": 118.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "243000",
     "population": 1000,
     "aliases": [
@@ -20619,6 +21695,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.73,
     "lng": 118.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "243000",
     "population": 100,
     "aliases": [
@@ -20638,6 +21715,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.72,
     "lng": 118.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "243000",
     "population": 100,
     "aliases": [
@@ -20657,6 +21735,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.68,
     "lng": 118.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "243000",
     "population": 100,
     "aliases": [
@@ -20676,6 +21755,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.55,
     "lng": 118.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "243100",
     "population": 100,
     "aliases": [
@@ -20695,6 +21775,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.95,
     "lng": 116.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "235000",
     "population": 1000,
     "aliases": [
@@ -20713,6 +21794,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34,
     "lng": 116.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "235000",
     "population": 100,
     "aliases": [
@@ -20732,6 +21814,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.95,
     "lng": 116.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "235000",
     "population": 100,
     "aliases": [
@@ -20751,6 +21834,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.9,
     "lng": 116.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "235025",
     "population": 100,
     "aliases": [
@@ -20770,6 +21854,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.92,
     "lng": 116.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "235100",
     "population": 100,
     "aliases": [
@@ -20789,6 +21874,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.93,
     "lng": 117.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "244000",
     "population": 1000,
     "aliases": [
@@ -20807,6 +21893,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.93,
     "lng": 117.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "244000",
     "population": 100,
     "aliases": [
@@ -20826,6 +21913,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.95,
     "lng": 117.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "244000",
     "population": 100,
     "aliases": [
@@ -20845,6 +21933,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.92,
     "lng": 117.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "244000",
     "population": 100,
     "aliases": [
@@ -20864,6 +21953,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.95,
     "lng": 117.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "244100",
     "population": 100,
     "aliases": [
@@ -20883,6 +21973,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.53,
     "lng": 117.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "246000",
     "population": 1000,
     "aliases": [
@@ -20901,6 +21992,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.5,
     "lng": 117.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "246001",
     "population": 100,
     "aliases": [
@@ -20920,6 +22012,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.52,
     "lng": 117.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "246000",
     "population": 100,
     "aliases": [
@@ -20939,6 +22032,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.92,
     "lng": 117.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "246000",
     "population": 100,
     "aliases": [
@@ -20958,6 +22052,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.72,
     "lng": 116.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "246121",
     "population": 100,
     "aliases": [
@@ -20977,6 +22072,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.7,
     "lng": 117.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "246700",
     "population": 100,
     "aliases": [
@@ -20996,6 +22092,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.63,
     "lng": 116.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "246300",
     "population": 100,
     "aliases": [
@@ -21015,6 +22112,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.43,
     "lng": 116.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "246400",
     "population": 100,
     "aliases": [
@@ -21034,6 +22132,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.15,
     "lng": 116.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "246500",
     "population": 100,
     "aliases": [
@@ -21053,6 +22152,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.13,
     "lng": 116.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "246200",
     "population": 100,
     "aliases": [
@@ -21072,6 +22172,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.85,
     "lng": 116.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "246600",
     "population": 100,
     "aliases": [
@@ -21091,6 +22192,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.05,
     "lng": 116.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "231400",
     "population": 100,
     "aliases": [
@@ -21111,6 +22213,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.72,
     "lng": 118.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "245000",
     "population": 1000,
     "aliases": [
@@ -21129,6 +22232,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.72,
     "lng": 118.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "245000",
     "population": 100,
     "aliases": [
@@ -21148,6 +22252,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.3,
     "lng": 118.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "245700",
     "population": 100,
     "aliases": [
@@ -21167,6 +22272,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.82,
     "lng": 118.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "245061",
     "population": 100,
     "aliases": [
@@ -21186,6 +22292,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.87,
     "lng": 118.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "245200",
     "population": 100,
     "aliases": [
@@ -21205,6 +22312,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.78,
     "lng": 118.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "245400",
     "population": 100,
     "aliases": [
@@ -21224,6 +22332,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.93,
     "lng": 117.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "245500",
     "population": 100,
     "aliases": [
@@ -21243,6 +22352,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.87,
     "lng": 117.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "245600",
     "population": 100,
     "aliases": [
@@ -21262,6 +22372,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.3,
     "lng": 118.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "239000",
     "population": 1000,
     "aliases": [
@@ -21280,6 +22391,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.3,
     "lng": 118.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "239000",
     "population": 100,
     "aliases": [
@@ -21299,6 +22411,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.32,
     "lng": 118.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "239001",
     "population": 100,
     "aliases": [
@@ -21318,6 +22431,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.45,
     "lng": 118.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "239200",
     "population": 100,
     "aliases": [
@@ -21337,6 +22451,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.1,
     "lng": 118.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "239500",
     "population": 100,
     "aliases": [
@@ -21356,6 +22471,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.53,
     "lng": 117.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "233200",
     "population": 100,
     "aliases": [
@@ -21375,6 +22491,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.87,
     "lng": 117.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "233100",
     "population": 100,
     "aliases": [
@@ -21394,6 +22511,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.7,
     "lng": 119,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "239300",
     "population": 100,
     "aliases": [
@@ -21414,6 +22532,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.78,
     "lng": 117.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "239400",
     "population": 100,
     "aliases": [
@@ -21434,6 +22553,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.9,
     "lng": 115.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "236000",
     "population": 1000,
     "aliases": [
@@ -21452,6 +22572,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.88,
     "lng": 115.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "236000",
     "population": 100,
     "aliases": [
@@ -21471,6 +22592,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.92,
     "lng": 115.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "236000",
     "population": 100,
     "aliases": [
@@ -21490,6 +22612,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.93,
     "lng": 115.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "236000",
     "population": 100,
     "aliases": [
@@ -21509,6 +22632,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.07,
     "lng": 115.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "236400",
     "population": 100,
     "aliases": [
@@ -21528,6 +22652,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.17,
     "lng": 115.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "236600",
     "population": 100,
     "aliases": [
@@ -21547,6 +22672,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.63,
     "lng": 115.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "236300",
     "population": 100,
     "aliases": [
@@ -21566,6 +22692,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.63,
     "lng": 116.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "236200",
     "population": 100,
     "aliases": [
@@ -21585,6 +22712,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.63,
     "lng": 116.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "234000",
     "population": 1000,
     "aliases": [
@@ -21603,6 +22731,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.63,
     "lng": 116.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "234000",
     "population": 100,
     "aliases": [
@@ -21622,6 +22751,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.42,
     "lng": 116.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "235300",
     "population": 100,
     "aliases": [
@@ -21641,6 +22771,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.18,
     "lng": 116.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "235200",
     "population": 100,
     "aliases": [
@@ -21660,6 +22791,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.55,
     "lng": 117.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "234200",
     "population": 100,
     "aliases": [
@@ -21679,6 +22811,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.48,
     "lng": 117.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "234300",
     "population": 100,
     "aliases": [
@@ -21698,6 +22831,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.6,
     "lng": 117.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "238000",
     "population": 1000,
     "aliases": [
@@ -21716,6 +22850,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.6,
     "lng": 117.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "238000",
     "population": 100,
     "aliases": [
@@ -21735,6 +22870,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.25,
     "lng": 117.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "231500",
     "population": 100,
     "aliases": [
@@ -21754,6 +22890,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.3,
     "lng": 117.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "238300",
     "population": 100,
     "aliases": [
@@ -21773,6 +22910,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.72,
     "lng": 118.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "238100",
     "population": 100,
     "aliases": [
@@ -21792,6 +22930,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.72,
     "lng": 118.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "238200",
     "population": 100,
     "aliases": [
@@ -21811,6 +22950,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.77,
     "lng": 116.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "237000",
     "population": 1000,
     "aliases": [
@@ -21829,6 +22969,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.77,
     "lng": 116.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "237005",
     "population": 100,
     "aliases": [
@@ -21848,6 +22989,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.77,
     "lng": 116.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "237010",
     "population": 100,
     "aliases": [
@@ -21867,6 +23009,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.58,
     "lng": 116.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "232200",
     "population": 100,
     "aliases": [
@@ -21886,6 +23029,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.33,
     "lng": 116.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "237400",
     "population": 100,
     "aliases": [
@@ -21905,6 +23049,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.47,
     "lng": 116.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "231300",
     "population": 100,
     "aliases": [
@@ -21924,6 +23069,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.72,
     "lng": 115.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "237300",
     "population": 100,
     "aliases": [
@@ -21943,6 +23089,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.4,
     "lng": 116.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "237200",
     "population": 100,
     "aliases": [
@@ -21962,6 +23109,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.85,
     "lng": 115.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "236800",
     "population": 1000,
     "aliases": [
@@ -21980,6 +23128,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.88,
     "lng": 115.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "236800",
     "population": 100,
     "aliases": [
@@ -21999,6 +23148,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.52,
     "lng": 116.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "233600",
     "population": 100,
     "aliases": [
@@ -22018,6 +23168,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.27,
     "lng": 116.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "233500",
     "population": 100,
     "aliases": [
@@ -22037,6 +23188,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.15,
     "lng": 116.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "236700",
     "population": 100,
     "aliases": [
@@ -22056,6 +23208,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.67,
     "lng": 117.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "247100",
     "population": 1000,
     "aliases": [
@@ -22074,6 +23227,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.65,
     "lng": 117.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "247100",
     "population": 100,
     "aliases": [
@@ -22093,6 +23247,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.1,
     "lng": 117.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "247200",
     "population": 100,
     "aliases": [
@@ -22112,6 +23267,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.22,
     "lng": 117.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "245100",
     "population": 100,
     "aliases": [
@@ -22131,6 +23287,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.65,
     "lng": 117.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "242800",
     "population": 100,
     "aliases": [
@@ -22150,6 +23307,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.95,
     "lng": 118.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "242000",
     "population": 1000,
     "aliases": [
@@ -22168,6 +23326,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.95,
     "lng": 118.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "242000",
     "population": 100,
     "aliases": [
@@ -22187,6 +23346,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.13,
     "lng": 119.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "242199",
     "population": 100,
     "aliases": [
@@ -22206,6 +23366,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.9,
     "lng": 119.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "242200",
     "population": 100,
     "aliases": [
@@ -22225,6 +23386,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.7,
     "lng": 118.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "242500",
     "population": 100,
     "aliases": [
@@ -22244,6 +23406,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.07,
     "lng": 118.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "245300",
     "population": 100,
     "aliases": [
@@ -22263,6 +23426,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.28,
     "lng": 118.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "242600",
     "population": 100,
     "aliases": [
@@ -22282,6 +23446,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.63,
     "lng": 118.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "242300",
     "population": 100,
     "aliases": [
@@ -22302,6 +23467,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.08,
     "lng": 119.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "350000",
     "population": 8291268,
     "aliases": [
@@ -22321,6 +23487,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.08,
     "lng": 119.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "350001",
     "population": 8291268,
     "aliases": [
@@ -22341,6 +23508,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.07,
     "lng": 119.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "350004",
     "population": 8291268,
     "aliases": [
@@ -22361,6 +23529,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.05,
     "lng": 119.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "350007",
     "population": 8291268,
     "aliases": [
@@ -22381,6 +23550,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26,
     "lng": 119.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "350015",
     "population": 8291268,
     "aliases": [
@@ -22401,6 +23571,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.08,
     "lng": 119.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "350011",
     "population": 8291268,
     "aliases": [
@@ -22421,6 +23592,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.15,
     "lng": 119.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "350100",
     "population": 8291268,
     "aliases": [
@@ -22441,6 +23613,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.2,
     "lng": 119.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "350500",
     "population": 8291268,
     "aliases": [
@@ -22461,6 +23634,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.48,
     "lng": 119.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "350600",
     "population": 8291268,
     "aliases": [
@@ -22481,6 +23655,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.22,
     "lng": 118.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "350800",
     "population": 8291268,
     "aliases": [
@@ -22501,6 +23676,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.87,
     "lng": 118.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "350700",
     "population": 8291268,
     "aliases": [
@@ -22521,6 +23697,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.52,
     "lng": 119.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "350400",
     "population": 8291268,
     "aliases": [
@@ -22541,6 +23718,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.72,
     "lng": 119.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "350300",
     "population": 8291268,
     "aliases": [
@@ -22562,6 +23740,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.97,
     "lng": 119.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "350200",
     "population": 8291268,
     "aliases": [
@@ -22583,6 +23762,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.48,
     "lng": 118.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "361000",
     "population": 5163970,
     "aliases": [
@@ -22603,6 +23783,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.45,
     "lng": 118.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "361001",
     "population": 5163970,
     "aliases": [
@@ -22624,6 +23805,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.47,
     "lng": 117.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "361026",
     "population": 5163970,
     "aliases": [
@@ -22645,6 +23827,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.52,
     "lng": 118.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "361006",
     "population": 5163970,
     "aliases": [
@@ -22666,6 +23849,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.57,
     "lng": 118.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "361021",
     "population": 5163970,
     "aliases": [
@@ -22687,6 +23871,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.73,
     "lng": 118.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "361100",
     "population": 5163970,
     "aliases": [
@@ -22708,6 +23893,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.62,
     "lng": 118.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "361101",
     "population": 5163970,
     "aliases": [
@@ -22729,6 +23915,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.43,
     "lng": 119,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "351100",
     "population": 3210714,
     "aliases": [
@@ -22748,6 +23935,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.43,
     "lng": 119,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "351100",
     "population": 3210714,
     "aliases": [
@@ -22768,6 +23956,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.45,
     "lng": 119.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "351111",
     "population": 3210714,
     "aliases": [
@@ -22788,6 +23977,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.43,
     "lng": 119.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "351100",
     "population": 3210714,
     "aliases": [
@@ -22808,6 +23998,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.32,
     "lng": 119.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "351100",
     "population": 3210714,
     "aliases": [
@@ -22828,6 +24019,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.37,
     "lng": 118.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "351200",
     "population": 3210714,
     "aliases": [
@@ -22848,6 +24040,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.27,
     "lng": 117.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "365000",
     "population": 2486450,
     "aliases": [
@@ -22867,6 +24060,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.27,
     "lng": 117.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "365000",
     "population": 2486450,
     "aliases": [
@@ -22887,6 +24081,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.23,
     "lng": 117.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "365000",
     "population": 2486450,
     "aliases": [
@@ -22907,6 +24102,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.37,
     "lng": 117.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "365200",
     "population": 2486450,
     "aliases": [
@@ -22927,6 +24123,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.18,
     "lng": 116.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "365300",
     "population": 2486450,
     "aliases": [
@@ -22947,6 +24144,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.27,
     "lng": 116.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "365400",
     "population": 2486450,
     "aliases": [
@@ -22967,6 +24165,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.7,
     "lng": 117.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "366100",
     "population": 2486450,
     "aliases": [
@@ -22987,6 +24186,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.17,
     "lng": 118.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "365100",
     "population": 2486450,
     "aliases": [
@@ -23007,6 +24207,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.4,
     "lng": 117.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "365500",
     "population": 2486450,
     "aliases": [
@@ -23027,6 +24228,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.73,
     "lng": 117.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "353300",
     "population": 2486450,
     "aliases": [
@@ -23047,6 +24249,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.9,
     "lng": 117.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "354400",
     "population": 2486450,
     "aliases": [
@@ -23067,6 +24270,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.83,
     "lng": 116.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "354500",
     "population": 2486450,
     "aliases": [
@@ -23087,6 +24291,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.98,
     "lng": 117.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "366000",
     "population": 2486450,
     "aliases": [
@@ -23108,6 +24313,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.88,
     "lng": 118.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "362000",
     "population": 8782285,
     "aliases": [
@@ -23128,6 +24334,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.92,
     "lng": 118.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "362000",
     "population": 8782285,
     "aliases": [
@@ -23149,6 +24356,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.92,
     "lng": 118.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "362000",
     "population": 8782285,
     "aliases": [
@@ -23170,6 +24378,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.95,
     "lng": 118.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "362011",
     "population": 8782285,
     "aliases": [
@@ -23191,6 +24400,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.12,
     "lng": 118.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "362800",
     "population": 8782285,
     "aliases": [
@@ -23212,6 +24422,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.03,
     "lng": 118.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "362100",
     "population": 8782285,
     "aliases": [
@@ -23233,6 +24444,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.07,
     "lng": 118.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "362400",
     "population": 8782285,
     "aliases": [
@@ -23254,6 +24466,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.32,
     "lng": 118.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "362600",
     "population": 8782285,
     "aliases": [
@@ -23275,6 +24488,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.5,
     "lng": 118.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "362500",
     "population": 8782285,
     "aliases": [
@@ -23296,6 +24510,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.43,
     "lng": 118.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "890至896",
     "population": 8782285,
     "aliases": [
@@ -23317,6 +24532,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.73,
     "lng": 118.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "362700",
     "population": 8782285,
     "aliases": [
@@ -23339,6 +24555,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.82,
     "lng": 118.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "362200",
     "population": 8782285,
     "aliases": [
@@ -23361,6 +24578,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.97,
     "lng": 118.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "362300",
     "population": 8782285,
     "aliases": [
@@ -23383,6 +24601,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.52,
     "lng": 117.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "363000",
     "population": 5054328,
     "aliases": [
@@ -23402,6 +24621,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.52,
     "lng": 117.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "363000",
     "population": 5054328,
     "aliases": [
@@ -23422,6 +24642,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.52,
     "lng": 117.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "363005",
     "population": 5054328,
     "aliases": [
@@ -23442,6 +24663,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.95,
     "lng": 117.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "363300",
     "population": 5054328,
     "aliases": [
@@ -23462,6 +24684,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.13,
     "lng": 117.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "363200",
     "population": 5054328,
     "aliases": [
@@ -23482,6 +24705,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.72,
     "lng": 117.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "363500",
     "population": 5054328,
     "aliases": [
@@ -23502,6 +24726,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.62,
     "lng": 117.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "363900",
     "population": 5054328,
     "aliases": [
@@ -23522,6 +24747,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.7,
     "lng": 117.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "363400",
     "population": 5054328,
     "aliases": [
@@ -23542,6 +24768,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.52,
     "lng": 117.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "363600",
     "population": 5054328,
     "aliases": [
@@ -23562,6 +24789,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.37,
     "lng": 117.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "363700",
     "population": 5054328,
     "aliases": [
@@ -23582,6 +24810,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.02,
     "lng": 117.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "363800",
     "population": 5054328,
     "aliases": [
@@ -23602,6 +24831,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.45,
     "lng": 117.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "363100",
     "population": 5054328,
     "aliases": [
@@ -23623,6 +24853,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.65,
     "lng": 118.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "353000",
     "population": 2680645,
     "aliases": [
@@ -23642,6 +24873,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.65,
     "lng": 118.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "353000",
     "population": 2680645,
     "aliases": [
@@ -23662,6 +24894,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.8,
     "lng": 117.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "353200",
     "population": 2680645,
     "aliases": [
@@ -23682,6 +24915,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.92,
     "lng": 118.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "353400",
     "population": 2680645,
     "aliases": [
@@ -23702,6 +24936,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.55,
     "lng": 117.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "354100",
     "population": 2680645,
     "aliases": [
@@ -23722,6 +24957,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.53,
     "lng": 118.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "353500",
     "population": 2680645,
     "aliases": [
@@ -23742,6 +24978,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.37,
     "lng": 118.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "353600",
     "population": 2680645,
     "aliases": [
@@ -23762,6 +24999,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.37,
     "lng": 117.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "354000",
     "population": 2680645,
     "aliases": [
@@ -23783,6 +25021,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.77,
     "lng": 118.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "354300",
     "population": 2680645,
     "aliases": [
@@ -23804,6 +25043,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.03,
     "lng": 118.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "353100",
     "population": 2680645,
     "aliases": [
@@ -23825,6 +25065,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.33,
     "lng": 118.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "354200",
     "population": 2680645,
     "aliases": [
@@ -23846,6 +25087,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.1,
     "lng": 117.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "364000",
     "population": 2723637,
     "aliases": [
@@ -23865,6 +25107,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.1,
     "lng": 117.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "364000",
     "population": 2723637,
     "aliases": [
@@ -23885,6 +25128,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.83,
     "lng": 116.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "366300",
     "population": 2723637,
     "aliases": [
@@ -23905,6 +25149,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.72,
     "lng": 116.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "364100",
     "population": 2723637,
     "aliases": [
@@ -23925,6 +25170,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.05,
     "lng": 116.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "364200",
     "population": 2723637,
     "aliases": [
@@ -23945,6 +25191,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.1,
     "lng": 116.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "364300",
     "population": 2723637,
     "aliases": [
@@ -23965,6 +25212,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.72,
     "lng": 116.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "366200",
     "population": 2723637,
     "aliases": [
@@ -23985,6 +25233,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.3,
     "lng": 117.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "364400",
     "population": 2723637,
     "aliases": [
@@ -24006,6 +25255,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.67,
     "lng": 119.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "352000",
     "population": 3146789,
     "aliases": [
@@ -24025,6 +25275,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.67,
     "lng": 119.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "352100",
     "population": 3146789,
     "aliases": [
@@ -24045,6 +25296,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.88,
     "lng": 120,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "355100",
     "population": 3146789,
     "aliases": [
@@ -24065,6 +25317,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.58,
     "lng": 118.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "352200",
     "population": 3146789,
     "aliases": [
@@ -24085,6 +25338,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.92,
     "lng": 118.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "352300",
     "population": 3146789,
     "aliases": [
@@ -24105,6 +25359,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.47,
     "lng": 119.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "355500",
     "population": 3146789,
     "aliases": [
@@ -24125,6 +25380,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.12,
     "lng": 119.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "355400",
     "population": 3146789,
     "aliases": [
@@ -24145,6 +25401,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.23,
     "lng": 119.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "355300",
     "population": 3146789,
     "aliases": [
@@ -24165,6 +25422,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.08,
     "lng": 119.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "355000",
     "population": 3146789,
     "aliases": [
@@ -24186,6 +25444,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.33,
     "lng": 120.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "355200",
     "population": 3146789,
     "aliases": [
@@ -24207,6 +25466,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.68,
     "lng": 115.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "330000",
     "population": 6255007,
     "aliases": [
@@ -24226,6 +25486,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.68,
     "lng": 115.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "330000",
     "population": 6255007,
     "aliases": [
@@ -24246,6 +25507,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.67,
     "lng": 115.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "330009",
     "population": 6255007,
     "aliases": [
@@ -24266,6 +25528,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.63,
     "lng": 115.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "330001",
     "population": 6255007,
     "aliases": [
@@ -24286,6 +25549,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.72,
     "lng": 115.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "330004",
     "population": 6255007,
     "aliases": [
@@ -24306,6 +25570,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.68,
     "lng": 115.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "330006",
     "population": 6255007,
     "aliases": [
@@ -24326,6 +25591,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.55,
     "lng": 115.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "330200",
     "population": 6255007,
     "aliases": [
@@ -24346,6 +25612,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.7,
     "lng": 115.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "330100",
     "population": 6255007,
     "aliases": [
@@ -24366,6 +25633,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.85,
     "lng": 115.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "330500",
     "population": 6255007,
     "aliases": [
@@ -24386,6 +25654,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.37,
     "lng": 116.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "331700",
     "population": 6255007,
     "aliases": [
@@ -24406,6 +25675,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.27,
     "lng": 117.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "333000",
     "population": 1000,
     "aliases": [
@@ -24424,6 +25694,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.27,
     "lng": 117.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "333000",
     "population": 100,
     "aliases": [
@@ -24443,6 +25714,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.3,
     "lng": 117.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "333000",
     "population": 100,
     "aliases": [
@@ -24462,6 +25734,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.37,
     "lng": 117.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "333400",
     "population": 100,
     "aliases": [
@@ -24481,6 +25754,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.97,
     "lng": 117.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "333300",
     "population": 100,
     "aliases": [
@@ -24501,6 +25775,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.63,
     "lng": 113.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "337000",
     "population": 1000,
     "aliases": [
@@ -24519,6 +25794,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.65,
     "lng": 113.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "337000",
     "population": 100,
     "aliases": [
@@ -24538,6 +25814,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.65,
     "lng": 113.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "337016",
     "population": 100,
     "aliases": [
@@ -24557,6 +25834,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.13,
     "lng": 113.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "337100",
     "population": 100,
     "aliases": [
@@ -24576,6 +25854,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.88,
     "lng": 113.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "337009",
     "population": 100,
     "aliases": [
@@ -24595,6 +25874,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.63,
     "lng": 114.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "337200",
     "population": 100,
     "aliases": [
@@ -24614,6 +25894,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.7,
     "lng": 116,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "332000",
     "population": 1000,
     "aliases": [
@@ -24632,6 +25913,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.68,
     "lng": 115.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "332900",
     "population": 100,
     "aliases": [
@@ -24651,6 +25933,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.73,
     "lng": 115.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "332000",
     "population": 100,
     "aliases": [
@@ -24670,6 +25953,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.62,
     "lng": 115.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "332100",
     "population": 100,
     "aliases": [
@@ -24689,6 +25973,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.27,
     "lng": 115.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "332300",
     "population": 100,
     "aliases": [
@@ -24708,6 +25993,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.03,
     "lng": 114.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "332400",
     "population": 100,
     "aliases": [
@@ -24727,6 +26013,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.03,
     "lng": 115.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "330300",
     "population": 100,
     "aliases": [
@@ -24746,6 +26033,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.33,
     "lng": 115.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "330400",
     "population": 100,
     "aliases": [
@@ -24765,6 +26053,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.45,
     "lng": 116.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "332800",
     "population": 100,
     "aliases": [
@@ -24784,6 +26073,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.27,
     "lng": 116.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "332600",
     "population": 100,
     "aliases": [
@@ -24803,6 +26093,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.73,
     "lng": 116.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "332500",
     "population": 100,
     "aliases": [
@@ -24822,6 +26113,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.9,
     "lng": 116.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "332700",
     "population": 100,
     "aliases": [
@@ -24841,6 +26133,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.68,
     "lng": 115.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "332200",
     "population": 100,
     "aliases": [
@@ -24861,6 +26154,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.82,
     "lng": 114.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "338000",
     "population": 1000,
     "aliases": [
@@ -24879,6 +26173,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.8,
     "lng": 114.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "338000",
     "population": 100,
     "aliases": [
@@ -24898,6 +26193,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.82,
     "lng": 114.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "336600",
     "population": 100,
     "aliases": [
@@ -24917,6 +26213,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.27,
     "lng": 117.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "335000",
     "population": 1000,
     "aliases": [
@@ -24935,6 +26232,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.23,
     "lng": 117.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "335000",
     "population": 100,
     "aliases": [
@@ -24954,6 +26252,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.2,
     "lng": 116.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "335200",
     "population": 100,
     "aliases": [
@@ -24973,6 +26272,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.28,
     "lng": 117.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "335400",
     "population": 100,
     "aliases": [
@@ -24993,6 +26293,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.83,
     "lng": 114.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "341000",
     "population": 1000,
     "aliases": [
@@ -25011,6 +26312,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.87,
     "lng": 114.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "341000",
     "population": 100,
     "aliases": [
@@ -25030,6 +26332,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.87,
     "lng": 115,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "341100",
     "population": 100,
     "aliases": [
@@ -25049,6 +26352,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.38,
     "lng": 114.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "341600",
     "population": 100,
     "aliases": [
@@ -25068,6 +26372,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.4,
     "lng": 114.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "341500",
     "population": 100,
     "aliases": [
@@ -25087,6 +26392,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.8,
     "lng": 114.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "341200",
     "population": 100,
     "aliases": [
@@ -25106,6 +26412,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.7,
     "lng": 114.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "341300",
     "population": 100,
     "aliases": [
@@ -25125,6 +26432,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.13,
     "lng": 115.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "342100",
     "population": 100,
     "aliases": [
@@ -25144,6 +26452,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.92,
     "lng": 114.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "341700",
     "population": 100,
     "aliases": [
@@ -25163,6 +26472,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.78,
     "lng": 115.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "341900",
     "population": 100,
     "aliases": [
@@ -25182,6 +26492,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.75,
     "lng": 114.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "341800",
     "population": 100,
     "aliases": [
@@ -25201,6 +26512,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.48,
     "lng": 116.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "342800",
     "population": 100,
     "aliases": [
@@ -25220,6 +26532,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.95,
     "lng": 115.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "342300",
     "population": 100,
     "aliases": [
@@ -25239,6 +26552,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.33,
     "lng": 115.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "342400",
     "population": 100,
     "aliases": [
@@ -25258,6 +26572,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.6,
     "lng": 115.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "342600",
     "population": 100,
     "aliases": [
@@ -25277,6 +26592,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.95,
     "lng": 115.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "342200",
     "population": 100,
     "aliases": [
@@ -25296,6 +26612,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.33,
     "lng": 116.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "342700",
     "population": 100,
     "aliases": [
@@ -25315,6 +26632,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.88,
     "lng": 116.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "342500",
     "population": 100,
     "aliases": [
@@ -25335,6 +26653,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.65,
     "lng": 114.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "341400",
     "population": 100,
     "aliases": [
@@ -25355,6 +26674,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.12,
     "lng": 114.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "343000",
     "population": 1000,
     "aliases": [
@@ -25373,6 +26693,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.12,
     "lng": 114.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "343000",
     "population": 100,
     "aliases": [
@@ -25392,6 +26713,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.1,
     "lng": 115,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "343009",
     "population": 100,
     "aliases": [
@@ -25411,6 +26733,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.05,
     "lng": 114.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "343100",
     "population": 100,
     "aliases": [
@@ -25430,6 +26753,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.22,
     "lng": 115.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "331603",
     "population": 100,
     "aliases": [
@@ -25449,6 +26773,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.62,
     "lng": 115.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "331409",
     "population": 100,
     "aliases": [
@@ -25468,6 +26793,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.77,
     "lng": 115.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "331300",
     "population": 100,
     "aliases": [
@@ -25487,6 +26813,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.32,
     "lng": 115.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "331500",
     "population": 100,
     "aliases": [
@@ -25506,6 +26833,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.8,
     "lng": 114.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "343700",
     "population": 100,
     "aliases": [
@@ -25525,6 +26853,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.33,
     "lng": 114.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "343900",
     "population": 100,
     "aliases": [
@@ -25544,6 +26873,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.47,
     "lng": 114.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "343800",
     "population": 100,
     "aliases": [
@@ -25563,6 +26893,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.38,
     "lng": 114.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "343200",
     "population": 100,
     "aliases": [
@@ -25582,6 +26913,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.95,
     "lng": 114.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "343400",
     "population": 100,
     "aliases": [
@@ -25601,6 +26933,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.72,
     "lng": 114.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "343600",
     "population": 100,
     "aliases": [
@@ -25621,6 +26954,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.8,
     "lng": 114.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "336000",
     "population": 1000,
     "aliases": [
@@ -25639,6 +26973,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.8,
     "lng": 114.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "336000",
     "population": 100,
     "aliases": [
@@ -25658,6 +26993,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.7,
     "lng": 115.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "330700",
     "population": 100,
     "aliases": [
@@ -25677,6 +27013,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.12,
     "lng": 114.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "336100",
     "population": 100,
     "aliases": [
@@ -25696,6 +27033,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.23,
     "lng": 114.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "336400",
     "population": 100,
     "aliases": [
@@ -25715,6 +27053,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.38,
     "lng": 114.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "336300",
     "population": 100,
     "aliases": [
@@ -25734,6 +27073,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.87,
     "lng": 115.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "330600",
     "population": 100,
     "aliases": [
@@ -25753,6 +27093,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.53,
     "lng": 114.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "336200",
     "population": 100,
     "aliases": [
@@ -25772,6 +27113,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.2,
     "lng": 115.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "331100",
     "population": 100,
     "aliases": [
@@ -25792,6 +27134,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.07,
     "lng": 115.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "331200",
     "population": 100,
     "aliases": [
@@ -25812,6 +27155,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.42,
     "lng": 115.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "330800",
     "population": 100,
     "aliases": [
@@ -25832,6 +27176,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28,
     "lng": 116.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "344000",
     "population": 1000,
     "aliases": [
@@ -25850,6 +27195,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.98,
     "lng": 116.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "344100",
     "population": 100,
     "aliases": [
@@ -25869,6 +27215,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.55,
     "lng": 116.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "344700",
     "population": 100,
     "aliases": [
@@ -25888,6 +27235,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.3,
     "lng": 116.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "344600",
     "population": 100,
     "aliases": [
@@ -25907,6 +27255,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.22,
     "lng": 116.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "344500",
     "population": 100,
     "aliases": [
@@ -25926,6 +27275,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.77,
     "lng": 116.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "344200",
     "population": 100,
     "aliases": [
@@ -25945,6 +27295,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.43,
     "lng": 115.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "344300",
     "population": 100,
     "aliases": [
@@ -25964,6 +27315,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.55,
     "lng": 116.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "344400",
     "population": 100,
     "aliases": [
@@ -25983,6 +27335,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.92,
     "lng": 116.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "344800",
     "population": 100,
     "aliases": [
@@ -26002,6 +27355,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.7,
     "lng": 117.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "335300",
     "population": 100,
     "aliases": [
@@ -26021,6 +27375,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.23,
     "lng": 116.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "331800",
     "population": 100,
     "aliases": [
@@ -26040,6 +27395,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.83,
     "lng": 116.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "344900",
     "population": 100,
     "aliases": [
@@ -26059,6 +27415,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.45,
     "lng": 117.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "334000",
     "population": 1000,
     "aliases": [
@@ -26077,6 +27434,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.43,
     "lng": 117.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "334000",
     "population": 100,
     "aliases": [
@@ -26096,6 +27454,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.43,
     "lng": 117.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "334100",
     "population": 100,
     "aliases": [
@@ -26115,6 +27474,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.43,
     "lng": 118.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "334600",
     "population": 100,
     "aliases": [
@@ -26134,6 +27494,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.68,
     "lng": 118.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "334700",
     "population": 100,
     "aliases": [
@@ -26153,6 +27514,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.32,
     "lng": 117.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "334500",
     "population": 100,
     "aliases": [
@@ -26172,6 +27534,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.42,
     "lng": 117.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "334300",
     "population": 100,
     "aliases": [
@@ -26191,6 +27554,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.4,
     "lng": 117.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "334400",
     "population": 100,
     "aliases": [
@@ -26210,6 +27574,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.7,
     "lng": 116.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "335100",
     "population": 100,
     "aliases": [
@@ -26229,6 +27594,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29,
     "lng": 116.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "333100",
     "population": 100,
     "aliases": [
@@ -26248,6 +27614,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.7,
     "lng": 117.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "335500",
     "population": 100,
     "aliases": [
@@ -26267,6 +27634,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.25,
     "lng": 117.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "333200",
     "population": 100,
     "aliases": [
@@ -26286,6 +27654,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.95,
     "lng": 117.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "334200",
     "population": 100,
     "aliases": [
@@ -26306,6 +27675,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.67,
     "lng": 116.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "250000",
     "population": 9202432,
     "aliases": [
@@ -26325,6 +27695,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.67,
     "lng": 117.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "250014",
     "population": 9202432,
     "aliases": [
@@ -26345,6 +27716,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.65,
     "lng": 117,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "250002",
     "population": 9202432,
     "aliases": [
@@ -26365,6 +27737,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.4,
     "lng": 116.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "250002",
     "population": 9202432,
     "aliases": [
@@ -26385,6 +27758,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.87,
     "lng": 117.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "250002",
     "population": 9202432,
     "aliases": [
@@ -26405,6 +27779,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.65,
     "lng": 116.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "250000",
     "population": 9202432,
     "aliases": [
@@ -26425,6 +27800,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.68,
     "lng": 116.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "250000",
     "population": 9202432,
     "aliases": [
@@ -26445,6 +27821,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.68,
     "lng": 117.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "250100",
     "population": 9202432,
     "aliases": [
@@ -26465,6 +27842,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.55,
     "lng": 116.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "250300",
     "population": 9202432,
     "aliases": [
@@ -26485,6 +27863,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.28,
     "lng": 116.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "250400",
     "population": 9202432,
     "aliases": [
@@ -26505,6 +27884,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.98,
     "lng": 117.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "251400",
     "population": 9202432,
     "aliases": [
@@ -26525,6 +27905,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.32,
     "lng": 117.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "251600",
     "population": 9202432,
     "aliases": [
@@ -26545,6 +27926,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.72,
     "lng": 117.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "250200",
     "population": 9202432,
     "aliases": [
@@ -26566,6 +27948,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.07,
     "lng": 120.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "266000",
     "population": 10071722,
     "aliases": [
@@ -26586,6 +27969,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.07,
     "lng": 120.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "266071",
     "population": 10071722,
     "aliases": [
@@ -26607,6 +27991,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.08,
     "lng": 120.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "266011",
     "population": 10071722,
     "aliases": [
@@ -26628,6 +28013,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.1,
     "lng": 120.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "266000",
     "population": 10071722,
     "aliases": [
@@ -26649,6 +28035,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.97,
     "lng": 120.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "999999",
     "population": 10071722,
     "aliases": [
@@ -26670,6 +28057,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.1,
     "lng": 120.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "266100",
     "population": 10071722,
     "aliases": [
@@ -26691,6 +28079,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.15,
     "lng": 120.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "266041",
     "population": 10071722,
     "aliases": [
@@ -26712,6 +28101,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.3,
     "lng": 120.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "266109",
     "population": 10071722,
     "aliases": [
@@ -26733,6 +28123,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.27,
     "lng": 120.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "266300",
     "population": 10071722,
     "aliases": [
@@ -26755,6 +28146,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.38,
     "lng": 120.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "266200",
     "population": 10071722,
     "aliases": [
@@ -26777,6 +28169,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.78,
     "lng": 119.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "266700",
     "population": 10071722,
     "aliases": [
@@ -26799,6 +28192,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.87,
     "lng": 120.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "266400",
     "population": 10071722,
     "aliases": [
@@ -26821,6 +28215,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.87,
     "lng": 120.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "266600",
     "population": 10071722,
     "aliases": [
@@ -26843,6 +28238,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.82,
     "lng": 118.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "255000",
     "population": 1000,
     "aliases": [
@@ -26861,6 +28257,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.82,
     "lng": 118.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "255022",
     "population": 100,
     "aliases": [
@@ -26880,6 +28277,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.5,
     "lng": 117.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "255200",
     "population": 100,
     "aliases": [
@@ -26899,6 +28297,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.82,
     "lng": 118.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "255400",
     "population": 100,
     "aliases": [
@@ -26918,6 +28317,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.8,
     "lng": 117.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "255300",
     "population": 100,
     "aliases": [
@@ -26937,6 +28337,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.97,
     "lng": 118.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "256400",
     "population": 100,
     "aliases": [
@@ -26956,6 +28357,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.17,
     "lng": 117.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "256300",
     "population": 100,
     "aliases": [
@@ -26975,6 +28377,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.18,
     "lng": 118.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "256100",
     "population": 100,
     "aliases": [
@@ -26994,6 +28397,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.82,
     "lng": 117.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "277100",
     "population": 1000,
     "aliases": [
@@ -27012,6 +28416,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.65,
     "lng": 117,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "277100",
     "population": 100,
     "aliases": [
@@ -27031,6 +28436,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.4,
     "lng": 116.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "277100",
     "population": 100,
     "aliases": [
@@ -27050,6 +28456,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.87,
     "lng": 117.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "277100",
     "population": 100,
     "aliases": [
@@ -27069,6 +28476,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.8,
     "lng": 117.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "277000",
     "population": 100,
     "aliases": [
@@ -27088,6 +28496,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.77,
     "lng": 117.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "277300",
     "population": 100,
     "aliases": [
@@ -27107,6 +28516,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.57,
     "lng": 117.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "277400",
     "population": 100,
     "aliases": [
@@ -27126,6 +28536,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.08,
     "lng": 117.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "277200",
     "population": 100,
     "aliases": [
@@ -27145,6 +28556,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.08,
     "lng": 117.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "277500",
     "population": 100,
     "aliases": [
@@ -27165,6 +28577,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.43,
     "lng": 118.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "257000",
     "population": 1000,
     "aliases": [
@@ -27183,6 +28596,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.47,
     "lng": 118.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "257100",
     "population": 100,
     "aliases": [
@@ -27202,6 +28616,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.88,
     "lng": 118.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "257200",
     "population": 100,
     "aliases": [
@@ -27221,6 +28636,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.58,
     "lng": 118.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "257500",
     "population": 100,
     "aliases": [
@@ -27240,6 +28656,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.48,
     "lng": 118.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "257400",
     "population": 100,
     "aliases": [
@@ -27259,6 +28676,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.07,
     "lng": 118.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "257300",
     "population": 100,
     "aliases": [
@@ -27278,6 +28696,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.45,
     "lng": 121.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "264000",
     "population": 1000,
     "aliases": [
@@ -27296,6 +28715,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.53,
     "lng": 121.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "264001",
     "population": 100,
     "aliases": [
@@ -27315,6 +28735,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.5,
     "lng": 121.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "265500",
     "population": 100,
     "aliases": [
@@ -27334,6 +28755,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.38,
     "lng": 121.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "264100",
     "population": 100,
     "aliases": [
@@ -27353,6 +28775,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.5,
     "lng": 121.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "264003",
     "population": 100,
     "aliases": [
@@ -27372,6 +28795,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.92,
     "lng": 120.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "265800",
     "population": 100,
     "aliases": [
@@ -27391,6 +28815,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.65,
     "lng": 120.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "265700",
     "population": 100,
     "aliases": [
@@ -27411,6 +28836,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.98,
     "lng": 120.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "265200",
     "population": 100,
     "aliases": [
@@ -27431,6 +28857,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.18,
     "lng": 119.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "261400",
     "population": 100,
     "aliases": [
@@ -27451,6 +28878,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.82,
     "lng": 120.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "265600",
     "population": 100,
     "aliases": [
@@ -27471,6 +28899,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.37,
     "lng": 120.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "265400",
     "population": 100,
     "aliases": [
@@ -27491,6 +28920,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.3,
     "lng": 120.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "265300",
     "population": 100,
     "aliases": [
@@ -27511,6 +28941,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.78,
     "lng": 121.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "265100",
     "population": 100,
     "aliases": [
@@ -27531,6 +28962,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.7,
     "lng": 119.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "261000",
     "population": 1000,
     "aliases": [
@@ -27549,6 +28981,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.72,
     "lng": 119.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "261021",
     "population": 100,
     "aliases": [
@@ -27568,6 +29001,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.77,
     "lng": 119.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "261100",
     "population": 100,
     "aliases": [
@@ -27587,6 +29021,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.67,
     "lng": 119.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "261200",
     "population": 100,
     "aliases": [
@@ -27606,6 +29041,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.72,
     "lng": 119.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "261000",
     "population": 100,
     "aliases": [
@@ -27625,6 +29061,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.52,
     "lng": 118.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "262600",
     "population": 100,
     "aliases": [
@@ -27644,6 +29081,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.7,
     "lng": 118.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "262400",
     "population": 100,
     "aliases": [
@@ -27663,6 +29101,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.68,
     "lng": 118.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "262500",
     "population": 100,
     "aliases": [
@@ -27683,6 +29122,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36,
     "lng": 119.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "262200",
     "population": 100,
     "aliases": [
@@ -27703,6 +29143,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.88,
     "lng": 118.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "262700",
     "population": 100,
     "aliases": [
@@ -27723,6 +29164,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.43,
     "lng": 119.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "262100",
     "population": 100,
     "aliases": [
@@ -27743,6 +29185,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.38,
     "lng": 119.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "261500",
     "population": 100,
     "aliases": [
@@ -27763,6 +29206,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.87,
     "lng": 119.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "261300",
     "population": 100,
     "aliases": [
@@ -27783,6 +29227,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.42,
     "lng": 116.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "272000",
     "population": 1000,
     "aliases": [
@@ -27801,6 +29246,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.65,
     "lng": 117,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "272000",
     "population": 100,
     "aliases": [
@@ -27820,6 +29266,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.4,
     "lng": 116.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "272000",
     "population": 100,
     "aliases": [
@@ -27839,6 +29286,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.87,
     "lng": 117.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "272000",
     "population": 100,
     "aliases": [
@@ -27858,6 +29306,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.42,
     "lng": 116.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "272000",
     "population": 100,
     "aliases": [
@@ -27877,6 +29326,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.82,
     "lng": 117.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "277600",
     "population": 100,
     "aliases": [
@@ -27896,6 +29346,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35,
     "lng": 116.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "272300",
     "population": 100,
     "aliases": [
@@ -27915,6 +29366,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.07,
     "lng": 116.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "272200",
     "population": 100,
     "aliases": [
@@ -27934,6 +29386,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.42,
     "lng": 116.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "272400",
     "population": 100,
     "aliases": [
@@ -27953,6 +29406,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.73,
     "lng": 116.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "272500",
     "population": 100,
     "aliases": [
@@ -27972,6 +29426,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.67,
     "lng": 117.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "273200",
     "population": 100,
     "aliases": [
@@ -27991,6 +29446,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.8,
     "lng": 116.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "272600",
     "population": 100,
     "aliases": [
@@ -28010,6 +29466,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.58,
     "lng": 116.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "273100",
     "population": 100,
     "aliases": [
@@ -28030,6 +29487,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.55,
     "lng": 116.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "272100",
     "population": 100,
     "aliases": [
@@ -28050,6 +29508,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.4,
     "lng": 116.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "273500",
     "population": 100,
     "aliases": [
@@ -28070,6 +29529,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.2,
     "lng": 117.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "271000",
     "population": 1000,
     "aliases": [
@@ -28088,6 +29548,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.18,
     "lng": 117.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "271000",
     "population": 100,
     "aliases": [
@@ -28107,6 +29568,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.18,
     "lng": 117,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "271000",
     "population": 100,
     "aliases": [
@@ -28126,6 +29588,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.77,
     "lng": 116.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "271400",
     "population": 100,
     "aliases": [
@@ -28145,6 +29608,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.93,
     "lng": 116.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "271500",
     "population": 100,
     "aliases": [
@@ -28164,6 +29628,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.92,
     "lng": 117.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "271200",
     "population": 100,
     "aliases": [
@@ -28184,6 +29649,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.18,
     "lng": 116.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "271600",
     "population": 100,
     "aliases": [
@@ -28204,6 +29670,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.52,
     "lng": 122.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "264200",
     "population": 1000,
     "aliases": [
@@ -28222,6 +29689,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.5,
     "lng": 122.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "264200",
     "population": 100,
     "aliases": [
@@ -28241,6 +29709,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.2,
     "lng": 122.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "264400",
     "population": 100,
     "aliases": [
@@ -28261,6 +29730,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.17,
     "lng": 122.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "264300",
     "population": 100,
     "aliases": [
@@ -28281,6 +29751,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.92,
     "lng": 121.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "264500",
     "population": 100,
     "aliases": [
@@ -28301,6 +29772,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.42,
     "lng": 119.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "276800",
     "population": 1000,
     "aliases": [
@@ -28319,6 +29791,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.42,
     "lng": 119.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "276800",
     "population": 100,
     "aliases": [
@@ -28338,6 +29811,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.1,
     "lng": 119.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "276800",
     "population": 100,
     "aliases": [
@@ -28357,6 +29831,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.75,
     "lng": 119.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "262300",
     "population": 100,
     "aliases": [
@@ -28376,6 +29851,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.58,
     "lng": 118.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "276500",
     "population": 100,
     "aliases": [
@@ -28395,6 +29871,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.22,
     "lng": 117.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "271100",
     "population": 1000,
     "aliases": [
@@ -28413,6 +29890,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.2,
     "lng": 117.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "271100",
     "population": 100,
     "aliases": [
@@ -28432,6 +29910,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.07,
     "lng": 117.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "271104",
     "population": 100,
     "aliases": [
@@ -28451,6 +29930,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.05,
     "lng": 118.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "276000",
     "population": 1000,
     "aliases": [
@@ -28469,6 +29949,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.07,
     "lng": 118.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "276002",
     "population": 100,
     "aliases": [
@@ -28488,6 +29969,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.98,
     "lng": 118.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "276017",
     "population": 100,
     "aliases": [
@@ -28507,6 +29989,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.08,
     "lng": 118.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "276000",
     "population": 100,
     "aliases": [
@@ -28526,6 +30009,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.55,
     "lng": 118.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "276300",
     "population": 100,
     "aliases": [
@@ -28545,6 +30029,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.62,
     "lng": 118.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "276100",
     "population": 100,
     "aliases": [
@@ -28564,6 +30049,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.78,
     "lng": 118.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "276400",
     "population": 100,
     "aliases": [
@@ -28583,6 +30069,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.85,
     "lng": 118.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "277700",
     "population": 100,
     "aliases": [
@@ -28602,6 +30089,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.27,
     "lng": 117.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "273400",
     "population": 100,
     "aliases": [
@@ -28621,6 +30109,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.5,
     "lng": 117.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "273300",
     "population": 100,
     "aliases": [
@@ -28640,6 +30129,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.18,
     "lng": 118.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "276600",
     "population": 100,
     "aliases": [
@@ -28659,6 +30149,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.72,
     "lng": 117.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "276200",
     "population": 100,
     "aliases": [
@@ -28678,6 +30169,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.92,
     "lng": 118.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "276700",
     "population": 100,
     "aliases": [
@@ -28697,6 +30189,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.45,
     "lng": 116.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "253000",
     "population": 1000,
     "aliases": [
@@ -28715,6 +30208,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.45,
     "lng": 116.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "253011",
     "population": 100,
     "aliases": [
@@ -28734,6 +30228,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.33,
     "lng": 116.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "253500",
     "population": 100,
     "aliases": [
@@ -28753,6 +30248,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.65,
     "lng": 116.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "253400",
     "population": 100,
     "aliases": [
@@ -28772,6 +30268,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.78,
     "lng": 117.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "253700",
     "population": 100,
     "aliases": [
@@ -28791,6 +30288,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.18,
     "lng": 116.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "251500",
     "population": 100,
     "aliases": [
@@ -28810,6 +30308,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.8,
     "lng": 116.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "251100",
     "population": 100,
     "aliases": [
@@ -28829,6 +30328,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.17,
     "lng": 116.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "253100",
     "population": 100,
     "aliases": [
@@ -28848,6 +30348,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.95,
     "lng": 116,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "253200",
     "population": 100,
     "aliases": [
@@ -28867,6 +30368,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.22,
     "lng": 116.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "253300",
     "population": 100,
     "aliases": [
@@ -28886,6 +30388,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.73,
     "lng": 117.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "253600",
     "population": 100,
     "aliases": [
@@ -28906,6 +30409,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.93,
     "lng": 116.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "251200",
     "population": 100,
     "aliases": [
@@ -28926,6 +30430,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.45,
     "lng": 115.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "252000",
     "population": 1000,
     "aliases": [
@@ -28944,6 +30449,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.45,
     "lng": 115.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "252000",
     "population": 100,
     "aliases": [
@@ -28963,6 +30469,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.12,
     "lng": 115.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "252300",
     "population": 100,
     "aliases": [
@@ -28982,6 +30489,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.23,
     "lng": 115.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "252400",
     "population": 100,
     "aliases": [
@@ -29001,6 +30509,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.58,
     "lng": 116.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "252100",
     "population": 100,
     "aliases": [
@@ -29020,6 +30529,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.33,
     "lng": 116.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "252200",
     "population": 100,
     "aliases": [
@@ -29039,6 +30549,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.48,
     "lng": 115.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "252500",
     "population": 100,
     "aliases": [
@@ -29058,6 +30569,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.87,
     "lng": 116.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "252800",
     "population": 100,
     "aliases": [
@@ -29077,6 +30589,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.85,
     "lng": 115.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "252600",
     "population": 100,
     "aliases": [
@@ -29097,6 +30610,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.38,
     "lng": 117.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "256600",
     "population": 1000,
     "aliases": [
@@ -29115,6 +30629,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.38,
     "lng": 118,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "256600",
     "population": 100,
     "aliases": [
@@ -29134,6 +30649,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.48,
     "lng": 117.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "251700",
     "population": 100,
     "aliases": [
@@ -29153,6 +30669,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.63,
     "lng": 117.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "251800",
     "population": 100,
     "aliases": [
@@ -29172,6 +30689,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.73,
     "lng": 117.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "251900",
     "population": 100,
     "aliases": [
@@ -29191,6 +30709,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.7,
     "lng": 118.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "256800",
     "population": 100,
     "aliases": [
@@ -29210,6 +30729,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.15,
     "lng": 118.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "256500",
     "population": 100,
     "aliases": [
@@ -29229,6 +30749,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.88,
     "lng": 117.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "256200",
     "population": 100,
     "aliases": [
@@ -29248,6 +30769,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.25,
     "lng": 115.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "274009",
     "population": 1000,
     "aliases": [
@@ -29265,6 +30787,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.83,
     "lng": 115.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "274000",
     "population": 100,
     "aliases": [
@@ -29283,6 +30806,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.8,
     "lng": 116.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "274000",
     "population": 100,
     "aliases": [
@@ -29301,6 +30825,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.95,
     "lng": 115.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "274000",
     "population": 100,
     "aliases": [
@@ -29319,6 +30844,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.4,
     "lng": 116.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "274000",
     "population": 100,
     "aliases": [
@@ -29337,6 +30863,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.6,
     "lng": 115.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "274000",
     "population": 100,
     "aliases": [
@@ -29355,6 +30882,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.57,
     "lng": 115.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "274000",
     "population": 100,
     "aliases": [
@@ -29373,6 +30901,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.07,
     "lng": 115.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "274000",
     "population": 100,
     "aliases": [
@@ -29391,6 +30920,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.28,
     "lng": 115.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "274500",
     "population": 100,
     "aliases": [
@@ -29409,6 +30939,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.75,
     "lng": 113.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "450000",
     "population": 12600574,
     "aliases": [
@@ -29428,6 +30959,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.75,
     "lng": 113.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "450000",
     "population": 12600574,
     "aliases": [
@@ -29448,6 +30980,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.73,
     "lng": 113.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "450000",
     "population": 12600574,
     "aliases": [
@@ -29468,6 +31001,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.75,
     "lng": 113.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "450000",
     "population": 12600574,
     "aliases": [
@@ -29488,6 +31022,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.78,
     "lng": 113.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "450003",
     "population": 12600574,
     "aliases": [
@@ -29508,6 +31043,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.82,
     "lng": 113.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "450041",
     "population": 12600574,
     "aliases": [
@@ -29528,6 +31064,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.87,
     "lng": 113.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "450044",
     "population": 12600574,
     "aliases": [
@@ -29548,6 +31085,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.72,
     "lng": 113.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "451450",
     "population": 12600574,
     "aliases": [
@@ -29568,6 +31106,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.77,
     "lng": 112.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "451200",
     "population": 12600574,
     "aliases": [
@@ -29589,6 +31128,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.78,
     "lng": 113.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "450100",
     "population": 12600574,
     "aliases": [
@@ -29610,6 +31150,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.53,
     "lng": 113.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "452370",
     "population": 12600574,
     "aliases": [
@@ -29631,6 +31172,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.4,
     "lng": 113.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "451150",
     "population": 12600574,
     "aliases": [
@@ -29652,6 +31194,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.47,
     "lng": 113.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "452470",
     "population": 12600574,
     "aliases": [
@@ -29673,6 +31216,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.8,
     "lng": 114.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "475000",
     "population": 1000,
     "aliases": [
@@ -29691,6 +31235,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.8,
     "lng": 114.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "475000",
     "population": 100,
     "aliases": [
@@ -29710,6 +31255,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.8,
     "lng": 114.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "475000",
     "population": 100,
     "aliases": [
@@ -29729,6 +31275,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.78,
     "lng": 114.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "475000",
     "population": 100,
     "aliases": [
@@ -29748,6 +31295,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.55,
     "lng": 114.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "475200",
     "population": 100,
     "aliases": [
@@ -29767,6 +31315,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.48,
     "lng": 114.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "475400",
     "population": 100,
     "aliases": [
@@ -29786,6 +31335,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.42,
     "lng": 114.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "475500",
     "population": 100,
     "aliases": [
@@ -29805,6 +31355,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.77,
     "lng": 114.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "475100",
     "population": 100,
     "aliases": [
@@ -29824,6 +31375,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.82,
     "lng": 114.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "475300",
     "population": 100,
     "aliases": [
@@ -29843,6 +31395,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.62,
     "lng": 112.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "471000",
     "population": 1000,
     "aliases": [
@@ -29861,6 +31414,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.68,
     "lng": 112.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "471000",
     "population": 100,
     "aliases": [
@@ -29880,6 +31434,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.67,
     "lng": 112.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "471000",
     "population": 100,
     "aliases": [
@@ -29899,6 +31454,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.67,
     "lng": 112.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "471000",
     "population": 100,
     "aliases": [
@@ -29918,6 +31474,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.9,
     "lng": 112.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "471012",
     "population": 100,
     "aliases": [
@@ -29937,6 +31494,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.62,
     "lng": 112.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "471000",
     "population": 100,
     "aliases": [
@@ -29956,6 +31514,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.83,
     "lng": 112.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "471100",
     "population": 100,
     "aliases": [
@@ -29975,6 +31534,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.72,
     "lng": 112.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "471800",
     "population": 100,
     "aliases": [
@@ -29994,6 +31554,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.78,
     "lng": 111.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "471500",
     "population": 100,
     "aliases": [
@@ -30013,6 +31574,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.15,
     "lng": 112.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "471400",
     "population": 100,
     "aliases": [
@@ -30032,6 +31594,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.15,
     "lng": 112.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "471200",
     "population": 100,
     "aliases": [
@@ -30051,6 +31614,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.52,
     "lng": 112.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "471600",
     "population": 100,
     "aliases": [
@@ -30070,6 +31634,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.38,
     "lng": 111.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "471700",
     "population": 100,
     "aliases": [
@@ -30089,6 +31654,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.42,
     "lng": 112.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "471300",
     "population": 100,
     "aliases": [
@@ -30108,6 +31674,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.73,
     "lng": 112.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "471900",
     "population": 100,
     "aliases": [
@@ -30128,6 +31695,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.77,
     "lng": 113.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "467000",
     "population": 1000,
     "aliases": [
@@ -30146,6 +31714,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.73,
     "lng": 113.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "467000",
     "population": 100,
     "aliases": [
@@ -30165,6 +31734,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.73,
     "lng": 113.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "467000",
     "population": 100,
     "aliases": [
@@ -30184,6 +31754,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.9,
     "lng": 112.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "467045",
     "population": 100,
     "aliases": [
@@ -30203,6 +31774,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.73,
     "lng": 113.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "467000",
     "population": 100,
     "aliases": [
@@ -30222,6 +31794,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.88,
     "lng": 113.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "467400",
     "population": 100,
     "aliases": [
@@ -30241,6 +31814,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.62,
     "lng": 113.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "467200",
     "population": 100,
     "aliases": [
@@ -30260,6 +31834,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.73,
     "lng": 112.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "467300",
     "population": 100,
     "aliases": [
@@ -30279,6 +31854,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.97,
     "lng": 113.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "467100",
     "population": 100,
     "aliases": [
@@ -30298,6 +31874,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.3,
     "lng": 113.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "462500",
     "population": 100,
     "aliases": [
@@ -30318,6 +31895,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.17,
     "lng": 112.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "467599",
     "population": 100,
     "aliases": [
@@ -30338,6 +31916,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.1,
     "lng": 114.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "455000",
     "population": 1000,
     "aliases": [
@@ -30356,6 +31935,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.08,
     "lng": 114.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "455000",
     "population": 100,
     "aliases": [
@@ -30375,6 +31955,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.12,
     "lng": 114.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "455000",
     "population": 100,
     "aliases": [
@@ -30394,6 +31975,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.12,
     "lng": 114.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "455000",
     "population": 100,
     "aliases": [
@@ -30413,6 +31995,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.1,
     "lng": 114.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "455000",
     "population": 100,
     "aliases": [
@@ -30432,6 +32015,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.1,
     "lng": 114.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "455100",
     "population": 100,
     "aliases": [
@@ -30451,6 +32035,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.92,
     "lng": 114.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "456150",
     "population": 100,
     "aliases": [
@@ -30470,6 +32055,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.58,
     "lng": 114.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "456400",
     "population": 100,
     "aliases": [
@@ -30489,6 +32075,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.95,
     "lng": 114.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "456350",
     "population": 100,
     "aliases": [
@@ -30508,6 +32095,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.07,
     "lng": 113.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "456550",
     "population": 100,
     "aliases": [
@@ -30528,6 +32116,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.75,
     "lng": 114.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "458000",
     "population": 1000,
     "aliases": [
@@ -30546,6 +32135,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.95,
     "lng": 114.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "458010",
     "population": 100,
     "aliases": [
@@ -30565,6 +32155,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.9,
     "lng": 114.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "458000",
     "population": 100,
     "aliases": [
@@ -30584,6 +32175,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.73,
     "lng": 114.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "458030",
     "population": 100,
     "aliases": [
@@ -30603,6 +32195,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.67,
     "lng": 114.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "456250",
     "population": 100,
     "aliases": [
@@ -30622,6 +32215,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.6,
     "lng": 114.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "456750",
     "population": 100,
     "aliases": [
@@ -30641,6 +32235,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.3,
     "lng": 113.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "453000",
     "population": 1000,
     "aliases": [
@@ -30659,6 +32254,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.3,
     "lng": 113.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "453000",
     "population": 100,
     "aliases": [
@@ -30678,6 +32274,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.3,
     "lng": 113.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "453000",
     "population": 100,
     "aliases": [
@@ -30697,6 +32294,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.38,
     "lng": 113.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "4453011",
     "population": 100,
     "aliases": [
@@ -30716,6 +32314,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.32,
     "lng": 113.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "453002",
     "population": 100,
     "aliases": [
@@ -30735,6 +32334,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.2,
     "lng": 113.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "453700",
     "population": 100,
     "aliases": [
@@ -30754,6 +32354,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.27,
     "lng": 113.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "453800",
     "population": 100,
     "aliases": [
@@ -30773,6 +32374,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.05,
     "lng": 113.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "453500",
     "population": 100,
     "aliases": [
@@ -30792,6 +32394,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.15,
     "lng": 114.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "453200",
     "population": 100,
     "aliases": [
@@ -30811,6 +32414,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.05,
     "lng": 114.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "453300",
     "population": 100,
     "aliases": [
@@ -30830,6 +32434,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.2,
     "lng": 114.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "453400",
     "population": 100,
     "aliases": [
@@ -30849,6 +32454,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.4,
     "lng": 114.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "453100",
     "population": 100,
     "aliases": [
@@ -30869,6 +32475,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.47,
     "lng": 113.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "453600",
     "population": 100,
     "aliases": [
@@ -30889,6 +32496,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.22,
     "lng": 113.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "454150",
     "population": 1000,
     "aliases": [
@@ -30907,6 +32515,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.25,
     "lng": 113.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "454150",
     "population": 100,
     "aliases": [
@@ -30926,6 +32535,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.23,
     "lng": 113.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "454150",
     "population": 100,
     "aliases": [
@@ -30945,6 +32555,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.27,
     "lng": 113.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "454150",
     "population": 100,
     "aliases": [
@@ -30964,6 +32575,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.22,
     "lng": 113.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "454150",
     "population": 100,
     "aliases": [
@@ -30983,6 +32595,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.23,
     "lng": 113.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "454350",
     "population": 100,
     "aliases": [
@@ -31002,6 +32615,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.17,
     "lng": 113.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "454450",
     "population": 100,
     "aliases": [
@@ -31021,6 +32635,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.1,
     "lng": 113.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "454950",
     "population": 100,
     "aliases": [
@@ -31040,6 +32655,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.93,
     "lng": 113.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "454850",
     "population": 100,
     "aliases": [
@@ -31059,6 +32675,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.07,
     "lng": 112.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "454150",
     "population": 100,
     "aliases": [
@@ -31079,6 +32696,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.08,
     "lng": 112.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "454550",
     "population": 100,
     "aliases": [
@@ -31099,6 +32717,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.9,
     "lng": 112.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "454750",
     "population": 100,
     "aliases": [
@@ -31119,6 +32738,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.77,
     "lng": 115.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "457000",
     "population": 1000,
     "aliases": [
@@ -31137,6 +32757,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.78,
     "lng": 115.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "457001",
     "population": 100,
     "aliases": [
@@ -31156,6 +32777,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.9,
     "lng": 115.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "457300",
     "population": 100,
     "aliases": [
@@ -31175,6 +32797,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.08,
     "lng": 115.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "457400",
     "population": 100,
     "aliases": [
@@ -31194,6 +32817,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.87,
     "lng": 115.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "457500",
     "population": 100,
     "aliases": [
@@ -31213,6 +32837,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36,
     "lng": 115.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "457600",
     "population": 100,
     "aliases": [
@@ -31232,6 +32857,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.7,
     "lng": 115.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "457100",
     "population": 100,
     "aliases": [
@@ -31251,6 +32877,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.03,
     "lng": 113.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "461000",
     "population": 1000,
     "aliases": [
@@ -31269,6 +32896,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.03,
     "lng": 113.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "461000",
     "population": 100,
     "aliases": [
@@ -31288,6 +32916,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34,
     "lng": 113.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "461100",
     "population": 100,
     "aliases": [
@@ -31307,6 +32936,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.1,
     "lng": 114.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "461200",
     "population": 100,
     "aliases": [
@@ -31326,6 +32956,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.85,
     "lng": 113.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "461700",
     "population": 100,
     "aliases": [
@@ -31345,6 +32976,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.17,
     "lng": 113.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "461670",
     "population": 100,
     "aliases": [
@@ -31365,6 +32997,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.22,
     "lng": 113.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "461500",
     "population": 100,
     "aliases": [
@@ -31385,6 +33018,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.58,
     "lng": 114.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "462000",
     "population": 1000,
     "aliases": [
@@ -31403,6 +33037,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.58,
     "lng": 114,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "462300",
     "population": 100,
     "aliases": [
@@ -31422,6 +33057,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.57,
     "lng": 114.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "462300",
     "population": 100,
     "aliases": [
@@ -31441,6 +33077,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.43,
     "lng": 113.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "462400",
     "population": 100,
     "aliases": [
@@ -31460,6 +33097,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.82,
     "lng": 113.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "462600",
     "population": 100,
     "aliases": [
@@ -31479,6 +33117,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.78,
     "lng": 111.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "472000",
     "population": 1000,
     "aliases": [
@@ -31497,6 +33136,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.78,
     "lng": 111.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "472000",
     "population": 100,
     "aliases": [
@@ -31516,6 +33156,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.77,
     "lng": 111.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "472400",
     "population": 100,
     "aliases": [
@@ -31535,6 +33176,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.7,
     "lng": 111.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "472100",
     "population": 100,
     "aliases": [
@@ -31554,6 +33196,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.05,
     "lng": 111.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "472200",
     "population": 100,
     "aliases": [
@@ -31573,6 +33216,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.75,
     "lng": 111.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "472300",
     "population": 100,
     "aliases": [
@@ -31593,6 +33237,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.52,
     "lng": 110.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "472500",
     "population": 100,
     "aliases": [
@@ -31613,6 +33258,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33,
     "lng": 112.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "473000",
     "population": 1000,
     "aliases": [
@@ -31631,6 +33277,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.02,
     "lng": 112.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "473000",
     "population": 100,
     "aliases": [
@@ -31650,6 +33297,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.98,
     "lng": 112.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "473000",
     "population": 100,
     "aliases": [
@@ -31669,6 +33317,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.5,
     "lng": 112.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "474650",
     "population": 100,
     "aliases": [
@@ -31688,6 +33337,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.27,
     "lng": 113,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "473200",
     "population": 100,
     "aliases": [
@@ -31707,6 +33357,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.28,
     "lng": 111.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "474550",
     "population": 100,
     "aliases": [
@@ -31726,6 +33377,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.03,
     "lng": 112.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "474250",
     "population": 100,
     "aliases": [
@@ -31745,6 +33397,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.05,
     "lng": 111.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "474350",
     "population": 100,
     "aliases": [
@@ -31764,6 +33417,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.13,
     "lng": 111.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "474450",
     "population": 100,
     "aliases": [
@@ -31783,6 +33437,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.05,
     "lng": 112.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "473300",
     "population": 100,
     "aliases": [
@@ -31802,6 +33457,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.7,
     "lng": 112.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "473400",
     "population": 100,
     "aliases": [
@@ -31821,6 +33477,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.52,
     "lng": 112.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "473500",
     "population": 100,
     "aliases": [
@@ -31840,6 +33497,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.37,
     "lng": 113.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "474750",
     "population": 100,
     "aliases": [
@@ -31859,6 +33517,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.68,
     "lng": 112.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "474150",
     "population": 100,
     "aliases": [
@@ -31879,6 +33538,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.45,
     "lng": 115.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "476000",
     "population": 1000,
     "aliases": [
@@ -31897,6 +33557,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.45,
     "lng": 115.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "476000",
     "population": 100,
     "aliases": [
@@ -31916,6 +33577,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.38,
     "lng": 115.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "476000",
     "population": 100,
     "aliases": [
@@ -31935,6 +33597,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.65,
     "lng": 115.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "476800",
     "population": 100,
     "aliases": [
@@ -31954,6 +33617,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.45,
     "lng": 115.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "476900",
     "population": 100,
     "aliases": [
@@ -31973,6 +33637,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.45,
     "lng": 115.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "476700",
     "population": 100,
     "aliases": [
@@ -31992,6 +33657,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.07,
     "lng": 115.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "476200",
     "population": 100,
     "aliases": [
@@ -32011,6 +33677,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.4,
     "lng": 115.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "476300",
     "population": 100,
     "aliases": [
@@ -32030,6 +33697,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.23,
     "lng": 116.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "476400",
     "population": 100,
     "aliases": [
@@ -32049,6 +33717,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.92,
     "lng": 116.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "476600",
     "population": 100,
     "aliases": [
@@ -32069,6 +33738,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.13,
     "lng": 114.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "464000",
     "population": 1000,
     "aliases": [
@@ -32087,6 +33757,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.12,
     "lng": 114.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "464000",
     "population": 100,
     "aliases": [
@@ -32106,6 +33777,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.1,
     "lng": 114.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "464100",
     "population": 100,
     "aliases": [
@@ -32125,6 +33797,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.2,
     "lng": 114.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "464200",
     "population": 100,
     "aliases": [
@@ -32144,6 +33817,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.02,
     "lng": 114.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "465450",
     "population": 100,
     "aliases": [
@@ -32163,6 +33837,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.63,
     "lng": 114.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "465550",
     "population": 100,
     "aliases": [
@@ -32182,6 +33857,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.8,
     "lng": 115.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "465350",
     "population": 100,
     "aliases": [
@@ -32201,6 +33877,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.18,
     "lng": 115.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "465200",
     "population": 100,
     "aliases": [
@@ -32220,6 +33897,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.13,
     "lng": 115.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "465150",
     "population": 100,
     "aliases": [
@@ -32239,6 +33917,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.43,
     "lng": 115.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "464400",
     "population": 100,
     "aliases": [
@@ -32258,6 +33937,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.35,
     "lng": 114.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "464300",
     "population": 100,
     "aliases": [
@@ -32277,6 +33957,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.62,
     "lng": 114.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "466000",
     "population": 1000,
     "aliases": [
@@ -32295,6 +33976,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.07,
     "lng": 114.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "461300",
     "population": 100,
     "aliases": [
@@ -32314,6 +33996,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.8,
     "lng": 114.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "466600",
     "population": 100,
     "aliases": [
@@ -32333,6 +34016,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.53,
     "lng": 114.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "466100",
     "population": 100,
     "aliases": [
@@ -32352,6 +34036,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.4,
     "lng": 115.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "466300",
     "population": 100,
     "aliases": [
@@ -32371,6 +34056,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.65,
     "lng": 115.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "477150",
     "population": 100,
     "aliases": [
@@ -32390,6 +34076,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.73,
     "lng": 114.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "466700",
     "population": 100,
     "aliases": [
@@ -32409,6 +34096,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.07,
     "lng": 114.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "475400",
     "population": 100,
     "aliases": [
@@ -32428,6 +34116,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.87,
     "lng": 115.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "477200",
     "population": 100,
     "aliases": [
@@ -32447,6 +34136,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.45,
     "lng": 114.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "466200",
     "population": 100,
     "aliases": [
@@ -32467,6 +34157,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.98,
     "lng": 114.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "463000",
     "population": 1000,
     "aliases": [
@@ -32485,6 +34176,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.97,
     "lng": 114.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "463000",
     "population": 100,
     "aliases": [
@@ -32504,6 +34196,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.38,
     "lng": 114.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "463900",
     "population": 100,
     "aliases": [
@@ -32523,6 +34216,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.27,
     "lng": 114.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "463800",
     "population": 100,
     "aliases": [
@@ -32542,6 +34236,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.97,
     "lng": 114.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "463400",
     "population": 100,
     "aliases": [
@@ -32561,6 +34256,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.6,
     "lng": 114.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "463600",
     "population": 100,
     "aliases": [
@@ -32580,6 +34276,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.8,
     "lng": 114.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "463200",
     "population": 100,
     "aliases": [
@@ -32599,6 +34296,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.72,
     "lng": 113.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "463700",
     "population": 100,
     "aliases": [
@@ -32618,6 +34316,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33,
     "lng": 114.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "463300",
     "population": 100,
     "aliases": [
@@ -32637,6 +34336,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.15,
     "lng": 114,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "463100",
     "population": 100,
     "aliases": [
@@ -32656,6 +34356,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.75,
     "lng": 114.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "463500",
     "population": 100,
     "aliases": [
@@ -32675,6 +34376,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.6,
     "lng": 114.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "430000",
     "population": 12326518,
     "aliases": [
@@ -32694,6 +34396,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.6,
     "lng": 114.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "430014",
     "population": 12326518,
     "aliases": [
@@ -32714,6 +34417,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.6,
     "lng": 114.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "430000",
     "population": 12326518,
     "aliases": [
@@ -32734,6 +34438,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.57,
     "lng": 114.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "430000",
     "population": 12326518,
     "aliases": [
@@ -32754,6 +34459,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.55,
     "lng": 114.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "430050",
     "population": 12326518,
     "aliases": [
@@ -32774,6 +34480,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.57,
     "lng": 114.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "430061",
     "population": 12326518,
     "aliases": [
@@ -32794,6 +34501,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.63,
     "lng": 114.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "430080",
     "population": 12326518,
     "aliases": [
@@ -32814,6 +34522,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.5,
     "lng": 114.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "430070",
     "population": 12326518,
     "aliases": [
@@ -32834,6 +34543,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.62,
     "lng": 114.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "430040",
     "population": 12326518,
     "aliases": [
@@ -32854,6 +34564,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.32,
     "lng": 114.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "430090",
     "population": 12326518,
     "aliases": [
@@ -32874,6 +34585,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.58,
     "lng": 114.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "430100",
     "population": 12326518,
     "aliases": [
@@ -32894,6 +34606,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.35,
     "lng": 114.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "430200",
     "population": 12326518,
     "aliases": [
@@ -32914,6 +34627,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.87,
     "lng": 114.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "432200",
     "population": 12326518,
     "aliases": [
@@ -32934,6 +34648,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.85,
     "lng": 114.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "431400",
     "population": 12326518,
     "aliases": [
@@ -32954,6 +34669,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.2,
     "lng": 115.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "435000",
     "population": 1000,
     "aliases": [
@@ -32972,6 +34688,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.23,
     "lng": 115.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "435000",
     "population": 100,
     "aliases": [
@@ -32991,6 +34708,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.2,
     "lng": 115.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "435000",
     "population": 100,
     "aliases": [
@@ -33010,6 +34728,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.18,
     "lng": 114.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "435005",
     "population": 100,
     "aliases": [
@@ -33029,6 +34748,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.2,
     "lng": 114.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "435006",
     "population": 100,
     "aliases": [
@@ -33048,6 +34768,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.85,
     "lng": 115.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "435200",
     "population": 100,
     "aliases": [
@@ -33067,6 +34788,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.1,
     "lng": 114.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "435100",
     "population": 100,
     "aliases": [
@@ -33087,6 +34809,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.65,
     "lng": 110.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "442000",
     "population": 1000,
     "aliases": [
@@ -33105,6 +34828,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.6,
     "lng": 110.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "442000",
     "population": 100,
     "aliases": [
@@ -33124,6 +34848,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.65,
     "lng": 110.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "442000",
     "population": 100,
     "aliases": [
@@ -33143,6 +34868,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.83,
     "lng": 110.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "442500",
     "population": 100,
     "aliases": [
@@ -33162,6 +34888,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33,
     "lng": 110.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "442600",
     "population": 100,
     "aliases": [
@@ -33181,6 +34908,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.23,
     "lng": 110.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "442200",
     "population": 100,
     "aliases": [
@@ -33200,6 +34928,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.32,
     "lng": 109.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "442300",
     "population": 100,
     "aliases": [
@@ -33219,6 +34948,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.07,
     "lng": 110.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "442100",
     "population": 100,
     "aliases": [
@@ -33238,6 +34968,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.55,
     "lng": 111.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "442700",
     "population": 100,
     "aliases": [
@@ -33258,6 +34989,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.7,
     "lng": 111.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "443000",
     "population": 1000,
     "aliases": [
@@ -33276,6 +35008,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.7,
     "lng": 111.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "443000",
     "population": 100,
     "aliases": [
@@ -33295,6 +35028,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.65,
     "lng": 111.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "443000",
     "population": 100,
     "aliases": [
@@ -33314,6 +35048,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.7,
     "lng": 111.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "443004",
     "population": 100,
     "aliases": [
@@ -33333,6 +35068,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.53,
     "lng": 111.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "443007",
     "population": 100,
     "aliases": [
@@ -33352,6 +35088,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.77,
     "lng": 111.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "443100",
     "population": 100,
     "aliases": [
@@ -33371,6 +35108,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.07,
     "lng": 111.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "444200",
     "population": 100,
     "aliases": [
@@ -33390,6 +35128,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.35,
     "lng": 110.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "443711",
     "population": 100,
     "aliases": [
@@ -33409,6 +35148,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.83,
     "lng": 110.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "443600",
     "population": 100,
     "aliases": [
@@ -33428,6 +35168,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.47,
     "lng": 111.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "443501",
     "population": 100,
     "aliases": [
@@ -33447,6 +35188,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.2,
     "lng": 110.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "443400",
     "population": 100,
     "aliases": [
@@ -33466,6 +35208,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.4,
     "lng": 111.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "443300",
     "population": 100,
     "aliases": [
@@ -33486,6 +35229,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.82,
     "lng": 111.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "444100",
     "population": 100,
     "aliases": [
@@ -33506,6 +35250,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.43,
     "lng": 111.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "443200",
     "population": 100,
     "aliases": [
@@ -33526,6 +35271,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.02,
     "lng": 112.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "441000",
     "population": 1000,
     "aliases": [
@@ -33544,6 +35290,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.02,
     "lng": 112.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "441000",
     "population": 100,
     "aliases": [
@@ -33563,6 +35310,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.03,
     "lng": 112.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "441000",
     "population": 100,
     "aliases": [
@@ -33582,6 +35330,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.08,
     "lng": 112.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "441100",
     "population": 100,
     "aliases": [
@@ -33601,6 +35350,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.78,
     "lng": 111.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "441500",
     "population": 100,
     "aliases": [
@@ -33620,6 +35370,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.27,
     "lng": 111.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "441700",
     "population": 100,
     "aliases": [
@@ -33639,6 +35390,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.88,
     "lng": 111.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "441600",
     "population": 100,
     "aliases": [
@@ -33658,6 +35410,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.38,
     "lng": 111.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "441800",
     "population": 100,
     "aliases": [
@@ -33678,6 +35431,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.13,
     "lng": 112.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "441200",
     "population": 100,
     "aliases": [
@@ -33698,6 +35452,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.72,
     "lng": 112.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "441400",
     "population": 100,
     "aliases": [
@@ -33718,6 +35473,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.4,
     "lng": 114.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "436000",
     "population": 1000,
     "aliases": [
@@ -33736,6 +35492,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.08,
     "lng": 114.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "436060",
     "population": 100,
     "aliases": [
@@ -33755,6 +35512,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.53,
     "lng": 114.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "436000",
     "population": 100,
     "aliases": [
@@ -33774,6 +35532,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.4,
     "lng": 114.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "436001",
     "population": 100,
     "aliases": [
@@ -33793,6 +35552,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.03,
     "lng": 112.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "448000",
     "population": 1000,
     "aliases": [
@@ -33811,6 +35571,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.05,
     "lng": 112.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "448004",
     "population": 100,
     "aliases": [
@@ -33830,6 +35591,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.98,
     "lng": 112.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "448000",
     "population": 100,
     "aliases": [
@@ -33849,6 +35611,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.02,
     "lng": 113.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "431800",
     "population": 100,
     "aliases": [
@@ -33868,6 +35631,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.7,
     "lng": 112.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "448200",
     "population": 100,
     "aliases": [
@@ -33887,6 +35651,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.17,
     "lng": 112.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "431900",
     "population": 100,
     "aliases": [
@@ -33907,6 +35672,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.93,
     "lng": 113.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "432000",
     "population": 1000,
     "aliases": [
@@ -33925,6 +35691,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.92,
     "lng": 113.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "432100",
     "population": 100,
     "aliases": [
@@ -33944,6 +35711,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.25,
     "lng": 113.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "432900",
     "population": 100,
     "aliases": [
@@ -33963,6 +35731,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.57,
     "lng": 114.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "432800",
     "population": 100,
     "aliases": [
@@ -33982,6 +35751,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.02,
     "lng": 113.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "432500",
     "population": 100,
     "aliases": [
@@ -34001,6 +35771,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.95,
     "lng": 113.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "432400",
     "population": 100,
     "aliases": [
@@ -34021,6 +35792,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.27,
     "lng": 113.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "432600",
     "population": 100,
     "aliases": [
@@ -34041,6 +35813,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.65,
     "lng": 113.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "432300",
     "population": 100,
     "aliases": [
@@ -34061,6 +35834,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.33,
     "lng": 112.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "434000",
     "population": 1000,
     "aliases": [
@@ -34079,6 +35853,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.32,
     "lng": 112.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "434000",
     "population": 100,
     "aliases": [
@@ -34098,6 +35873,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.35,
     "lng": 112.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "434020",
     "population": 100,
     "aliases": [
@@ -34117,6 +35893,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.07,
     "lng": 112.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "434300",
     "population": 100,
     "aliases": [
@@ -34136,6 +35913,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.82,
     "lng": 112.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "433300",
     "population": 100,
     "aliases": [
@@ -34155,6 +35933,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.03,
     "lng": 112.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "434100",
     "population": 100,
     "aliases": [
@@ -34174,6 +35953,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.73,
     "lng": 112.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "434400",
     "population": 100,
     "aliases": [
@@ -34194,6 +35974,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.8,
     "lng": 113.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "433200",
     "population": 100,
     "aliases": [
@@ -34214,6 +35995,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.18,
     "lng": 111.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "434200",
     "population": 100,
     "aliases": [
@@ -34234,6 +36016,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.45,
     "lng": 114.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "438000",
     "population": 1000,
     "aliases": [
@@ -34252,6 +36035,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.43,
     "lng": 114.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "438000",
     "population": 100,
     "aliases": [
@@ -34271,6 +36055,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.63,
     "lng": 114.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "438000",
     "population": 100,
     "aliases": [
@@ -34290,6 +36075,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.28,
     "lng": 114.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "438400",
     "population": 100,
     "aliases": [
@@ -34309,6 +36095,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.78,
     "lng": 115.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "438600",
     "population": 100,
     "aliases": [
@@ -34328,6 +36115,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.75,
     "lng": 115.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "438700",
     "population": 100,
     "aliases": [
@@ -34347,6 +36135,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.45,
     "lng": 115.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "438200",
     "population": 100,
     "aliases": [
@@ -34366,6 +36155,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.23,
     "lng": 115.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "435300",
     "population": 100,
     "aliases": [
@@ -34385,6 +36175,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.08,
     "lng": 115.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "435500",
     "population": 100,
     "aliases": [
@@ -34404,6 +36195,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.18,
     "lng": 115.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "438300",
     "population": 100,
     "aliases": [
@@ -34424,6 +36216,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.85,
     "lng": 115.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "435400",
     "population": 100,
     "aliases": [
@@ -34444,6 +36237,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.85,
     "lng": 114.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "437000",
     "population": 1000,
     "aliases": [
@@ -34462,6 +36256,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.87,
     "lng": 114.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "437000",
     "population": 100,
     "aliases": [
@@ -34481,6 +36276,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.98,
     "lng": 113.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "437200",
     "population": 100,
     "aliases": [
@@ -34500,6 +36296,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.25,
     "lng": 113.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "437400",
     "population": 100,
     "aliases": [
@@ -34519,6 +36316,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.55,
     "lng": 114.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "437500",
     "population": 100,
     "aliases": [
@@ -34538,6 +36336,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.6,
     "lng": 114.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "437600",
     "population": 100,
     "aliases": [
@@ -34557,6 +36356,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.72,
     "lng": 113.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "437300",
     "population": 100,
     "aliases": [
@@ -34577,6 +36377,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.72,
     "lng": 113.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "441300",
     "population": 1000,
     "aliases": [
@@ -34595,6 +36396,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.72,
     "lng": 113.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "441300",
     "population": 100,
     "aliases": [
@@ -34614,6 +36416,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.62,
     "lng": 113.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "432700",
     "population": 100,
     "aliases": [
@@ -34634,6 +36437,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.3,
     "lng": 109.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "445000",
     "population": 1000,
     "aliases": [
@@ -34651,6 +36455,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.3,
     "lng": 109.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "445000",
     "population": 100,
     "aliases": [
@@ -34670,6 +36475,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.3,
     "lng": 108.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "445400",
     "population": 100,
     "aliases": [
@@ -34689,6 +36495,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.6,
     "lng": 109.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "445300",
     "population": 100,
     "aliases": [
@@ -34707,6 +36514,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.05,
     "lng": 110.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "444300",
     "population": 100,
     "aliases": [
@@ -34725,6 +36533,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.98,
     "lng": 109.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "445500",
     "population": 100,
     "aliases": [
@@ -34743,6 +36552,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.68,
     "lng": 109.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "445600",
     "population": 100,
     "aliases": [
@@ -34761,6 +36571,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.52,
     "lng": 109.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "445700",
     "population": 100,
     "aliases": [
@@ -34779,6 +36590,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.9,
     "lng": 110.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "445800",
     "population": 100,
     "aliases": [
@@ -34797,6 +36609,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.37,
     "lng": 113.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "433000",
     "population": 1000,
     "aliases": [
@@ -34815,6 +36628,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.42,
     "lng": 112.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "433100",
     "population": 100,
     "aliases": [
@@ -34835,6 +36649,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.67,
     "lng": 113.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "431700",
     "population": 100,
     "aliases": [
@@ -34855,6 +36670,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.75,
     "lng": 110.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "442400",
     "population": 100,
     "aliases": [
@@ -34874,6 +36690,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.23,
     "lng": 112.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "410000",
     "population": 10047914,
     "aliases": [
@@ -34893,6 +36710,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.18,
     "lng": 113.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "410000",
     "population": 10047914,
     "aliases": [
@@ -34913,6 +36731,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.12,
     "lng": 112.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "410000",
     "population": 10047914,
     "aliases": [
@@ -34933,6 +36752,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.23,
     "lng": 112.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "410006",
     "population": 10047914,
     "aliases": [
@@ -34953,6 +36773,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.25,
     "lng": 112.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "410005",
     "population": 10047914,
     "aliases": [
@@ -34973,6 +36794,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.13,
     "lng": 113.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "410007",
     "population": 10047914,
     "aliases": [
@@ -34993,6 +36815,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.25,
     "lng": 113.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "410100",
     "population": 10047914,
     "aliases": [
@@ -35013,6 +36836,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.37,
     "lng": 112.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "410200",
     "population": 10047914,
     "aliases": [
@@ -35033,6 +36857,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.25,
     "lng": 112.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "410600",
     "population": 10047914,
     "aliases": [
@@ -35053,6 +36878,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.15,
     "lng": 113.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "410300",
     "population": 10047914,
     "aliases": [
@@ -35074,6 +36900,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.83,
     "lng": 113.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "412000",
     "population": 1000,
     "aliases": [
@@ -35092,6 +36919,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.87,
     "lng": 113.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "412000",
     "population": 100,
     "aliases": [
@@ -35111,6 +36939,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.83,
     "lng": 113.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "412000",
     "population": 100,
     "aliases": [
@@ -35130,6 +36959,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.87,
     "lng": 113.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "412005",
     "population": 100,
     "aliases": [
@@ -35149,6 +36979,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.83,
     "lng": 113.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "412007",
     "population": 100,
     "aliases": [
@@ -35168,6 +36999,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.72,
     "lng": 113.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "412000",
     "population": 100,
     "aliases": [
@@ -35187,6 +37019,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27,
     "lng": 113.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "412300",
     "population": 100,
     "aliases": [
@@ -35206,6 +37039,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.8,
     "lng": 113.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "412400",
     "population": 100,
     "aliases": [
@@ -35225,6 +37059,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.48,
     "lng": 113.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "412500",
     "population": 100,
     "aliases": [
@@ -35244,6 +37079,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.67,
     "lng": 113.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "412200",
     "population": 100,
     "aliases": [
@@ -35264,6 +37100,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.83,
     "lng": 112.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "411100",
     "population": 1000,
     "aliases": [
@@ -35282,6 +37119,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.87,
     "lng": 112.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "411100",
     "population": 100,
     "aliases": [
@@ -35301,6 +37139,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.87,
     "lng": 112.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "411100",
     "population": 100,
     "aliases": [
@@ -35320,6 +37159,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.78,
     "lng": 112.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "411200",
     "population": 100,
     "aliases": [
@@ -35339,6 +37179,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.73,
     "lng": 112.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "411400",
     "population": 100,
     "aliases": [
@@ -35359,6 +37200,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.93,
     "lng": 112.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "411300",
     "population": 100,
     "aliases": [
@@ -35379,6 +37221,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.9,
     "lng": 112.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "421000",
     "population": 1000,
     "aliases": [
@@ -35397,6 +37240,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.9,
     "lng": 112.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "421002",
     "population": 100,
     "aliases": [
@@ -35416,6 +37260,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.88,
     "lng": 112.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "421000",
     "population": 100,
     "aliases": [
@@ -35435,6 +37280,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.9,
     "lng": 112.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "421000",
     "population": 100,
     "aliases": [
@@ -35454,6 +37300,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.9,
     "lng": 112.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "421001",
     "population": 100,
     "aliases": [
@@ -35473,6 +37320,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.25,
     "lng": 112.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "421900",
     "population": 100,
     "aliases": [
@@ -35492,6 +37340,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.97,
     "lng": 112.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "421200",
     "population": 100,
     "aliases": [
@@ -35511,6 +37360,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.73,
     "lng": 112.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "430422",
     "population": 100,
     "aliases": [
@@ -35530,6 +37380,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.23,
     "lng": 112.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "421300",
     "population": 100,
     "aliases": [
@@ -35549,6 +37400,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.08,
     "lng": 112.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "421400",
     "population": 100,
     "aliases": [
@@ -35568,6 +37420,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.78,
     "lng": 112.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "421600",
     "population": 100,
     "aliases": [
@@ -35587,6 +37440,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.42,
     "lng": 112.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "421800",
     "population": 100,
     "aliases": [
@@ -35607,6 +37461,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.42,
     "lng": 112.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "421500",
     "population": 100,
     "aliases": [
@@ -35627,6 +37482,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.25,
     "lng": 111.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "422000",
     "population": 1000,
     "aliases": [
@@ -35645,6 +37501,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.23,
     "lng": 111.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "422000",
     "population": 100,
     "aliases": [
@@ -35664,6 +37521,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.23,
     "lng": 111.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "422200",
     "population": 100,
     "aliases": [
@@ -35683,6 +37541,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.25,
     "lng": 111.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "422000",
     "population": 100,
     "aliases": [
@@ -35702,6 +37561,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.25,
     "lng": 111.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "422800",
     "population": 100,
     "aliases": [
@@ -35721,6 +37581,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.32,
     "lng": 111.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "422900",
     "population": 100,
     "aliases": [
@@ -35740,6 +37601,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27,
     "lng": 111.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "422100",
     "population": 100,
     "aliases": [
@@ -35759,6 +37621,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.12,
     "lng": 111.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "422200",
     "population": 100,
     "aliases": [
@@ -35778,6 +37641,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.05,
     "lng": 110.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "422300",
     "population": 100,
     "aliases": [
@@ -35797,6 +37661,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.58,
     "lng": 110.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "422600",
     "population": 100,
     "aliases": [
@@ -35816,6 +37681,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.43,
     "lng": 110.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "422700",
     "population": 100,
     "aliases": [
@@ -35835,6 +37701,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.37,
     "lng": 110.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "422500",
     "population": 100,
     "aliases": [
@@ -35854,6 +37721,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.73,
     "lng": 110.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "422400",
     "population": 100,
     "aliases": [
@@ -35874,6 +37742,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.37,
     "lng": 113.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "414000",
     "population": 1000,
     "aliases": [
@@ -35892,6 +37761,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.37,
     "lng": 113.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "414000",
     "population": 100,
     "aliases": [
@@ -35911,6 +37781,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.47,
     "lng": 113.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "414000",
     "population": 100,
     "aliases": [
@@ -35930,6 +37801,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.43,
     "lng": 113,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "414000",
     "population": 100,
     "aliases": [
@@ -35949,6 +37821,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.15,
     "lng": 113.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "414100",
     "population": 100,
     "aliases": [
@@ -35968,6 +37841,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.52,
     "lng": 112.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "414200",
     "population": 100,
     "aliases": [
@@ -35987,6 +37861,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.68,
     "lng": 112.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "414600",
     "population": 100,
     "aliases": [
@@ -36006,6 +37881,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.72,
     "lng": 113.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "414500",
     "population": 100,
     "aliases": [
@@ -36025,6 +37901,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.8,
     "lng": 113.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "414400",
     "population": 100,
     "aliases": [
@@ -36045,6 +37922,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.48,
     "lng": 113.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "414300",
     "population": 100,
     "aliases": [
@@ -36065,6 +37943,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.05,
     "lng": 111.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "415000",
     "population": 1000,
     "aliases": [
@@ -36083,6 +37962,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.03,
     "lng": 111.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "415000",
     "population": 100,
     "aliases": [
@@ -36102,6 +37982,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.02,
     "lng": 111.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "415100",
     "population": 100,
     "aliases": [
@@ -36121,6 +38002,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.42,
     "lng": 112.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "415600",
     "population": 100,
     "aliases": [
@@ -36140,6 +38022,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.9,
     "lng": 111.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "415900",
     "population": 100,
     "aliases": [
@@ -36159,6 +38042,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.63,
     "lng": 111.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "415500",
     "population": 100,
     "aliases": [
@@ -36178,6 +38062,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.45,
     "lng": 111.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "415200",
     "population": 100,
     "aliases": [
@@ -36197,6 +38082,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.9,
     "lng": 111.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "451700",
     "population": 100,
     "aliases": [
@@ -36216,6 +38102,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.58,
     "lng": 111.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "415300",
     "population": 100,
     "aliases": [
@@ -36235,6 +38122,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.62,
     "lng": 111.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "415400",
     "population": 100,
     "aliases": [
@@ -36255,6 +38143,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.13,
     "lng": 110.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "427000",
     "population": 1000,
     "aliases": [
@@ -36273,6 +38162,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.13,
     "lng": 110.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "427000",
     "population": 100,
     "aliases": [
@@ -36292,6 +38182,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.35,
     "lng": 110.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "427400",
     "population": 100,
     "aliases": [
@@ -36311,6 +38202,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.42,
     "lng": 111.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "427200",
     "population": 100,
     "aliases": [
@@ -36330,6 +38222,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.4,
     "lng": 110.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "427100",
     "population": 100,
     "aliases": [
@@ -36349,6 +38242,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.6,
     "lng": 112.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "413000",
     "population": 1000,
     "aliases": [
@@ -36367,6 +38261,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.6,
     "lng": 112.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "413000",
     "population": 100,
     "aliases": [
@@ -36386,6 +38281,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.6,
     "lng": 112.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "413002",
     "population": 100,
     "aliases": [
@@ -36405,6 +38301,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.38,
     "lng": 112.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "413200",
     "population": 100,
     "aliases": [
@@ -36424,6 +38321,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.53,
     "lng": 112.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "413400",
     "population": 100,
     "aliases": [
@@ -36443,6 +38341,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.38,
     "lng": 111.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "413500",
     "population": 100,
     "aliases": [
@@ -36462,6 +38361,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.85,
     "lng": 112.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "413100",
     "population": 100,
     "aliases": [
@@ -36482,6 +38382,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.78,
     "lng": 113.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "423000",
     "population": 1000,
     "aliases": [
@@ -36500,6 +38401,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.8,
     "lng": 113.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "423000",
     "population": 100,
     "aliases": [
@@ -36519,6 +38421,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.8,
     "lng": 113.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "423000",
     "population": 100,
     "aliases": [
@@ -36538,6 +38441,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.73,
     "lng": 112.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "424400",
     "population": 100,
     "aliases": [
@@ -36557,6 +38461,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.4,
     "lng": 112.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "424200",
     "population": 100,
     "aliases": [
@@ -36576,6 +38481,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.13,
     "lng": 113.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "423300",
     "population": 100,
     "aliases": [
@@ -36595,6 +38501,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.58,
     "lng": 112.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "424500",
     "population": 100,
     "aliases": [
@@ -36614,6 +38521,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.28,
     "lng": 112.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "424300",
     "population": 100,
     "aliases": [
@@ -36633,6 +38541,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.55,
     "lng": 113.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "424100",
     "population": 100,
     "aliases": [
@@ -36652,6 +38561,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.08,
     "lng": 113.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "423500",
     "population": 100,
     "aliases": [
@@ -36671,6 +38581,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.7,
     "lng": 113.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "423600",
     "population": 100,
     "aliases": [
@@ -36690,6 +38601,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.98,
     "lng": 113.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "423400",
     "population": 100,
     "aliases": [
@@ -36710,6 +38622,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.43,
     "lng": 111.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "425000",
     "population": 1000,
     "aliases": [
@@ -36728,6 +38641,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.43,
     "lng": 111.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "425000",
     "population": 100,
     "aliases": [
@@ -36747,6 +38661,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.58,
     "lng": 111.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "426100",
     "population": 100,
     "aliases": [
@@ -36766,6 +38681,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.4,
     "lng": 111.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "425900",
     "population": 100,
     "aliases": [
@@ -36785,6 +38701,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.97,
     "lng": 111.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "425200",
     "population": 100,
     "aliases": [
@@ -36804,6 +38721,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.53,
     "lng": 111.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "425300",
     "population": 100,
     "aliases": [
@@ -36823,6 +38741,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.28,
     "lng": 111.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "425400",
     "population": 100,
     "aliases": [
@@ -36842,6 +38761,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.6,
     "lng": 111.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "425600",
     "population": 100,
     "aliases": [
@@ -36861,6 +38781,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.37,
     "lng": 112.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "425800",
     "population": 100,
     "aliases": [
@@ -36880,6 +38801,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.92,
     "lng": 112.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "425700",
     "population": 100,
     "aliases": [
@@ -36899,6 +38821,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.18,
     "lng": 111.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "425500",
     "population": 100,
     "aliases": [
@@ -36918,6 +38841,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.57,
     "lng": 110,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "418000",
     "population": 1000,
     "aliases": [
@@ -36936,6 +38860,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.55,
     "lng": 109.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "418000",
     "population": 100,
     "aliases": [
@@ -36955,6 +38880,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.4,
     "lng": 109.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "418000",
     "population": 100,
     "aliases": [
@@ -36974,6 +38900,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.47,
     "lng": 110.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "419600",
     "population": 100,
     "aliases": [
@@ -36993,6 +38920,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28,
     "lng": 110.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "419500",
     "population": 100,
     "aliases": [
@@ -37012,6 +38940,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.92,
     "lng": 110.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "419300",
     "population": 100,
     "aliases": [
@@ -37031,6 +38960,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.87,
     "lng": 109.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "418300",
     "population": 100,
     "aliases": [
@@ -37050,6 +38980,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.87,
     "lng": 109.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "419400",
     "population": 100,
     "aliases": [
@@ -37069,6 +39000,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.37,
     "lng": 109.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "419200",
     "population": 100,
     "aliases": [
@@ -37088,6 +39020,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.45,
     "lng": 109.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "419100",
     "population": 100,
     "aliases": [
@@ -37107,6 +39040,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.58,
     "lng": 109.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "418400",
     "population": 100,
     "aliases": [
@@ -37126,6 +39060,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.17,
     "lng": 109.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "418500",
     "population": 100,
     "aliases": [
@@ -37145,6 +39080,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.2,
     "lng": 109.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "418200",
     "population": 100,
     "aliases": [
@@ -37165,6 +39101,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.73,
     "lng": 112,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "417000",
     "population": 1000,
     "aliases": [
@@ -37183,6 +39120,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.73,
     "lng": 112,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "417000",
     "population": 100,
     "aliases": [
@@ -37202,6 +39140,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.45,
     "lng": 112.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "417700",
     "population": 100,
     "aliases": [
@@ -37221,6 +39160,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.75,
     "lng": 111.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "417600",
     "population": 100,
     "aliases": [
@@ -37240,6 +39180,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.68,
     "lng": 111.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "417500",
     "population": 100,
     "aliases": [
@@ -37260,6 +39201,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.7,
     "lng": 111.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "417100",
     "population": 100,
     "aliases": [
@@ -37280,6 +39222,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.32,
     "lng": 109.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "416000",
     "population": 1000,
     "aliases": [
@@ -37297,6 +39240,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.32,
     "lng": 109.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "416000",
     "population": 100,
     "aliases": [
@@ -37316,6 +39260,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.22,
     "lng": 110.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "416100",
     "population": 100,
     "aliases": [
@@ -37334,6 +39279,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.95,
     "lng": 109.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "416200",
     "population": 100,
     "aliases": [
@@ -37352,6 +39298,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.58,
     "lng": 109.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "416400",
     "population": 100,
     "aliases": [
@@ -37370,6 +39317,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.72,
     "lng": 109.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "416500",
     "population": 100,
     "aliases": [
@@ -37388,6 +39336,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.62,
     "lng": 109.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "416300",
     "population": 100,
     "aliases": [
@@ -37406,6 +39355,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29,
     "lng": 109.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "416700",
     "population": 100,
     "aliases": [
@@ -37424,6 +39374,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.47,
     "lng": 109.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "416800",
     "population": 100,
     "aliases": [
@@ -37442,6 +39393,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.13,
     "lng": 113.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "510000",
     "population": 18810600,
     "aliases": [
@@ -37462,6 +39414,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.13,
     "lng": 113.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "510145",
     "population": 18810600,
     "aliases": [
@@ -37483,6 +39436,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.13,
     "lng": 113.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "510030",
     "population": 18810600,
     "aliases": [
@@ -37504,6 +39458,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.1,
     "lng": 113.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "510220",
     "population": 18810600,
     "aliases": [
@@ -37525,6 +39480,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.12,
     "lng": 113.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "510000",
     "population": 18810600,
     "aliases": [
@@ -37546,6 +39502,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.17,
     "lng": 113.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "510080",
     "population": 18810600,
     "aliases": [
@@ -37567,6 +39524,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.1,
     "lng": 113.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "510700",
     "population": 18810600,
     "aliases": [
@@ -37588,6 +39546,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.95,
     "lng": 113.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "511400",
     "population": 18810600,
     "aliases": [
@@ -37609,6 +39568,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.4,
     "lng": 113.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "510800",
     "population": 18810600,
     "aliases": [
@@ -37630,6 +39590,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.3,
     "lng": 113.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "511300",
     "population": 18810600,
     "aliases": [
@@ -37652,6 +39613,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.55,
     "lng": 113.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "510900",
     "population": 18810600,
     "aliases": [
@@ -37674,6 +39636,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.82,
     "lng": 113.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "512000",
     "population": 1000,
     "aliases": [
@@ -37692,6 +39655,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.8,
     "lng": 113.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "512026",
     "population": 100,
     "aliases": [
@@ -37711,6 +39675,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.8,
     "lng": 113.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "512023",
     "population": 100,
     "aliases": [
@@ -37730,6 +39695,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.68,
     "lng": 113.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "512100",
     "population": 100,
     "aliases": [
@@ -37749,6 +39715,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.95,
     "lng": 114.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "512500",
     "population": 100,
     "aliases": [
@@ -37768,6 +39735,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.08,
     "lng": 113.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "512300",
     "population": 100,
     "aliases": [
@@ -37787,6 +39755,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.35,
     "lng": 114.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "512600",
     "population": 100,
     "aliases": [
@@ -37806,6 +39775,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.78,
     "lng": 113.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "512700",
     "population": 100,
     "aliases": [
@@ -37825,6 +39795,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.07,
     "lng": 114.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "511100",
     "population": 100,
     "aliases": [
@@ -37844,6 +39815,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.13,
     "lng": 113.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "512200",
     "population": 100,
     "aliases": [
@@ -37864,6 +39836,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.12,
     "lng": 114.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "512400",
     "population": 100,
     "aliases": [
@@ -37884,6 +39857,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.55,
     "lng": 114.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "518000",
     "population": 17661900,
     "aliases": [
@@ -37903,6 +39877,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.55,
     "lng": 114.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "518001",
     "population": 17661900,
     "aliases": [
@@ -37923,6 +39898,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.53,
     "lng": 114.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "518000",
     "population": 17661900,
     "aliases": [
@@ -37943,6 +39919,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.52,
     "lng": 113.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "518000",
     "population": 17661900,
     "aliases": [
@@ -37963,6 +39940,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.57,
     "lng": 113.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "518101",
     "population": 17661900,
     "aliases": [
@@ -37983,6 +39961,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.73,
     "lng": 114.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "518116",
     "population": 17661900,
     "aliases": [
@@ -38003,6 +39982,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.55,
     "lng": 114.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "518000",
     "population": 17661900,
     "aliases": [
@@ -38023,6 +40003,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.27,
     "lng": 113.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "519000",
     "population": 1000,
     "aliases": [
@@ -38041,6 +40022,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.27,
     "lng": 113.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "519000",
     "population": 100,
     "aliases": [
@@ -38060,6 +40042,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.22,
     "lng": 113.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "519100",
     "population": 100,
     "aliases": [
@@ -38079,6 +40062,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.07,
     "lng": 113.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "519090",
     "population": 100,
     "aliases": [
@@ -38098,6 +40082,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.35,
     "lng": 116.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "515000",
     "population": 1000,
     "aliases": [
@@ -38116,6 +40101,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.37,
     "lng": 116.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "515041",
     "population": 100,
     "aliases": [
@@ -38135,6 +40121,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.37,
     "lng": 116.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "515041",
     "population": 100,
     "aliases": [
@@ -38154,6 +40141,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.27,
     "lng": 116.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "515100",
     "population": 100,
     "aliases": [
@@ -38173,6 +40161,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.25,
     "lng": 116.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "515100",
     "population": 100,
     "aliases": [
@@ -38192,6 +40181,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.48,
     "lng": 116.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "515800",
     "population": 100,
     "aliases": [
@@ -38211,6 +40201,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.42,
     "lng": 117.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "515900",
     "population": 100,
     "aliases": [
@@ -38230,6 +40221,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.02,
     "lng": 113.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "528000",
     "population": 9498863,
     "aliases": [
@@ -38249,6 +40241,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.03,
     "lng": 113.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "528200",
     "population": 9498863,
     "aliases": [
@@ -38269,6 +40262,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.8,
     "lng": 113.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "528300",
     "population": 9498863,
     "aliases": [
@@ -38289,6 +40283,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.17,
     "lng": 112.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "528100",
     "population": 9498863,
     "aliases": [
@@ -38309,6 +40304,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.9,
     "lng": 112.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "528500",
     "population": 9498863,
     "aliases": [
@@ -38329,6 +40325,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.58,
     "lng": 113.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "529000",
     "population": 1000,
     "aliases": [
@@ -38347,6 +40344,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.47,
     "lng": 113.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "529100",
     "population": 100,
     "aliases": [
@@ -38366,6 +40364,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.25,
     "lng": 112.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "529200",
     "population": 100,
     "aliases": [
@@ -38386,6 +40385,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.38,
     "lng": 112.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "529300",
     "population": 100,
     "aliases": [
@@ -38406,6 +40406,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.77,
     "lng": 112.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "529700",
     "population": 100,
     "aliases": [
@@ -38426,6 +40427,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.18,
     "lng": 112.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "529400",
     "population": 100,
     "aliases": [
@@ -38446,6 +40448,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 21.27,
     "lng": 110.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "524000",
     "population": 1000,
     "aliases": [
@@ -38464,6 +40467,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 21.27,
     "lng": 110.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "524033",
     "population": 100,
     "aliases": [
@@ -38483,6 +40487,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 21.2,
     "lng": 110.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "524002",
     "population": 100,
     "aliases": [
@@ -38502,6 +40507,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 21.23,
     "lng": 110.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "524057",
     "population": 100,
     "aliases": [
@@ -38521,6 +40527,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 21.27,
     "lng": 110.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "524003",
     "population": 100,
     "aliases": [
@@ -38540,6 +40547,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 21.38,
     "lng": 110.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "524300",
     "population": 100,
     "aliases": [
@@ -38559,6 +40567,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 20.33,
     "lng": 110.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "524100",
     "population": 100,
     "aliases": [
@@ -38578,6 +40587,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 21.62,
     "lng": 110.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "524400",
     "population": 100,
     "aliases": [
@@ -38598,6 +40608,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 20.92,
     "lng": 110.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "524200",
     "population": 100,
     "aliases": [
@@ -38618,6 +40629,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 21.43,
     "lng": 110.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "524500",
     "population": 100,
     "aliases": [
@@ -38638,6 +40650,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 21.67,
     "lng": 110.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "525000",
     "population": 1000,
     "aliases": [
@@ -38656,6 +40669,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 21.63,
     "lng": 110.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "525011",
     "population": 100,
     "aliases": [
@@ -38675,6 +40689,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 21.47,
     "lng": 111.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "525000",
     "population": 100,
     "aliases": [
@@ -38694,6 +40709,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 21.5,
     "lng": 111,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "525400",
     "population": 100,
     "aliases": [
@@ -38713,6 +40729,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 21.92,
     "lng": 110.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "525200",
     "population": 100,
     "aliases": [
@@ -38733,6 +40750,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 21.67,
     "lng": 110.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "525100",
     "population": 100,
     "aliases": [
@@ -38753,6 +40771,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.35,
     "lng": 110.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "525300",
     "population": 100,
     "aliases": [
@@ -38773,6 +40792,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.05,
     "lng": 112.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "526000",
     "population": 1000,
     "aliases": [
@@ -38791,6 +40811,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.05,
     "lng": 112.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "526060",
     "population": 100,
     "aliases": [
@@ -38810,6 +40831,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.17,
     "lng": 112.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "526070",
     "population": 100,
     "aliases": [
@@ -38829,6 +40851,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.63,
     "lng": 112.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "526300",
     "population": 100,
     "aliases": [
@@ -38848,6 +40871,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.92,
     "lng": 112.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "526400",
     "population": 100,
     "aliases": [
@@ -38867,6 +40891,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.43,
     "lng": 111.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "526500",
     "population": 100,
     "aliases": [
@@ -38886,6 +40911,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.15,
     "lng": 111.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "526600",
     "population": 100,
     "aliases": [
@@ -38905,6 +40931,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.03,
     "lng": 112.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "526100",
     "population": 100,
     "aliases": [
@@ -38925,6 +40952,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.33,
     "lng": 112.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "526200",
     "population": 100,
     "aliases": [
@@ -38945,6 +40973,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.12,
     "lng": 114.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "516000",
     "population": 1000,
     "aliases": [
@@ -38963,6 +40992,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.08,
     "lng": 114.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "516000",
     "population": 100,
     "aliases": [
@@ -38982,6 +41012,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.8,
     "lng": 114.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "516200",
     "population": 100,
     "aliases": [
@@ -39001,6 +41032,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.18,
     "lng": 114.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "516100",
     "population": 100,
     "aliases": [
@@ -39020,6 +41052,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.98,
     "lng": 114.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "516300",
     "population": 100,
     "aliases": [
@@ -39039,6 +41072,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.73,
     "lng": 114.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "516800",
     "population": 100,
     "aliases": [
@@ -39058,6 +41092,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.28,
     "lng": 116.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "514021",
     "population": 1000,
     "aliases": [
@@ -39076,6 +41111,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.32,
     "lng": 116.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "514000",
     "population": 100,
     "aliases": [
@@ -39095,6 +41131,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.28,
     "lng": 116.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "514700",
     "population": 100,
     "aliases": [
@@ -39114,6 +41151,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.35,
     "lng": 116.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "514200",
     "population": 100,
     "aliases": [
@@ -39133,6 +41171,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.77,
     "lng": 116.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "514300",
     "population": 100,
     "aliases": [
@@ -39152,6 +41191,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.93,
     "lng": 115.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "514400",
     "population": 100,
     "aliases": [
@@ -39171,6 +41211,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.57,
     "lng": 115.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "514600",
     "population": 100,
     "aliases": [
@@ -39190,6 +41231,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.67,
     "lng": 116.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "514100",
     "population": 100,
     "aliases": [
@@ -39209,6 +41251,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.15,
     "lng": 115.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "514500",
     "population": 100,
     "aliases": [
@@ -39229,6 +41272,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.78,
     "lng": 115.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "516600",
     "population": 1000,
     "aliases": [
@@ -39247,6 +41291,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.97,
     "lng": 115.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "516400",
     "population": 100,
     "aliases": [
@@ -39266,6 +41311,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.3,
     "lng": 115.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "516700",
     "population": 100,
     "aliases": [
@@ -39285,6 +41331,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.95,
     "lng": 115.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "516500",
     "population": 100,
     "aliases": [
@@ -39305,6 +41352,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.73,
     "lng": 114.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "517000",
     "population": 1000,
     "aliases": [
@@ -39323,6 +41371,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.73,
     "lng": 114.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "517000",
     "population": 100,
     "aliases": [
@@ -39342,6 +41391,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.63,
     "lng": 115.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "517400",
     "population": 100,
     "aliases": [
@@ -39361,6 +41411,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.1,
     "lng": 115.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "517300",
     "population": 100,
     "aliases": [
@@ -39380,6 +41431,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.37,
     "lng": 114.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "517100",
     "population": 100,
     "aliases": [
@@ -39399,6 +41451,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.45,
     "lng": 114.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "517200",
     "population": 100,
     "aliases": [
@@ -39418,6 +41471,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.82,
     "lng": 114.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "517500",
     "population": 100,
     "aliases": [
@@ -39437,6 +41491,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 21.87,
     "lng": 111.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "529500",
     "population": 1000,
     "aliases": [
@@ -39455,6 +41510,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 21.87,
     "lng": 111.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "529500",
     "population": 100,
     "aliases": [
@@ -39474,6 +41530,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 21.75,
     "lng": 111.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "529800",
     "population": 100,
     "aliases": [
@@ -39493,6 +41550,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 21.88,
     "lng": 112.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "529900",
     "population": 100,
     "aliases": [
@@ -39512,6 +41570,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.18,
     "lng": 111.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "529600",
     "population": 100,
     "aliases": [
@@ -39532,6 +41591,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.7,
     "lng": 113.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "511500",
     "population": 1000,
     "aliases": [
@@ -39550,6 +41610,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.7,
     "lng": 113.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "511500",
     "population": 100,
     "aliases": [
@@ -39569,6 +41630,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.88,
     "lng": 113.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "511600",
     "population": 100,
     "aliases": [
@@ -39588,6 +41650,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.48,
     "lng": 112.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "513100",
     "population": 100,
     "aliases": [
@@ -39607,6 +41670,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.57,
     "lng": 112.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "513200",
     "population": 100,
     "aliases": [
@@ -39626,6 +41690,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.72,
     "lng": 112.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "513300",
     "population": 100,
     "aliases": [
@@ -39645,6 +41710,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.73,
     "lng": 112.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "511800",
     "population": 100,
     "aliases": [
@@ -39664,6 +41730,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.18,
     "lng": 113.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "513000",
     "population": 100,
     "aliases": [
@@ -39684,6 +41751,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.78,
     "lng": 112.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "513400",
     "population": 100,
     "aliases": [
@@ -39704,6 +41772,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.05,
     "lng": 113.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "523000",
     "population": 10466625,
     "aliases": [
@@ -39723,6 +41792,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.52,
     "lng": 113.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "528400",
     "population": 1000,
     "aliases": [
@@ -39741,6 +41811,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.67,
     "lng": 116.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "521000",
     "population": 1000,
     "aliases": [
@@ -39759,6 +41830,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.68,
     "lng": 116.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "521021",
     "population": 100,
     "aliases": [
@@ -39778,6 +41850,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.45,
     "lng": 116.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "515600",
     "population": 100,
     "aliases": [
@@ -39797,6 +41870,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.67,
     "lng": 117,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "515700",
     "population": 100,
     "aliases": [
@@ -39816,6 +41890,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.55,
     "lng": 116.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "522000",
     "population": 1000,
     "aliases": [
@@ -39834,6 +41909,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.57,
     "lng": 116.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "515500",
     "population": 100,
     "aliases": [
@@ -39853,6 +41929,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.43,
     "lng": 115.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "515400",
     "population": 100,
     "aliases": [
@@ -39872,6 +41949,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.03,
     "lng": 116.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "515200",
     "population": 100,
     "aliases": [
@@ -39891,6 +41969,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.3,
     "lng": 116.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "515300",
     "population": 100,
     "aliases": [
@@ -39911,6 +41990,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.92,
     "lng": 112.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "527300",
     "population": 1000,
     "aliases": [
@@ -39929,6 +42009,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.93,
     "lng": 112.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "527300",
     "population": 100,
     "aliases": [
@@ -39948,6 +42029,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.7,
     "lng": 112.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "527400",
     "population": 100,
     "aliases": [
@@ -39967,6 +42049,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.23,
     "lng": 111.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "527100",
     "population": 100,
     "aliases": [
@@ -39986,6 +42069,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.08,
     "lng": 112,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "527500",
     "population": 100,
     "aliases": [
@@ -40005,6 +42089,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.77,
     "lng": 111.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "527200",
     "population": 100,
     "aliases": [
@@ -40025,6 +42110,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.82,
     "lng": 108.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "530000",
     "population": 8741584,
     "aliases": [
@@ -40044,6 +42130,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.87,
     "lng": 108.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "530012",
     "population": 8741584,
     "aliases": [
@@ -40064,6 +42151,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.78,
     "lng": 108.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "530031",
     "population": 8741584,
     "aliases": [
@@ -40084,6 +42172,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.83,
     "lng": 108.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "530000",
     "population": 8741584,
     "aliases": [
@@ -40104,6 +42193,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.77,
     "lng": 108.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "530200",
     "population": 8741584,
     "aliases": [
@@ -40124,6 +42214,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.75,
     "lng": 108.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "530200",
     "population": 8741584,
     "aliases": [
@@ -40144,6 +42235,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.17,
     "lng": 108.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "530100",
     "population": 8741584,
     "aliases": [
@@ -40164,6 +42256,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.18,
     "lng": 107.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "532700",
     "population": 8741584,
     "aliases": [
@@ -40184,6 +42277,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.72,
     "lng": 108.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "530600",
     "population": 8741584,
     "aliases": [
@@ -40204,6 +42298,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.43,
     "lng": 108.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "530500",
     "population": 8741584,
     "aliases": [
@@ -40224,6 +42319,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.22,
     "lng": 108.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "530400",
     "population": 8741584,
     "aliases": [
@@ -40244,6 +42340,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.68,
     "lng": 109.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "530300",
     "population": 8741584,
     "aliases": [
@@ -40264,6 +42361,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.33,
     "lng": 109.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "545000",
     "population": 1000,
     "aliases": [
@@ -40282,6 +42380,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.35,
     "lng": 109.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "545005",
     "population": 100,
     "aliases": [
@@ -40301,6 +42400,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.27,
     "lng": 109.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "545100",
     "population": 100,
     "aliases": [
@@ -40320,6 +42420,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.65,
     "lng": 109.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "545200",
     "population": 100,
     "aliases": [
@@ -40339,6 +42440,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.48,
     "lng": 109.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "545600",
     "population": 100,
     "aliases": [
@@ -40358,6 +42460,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.23,
     "lng": 109.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "545400",
     "population": 100,
     "aliases": [
@@ -40377,6 +42480,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.07,
     "lng": 109.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "545300",
     "population": 100,
     "aliases": [
@@ -40396,6 +42500,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.78,
     "lng": 109.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "545500",
     "population": 100,
     "aliases": [
@@ -40415,6 +42520,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.28,
     "lng": 110.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "541000",
     "population": 1000,
     "aliases": [
@@ -40433,6 +42539,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.78,
     "lng": 110.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "541900",
     "population": 100,
     "aliases": [
@@ -40452,6 +42559,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.23,
     "lng": 110.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "541100",
     "population": 100,
     "aliases": [
@@ -40471,6 +42579,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.42,
     "lng": 110.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "541200",
     "population": 100,
     "aliases": [
@@ -40490,6 +42599,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.93,
     "lng": 111.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "541500",
     "population": 100,
     "aliases": [
@@ -40509,6 +42619,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.62,
     "lng": 110.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "541399",
     "population": 100,
     "aliases": [
@@ -40528,6 +42639,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.98,
     "lng": 109.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "541899",
     "population": 100,
     "aliases": [
@@ -40547,6 +42659,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.48,
     "lng": 111.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "541600",
     "population": 100,
     "aliases": [
@@ -40566,6 +42679,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.8,
     "lng": 110,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "541799",
     "population": 100,
     "aliases": [
@@ -40585,6 +42699,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.03,
     "lng": 110.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "541400",
     "population": 100,
     "aliases": [
@@ -40604,6 +42719,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.63,
     "lng": 110.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "542400",
     "population": 100,
     "aliases": [
@@ -40623,6 +42739,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.83,
     "lng": 110.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "542500",
     "population": 100,
     "aliases": [
@@ -40642,6 +42759,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.48,
     "lng": 111.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "543000",
     "population": 1000,
     "aliases": [
@@ -40660,6 +42778,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.42,
     "lng": 111.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "543100",
     "population": 100,
     "aliases": [
@@ -40679,6 +42798,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.38,
     "lng": 110.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "543300",
     "population": 100,
     "aliases": [
@@ -40698,6 +42818,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.2,
     "lng": 110.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "546700",
     "population": 100,
     "aliases": [
@@ -40717,6 +42838,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.92,
     "lng": 110.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "543200",
     "population": 100,
     "aliases": [
@@ -40737,6 +42859,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 21.48,
     "lng": 109.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "536000",
     "population": 1000,
     "aliases": [
@@ -40755,6 +42878,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 21.53,
     "lng": 109.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "536017",
     "population": 100,
     "aliases": [
@@ -40774,6 +42898,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 21.67,
     "lng": 109.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "536100",
     "population": 100,
     "aliases": [
@@ -40793,6 +42918,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 21.7,
     "lng": 108.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "538000",
     "population": 1000,
     "aliases": [
@@ -40811,6 +42937,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 21.65,
     "lng": 108.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "538000",
     "population": 100,
     "aliases": [
@@ -40830,6 +42957,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 21.77,
     "lng": 108.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "538000",
     "population": 100,
     "aliases": [
@@ -40849,6 +42977,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.15,
     "lng": 107.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "535500",
     "population": 100,
     "aliases": [
@@ -40868,6 +42997,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 21.53,
     "lng": 107.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "538100",
     "population": 100,
     "aliases": [
@@ -40888,6 +43018,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 21.95,
     "lng": 108.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "535000",
     "population": 1000,
     "aliases": [
@@ -40906,6 +43037,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 21.98,
     "lng": 108.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "535000",
     "population": 100,
     "aliases": [
@@ -40925,6 +43057,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.43,
     "lng": 109.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "535400",
     "population": 100,
     "aliases": [
@@ -40944,6 +43077,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.27,
     "lng": 109.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "535300",
     "population": 100,
     "aliases": [
@@ -40963,6 +43097,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.1,
     "lng": 109.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "537100",
     "population": 1000,
     "aliases": [
@@ -40981,6 +43116,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.13,
     "lng": 109.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "537121",
     "population": 100,
     "aliases": [
@@ -41000,6 +43136,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.55,
     "lng": 110.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "537300",
     "population": 100,
     "aliases": [
@@ -41019,6 +43156,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.4,
     "lng": 110.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "537200",
     "population": 100,
     "aliases": [
@@ -41039,6 +43177,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.63,
     "lng": 110.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "537000",
     "population": 1000,
     "aliases": [
@@ -41057,6 +43196,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.87,
     "lng": 110.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "537500",
     "population": 100,
     "aliases": [
@@ -41076,6 +43216,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.33,
     "lng": 110.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "537700",
     "population": 100,
     "aliases": [
@@ -41095,6 +43236,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.28,
     "lng": 109.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "537600",
     "population": 100,
     "aliases": [
@@ -41114,6 +43256,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.75,
     "lng": 109.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "537800",
     "population": 100,
     "aliases": [
@@ -41133,6 +43276,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.72,
     "lng": 110.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "537400",
     "population": 100,
     "aliases": [
@@ -41153,6 +43297,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.9,
     "lng": 106.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "533000",
     "population": 1000,
     "aliases": [
@@ -41171,6 +43316,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.73,
     "lng": 106.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "533600",
     "population": 100,
     "aliases": [
@@ -41190,6 +43336,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.6,
     "lng": 107.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "531500",
     "population": 100,
     "aliases": [
@@ -41209,6 +43356,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.32,
     "lng": 107.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "531400",
     "population": 100,
     "aliases": [
@@ -41228,6 +43376,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.33,
     "lng": 106.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "533700",
     "population": 100,
     "aliases": [
@@ -41247,6 +43396,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.13,
     "lng": 106.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "533800",
     "population": 100,
     "aliases": [
@@ -41266,6 +43416,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.42,
     "lng": 105.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "533900",
     "population": 100,
     "aliases": [
@@ -41285,6 +43436,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.35,
     "lng": 106.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "533100",
     "population": 100,
     "aliases": [
@@ -41304,6 +43456,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.78,
     "lng": 106.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "533200",
     "population": 100,
     "aliases": [
@@ -41323,6 +43476,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.3,
     "lng": 106.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "533300",
     "population": 100,
     "aliases": [
@@ -41342,6 +43496,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.5,
     "lng": 105.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "533500",
     "population": 100,
     "aliases": [
@@ -41361,6 +43516,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.77,
     "lng": 105.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "533500",
     "population": 100,
     "aliases": [
@@ -41380,6 +43536,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.42,
     "lng": 111.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "542800",
     "population": 1000,
     "aliases": [
@@ -41398,6 +43555,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.17,
     "lng": 110.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "546800",
     "population": 100,
     "aliases": [
@@ -41417,6 +43575,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.53,
     "lng": 111.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "542600",
     "population": 100,
     "aliases": [
@@ -41436,6 +43595,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.83,
     "lng": 111.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "542700",
     "population": 100,
     "aliases": [
@@ -41455,6 +43615,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.7,
     "lng": 108.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "547000",
     "population": 1000,
     "aliases": [
@@ -41473,6 +43634,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.7,
     "lng": 108.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "547000",
     "population": 100,
     "aliases": [
@@ -41492,6 +43654,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.98,
     "lng": 107.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "547200",
     "population": 100,
     "aliases": [
@@ -41511,6 +43674,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25,
     "lng": 107.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "547300",
     "population": 100,
     "aliases": [
@@ -41530,6 +43694,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.55,
     "lng": 107.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "547600",
     "population": 100,
     "aliases": [
@@ -41549,6 +43714,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.52,
     "lng": 107.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "547400",
     "population": 100,
     "aliases": [
@@ -41568,6 +43734,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.78,
     "lng": 108.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "546499",
     "population": 100,
     "aliases": [
@@ -41587,6 +43754,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.83,
     "lng": 108.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "547100",
     "population": 100,
     "aliases": [
@@ -41606,6 +43774,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.15,
     "lng": 107.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "547500",
     "population": 100,
     "aliases": [
@@ -41625,6 +43794,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.93,
     "lng": 108.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "530700",
     "population": 100,
     "aliases": [
@@ -41644,6 +43814,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.73,
     "lng": 107.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "530800",
     "population": 100,
     "aliases": [
@@ -41663,6 +43834,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.5,
     "lng": 108.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "546300",
     "population": 100,
     "aliases": [
@@ -41683,6 +43855,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.73,
     "lng": 109.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "546100",
     "population": 1000,
     "aliases": [
@@ -41701,6 +43874,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.07,
     "lng": 108.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "546200",
     "population": 100,
     "aliases": [
@@ -41720,6 +43894,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.97,
     "lng": 109.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "545800",
     "population": 100,
     "aliases": [
@@ -41739,6 +43914,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.6,
     "lng": 109.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "545900",
     "population": 100,
     "aliases": [
@@ -41758,6 +43934,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.13,
     "lng": 110.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "545700",
     "population": 100,
     "aliases": [
@@ -41777,6 +43954,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.82,
     "lng": 108.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "546500",
     "population": 100,
     "aliases": [
@@ -41797,6 +43975,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.4,
     "lng": 107.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "532200",
     "population": 1000,
     "aliases": [
@@ -41815,6 +43994,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.63,
     "lng": 107.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "532100",
     "population": 100,
     "aliases": [
@@ -41834,6 +44014,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.13,
     "lng": 107.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "532500",
     "population": 100,
     "aliases": [
@@ -41853,6 +44034,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.35,
     "lng": 106.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "532400",
     "population": 100,
     "aliases": [
@@ -41872,6 +44054,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.83,
     "lng": 107.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "532300",
     "population": 100,
     "aliases": [
@@ -41891,6 +44074,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.08,
     "lng": 107.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "532800",
     "population": 100,
     "aliases": [
@@ -41910,6 +44094,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.12,
     "lng": 106.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "532600",
     "population": 100,
     "aliases": [
@@ -41930,6 +44115,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 20.03,
     "lng": 110.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "570100",
     "population": 2873358,
     "aliases": [
@@ -41949,6 +44135,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 20.02,
     "lng": 110.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "570300",
     "population": 2873358,
     "aliases": [
@@ -41969,6 +44156,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 20.03,
     "lng": 110.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "570100",
     "population": 2873358,
     "aliases": [
@@ -41989,6 +44177,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 20,
     "lng": 110.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "571199",
     "population": 2873358,
     "aliases": [
@@ -42009,6 +44198,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 20.03,
     "lng": 110.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "570203",
     "population": 2873358,
     "aliases": [
@@ -42029,6 +44219,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 18.25,
     "lng": 109.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "572000",
     "population": 1031396,
     "aliases": [
@@ -42048,6 +44239,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 18.78,
     "lng": 109.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "572200",
     "population": 1000,
     "aliases": [
@@ -42066,6 +44258,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 19.25,
     "lng": 110.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "571400",
     "population": 1000,
     "aliases": [
@@ -42084,6 +44277,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 19.52,
     "lng": 109.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "571700",
     "population": 1000,
     "aliases": [
@@ -42102,6 +44296,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 19.55,
     "lng": 110.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "571300",
     "population": 1000,
     "aliases": [
@@ -42120,6 +44315,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 18.8,
     "lng": 110.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "571500",
     "population": 1000,
     "aliases": [
@@ -42138,6 +44334,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 19.1,
     "lng": 108.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "572600",
     "population": 1000,
     "aliases": [
@@ -42156,6 +44353,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 19.7,
     "lng": 110.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "571200",
     "population": 1000,
     "aliases": [
@@ -42173,6 +44371,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 19.37,
     "lng": 110.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "571600",
     "population": 1000,
     "aliases": [
@@ -42190,6 +44389,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 19.73,
     "lng": 110,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "571900",
     "population": 1000,
     "aliases": [
@@ -42207,6 +44407,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 19.92,
     "lng": 109.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "571800",
     "population": 1000,
     "aliases": [
@@ -42224,6 +44425,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 19.23,
     "lng": 109.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "572800",
     "population": 1000,
     "aliases": [
@@ -42241,6 +44443,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 19.25,
     "lng": 109.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "572700",
     "population": 1000,
     "aliases": [
@@ -42258,6 +44461,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 18.75,
     "lng": 109.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "572500",
     "population": 1000,
     "aliases": [
@@ -42275,6 +44479,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 18.5,
     "lng": 110.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "572400",
     "population": 1000,
     "aliases": [
@@ -42292,6 +44497,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 18.63,
     "lng": 109.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "572300",
     "population": 1000,
     "aliases": [
@@ -42309,6 +44515,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 19.03,
     "lng": 109.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "572900",
     "population": 1000,
     "aliases": [
@@ -42326,6 +44533,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.57,
     "lng": 106.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "400000",
     "population": 32054159,
     "aliases": [
@@ -42344,6 +44552,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.82,
     "lng": 108.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "404100",
     "population": 32054159,
     "aliases": [
@@ -42363,6 +44572,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.72,
     "lng": 107.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "408000",
     "population": 32054159,
     "aliases": [
@@ -42382,6 +44592,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.55,
     "lng": 106.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "400010",
     "population": 32054159,
     "aliases": [
@@ -42401,6 +44612,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.48,
     "lng": 106.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "400000",
     "population": 32054159,
     "aliases": [
@@ -42420,6 +44632,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.6,
     "lng": 106.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "400000",
     "population": 32054159,
     "aliases": [
@@ -42439,6 +44652,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.53,
     "lng": 106.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "400000",
     "population": 32054159,
     "aliases": [
@@ -42458,6 +44672,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.5,
     "lng": 106.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "400000",
     "population": 32054159,
     "aliases": [
@@ -42477,6 +44692,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.52,
     "lng": 106.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "400000",
     "population": 32054159,
     "aliases": [
@@ -42496,6 +44712,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.8,
     "lng": 106.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "400700",
     "population": 32054159,
     "aliases": [
@@ -42515,6 +44732,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.97,
     "lng": 106.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "400800",
     "population": 32054159,
     "aliases": [
@@ -42534,6 +44752,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.48,
     "lng": 105.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "400900",
     "population": 32054159,
     "aliases": [
@@ -42553,6 +44772,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.72,
     "lng": 106.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "401120",
     "population": 32054159,
     "aliases": [
@@ -42572,6 +44792,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.38,
     "lng": 106.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "401320",
     "population": 32054159,
     "aliases": [
@@ -42591,6 +44812,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.53,
     "lng": 108.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "409000",
     "population": 32054159,
     "aliases": [
@@ -42610,6 +44832,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.87,
     "lng": 107.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "401220",
     "population": 32054159,
     "aliases": [
@@ -42629,6 +44852,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.03,
     "lng": 106.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "401420",
     "population": 32054159,
     "aliases": [
@@ -42648,6 +44872,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.18,
     "lng": 105.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "402660",
     "population": 32054159,
     "aliases": [
@@ -42667,6 +44892,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.85,
     "lng": 106.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "402560",
     "population": 32054159,
     "aliases": [
@@ -42686,6 +44912,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.7,
     "lng": 105.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "402360",
     "population": 32054159,
     "aliases": [
@@ -42705,6 +44932,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.4,
     "lng": 105.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "402460",
     "population": 32054159,
     "aliases": [
@@ -42724,6 +44952,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.6,
     "lng": 106.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "402760",
     "population": 32054159,
     "aliases": [
@@ -42743,6 +44972,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.68,
     "lng": 107.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "405200",
     "population": 32054159,
     "aliases": [
@@ -42762,6 +44992,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.95,
     "lng": 108.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "405900",
     "population": 32054159,
     "aliases": [
@@ -42781,6 +45012,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.87,
     "lng": 107.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "408200",
     "population": 32054159,
     "aliases": [
@@ -42800,6 +45032,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.33,
     "lng": 107.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "408300",
     "population": 32054159,
     "aliases": [
@@ -42819,6 +45052,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.33,
     "lng": 107.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "408500",
     "population": 32054159,
     "aliases": [
@@ -42838,6 +45072,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.3,
     "lng": 108.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "404300",
     "population": 32054159,
     "aliases": [
@@ -42857,6 +45092,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.18,
     "lng": 108.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "405400",
     "population": 32054159,
     "aliases": [
@@ -42876,6 +45112,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.95,
     "lng": 108.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "404500",
     "population": 32054159,
     "aliases": [
@@ -42895,6 +45132,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.02,
     "lng": 109.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "404600",
     "population": 32054159,
     "aliases": [
@@ -42914,6 +45152,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.08,
     "lng": 109.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "404700",
     "population": 32054159,
     "aliases": [
@@ -42933,6 +45172,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.4,
     "lng": 109.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "405800",
     "population": 32054159,
     "aliases": [
@@ -42952,6 +45192,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30,
     "lng": 108.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "409100",
     "population": 32054159,
     "aliases": [
@@ -42971,6 +45212,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.45,
     "lng": 108.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "409900",
     "population": 32054159,
     "aliases": [
@@ -42990,6 +45232,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.85,
     "lng": 108.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "648800",
     "population": 32054159,
     "aliases": [
@@ -43009,6 +45252,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.3,
     "lng": 108.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "409600",
     "population": 32054159,
     "aliases": [
@@ -43028,6 +45272,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.67,
     "lng": 104.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "610000",
     "population": 20937757,
     "aliases": [
@@ -43047,6 +45292,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.67,
     "lng": 104.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "610011",
     "population": 20937757,
     "aliases": [
@@ -43067,6 +45313,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.68,
     "lng": 104.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "610031",
     "population": 20937757,
     "aliases": [
@@ -43087,6 +45334,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.7,
     "lng": 104.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "610036",
     "population": 20937757,
     "aliases": [
@@ -43107,6 +45355,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.65,
     "lng": 104.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "610041",
     "population": 20937757,
     "aliases": [
@@ -43127,6 +45376,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.67,
     "lng": 104.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "610051",
     "population": 20937757,
     "aliases": [
@@ -43147,6 +45397,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.57,
     "lng": 104.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "610100",
     "population": 20937757,
     "aliases": [
@@ -43167,6 +45418,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.88,
     "lng": 104.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "610300",
     "population": 20937757,
     "aliases": [
@@ -43187,6 +45439,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.83,
     "lng": 104.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "610500",
     "population": 20937757,
     "aliases": [
@@ -43207,6 +45460,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.7,
     "lng": 103.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "611130",
     "population": 20937757,
     "aliases": [
@@ -43227,6 +45481,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.85,
     "lng": 104.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "610400",
     "population": 20937757,
     "aliases": [
@@ -43247,6 +45502,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.58,
     "lng": 103.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "610200",
     "population": 20937757,
     "aliases": [
@@ -43267,6 +45523,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.82,
     "lng": 103.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "611730",
     "population": 20937757,
     "aliases": [
@@ -43287,6 +45544,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.58,
     "lng": 103.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "611330",
     "population": 20937757,
     "aliases": [
@@ -43307,6 +45565,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.2,
     "lng": 103.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "611630",
     "population": 20937757,
     "aliases": [
@@ -43327,6 +45586,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.42,
     "lng": 103.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "611430",
     "population": 20937757,
     "aliases": [
@@ -43347,6 +45607,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31,
     "lng": 103.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "611830",
     "population": 20937757,
     "aliases": [
@@ -43368,6 +45629,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.98,
     "lng": 103.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "611930",
     "population": 20937757,
     "aliases": [
@@ -43389,6 +45651,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.42,
     "lng": 103.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "611530",
     "population": 20937757,
     "aliases": [
@@ -43410,6 +45673,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.63,
     "lng": 103.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "611230",
     "population": 20937757,
     "aliases": [
@@ -43431,6 +45695,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.35,
     "lng": 104.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "643000",
     "population": 1000,
     "aliases": [
@@ -43449,6 +45714,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.35,
     "lng": 104.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "643000",
     "population": 100,
     "aliases": [
@@ -43468,6 +45734,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.35,
     "lng": 104.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "643020",
     "population": 100,
     "aliases": [
@@ -43487,6 +45754,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.37,
     "lng": 104.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "643010",
     "population": 100,
     "aliases": [
@@ -43506,6 +45774,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.27,
     "lng": 104.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "643030",
     "population": 100,
     "aliases": [
@@ -43525,6 +45794,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.47,
     "lng": 104.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "643100",
     "population": 100,
     "aliases": [
@@ -43544,6 +45814,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.18,
     "lng": 104.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "643200",
     "population": 100,
     "aliases": [
@@ -43563,6 +45834,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.58,
     "lng": 101.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "617000",
     "population": 1000,
     "aliases": [
@@ -43581,6 +45853,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.55,
     "lng": 101.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "617067",
     "population": 100,
     "aliases": [
@@ -43600,6 +45873,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.6,
     "lng": 101.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "617000",
     "population": 100,
     "aliases": [
@@ -43619,6 +45893,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.5,
     "lng": 101.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "617000",
     "population": 100,
     "aliases": [
@@ -43638,6 +45913,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.88,
     "lng": 102.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "617200",
     "population": 100,
     "aliases": [
@@ -43657,6 +45933,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.7,
     "lng": 101.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "617100",
     "population": 100,
     "aliases": [
@@ -43676,6 +45953,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.87,
     "lng": 105.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "646000",
     "population": 1000,
     "aliases": [
@@ -43694,6 +45972,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.88,
     "lng": 105.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "646000",
     "population": 100,
     "aliases": [
@@ -43713,6 +45992,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.77,
     "lng": 105.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "646300",
     "population": 100,
     "aliases": [
@@ -43732,6 +46012,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.9,
     "lng": 105.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "646000",
     "population": 100,
     "aliases": [
@@ -43751,6 +46032,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.15,
     "lng": 105.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "646100",
     "population": 100,
     "aliases": [
@@ -43770,6 +46052,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.82,
     "lng": 105.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "646200",
     "population": 100,
     "aliases": [
@@ -43789,6 +46072,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.17,
     "lng": 105.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "646400",
     "population": 100,
     "aliases": [
@@ -43808,6 +46092,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.05,
     "lng": 105.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "646500",
     "population": 100,
     "aliases": [
@@ -43827,6 +46112,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.13,
     "lng": 104.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "618000",
     "population": 1000,
     "aliases": [
@@ -43845,6 +46131,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.13,
     "lng": 104.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "618000",
     "population": 100,
     "aliases": [
@@ -43864,6 +46151,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.03,
     "lng": 104.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "618100",
     "population": 100,
     "aliases": [
@@ -43883,6 +46171,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.32,
     "lng": 104.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "618500",
     "population": 100,
     "aliases": [
@@ -43902,6 +46191,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.98,
     "lng": 104.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "618300",
     "population": 100,
     "aliases": [
@@ -43922,6 +46212,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.13,
     "lng": 104.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "618400",
     "population": 100,
     "aliases": [
@@ -43942,6 +46233,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.35,
     "lng": 104.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "618200",
     "population": 100,
     "aliases": [
@@ -43962,6 +46254,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.47,
     "lng": 104.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "621000",
     "population": 1000,
     "aliases": [
@@ -43980,6 +46273,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.47,
     "lng": 104.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "621000",
     "population": 100,
     "aliases": [
@@ -43999,6 +46293,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.47,
     "lng": 104.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "621000",
     "population": 100,
     "aliases": [
@@ -44018,6 +46313,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.1,
     "lng": 105.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "621100",
     "population": 100,
     "aliases": [
@@ -44037,6 +46333,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.22,
     "lng": 105.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "621600",
     "population": 100,
     "aliases": [
@@ -44056,6 +46353,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.53,
     "lng": 104.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "622650",
     "population": 100,
     "aliases": [
@@ -44075,6 +46373,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.63,
     "lng": 105.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "622150",
     "population": 100,
     "aliases": [
@@ -44094,6 +46393,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.82,
     "lng": 104.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "622750",
     "population": 100,
     "aliases": [
@@ -44113,6 +46413,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.42,
     "lng": 104.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "622553",
     "population": 100,
     "aliases": [
@@ -44132,6 +46433,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.78,
     "lng": 104.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "621700",
     "population": 100,
     "aliases": [
@@ -44152,6 +46454,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.43,
     "lng": 105.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "628000",
     "population": 1000,
     "aliases": [
@@ -44170,6 +46473,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.58,
     "lng": 105.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "628000",
     "population": 100,
     "aliases": [
@@ -44189,6 +46493,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.57,
     "lng": 103.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "628000",
     "population": 100,
     "aliases": [
@@ -44208,6 +46513,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.32,
     "lng": 105.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "628000",
     "population": 100,
     "aliases": [
@@ -44227,6 +46533,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.65,
     "lng": 105.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "628012",
     "population": 100,
     "aliases": [
@@ -44246,6 +46553,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.23,
     "lng": 106.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "628200",
     "population": 100,
     "aliases": [
@@ -44265,6 +46573,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.58,
     "lng": 105.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "628100",
     "population": 100,
     "aliases": [
@@ -44284,6 +46593,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.28,
     "lng": 105.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "628300",
     "population": 100,
     "aliases": [
@@ -44303,6 +46613,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.73,
     "lng": 105.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "628400",
     "population": 100,
     "aliases": [
@@ -44322,6 +46633,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.52,
     "lng": 105.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "629000",
     "population": 1000,
     "aliases": [
@@ -44340,6 +46652,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.52,
     "lng": 105.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "629000",
     "population": 100,
     "aliases": [
@@ -44359,6 +46672,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.35,
     "lng": 105.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "629000",
     "population": 100,
     "aliases": [
@@ -44378,6 +46692,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.78,
     "lng": 105.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "629100",
     "population": 100,
     "aliases": [
@@ -44397,6 +46712,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.87,
     "lng": 105.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "629200",
     "population": 100,
     "aliases": [
@@ -44416,6 +46732,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.58,
     "lng": 105.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "629300",
     "population": 100,
     "aliases": [
@@ -44435,6 +46752,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.58,
     "lng": 105.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "641000",
     "population": 1000,
     "aliases": [
@@ -44453,6 +46771,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.58,
     "lng": 105.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "641000",
     "population": 100,
     "aliases": [
@@ -44472,6 +46791,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.57,
     "lng": 103.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "641000",
     "population": 100,
     "aliases": [
@@ -44491,6 +46811,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.6,
     "lng": 105.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "641100",
     "population": 100,
     "aliases": [
@@ -44510,6 +46831,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.53,
     "lng": 104.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "642450",
     "population": 100,
     "aliases": [
@@ -44529,6 +46851,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.78,
     "lng": 104.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "641200",
     "population": 100,
     "aliases": [
@@ -44548,6 +46871,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.35,
     "lng": 105.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "641000",
     "population": 100,
     "aliases": [
@@ -44567,6 +46891,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.57,
     "lng": 103.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "614000",
     "population": 1000,
     "aliases": [
@@ -44585,6 +46910,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.58,
     "lng": 105.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "614000",
     "population": 100,
     "aliases": [
@@ -44604,6 +46930,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.57,
     "lng": 103.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "614000",
     "population": 100,
     "aliases": [
@@ -44623,6 +46950,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.42,
     "lng": 103.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "614900",
     "population": 100,
     "aliases": [
@@ -44642,6 +46970,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.4,
     "lng": 103.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "614800",
     "population": 100,
     "aliases": [
@@ -44661,6 +46990,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.25,
     "lng": 103.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "614700",
     "population": 100,
     "aliases": [
@@ -44680,6 +47010,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.22,
     "lng": 103.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "614400",
     "population": 100,
     "aliases": [
@@ -44699,6 +47030,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.65,
     "lng": 104.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "613100",
     "population": 100,
     "aliases": [
@@ -44718,6 +47050,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.73,
     "lng": 103.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "614100",
     "population": 100,
     "aliases": [
@@ -44737,6 +47070,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.97,
     "lng": 103.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "614500",
     "population": 100,
     "aliases": [
@@ -44756,6 +47090,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.23,
     "lng": 103.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "614300",
     "population": 100,
     "aliases": [
@@ -44775,6 +47110,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.83,
     "lng": 103.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "614600",
     "population": 100,
     "aliases": [
@@ -44794,6 +47130,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.6,
     "lng": 103.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "614200",
     "population": 100,
     "aliases": [
@@ -44814,6 +47151,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.78,
     "lng": 106.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "637000",
     "population": 1000,
     "aliases": [
@@ -44832,6 +47170,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.78,
     "lng": 106.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "637000",
     "population": 100,
     "aliases": [
@@ -44851,6 +47190,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.77,
     "lng": 106.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "637100",
     "population": 100,
     "aliases": [
@@ -44870,6 +47210,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.77,
     "lng": 106.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "637500",
     "population": 100,
     "aliases": [
@@ -44889,6 +47230,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.35,
     "lng": 106.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "637300",
     "population": 100,
     "aliases": [
@@ -44908,6 +47250,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.08,
     "lng": 106.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "637700",
     "population": 100,
     "aliases": [
@@ -44927,6 +47270,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.03,
     "lng": 106.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "637800",
     "population": 100,
     "aliases": [
@@ -44946,6 +47290,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.27,
     "lng": 106.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "637600",
     "population": 100,
     "aliases": [
@@ -44965,6 +47310,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31,
     "lng": 105.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "637200",
     "population": 100,
     "aliases": [
@@ -44984,6 +47330,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.55,
     "lng": 106,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "637400",
     "population": 100,
     "aliases": [
@@ -45004,6 +47351,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.05,
     "lng": 103.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "620010",
     "population": 1000,
     "aliases": [
@@ -45022,6 +47370,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.05,
     "lng": 103.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "620000",
     "population": 100,
     "aliases": [
@@ -45041,6 +47390,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30,
     "lng": 104.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "620500",
     "population": 100,
     "aliases": [
@@ -45060,6 +47410,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.2,
     "lng": 103.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "620800",
     "population": 100,
     "aliases": [
@@ -45079,6 +47430,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.92,
     "lng": 103.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "620360",
     "population": 100,
     "aliases": [
@@ -45098,6 +47450,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.02,
     "lng": 103.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "620200",
     "population": 100,
     "aliases": [
@@ -45117,6 +47470,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.83,
     "lng": 103.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "620460",
     "population": 100,
     "aliases": [
@@ -45136,6 +47490,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.77,
     "lng": 104.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "644000",
     "population": 1000,
     "aliases": [
@@ -45154,6 +47509,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.77,
     "lng": 104.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "644000",
     "population": 100,
     "aliases": [
@@ -45173,6 +47529,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.7,
     "lng": 104.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "644600",
     "population": 100,
     "aliases": [
@@ -45192,6 +47549,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.85,
     "lng": 104.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "644100",
     "population": 100,
     "aliases": [
@@ -45211,6 +47569,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.73,
     "lng": 105.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "644200",
     "population": 100,
     "aliases": [
@@ -45230,6 +47589,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.58,
     "lng": 104.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "644300",
     "population": 100,
     "aliases": [
@@ -45249,6 +47609,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.43,
     "lng": 104.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "645154",
     "population": 100,
     "aliases": [
@@ -45268,6 +47629,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.45,
     "lng": 104.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "644500",
     "population": 100,
     "aliases": [
@@ -45287,6 +47649,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.17,
     "lng": 104.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "645250",
     "population": 100,
     "aliases": [
@@ -45306,6 +47669,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.3,
     "lng": 105.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "644400",
     "population": 100,
     "aliases": [
@@ -45325,6 +47689,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.83,
     "lng": 104.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "645350",
     "population": 100,
     "aliases": [
@@ -45344,6 +47709,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.47,
     "lng": 106.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "638500",
     "population": 1000,
     "aliases": [
@@ -45362,6 +47728,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.55,
     "lng": 106.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "638399",
     "population": 100,
     "aliases": [
@@ -45381,6 +47748,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.35,
     "lng": 106.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "638400",
     "population": 100,
     "aliases": [
@@ -45400,6 +47768,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.33,
     "lng": 106.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "638500",
     "population": 100,
     "aliases": [
@@ -45419,6 +47788,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.38,
     "lng": 106.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "638600",
     "population": 100,
     "aliases": [
@@ -45439,6 +47809,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.22,
     "lng": 107.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "635000",
     "population": 1000,
     "aliases": [
@@ -45457,6 +47828,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.22,
     "lng": 107.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "635000",
     "population": 100,
     "aliases": [
@@ -45476,6 +47848,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.2,
     "lng": 107.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "635000",
     "population": 100,
     "aliases": [
@@ -45495,6 +47868,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.35,
     "lng": 107.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "636150",
     "population": 100,
     "aliases": [
@@ -45514,6 +47888,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.08,
     "lng": 107.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "636250",
     "population": 100,
     "aliases": [
@@ -45533,6 +47908,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.73,
     "lng": 107.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "635199",
     "population": 100,
     "aliases": [
@@ -45552,6 +47928,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.83,
     "lng": 106.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "635200",
     "population": 100,
     "aliases": [
@@ -45571,6 +47948,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.07,
     "lng": 108.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "636350",
     "population": 100,
     "aliases": [
@@ -45591,6 +47969,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.98,
     "lng": 103,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "625000",
     "population": 1000,
     "aliases": [
@@ -45609,6 +47988,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.98,
     "lng": 103,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "625000",
     "population": 100,
     "aliases": [
@@ -45628,6 +48008,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.08,
     "lng": 103.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "625100",
     "population": 100,
     "aliases": [
@@ -45647,6 +48028,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.8,
     "lng": 102.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "625200",
     "population": 100,
     "aliases": [
@@ -45666,6 +48048,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.35,
     "lng": 102.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "625300",
     "population": 100,
     "aliases": [
@@ -45685,6 +48068,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.23,
     "lng": 102.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "625400",
     "population": 100,
     "aliases": [
@@ -45704,6 +48088,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.07,
     "lng": 102.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "625500",
     "population": 100,
     "aliases": [
@@ -45723,6 +48108,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.15,
     "lng": 102.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "625600",
     "population": 100,
     "aliases": [
@@ -45742,6 +48128,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.37,
     "lng": 102.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "625700",
     "population": 100,
     "aliases": [
@@ -45761,6 +48148,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.85,
     "lng": 106.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "636600",
     "population": 1000,
     "aliases": [
@@ -45779,6 +48167,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.85,
     "lng": 106.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "636600",
     "population": 100,
     "aliases": [
@@ -45798,6 +48187,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.92,
     "lng": 107.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "636700",
     "population": 100,
     "aliases": [
@@ -45817,6 +48207,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.35,
     "lng": 106.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "635600",
     "population": 100,
     "aliases": [
@@ -45836,6 +48227,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.57,
     "lng": 107.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "636400",
     "population": 100,
     "aliases": [
@@ -45855,6 +48247,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.12,
     "lng": 104.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "641300",
     "population": 1000,
     "aliases": [
@@ -45873,6 +48266,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.12,
     "lng": 104.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "641300",
     "population": 100,
     "aliases": [
@@ -45892,6 +48286,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.1,
     "lng": 105.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "642350",
     "population": 100,
     "aliases": [
@@ -45911,6 +48306,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.28,
     "lng": 105.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "641500",
     "population": 100,
     "aliases": [
@@ -45930,6 +48326,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.4,
     "lng": 104.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "641400",
     "population": 100,
     "aliases": [
@@ -45950,6 +48347,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.9,
     "lng": 102.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "624000",
     "population": 1000,
     "aliases": [
@@ -45967,6 +48365,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.48,
     "lng": 103.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "623000",
     "population": 100,
     "aliases": [
@@ -45985,6 +48384,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.43,
     "lng": 103.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "623100",
     "population": 100,
     "aliases": [
@@ -46003,6 +48403,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.68,
     "lng": 103.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "623200",
     "population": 100,
     "aliases": [
@@ -46021,6 +48422,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.63,
     "lng": 103.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "623300",
     "population": 100,
     "aliases": [
@@ -46039,6 +48441,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.27,
     "lng": 104.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "623400",
     "population": 100,
     "aliases": [
@@ -46057,6 +48460,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.48,
     "lng": 102.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "624100",
     "population": 100,
     "aliases": [
@@ -46075,6 +48479,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31,
     "lng": 102.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "624200",
     "population": 100,
     "aliases": [
@@ -46093,6 +48498,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.07,
     "lng": 102.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "623500",
     "population": 100,
     "aliases": [
@@ -46111,6 +48517,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.9,
     "lng": 102.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "624000",
     "population": 100,
     "aliases": [
@@ -46129,6 +48536,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.27,
     "lng": 100.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "624300",
     "population": 100,
     "aliases": [
@@ -46147,6 +48555,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.9,
     "lng": 101.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "624600",
     "population": 100,
     "aliases": [
@@ -46165,6 +48574,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.58,
     "lng": 102.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "624500",
     "population": 100,
     "aliases": [
@@ -46183,6 +48593,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.8,
     "lng": 102.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "624400",
     "population": 100,
     "aliases": [
@@ -46201,6 +48612,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.05,
     "lng": 101.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "626000",
     "population": 1000,
     "aliases": [
@@ -46218,6 +48630,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.05,
     "lng": 101.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "626000",
     "population": 100,
     "aliases": [
@@ -46236,6 +48649,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.92,
     "lng": 102.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "626100",
     "population": 100,
     "aliases": [
@@ -46254,6 +48668,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.88,
     "lng": 101.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "626300",
     "population": 100,
     "aliases": [
@@ -46272,6 +48687,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29,
     "lng": 101.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "616200",
     "population": 100,
     "aliases": [
@@ -46290,6 +48706,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.03,
     "lng": 101.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "627450",
     "population": 100,
     "aliases": [
@@ -46308,6 +48725,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.98,
     "lng": 101.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "626400",
     "population": 100,
     "aliases": [
@@ -46326,6 +48744,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.4,
     "lng": 100.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "626500",
     "population": 100,
     "aliases": [
@@ -46344,6 +48763,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.62,
     "lng": 99.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "626700",
     "population": 100,
     "aliases": [
@@ -46362,6 +48782,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.95,
     "lng": 100.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "626800",
     "population": 100,
     "aliases": [
@@ -46380,6 +48801,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.82,
     "lng": 98.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "627250",
     "population": 100,
     "aliases": [
@@ -46398,6 +48820,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.22,
     "lng": 98.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "627150",
     "population": 100,
     "aliases": [
@@ -46416,6 +48839,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.98,
     "lng": 98.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "627350",
     "population": 100,
     "aliases": [
@@ -46434,6 +48858,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.27,
     "lng": 100.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "626600",
     "population": 100,
     "aliases": [
@@ -46452,6 +48877,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30,
     "lng": 100.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "624300",
     "population": 100,
     "aliases": [
@@ -46470,6 +48896,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30,
     "lng": 99.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "627650",
     "population": 100,
     "aliases": [
@@ -46488,6 +48915,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.93,
     "lng": 99.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "627850",
     "population": 100,
     "aliases": [
@@ -46506,6 +48934,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.03,
     "lng": 100.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "627750",
     "population": 100,
     "aliases": [
@@ -46524,6 +48953,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.72,
     "lng": 99.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "627950",
     "population": 100,
     "aliases": [
@@ -46542,6 +48972,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.9,
     "lng": 102.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "615000",
     "population": 1000,
     "aliases": [
@@ -46559,6 +48990,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.9,
     "lng": 102.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "615000",
     "population": 100,
     "aliases": [
@@ -46578,6 +49010,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.93,
     "lng": 101.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "615800",
     "population": 100,
     "aliases": [
@@ -46596,6 +49029,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.43,
     "lng": 101.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "615700",
     "population": 100,
     "aliases": [
@@ -46614,6 +49048,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.4,
     "lng": 102.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "615500",
     "population": 100,
     "aliases": [
@@ -46632,6 +49067,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.67,
     "lng": 102.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "615100",
     "population": 100,
     "aliases": [
@@ -46650,6 +49086,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.63,
     "lng": 102.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "615200",
     "population": 100,
     "aliases": [
@@ -46668,6 +49105,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.07,
     "lng": 102.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "615400",
     "population": 100,
     "aliases": [
@@ -46686,6 +49124,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.38,
     "lng": 102.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "615300",
     "population": 100,
     "aliases": [
@@ -46704,6 +49143,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.72,
     "lng": 102.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "615350",
     "population": 100,
     "aliases": [
@@ -46722,6 +49162,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.7,
     "lng": 103.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "616250",
     "population": 100,
     "aliases": [
@@ -46740,6 +49181,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.02,
     "lng": 102.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "616150",
     "population": 100,
     "aliases": [
@@ -46758,6 +49200,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.32,
     "lng": 102.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "616750",
     "population": 100,
     "aliases": [
@@ -46776,6 +49219,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.55,
     "lng": 102.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "615600",
     "population": 100,
     "aliases": [
@@ -46794,6 +49238,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.65,
     "lng": 102.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "616650",
     "population": 100,
     "aliases": [
@@ -46812,6 +49257,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.97,
     "lng": 102.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "616850",
     "population": 100,
     "aliases": [
@@ -46830,6 +49276,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.33,
     "lng": 103.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "616450",
     "population": 100,
     "aliases": [
@@ -46848,6 +49295,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.27,
     "lng": 103.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "616550",
     "population": 100,
     "aliases": [
@@ -46866,6 +49314,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.65,
     "lng": 106.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "550000",
     "population": 5987018,
     "aliases": [
@@ -46885,6 +49334,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.57,
     "lng": 106.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "550002",
     "population": 5987018,
     "aliases": [
@@ -46905,6 +49355,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.62,
     "lng": 106.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "550001",
     "population": 5987018,
     "aliases": [
@@ -46925,6 +49376,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.63,
     "lng": 106.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "550018",
     "population": 5987018,
     "aliases": [
@@ -46945,6 +49397,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.68,
     "lng": 106.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "550014",
     "population": 5987018,
     "aliases": [
@@ -46965,6 +49418,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.53,
     "lng": 106.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "550000",
     "population": 5987018,
     "aliases": [
@@ -46985,6 +49439,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.07,
     "lng": 106.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "550300",
     "population": 5987018,
     "aliases": [
@@ -47005,6 +49460,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.1,
     "lng": 106.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "551100",
     "population": 5987018,
     "aliases": [
@@ -47025,6 +49481,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.83,
     "lng": 106.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "550200",
     "population": 5987018,
     "aliases": [
@@ -47045,6 +49502,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.55,
     "lng": 106.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "551400",
     "population": 5987018,
     "aliases": [
@@ -47066,6 +49524,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.6,
     "lng": 104.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "553000",
     "population": 1000,
     "aliases": [
@@ -47084,6 +49543,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.6,
     "lng": 104.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "553000",
     "population": 100,
     "aliases": [
@@ -47103,6 +49563,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.22,
     "lng": 105.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "553400",
     "population": 100,
     "aliases": [
@@ -47122,6 +49583,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.55,
     "lng": 104.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "553600",
     "population": 100,
     "aliases": [
@@ -47141,6 +49603,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.72,
     "lng": 104.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "553537",
     "population": 100,
     "aliases": [
@@ -47160,6 +49623,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.73,
     "lng": 106.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "563000",
     "population": 1000,
     "aliases": [
@@ -47178,6 +49642,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.65,
     "lng": 106.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "563000",
     "population": 100,
     "aliases": [
@@ -47197,6 +49662,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.73,
     "lng": 106.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "563000",
     "population": 100,
     "aliases": [
@@ -47216,6 +49682,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.53,
     "lng": 106.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "563100",
     "population": 100,
     "aliases": [
@@ -47235,6 +49702,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.13,
     "lng": 106.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "563200",
     "population": 100,
     "aliases": [
@@ -47254,6 +49722,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.95,
     "lng": 107.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "563300",
     "population": 100,
     "aliases": [
@@ -47273,6 +49742,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.55,
     "lng": 107.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "563400",
     "population": 100,
     "aliases": [
@@ -47292,6 +49762,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.88,
     "lng": 107.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "563500",
     "population": 100,
     "aliases": [
@@ -47311,6 +49782,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.53,
     "lng": 107.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "564300",
     "population": 100,
     "aliases": [
@@ -47330,6 +49802,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.97,
     "lng": 107.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "564200",
     "population": 100,
     "aliases": [
@@ -47349,6 +49822,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.77,
     "lng": 107.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "564100",
     "population": 100,
     "aliases": [
@@ -47368,6 +49842,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.22,
     "lng": 107.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "564400",
     "population": 100,
     "aliases": [
@@ -47387,6 +49862,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.32,
     "lng": 106.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "564600",
     "population": 100,
     "aliases": [
@@ -47406,6 +49882,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.58,
     "lng": 105.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "564700",
     "population": 100,
     "aliases": [
@@ -47426,6 +49903,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.82,
     "lng": 106.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "564500",
     "population": 100,
     "aliases": [
@@ -47446,6 +49924,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.25,
     "lng": 105.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "561000",
     "population": 1000,
     "aliases": [
@@ -47464,6 +49943,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.25,
     "lng": 105.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "561000",
     "population": 100,
     "aliases": [
@@ -47483,6 +49963,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.42,
     "lng": 106.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "561100",
     "population": 100,
     "aliases": [
@@ -47502,6 +49983,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.32,
     "lng": 105.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "562100",
     "population": 100,
     "aliases": [
@@ -47521,6 +50003,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.07,
     "lng": 105.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "561200",
     "population": 100,
     "aliases": [
@@ -47540,6 +50023,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.95,
     "lng": 105.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "561300",
     "population": 100,
     "aliases": [
@@ -47559,6 +50043,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.75,
     "lng": 106.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "560800",
     "population": 100,
     "aliases": [
@@ -47578,6 +50063,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.72,
     "lng": 109.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "554300",
     "population": 1000,
     "aliases": [
@@ -47595,6 +50081,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.72,
     "lng": 109.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "554300",
     "population": 100,
     "aliases": [
@@ -47614,6 +50101,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.7,
     "lng": 108.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "554400",
     "population": 100,
     "aliases": [
@@ -47632,6 +50120,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.23,
     "lng": 108.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "554000",
     "population": 100,
     "aliases": [
@@ -47650,6 +50139,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.52,
     "lng": 108.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "555100",
     "population": 100,
     "aliases": [
@@ -47668,6 +50158,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.93,
     "lng": 108.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "565100",
     "population": 100,
     "aliases": [
@@ -47686,6 +50177,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28,
     "lng": 108.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "555200",
     "population": 100,
     "aliases": [
@@ -47704,6 +50196,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.27,
     "lng": 108.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "565200",
     "population": 100,
     "aliases": [
@@ -47722,6 +50215,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.57,
     "lng": 108.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "565300",
     "population": 100,
     "aliases": [
@@ -47740,6 +50234,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.17,
     "lng": 109.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "554100",
     "population": 100,
     "aliases": [
@@ -47758,6 +50253,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.52,
     "lng": 109.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "554200",
     "population": 100,
     "aliases": [
@@ -47776,6 +50272,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.08,
     "lng": 104.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "562400",
     "population": 1000,
     "aliases": [
@@ -47794,6 +50291,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.43,
     "lng": 105.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "562300",
     "population": 100,
     "aliases": [
@@ -47813,6 +50311,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.78,
     "lng": 104.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "562400",
     "population": 100,
     "aliases": [
@@ -47832,6 +50331,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.83,
     "lng": 105.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "562400",
     "population": 100,
     "aliases": [
@@ -47851,6 +50351,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.38,
     "lng": 105.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "562400",
     "population": 100,
     "aliases": [
@@ -47870,6 +50371,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.17,
     "lng": 106.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "552300",
     "population": 100,
     "aliases": [
@@ -47889,6 +50391,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.98,
     "lng": 105.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "562400",
     "population": 100,
     "aliases": [
@@ -47908,6 +50411,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.12,
     "lng": 105.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "562400",
     "population": 100,
     "aliases": [
@@ -47927,6 +50431,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.3,
     "lng": 105.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "551700",
     "population": 1000,
     "aliases": [
@@ -47944,6 +50449,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.3,
     "lng": 105.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "551700",
     "population": 100,
     "aliases": [
@@ -47963,6 +50469,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.15,
     "lng": 105.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "551600",
     "population": 100,
     "aliases": [
@@ -47981,6 +50488,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.03,
     "lng": 106.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "551500",
     "population": 100,
     "aliases": [
@@ -47999,6 +50507,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.47,
     "lng": 106.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "551800",
     "population": 100,
     "aliases": [
@@ -48017,6 +50526,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.67,
     "lng": 105.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "552100",
     "population": 100,
     "aliases": [
@@ -48035,6 +50545,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.78,
     "lng": 105.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "553300",
     "population": 100,
     "aliases": [
@@ -48053,6 +50564,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.13,
     "lng": 104.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "553200",
     "population": 100,
     "aliases": [
@@ -48071,6 +50583,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.58,
     "lng": 107.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "556000",
     "population": 1000,
     "aliases": [
@@ -48088,6 +50601,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.58,
     "lng": 107.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "556000",
     "population": 100,
     "aliases": [
@@ -48107,6 +50621,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.9,
     "lng": 107.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "556100",
     "population": 100,
     "aliases": [
@@ -48125,6 +50640,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.03,
     "lng": 108.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "556200",
     "population": 100,
     "aliases": [
@@ -48143,6 +50659,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.97,
     "lng": 108.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "556500",
     "population": 100,
     "aliases": [
@@ -48161,6 +50678,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.05,
     "lng": 108.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "557700",
     "population": 100,
     "aliases": [
@@ -48179,6 +50697,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.18,
     "lng": 108.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "557800",
     "population": 100,
     "aliases": [
@@ -48197,6 +50716,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.92,
     "lng": 109.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "556600",
     "population": 100,
     "aliases": [
@@ -48215,6 +50735,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.68,
     "lng": 109.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "556700",
     "population": 100,
     "aliases": [
@@ -48233,6 +50754,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.73,
     "lng": 108.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "556400",
     "population": 100,
     "aliases": [
@@ -48251,6 +50773,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.67,
     "lng": 108.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "556300",
     "population": 100,
     "aliases": [
@@ -48269,6 +50792,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.23,
     "lng": 109.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "557300",
     "population": 100,
     "aliases": [
@@ -48287,6 +50811,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.93,
     "lng": 108.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "557200",
     "population": 100,
     "aliases": [
@@ -48305,6 +50830,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.75,
     "lng": 108.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "557400",
     "population": 100,
     "aliases": [
@@ -48323,6 +50849,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.38,
     "lng": 108.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "557100",
     "population": 100,
     "aliases": [
@@ -48341,6 +50868,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.5,
     "lng": 107.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "557600",
     "population": 100,
     "aliases": [
@@ -48359,6 +50887,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.2,
     "lng": 107.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "557500",
     "population": 100,
     "aliases": [
@@ -48377,6 +50906,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.27,
     "lng": 107.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "558000",
     "population": 1000,
     "aliases": [
@@ -48394,6 +50924,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.27,
     "lng": 107.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "558000",
     "population": 100,
     "aliases": [
@@ -48413,6 +50944,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.7,
     "lng": 107.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "550500",
     "population": 100,
     "aliases": [
@@ -48432,6 +50964,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.42,
     "lng": 107.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "558400",
     "population": 100,
     "aliases": [
@@ -48450,6 +50983,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.58,
     "lng": 107.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "551300",
     "population": 100,
     "aliases": [
@@ -48468,6 +51002,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.07,
     "lng": 107.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "550400",
     "population": 100,
     "aliases": [
@@ -48486,6 +51021,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.83,
     "lng": 107.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "558200",
     "population": 100,
     "aliases": [
@@ -48504,6 +51040,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.83,
     "lng": 107.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "558300",
     "population": 100,
     "aliases": [
@@ -48522,6 +51059,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.43,
     "lng": 106.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "550100",
     "population": 100,
     "aliases": [
@@ -48540,6 +51078,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.03,
     "lng": 106.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "550700",
     "population": 100,
     "aliases": [
@@ -48558,6 +51097,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.45,
     "lng": 106.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "551200",
     "population": 100,
     "aliases": [
@@ -48576,6 +51116,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.13,
     "lng": 106.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "550600",
     "population": 100,
     "aliases": [
@@ -48594,6 +51135,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.98,
     "lng": 107.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "558100",
     "population": 100,
     "aliases": [
@@ -48612,6 +51154,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.05,
     "lng": 102.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "650000",
     "population": 8460088,
     "aliases": [
@@ -48631,6 +51174,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.05,
     "lng": 102.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "650032",
     "population": 8460088,
     "aliases": [
@@ -48651,6 +51195,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.03,
     "lng": 102.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "650051",
     "population": 8460088,
     "aliases": [
@@ -48671,6 +51216,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.02,
     "lng": 102.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "650200",
     "population": 8460088,
     "aliases": [
@@ -48691,6 +51237,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.03,
     "lng": 102.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "650100",
     "population": 8460088,
     "aliases": [
@@ -48711,6 +51258,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.08,
     "lng": 103.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "654100",
     "population": 8460088,
     "aliases": [
@@ -48731,6 +51279,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.88,
     "lng": 102.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "650500",
     "population": 8460088,
     "aliases": [
@@ -48751,6 +51300,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.67,
     "lng": 102.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "650600",
     "population": 8460088,
     "aliases": [
@@ -48771,6 +51321,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.22,
     "lng": 102.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "650400",
     "population": 8460088,
     "aliases": [
@@ -48791,6 +51342,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.92,
     "lng": 103.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "652100",
     "population": 8460088,
     "aliases": [
@@ -48811,6 +51363,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.77,
     "lng": 103.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "652200",
     "population": 8460088,
     "aliases": [
@@ -48831,6 +51384,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.35,
     "lng": 103.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "651700",
     "population": 8460088,
     "aliases": [
@@ -48851,6 +51405,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.55,
     "lng": 102.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "651500",
     "population": 8460088,
     "aliases": [
@@ -48871,6 +51426,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.57,
     "lng": 103.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "655200",
     "population": 8460088,
     "aliases": [
@@ -48891,6 +51447,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.92,
     "lng": 102.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "650300",
     "population": 8460088,
     "aliases": [
@@ -48912,6 +51469,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.5,
     "lng": 103.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "655000",
     "population": 1000,
     "aliases": [
@@ -48930,6 +51488,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.5,
     "lng": 103.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "655000",
     "population": 100,
     "aliases": [
@@ -48949,6 +51508,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.43,
     "lng": 103.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "655100",
     "population": 100,
     "aliases": [
@@ -48968,6 +51528,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.03,
     "lng": 103.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "655699",
     "population": 100,
     "aliases": [
@@ -48987,6 +51548,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.83,
     "lng": 103.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "655700",
     "population": 100,
     "aliases": [
@@ -49006,6 +51568,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.88,
     "lng": 104.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "655800",
     "population": 100,
     "aliases": [
@@ -49025,6 +51588,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.67,
     "lng": 104.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "655500",
     "population": 100,
     "aliases": [
@@ -49044,6 +51608,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.42,
     "lng": 103.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "654200",
     "population": 100,
     "aliases": [
@@ -49063,6 +51628,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.62,
     "lng": 103.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "655500",
     "population": 100,
     "aliases": [
@@ -49082,6 +51648,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.22,
     "lng": 104.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "655400",
     "population": 100,
     "aliases": [
@@ -49102,6 +51669,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.35,
     "lng": 102.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "653100",
     "population": 1000,
     "aliases": [
@@ -49120,6 +51688,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.28,
     "lng": 102.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "652600",
     "population": 100,
     "aliases": [
@@ -49139,6 +51708,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.67,
     "lng": 102.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "652500",
     "population": 100,
     "aliases": [
@@ -49158,6 +51728,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.12,
     "lng": 102.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "652700",
     "population": 100,
     "aliases": [
@@ -49177,6 +51748,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.2,
     "lng": 102.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "652800",
     "population": 100,
     "aliases": [
@@ -49196,6 +51768,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.67,
     "lng": 102.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "651100",
     "population": 100,
     "aliases": [
@@ -49215,6 +51788,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.18,
     "lng": 102.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "653200",
     "population": 100,
     "aliases": [
@@ -49234,6 +51808,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.07,
     "lng": 101.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "653400",
     "population": 100,
     "aliases": [
@@ -49253,6 +51828,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.12,
     "lng": 99.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "678000",
     "population": 1000,
     "aliases": [
@@ -49271,6 +51847,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.12,
     "lng": 99.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "678000",
     "population": 100,
     "aliases": [
@@ -49290,6 +51867,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.73,
     "lng": 99.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "678200",
     "population": 100,
     "aliases": [
@@ -49309,6 +51887,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.03,
     "lng": 98.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "679100",
     "population": 100,
     "aliases": [
@@ -49328,6 +51907,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.58,
     "lng": 98.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "678300",
     "population": 100,
     "aliases": [
@@ -49347,6 +51927,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.83,
     "lng": 99.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "678100",
     "population": 100,
     "aliases": [
@@ -49366,6 +51947,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.33,
     "lng": 103.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "657000",
     "population": 1000,
     "aliases": [
@@ -49384,6 +51966,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.33,
     "lng": 103.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "657000",
     "population": 100,
     "aliases": [
@@ -49403,6 +51986,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.2,
     "lng": 103.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "657100",
     "population": 100,
     "aliases": [
@@ -49422,6 +52006,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.92,
     "lng": 102.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "654600",
     "population": 100,
     "aliases": [
@@ -49441,6 +52026,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.12,
     "lng": 104.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "657500",
     "population": 100,
     "aliases": [
@@ -49460,6 +52046,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.75,
     "lng": 103.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "657400",
     "population": 100,
     "aliases": [
@@ -49479,6 +52066,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.23,
     "lng": 103.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "657300",
     "population": 100,
     "aliases": [
@@ -49498,6 +52086,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.6,
     "lng": 103.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "657700",
     "population": 100,
     "aliases": [
@@ -49517,6 +52106,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.45,
     "lng": 104.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "657200",
     "population": 100,
     "aliases": [
@@ -49536,6 +52126,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.63,
     "lng": 104.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "657600",
     "population": 100,
     "aliases": [
@@ -49555,6 +52146,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.85,
     "lng": 105.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "657900",
     "population": 100,
     "aliases": [
@@ -49574,6 +52166,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.63,
     "lng": 104.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "657800",
     "population": 100,
     "aliases": [
@@ -49593,6 +52186,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.88,
     "lng": 100.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "674100",
     "population": 1000,
     "aliases": [
@@ -49611,6 +52205,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.88,
     "lng": 100.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "674100",
     "population": 100,
     "aliases": [
@@ -49630,6 +52225,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.82,
     "lng": 100.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "674100",
     "population": 100,
     "aliases": [
@@ -49649,6 +52245,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.68,
     "lng": 100.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "674200",
     "population": 100,
     "aliases": [
@@ -49668,6 +52265,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.63,
     "lng": 101.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "674800",
     "population": 100,
     "aliases": [
@@ -49687,6 +52285,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.28,
     "lng": 100.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "674300",
     "population": 100,
     "aliases": [
@@ -49706,6 +52305,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.43,
     "lng": 101.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "654800",
     "population": 1000,
     "aliases": [
@@ -49723,6 +52323,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.45,
     "lng": 100.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "654800",
     "population": 100,
     "aliases": [
@@ -49741,6 +52342,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.5,
     "lng": 100.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "654800",
     "population": 100,
     "aliases": [
@@ -49759,6 +52361,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.58,
     "lng": 101.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "654800",
     "population": 100,
     "aliases": [
@@ -49777,6 +52380,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.55,
     "lng": 99.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "654800",
     "population": 100,
     "aliases": [
@@ -49795,6 +52399,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.63,
     "lng": 99.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "654800",
     "population": 100,
     "aliases": [
@@ -49813,6 +52418,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.88,
     "lng": 100.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "677000",
     "population": 1000,
     "aliases": [
@@ -49831,6 +52437,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.88,
     "lng": 100.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "677000",
     "population": 100,
     "aliases": [
@@ -49850,6 +52457,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.6,
     "lng": 99.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "675900",
     "population": 100,
     "aliases": [
@@ -49869,6 +52477,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.45,
     "lng": 100.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "675800",
     "population": 100,
     "aliases": [
@@ -49888,6 +52497,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.03,
     "lng": 99.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "677600",
     "population": 100,
     "aliases": [
@@ -49907,6 +52517,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.78,
     "lng": 98.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "677704",
     "population": 100,
     "aliases": [
@@ -49926,6 +52537,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.55,
     "lng": 99.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "677500",
     "population": 100,
     "aliases": [
@@ -49945,6 +52557,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.15,
     "lng": 99.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "677400",
     "population": 100,
     "aliases": [
@@ -49964,6 +52577,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.03,
     "lng": 101.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "675000",
     "population": 1000,
     "aliases": [
@@ -49981,6 +52595,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.03,
     "lng": 101.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "675000",
     "population": 100,
     "aliases": [
@@ -50000,6 +52615,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.7,
     "lng": 101.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "675100",
     "population": 100,
     "aliases": [
@@ -50018,6 +52634,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.32,
     "lng": 101.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "675500",
     "population": 100,
     "aliases": [
@@ -50036,6 +52653,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.2,
     "lng": 101.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "675200",
     "population": 100,
     "aliases": [
@@ -50054,6 +52672,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.5,
     "lng": 101.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "675300",
     "population": 100,
     "aliases": [
@@ -50072,6 +52691,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.73,
     "lng": 101.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "675400",
     "population": 100,
     "aliases": [
@@ -50090,6 +52710,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.07,
     "lng": 101.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "651400",
     "population": 100,
     "aliases": [
@@ -50108,6 +52729,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.7,
     "lng": 101.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "651300",
     "population": 100,
     "aliases": [
@@ -50126,6 +52748,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.53,
     "lng": 102.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "651600",
     "population": 100,
     "aliases": [
@@ -50144,6 +52767,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.15,
     "lng": 102.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "651200",
     "population": 100,
     "aliases": [
@@ -50162,6 +52786,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.37,
     "lng": 103.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "661400",
     "population": 1000,
     "aliases": [
@@ -50179,6 +52804,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.37,
     "lng": 103.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "661000",
     "population": 100,
     "aliases": [
@@ -50198,6 +52824,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.72,
     "lng": 103.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "661600",
     "population": 100,
     "aliases": [
@@ -50217,6 +52844,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.37,
     "lng": 103.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "661100",
     "population": 100,
     "aliases": [
@@ -50235,6 +52863,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.98,
     "lng": 103.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "661200",
     "population": 100,
     "aliases": [
@@ -50253,6 +52882,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.62,
     "lng": 102.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "654300",
     "population": 100,
     "aliases": [
@@ -50271,6 +52901,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.72,
     "lng": 102.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "662200",
     "population": 100,
     "aliases": [
@@ -50289,6 +52920,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.4,
     "lng": 103.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "652300",
     "population": 100,
     "aliases": [
@@ -50307,6 +52939,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.53,
     "lng": 103.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "652400",
     "population": 100,
     "aliases": [
@@ -50325,6 +52958,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.23,
     "lng": 102.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "662400",
     "population": 100,
     "aliases": [
@@ -50343,6 +52977,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.37,
     "lng": 102.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "654400",
     "population": 100,
     "aliases": [
@@ -50361,6 +52996,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23,
     "lng": 102.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "662500",
     "population": 100,
     "aliases": [
@@ -50379,6 +53015,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.52,
     "lng": 103.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "661300",
     "population": 100,
     "aliases": [
@@ -50397,6 +53034,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.37,
     "lng": 104.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "663000",
     "population": 1000,
     "aliases": [
@@ -50414,6 +53052,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.37,
     "lng": 104.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "663000",
     "population": 100,
     "aliases": [
@@ -50432,6 +53071,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.62,
     "lng": 104.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "663100",
     "population": 100,
     "aliases": [
@@ -50450,6 +53090,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.45,
     "lng": 104.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "663500",
     "population": 100,
     "aliases": [
@@ -50468,6 +53109,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.12,
     "lng": 104.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "663600",
     "population": 100,
     "aliases": [
@@ -50486,6 +53128,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.02,
     "lng": 104.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "663700",
     "population": 100,
     "aliases": [
@@ -50504,6 +53147,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.05,
     "lng": 104.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "663200",
     "population": 100,
     "aliases": [
@@ -50522,6 +53166,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.05,
     "lng": 105.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "663300",
     "population": 100,
     "aliases": [
@@ -50540,6 +53185,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.63,
     "lng": 105.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "663400",
     "population": 100,
     "aliases": [
@@ -50558,6 +53204,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.02,
     "lng": 100.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "666100",
     "population": 1000,
     "aliases": [
@@ -50575,6 +53222,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.02,
     "lng": 100.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "666100",
     "population": 100,
     "aliases": [
@@ -50594,6 +53242,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 21.97,
     "lng": 100.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "666200",
     "population": 100,
     "aliases": [
@@ -50612,6 +53261,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 21.48,
     "lng": 101.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "666300",
     "population": 100,
     "aliases": [
@@ -50630,6 +53280,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.6,
     "lng": 100.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "671000",
     "population": 1000,
     "aliases": [
@@ -50647,6 +53298,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.6,
     "lng": 100.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "671000",
     "population": 100,
     "aliases": [
@@ -50666,6 +53318,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.67,
     "lng": 99.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "672500",
     "population": 100,
     "aliases": [
@@ -50684,6 +53337,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.48,
     "lng": 100.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "672100",
     "population": 100,
     "aliases": [
@@ -50702,6 +53356,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.83,
     "lng": 100.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "671600",
     "population": 100,
     "aliases": [
@@ -50720,6 +53375,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.35,
     "lng": 100.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "675600",
     "population": 100,
     "aliases": [
@@ -50738,6 +53394,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.05,
     "lng": 100.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "675700",
     "population": 100,
     "aliases": [
@@ -50756,6 +53413,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.23,
     "lng": 100.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "672400",
     "population": 100,
     "aliases": [
@@ -50774,6 +53432,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.47,
     "lng": 99.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "672600",
     "population": 100,
     "aliases": [
@@ -50792,6 +53451,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.88,
     "lng": 99.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "672700",
     "population": 100,
     "aliases": [
@@ -50810,6 +53470,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.12,
     "lng": 99.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "671200",
     "population": 100,
     "aliases": [
@@ -50828,6 +53489,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.53,
     "lng": 99.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "671300",
     "population": 100,
     "aliases": [
@@ -50846,6 +53508,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.57,
     "lng": 100.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "671500",
     "population": 100,
     "aliases": [
@@ -50864,6 +53527,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.43,
     "lng": 98.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "678400",
     "population": 1000,
     "aliases": [
@@ -50881,6 +53545,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.02,
     "lng": 97.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "678600",
     "population": 100,
     "aliases": [
@@ -50900,6 +53565,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.43,
     "lng": 98.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "678400",
     "population": 100,
     "aliases": [
@@ -50919,6 +53585,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.82,
     "lng": 98.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "679200",
     "population": 100,
     "aliases": [
@@ -50937,6 +53604,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.72,
     "lng": 97.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "679300",
     "population": 100,
     "aliases": [
@@ -50955,6 +53623,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.2,
     "lng": 97.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "678700",
     "population": 100,
     "aliases": [
@@ -50973,6 +53642,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.85,
     "lng": 98.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "673200",
     "population": 1000,
     "aliases": [
@@ -50990,6 +53660,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.85,
     "lng": 98.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "673200",
     "population": 100,
     "aliases": [
@@ -51008,6 +53679,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.9,
     "lng": 98.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "673400",
     "population": 100,
     "aliases": [
@@ -51026,6 +53698,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.73,
     "lng": 98.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "673500",
     "population": 100,
     "aliases": [
@@ -51044,6 +53717,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 26.45,
     "lng": 99.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "671400",
     "population": 100,
     "aliases": [
@@ -51062,6 +53736,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.83,
     "lng": 99.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "674400",
     "population": 1000,
     "aliases": [
@@ -51079,6 +53754,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.83,
     "lng": 99.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "674400",
     "population": 100,
     "aliases": [
@@ -51097,6 +53773,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.48,
     "lng": 98.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "674500",
     "population": 100,
     "aliases": [
@@ -51115,6 +53792,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.18,
     "lng": 99.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "674600",
     "population": 100,
     "aliases": [
@@ -51133,6 +53811,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.65,
     "lng": 91.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "850000",
     "population": 867891,
     "aliases": [
@@ -51152,6 +53831,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.65,
     "lng": 91.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "850000",
     "population": 867891,
     "aliases": [
@@ -51172,6 +53852,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.9,
     "lng": 91.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "851600",
     "population": 867891,
     "aliases": [
@@ -51192,6 +53873,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.48,
     "lng": 91.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "851500",
     "population": 867891,
     "aliases": [
@@ -51212,6 +53894,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.45,
     "lng": 90.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "851600",
     "population": 867891,
     "aliases": [
@@ -51232,6 +53915,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.37,
     "lng": 90.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "850600",
     "population": 867891,
     "aliases": [
@@ -51252,6 +53936,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.65,
     "lng": 91,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "851400",
     "population": 867891,
     "aliases": [
@@ -51272,6 +53957,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.68,
     "lng": 91.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "850100",
     "population": 867891,
     "aliases": [
@@ -51292,6 +53978,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.83,
     "lng": 91.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "850200",
     "population": 867891,
     "aliases": [
@@ -51312,6 +53999,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.13,
     "lng": 97.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "854000",
     "population": 1000,
     "aliases": [
@@ -51329,6 +54017,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.13,
     "lng": 97.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "854000",
     "population": 100,
     "aliases": [
@@ -51347,6 +54036,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.5,
     "lng": 98.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "854100",
     "population": 100,
     "aliases": [
@@ -51365,6 +54055,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.87,
     "lng": 98.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "854200",
     "population": 100,
     "aliases": [
@@ -51383,6 +54074,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.22,
     "lng": 96.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "855600",
     "population": 100,
     "aliases": [
@@ -51401,6 +54093,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.42,
     "lng": 95.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "855700",
     "population": 100,
     "aliases": [
@@ -51419,6 +54112,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.65,
     "lng": 97.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "854300",
     "population": 100,
     "aliases": [
@@ -51437,6 +54131,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.05,
     "lng": 96.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "854600",
     "population": 100,
     "aliases": [
@@ -51455,6 +54150,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.67,
     "lng": 97.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "854400",
     "population": 100,
     "aliases": [
@@ -51473,6 +54169,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.68,
     "lng": 98.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "854500",
     "population": 100,
     "aliases": [
@@ -51491,6 +54188,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.75,
     "lng": 95.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "855400",
     "population": 100,
     "aliases": [
@@ -51509,6 +54207,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.93,
     "lng": 94.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "855500",
     "population": 100,
     "aliases": [
@@ -51527,6 +54226,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.23,
     "lng": 91.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "856000",
     "population": 1000,
     "aliases": [
@@ -51544,6 +54244,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.23,
     "lng": 91.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "856100",
     "population": 100,
     "aliases": [
@@ -51562,6 +54263,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.25,
     "lng": 91.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "850800",
     "population": 100,
     "aliases": [
@@ -51580,6 +54282,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.3,
     "lng": 90.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "850700",
     "population": 100,
     "aliases": [
@@ -51598,6 +54301,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.27,
     "lng": 92.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "856200",
     "population": 100,
     "aliases": [
@@ -51616,6 +54320,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.03,
     "lng": 91.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "856800",
     "population": 100,
     "aliases": [
@@ -51634,6 +54339,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.07,
     "lng": 92.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "856300",
     "population": 100,
     "aliases": [
@@ -51652,6 +54358,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.43,
     "lng": 91.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "856900",
     "population": 100,
     "aliases": [
@@ -51670,6 +54377,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.38,
     "lng": 90.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "851200",
     "population": 100,
     "aliases": [
@@ -51688,6 +54396,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.15,
     "lng": 92.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "856400",
     "population": 100,
     "aliases": [
@@ -51706,6 +54415,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.42,
     "lng": 92.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "856600",
     "population": 100,
     "aliases": [
@@ -51724,6 +54434,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28,
     "lng": 91.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "856700",
     "population": 100,
     "aliases": [
@@ -51742,6 +54453,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.97,
     "lng": 90.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "851100",
     "population": 100,
     "aliases": [
@@ -51760,6 +54472,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.27,
     "lng": 88.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "857000",
     "population": 1000,
     "aliases": [
@@ -51777,6 +54490,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.27,
     "lng": 88.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "857000",
     "population": 100,
     "aliases": [
@@ -51796,6 +54510,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.68,
     "lng": 89.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "857100",
     "population": 100,
     "aliases": [
@@ -51814,6 +54529,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.92,
     "lng": 89.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "857400",
     "population": 100,
     "aliases": [
@@ -51832,6 +54548,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.67,
     "lng": 87.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "858200",
     "population": 100,
     "aliases": [
@@ -51850,6 +54567,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.9,
     "lng": 88.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "857800",
     "population": 100,
     "aliases": [
@@ -51868,6 +54586,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.08,
     "lng": 87.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "858100",
     "population": 100,
     "aliases": [
@@ -51886,6 +54605,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.3,
     "lng": 87.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "858500",
     "population": 100,
     "aliases": [
@@ -51904,6 +54624,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.43,
     "lng": 88.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "858900",
     "population": 100,
     "aliases": [
@@ -51922,6 +54643,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.12,
     "lng": 89.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "857300",
     "population": 100,
     "aliases": [
@@ -51940,6 +54662,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.23,
     "lng": 89.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "857200",
     "population": 100,
     "aliases": [
@@ -51958,6 +54681,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.57,
     "lng": 89.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "857500",
     "population": 100,
     "aliases": [
@@ -51976,6 +54700,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.37,
     "lng": 87.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "857900",
     "population": 100,
     "aliases": [
@@ -51994,6 +54719,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.77,
     "lng": 84.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "858800",
     "population": 100,
     "aliases": [
@@ -52012,6 +54738,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 27.48,
     "lng": 88.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "857600",
     "population": 100,
     "aliases": [
@@ -52030,6 +54757,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.85,
     "lng": 85.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "858700",
     "population": 100,
     "aliases": [
@@ -52048,6 +54776,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.17,
     "lng": 85.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "858300",
     "population": 100,
     "aliases": [
@@ -52066,6 +54795,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.33,
     "lng": 85.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "858600",
     "population": 100,
     "aliases": [
@@ -52084,6 +54814,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.28,
     "lng": 88.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "857700",
     "population": 100,
     "aliases": [
@@ -52102,6 +54833,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.48,
     "lng": 92.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "852000",
     "population": 1000,
     "aliases": [
@@ -52119,6 +54851,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.48,
     "lng": 92.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "852000",
     "population": 100,
     "aliases": [
@@ -52137,6 +54870,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.65,
     "lng": 93.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "852400",
     "population": 100,
     "aliases": [
@@ -52155,6 +54889,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.48,
     "lng": 93.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "852300",
     "population": 100,
     "aliases": [
@@ -52173,6 +54908,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.12,
     "lng": 92.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "853500",
     "population": 100,
     "aliases": [
@@ -52191,6 +54927,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.27,
     "lng": 91.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "853400",
     "population": 100,
     "aliases": [
@@ -52209,6 +54946,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.93,
     "lng": 88.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "853100",
     "population": 100,
     "aliases": [
@@ -52227,6 +54965,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.88,
     "lng": 93.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "852200",
     "population": 100,
     "aliases": [
@@ -52245,6 +54984,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.37,
     "lng": 90.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "852500",
     "population": 100,
     "aliases": [
@@ -52263,6 +55003,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.93,
     "lng": 94.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "852100",
     "population": 100,
     "aliases": [
@@ -52281,6 +55022,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.78,
     "lng": 87.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "853200",
     "population": 100,
     "aliases": [
@@ -52299,6 +55041,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.5,
     "lng": 80.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "859000",
     "population": 1000,
     "aliases": [
@@ -52316,6 +55059,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 30.3,
     "lng": 81.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "859500",
     "population": 100,
     "aliases": [
@@ -52334,6 +55078,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.48,
     "lng": 79.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "859600",
     "population": 100,
     "aliases": [
@@ -52352,6 +55097,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.5,
     "lng": 80.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "859400",
     "population": 100,
     "aliases": [
@@ -52370,6 +55116,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.38,
     "lng": 79.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "859700",
     "population": 100,
     "aliases": [
@@ -52388,6 +55135,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.4,
     "lng": 81.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "859100",
     "population": 100,
     "aliases": [
@@ -52406,6 +55154,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.3,
     "lng": 84.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "859200",
     "population": 100,
     "aliases": [
@@ -52424,6 +55173,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.02,
     "lng": 85.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "859300",
     "population": 100,
     "aliases": [
@@ -52442,6 +55192,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.68,
     "lng": 94.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "860000",
     "population": 1000,
     "aliases": [
@@ -52459,6 +55210,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.68,
     "lng": 94.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "860100",
     "population": 100,
     "aliases": [
@@ -52477,6 +55229,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.88,
     "lng": 93.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "860200",
     "population": 100,
     "aliases": [
@@ -52495,6 +55248,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.22,
     "lng": 94.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "860500",
     "population": 100,
     "aliases": [
@@ -52513,6 +55267,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.33,
     "lng": 95.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "860700",
     "population": 100,
     "aliases": [
@@ -52531,6 +55286,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.87,
     "lng": 95.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "860300",
     "population": 100,
     "aliases": [
@@ -52549,6 +55305,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 28.67,
     "lng": 97.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "860600",
     "population": 100,
     "aliases": [
@@ -52567,6 +55324,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 29.05,
     "lng": 93.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "860400",
     "population": 100,
     "aliases": [
@@ -52585,6 +55343,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.27,
     "lng": 108.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "710000",
     "population": 12952907,
     "aliases": [
@@ -52605,6 +55364,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.27,
     "lng": 108.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "710000",
     "population": 12952907,
     "aliases": [
@@ -52626,6 +55386,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.23,
     "lng": 108.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "710000",
     "population": 12952907,
     "aliases": [
@@ -52647,6 +55408,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.27,
     "lng": 108.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "710003",
     "population": 12952907,
     "aliases": [
@@ -52668,6 +55430,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.27,
     "lng": 109.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "710038",
     "population": 12952907,
     "aliases": [
@@ -52689,6 +55452,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.28,
     "lng": 108.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "710016",
     "population": 12952907,
     "aliases": [
@@ -52710,6 +55474,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.22,
     "lng": 108.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "710000",
     "population": 12952907,
     "aliases": [
@@ -52731,6 +55496,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.65,
     "lng": 109.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "710089",
     "population": 12952907,
     "aliases": [
@@ -52752,6 +55518,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.37,
     "lng": 109.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "710600",
     "population": 12952907,
     "aliases": [
@@ -52773,6 +55540,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.17,
     "lng": 108.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "710100",
     "population": 12952907,
     "aliases": [
@@ -52794,6 +55562,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.15,
     "lng": 109.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "710500",
     "population": 12952907,
     "aliases": [
@@ -52815,6 +55584,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.17,
     "lng": 108.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "710400",
     "population": 12952907,
     "aliases": [
@@ -52836,6 +55606,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.1,
     "lng": 108.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "710300",
     "population": 12952907,
     "aliases": [
@@ -52857,6 +55628,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.53,
     "lng": 109.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "710200",
     "population": 12952907,
     "aliases": [
@@ -52878,6 +55650,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.9,
     "lng": 108.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "727000",
     "population": 1000,
     "aliases": [
@@ -52896,6 +55669,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.07,
     "lng": 109.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "727000",
     "population": 100,
     "aliases": [
@@ -52915,6 +55689,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.1,
     "lng": 109.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "727007",
     "population": 100,
     "aliases": [
@@ -52934,6 +55709,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.92,
     "lng": 108.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "727100",
     "population": 100,
     "aliases": [
@@ -52953,6 +55729,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.4,
     "lng": 109.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "727200",
     "population": 100,
     "aliases": [
@@ -52972,6 +55749,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.37,
     "lng": 107.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "721000",
     "population": 1000,
     "aliases": [
@@ -52990,6 +55768,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.37,
     "lng": 107.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "721000",
     "population": 100,
     "aliases": [
@@ -53009,6 +55788,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.38,
     "lng": 107.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "721000",
     "population": 100,
     "aliases": [
@@ -53028,6 +55808,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.37,
     "lng": 107.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "721300",
     "population": 100,
     "aliases": [
@@ -53047,6 +55828,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.52,
     "lng": 107.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "721400",
     "population": 100,
     "aliases": [
@@ -53066,6 +55848,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.45,
     "lng": 107.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "722400",
     "population": 100,
     "aliases": [
@@ -53085,6 +55868,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.37,
     "lng": 107.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "722200",
     "population": 100,
     "aliases": [
@@ -53104,6 +55888,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.28,
     "lng": 107.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "722300",
     "population": 100,
     "aliases": [
@@ -53123,6 +55908,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.9,
     "lng": 106.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "721200",
     "population": 100,
     "aliases": [
@@ -53142,6 +55928,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.65,
     "lng": 107.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "721100",
     "population": 100,
     "aliases": [
@@ -53161,6 +55948,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.68,
     "lng": 107.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "721500",
     "population": 100,
     "aliases": [
@@ -53180,6 +55968,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.92,
     "lng": 106.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "721700",
     "population": 100,
     "aliases": [
@@ -53199,6 +55988,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.07,
     "lng": 107.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "721600",
     "population": 100,
     "aliases": [
@@ -53218,6 +56008,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.33,
     "lng": 108.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "712000",
     "population": 1000,
     "aliases": [
@@ -53236,6 +56027,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.35,
     "lng": 108.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "712000",
     "population": 100,
     "aliases": [
@@ -53255,6 +56047,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.28,
     "lng": 108.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "712100",
     "population": 100,
     "aliases": [
@@ -53274,6 +56067,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.33,
     "lng": 108.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "712000",
     "population": 100,
     "aliases": [
@@ -53293,6 +56087,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.62,
     "lng": 108.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "713800",
     "population": 100,
     "aliases": [
@@ -53312,6 +56107,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.53,
     "lng": 108.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "713700",
     "population": 100,
     "aliases": [
@@ -53331,6 +56127,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.53,
     "lng": 108.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "713300",
     "population": 100,
     "aliases": [
@@ -53350,6 +56147,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.48,
     "lng": 108.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "713200",
     "population": 100,
     "aliases": [
@@ -53369,6 +56167,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.7,
     "lng": 108.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "713400",
     "population": 100,
     "aliases": [
@@ -53388,6 +56187,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.03,
     "lng": 108.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "713500",
     "population": 100,
     "aliases": [
@@ -53407,6 +56207,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.2,
     "lng": 107.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "713600",
     "population": 100,
     "aliases": [
@@ -53426,6 +56227,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.12,
     "lng": 108.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "711300",
     "population": 100,
     "aliases": [
@@ -53445,6 +56247,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.78,
     "lng": 108.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "711200",
     "population": 100,
     "aliases": [
@@ -53464,6 +56267,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.27,
     "lng": 108.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "712200",
     "population": 100,
     "aliases": [
@@ -53483,6 +56287,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.3,
     "lng": 108.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "713100",
     "population": 100,
     "aliases": [
@@ -53503,6 +56308,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.5,
     "lng": 109.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "714000",
     "population": 1000,
     "aliases": [
@@ -53521,6 +56327,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.5,
     "lng": 109.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "714000",
     "population": 100,
     "aliases": [
@@ -53540,6 +56347,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.52,
     "lng": 109.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "714100",
     "population": 100,
     "aliases": [
@@ -53559,6 +56367,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.55,
     "lng": 110.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "714300",
     "population": 100,
     "aliases": [
@@ -53578,6 +56387,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.8,
     "lng": 109.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "715100",
     "population": 100,
     "aliases": [
@@ -53597,6 +56407,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.23,
     "lng": 110.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "715300",
     "population": 100,
     "aliases": [
@@ -53616,6 +56427,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.18,
     "lng": 109.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "715200",
     "population": 100,
     "aliases": [
@@ -53635,6 +56447,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.95,
     "lng": 109.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "715500",
     "population": 100,
     "aliases": [
@@ -53654,6 +56467,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.18,
     "lng": 109.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "715600",
     "population": 100,
     "aliases": [
@@ -53673,6 +56487,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.75,
     "lng": 109.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "711700",
     "population": 100,
     "aliases": [
@@ -53692,6 +56507,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.48,
     "lng": 110.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "715400",
     "population": 100,
     "aliases": [
@@ -53712,6 +56528,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.57,
     "lng": 110.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "714200",
     "population": 100,
     "aliases": [
@@ -53732,6 +56549,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.6,
     "lng": 109.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "716000",
     "population": 1000,
     "aliases": [
@@ -53750,6 +56568,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.6,
     "lng": 109.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "716000",
     "population": 100,
     "aliases": [
@@ -53769,6 +56588,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.58,
     "lng": 110,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "717100",
     "population": 100,
     "aliases": [
@@ -53788,6 +56608,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.88,
     "lng": 110.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "717200",
     "population": 100,
     "aliases": [
@@ -53807,6 +56628,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.13,
     "lng": 109.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "717300",
     "population": 100,
     "aliases": [
@@ -53826,6 +56648,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.87,
     "lng": 109.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "717400",
     "population": 100,
     "aliases": [
@@ -53845,6 +56668,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.82,
     "lng": 108.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "717500",
     "population": 100,
     "aliases": [
@@ -53864,6 +56688,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.28,
     "lng": 109.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "716100",
     "population": 100,
     "aliases": [
@@ -53883,6 +56708,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.98,
     "lng": 109.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "727500",
     "population": 100,
     "aliases": [
@@ -53902,6 +56728,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.77,
     "lng": 109.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "727400",
     "population": 100,
     "aliases": [
@@ -53921,6 +56748,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.05,
     "lng": 110.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "716200",
     "population": 100,
     "aliases": [
@@ -53940,6 +56768,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.58,
     "lng": 109.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "715700",
     "population": 100,
     "aliases": [
@@ -53959,6 +56788,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.58,
     "lng": 109.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "727300",
     "population": 100,
     "aliases": [
@@ -53978,6 +56808,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.07,
     "lng": 107.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "723000",
     "population": 1000,
     "aliases": [
@@ -53996,6 +56827,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.07,
     "lng": 107.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "723000",
     "population": 100,
     "aliases": [
@@ -54015,6 +56847,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33,
     "lng": 106.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "723100",
     "population": 100,
     "aliases": [
@@ -54034,6 +56867,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.15,
     "lng": 107.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "723200",
     "population": 100,
     "aliases": [
@@ -54053,6 +56887,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.22,
     "lng": 107.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "723300",
     "population": 100,
     "aliases": [
@@ -54072,6 +56907,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.98,
     "lng": 107.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "723500",
     "population": 100,
     "aliases": [
@@ -54091,6 +56927,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.15,
     "lng": 106.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "724200",
     "population": 100,
     "aliases": [
@@ -54110,6 +56947,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.83,
     "lng": 106.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "724400",
     "population": 100,
     "aliases": [
@@ -54129,6 +56967,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.33,
     "lng": 106.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "724300",
     "population": 100,
     "aliases": [
@@ -54148,6 +56987,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.53,
     "lng": 107.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "723600",
     "population": 100,
     "aliases": [
@@ -54167,6 +57007,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.62,
     "lng": 106.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "724100",
     "population": 100,
     "aliases": [
@@ -54186,6 +57027,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.53,
     "lng": 107.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "723400",
     "population": 100,
     "aliases": [
@@ -54205,6 +57047,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.28,
     "lng": 109.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "719000",
     "population": 1000,
     "aliases": [
@@ -54223,6 +57066,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.28,
     "lng": 109.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "719000",
     "population": 100,
     "aliases": [
@@ -54242,6 +57086,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.83,
     "lng": 110.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "719300",
     "population": 100,
     "aliases": [
@@ -54261,6 +57106,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.03,
     "lng": 111.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "719400",
     "population": 100,
     "aliases": [
@@ -54280,6 +57126,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.95,
     "lng": 109.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "719200",
     "population": 100,
     "aliases": [
@@ -54299,6 +57146,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.6,
     "lng": 108.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "718500",
     "population": 100,
     "aliases": [
@@ -54318,6 +57166,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.58,
     "lng": 107.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "718600",
     "population": 100,
     "aliases": [
@@ -54337,6 +57186,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.5,
     "lng": 110.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "718000",
     "population": 100,
     "aliases": [
@@ -54356,6 +57206,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.75,
     "lng": 110.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "718100",
     "population": 100,
     "aliases": [
@@ -54375,6 +57226,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.02,
     "lng": 110.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "719200",
     "population": 100,
     "aliases": [
@@ -54394,6 +57246,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.45,
     "lng": 110.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "718200",
     "population": 100,
     "aliases": [
@@ -54413,6 +57266,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.08,
     "lng": 110.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "718300",
     "population": 100,
     "aliases": [
@@ -54432,6 +57286,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.62,
     "lng": 110.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "718400",
     "population": 100,
     "aliases": [
@@ -54451,6 +57306,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.68,
     "lng": 109.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "725000",
     "population": 1000,
     "aliases": [
@@ -54469,6 +57325,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.68,
     "lng": 109.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "725000",
     "population": 100,
     "aliases": [
@@ -54488,6 +57345,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.9,
     "lng": 108.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "725100",
     "population": 100,
     "aliases": [
@@ -54507,6 +57365,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.05,
     "lng": 108.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "725200",
     "population": 100,
     "aliases": [
@@ -54526,6 +57385,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.32,
     "lng": 108.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "711699",
     "population": 100,
     "aliases": [
@@ -54545,6 +57405,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.52,
     "lng": 108.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "725300",
     "population": 100,
     "aliases": [
@@ -54564,6 +57425,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.32,
     "lng": 108.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "725400",
     "population": 100,
     "aliases": [
@@ -54583,6 +57445,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.4,
     "lng": 109.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "725500",
     "population": 100,
     "aliases": [
@@ -54602,6 +57465,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 31.88,
     "lng": 109.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "725600",
     "population": 100,
     "aliases": [
@@ -54621,6 +57485,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.83,
     "lng": 109.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "725700",
     "population": 100,
     "aliases": [
@@ -54640,6 +57505,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.82,
     "lng": 110.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "725800",
     "population": 100,
     "aliases": [
@@ -54659,6 +57525,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.87,
     "lng": 109.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "726000",
     "population": 1000,
     "aliases": [
@@ -54677,6 +57544,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.87,
     "lng": 109.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "726000",
     "population": 100,
     "aliases": [
@@ -54696,6 +57564,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.08,
     "lng": 110.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "726100",
     "population": 100,
     "aliases": [
@@ -54715,6 +57584,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.7,
     "lng": 110.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "726200",
     "population": 100,
     "aliases": [
@@ -54734,6 +57604,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.53,
     "lng": 110.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "726300",
     "population": 100,
     "aliases": [
@@ -54753,6 +57624,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.53,
     "lng": 109.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "726400",
     "population": 100,
     "aliases": [
@@ -54772,6 +57644,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.43,
     "lng": 109.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "711500",
     "population": 100,
     "aliases": [
@@ -54791,6 +57664,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.68,
     "lng": 109.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "711400",
     "population": 100,
     "aliases": [
@@ -54810,6 +57684,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.07,
     "lng": 103.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "730000",
     "population": 4359446,
     "aliases": [
@@ -54829,6 +57704,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.05,
     "lng": 103.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "730030",
     "population": 4359446,
     "aliases": [
@@ -54849,6 +57725,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.1,
     "lng": 103.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "730060",
     "population": 4359446,
     "aliases": [
@@ -54869,6 +57746,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.33,
     "lng": 102.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "730084",
     "population": 4359446,
     "aliases": [
@@ -54889,6 +57767,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.73,
     "lng": 103.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "730300",
     "population": 4359446,
     "aliases": [
@@ -54909,6 +57788,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.33,
     "lng": 103.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "730200",
     "population": 4359446,
     "aliases": [
@@ -54929,6 +57809,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.85,
     "lng": 104.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "730100",
     "population": 4359446,
     "aliases": [
@@ -54949,6 +57830,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.8,
     "lng": 98.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "735100",
     "population": 1000,
     "aliases": [
@@ -54967,6 +57849,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.5,
     "lng": 102.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "737100",
     "population": 1000,
     "aliases": [
@@ -54985,6 +57868,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.5,
     "lng": 102.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "737100",
     "population": 100,
     "aliases": [
@@ -55004,6 +57888,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.25,
     "lng": 101.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "737200",
     "population": 100,
     "aliases": [
@@ -55023,6 +57908,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.55,
     "lng": 104.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "730900",
     "population": 1000,
     "aliases": [
@@ -55041,6 +57927,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.55,
     "lng": 104.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "730900",
     "population": 100,
     "aliases": [
@@ -55060,6 +57947,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.73,
     "lng": 104.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "730913",
     "population": 100,
     "aliases": [
@@ -55079,6 +57967,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.57,
     "lng": 104.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "730600",
     "population": 100,
     "aliases": [
@@ -55098,6 +57987,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.7,
     "lng": 105.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "730700",
     "population": 100,
     "aliases": [
@@ -55117,6 +58007,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.15,
     "lng": 104.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "730400",
     "population": 100,
     "aliases": [
@@ -55136,6 +58027,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.58,
     "lng": 105.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "741000",
     "population": 1000,
     "aliases": [
@@ -55154,6 +58046,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.75,
     "lng": 106.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "741400",
     "population": 100,
     "aliases": [
@@ -55173,6 +58066,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.87,
     "lng": 105.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "741600",
     "population": 100,
     "aliases": [
@@ -55192,6 +58086,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.73,
     "lng": 105.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "741200",
     "population": 100,
     "aliases": [
@@ -55211,6 +58106,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.72,
     "lng": 104.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "741300",
     "population": 100,
     "aliases": [
@@ -55230,6 +58126,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35,
     "lng": 106.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "741500",
     "population": 100,
     "aliases": [
@@ -55249,6 +58146,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.93,
     "lng": 102.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "733000",
     "population": 1000,
     "aliases": [
@@ -55267,6 +58165,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.93,
     "lng": 102.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "733000",
     "population": 100,
     "aliases": [
@@ -55286,6 +58185,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.62,
     "lng": 103.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "733300",
     "population": 100,
     "aliases": [
@@ -55305,6 +58205,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.47,
     "lng": 102.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "733100",
     "population": 100,
     "aliases": [
@@ -55324,6 +58225,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.98,
     "lng": 103.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "733200",
     "population": 100,
     "aliases": [
@@ -55343,6 +58245,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.93,
     "lng": 100.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "734000",
     "population": 1000,
     "aliases": [
@@ -55361,6 +58264,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.93,
     "lng": 100.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "734000",
     "population": 100,
     "aliases": [
@@ -55380,6 +58284,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.83,
     "lng": 99.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "734400",
     "population": 100,
     "aliases": [
@@ -55399,6 +58304,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.43,
     "lng": 100.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "734500",
     "population": 100,
     "aliases": [
@@ -55418,6 +58324,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.13,
     "lng": 100.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "734200",
     "population": 100,
     "aliases": [
@@ -55437,6 +58344,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.38,
     "lng": 99.82,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "734300",
     "population": 100,
     "aliases": [
@@ -55456,6 +58364,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.78,
     "lng": 101.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "734100",
     "population": 100,
     "aliases": [
@@ -55475,6 +58384,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.55,
     "lng": 106.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "744000",
     "population": 1000,
     "aliases": [
@@ -55493,6 +58403,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.55,
     "lng": 106.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "744000",
     "population": 100,
     "aliases": [
@@ -55512,6 +58423,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.33,
     "lng": 107.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "744300",
     "population": 100,
     "aliases": [
@@ -55531,6 +58443,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.07,
     "lng": 107.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "744400",
     "population": 100,
     "aliases": [
@@ -55550,6 +58463,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.3,
     "lng": 107.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "744200",
     "population": 100,
     "aliases": [
@@ -55569,6 +58483,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.22,
     "lng": 106.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "744100",
     "population": 100,
     "aliases": [
@@ -55588,6 +58503,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.2,
     "lng": 106.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "744600",
     "population": 100,
     "aliases": [
@@ -55607,6 +58523,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.52,
     "lng": 105.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "743400",
     "population": 100,
     "aliases": [
@@ -55626,6 +58543,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.75,
     "lng": 98.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "735000",
     "population": 1000,
     "aliases": [
@@ -55644,6 +58562,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.75,
     "lng": 98.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "735000",
     "population": 100,
     "aliases": [
@@ -55663,6 +58582,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.98,
     "lng": 98.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "735300",
     "population": 100,
     "aliases": [
@@ -55682,6 +58602,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.52,
     "lng": 94.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "736300",
     "population": 100,
     "aliases": [
@@ -55701,6 +58622,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.63,
     "lng": 94.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "736400",
     "population": 100,
     "aliases": [
@@ -55720,6 +58642,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.28,
     "lng": 97.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "735211",
     "population": 100,
     "aliases": [
@@ -55740,6 +58663,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.13,
     "lng": 94.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "736200",
     "population": 100,
     "aliases": [
@@ -55760,6 +58684,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.73,
     "lng": 107.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "745000",
     "population": 1000,
     "aliases": [
@@ -55778,6 +58703,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.73,
     "lng": 107.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "745000",
     "population": 100,
     "aliases": [
@@ -55797,6 +58723,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36,
     "lng": 107.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "745100",
     "population": 100,
     "aliases": [
@@ -55816,6 +58743,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.58,
     "lng": 107.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "745700",
     "population": 100,
     "aliases": [
@@ -55835,6 +58763,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.47,
     "lng": 107.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "745600",
     "population": 100,
     "aliases": [
@@ -55854,6 +58783,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.82,
     "lng": 108.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "745400",
     "population": 100,
     "aliases": [
@@ -55873,6 +58803,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.5,
     "lng": 108.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "745300",
     "population": 100,
     "aliases": [
@@ -55892,6 +58823,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.5,
     "lng": 107.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "745200",
     "population": 100,
     "aliases": [
@@ -55911,6 +58843,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.68,
     "lng": 107.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "744500",
     "population": 100,
     "aliases": [
@@ -55930,6 +58863,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.58,
     "lng": 104.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "743000",
     "population": 1000,
     "aliases": [
@@ -55948,6 +58882,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.58,
     "lng": 104.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "744300",
     "population": 100,
     "aliases": [
@@ -55967,6 +58902,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.2,
     "lng": 105.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "743300",
     "population": 100,
     "aliases": [
@@ -55986,6 +58922,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35,
     "lng": 104.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "748100",
     "population": 100,
     "aliases": [
@@ -56005,6 +58942,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.13,
     "lng": 104.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "748200",
     "population": 100,
     "aliases": [
@@ -56024,6 +58962,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.38,
     "lng": 103.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "730500",
     "population": 100,
     "aliases": [
@@ -56043,6 +58982,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.85,
     "lng": 104.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "748300",
     "population": 100,
     "aliases": [
@@ -56062,6 +59002,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.43,
     "lng": 104.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "748400",
     "population": 100,
     "aliases": [
@@ -56081,6 +59022,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.4,
     "lng": 104.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "746000",
     "population": 1000,
     "aliases": [
@@ -56099,6 +59041,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.4,
     "lng": 104.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "746000",
     "population": 100,
     "aliases": [
@@ -56118,6 +59061,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.73,
     "lng": 105.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "742500",
     "population": 100,
     "aliases": [
@@ -56137,6 +59081,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.95,
     "lng": 104.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "746400",
     "population": 100,
     "aliases": [
@@ -56156,6 +59101,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.05,
     "lng": 104.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "748500",
     "population": 100,
     "aliases": [
@@ -56175,6 +59121,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.33,
     "lng": 105.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "746500",
     "population": 100,
     "aliases": [
@@ -56194,6 +59141,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.02,
     "lng": 105.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "742100",
     "population": 100,
     "aliases": [
@@ -56213,6 +59161,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.18,
     "lng": 105.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "742200",
     "population": 100,
     "aliases": [
@@ -56232,6 +59181,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.77,
     "lng": 106.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "742300",
     "population": 100,
     "aliases": [
@@ -56251,6 +59201,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.92,
     "lng": 106.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "742400",
     "population": 100,
     "aliases": [
@@ -56270,6 +59221,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.6,
     "lng": 103.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "731100",
     "population": 1000,
     "aliases": [
@@ -56287,6 +59239,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.6,
     "lng": 103.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "731100",
     "population": 100,
     "aliases": [
@@ -56306,6 +59259,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.5,
     "lng": 103,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "731800",
     "population": 100,
     "aliases": [
@@ -56324,6 +59278,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.37,
     "lng": 103.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "731500",
     "population": 100,
     "aliases": [
@@ -56342,6 +59297,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.93,
     "lng": 103.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "731600",
     "population": 100,
     "aliases": [
@@ -56360,6 +59316,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.48,
     "lng": 103.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "731300",
     "population": 100,
     "aliases": [
@@ -56378,6 +59335,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.43,
     "lng": 103.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "731200",
     "population": 100,
     "aliases": [
@@ -56396,6 +59354,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.67,
     "lng": 103.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "731400",
     "population": 100,
     "aliases": [
@@ -56414,6 +59373,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.98,
     "lng": 102.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "747000",
     "population": 1000,
     "aliases": [
@@ -56431,6 +59391,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.98,
     "lng": 102.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "747000",
     "population": 100,
     "aliases": [
@@ -56450,6 +59411,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.7,
     "lng": 103.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "747500",
     "population": 100,
     "aliases": [
@@ -56468,6 +59430,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.58,
     "lng": 103.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "747600",
     "population": 100,
     "aliases": [
@@ -56486,6 +59449,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.78,
     "lng": 104.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "746300",
     "population": 100,
     "aliases": [
@@ -56504,6 +59468,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.05,
     "lng": 103.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "747400",
     "population": 100,
     "aliases": [
@@ -56522,6 +59487,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34,
     "lng": 102.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "747300",
     "population": 100,
     "aliases": [
@@ -56540,6 +59506,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.58,
     "lng": 102.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "747200",
     "population": 100,
     "aliases": [
@@ -56558,6 +59525,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.2,
     "lng": 102.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "747100",
     "population": 100,
     "aliases": [
@@ -56576,6 +59544,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.62,
     "lng": 101.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "810000",
     "population": 2467965,
     "aliases": [
@@ -56595,6 +59564,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.62,
     "lng": 101.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "617000",
     "population": 2467965,
     "aliases": [
@@ -56615,6 +59585,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.62,
     "lng": 101.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "545000",
     "population": 2467965,
     "aliases": [
@@ -56635,6 +59606,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.62,
     "lng": 101.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "617000",
     "population": 2467965,
     "aliases": [
@@ -56655,6 +59627,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.67,
     "lng": 101.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "810000",
     "population": 2467965,
     "aliases": [
@@ -56675,6 +59648,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.93,
     "lng": 101.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "232000",
     "population": 2467965,
     "aliases": [
@@ -56695,6 +59669,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.5,
     "lng": 101.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "811600",
     "population": 2467965,
     "aliases": [
@@ -56715,6 +59690,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.68,
     "lng": 101.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "812100",
     "population": 2467965,
     "aliases": [
@@ -56735,6 +59711,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.5,
     "lng": 102.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "810600",
     "population": 1000,
     "aliases": [
@@ -56752,6 +59729,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.5,
     "lng": 102.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "622600",
     "population": 100,
     "aliases": [
@@ -56770,6 +59748,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.33,
     "lng": 102.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "810800",
     "population": 100,
     "aliases": [
@@ -56788,6 +59767,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.48,
     "lng": 102.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "810700",
     "population": 100,
     "aliases": [
@@ -56806,6 +59786,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.83,
     "lng": 101.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "810500",
     "population": 100,
     "aliases": [
@@ -56824,6 +59805,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.1,
     "lng": 102.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "422200",
     "population": 100,
     "aliases": [
@@ -56842,6 +59824,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.85,
     "lng": 102.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "811100",
     "population": 100,
     "aliases": [
@@ -56860,6 +59843,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.97,
     "lng": 100.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "812200",
     "population": 1000,
     "aliases": [
@@ -56877,6 +59861,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.38,
     "lng": 101.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "810300",
     "population": 100,
     "aliases": [
@@ -56895,6 +59880,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.18,
     "lng": 100.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "810400",
     "population": 100,
     "aliases": [
@@ -56913,6 +59899,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.9,
     "lng": 100.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "812200",
     "population": 100,
     "aliases": [
@@ -56931,6 +59918,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.33,
     "lng": 100.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "812300",
     "population": 100,
     "aliases": [
@@ -56949,6 +59937,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.52,
     "lng": 102.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "811300",
     "population": 1000,
     "aliases": [
@@ -56966,6 +59955,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.52,
     "lng": 102.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "811300",
     "population": 100,
     "aliases": [
@@ -56984,6 +59974,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.93,
     "lng": 102.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "811200",
     "population": 100,
     "aliases": [
@@ -57002,6 +59993,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.03,
     "lng": 101.47,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "811400",
     "population": 100,
     "aliases": [
@@ -57020,6 +60012,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.73,
     "lng": 101.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "811500",
     "population": 100,
     "aliases": [
@@ -57038,6 +60031,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.28,
     "lng": 100.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "016000",
     "population": 1000,
     "aliases": [
@@ -57055,6 +60049,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.28,
     "lng": 100.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "238200",
     "population": 100,
     "aliases": [
@@ -57073,6 +60068,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.25,
     "lng": 100.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "813200",
     "population": 100,
     "aliases": [
@@ -57091,6 +60087,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.05,
     "lng": 101.43,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "811700",
     "population": 100,
     "aliases": [
@@ -57109,6 +60106,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.58,
     "lng": 99.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "813300",
     "population": 100,
     "aliases": [
@@ -57127,6 +60125,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.58,
     "lng": 100.75,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "413200",
     "population": 100,
     "aliases": [
@@ -57145,6 +60144,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.48,
     "lng": 100.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "814000",
     "population": 1000,
     "aliases": [
@@ -57162,6 +60162,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.48,
     "lng": 100.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "046400",
     "population": 100,
     "aliases": [
@@ -57180,6 +60181,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.93,
     "lng": 100.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "814300",
     "population": 100,
     "aliases": [
@@ -57198,6 +60200,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.97,
     "lng": 99.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "814100",
     "population": 100,
     "aliases": [
@@ -57216,6 +60219,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.75,
     "lng": 99.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "814200",
     "population": 100,
     "aliases": [
@@ -57234,6 +60238,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.43,
     "lng": 101.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "624700",
     "population": 100,
     "aliases": [
@@ -57252,6 +60257,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.92,
     "lng": 98.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "813500",
     "population": 100,
     "aliases": [
@@ -57270,6 +60276,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33,
     "lng": 97.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "815000",
     "population": 1000,
     "aliases": [
@@ -57287,6 +60294,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33,
     "lng": 97.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "815000",
     "population": 100,
     "aliases": [
@@ -57305,6 +60313,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.9,
     "lng": 95.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "815300",
     "population": 100,
     "aliases": [
@@ -57323,6 +60332,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.37,
     "lng": 97.1,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "815100",
     "population": 100,
     "aliases": [
@@ -57341,6 +60351,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 33.85,
     "lng": 95.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "815400",
     "population": 100,
     "aliases": [
@@ -57359,6 +60370,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 32.2,
     "lng": 96.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "815200",
     "population": 100,
     "aliases": [
@@ -57377,6 +60389,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 34.13,
     "lng": 95.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "815500",
     "population": 100,
     "aliases": [
@@ -57395,6 +60408,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.37,
     "lng": 97.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "817000",
     "population": 1000,
     "aliases": [
@@ -57412,6 +60426,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.42,
     "lng": 94.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "816000",
     "population": 100,
     "aliases": [
@@ -57431,6 +60446,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.37,
     "lng": 97.37,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "817000",
     "population": 100,
     "aliases": [
@@ -57450,6 +60466,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.93,
     "lng": 98.48,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "817100",
     "population": 100,
     "aliases": [
@@ -57468,6 +60485,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.3,
     "lng": 98.08,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "816100",
     "population": 100,
     "aliases": [
@@ -57486,6 +60504,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.3,
     "lng": 99.02,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "817200",
     "population": 100,
     "aliases": [
@@ -57504,6 +60523,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.47,
     "lng": 106.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "750000",
     "population": 2859074,
     "aliases": [
@@ -57523,6 +60543,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.48,
     "lng": 106.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "750000",
     "population": 2859074,
     "aliases": [
@@ -57543,6 +60564,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.48,
     "lng": 106.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "750000",
     "population": 2859074,
     "aliases": [
@@ -57563,6 +60585,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.47,
     "lng": 106.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "750000",
     "population": 2859074,
     "aliases": [
@@ -57583,6 +60606,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.28,
     "lng": 106.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "745200",
     "population": 2859074,
     "aliases": [
@@ -57603,6 +60627,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.55,
     "lng": 106.35,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "750200",
     "population": 2859074,
     "aliases": [
@@ -57623,6 +60648,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.1,
     "lng": 106.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "750400",
     "population": 2859074,
     "aliases": [
@@ -57644,6 +60670,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.02,
     "lng": 106.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "753000",
     "population": 1000,
     "aliases": [
@@ -57662,6 +60689,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.02,
     "lng": 106.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "753000",
     "population": 100,
     "aliases": [
@@ -57681,6 +60709,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.25,
     "lng": 106.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "753200",
     "population": 100,
     "aliases": [
@@ -57700,6 +60729,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.9,
     "lng": 106.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "753400",
     "population": 100,
     "aliases": [
@@ -57719,6 +60749,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.98,
     "lng": 106.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "751100",
     "population": 1000,
     "aliases": [
@@ -57737,6 +60768,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.98,
     "lng": 106.2,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "751100",
     "population": 100,
     "aliases": [
@@ -57756,6 +60788,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.78,
     "lng": 107.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "751500",
     "population": 100,
     "aliases": [
@@ -57775,6 +60808,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.98,
     "lng": 105.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "751300",
     "population": 100,
     "aliases": [
@@ -57794,6 +60828,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.02,
     "lng": 106.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "751600",
     "population": 100,
     "aliases": [
@@ -57814,6 +60849,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36,
     "lng": 106.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "756000",
     "population": 1000,
     "aliases": [
@@ -57832,6 +60868,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36,
     "lng": 106.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "756000",
     "population": 100,
     "aliases": [
@@ -57851,6 +60888,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.97,
     "lng": 105.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "042200",
     "population": 100,
     "aliases": [
@@ -57870,6 +60908,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.62,
     "lng": 106.12,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "756300",
     "population": 100,
     "aliases": [
@@ -57889,6 +60928,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.48,
     "lng": 106.33,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "756400",
     "population": 100,
     "aliases": [
@@ -57908,6 +60948,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 35.85,
     "lng": 106.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "756500",
     "population": 100,
     "aliases": [
@@ -57927,6 +60968,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.52,
     "lng": 105.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "755000",
     "population": 1000,
     "aliases": [
@@ -57945,6 +60987,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.52,
     "lng": 105.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "524000",
     "population": 100,
     "aliases": [
@@ -57964,6 +61007,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.48,
     "lng": 105.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "745200",
     "population": 100,
     "aliases": [
@@ -57983,6 +61027,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.57,
     "lng": 105.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "755200",
     "population": 100,
     "aliases": [
@@ -58002,6 +61047,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.82,
     "lng": 87.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "830000",
     "population": 4054369,
     "aliases": [
@@ -58023,6 +61069,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.78,
     "lng": 87.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "830000",
     "population": 4054369,
     "aliases": [
@@ -58045,6 +61092,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.78,
     "lng": 87.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "830000",
     "population": 4054369,
     "aliases": [
@@ -58067,6 +61115,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.85,
     "lng": 87.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "830000",
     "population": 4054369,
     "aliases": [
@@ -58089,6 +61138,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.83,
     "lng": 87.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "830000",
     "population": 4054369,
     "aliases": [
@@ -58111,6 +61161,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.87,
     "lng": 87.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "830000",
     "population": 4054369,
     "aliases": [
@@ -58133,6 +61184,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.35,
     "lng": 88.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "037000",
     "population": 4054369,
     "aliases": [
@@ -58155,6 +61207,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.95,
     "lng": 87.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "154100",
     "population": 4054369,
     "aliases": [
@@ -58177,6 +61230,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.8,
     "lng": 87.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "830000",
     "population": 4054369,
     "aliases": [
@@ -58199,6 +61253,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.6,
     "lng": 84.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "834000",
     "population": 1000,
     "aliases": [
@@ -58217,6 +61272,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.32,
     "lng": 84.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "558200",
     "population": 100,
     "aliases": [
@@ -58236,6 +61292,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.6,
     "lng": 84.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "834000",
     "population": 100,
     "aliases": [
@@ -58255,6 +61312,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.7,
     "lng": 85.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "834000",
     "population": 100,
     "aliases": [
@@ -58274,6 +61332,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.08,
     "lng": 85.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "834000",
     "population": 100,
     "aliases": [
@@ -58293,6 +61352,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.95,
     "lng": 89.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "838000",
     "population": 1000,
     "aliases": [
@@ -58310,6 +61370,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.95,
     "lng": 89.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "838000",
     "population": 100,
     "aliases": [
@@ -58329,6 +61390,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.87,
     "lng": 90.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "838200",
     "population": 100,
     "aliases": [
@@ -58347,6 +61409,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.78,
     "lng": 88.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "838100",
     "population": 100,
     "aliases": [
@@ -58365,6 +61428,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.83,
     "lng": 93.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "839000",
     "population": 1000,
     "aliases": [
@@ -58382,6 +61446,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.83,
     "lng": 93.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "839100",
     "population": 100,
     "aliases": [
@@ -58401,6 +61466,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.25,
     "lng": 94.7,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "839300",
     "population": 100,
     "aliases": [
@@ -58419,6 +61485,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.02,
     "lng": 87.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "831100",
     "population": 1000,
     "aliases": [
@@ -58436,6 +61503,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.02,
     "lng": 87.3,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "831100",
     "population": 100,
     "aliases": [
@@ -58455,6 +61523,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.15,
     "lng": 87.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "831500",
     "population": 100,
     "aliases": [
@@ -58474,6 +61543,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.97,
     "lng": 87.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "831400",
     "population": 100,
     "aliases": [
@@ -58493,6 +61563,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.18,
     "lng": 86.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "831200",
     "population": 100,
     "aliases": [
@@ -58511,6 +61582,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.3,
     "lng": 86.22,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "832200",
     "population": 100,
     "aliases": [
@@ -58529,6 +61601,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.02,
     "lng": 89.58,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "831800",
     "population": 100,
     "aliases": [
@@ -58547,6 +61620,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44,
     "lng": 89.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "831700",
     "population": 100,
     "aliases": [
@@ -58565,6 +61639,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.83,
     "lng": 90.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "831900",
     "population": 100,
     "aliases": [
@@ -58583,6 +61658,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.9,
     "lng": 82.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "833400",
     "population": 1000,
     "aliases": [
@@ -58600,6 +61676,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.9,
     "lng": 82.07,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "833400",
     "population": 100,
     "aliases": [
@@ -58619,6 +61696,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.6,
     "lng": 82.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "833300",
     "population": 100,
     "aliases": [
@@ -58637,6 +61715,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.97,
     "lng": 81.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "833500",
     "population": 100,
     "aliases": [
@@ -58655,6 +61734,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.77,
     "lng": 86.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "841000",
     "population": 1000,
     "aliases": [
@@ -58672,6 +61752,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.77,
     "lng": 86.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "841000",
     "population": 100,
     "aliases": [
@@ -58691,6 +61772,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.78,
     "lng": 84.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "841600",
     "population": 100,
     "aliases": [
@@ -58709,6 +61791,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.33,
     "lng": 86.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "841500",
     "population": 100,
     "aliases": [
@@ -58727,6 +61810,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.02,
     "lng": 88.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "841800",
     "population": 100,
     "aliases": [
@@ -58745,6 +61829,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.13,
     "lng": 85.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "841900",
     "population": 100,
     "aliases": [
@@ -58763,6 +61848,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.07,
     "lng": 86.57,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "841100",
     "population": 100,
     "aliases": [
@@ -58781,6 +61867,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.32,
     "lng": 86.4,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "841300",
     "population": 100,
     "aliases": [
@@ -58799,6 +61886,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 42.27,
     "lng": 86.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "841200",
     "population": 100,
     "aliases": [
@@ -58817,6 +61905,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.98,
     "lng": 86.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "841400",
     "population": 100,
     "aliases": [
@@ -58835,6 +61924,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.17,
     "lng": 80.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "843000",
     "population": 1000,
     "aliases": [
@@ -58852,6 +61942,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.17,
     "lng": 80.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "843000",
     "population": 100,
     "aliases": [
@@ -58871,6 +61962,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.28,
     "lng": 80.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "843100",
     "population": 100,
     "aliases": [
@@ -58889,6 +61981,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.72,
     "lng": 82.97,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "842000",
     "population": 100,
     "aliases": [
@@ -58907,6 +62000,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.22,
     "lng": 82.78,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "842200",
     "population": 100,
     "aliases": [
@@ -58925,6 +62019,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.55,
     "lng": 82.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "238200",
     "population": 100,
     "aliases": [
@@ -58943,6 +62038,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.8,
     "lng": 81.87,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "842300",
     "population": 100,
     "aliases": [
@@ -58961,6 +62057,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 41.22,
     "lng": 79.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "843400",
     "population": 100,
     "aliases": [
@@ -58979,6 +62076,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.63,
     "lng": 80.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "843200",
     "population": 100,
     "aliases": [
@@ -58997,6 +62095,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.5,
     "lng": 79.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "843600",
     "population": 100,
     "aliases": [
@@ -59015,6 +62114,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.72,
     "lng": 76.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "845300",
     "population": 1000,
     "aliases": [
@@ -59033,6 +62133,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.15,
     "lng": 75.95,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "845500",
     "population": 100,
     "aliases": [
@@ -59052,6 +62153,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.93,
     "lng": 78.45,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "843500",
     "population": 100,
     "aliases": [
@@ -59071,6 +62173,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.72,
     "lng": 75.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "845400",
     "population": 100,
     "aliases": [
@@ -59090,6 +62193,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.47,
     "lng": 75.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "844000",
     "population": 1000,
     "aliases": [
@@ -59107,6 +62211,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.47,
     "lng": 75.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "844000",
     "population": 100,
     "aliases": [
@@ -59126,6 +62231,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.38,
     "lng": 75.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "844100",
     "population": 100,
     "aliases": [
@@ -59144,6 +62250,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.4,
     "lng": 76.05,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "844200",
     "population": 100,
     "aliases": [
@@ -59162,6 +62269,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.93,
     "lng": 76.17,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "365500",
     "population": 100,
     "aliases": [
@@ -59180,6 +62288,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.18,
     "lng": 77.27,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "844800",
     "population": 100,
     "aliases": [
@@ -59198,6 +62307,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.42,
     "lng": 77.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "844700",
     "population": 100,
     "aliases": [
@@ -59216,6 +62326,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.88,
     "lng": 77.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "844900",
     "population": 100,
     "aliases": [
@@ -59234,6 +62345,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 38.9,
     "lng": 77.65,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "844600",
     "population": 100,
     "aliases": [
@@ -59252,6 +62364,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.23,
     "lng": 76.77,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "844400",
     "population": 100,
     "aliases": [
@@ -59270,6 +62383,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.5,
     "lng": 76.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "844300",
     "population": 100,
     "aliases": [
@@ -59288,6 +62402,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.78,
     "lng": 78.55,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "843800",
     "population": 100,
     "aliases": [
@@ -59306,6 +62421,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.12,
     "lng": 79.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "848000",
     "population": 1000,
     "aliases": [
@@ -59323,6 +62439,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.12,
     "lng": 79.92,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "848000",
     "population": 100,
     "aliases": [
@@ -59342,6 +62459,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.1,
     "lng": 79.93,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "848000",
     "population": 100,
     "aliases": [
@@ -59360,6 +62478,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.27,
     "lng": 79.73,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "848100",
     "population": 100,
     "aliases": [
@@ -59378,6 +62497,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.62,
     "lng": 78.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "845100",
     "population": 100,
     "aliases": [
@@ -59396,6 +62516,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.07,
     "lng": 80.18,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "848200",
     "population": 100,
     "aliases": [
@@ -59414,6 +62535,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37,
     "lng": 80.8,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "848300",
     "population": 100,
     "aliases": [
@@ -59432,6 +62554,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 36.85,
     "lng": 81.67,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "848400",
     "population": 100,
     "aliases": [
@@ -59450,6 +62573,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 37.07,
     "lng": 82.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "221700",
     "population": 100,
     "aliases": [
@@ -59468,6 +62592,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.92,
     "lng": 81.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "835000",
     "population": 1000,
     "aliases": [
@@ -59485,6 +62610,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.92,
     "lng": 81.32,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "835100",
     "population": 100,
     "aliases": [
@@ -59504,6 +62630,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.42,
     "lng": 84.9,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "833200",
     "population": 100,
     "aliases": [
@@ -59523,6 +62650,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.98,
     "lng": 81.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "745200",
     "population": 100,
     "aliases": [
@@ -59541,6 +62669,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.83,
     "lng": 81.15,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "835300",
     "population": 100,
     "aliases": [
@@ -59559,6 +62688,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.05,
     "lng": 80.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "835200",
     "population": 100,
     "aliases": [
@@ -59577,6 +62707,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.48,
     "lng": 82.23,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "835400",
     "population": 100,
     "aliases": [
@@ -59595,6 +62726,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.43,
     "lng": 83.25,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "835800",
     "population": 100,
     "aliases": [
@@ -59613,6 +62745,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.15,
     "lng": 81.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "835600",
     "population": 100,
     "aliases": [
@@ -59631,6 +62764,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.22,
     "lng": 81.83,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "835500",
     "population": 100,
     "aliases": [
@@ -59649,6 +62783,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 43.78,
     "lng": 82.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "835700",
     "population": 100,
     "aliases": [
@@ -59667,6 +62802,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.75,
     "lng": 82.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "834700",
     "population": 1000,
     "aliases": [
@@ -59684,6 +62820,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.75,
     "lng": 82.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "834700",
     "population": 100,
     "aliases": [
@@ -59703,6 +62840,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.43,
     "lng": 84.68,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "833000",
     "population": 100,
     "aliases": [
@@ -59722,6 +62860,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.53,
     "lng": 83.63,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "834600",
     "population": 100,
     "aliases": [
@@ -59740,6 +62879,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.33,
     "lng": 85.62,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "614900",
     "population": 100,
     "aliases": [
@@ -59758,6 +62898,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 45.93,
     "lng": 83.6,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "834500",
     "population": 100,
     "aliases": [
@@ -59776,6 +62917,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.2,
     "lng": 82.98,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "834800",
     "population": 100,
     "aliases": [
@@ -59794,6 +62936,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.8,
     "lng": 85.72,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "834400",
     "population": 100,
     "aliases": [
@@ -59812,6 +62955,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.85,
     "lng": 88.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "836500",
     "population": 1000,
     "aliases": [
@@ -59829,6 +62973,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.85,
     "lng": 88.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "836500",
     "population": 100,
     "aliases": [
@@ -59848,6 +62993,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.7,
     "lng": 86.85,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "836600",
     "population": 100,
     "aliases": [
@@ -59866,6 +63012,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47,
     "lng": 89.52,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "836100",
     "population": 100,
     "aliases": [
@@ -59884,6 +63031,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.12,
     "lng": 87.5,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "836400",
     "population": 100,
     "aliases": [
@@ -59902,6 +63050,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 48.07,
     "lng": 86.42,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "836700",
     "population": 100,
     "aliases": [
@@ -59920,6 +63069,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 46.67,
     "lng": 90.38,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "836200",
     "population": 100,
     "aliases": [
@@ -59938,6 +63088,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 47.43,
     "lng": 85.88,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "836800",
     "population": 100,
     "aliases": [
@@ -59956,6 +63107,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.3,
     "lng": 86.03,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "832000",
     "population": 1000,
     "aliases": [
@@ -59974,6 +63126,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 40.55,
     "lng": 81.28,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "843300",
     "population": 100,
     "aliases": [
@@ -59994,6 +63147,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 39.85,
     "lng": 79.13,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "844000",
     "population": 100,
     "aliases": [
@@ -60014,6 +63168,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 44.17,
     "lng": 87.53,
+    "timeZone": "Asia/Shanghai",
     "zipCode": "831300",
     "population": 100,
     "aliases": [
@@ -60034,6 +63189,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.2,
     "lng": 114.08,
+    "timeZone": "Asia/Hong_Kong",
     "zipCode": "999077",
     "population": 100,
     "aliases": [
@@ -60050,6 +63206,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.13,
     "lng": 113.33,
+    "timeZone": "Asia/Macau",
     "zipCode": "999078",
     "population": 100,
     "aliases": [
@@ -60066,6 +63223,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.03,
     "lng": 121.5,
+    "timeZone": "Asia/Taipei",
     "zipCode": "222",
     "population": 100,
     "aliases": [
@@ -60083,6 +63241,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.62,
     "lng": 120.28,
+    "timeZone": "Asia/Taipei",
     "zipCode": "800",
     "population": 100,
     "aliases": [
@@ -60100,6 +63259,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.13,
     "lng": 121.73,
+    "timeZone": "Asia/Taipei",
     "zipCode": "200",
     "population": 100,
     "aliases": [
@@ -60117,6 +63277,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.15,
     "lng": 120.67,
+    "timeZone": "Asia/Taipei",
     "zipCode": "400",
     "population": 100,
     "aliases": [
@@ -60134,6 +63295,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23,
     "lng": 120.2,
+    "timeZone": "Asia/Taipei",
     "zipCode": "700",
     "population": 100,
     "aliases": [
@@ -60151,6 +63313,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.82,
     "lng": 120.95,
+    "timeZone": "Asia/Taipei",
     "zipCode": "300",
     "population": 100,
     "aliases": [
@@ -60168,6 +63331,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.48,
     "lng": 120.43,
+    "timeZone": "Asia/Taipei",
     "zipCode": "600",
     "population": 100,
     "aliases": [
@@ -60185,6 +63349,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 25.02,
     "lng": 121.47,
+    "timeZone": "Asia/Taipei",
     "zipCode": "222",
     "population": 100,
     "aliases": [
@@ -60201,6 +63366,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.77,
     "lng": 121.75,
+    "timeZone": "Asia/Taipei",
     "zipCode": "260",
     "population": 100,
     "aliases": [
@@ -60217,6 +63383,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.97,
     "lng": 121.3,
+    "timeZone": "Asia/Taipei",
     "zipCode": "330",
     "population": 100,
     "aliases": [
@@ -60233,6 +63400,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.53,
     "lng": 120.8,
+    "timeZone": "Asia/Taipei",
     "zipCode": "360",
     "population": 100,
     "aliases": [
@@ -60249,6 +63417,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.25,
     "lng": 120.72,
+    "timeZone": "Asia/Taipei",
     "zipCode": "400",
     "population": 100,
     "aliases": [
@@ -60265,6 +63434,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 24.08,
     "lng": 120.53,
+    "timeZone": "Asia/Taipei",
     "zipCode": "500",
     "population": 100,
     "aliases": [
@@ -60281,6 +63451,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.92,
     "lng": 120.67,
+    "timeZone": "Asia/Taipei",
     "zipCode": "540",
     "population": 100,
     "aliases": [
@@ -60297,6 +63468,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.72,
     "lng": 120.53,
+    "timeZone": "Asia/Taipei",
     "zipCode": "640",
     "population": 100,
     "aliases": [
@@ -60313,6 +63485,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.32,
     "lng": 120.32,
+    "timeZone": "Asia/Taipei",
     "zipCode": "730",
     "population": 100,
     "aliases": [
@@ -60329,6 +63502,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.63,
     "lng": 120.37,
+    "timeZone": "Asia/Taipei",
     "zipCode": "800",
     "population": 100,
     "aliases": [
@@ -60345,6 +63519,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.67,
     "lng": 120.48,
+    "timeZone": "Asia/Taipei",
     "zipCode": "900",
     "population": 100,
     "aliases": [
@@ -60361,6 +63536,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 22.75,
     "lng": 121.15,
+    "timeZone": "Asia/Taipei",
     "zipCode": "210",
     "population": 100,
     "aliases": [
@@ -60377,6 +63553,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.98,
     "lng": 121.6,
+    "timeZone": "Asia/Taipei",
     "zipCode": "950",
     "population": 100,
     "aliases": [
@@ -60393,6 +63570,7 @@ export const BIRTHPLACES = [
     "countryCode": "CN",
     "lat": 23.58,
     "lng": 119.58,
+    "timeZone": "Asia/Taipei",
     "zipCode": "880",
     "population": 100,
     "aliases": [
@@ -60403,8 +63581,10 @@ export const BIRTHPLACES = [
     "name": "纽约",
     "admin1": "纽约州",
     "country": "美国",
+    "countryCode": "US",
     "lat": 40.7128,
     "lng": -74.006,
+    "timeZone": "America/New_York",
     "population": 8804190,
     "aliases": [
       "New York",
@@ -60416,8 +63596,10 @@ export const BIRTHPLACES = [
     "name": "洛杉矶",
     "admin1": "加利福尼亚州",
     "country": "美国",
+    "countryCode": "US",
     "lat": 34.0522,
     "lng": -118.2437,
+    "timeZone": "America/Los_Angeles",
     "population": 3898747,
     "aliases": [
       "Los Angeles",
@@ -60428,8 +63610,10 @@ export const BIRTHPLACES = [
     "name": "旧金山",
     "admin1": "加利福尼亚州",
     "country": "美国",
+    "countryCode": "US",
     "lat": 37.7749,
     "lng": -122.4194,
+    "timeZone": "America/Los_Angeles",
     "population": 873965,
     "aliases": [
       "San Francisco",
@@ -60440,8 +63624,10 @@ export const BIRTHPLACES = [
     "name": "伦敦",
     "admin1": "英格兰",
     "country": "英国",
+    "countryCode": "GB",
     "lat": 51.5072,
     "lng": -0.1276,
+    "timeZone": "Europe/London",
     "population": 8799800,
     "aliases": [
       "London"
@@ -60451,8 +63637,10 @@ export const BIRTHPLACES = [
     "name": "巴黎",
     "admin1": "法兰西岛",
     "country": "法国",
+    "countryCode": "FR",
     "lat": 48.8566,
     "lng": 2.3522,
+    "timeZone": "Europe/Paris",
     "population": 2148271,
     "aliases": [
       "Paris"
@@ -60462,8 +63650,10 @@ export const BIRTHPLACES = [
     "name": "东京",
     "admin1": "东京都",
     "country": "日本",
+    "countryCode": "JP",
     "lat": 35.6762,
     "lng": 139.6503,
+    "timeZone": "Asia/Tokyo",
     "population": 14047594,
     "aliases": [
       "Tokyo",
@@ -60474,8 +63664,10 @@ export const BIRTHPLACES = [
     "name": "新加坡",
     "admin1": "新加坡",
     "country": "新加坡",
+    "countryCode": "SG",
     "lat": 1.3521,
     "lng": 103.8198,
+    "timeZone": "Asia/Singapore",
     "population": 5685807,
     "aliases": [
       "Singapore"

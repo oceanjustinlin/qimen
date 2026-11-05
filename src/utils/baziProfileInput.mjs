@@ -53,7 +53,8 @@ const CHINA_DAYLIGHT_SAVING_PERIODS = {
   1990: { start: [4, 15], end: [9, 16] },
   1991: { start: [4, 14], end: [9, 15] }
 }
-const CHINA_NON_MAINLAND_ADMINS = new Set(['香港', '澳门', '澳門', '台湾', '臺灣'])
+const CHINA_NON_MAINLAND_ADMINS = new Set(['香港', '澳门', '澳門', '台湾', '臺灣', '港澳台'])
+export const CHINA_MAINLAND_TIME_ZONE = 'Asia/Shanghai'
 
 const getDayOfYear = (year, month, day) => {
   const start = Date.UTC(year, 0, 1)
@@ -131,6 +132,101 @@ export const getChinaDaylightSavingAdjustment = ({
   }
 }
 
+const timeZoneFormatterCache = new Map()
+
+const getTimeZoneFormatter = (timeZone) => {
+  if (!timeZoneFormatterCache.has(timeZone)) {
+    timeZoneFormatterCache.set(timeZone, new Intl.DateTimeFormat('en-US', {
+      timeZone,
+      timeZoneName: 'longOffset',
+      year: 'numeric'
+    }))
+  }
+  return timeZoneFormatterCache.get(timeZone)
+}
+
+export const normalizeTimeZone = (value) => {
+  const timeZone = String(value || '').trim()
+  if (!timeZone) return ''
+  try {
+    getTimeZoneFormatter(timeZone)
+    return timeZone
+  } catch {
+    return ''
+  }
+}
+
+// 某时区在某个 UTC 时刻的总 UTC 偏移（分钟，含夏令时），如 EDT → -240。
+export const getTimeZoneOffsetMinutes = (timeZone, utcMs) => {
+  const part = getTimeZoneFormatter(timeZone)
+    .formatToParts(new Date(utcMs))
+    .find((item) => item.type === 'timeZoneName')
+  const match = String(part?.value || '').match(/GMT(?:([+-])(\d{1,2})(?::?(\d{2}))?(?::?(\d{2}))?)?/)
+  if (!match || !match[1]) return 0
+  const sign = match[1] === '-' ? -1 : 1
+  return sign * (Number(match[2]) * 60 + Number(match[3] || 0) + Number(match[4] || 0) / 60)
+}
+
+// 把出生地当地钟表时间解释为一个 UTC 时刻，返回当时的总偏移与标准偏移。
+// 标准偏移取「当年 1 月 1 日、7 月 1 日与出生时刻」三者偏移的最小值：
+// 夏令时总是把钟拨快，所以最小值即该年的标准时（南北半球通用）。
+// 不存在的钟表时间（夏令时开始拨快跳过的那一小时）按切换前的偏移解释；
+// 重复的钟表时间（夏令时结束）取迭代收敛到的那一个。
+export const getZonedClockOffsets = ({ year, month, day, hour = 0, minute = 0, timeZone }) => {
+  const wallMs = Date.UTC(year, month - 1, day, hour, minute, 0)
+  const firstOffset = getTimeZoneOffsetMinutes(timeZone, wallMs)
+  const secondOffset = getTimeZoneOffsetMinutes(timeZone, wallMs - firstOffset * 60000)
+  let totalOffset = secondOffset
+  if (secondOffset !== firstOffset) {
+    const thirdOffset = getTimeZoneOffsetMinutes(timeZone, wallMs - secondOffset * 60000)
+    if (thirdOffset !== secondOffset) {
+      totalOffset = Math.min(firstOffset, secondOffset)
+    }
+  }
+  const standardOffset = Math.min(
+    totalOffset,
+    getTimeZoneOffsetMinutes(timeZone, Date.UTC(year, 0, 1, 12)),
+    getTimeZoneOffsetMinutes(timeZone, Date.UTC(year, 6, 1, 12))
+  )
+  return {
+    totalOffsetMinutes: totalOffset,
+    standardOffsetMinutes: standardOffset,
+    daylightSavingMinutes: standardOffset - totalOffset
+  }
+}
+
+
+const resolveTimeBasis = ({ year, month, day, hour, minute, country, admin1, timeZone, standardMeridian }) => {
+  const zone = normalizeTimeZone(timeZone)
+  if (!zone || zone === CHINA_MAINLAND_TIME_ZONE) {
+    // 中国大陆（及未提供时区的旧数据）：保持原行为——120° 标准经线 + 1986–1991 夏令时表。
+    const daylightSaving = getChinaDaylightSavingAdjustment({
+      year,
+      month,
+      day,
+      hour,
+      minute,
+      country: zone === CHINA_MAINLAND_TIME_ZONE && !country ? '中国' : country,
+      admin1
+    })
+    return {
+      timeZone: zone || null,
+      standardMeridian,
+      daylightSavingMinutes: daylightSaving.minutes,
+      daylightSavingActive: daylightSaving.active
+    }
+  }
+  const offsets = getZonedClockOffsets({ year, month, day, hour, minute, timeZone: zone })
+  return {
+    timeZone: zone,
+    standardMeridian: offsets.standardOffsetMinutes / 4,
+    daylightSavingMinutes: offsets.daylightSavingMinutes,
+    daylightSavingActive: offsets.daylightSavingMinutes !== 0
+  }
+}
+
+// 输入时间语义：出生地当地钟表时间（含当地当时的夏令时）。
+// timeZone 为出生地 IANA 时区；缺省或为 Asia/Shanghai 时按中国大陆规则处理。
 export const getSolarTimeAdjustment = ({
   year,
   month,
@@ -140,35 +236,38 @@ export const getSolarTimeAdjustment = ({
   longitude,
   country = '',
   admin1 = '',
+  timeZone = '',
   mode = 'apparent',
   standardMeridian = STANDARD_MERIDIAN
 }) => {
   const normalizedLongitude = normalizeLongitude(longitude)
   const clock = { year, month, day, hour, minute }
-  const daylightSaving = getChinaDaylightSavingAdjustment({ year, month, day, hour, minute, country, admin1 })
+  const basis = resolveTimeBasis({ year, month, day, hour, minute, country, admin1, timeZone, standardMeridian })
   if (normalizedLongitude === null || mode === 'clock') {
     return {
       longitude: normalizedLongitude,
       mode: 'clock',
-      standardMeridian,
-      daylightSavingMinutes: daylightSaving.minutes,
-      daylightSavingActive: daylightSaving.active,
+      timeZone: basis.timeZone,
+      standardMeridian: basis.standardMeridian,
+      daylightSavingMinutes: basis.daylightSavingMinutes,
+      daylightSavingActive: basis.daylightSavingActive,
       longitudeMinutes: 0,
       equationMinutes: 0,
-      totalMinutes: daylightSaving.minutes,
-      adjusted: addMinutesToLocalDatetime(clock, daylightSaving.minutes)
+      totalMinutes: basis.daylightSavingMinutes,
+      adjusted: addMinutesToLocalDatetime(clock, basis.daylightSavingMinutes)
     }
   }
 
-  const longitudeMinutes = (normalizedLongitude - standardMeridian) * 4
+  const longitudeMinutes = (normalizedLongitude - basis.standardMeridian) * 4
   const equationMinutes = mode === 'mean' ? 0 : getEquationOfTimeMinutes(year, month, day)
-  const totalMinutes = Math.round(daylightSaving.minutes + longitudeMinutes + equationMinutes)
+  const totalMinutes = Math.round(basis.daylightSavingMinutes + longitudeMinutes + equationMinutes)
   return {
     longitude: normalizedLongitude,
     mode: mode === 'mean' ? 'mean' : 'apparent',
-    standardMeridian,
-    daylightSavingMinutes: daylightSaving.minutes,
-    daylightSavingActive: daylightSaving.active,
+    timeZone: basis.timeZone,
+    standardMeridian: basis.standardMeridian,
+    daylightSavingMinutes: basis.daylightSavingMinutes,
+    daylightSavingActive: basis.daylightSavingActive,
     longitudeMinutes,
     equationMinutes,
     totalMinutes,
@@ -285,6 +384,7 @@ export const buildSolarProfilePayload = ({
   birthAdmin1 = '',
   birthLatitude = null,
   birthLongitude = null,
+  birthTimeZone = '',
   solarTimeMode = 'apparent'
 }) => {
   const timeAdjustment = getSolarTimeAdjustment({
@@ -296,6 +396,7 @@ export const buildSolarProfilePayload = ({
     longitude: birthLongitude,
     country: birthCountry,
     admin1: birthAdmin1,
+    timeZone: birthTimeZone,
     mode: solarTimeMode
   })
   const adjusted = timeAdjustment.adjusted
@@ -308,6 +409,7 @@ export const buildSolarProfilePayload = ({
       longitude: birthLongitude,
       country: birthCountry,
       admin1: birthAdmin1,
+      timeZone: birthTimeZone,
       mode: solarTimeMode
     }),
     birth_location: String(birthLocation || '').trim(),
