@@ -30,7 +30,7 @@
 | 解释命题 | `knowledge/ziwei/interpretations/` | 5 条宫位、14 条主星、4 条四化 |
 | 报告模板 | `knowledge/ziwei/reports/*.yaml` | 每主题定义 `palace_priority` 与阅读顺序 |
 | 证据组装 | `scripts/ziwei_report_evidence.cjs` | 事实投影 + 命题匹配 + 证据绑定 |
-| 原书摘录 | `knowledge/ziwei/sources/*/excerpts.jsonl` | 《命理天机》23 条、《飞星紫微斗数》5 条，均已视觉复核 |
+| 原书摘录 | `knowledge/ziwei/sources/*/excerpts.jsonl` | 《命理天机》23 条、《飞星紫微斗数》41 条，均已视觉复核 |
 
 ### 2.2 问题
 

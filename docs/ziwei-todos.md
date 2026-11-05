@@ -6,7 +6,8 @@
   - 用途：为 `knowledge/ziwei/ontology/stars.yaml` 补摘录，把 `sanfang_aggregate`、`jia_palace`、`brightness_state` 三类特征方法从 `pending_source` 升为 `reviewed`。
   - 提供方式：截取相关页面图片即可，不需要整本 PDF。
 - [ ] 提供《命理天机》第三章各星入十二宫的论述（先做命宫、官禄、财帛、夫妻、迁移、福德六宫）与第五章「推断步骤和分类规则集锦」（p416 起），用于 M2。
-- [ ] 提供《飞星紫微斗数》第六卷（p249 起）看命总论与十二宫禄权科忌庙照论，用于 M3 的四化修正项。
+- [x] 《飞星紫微斗数》第六卷 p249–270 已逐页原图校订入库（`knowledge/ziwei/sources/feixing-ziwei/`，新增 36 条摘录）：四化庙照、宫位五行受制得地、看命总论、大限重于流年、富贵贫贱杂局、星曜吉凶分组、博士十二神、诸星格局条件。
+  - [ ] 待人工审核：据此把四化庙照修正项（M3）、`sanfang_aggregate` 星曜分组、`jia_palace` 夹格清单从 `pending_source` 推进到 `reviewed`；p259 星曜分组把武曲、破军列入凶曜组，需与《命理天机》交叉核对。
 
 ## 需要确认的设计决策
 
