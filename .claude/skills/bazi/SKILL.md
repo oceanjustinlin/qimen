@@ -33,7 +33,9 @@ compatibility: Requires Node.js + repo deps (lunar-javascript). Run scripts/bazi
 
 ## 默认口径
 
-- **仅公历**：与生产引擎口径一致，CLI 只收公历（`calendar:"solar"`）。用户给农历时，先协助换算成公历再排，并说明。
+- **仅公历**：与生产引擎口径一致，CLI 只收公历。用户给农历时，先协助换算成公历再排，并说明。
+- **出生时间必填**：不再默认取午时；缺时辰时 CLI 返回 `TIME_REQUIRED`，须向用户追问。
+- **真太阳时**：提供出生地（`location.place`）或经度（`location.longitude`）时自动做真太阳时校正（含 1986–1991 夏令时）并按校正后时间排盘；未提供则按钟表时间排盘，`warnings` 会提示。
 - **子时**：采用 `lunar-javascript` 默认流派（夜子时 23:00–00:00 算当日），与本仓紫微口径一致。
 - **性别**：只影响大运顺逆。
 
@@ -41,17 +43,7 @@ compatibility: Requires Node.js + repo deps (lunar-javascript). Run scripts/bazi
 
 ### 第 1 步：访谈
 
-正式排盘前，先问清（模板见 `references/interview.md`）：
-
-1. 出生日期（公历优先；农历需先换算）。
-2. 出生时间（至少到时辰，最好到分钟；不知道要说明，默认取午时会降低准确度）。
-3. 性别。
-4. 你要问什么事？一句话说清。
-5. 事情对应的时间范围？（今年 / 近三年 / 未来五年 / 某个具体阶段 / 只看命局）
-6. 你最想判断什么？（能不能成 / 什么时候动 / 选哪边 / 要避开什么 / 只想了解性格命局）
-7. 要"直接结论"还是"详细讲解"？
-
-信息不全不要进入正式排盘。
+解读守则见 `packages/xuanxue-mcp/prompts/bazi_reading.md`（与 MCP prompt 共用）。访谈要问什么（出生日期、时辰、出生地、性别、所问之事、时间范围、详略偏好）以该文件为准，模板另见 `references/interview.md`。信息不全不要进入正式排盘。
 
 ### 第 2 步：判定分析类型（route），再调脚本
 
@@ -73,41 +65,30 @@ time_scope 常用取值：`current_year` / `next_3_years` / `next_5_years` / `ne
 ```bash
 echo '{
   "mode": "question",
-  "birth": {"calendar":"solar","year":1990,"month":5,"day":1,"hour":14,"minute":0,"gender":"男"},
+  "birth": {"date":"1990-05-01","time":"14:00","gender":"男","location":{"place":"北京"}},
   "question": "未来五年事业哪年最有机会突破",
   "route": {"analysis_mode":"timing","time_scope":{"type":"next_5_years"}},
-  "currentYear": 2026
+  "current_year": 2026
 }' | node scripts/bazi_cli.cjs
 ```
 
 - 只排盘（不问事）：`"mode":"chart"`，省略 `question`/`route`。
-- 便捷路径：`node scripts/bazi_cli.cjs --date 1990-05-01 --time 14:00 --gender 男 --question "..."`。
-- 出错时输出 `{"ok":false,"code":...,"error":...}` 且退出码非 0——把 `error` 转成对用户的追问（如缺时辰）。
+- 便捷路径：`node scripts/bazi_cli.cjs --date 1990-05-01 --time 14:00 --gender 男 --question "..."`（可加 `--place 北京` 或 `--longitude 116.4`）。
+- 旧格式 `birth: {calendar:"solar",year,month,day,hour,minute,gender}` 与 `currentYear` 仍兼容，但 `hour` 必填。
+- 输出为统一外层：`{ok,system,mode,engine_version,input,conventions,chart,judgments,confidence,limitations,warnings}`。
+- 出错时输出 `{"ok":false,"code":...,"message":...,"hint":...}` 且退出码非 0——按 `hint` 向用户追问（如缺时辰 `TIME_REQUIRED`、出生地不明 `PLACE_*`）。
 
 输入/输出字段的完整说明见 `references/reading-guide.md`。
 
 ### 第 4 步：解读脚本输出
 
-拿到 JSON 后按 `references/reading-guide.md` 解读，输出结构建议：
+拿到 JSON 后按 `references/reading-guide.md` 解读。解读顺序（四柱→强弱格局→喜用忌神→十神性格→问事推演→总结）、`engine_ran === false` 的处理见下方守则文件。
 
-1. 四柱排盘（用 `chart`：四柱、藏干、十神、神煞、大运列）。
-2. 日主强弱与格局（`static.strong_weak` / `static.geju` / `static.geju_info`）。
-3. 喜用忌神（`static.five_shens`：`yong`/`xi`/`ji`；`favorable_gods`/`unfavorable_gods`）。
-4. 十神配置与性格。
-5. 针对所问之事的推演（`question` 段：`target_spec` 用神落点、`state_report` 原局状态、`dynamic_report` 动态机制、`timing_candidates` 应期候选年）。
-6. 已发生事件校验清单（如用户提供过往事件，对齐 `timing_candidates`/大运节点）。
-7. 核心总结：核心特点、最需注意的风险、最值得把握的方向、关键年份。
-
-**当 `question.engine_ran === false`**（`llm_derived`/legacy）：说明该问题引擎未定出后端目标元素，此时依静态盘（`static`）自行推导，并在措辞上标明这是基于命局结构的推断。
+解读守则见 `packages/xuanxue-mcp/prompts/bazi_reading.md`（与 MCP prompt 共用）。
 
 ## 解读边界与风格
 
-- 命盘展示的是倾向、结构、课题与机会，不是绝对命定；不用"注定如此""无法改变"式表述。
-- 凶象转译成风险、课题、需要注意之处；不恐吓、不空泛玄谈。
-- 术语第一次出现用一句现代汉语解释。
-- 结论要有推演过程支撑；以脚本的确定性产物为据，经验口诀与推演冲突时**以推演为准**。
-- 健康、法律、财务只做命盘角度的结构提醒，不替代现实专业意见。
-- 不向用户展示完整内部推理链与原始 JSON，只呈现关键依据与必要结论。
+解读守则见 `packages/xuanxue-mcp/prompts/bazi_reading.md`（与 MCP prompt 共用）。通用安全规则、措辞边界、`limitations`/`warnings` 转告要求在 `packages/xuanxue-mcp/prompts/common.md`，开始解读前先读这两份文件。
 
 ## 结尾提醒
 

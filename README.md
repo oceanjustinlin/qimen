@@ -37,7 +37,7 @@
 
 | 技能 | 看什么 | 计算内核 | 技能定义 |
 | --- | --- | --- | --- |
-| **奇门遁甲** `qimen-dunjia` | 具体事件、时机窗口、方位、趋吉避凶 | `scripts/qimen_cli.py`（时家转盘，Python） | [SKILL.md](./docs/skills/qimen-dunjia/SKILL.md) |
+| **奇门遁甲** `qimen-dunjia` | 具体事件、时机窗口、方位、趋吉避凶 | `scripts/qimen_cli.cjs`（时家转盘，Node） | [SKILL.md](./.claude/skills/qimen-dunjia/SKILL.md) |
 | **四柱八字** `bazi` | 命局结构、性格禀赋、大运流年、问事应期 | `scripts/bazi_cli.cjs`（复用生产引擎，Node） | [SKILL.md](./.claude/skills/bazi/SKILL.md) |
 | **紫微斗数** `ziwei` | 十二宫结构、星情四化、大限流年的阶段变化 | `scripts/ziwei_skill_cli.cjs`（iztro 排盘 + 已审核知识库证据，Node） | [SKILL.md](./.claude/skills/ziwei/SKILL.md) |
 
@@ -45,6 +45,11 @@
 - **八字技能自带分层校验**：`scripts/bazi_cli.test.cjs`（封装无损 parity 测试，已并入 `npm test`）＋ [`eval/bazi-skill/`](./eval/bazi-skill/)（触发准确度、路由预判、解读忠实度评测）。
 
 详见下方「核心能力」中的 [奇门遁甲 Agent Skill](#奇门遁甲-agent-skill对话式推演技能) 与 [四柱八字 Agent Skill](#四柱八字-agent-skill对话式命理分析技能)。
+
+
+## 🔌 MCP Server（xuanxue-mcp）
+
+八字、紫微斗数、奇门遁甲（外加历法工具）也以 stdio MCP server 的形式提供，可接入 Claude Code、Claude Desktop、Codex、Cursor 等客户端：`npx -y xuanxue-mcp`。纯本地计算，不联网、无需 API Key。配置方法与工具说明见 [packages/xuanxue-mcp/README.md](./packages/xuanxue-mcp/README.md)。
 
 ---
 
@@ -200,7 +205,7 @@ flowchart TD
 
 ### 奇门遁甲 Agent Skill（对话式推演技能）
 
-把上面这套奇门事件链路沉淀成一个可被 AI Agent 直接调用的技能（[`docs/skills/qimen-dunjia/SKILL.md`](./docs/skills/qimen-dunjia/SKILL.md)），让"对话式排盘解盘"和网页端走同一套确定性规则底座，而不是让大模型凭空编玄学。
+把上面这套奇门事件链路沉淀成一个可被 AI Agent 直接调用的技能（[`.claude/skills/qimen-dunjia/SKILL.md`](./.claude/skills/qimen-dunjia/SKILL.md)），让"对话式排盘解盘"和网页端走同一套确定性规则底座，而不是让大模型凭空编玄学。
 
 - **先访谈、后起局**：正式起局前先做结构化访谈，确认所问事项、起局时间、时区与判断目标，信息不全先追问，不急着断
 - **固定流程不跳步**：结构化访谈 → 问题路由 → 固定起局 → `targetSpec` 取用 → 有界评分 → 应期扫描 → 唯一证据包 → 自由结构报告，全程不绕过引擎自由解盘

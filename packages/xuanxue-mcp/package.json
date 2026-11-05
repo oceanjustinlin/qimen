@@ -1,0 +1,18 @@
+{
+  "name": "xuanxue-mcp",
+  "version": "0.1.0",
+  "type": "module",
+  "license": "MIT",
+  "bin": { "xuanxue-mcp": "src/server.mjs" },
+  "files": ["src/", "engine/", "prompts/", "README.md", "LICENSE"],
+  "engines": { "node": ">=22.12" },
+  "scripts": { "prepack": "node scripts/prepack.mjs" },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "ajv": "^8.17.1",
+    "iztro": "^2.5.8",
+    "lunar-javascript": "^1.6.12",
+    "yaml": "^2.8.4",
+    "zod": "^4.6.7"
+  }
+}

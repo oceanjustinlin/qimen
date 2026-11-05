@@ -22,7 +22,8 @@ const ROOT = path.join(__dirname, '..');
 const CLI = path.join(__dirname, 'bazi_cli.cjs');
 const { buildCompleteBaziDetail } = require(path.join(ROOT, 'lib', 'baziCore'));
 const { buildBaziQuestionPrompt, inferBaziRouteFromQuestion, normalizeBaziSemanticRoute } = require(path.join(ROOT, 'lib', 'baziQuestionCore'));
-const { buildProfile, buildChart, buildStatic, buildQuestionSection } = require(CLI);
+const { buildProfile, buildChart, buildStatic, buildQuestionSection, run } = require(CLI);
+const { validateEnvelope } = require(path.join(ROOT, 'lib', 'cliEnvelope.cjs'));
 
 // 代表性生辰：男/女、不同时辰、跨节气月份
 const BIRTHS = [
@@ -112,15 +113,18 @@ test('route 缺省时脚本启发式兜底与引擎一致', () => {
   assert.equal(section.route.analysis_mode, expected.analysis_mode);
 });
 
-// ── 错误码路径：子进程端到端 ────────────────────────────────────────────────
-function runCliExpectFail(input) {
+// ── 错误码路径：子进程端到端（统一失败外层 {ok:false, code, message, hint}）──────
+function runCliExpectFail(input, args = []) {
   try {
-    execFileSync('node', [CLI], { input: JSON.stringify(input), encoding: 'utf8' });
+    execFileSync('node', [CLI, ...args], { input: input === undefined ? '' : JSON.stringify(input), encoding: 'utf8' });
     assert.fail('应以非 0 退出');
   } catch (e) {
     assert.ok(e.status === 1, `退出码应为 1，实际 ${e.status}`);
     const out = JSON.parse(e.stdout);
     assert.equal(out.ok, false);
+    assert.equal(typeof out.message, 'string');
+    assert.ok(out.hint && out.hint.length > 0, '失败外层应带 hint');
+    assert.equal(validateEnvelope(out).valid, true);
     return out;
   }
 }
@@ -128,18 +132,98 @@ function runCliExpectFail(input) {
 test('错误码：BIRTH_INCOMPLETE / CALENDAR_UNSUPPORTED / QUESTION_REQUIRED', () => {
   assert.equal(runCliExpectFail({ mode: 'chart', birth: {} }).code, 'BIRTH_INCOMPLETE');
   assert.equal(
-    runCliExpectFail({ mode: 'chart', birth: { calendar: 'lunar', year: 1990, month: 5, day: 1, gender: '男' } }).code,
+    runCliExpectFail({ mode: 'chart', birth: { calendar: 'lunar', year: 1990, month: 5, day: 1, hour: 12, gender: '男' } }).code,
     'CALENDAR_UNSUPPORTED',
   );
   assert.equal(
-    runCliExpectFail({ mode: 'question', birth: { calendar: 'solar', year: 1990, month: 5, day: 1, gender: '男' } }).code,
+    runCliExpectFail({ mode: 'question', birth: { calendar: 'solar', year: 1990, month: 5, day: 1, hour: 12, gender: '男' } }).code,
     'QUESTION_REQUIRED',
   );
 });
 
+test('旧格式缺 hour → 子进程 ok:false TIME_REQUIRED', () => {
+  const out = runCliExpectFail({ mode: 'chart', birth: { calendar: 'solar', year: 1990, month: 5, day: 1, gender: '男' } });
+  assert.equal(out.code, 'TIME_REQUIRED');
+});
+
+test('run 输出通过 schema，conventions.zi_hour 为夜子时算当日', () => {
+  const env = run({ birth: { date: '2001-02-04', time: '23:10', gender: '男' } });
+  assert.equal(validateEnvelope(env).valid, true);
+  assert.equal(env.conventions.zi_hour, '夜子时算当日');
+  assert.equal(env.system, 'bazi');
+  assert.equal(env.mode, 'chart');
+  assert.ok(env.warnings.some((w) => w.includes('未做真太阳时校正') || w.includes('未提供出生地')), 'warnings 应含 parseBirth 的提示');
+  assert.equal(env.input.date, '2001-02-04');
+  assert.equal(env.input.mode, 'chart');
+  assert.ok(Number.isInteger(env.input.current_year));
+});
+
+test('run 与 parity：chart / judgments 是引擎 detail 的无损投影', () => {
+  for (const birth of BIRTHS) {
+    const env = run({ birth, current_year: CURRENT_YEAR });
+    const { detail, baziStr } = buildProfile(birth, CURRENT_YEAR);
+    assert.deepEqual(env.chart, buildChart(detail, baziStr));
+    assert.deepEqual(env.judgments, buildStatic(detail));
+    assert.equal(env.engine_version, detail.engine_version || null);
+    assert.deepEqual(detail, engineRef(birth));
+  }
+});
+
+test('run question 模式：judgments.question 透传，limitations/confidence 取自问事段', () => {
+  const route = { analysis_mode: 'timing', time_scope: { type: 'next_5_years' } };
+  const env = run({
+    birth: BIRTHS[0], mode: 'question', question: '未来五年事业哪年最有机会突破', route, current_year: CURRENT_YEAR,
+  });
+  assert.equal(validateEnvelope(env).valid, true);
+  assert.equal(env.mode, 'question');
+  assert.equal(env.input.question, '未来五年事业哪年最有机会突破');
+  assert.equal(env.input.current_year, CURRENT_YEAR);
+  assert.ok(env.judgments.question.engine_ran);
+  assert.deepEqual(env.limitations, env.judgments.question.limitations);
+  const c = env.judgments.question.target_spec && env.judgments.question.target_spec.confidence;
+  assert.equal(env.confidence, ['high', 'medium', 'low'].includes(c) ? c : null);
+  assert.throws(() => run({ birth: BIRTHS[0], mode: 'question' }), (e) => e.code === 'QUESTION_REQUIRED');
+  assert.throws(() => run({ birth: BIRTHS[0], mode: 'bogus' }), (e) => e.code === 'MODE_INVALID');
+});
+
+test('带 location 时用真太阳时排盘：乌鲁木齐 1990-05-01 01:00（-187 分钟 → 4/30 21:53）时柱为丁亥', () => {
+  const env = run({
+    birth: { date: '1990-05-01', time: '01:00', gender: '男', location: { place: '乌鲁木齐' } },
+    current_year: CURRENT_YEAR,
+  });
+  assert.equal(validateEnvelope(env).valid, true);
+  assert.equal(env.input.solar_time.total_minutes, -187);
+  assert.equal(env.input.solar_time.adjusted, '1990-04-30 21:53');
+  const ref = Solar.fromYmdHms(1990, 4, 30, 22, 13, 0).getLunar().getEightChar();
+  assert.equal(env.chart.pillars[3].gan + env.chart.pillars[3].zhi, '丁亥');
+  assert.equal(env.chart.bazi_str.split(' ')[3], ref.getTime());
+  assert.equal(env.chart.bazi_str.split(' ')[2], ref.getDay());
+  assert.ok(!env.warnings.some((w) => w.includes('未提供出生地')), '带 location 不应再有未校正提示');
+});
+
+test('flags 路径仍可用：--date 1990-05-01 --time 14:00 --gender 男', () => {
+  const out = JSON.parse(execFileSync('node', [CLI, '--date', '1990-05-01', '--time', '14:00', '--gender', '男', '--currentYear', '2026'], {
+    input: '', encoding: 'utf8',
+  }));
+  assert.equal(out.ok, true);
+  assert.equal(out.system, 'bazi');
+  assert.equal(out.input.current_year, 2026);
+  assert.equal(validateEnvelope(out).valid, true);
+  const gz = engineRef(BIRTHS[0]).pillars.ganzhi;
+  assert.equal(out.chart.bazi_str, [gz.year, gz.month, gz.day, gz.time].join(' '));
+});
+
+test('flags 缺 --gender → BIRTH_INCOMPLETE（不再默认男）', () => {
+  assert.equal(runCliExpectFail(undefined, ['--date', '1990-05-01', '--time', '14:00']).code, 'BIRTH_INCOMPLETE');
+});
+
+test('flags 缺 --time → TIME_REQUIRED（不再默认 12 点）', () => {
+  assert.equal(runCliExpectFail(undefined, ['--date', '1990-05-01', '--gender', '男']).code, 'TIME_REQUIRED');
+});
+
 test('子进程 chart 模式端到端可用', () => {
   const out = JSON.parse(execFileSync('node', [CLI], {
-    input: JSON.stringify({ mode: 'chart', birth: BIRTHS[0], currentYear: CURRENT_YEAR }),
+    input: JSON.stringify({ mode: 'chart', birth: BIRTHS[0], currentYear: CURRENT_YEAR }), // 旧字段 currentYear 仍兼容
     encoding: 'utf8',
   }));
   assert.equal(out.ok, true);

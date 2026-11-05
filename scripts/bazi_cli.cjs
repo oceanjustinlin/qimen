@@ -13,7 +13,7 @@
  * 复用生产同一批函数（worker/src/index.js:2766-2771 / :1484 同源），不改 lib。
  *
  * 用法：
- *   echo '{"birth":{...},"question":"..."}' | node scripts/bazi_cli.cjs
+ *   echo '{"birth":{"date":"1990-05-01","time":"14:00","gender":"男","location":{"place":"北京"}},"question":"..."}' | node scripts/bazi_cli.cjs
  *   node scripts/bazi_cli.cjs --file input.json
  *   node scripts/bazi_cli.cjs --mode chart --date 1990-05-01 --time 14:00 --gender 男
  * ──────────────────────────────────────────────────────────────────────────────
@@ -28,6 +28,8 @@ const {
   inferBaziRouteFromQuestion,
   normalizeBaziSemanticRoute,
 } = require(path.join(__dirname, '..', 'lib', 'baziQuestionCore'));
+const { parseBirth } = require(path.join(__dirname, '..', 'lib', 'birthInput.cjs'));
+const { ok, toFailure } = require(path.join(__dirname, '..', 'lib', 'cliEnvelope.cjs'));
 
 // ── 输入读取：优先 stdin JSON，其次 --file，最后 flags ─────────────────────────
 function readStdin() {
@@ -60,7 +62,11 @@ function buildInput() {
   const flags = parseFlags(process.argv.slice(2));
   // 1) --file
   if (flags.file) {
-    return JSON.parse(fs.readFileSync(flags.file, 'utf8'));
+    try {
+      return JSON.parse(fs.readFileSync(flags.file, 'utf8'));
+    } catch (e) {
+      throw makeError('BAD_JSON', `--file 无法读取或不是合法 JSON：${e.message}`);
+    }
   }
   // 2) stdin JSON（非 flags 场景）
   const stdin = readStdin();
@@ -71,22 +77,23 @@ function buildInput() {
       throw makeError('BAD_JSON', `stdin 不是合法 JSON：${e.message}`);
     }
   }
-  // 3) flags 拼装（便捷路径）
+  // 3) flags 拼装（便捷路径）：--date --time --gender [--place|--longitude] [--question] [--mode] [--currentYear]
   if (flags.date) {
-    const [y, m, d] = String(flags.date).split(/[-/.]/).map((n) => parseInt(n, 10));
-    let hour = 12;
-    let minute = 0;
-    if (flags.time) {
-      const [hh, mm] = String(flags.time).split(':').map((n) => parseInt(n, 10));
-      hour = Number.isFinite(hh) ? hh : 12;
-      minute = Number.isFinite(mm) ? mm : 0;
+    const birth = { date: String(flags.date) };
+    if (flags.gender !== undefined) birth.gender = String(flags.gender); // 不设默认：缺失由 parseBirth 报 BIRTH_INCOMPLETE
+    if (flags.time !== undefined) birth.time = String(flags.time);
+    if (flags.place !== undefined || flags.longitude !== undefined) {
+      birth.location = {};
+      if (typeof flags.place === 'string') birth.location.place = flags.place;
+      if (typeof flags.longitude === 'string') birth.location.longitude = Number(flags.longitude);
     }
-    return {
-      mode: flags.mode || (flags.question ? 'question' : 'chart'),
-      birth: { calendar: 'solar', year: y, month: m, day: d, hour, minute, gender: flags.gender || '男' },
-      question: flags.question || '',
-      currentYear: flags.currentYear ? parseInt(flags.currentYear, 10) : undefined,
-    };
+    if (flags['time-basis'] !== undefined) birth.time_basis = String(flags['time-basis']);
+    const out = { birth };
+    if (typeof flags.mode === 'string') out.mode = flags.mode;
+    if (typeof flags.question === 'string') out.question = flags.question;
+    const cy = flags.currentYear !== undefined ? flags.currentYear : flags['current-year'];
+    if (cy !== undefined) out.current_year = parseInt(cy, 10);
+    return out;
   }
   throw makeError('NO_INPUT', '未提供输入：请用 stdin JSON、--file，或 --date/--time/--gender flags');
 }
@@ -104,19 +111,13 @@ function isMaleGender(gender) {
   return MALE_SET.has(gender);
 }
 
+// birth 可以是 parseBirth 的产物（NormalizedBirth），也可以是新/旧格式原始输入（此时先经 parseBirth 归一）。
+// 排盘一律用 effective 时间（有出生地/经度时即真太阳时）。
 function buildProfile(birth, currentYear) {
-  if (!birth || typeof birth !== 'object') throw makeError('BIRTH_INCOMPLETE', '缺少 birth 出生信息');
-  if ((birth.calendar || 'solar') !== 'solar') {
-    throw makeError('CALENDAR_UNSUPPORTED', 'v1 仅支持公历（calendar:"solar"），与生产口径一致');
-  }
-  const { year, month, day } = birth;
-  const hour = birth.hour == null ? 12 : birth.hour;
-  const minute = birth.minute == null ? 0 : birth.minute;
-  if (![year, month, day].every((n) => Number.isFinite(n))) {
-    throw makeError('BIRTH_INCOMPLETE', '出生年/月/日缺失或非法');
-  }
+  const nb = birth && typeof birth === 'object' && birth.effective && birth.clock ? birth : parseBirth(birth);
+  const { year, month, day, hour, minute } = nb.effective;
 
-  const isMale = isMaleGender(birth.gender);
+  const isMale = isMaleGender(nb.gender);
   const solar = Solar.fromYmdHms(year, month, day, hour, minute, 0);
   const baZi = solar.getLunar().getEightChar(); // 默认 sect=2：夜子时算当日（对齐现有口径）
   const yun = baZi.getYun(isMale ? 1 : 0);
@@ -128,11 +129,11 @@ function buildProfile(birth, currentYear) {
   const profile = {
     bazi_detail: detail,
     bazi_str: baziStr,
-    gender: birth.gender || (isMale ? '男' : '女'),
+    gender: nb.gender,
     ri_zhu: detail.ri_zhu,
     birth_year: year,
   };
-  return { profile, detail, baziStr, isMale };
+  return { profile, detail, baziStr, isMale, birth: nb };
 }
 
 // ── 输出整形：只暴露确定性产物，丢弃 prompt 文案 ─────────────────────────────
@@ -214,42 +215,70 @@ function buildQuestionSection(profile, question, route) {
 }
 
 // ── 主流程 ───────────────────────────────────────────────────────────────────
-function main() {
-  const input = buildInput();
-  const mode = input.mode || (input.question ? 'question' : 'chart');
-  const currentYear = Number.isFinite(input.currentYear) ? input.currentYear : new Date().getFullYear();
+const VALID_CONFIDENCE = new Set(['high', 'medium', 'low']);
 
-  const { profile, detail, baziStr } = buildProfile(input.birth, currentYear);
+/**
+ * run(input) → 统一输出外层 Envelope（出错时抛带 code 的 Error，由调用方用 toFailure 转换）
+ * input: { birth, mode?: 'chart'|'question', question?, current_year?, route? }
+ *   birth 兼容新格式 {date,time,gender,location?,time_basis?} 与旧格式 {calendar,year,month,day,hour,minute,gender}
+ *   旧字段 currentYear 仍兼容。
+ */
+function run(input = {}) {
+  const inp = input && typeof input === 'object' ? input : {};
+  const question = typeof inp.question === 'string' ? inp.question.trim() : '';
+  const mode = inp.mode || (question ? 'question' : 'chart');
+  if (mode !== 'chart' && mode !== 'question') {
+    throw makeError('MODE_INVALID', `mode 只能是 chart 或 question，收到：${mode}`);
+  }
+  const rawYear = inp.current_year !== undefined ? inp.current_year : inp.currentYear;
+  const currentYear = Number.isFinite(rawYear) ? rawYear : new Date().getFullYear();
 
-  const output = {
-    ok: true,
-    engine_version: detail.engine_version || null,
-    mode,
-    chart: buildChart(detail, baziStr),
-    static: buildStatic(detail),
-  };
+  const nb = parseBirth(inp.birth);
+  if (mode === 'question' && !question) throw makeError('QUESTION_REQUIRED', 'mode=question 需要 question 字段');
 
+  const { profile, detail, baziStr } = buildProfile(nb, currentYear);
+
+  const judgments = buildStatic(detail);
+  let limitations = [];
+  let confidence = null;
   if (mode === 'question') {
-    const question = String(input.question || '').trim();
-    if (!question) throw makeError('QUESTION_REQUIRED', 'mode=question 需要 question 字段');
-    output.question = buildQuestionSection(profile, question, input.route);
+    const section = buildQuestionSection(profile, question, inp.route);
+    judgments.question = section;
+    limitations = [...section.limitations];
+    const c = section.target_spec && section.target_spec.confidence;
+    confidence = VALID_CONFIDENCE.has(c) ? c : null;
   }
 
-  process.stdout.write(JSON.stringify(output, null, 2) + '\n');
+  const normalizedInput = { ...nb, mode, current_year: currentYear };
+  if (mode === 'question') normalizedInput.question = question;
+
+  return ok({
+    system: 'bazi',
+    mode,
+    engine_version: detail.engine_version || null,
+    ruleset: null,
+    input: normalizedInput,
+    conventions: { zi_hour: '夜子时算当日' },
+    chart: buildChart(detail, baziStr),
+    judgments,
+    confidence,
+    limitations,
+    warnings: [...nb.warnings],
+  });
 }
 
 if (require.main === module) {
   try {
-    main();
+    process.stdout.write(JSON.stringify(run(buildInput()), null, 2) + '\n');
   } catch (err) {
-    const payload = { ok: false, code: err.code || 'ERROR', error: err.message || String(err) };
-    process.stdout.write(JSON.stringify(payload, null, 2) + '\n');
+    process.stdout.write(JSON.stringify(toFailure(err, {}), null, 2) + '\n');
     process.exit(1);
   }
 }
 
-// 供 parity 测试在进程内直接比对（buildChart/buildStatic 是否无损映射引擎产物）
+// 供 parity 测试在进程内直接比对（buildChart/buildStatic 是否无损映射引擎产物），并供 MCP 进程内调用 run
 module.exports = {
+  run,
   buildProfile,
   buildChart,
   buildStatic,

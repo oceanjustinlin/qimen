@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://xuanxue-mcp/schemas/xuanxue-output.schema.json",
+  "title": "xuanxue 统一输出外层",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": ["ok", "system", "mode", "engine_version", "ruleset", "input", "conventions", "chart", "judgments", "evidence", "confidence", "limitations", "warnings"],
+      "properties": {
+        "ok": { "const": true },
+        "system": { "enum": ["bazi", "ziwei", "qimen", "calendar"] },
+        "mode": { "type": "string" },
+        "engine_version": { "type": ["string", "null"] },
+        "ruleset": { "type": ["string", "null"] },
+        "input": { "type": "object" },
+        "conventions": { "type": "object" },
+        "chart": { "type": "object" },
+        "judgments": { "type": "object" },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["rule_id"],
+            "properties": {
+              "rule_id": { "type": "string" },
+              "source_id": { "type": "string" },
+              "title": { "type": "string" },
+              "printed_page": { "type": ["string", "number"] },
+              "section": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "confidence": { "enum": ["high", "medium", "low", null] },
+        "limitations": { "type": "array", "items": { "type": "string" } },
+        "warnings": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    {
+      "type": "object",
+      "required": ["ok", "code", "message", "hint"],
+      "properties": {
+        "ok": { "const": false },
+        "code": { "type": "string" },
+        "message": { "type": "string" },
+        "hint": { "type": "string" }
+      }
+    }
+  ]
+}

@@ -29,8 +29,8 @@ compatibility: Requires Node.js + repo deps (iztro@2.5.8). Run scripts/ziwei_ski
 
 - **排盘口径唯一**：`iztro-default`（iztro 2.5.8，公历输入，早/晚子时分开）。不同流派安星或亮度表有差异时，以引擎为准，不得"按某书应该是……"改盘。
 - **三档证据**（详见 `references/reading-guide.md`）：
-  - **A 级·已审核命题**：`evidence.topic_report.conclusions` 与 `periods[].annual_overview.conclusions`。来源已原页复核，可作为结论主干。
-  - **B 级·确定性事实**：`chart`、方法状态为 `reviewed` 的派生特征（宫位星系、三方四正关系、运限叠宫、运限四化落宫）。可直接引用。
+  - **A 级·已审核命题**：`judgments.topic_report.conclusions` 与 `judgments.annual_overviews[].report.conclusions`（`evidence[]` 只列出处：规则 ID、书目、页码、章节，不含古籍正文）。来源已原页复核，可作为结论主干。
+  - **B 级·确定性事实**：`chart`（含 `chart.natal_features`、`chart.periods`）、方法状态为 `reviewed` 的派生特征（宫位星系、三方四正关系、运限叠宫、运限四化落宫）。可直接引用。
   - **C 级·结构推断**：方法状态为 `pending_source` 的特征（亮度分组、三方会照聚合、夹宫、宫干飞化、空宫借星、四化叠加）以及古籍象义。可以用，但措辞必须标明"按传统看法 / 结构推断"，且不得压过 A、B 级。
 - **流派隔离**：三合判断为主；四化飞星只作补充视角，冲突时并列说明，不静默合并。
 - **《飞星紫微斗数》前两卷是另一套"十八飞星"体系**（天虚、天贵、天印、毛头、天刃、天哭等），星曜与本引擎不通用，**严禁**拿来解读 iztro 盘。详见 `references/classical-feixing.md`。
@@ -48,47 +48,15 @@ compatibility: Requires Node.js + repo deps (iztro@2.5.8). Run scripts/ziwei_ski
 - **仅公历**。用户给农历时先协助换算成公历再排，并说明。
 - **出生时间必须到分钟**（至少能确定时辰）。紫微的命宫由时辰决定，时辰错则全盘错；不知道时辰时**不排盘**，可改为理论讲解或建议用八字。
 - **时辰边界**：出生时间离时辰交界（奇数整点）不足 15 分钟时，提醒用户命盘可能落在相邻时辰，必要时两盘对照。
-- **子时**：iztro 区分早子时（00:00–01:00）与晚子时（23:00–24:00），日期不做额外加减。
-- **真太阳时**：脚本不换算经度。用户明确给出的是真太阳时，传 `"time_basis":"true_solar"`；否则按民用钟表时间，脚本会带 `ZIWEI_USING_UNADJUSTED_PROFILE_TIME` 警告，解读时提一句即可。
+- **子时**：iztro 区分早子时（00:00–01:00）与晚子时（23:00–24:00），晚子时算次日（输出 `conventions.zi_hour`），日期不做额外加减。
+- **真太阳时**：给出出生地（`birth.location.place` 或 `longitude`）时，脚本自动换算真太阳时（含 1986–1991 夏令时）并以换算结果排盘，`input.solar_time` 记录换算过程，请在报告中说明。用户明确给出的已是真太阳时，传 `"time_basis":"true_solar"`；两者都没有则按民用钟表时间，脚本会带 `ZIWEI_USING_UNADJUSTED_PROFILE_TIME` 警告，解读时提一句即可。
 - **流年取值**：脚本以每年 7 月 1 日取运限快照，确保落在该干支流年内。流年按农历年（约春节起）计，跨年初的事要说明边界。
 
 ## 工作流
 
-### 第 1 步：访谈
+### 第 1、2 步：访谈与路由
 
-正式排盘前问清（模板见 `references/interview.md`）：
-
-1. 公历出生日期（农历先换算）。
-2. 出生时间到分钟；是钟表时间还是已换算的真太阳时。
-3. 性别（影响大限顺逆）。
-4. 要看什么事？一句话说清。
-5. 时间范围：只看命盘 / 当前大限 / 某几年流年。
-6. 最想判断什么：结构倾向 / 哪几年变化大 / 要注意什么。
-7. 要"直接结论"还是"详细讲解"。
-
-信息不全不进入正式排盘。
-
-### 第 2 步：路由（topic × time_scope）
-
-主题与时间维度分开判断，**显式传入**脚本：
-
-| topic | 适用 | 主宫 | 合参宫位 |
-| --- | --- | --- | --- |
-| `overall` | 整体格局、性格、人生主线 | 命宫 | 福德、迁移、官禄、财帛 |
-| `career` | 事业、职业方向、工作方式 | 官禄宫 | 命宫、迁移、财帛、福德 |
-| `wealth` | 财运、理财、资源 | 财帛宫 | 官禄、田宅、福德、命宫 |
-| `relationship` | 婚恋、伴侣关系 | 夫妻宫 | 命宫、福德、迁移、子女 |
-
-| time_scope.type | 适用 | 年份参数 |
-| --- | --- | --- |
-| `natal` | 只看命盘结构 | 不需要 |
-| `decadal` | 当前或某个十年大限 | `start_year`（取该年所在大限） |
-| `yearly` | 某一年 | `start_year`（= `end_year`） |
-| `cross_period` | 几年间的变化、"哪年" | `start_year`、`end_year`，最多 10 年 |
-
-其他主题（健康、子女、父母、学业、搬迁等）暂不单列：归入最接近的 topic，并在解读里直接读对应宫位（疾厄、子女、父母、迁移、田宅等）的盘面事实，按 C 级标注。健康只做结构提醒，不做诊断。
-
-"今年整体运势"= `topic:"overall"` + `time_scope:{type:"yearly"}`。
+解读守则见 `packages/xuanxue-mcp/prompts/ziwei_reading.md`（与 MCP prompt 共用）。访谈内容、`topic` 与 `time_scope` 的取值和选择规则以该文件为准，模板另见 `references/interview.md`。显式把 `topic`、`time_scope` 作为顶层字段传给脚本（见下方示例）。信息不全不进入正式排盘。
 
 ### 第 3 步：调用 `ziwei_skill_cli.cjs`
 
@@ -96,33 +64,27 @@ compatibility: Requires Node.js + repo deps (iztro@2.5.8). Run scripts/ziwei_ski
 
 ```bash
 mkdir -p tmp && echo '{
-  "birth": {"date":"1990-05-01","time":"14:00","gender":"男"},
-  "question": "未来两年事业有什么变化",
-  "route": {"topic":"career","time_scope":{"type":"cross_period","start_year":2026,"end_year":2027}},
-  "currentYear": 2026
+  "birth": {"date":"1990-05-01","time":"14:00","gender":"男","location":{"place":"北京"}},
+  "mode": "evidence",
+  "topic": "career",
+  "time_scope": {"type":"cross_period","start_year":2026,"end_year":2027},
+  "current_year": 2026
 }' | node scripts/ziwei_skill_cli.cjs > tmp/ziwei-evidence.json
 ```
 
+- `mode`：`chart` 只输出盘面与运限事实（不含已审核命题）；`evidence` 额外输出 `judgments` 与 `evidence[]`。旧值 `natal` 视为 `chart`；不传时给了 `topic`/`time_scope` 即 `evidence`，否则 `chart`。
 - 只看命盘：省略 `time_scope` 或传 `{"type":"natal"}`。
-- 便捷路径：`node scripts/ziwei_skill_cli.cjs --date 1990-05-01 --time 14:00 --gender 男 --topic career --year 2026`。
+- 便捷路径：`node scripts/ziwei_skill_cli.cjs --date 1990-05-01 --time 14:00 --gender 男 --topic career --year 2026`（可加 `--place 北京` 或 `--longitude 116.4`、`--time-basis true_solar`）。缺 `--time` 或 `--gender` 会报错，不会默认。
 - 输出较大（约 50–100 KB），先存文件再按需读取字段。
-- 出错时输出 `{"ok":false,"code":...,"error":...}` 且退出码非 0：把 `error` 转成对用户的追问。脚本失败时停止正式解盘，**不得心算替代**。
+- 成功输出统一外层（`ok:true`、`system:"ziwei"`、`input`、`conventions`、`chart`、`judgments`、`evidence`、`confidence`、`limitations`、`warnings`）。出错时输出 `{"ok":false,"code":...,"message":...,"hint":...}` 且退出码非 0：按 `hint` 把问题转成对用户的追问（如 `TIME_REQUIRED` 追问出生时辰）。脚本失败时停止正式解盘，**不得心算替代**。
 
 完整字段说明见 `references/reading-guide.md`。
 
 ### 第 4 步：按读盘次序解读
 
-具体方法见 `references/analysis-method.md`。顺序固定为：
+具体方法见 `references/analysis-method.md`。
 
-1. **定盘**：五行局、命主身主、命宫与身宫位置、生年四化落宫。
-2. **主题宫本体**：主星组合与亮度、辅星煞星、空宫则借对宫（标明借星）。
-3. **三方四正**：本宫 + 对宫 + 两个三合宫，再看左右邻宫的夹。
-4. **四化**：生年四化（B 级）→ 宫干飞化（C 级）。化忌所在与所冲之宫必须讲。
-5. **A 级命题**：把已审核命题放进上面的结构里讲，不孤立罗列。
-6. **运限**（如有）：大限命宫落本命哪宫 → 流年命宫落哪宫 → 大限/流年四化落入本命哪宫、是否进入主题宫的三方四正 → 与本命底色比较是增强、削弱、转向还是冲突。
-7. **综合**：结论、风险、建议、限制。
-
-**静态先于动态**：没有讲清本命底色，不得直接下运限结论；运限只说"相对本命发生了什么变化"。
+解读守则见 `packages/xuanxue-mcp/prompts/ziwei_reading.md`（与 MCP prompt 共用）。读盘次序（定盘→主题宫→三方四正→四化→A 级命题→运限→综合）与“静态先于动态”原则以该文件为准；通用安全规则见 `packages/xuanxue-mcp/prompts/common.md`。开始解读前先读这两份文件。
 
 ## 报告产出
 
@@ -160,17 +122,12 @@ mkdir -p tmp && echo '{
 
 ### 写作要求
 
-- 先说人话，再补术语；术语第一次出现用一句现代汉语解释（如"三方四正：本宫加上对宫和两个三合宫，是看一个宫位时必须一起看的四个位置"）。
-- C 级推断用"按传统看法""从结构上看"等措辞标明；A 级命题可直接陈述。
-- 不展示内部 JSON、特征 ID、方法状态码；审计信息留在证据包里。
-- 古籍断语一律转译成倾向与课题（见 `references/analysis-method.md` 的转译表），不说"必主""注定""夭折""克妻""淫"等。
-- 不说"一定、必然、百分百"；不因用户期待正面结果而拔高结论。
-- 同一判断不在不同段落重复，只补新证据或新角度。
+解读守则见 `packages/xuanxue-mcp/prompts/ziwei_reading.md`（与 MCP prompt 共用）。通用措辞与安全规则见 `packages/xuanxue-mcp/prompts/common.md`；古籍断语的转译表见 `references/analysis-method.md`。
 
 ## 同盘追问
 
 - 同一张盘的深挖：不重排，直接读已存的证据包。
-- 需要新的年份或主题：只改 `route` 重跑脚本，命盘部分应与上次一致；不一致说明出生信息被改动，先和用户确认。
+- 需要新的年份或主题：只改 `topic` / `time_scope` 重跑脚本，命盘部分应与上次一致；不一致说明出生信息被改动，先和用户确认。
 - 用户补充了新的出生信息：重新排盘，并用"原判断 → 因出生时间修正调整为……"说明变化。
 
 ## 禁止事项
