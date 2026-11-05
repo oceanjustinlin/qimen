@@ -78,3 +78,14 @@ test('calendar true_solar 纽约 → PLACE_UNSUPPORTED；杭州与经度均可',
   const b = await call('calendar', { action: 'true_solar', date: '1990-05-01', time: '14:00', location: { longitude: 120.16 } });
   assert.equal(b.structuredContent.ok, true);
 });
+
+test('Node 版本检查：低于 22.12 给出中文错误，22.12 及以上通过', async () => {
+  const { nodeVersionError } = await import('../src/server.mjs');
+  for (const v of ['22.11.0', '20.19.5', '18.20.0', '21.99.0']) {
+    const msg = nodeVersionError(v);
+    assert.match(msg, /22\.12/, v);
+    assert.match(msg, /Node/, v);
+    assert.ok(msg.includes(v), v);
+  }
+  for (const v of ['22.12.0', '22.20.1', '23.0.0', '24.1.0']) assert.equal(nodeVersionError(v), null, v);
+});

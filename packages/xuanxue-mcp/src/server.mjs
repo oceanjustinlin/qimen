@@ -7,6 +7,15 @@ import { CallToolRequestSchema } from '@modelcontextprotocol/sdk/types.js';
 import { TOOLS, runTool, toToolResult } from './tools.mjs';
 import { PROMPTS, promptText } from './prompts.mjs';
 
+const MIN_NODE = [22, 12];
+
+// 引擎通过 require(esm) 复用 .mjs 工具函数，需要 Node 22.12+；过低版本给出明确中文提示而不是晦涩的加载错误
+export function nodeVersionError(version = process.versions.node) {
+  const [major, minor] = String(version).split('.').map(Number);
+  const ok = major > MIN_NODE[0] || (major === MIN_NODE[0] && minor >= MIN_NODE[1]);
+  return ok ? null : `xuanxue-mcp 需要 Node.js ${MIN_NODE.join('.')} 或更高版本，当前为 ${version}。请升级 Node 后重试。`;
+}
+
 export function createServer() {
   const server = new McpServer({ name: 'xuanxue-mcp', version: '0.1.0' });
   for (const tool of TOOLS) {
@@ -49,6 +58,11 @@ const isDirect = (() => {
 })();
 
 if (isDirect) {
+  const versionError = nodeVersionError();
+  if (versionError) {
+    console.error(versionError);
+    process.exit(1);
+  }
   main().catch((err) => {
     console.error('xuanxue-mcp 启动失败：', err && err.message);
     process.exit(1);
