@@ -6,6 +6,7 @@
   "bin": { "xuanxue-mcp": "src/server.mjs" },
   "files": ["src/", "engine/", "prompts/", "README.md", "LICENSE"],
   "engines": { "node": ">=22.12" },
+  "scripts": { "prepack": "node scripts/prepack.mjs" },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.32.2",
     "ajv": "^8.17.1",
