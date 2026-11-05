@@ -13,6 +13,8 @@
  *   echo '{"mode":"question","question":"...","cast_time":"2026-11-05T09:30:00+08:00"}' | node scripts/qimen_cli.cjs
  *   node scripts/qimen_cli.cjs --file input.json
  *   node scripts/qimen_cli.cjs --mode chart --cast-time 2026-11-05T09:30:00+08:00 --timezone Asia/Shanghai
+ *   可选生辰背景：JSON 的 birth 字段，或 --date --time --gender [--place]
+ * 输出：统一外层（lib/cliEnvelope）；失败为 {ok:false,code,message,hint} 且退出码 1
  * ──────────────────────────────────────────────────────────────────────────────
  */
 
@@ -22,6 +24,9 @@ const { buildQimenEvidence } = require(path.join(__dirname, '..', 'lib', 'qimenP
 const { classifyByRules } = require(path.join(__dirname, '..', 'lib', 'divinationRouter'));
 const { normalizeDivinationRoute } = require(path.join(__dirname, '..', 'lib', 'divinationCategories'));
 const { QIMEN_RULESET_VERSION } = require(path.join(__dirname, '..', 'lib', 'qimenClassicalRules'));
+const { parseBirth } = require(path.join(__dirname, '..', 'lib', 'birthInput.cjs'));
+const { ok, toFailure } = require(path.join(__dirname, '..', 'lib', 'cliEnvelope.cjs'));
+const { Solar } = require('lunar-javascript');
 
 const DEFAULT_TIMEZONE = 'Asia/Shanghai';
 const DEFAULT_QUESTION = '当前局势吉凶如何？';
@@ -68,14 +73,21 @@ function buildInput() {
       throw makeError('BAD_JSON', `--file 无法读取或不是合法 JSON：${e.message}`);
     }
   }
-  const hasFlags = ['mode', 'question', 'cast-time', 'timezone', 'bazi-info'].some((k) => flags[k] !== undefined);
+  const hasFlags = ['mode', 'question', 'cast-time', 'timezone', 'date', 'time', 'gender', 'place'].some((k) => flags[k] !== undefined);
   if (hasFlags) {
     const out = {};
     if (typeof flags.mode === 'string') out.mode = flags.mode;
     if (typeof flags.question === 'string') out.question = flags.question;
     if (typeof flags['cast-time'] === 'string') out.cast_time = flags['cast-time'];
     if (typeof flags.timezone === 'string') out.timezone = flags.timezone;
-    if (typeof flags['bazi-info'] === 'string') out.bazi_info = flags['bazi-info'];
+    if (flags.date !== undefined) {
+      // 缺 --time / --gender 由 parseBirth 报 TIME_REQUIRED / BIRTH_INCOMPLETE
+      const birth = { date: String(flags.date) };
+      if (flags.time !== undefined) birth.time = String(flags.time);
+      if (flags.gender !== undefined) birth.gender = String(flags.gender);
+      if (typeof flags.place === 'string') birth.location = { place: flags.place };
+      out.birth = birth;
+    }
     return out;
   }
   const stdin = readStdin();
@@ -165,11 +177,44 @@ function resolveCastTime(castTime, timezone = DEFAULT_TIMEZONE, now = new Date()
   return { ...parts, source: 'custom' };
 }
 
+// ── 生辰四柱 ─────────────────────────────────────────────────────────────────
+// 按 parseBirth 的 effective 时间（有出生地则为真太阳时）经 lunar-javascript 排四柱，
+// 格式同网页端 currentBaziString：年 月 日 时，空格分隔。
+function baziStringOf(effective) {
+  const { year, month, day, hour, minute } = effective;
+  const ec = Solar.fromYmdHms(year, month, day, hour, minute, 0).getLunar().getEightChar();
+  return `${ec.getYear()} ${ec.getMonth()} ${ec.getDay()} ${ec.getTime()}`;
+}
+
 // ── 主逻辑 ───────────────────────────────────────────────────────────────────
+function buildEvidence(ev) {
+  const items = [
+    ...(ev.backendFormationTags || []).map((t) => ({ rule_id: t.name, section: 'named_formation' })),
+    ...((ev.backendScoreAudit && ev.backendScoreAudit.adjustments) || []).map((a) => ({
+      rule_id: a.signal || a.name,
+      section: a.layer || 'named_formation',
+    })),
+  ].filter((e) => typeof e.rule_id === 'string' && e.rule_id);
+  const seen = new Set();
+  return items.filter((e) => {
+    const key = `${e.rule_id}|${e.section}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+const CONFIDENCE_LEVELS = ['high', 'medium', 'low'];
+
+/**
+ * run(input) → 统一输出外层 Envelope（出错时抛带 code 的 Error，由调用方用 toFailure 转换）
+ * input: { mode?, question?, cast_time?, timezone?, birth? }
+ */
 function run(input = {}) {
-  const timezone = input.timezone || DEFAULT_TIMEZONE;
-  const question = typeof input.question === 'string' ? input.question.trim() : '';
-  const mode = input.mode || (question ? 'question' : 'chart');
+  const inp = input && typeof input === 'object' ? input : {};
+  const timezone = inp.timezone || DEFAULT_TIMEZONE;
+  const question = typeof inp.question === 'string' ? inp.question.trim() : '';
+  const mode = inp.mode || (question ? 'question' : 'chart');
   if (mode !== 'chart' && mode !== 'question') {
     throw makeError('MODE_INVALID', `mode 只能是 chart 或 question，收到：${mode}`);
   }
@@ -177,7 +222,11 @@ function run(input = {}) {
     throw makeError('QUESTION_REQUIRED', 'mode=question 需要 question 字段');
   }
 
-  const cast = resolveCastTime(input.cast_time, timezone);
+  const hasBirth = inp.birth !== undefined && inp.birth !== null;
+  const nb = hasBirth ? parseBirth(inp.birth) : null;
+  const birthBazi = nb ? baziStringOf(nb.effective) : null;
+
+  const cast = resolveCastTime(inp.cast_time, timezone);
   const { source, ...parts } = cast;
   const effectiveQuestion = mode === 'question' ? question : DEFAULT_QUESTION;
   const intent = normalizeDivinationRoute(classifyByRules(effectiveQuestion, { forceBranch: 'qimen' }));
@@ -190,19 +239,31 @@ function run(input = {}) {
     question: effectiveQuestion,
     intent,
   };
-  if (input.bazi_info) evArgs.baziInfo = String(input.bazi_info);
+  if (birthBazi) evArgs.baziInfo = birthBazi;
   const ev = buildQimenEvidence(evArgs);
 
-  const out = {
-    ok: true,
+  const normalizedInput = {
+    cast_time: { ...parts, source },
+    timezone,
+    question: mode === 'question' ? question : null,
+  };
+  if (nb) {
+    normalizedInput.birth = nb;
+    normalizedInput.birth_bazi = birthBazi;
+  }
+
+  const limitations = [];
+  if (nb) {
+    limitations.push('纯奇门分支为避免命局偏倚，引擎不把命主八字带入用神与评分；生辰四柱仅作背景记录于 input.birth_bazi。');
+  }
+
+  const envelope = {
     system: 'qimen',
     mode,
+    engine_version: null,
     ruleset: QIMEN_RULESET_VERSION,
-    input: {
-      cast_time: { ...parts, source },
-      timezone,
-      question: mode === 'question' ? question : null,
-    },
+    input: normalizedInput,
+    conventions: { timezone, qimen_method: '时家转盘 · 拆补法 · 天禽寄坤' },
     chart: {
       qimenData: ev.qimenData,
       palaces: ev.timingPalaces,
@@ -214,9 +275,14 @@ function run(input = {}) {
       ganzhiDay: ev.ganzhiDay,
       ganzhiHour: ev.ganzhiHour,
     },
+    judgments: {},
+    evidence: [],
+    confidence: null,
+    limitations,
+    warnings: nb ? [...new Set(nb.warnings)] : [],
   };
   if (mode === 'question') {
-    out.judgments = {
+    envelope.judgments = {
       intent: ev.intent,
       yongshen: ev.yongshenRule,
       score: ev.backendScoreAudit,
@@ -224,19 +290,22 @@ function run(input = {}) {
       timing: ev.timingAnalysis,
       polarity: ev.polarityOverrides,
     };
+    envelope.evidence = buildEvidence(ev);
+    const c = ev.backendScoreAudit && ev.backendScoreAudit.confidence;
+    envelope.confidence = CONFIDENCE_LEVELS.includes(c) ? c : null;
   }
-  return out;
+  return ok(envelope);
 }
 
-if (require.main === module) {
+function main() {
   try {
-    const output = run(buildInput());
-    process.stdout.write(JSON.stringify(output, null, 2) + '\n');
+    process.stdout.write(JSON.stringify(run(buildInput()), null, 2) + '\n');
   } catch (err) {
-    const payload = { ok: false, code: err.code || 'ERROR', error: err.message || String(err) };
-    process.stdout.write(JSON.stringify(payload, null, 2) + '\n');
-    process.exit(1);
+    process.stdout.write(JSON.stringify(toFailure(err, {}), null, 2) + '\n');
+    process.exitCode = 1;
   }
 }
 
-module.exports = { resolveCastTime, run, wallToInstant };
+if (require.main === module) main();
+
+module.exports = { resolveCastTime, run, wallToInstant, baziStringOf };

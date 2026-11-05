@@ -57,7 +57,7 @@ compatibility: Requires Node.js + repo deps. Run scripts/qimen_cli.cjs from repo
 - 最想判断的结果：能否成、何时动、如何选、往哪走或避开什么。
 - 当前现实进展、主动方与被动方。
 - 用户偏好：直接结论或详细讲解。
-- 用户若提供四柱（如 `庚午 庚辰 丙寅 乙未`），可通过 `bazi_info` 传入，供年命类用神参考；没有则省略。
+- 用户若愿意提供出生信息作背景，通过 `birth`（`date`、`time`、`gender` 必填，可加 `location.place`）传入；脚本按真太阳时（有出生地时）排出四柱，记录在 `input.birth_bazi`。纯奇门分支不把命主八字带入用神与评分（避免命局偏倚），所以它只是背景，不得据此改写盘面判断。没有则省略。
 
 以下情况优先追问：问题过于宽泛、用户要求指定时刻却没给具体时辰、海外地点没有时区、问题涉及多件独立的事情。
 
@@ -73,7 +73,7 @@ compatibility: Requires Node.js + repo deps. Run scripts/qimen_cli.cjs from repo
 | `question` | 问事文本（`question` 模式必填） |
 | `cast_time` | ISO 时间字符串，如 `2026-11-05T09:30:00+08:00`；省略则取当前时刻 |
 | `timezone` | 默认 `Asia/Shanghai` |
-| `bazi_info` | 四柱字符串，如 `庚午 庚辰 丙寅 乙未`；没有则省略 |
+| `birth` | 可选生辰背景：`{"date":"1990-06-15","time":"14:30","gender":"男","location":{"place":"北京"}}`；没有则省略。旧的 `bazi_info` 字段已删除 |
 
 只排盘（stdin JSON）：
 
@@ -87,22 +87,23 @@ echo '{"mode":"chart","timezone":"Asia/Shanghai"}' | node scripts/qimen_cli.cjs
 echo '{"mode":"question","question":"这次面试能成吗","timezone":"Asia/Shanghai"}' | node scripts/qimen_cli.cjs
 ```
 
-指定时刻起局时加 `"cast_time":"2026-11-05T09:30:00+08:00"`。也可用 `--file input.json`，或 flags：`--mode --question --cast-time --timezone --bazi-info`。
+指定时刻起局时加 `"cast_time":"2026-11-05T09:30:00+08:00"`。也可用 `--file input.json`，或 flags：`--mode --question --cast-time --timezone`，生辰背景用 `--date --time --gender [--place]`。
 
-出错时输出 `{"ok":false,"code":...,"error":...}` 且退出码非 0：把 `error` 转成对用户的追问（如缺问题），脚本失败时停止正式解盘，不得心算替代。
+出错时输出 `{"ok":false,"code":...,"message":...,"hint":...}` 且退出码非 0：按 `hint` 把问题转成对用户的追问（如缺问题），脚本失败时停止正式解盘，不得心算替代。
 
 ### 输出结构（读取依据）
 
-- `ok`、`system`、`mode`、`ruleset`
-- `input`：`cast_time`（`year/month/day/hour/minute/source`）、`timezone`、`question`。起局时刻以此为准。
+- `ok`、`system`、`mode`、`ruleset`（顶层固定为 `dunjia-yanyi-siku-v1`）、`engine_version`（奇门无版本号，恒为 `null`）、`conventions`（`timezone`、`qimen_method`：时家转盘 · 拆补法 · 天禽寄坤）。
+- `evidence[]`：命中的有名格与评分调整项，每项只含 `rule_id`（信号名）与 `section`（所属层，如 `named_formation`）；理由与加减分取自 `judgments.score.adjustments`。`confidence` 为评分审计的置信度（`high`/`medium`/`low`，`chart` 模式为 `null`），`limitations`、`warnings` 须如实转告用户。
+- `input`：`cast_time`（`year/month/day/hour/minute/source`）、`timezone`、`question`；传了 `birth` 时另有 `birth`（归一结果，含 `effective` 时间）与 `birth_bazi`（四柱）。起局时刻以此为准。
 - `chart`：
   - `ganzhiDay`、`ganzhiHour`、`xunHead`（旬首）、`zhiFuStar`（值符星）、`zhiShiDoor`（值使门）、`juResult`（节气、元、阴阳遁、局数）、`qimenData`（四柱、空亡、马星等辅助信息）。
   - `palaces`：9 宫，数组顺序即洛书行优先视觉顺序（巽4 离9 坤2 / 震3 中5 兑7 / 艮8 坎1 乾6）。每宫含 `name`、`element`、`door`、`star`、`god`、`sky`（天盘干）、`earth`（地盘干）、`ji_sky`/`ji_earth`（寄干）、`stem_relation`（天地盘干生克，如 `地生天`、`天克地`）、`prosperity`（旺衰）、`isKong`（空亡）、`hasMa`（马星）、`isZhiFu`、`isZhiShi`、`isDayStem`、`isHourStem`、`isDoorPressured`（门迫）、`isTomb`（入墓）、`isPunishment`（击刑）、`is_center`（中宫）、`hosts_center`（寄中宫的宫，即坤2）。门、星字符为繁体（如 `開門`、`天沖`），引用时照原样或转简体均可，不得改成别的符号。
   - `palacesText`：脚本生成的逐宫事实文本，可对照。
 - `judgments`（仅 `question` 模式）：
   - `intent`：问题领域与子类型（`category`/`subcategory`/`confidence`）。
-  - `yongshen`：用神体系，`yongshen.primary`/`secondary`/`contextual` 各项含 `symbol`、`role`、`judge`；`judgmentOrder` 给出看盘顺序；`outputRequirements` 给出报告必须提及的用神。
-  - `score`：评分审计（`final_score`、`level`、`deltas`、`adjustments`）。
+  - `yongshen`：用神体系，用神列表在 `judgments.yongshen.yongshen.primary`/`secondary`/`contextual`，各项含 `symbol`、`role`、`judge`；`judgments.yongshen.judgmentOrder` 给出看盘顺序；`judgments.yongshen.outputRequirements` 给出报告必须提及的用神。注意 `judgments.yongshen.ruleset` 是引擎内部的用神子规则集标签，形如 `mainline-cn-v1/book-…/subcategory-…`（以 `mainline-cn-v1` 开头），与顶层 `ruleset`（`dunjia-yanyi-siku-v1`）不是同一个东西，引用规则集版本时以顶层为准。
+  - `score`（即 `judgments.score`）：评分审计（`final_score`、`level`、`confidence`、`deltas`、`adjustments`，每项调整含 `layer`、`signal`、`effect`、`reason`）。
   - `formations[]`：命中的有名格，含 `name`、`effect`、`type`（`ji`/`xiong`）、`palace_index`、`palace`、`reason`。
   - `timing`：应期，`p1_candidates`（空亡填冲、马星等优先级候选）与 `p2_scan.candidates`（日时地支触发扫描）。
   - `polarity`：问题域极性修正信号（`signal`、`palace`、`domain_polarity`、`reason`）。

@@ -15,6 +15,8 @@ const CLI = path.join(__dirname, 'qimen_cli.cjs');
 const { buildQimenEvidence } = require(path.join(ROOT, 'lib', 'qimenPipeline'));
 const { classifyByRules } = require(path.join(ROOT, 'lib', 'divinationRouter'));
 const { normalizeDivinationRoute } = require(path.join(ROOT, 'lib', 'divinationCategories'));
+const { validateEnvelope } = require(path.join(ROOT, 'lib', 'cliEnvelope.cjs'));
+const { Solar } = require('lunar-javascript');
 const { resolveCastTime, run } = require(CLI);
 
 test('run(question) 与直接调用 buildQimenEvidence 结果一致', () => {
@@ -31,6 +33,9 @@ test('run(question) 与直接调用 buildQimenEvidence 结果一致', () => {
   const out = run(input);
   assert.deepEqual(out.chart.qimenData, ref.qimenData);
   assert.deepEqual(out.judgments.score, ref.backendScoreAudit);
+  assert.equal(out.confidence, ref.backendScoreAudit.confidence);
+  assert.equal(out.engine_version, null);
+  assert.deepEqual(out.conventions, { timezone: 'Asia/Shanghai', qimen_method: '时家转盘 · 拆补法 · 天禽寄坤' });
   assert.deepEqual(out.judgments.formations, ref.backendFormationTags);
   assert.deepEqual(out.judgments.timing, ref.timingAnalysis);
   assert.deepEqual(out.judgments.yongshen, ref.yongshenRule);
@@ -58,7 +63,8 @@ test('resolveCastTime: 缺省取 now 的北京时间', () => {
 test('mode=chart 不需要 question', () => {
   const out = run({ mode: 'chart', cast_time: '2026-11-05T09:30:00+08:00' });
   assert.equal(out.chart.palaces.length, 9);
-  assert.equal(out.judgments, undefined);
+  assert.deepEqual(out.judgments, {});
+  assert.equal(out.confidence, null);
   assert.equal(out.system, 'qimen');
 });
 
@@ -75,6 +81,8 @@ test('mode=question 缺 question → 子进程 ok:false QUESTION_REQUIRED，退�
   const payload = JSON.parse(stdout);
   assert.equal(payload.ok, false);
   assert.equal(payload.code, 'QUESTION_REQUIRED');
+  assert.equal(typeof payload.hint, 'string');
+  assert.equal(payload.error, undefined);
 });
 
 test('非法 cast_time → CAST_TIME_INVALID', () => {
@@ -87,4 +95,82 @@ test('flags 路径端到端输出 ok:true', () => {
   const out = JSON.parse(stdout);
   assert.equal(out.ok, true);
   assert.equal(out.input.cast_time.hour, 9);
+});
+
+test('run 输出通过统一 schema（chart 与 question）', () => {
+  for (const input of [
+    { mode: 'chart', cast_time: '2026-11-05T09:30:00+08:00' },
+    { mode: 'question', question: '下周面试能过吗', cast_time: '2026-11-05T09:30:00+08:00' },
+  ]) {
+    const out = run(input);
+    const v = validateEnvelope(out);
+    assert.equal(v.valid, true, JSON.stringify(v.errors));
+  }
+});
+
+test('evidence 来自有名格与评分调整项，且只含 schema 允许的键', () => {
+  const out = run({ mode: 'question', question: '下周面试能过吗', cast_time: '2026-11-05T09:30:00+08:00' });
+  const adjustments = out.judgments.score.adjustments;
+  assert.ok(adjustments.length > 0);
+  assert.ok(out.evidence.length > 0);
+  for (const item of out.evidence) {
+    assert.deepEqual(Object.keys(item).sort(), ['rule_id', 'section']);
+  }
+  for (const f of out.judgments.formations) {
+    assert.ok(out.evidence.some((e) => e.rule_id === f.name && e.section === 'named_formation'));
+  }
+  for (const a of adjustments) {
+    assert.ok(out.evidence.some((e) => e.rule_id === a.signal && e.section === a.layer));
+  }
+});
+
+test('带 birth：四柱按 effective 时间算出并作为 baziInfo 传入引擎', () => {
+  const pipelinePath = require.resolve(path.join(ROOT, 'lib', 'qimenPipeline'));
+  const cliPath = require.resolve(CLI);
+  const pipeline = require(pipelinePath);
+  const original = pipeline.buildQimenEvidence;
+  const seen = [];
+  pipeline.buildQimenEvidence = (args) => { seen.push(args); return original(args); };
+  delete require.cache[cliPath];
+  try {
+    const fresh = require(CLI);
+    const birth = { date: '1990-06-15', time: '14:30', gender: '男', location: { longitude: 120 } };
+    const out = fresh.run({ mode: 'question', question: '下周面试能过吗', cast_time: '2026-11-05T09:30:00+08:00', birth });
+    const e = out.input.birth.effective;
+    const ec = Solar.fromYmdHms(e.year, e.month, e.day, e.hour, e.minute, 0).getLunar().getEightChar();
+    const expected = `${ec.getYear()} ${ec.getMonth()} ${ec.getDay()} ${ec.getTime()}`;
+    assert.match(expected, /^\S{2} \S{2} \S{2} \S{2}$/);
+    assert.equal(seen.length, 1);
+    assert.equal(seen[0].baziInfo, expected);
+    assert.equal(out.input.birth_bazi, expected);
+    assert.equal(validateEnvelope(out).valid, true);
+  } finally {
+    pipeline.buildQimenEvidence = original;
+    delete require.cache[cliPath];
+  }
+});
+
+test('固定生辰四柱字面值：1990-06-15 14:30 → 庚午 壬午 辛亥 乙未', () => {
+  const out = run({ mode: 'chart', cast_time: '2026-11-05T09:30:00+08:00', birth: { date: '1990-06-15', time: '14:30', gender: '女' } });
+  assert.equal(out.input.birth_bazi, '庚午 壬午 辛亥 乙未');
+  assert.ok(out.warnings.length > 0); // 未提供出生地的 parseBirth 警告
+});
+
+test('不带 birth：不传 baziInfo，input 无 birth', () => {
+  const out = run({ mode: 'chart', cast_time: '2026-11-05T09:30:00+08:00' });
+  assert.equal(out.input.birth, undefined);
+  assert.equal(out.input.birth_bazi, undefined);
+});
+
+test('birth 不完整 → BIRTH_INCOMPLETE；旧 bazi_info 字段被忽略', () => {
+  assert.throws(() => run({ mode: 'chart', birth: { date: '1990-06-15', time: '14:30' } }), { code: 'BIRTH_INCOMPLETE' });
+  const out = run({ mode: 'chart', cast_time: '2026-11-05T09:30:00+08:00', bazi_info: '庚午 庚辰 丙寅 乙未' });
+  assert.equal(out.input.bazi_info, undefined);
+});
+
+test('flags 路径支持 --date --time --gender 生辰背景', () => {
+  const stdout = execFileSync('node', [CLI, '--mode', 'chart', '--cast-time', '2026-11-05T09:30:00+08:00', '--date', '1990-06-15', '--time', '14:30', '--gender', '男'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+  const out = JSON.parse(stdout);
+  assert.equal(out.ok, true);
+  assert.equal(out.input.birth_bazi, '庚午 壬午 辛亥 乙未');
 });
