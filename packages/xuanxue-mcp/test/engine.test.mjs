@@ -8,6 +8,8 @@ test('loadEngine 返回四个 run 函数与 schemaPath', () => {
   for (const k of ['bazi', 'ziwei', 'qimen', 'calendar']) {
     assert.equal(typeof e[k], 'function', k);
   }
+  assert.equal(typeof e.cliEnvelope.toFailure, 'function');
+  assert.equal(typeof e.cliEnvelope.fail, 'function');
   assert.ok(existsSync(e.schemaPath));
   assert.match(e.schemaPath, /xuanxue-output\.schema\.json$/);
 });

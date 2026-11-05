@@ -21,6 +21,7 @@ export function loadEngine() {
     ziwei: load('ziwei_skill_cli.cjs'),
     qimen: load('qimen_cli.cjs'),
     calendar: load('calendar_cli.cjs'),
+    cliEnvelope: require(`${root}lib/cliEnvelope.cjs`),
     schemaPath: `${root}schemas/xuanxue-output.schema.json`,
   };
 }
