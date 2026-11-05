@@ -119,3 +119,26 @@ test('首批来源覆盖斗君、流时推进、四化层级、推断顺序和�
     'source.feixing-ziwei.p250.relations',
   ].forEach((id) => assert.equal(ids.has(id), true, `缺少首批来源：${id}`));
 });
+
+test('《飞星紫微斗数》第六卷 p249–270 每个印刷页都有页码映射，核心方法摘录齐全', () => {
+  const pageMap = loadJsonLines(path.join('feixing-ziwei', 'page-map.jsonl'));
+  const printed = new Set(pageMap.map((row) => row.printed_page));
+  for (let page = 249; page <= 270; page += 1) {
+    assert.equal(printed.has(page), true, `缺少印刷页 ${page} 的页码映射`);
+  }
+
+  const ids = new Set(loadJsonLines(path.join('feixing-ziwei', 'excerpts.jsonl')).map((excerpt) => excerpt.id));
+  [
+    'source.feixing-ziwei.p249.mutagen-palace-a',
+    'source.feixing-ziwei.p249.mutagen-palace-b',
+    'source.feixing-ziwei.p250.shouzhi-dedi',
+    'source.feixing-ziwei.p251.kanming-essentials',
+    'source.feixing-ziwei.p251.decadal-over-yearly',
+    'source.feixing-ziwei.p252.foundation-vs-period',
+    'source.feixing-ziwei.p254.gui-ju-b',
+    'source.feixing-ziwei.p256.za-ju',
+    'source.feixing-ziwei.p259.star-groups',
+    'source.feixing-ziwei.p263.boshi-twelve',
+    'source.feixing-ziwei.p270.patterns-g',
+  ].forEach((id) => assert.equal(ids.has(id), true, `缺少第六卷摘录：${id}`));
+});
