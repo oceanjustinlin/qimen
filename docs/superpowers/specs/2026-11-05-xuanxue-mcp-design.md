@@ -27,7 +27,8 @@
 - 奇门：生产环境唯一入口是 `lib/qimenPipeline.js` 的 `buildQimenEvidence()`（worker 在 `worker/src/index.js` 中引用），一次完成起盘、用神、格局、评分和应期。
 - **奇门技能是坏的**：`docs/skills/qimen-dunjia/SKILL.md` 调用的 `scripts/qimen_cli.py`、`route_question.py`、`evaluate_chart.py`、`scan_timing.py` 在所有分支的历史里都不存在；文档里写的规则集 `mainline-cn-v1` 与引擎实际使用的 `dunjia-yanyi-siku-v1` 不一致；该技能也没有注册到 `.claude/skills/`。README 三种语言版本都写着"奇门内核是 Python"，与事实不符。
 - 两个现有 CLI 的输入格式不一致：八字用 `{calendar, year, month, day, hour, minute, gender}`，缺时辰时默默按 12 点算；紫微用 `{date, time, gender, time_basis}`。
-- 两个 CLI 都没有做真太阳时换算，网页端在前端用 `src/data/birthplaces.mjs`（约 1.1MB）完成这一步。
+- 两个 CLI 都没有做真太阳时换算。网页端在前端完成这一步：`src/utils/birthplaceSearch.mjs` 搜索 `src/data/birthplaces.mjs`（3185 条，约 1.1MB，只有经纬度没有时区），`src/utils/baziProfileInput.mjs` 的 `getSolarTimeAdjustment()` 计算「中国大陆 1986–1991 夏令时 + 经度时差 + 均时差」。
+- **网页端海外出生地换算有 bug**：经度时差固定以东经 120° 为标准经线，海外当地时间被当作北京时间（纽约 1990-05-01 14:00 被调成 01:07）。中国境内结果正确。该 bug 另立任务修复，不在本项目范围。
 - 子时口径不一致：八字是"夜子时算当日"（lunar-javascript 默认 sect=2），紫微是"晚子时算次日"。
 - 紫微引擎运行时会读取 `knowledge/ziwei/sources/*/excerpts.jsonl`，用其中的 `ocr_status` 判断依据是否已校验。这些文件含书页原文，其中《命理天机》（周德元著，现代出版物）在 catalog 中标注为 `usage: internal-research`。
 
@@ -49,6 +50,7 @@
 - 统一八字和紫微的子时口径（只做标注）。
 - 处理 GitHub 仓库中已有的古籍原文文件。
 - 农历输入（v1 只接受公历）。
+- 海外出生地的真太阳时换算（v1 只支持中国大陆和港澳台；修复网页端 bug 后再放开）。
 
 ## 3. 架构
 
@@ -81,7 +83,7 @@ packages/xuanxue-mcp/      ← MCP server（stdio）
 }
 ```
 
-真太阳时规则：当 `location` 存在且 `time_basis = clock` 时，先换算成真太阳时再排盘，`input.solar_time` 记录原始时间、经度、经度时差、均时差和换算后的时间。没有 `location` 时按钟表时间排盘，并在 `warnings` 中写明"未做真太阳时校正"。
+真太阳时规则：换算直接复用 `src/utils/baziProfileInput.mjs` 的 `getSolarTimeAdjustment()`（mode `apparent`），不另写一份。v1 只接受 `country` 为「中国」的出生地（含港澳台，三地标准时间同为 UTC+8；港台历史夏令时不处理，在 `warnings` 中注明）；海外地名返回 `PLACE_UNSUPPORTED`，`hint` 提示用户自行换算后用 `time_basis: true_solar` 传入。直接传 `longitude` 时视为中国境内，经度不在东经 73°–135° 范围内同样返回 `PLACE_UNSUPPORTED`。当 `location` 存在且 `time_basis = clock` 时，先换算成真太阳时再排盘，`input.solar_time` 记录原始时间、经度、经度时差、均时差和换算后的时间。没有 `location` 时按钟表时间排盘，并在 `warnings` 中写明"未做真太阳时校正"。
 
 兼容性：CLI 层继续接受旧输入格式（八字的 `year/month/day/hour/minute`，以及现有的 flags），先转换成新的 `birth` 再处理。旧格式缺 `hour` 时同样报 `TIME_REQUIRED`。这是有意的行为变更，会写进 CHANGELOG。
 
@@ -127,7 +129,7 @@ packages/xuanxue-mcp/      ← MCP server（stdio）
 ```
 
 - 沿用现有错误码：`NO_INPUT`、`BAD_JSON`、`BIRTH_INCOMPLETE`、`CALENDAR_UNSUPPORTED`、`QUESTION_REQUIRED`、`TOPIC_UNSUPPORTED`、`TIME_SCOPE_INVALID`、`TIME_SCOPE_TOO_WIDE`。
-- 新增：`TIME_REQUIRED`、`PLACE_NOT_FOUND`、`PLACE_AMBIGUOUS`（`hint` 中列出前 5 个候选及其经度）、`ENGINE_ERROR`（非预期异常，只带引擎版本和输入摘要，不暴露堆栈）。
+- 新增：`TIME_REQUIRED`、`PLACE_NOT_FOUND`、`PLACE_UNSUPPORTED`、`PLACE_AMBIGUOUS`（`hint` 中列出前 5 个候选及其经度）、`ENGINE_ERROR`（非预期异常，只带引擎版本和输入摘要，不暴露堆栈）。
 - MCP 层把错误结果标记为 `isError: true`，正文内容不变。
 - 低置信不算错误：返回 `ok: true`、`confidence: "low"`，并在 `limitations` 中写明原因。
 
@@ -142,7 +144,7 @@ packages/xuanxue-mcp/      ← MCP server（stdio）
 
 ## 6. 第 2 阶段：统一契约与真太阳时
 
-1. 新建 `lib/birthInput.cjs`：解析 `birth`、兼容旧格式、校验字段、做真太阳时换算。地名查询复用 `src/utils/birthplaceSearch.mjs` 的逻辑和 `src/data/birthplaces.mjs` 的数据；如果 ESM/CJS 互相加载有障碍，把查询逻辑抽到 `lib/` 中，两端共用。
+1. 新建 `lib/birthInput.cjs`：解析 `birth`、兼容旧格式、校验字段、做真太阳时换算。通过 Node 22 的 `require(esm)` 直接加载 `src/utils/birthplaceSearch.mjs` 和 `src/utils/baziProfileInput.mjs`，网页端和 CLI 共用一份代码（已验证 Node 22.23 可行；`package.json` 声明 `engines.node >= 22.12`）。
 2. 新建 `scripts/calendar_cli.cjs`，提供 convert、true_solar、jieqi 三个 action。
 3. `bazi_cli`、`ziwei_skill_cli`、`qimen_cli` 改为通过 `birthInput` 读取输入，并套上第 4.3 节的输出外层。
 4. 用 JSON Schema（ajv）定义输出外层：`schemas/xuanxue-output.schema.json`。
@@ -194,7 +196,8 @@ packages/xuanxue-mcp/      ← MCP server（stdio）
 | 风险 | 应对 |
 |---|---|
 | 紫微证据输出依赖 excerpts 正文字段 | 打包测试覆盖；如有依赖，改为输出时可选附带正文，npm 版本不附带 |
-| birthplaces 数据是 ESM，引擎是 CJS | 第 2 阶段把查询逻辑抽到 `lib/`，或用动态 `import()` |
+| birthplaces 数据和换算函数是 ESM，引擎是 CJS | 用 `require(esm)`，要求 Node ≥ 22.12 |
+| 网页端修复海外 bug 时改动 `getSolarTimeAdjustment()` 签名 | MCP 契约测试覆盖中国城市换算结果，签名变化会被测试发现 |
 | 时辰改为必填，属于行为变更 | 写进 CHANGELOG；SKILL.md 访谈流程本来就要求问时辰 |
 | npm 包名在发布前被占用 | 备选 `@oceanjustinlin/xuanxue-mcp` |
 | 规则持续审计修订，MCP 版本跟不上 | 输出中带 `engine_version` 和 `ruleset`；修订规则后发 patch 版本 |
