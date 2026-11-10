@@ -17,6 +17,20 @@ const birth = z.looseObject({
   time_basis: z.enum(['clock', 'true_solar']).optional().describe('clock（默认，钟表时间）| true_solar（已是真太阳时）'),
 });
 
+// 西洋星盘的出生地：需要纬度与时区，不限中国
+const astroLocation = z.looseObject({
+  place: z.string().optional().describe('出生地名，如“杭州”“纽约”；地名库以中国为主，海外城市请改传坐标与时区'),
+  latitude: z.number().optional().describe('纬度（北正南负，-90～90）；与 longitude 同时给出时优先于 place'),
+  longitude: z.number().optional().describe('经度（东正西负，-180～180）'),
+  timezone: z.string().optional().describe('IANA 时区，如 Asia/Shanghai、America/New_York；只给坐标时必填'),
+});
+
+const astroBirth = z.looseObject({
+  date: z.string().optional().describe('公历出生日期 YYYY-MM-DD'),
+  time: z.string().regex(/^\d{2}:\d{2}$/, '格式应为 HH:mm').optional().describe('出生当地钟表时间 HH:mm（必填；缺失返回 TIME_REQUIRED）'),
+  location: astroLocation.optional().describe('出生地（必填）：{ place } 或 { latitude, longitude, timezone }'),
+});
+
 const current_year = z.number().int().optional().describe('当前年份，默认取系统年份');
 
 const timeScope = z.looseObject({
@@ -33,6 +47,7 @@ const DESCRIPTIONS = {
   ziwei: '紫微斗数排盘与证据：十二宫、主星、四化、大限流年。Zi Wei Dou Shu chart and evidence.',
   qimen: '时家奇门起局与问事：具体事件成败、时机、方位。不需要生辰。Qimen Dunjia for concrete events, timing and direction.',
   calendar: '历法工具：公历转农历与四柱、真太阳时换算、节气查询。Calendar conversion, true solar time, solar terms.',
+  astro: '西洋占星本命盘（星盘）：行星落座落宫、上升天顶、宫位、主相位。需要出生日期、时间（到分钟）和出生地。Western astrology natal chart: planets, angles, houses, aspects.',
 };
 
 const SHAPES = {
@@ -58,6 +73,16 @@ const SHAPES = {
     cast_time: z.string().optional().describe('起局时间（ISO），默认当前时刻'),
     timezone: z.string().optional().describe('IANA 时区，默认 Asia/Shanghai'),
     birth: birth.optional().describe('选填，作为八字背景'),
+    detail,
+  },
+  astro: {
+    birth: astroBirth.describe('出生信息（必填）；西洋星盘不需要性别，不做真太阳时'),
+    mode: z.string().optional().describe('目前只支持 chart（本命盘，默认）'),
+    options: z.looseObject({
+      house_system: z.string().optional().describe('placidus（默认）| whole_sign | equal'),
+      node: z.string().optional().describe('mean（默认，平均交点）| true'),
+      orbs: z.string().optional().describe('standard（默认）| tight'),
+    }).optional().describe('排盘口径，均可省略'),
     detail,
   },
   calendar: {

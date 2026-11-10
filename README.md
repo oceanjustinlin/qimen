@@ -40,6 +40,7 @@
 | **奇门遁甲** `qimen-dunjia` | 具体事件、时机窗口、方位、趋吉避凶 | `scripts/qimen_cli.cjs`（时家转盘，Node） | [SKILL.md](./.claude/skills/qimen-dunjia/SKILL.md) |
 | **四柱八字** `bazi` | 命局结构、性格禀赋、大运流年、问事应期 | `scripts/bazi_cli.cjs`（复用生产引擎，Node） | [SKILL.md](./.claude/skills/bazi/SKILL.md) |
 | **紫微斗数** `ziwei` | 十二宫结构、星情四化、大限流年的阶段变化 | `scripts/ziwei_skill_cli.cjs`（iztro 排盘 + 已审核知识库证据，Node） | [SKILL.md](./.claude/skills/ziwei/SKILL.md) |
+| **西洋星盘** `astro` | 本命盘：行星落座落宫、上升天顶、宫位、主相位 | `scripts/astro_cli.cjs`（astronomy-engine 星历，Node） | [SKILL.md](./.claude/skills/astro/SKILL.md) |
 
 - **为什么不让大模型自己排盘**：排盘、格局、旺衰、喜忌、问事推演本就是确定性的，一律交给脚本；大模型只负责访谈与解读，规避「心算」日柱大运带来的不可复现错误。
 - **统一契约**：三个 CLI 共用同一套出生信息输入（`lib/birthInput.cjs`，时辰、性别必填，传出生地可换算真太阳时）与同一种输出外层（`lib/cliEnvelope.cjs`，含 `chart` / `judgments` / `evidence` / `confidence` / `limitations` / `warnings` / `conventions`）；另有历法 CLI `scripts/calendar_cli.cjs`（公农历转换、真太阳时、节气）。
@@ -668,6 +669,7 @@ npx wrangler dev
 │   ├── ziwei_skill_cli.cjs           # 紫微 CLI
 │   ├── qimen_cli.cjs                 # 奇门 CLI
 │   ├── calendar_cli.cjs              # 历法 CLI
+│   ├── astro_cli.cjs                 # 西洋星盘 CLI
 │   └── eval-yongshen.mjs             # 用神评测复现脚本
 ├── mock/            # 前端访客与测试模拟数据
 ├── public/          # 静态资源与单页应用兜底配置

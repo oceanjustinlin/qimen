@@ -193,7 +193,21 @@ function summarizeZiwei(env) {
   return trimmed;
 }
 
-const SUMMARIZERS = { bazi: summarizeBazi, ziwei: summarizeZiwei };
+// ── astro ───────────────────────────────────────────────────────────────
+export const ASTRO_ORB_KEEP = 5;
+
+// 星盘本身不大：只把容许度大于 5° 的宽相位折叠成计数
+function summarizeAstro(env) {
+  const chart = env.chart;
+  if (!chart || !Array.isArray(chart.aspects)) return false;
+  const wide = chart.aspects.filter((a) => a && a.orb > ASTRO_ORB_KEEP);
+  if (!wide.length) return false;
+  chart.aspects = chart.aspects.filter((a) => !(a && a.orb > ASTRO_ORB_KEEP));
+  chart.aspects_omitted = { count: wide.length, rule: `容许度大于 ${ASTRO_ORB_KEEP}° 的宽相位已省略` };
+  return true;
+}
+
+const SUMMARIZERS = { bazi: summarizeBazi, ziwei: summarizeZiwei, astro: summarizeAstro };
 
 // 只处理成功外层；失败外层与未知工具原样返回
 export function summarizeEnvelope(name, env) {

@@ -32,6 +32,7 @@
 | **奇門遁甲** `qimen-dunjia` | 具體事件、時機窗口、方位、趨吉避凶 | `scripts/qimen_cli.cjs`（時家轉盤，Node） | [SKILL.md](../../.claude/skills/qimen-dunjia/SKILL.md) |
 | **四柱八字** `bazi` | 命局結構、性格稟賦、大運流年、問事應期 | `scripts/bazi_cli.cjs`（複用生產引擎，Node） | [SKILL.md](../../.claude/skills/bazi/SKILL.md) |
 | **紫微斗數** `ziwei` | 十二宮結構、星情四化、大限流年的階段變化 | `scripts/ziwei_skill_cli.cjs`（iztro 排盤 + 已審核知識庫證據，Node） | [SKILL.md](../../.claude/skills/ziwei/SKILL.md) |
+| **西洋星盤** `astro` | 本命盤：行星落座落宮、上升天頂、宮位、主相位 | `scripts/astro_cli.cjs`（astronomy-engine 星曆，Node） | [SKILL.md](../../.claude/skills/astro/SKILL.md) |
 
 - **為什麼不讓大模型自己排盤**：排盤、格局、旺衰、喜忌、問事推演本就是確定性的，一律交給腳本；大模型只負責訪談與解讀，規避「心算」日柱大運帶來的不可復現錯誤。
 - **統一契約**：三個 CLI 共用同一套出生資訊輸入（`lib/birthInput.cjs`，時辰、性別必填，傳出生地可換算真太陽時）與同一種輸出外層（`lib/cliEnvelope.cjs`，含 `chart` / `judgments` / `evidence` / `confidence` / `limitations` / `warnings` / `conventions`）；另有曆法 CLI `scripts/calendar_cli.cjs`（公農曆轉換、真太陽時、節氣）。

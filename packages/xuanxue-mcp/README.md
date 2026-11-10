@@ -1,10 +1,10 @@
 # xuanxue-mcp
 
-**English summary.** `xuanxue-mcp` is a stdio MCP server that exposes deterministic Chinese metaphysics engines (Bazi / Four Pillars, Zi Wei Dou Shu, Qimen Dunjia, plus a calendar toolkit) to any MCP client. The AI never computes a chart in its head: charts, rule hits, evidence and confidence all come from the engine; the AI only interviews and interprets. Everything runs locally: no network, no API key, no input is stored. Requires Node >= 22.12. Output is a structured reference, not medical, legal, financial or life-critical advice.
+**English summary.** `xuanxue-mcp` is a stdio MCP server that exposes deterministic Chinese metaphysics engines (Bazi / Four Pillars, Zi Wei Dou Shu, Qimen Dunjia, a Western astrology natal chart, plus a calendar toolkit) to any MCP client. The AI never computes a chart in its head: charts, rule hits, evidence and confidence all come from the engine; the AI only interviews and interprets. Everything runs locally: no network, no API key, no input is stored. Requires Node >= 22.12. Output is a structured reference, not medical, legal, financial or life-critical advice.
 
 ## 定位
 
-把八字、紫微斗数、奇门遁甲三套确定性排盘引擎（外加历法工具）接入任意支持 MCP 的 AI 客户端。**AI 不心算排盘**：盘面、规则判断、证据和置信度都由引擎给出，调用方 AI 只负责访谈和解读。
+把八字、紫微斗数、奇门遁甲三套确定性排盘引擎、西洋占星本命盘（外加历法工具）接入任意支持 MCP 的 AI 客户端。**AI 不心算排盘**：盘面、规则判断、证据和置信度都由引擎给出，调用方 AI 只负责访谈和解读。
 
 ## 隐私承诺
 
@@ -52,6 +52,7 @@ args = ["-y", "xuanxue-mcp"]
 | `bazi` | 命局结构、性格禀赋、旺衰喜忌、大运流年、问事应期 | `birth`；`mode`: `chart` \| `question`；`question`（question 模式必填）；`current_year` |
 | `ziwei` | 十二宫、主星、四化、大限流年 | `birth`；`mode`: `chart` \| `evidence`；`topic`: `overall` \| `career` \| `wealth` \| `relationship`；`time_scope`（一次最多 10 个流年） |
 | `qimen` | 具体事件的成败、时机、方位；不需要生辰 | `mode`: `chart` \| `question`；`question`；`cast_time`（ISO 时间，默认当前时刻）；`timezone`（默认 `Asia/Shanghai`）；`birth`（选填，仅作背景，奇门本身的判断不使用它） |
+| `astro` | 西洋占星本命盘（星盘）：行星落座落宫、上升天顶、宫位、主相位 | `birth`（`date`、`time`、`location` 必填，不需要性别）；`mode`: `chart`；`options`: `house_system`（`placidus` 默认 \| `whole_sign` \| `equal`）、`node`（`mean` 默认 \| `true`）、`orbs`（`standard` 默认 \| `tight`） |
 | `calendar` | 公历转农历与四柱、真太阳时换算、节气查询 | `action`: `convert` \| `true_solar` \| `jieqi`，配合 `date`、`time`、`location`、`year` |
 
 `birth` 结构（八字、紫微必填）：
@@ -72,14 +73,17 @@ args = ["-y", "xuanxue-mcp"]
 - `time_basis` 默认 `clock`（钟表时间）；`true_solar` 表示传入的已经是真太阳时。
 - 仅接受公历。
 
+`astro` 的 `birth.location` 需要能定出纬度和时区：`{ "place": "杭州" }`（地名库自动带出经纬度与时区，含港澳台和少量海外城市），或 `{ "latitude": 40.71, "longitude": -74.01, "timezone": "America/New_York" }`。缺出生地返回 `LOCATION_REQUIRED`。`time` 是出生地当时的钟表时间，引擎按 IANA 时区（含历史夏令时）换算为 UTC，不做真太阳时。
+
 ### 输出详略：`detail`
 
-`bazi`、`ziwei`、`qimen` 都接受可选参数 `detail`：
+`bazi`、`ziwei`、`qimen`、`astro` 都接受可选参数 `detail`：
 
 - `"summary"`（默认）：在 MCP 层精简已知的大块字段，并在 `warnings` 末尾追加 `已精简输出；如需完整数据请传 detail: "full"`。
   - `bazi` 问事：`judgments.question.timing_candidates` 只保留引擎排序前 5 个，其余年份只在 `timing_candidates_omitted` 中列出年份与评分；同一大运重复的 `dayun_impact` 改为指向首次出现的年份；重复的 `model_note` 只保留一次；干支关系与通根压成一行文字；未入选的成象候选只留结论。排盘模式不变。
   - `ziwei`：`chart.natal_features` 换成按宫位的 `chart.natal_features_summary`；`chart.periods[].dynamic_features` 换成 `dynamic_features_summary`（与 `role_to_natal` 重复的叠宫映射省略）。
   - `qimen`：输出本身不大，当前 summary 与 full 相同。
+  - `astro`：容许度大于 5° 的宽相位折叠为 `chart.aspects_omitted` 计数。
 - `"full"`：原样返回引擎的完整外层（与 CLI 输出一致）。
 
 工具结果的文本内容是紧凑 JSON（无缩进）。按 CJK 字符记 1 token、其余每 3.5 个字符记 1 token 估算，默认 summary 下八字问事、紫微 evidence（含 10 个流年 `cross_period`）、奇门问事都在 2 万 token 以内。Claude Code 默认把单次 MCP 工具输出限制在 25000 token（环境变量 `MAX_MCP_OUTPUT_TOKENS`）；`detail: "full"` 可能超过这个上限（八字问事约 4 万、紫微 10 个流年约 6 万），确需完整数据时可调大该变量，例如 `MAX_MCP_OUTPUT_TOKENS=80000 claude`。
@@ -90,6 +94,7 @@ args = ["-y", "xuanxue-mcp"]
 | --- | --- |
 | `bazi_reading` | 八字解读守则：访谈、调用 `bazi`、解读顺序与安全措辞 |
 | `ziwei_reading` | 紫微斗数解读守则：访谈、调用 `ziwei`、读盘次序、证据分级与安全措辞 |
+| `astro_reading` | 西洋星盘解读守则：访谈、调用 `astro`、读盘次序与口径 |
 | `qimen_reading` | 奇门遁甲解读守则：访谈、调用 `qimen`、用神宫与格局解读及安全措辞 |
 
 ## 输出结构
@@ -99,7 +104,7 @@ args = ["-y", "xuanxue-mcp"]
 ```jsonc
 {
   "ok": true,
-  "system": "bazi | ziwei | qimen | calendar",
+  "system": "bazi | ziwei | qimen | astro | calendar",
   "mode": "...",
   "engine_version": "...",
   "ruleset": "...",       // 奇门为 dunjia-yanyi-siku-v1
@@ -116,7 +121,7 @@ args = ["-y", "xuanxue-mcp"]
 
 - `evidence` 只带规则 id、摘录标题、页码、章节等出处信息。紫微部分不附古籍原文摘录。
 - 低置信不是错误：返回 `ok: true`、`confidence: "low"`，原因写在 `limitations`。
-- 失败时返回 `{ "ok": false, "code": "...", "message": "...", "hint": "..." }`，MCP 层同时标记 `isError: true`。常见错误码：`TIME_REQUIRED`、`BIRTH_INCOMPLETE`、`PLACE_NOT_FOUND`、`PLACE_UNSUPPORTED`、`PLACE_AMBIGUOUS`、`QUESTION_REQUIRED`、`TOPIC_UNSUPPORTED`、`TIME_SCOPE_INVALID`、`TIME_SCOPE_TOO_WIDE`、`ENGINE_ERROR`。
+- 失败时返回 `{ "ok": false, "code": "...", "message": "...", "hint": "..." }`，MCP 层同时标记 `isError: true`。常见错误码：`TIME_REQUIRED`、`BIRTH_INCOMPLETE`、`PLACE_NOT_FOUND`、`PLACE_UNSUPPORTED`、`PLACE_AMBIGUOUS`、`QUESTION_REQUIRED`、`TOPIC_UNSUPPORTED`、`TIME_SCOPE_INVALID`、`TIME_SCOPE_TOO_WIDE`、`ENGINE_ERROR`；`astro` 另有 `LOCATION_REQUIRED`、`TIMEZONE_INVALID`、`HOUSE_SYSTEM_UNSUPPORTED`、`OPTION_INVALID`、`DATE_OUT_OF_RANGE`（只支持 1800–2200 年）。
 
 ## 口径声明
 
@@ -124,6 +129,7 @@ args = ["-y", "xuanxue-mcp"]
 - **真太阳时**：仅支持中国（含港澳台）出生地，按出生地经度与均时差换算。海外出生地返回 `PLACE_UNSUPPORTED`，请自行换算后以 `time_basis: "true_solar"` 传入。
 - **夏令时**：以地名给出大陆出生地时，自动扣除 1986–1991 年中国大陆夏令时；以地名给出港澳台出生地时，不套用大陆夏令时，但港澳台自身的历史夏令时也未校正，会在 `warnings` 中注明。只传经度（`location.longitude`）时无法区分大陆与港澳台，一律按大陆规则处理；港澳台出生者请改传地名。
 - **未给出生地**：按钟表时间排盘，并在 `warnings` 中写明未做真太阳时校正。
+- **西洋星盘**：回归黄道、地心真春分点黄道坐标；默认 Placidus 宫制（纬度过高无解时自动改用整宫制并写入 `warnings`）、平均交点、五种托勒密主相位（合 8°、冲 8°、拱 7°、刑 7°、六合 5°）。星历由 astronomy-engine 计算，与 Swiss Ephemeris 对照，行星与交点误差小于 1′，上升、天顶与宫头误差小于 2′。夏令时切换造成的不存在或重复时刻不报错，按切换前的偏移或较早一次解释并写入 `warnings`。目前不算凯龙星、莉莉丝、小行星与福点，`judgments` 为空（不含断语库）。
 - **奇门定局**：时家转盘 · 拆补法 · 天禽寄坤，规则集 `dunjia-yanyi-siku-v1`。
 
 ## 免责声明
@@ -136,6 +142,7 @@ args = ["-y", "xuanxue-mcp"]
 
 - [iztro](https://github.com/SylarLong/iztro)（MIT）：紫微斗数排盘
 - [lunar-javascript](https://github.com/6tail/lunar-javascript)（MIT）：农历与干支历法
+- [astronomy-engine](https://github.com/cosinekitty/astronomy)（MIT）：西洋星盘的行星位置与恒星时
 - 出生地经纬度数据来自 [sfyc23/China-zip-code-latitude-and-longitude](https://github.com/sfyc23/China-zip-code-latitude-and-longitude)（MIT）
 
 ## 来源

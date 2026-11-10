@@ -13,10 +13,11 @@ const ENTRIES = [
   'scripts/ziwei_skill_cli.cjs',
   'scripts/qimen_cli.cjs',
   'scripts/calendar_cli.cjs',
+  'scripts/astro_cli.cjs',
   'lib/cliEnvelope.cjs',
 ];
 const STRIP_FIELDS = ['ocr_text', 'corrected_text', 'correction_notes'];
-const ALLOWED_BARE = new Set(['@modelcontextprotocol/sdk', 'zod', 'lunar-javascript', 'iztro', 'ajv', 'yaml']);
+const ALLOWED_BARE = new Set(['@modelcontextprotocol/sdk', 'zod', 'lunar-javascript', 'iztro', 'ajv', 'yaml', 'astronomy-engine']);
 const EXTS = ['', '.cjs', '.js', '.mjs', '.json', '/index.cjs', '/index.js', '/index.mjs'];
 
 const SPEC_RES = [
