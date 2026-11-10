@@ -58,6 +58,8 @@
 
 配置方法、工具参数与输出说明见 [packages/xuanxue-mcp/README.md](./packages/xuanxue-mcp/README.md)。
 
+**DeepSeek Harness（dsh）插件**：[`packages/xuanxue-dsh`](./packages/xuanxue-dsh/) 是包装 xuanxue-mcp 的薄壳组合包，用 dsh 自带的 MCP 客户端接入 5 个工具，并把 4 份解读守则注册为 dsh skill（dsh 不支持 MCP prompts）。发布后用 `dsh plugin --profile web add xuanxue-dsh` 安装；同样尚未发布到 npm。
+
 ---
 
 ## 项目简介
@@ -631,7 +633,8 @@ npx wrangler dev
 /
 ├── worker/          # 后端接口入口与 Cloudflare Workers 配置
 ├── packages/
-│   └── xuanxue-mcp/  # MCP server（工具、解读守则 prompts、prepack 打包脚本）
+│   ├── xuanxue-mcp/  # MCP server（工具、解读守则 prompts、prepack 打包脚本）
+│   └── xuanxue-dsh/  # DeepSeek Harness 插件（薄壳：MCP 接入配置 + 解读守则 skill）
 ├── .claude/skills/  # 奇门 / 八字 / 紫微 Agent Skills（.agents/skills/ 为同内容副本）
 ├── knowledge/ziwei/ # 紫微规则、释义与出处元数据
 ├── schemas/         # CLI 统一输出外层的 JSON Schema

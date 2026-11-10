@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Xuanxue charts (Bazi / Zi Wei / Qimen / natal chart)",
+    "description": "Connects the deterministic xuanxue-mcp chart engines and ships four reading-guide skills: the model never computes a chart itself, it only interviews and interprets."
+  }
+}
