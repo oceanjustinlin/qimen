@@ -53,3 +53,26 @@ test('apply 注册四个 skill，名称合法、正文含守则与工具名对�
 test('inject 声明 skills 服务', () => {
   assert.deepEqual(plugin.inject, ['skills']);
 });
+
+test('export-repo 导出独立仓库：根目录即插件，prompts 已就位，无 prepack', async () => {
+  const { mkdtempSync, rmSync, existsSync } = await import('node:fs');
+  const { tmpdir } = await import('node:os');
+  const { join } = await import('node:path');
+  const { execFileSync } = await import('node:child_process');
+  const dir = mkdtempSync(join(tmpdir(), 'xuanxue-dsh-export-'));
+  try {
+    execFileSync(process.execPath, [new URL('../scripts/export-repo.mjs', import.meta.url).pathname, dir]);
+    const out = JSON.parse(readFileSync(join(dir, 'package.json'), 'utf8'));
+    assert.equal(out.dsh.bundle.patch, './cordis.patch.yml');
+    assert.equal(out.scripts, undefined);
+    for (const f of ['index.js', 'cordis.patch.yml', 'LICENSE', 'README.md', 'locale/zh.json', 'prompts/common.md', 'prompts/bazi_reading.md']) {
+      assert.ok(existsSync(join(dir, f)), f);
+    }
+    const mod = await import(join(dir, 'index.js'));
+    const seen = [];
+    mod.apply({ skills: { register: (s) => seen.push(s) } });
+    assert.equal(seen.length, 4);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
