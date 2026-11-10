@@ -8,7 +8,7 @@
       "required": ["ok", "system", "mode", "engine_version", "ruleset", "input", "conventions", "chart", "judgments", "evidence", "confidence", "limitations", "warnings"],
       "properties": {
         "ok": { "const": true },
-        "system": { "enum": ["bazi", "ziwei", "qimen", "calendar"] },
+        "system": { "enum": ["bazi", "ziwei", "qimen", "calendar", "astro"] },
         "mode": { "type": "string" },
         "engine_version": { "type": ["string", "null"] },
         "ruleset": { "type": ["string", "null"] },

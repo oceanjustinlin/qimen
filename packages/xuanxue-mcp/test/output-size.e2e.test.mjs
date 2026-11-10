@@ -36,6 +36,7 @@ const MAIN_PATHS = {
   'bazi question': ['bazi', { birth, mode: 'question', question: '我什么时候能升职', current_year: 2026 }],
   'ziwei evidence': ['ziwei', { birth, mode: 'evidence', topic: 'career', current_year: 2026 }],
   'ziwei evidence + 10 个流年 cross_period': ['ziwei', { birth, mode: 'evidence', topic: 'career', current_year: 2026, time_scope: { type: 'cross_period', start_year: 2026, end_year: 2035 } }],
+  'astro chart': ['astro', { birth: { date: '1990-05-17', time: '10:20', location: { place: '杭州' } } }],
   'qimen question': ['qimen', { mode: 'question', question: '这次面试能成吗', cast_time: '2026-11-05T14:30:00', birth }],
 };
 
@@ -60,7 +61,7 @@ test('content text 是紧凑 JSON（无缩进），且与 structuredContent 一�
   assert.equal(text, JSON.stringify(r.structuredContent));
 });
 
-test('bazi/ziwei/qimen 的 inputSchema 有 detail（summary | full），calendar 没有', async () => {
+test('bazi/ziwei/qimen/astro 的 inputSchema 有 detail（summary | full），calendar 没有', async () => {
   const { tools } = await client.listTools();
   for (const t of tools) {
     const d = t.inputSchema.properties.detail;

@@ -16,10 +16,19 @@ after(async () => { await client.close(); });
 
 const call = (name, args) => client.callTool({ name, arguments: args });
 
-test('listTools 返回 4 个工具', async () => {
+test('listTools 返回 5 个工具', async () => {
   const { tools } = await client.listTools();
-  assert.deepEqual(tools.map((t) => t.name).sort(), ['bazi', 'calendar', 'qimen', 'ziwei']);
+  assert.deepEqual(tools.map((t) => t.name).sort(), ['astro', 'bazi', 'calendar', 'qimen', 'ziwei']);
   assert.ok(tools.every((t) => t.inputSchema.properties && t.description.includes('.')));
+});
+
+test('astro 本命盘正常；缺出生地 → isError，code LOCATION_REQUIRED', async () => {
+  const ok = await call('astro', { birth: { date: '1990-05-17', time: '10:20', location: { place: '杭州' } } });
+  assert.notEqual(ok.isError, true);
+  assert.equal(ok.structuredContent.system, 'astro');
+  const bad = await call('astro', { birth: { date: '1990-05-17', time: '10:20' } });
+  assert.equal(bad.isError, true);
+  assert.equal(bad.structuredContent.code, 'LOCATION_REQUIRED');
 });
 
 test('bazi chart 正常', async () => {

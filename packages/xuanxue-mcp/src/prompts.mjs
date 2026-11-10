@@ -6,6 +6,7 @@ const promptsDir = new URL('../prompts/', import.meta.url);
 export const PROMPTS = [
   { name: 'bazi_reading', description: '八字解读守则：访谈、调用 bazi 工具、解读顺序与安全措辞（AI 只翻译、不判断）', file: 'bazi_reading.md' },
   { name: 'ziwei_reading', description: '紫微斗数解读守则：访谈、调用 ziwei 工具、读盘次序、证据分级与安全措辞（AI 只翻译、不判断）', file: 'ziwei_reading.md' },
+  { name: 'astro_reading', description: '西洋星盘解读守则：访谈、调用 astro 工具、读盘次序与安全措辞（AI 只翻译、不判断）', file: 'astro_reading.md' },
   { name: 'qimen_reading', description: '奇门遁甲解读守则：访谈、调用 qimen 工具、用神宫与格局解读及安全措辞（AI 只翻译、不判断）', file: 'qimen_reading.md' },
 ];
 

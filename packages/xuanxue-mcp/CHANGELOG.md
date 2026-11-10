@@ -1,5 +1,9 @@
 # Changelog
 
+## 未发布
+
+- 新增 `astro` 工具（西洋占星本命盘）与 `astro_reading` prompt：行星落座落宫与逆行、上升天顶、Placidus / 整宫制 / 等宫制宫位、主相位、元素模式分布、日夜盘与命主星。出生地需能定出纬度与时区，时间按 IANA 时区换算为 UTC（不做真太阳时）。新增依赖 `astronomy-engine`（MIT）。
+
 ## 0.1.0
 
 首个版本：以 stdio MCP server 形式提供 `bazi`、`ziwei`、`qimen`、`calendar` 四个工具和 `bazi_reading`、`ziwei_reading`、`qimen_reading` 三个 prompt。

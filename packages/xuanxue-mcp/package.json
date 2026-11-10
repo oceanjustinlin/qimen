@@ -10,6 +10,7 @@
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.32.2",
     "ajv": "^8.17.1",
+    "astronomy-engine": "^2.1.19",
     "iztro": "^2.5.8",
     "lunar-javascript": "^1.6.12",
     "yaml": "^2.8.4",

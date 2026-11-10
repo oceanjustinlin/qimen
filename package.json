@@ -19,6 +19,7 @@
     "@opentelemetry/sdk-trace-node": "^2.11.0",
     "@supabase/supabase-js": "^2.39.0",
     "@vueuse/core": "^10.7.0",
+    "astronomy-engine": "^2.1.19",
     "iztro": "^2.5.8",
     "lunar-javascript": "^1.6.12",
     "pinia": "^2.1.7",

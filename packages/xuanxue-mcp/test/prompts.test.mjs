@@ -9,7 +9,7 @@ import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js'
 const serverPath = fileURLToPath(new URL('../src/server.mjs', import.meta.url));
 const promptsDir = new URL('../prompts/', import.meta.url);
 const safetyPath = new URL('../../../knowledge/ziwei/policies/safety.yaml', import.meta.url);
-const NAMES = ['bazi_reading', 'ziwei_reading', 'qimen_reading'];
+const NAMES = ['bazi_reading', 'ziwei_reading', 'qimen_reading', 'astro_reading'];
 const ENVELOPE = ['chart', 'judgments', 'evidence', 'confidence', 'limitations', 'warnings', 'conventions'];
 let client;
 
@@ -28,7 +28,7 @@ const body = async (name) => {
   return r.messages[0].content.text;
 };
 
-test('listPrompts 返回三套解读守则，带描述', async () => {
+test('listPrompts 返回四套解读守则，带描述', async () => {
   const { prompts } = await client.listPrompts();
   assert.deepEqual(prompts.map((p) => p.name).sort(), [...NAMES].sort());
   assert.ok(prompts.every((p) => p.description && p.description.length > 5));
@@ -50,6 +50,7 @@ test('prompt 正文 = common.md + 体系文件，含 limitations 与统一外层
 test('各体系 prompt 指明工具名与口径', async () => {
   assert.match(await body('bazi_reading'), /`bazi`[\s\S]*夜子时算当日/);
   assert.match(await body('ziwei_reading'), /`ziwei`[\s\S]*晚子时算次日/);
+  assert.match(await body('astro_reading'), /`astro`[\s\S]*不做真太阳时/);
   const q = await body('qimen_reading');
   assert.match(q, /`qimen`/);
   assert.match(q, /qimen_method/);
