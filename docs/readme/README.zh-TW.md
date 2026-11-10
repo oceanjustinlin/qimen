@@ -21,11 +21,11 @@
 
 ---
 
-## 🧭 三大對話式推演技能（Agent Skills）
+## 🧭 四大對話式推演技能（Agent Skills）
 
-> **開箱即用**：任意支援命令列的 AI Agent，都能直接呼叫本專案沉澱的三套「對話式排盤解盤」技能——對話端與網頁端共用同一套確定性規則底座。
+> **開箱即用**：任意支援命令列的 AI Agent，都能直接呼叫本專案沉澱的四套「對話式排盤解盤」技能——對話端與網頁端共用同一套確定性規則底座。
 
-三個技能**同構**，都走 **訪談 → 確定性計算（腳本）→ AI 解讀** 三段式：先問清所求，再用腳本做固定計算（絕不讓大模型心算排盤），最後才把結構化結論轉譯成可讀、可行動的語言。計算核心純本地、零 API Key，Agent 只需能跑腳本。
+四個技能**同構**，都走 **訪談 → 確定性計算（腳本）→ AI 解讀** 三段式：先問清所求，再用腳本做固定計算（絕不讓大模型心算排盤），最後才把結構化結論轉譯成可讀、可行動的語言。計算核心純本地、零 API Key，Agent 只需能跑腳本。
 
 | 技能 | 看什麼 | 計算核心 | 技能定義 |
 | --- | --- | --- | --- |
@@ -35,8 +35,8 @@
 | **西洋星盤** `astro` | 本命盤：行星落座落宮、上升天頂、宮位、主相位 | `scripts/astro_cli.cjs`（astronomy-engine 星曆，Node） | [SKILL.md](../../.claude/skills/astro/SKILL.md) |
 
 - **為什麼不讓大模型自己排盤**：排盤、格局、旺衰、喜忌、問事推演本就是確定性的，一律交給腳本；大模型只負責訪談與解讀，規避「心算」日柱大運帶來的不可復現錯誤。
-- **統一契約**：三個 CLI 共用同一套出生資訊輸入（`lib/birthInput.cjs`，時辰、性別必填，傳出生地可換算真太陽時）與同一種輸出外層（`lib/cliEnvelope.cjs`，含 `chart` / `judgments` / `evidence` / `confidence` / `limitations` / `warnings` / `conventions`）；另有曆法 CLI `scripts/calendar_cli.cjs`（公農曆轉換、真太陽時、節氣）。
-- **解讀守則單一來源**：三套技能的訪談與解讀守則統一放在 [`packages/xuanxue-mcp/prompts/`](../../packages/xuanxue-mcp/prompts/)，SKILL.md 與 MCP prompt 共用同一份正文。
+- **統一契約**：各 CLI 共用同一套出生資訊輸入（`lib/birthInput.cjs`，時辰必填；八字、紫微另需性別，傳出生地可換算真太陽時；西洋星盤不需要性別、不做真太陽時，按出生地時區換算 UTC）與同一種輸出外層（`lib/cliEnvelope.cjs`，含 `chart` / `judgments` / `evidence` / `confidence` / `limitations` / `warnings` / `conventions`）；另有曆法 CLI `scripts/calendar_cli.cjs`（公農曆轉換、真太陽時、節氣）。
+- **解讀守則單一來源**：四套技能的訪談與解讀守則統一放在 [`packages/xuanxue-mcp/prompts/`](../../packages/xuanxue-mcp/prompts/)，SKILL.md 與 MCP prompt 共用同一份正文。
 - **八字技能自帶分層校驗**：`scripts/bazi_cli.test.cjs`（封裝無損 parity 測試，已併入 `npm test`）＋ [`eval/bazi-skill/`](../../eval/bazi-skill/)（觸發準確度、路由預判、解讀忠實度評測）。
 
 詳見下方「核心能力」中的 [奇門遁甲 Agent Skill](#奇門遁甲-agent-skill對話式推演技能)、[四柱八字 Agent Skill](#四柱八字-agent-skill對話式命理分析技能) 與 [紫微斗數盤](#紫微斗數盤)。
@@ -44,7 +44,7 @@
 
 ## 🔌 MCP Server（xuanxue-mcp）
 
-八字、紫微斗數、奇門遁甲（外加曆法工具）也以 stdio MCP server 的形式提供，可接入 Claude Code、Claude Desktop、Codex、Cursor 等客戶端：4 個工具（`bazi` / `ziwei` / `qimen` / `calendar`）＋ 3 份解讀守則 prompt。純本地計算，不連網、無需 API Key，需要 Node ≥ 22.12。
+八字、紫微斗數、奇門遁甲、西洋星盤（外加曆法工具）也以 stdio MCP server 的形式提供，可接入 Claude Code、Claude Desktop、Codex、Cursor 等客戶端：5 個工具（`bazi` / `ziwei` / `qimen` / `astro` / `calendar`）＋ 4 份解讀守則 prompt。純本地計算，不連網、無需 API Key，需要 Node ≥ 22.12。
 
 > **尚未發佈到 npm**。發佈前請從本倉庫直接執行，例如 Claude Code：`claude mcp add xuanxue -- node <倉庫絕對路徑>/packages/xuanxue-mcp/src/server.mjs`；發佈後可改用 `npx -y xuanxue-mcp`。
 
@@ -104,6 +104,13 @@ flowchart TD
 ## 核心能力
 
 ### 更新歷史
+
+**2026-11-10 · 西洋星盤（astro）接入 CLI 與 MCP**
+
+- 新增 `scripts/astro_cli.cjs` 與 MCP `astro` 工具、`astro_reading` 解讀守則、`astro` 技能：西洋占星本命盤，含行星落座落宮與逆行、上升天頂、宮位、五種主相位、元素模式分布、日夜盤與命主星。
+- 口徑：回歸黃道、預設 Placidus 宮制（高緯度無解時自動改用整宮制）、平均交點；缺出生時間返回 `TIME_REQUIRED`；目前只做本命盤，`judgments` 為空（不含斷語庫）。
+- 星曆用 astronomy-engine（MIT，純 JS）；與 Swiss Ephemeris 對照 6 張金標盤，行星與交點誤差小於 1′，上升、天頂與宮頭小於 2′。出生時間按 IANA 時區（含歷史夏令時）換算為 UTC，不做真太陽時。
+- 地名解析支援「地級市 + 區縣」寫法（「廈門市集美區」「廈門集美」「恩施利川」），八字、紫微、星盤共用。
 
 **2026-11-05 · 奇門技能修復、CLI 統一契約與 xuanxue-mcp**
 

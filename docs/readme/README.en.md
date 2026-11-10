@@ -21,11 +21,11 @@
 
 ---
 
-## 🧭 Three Conversational Reasoning Skills (Agent Skills)
+## 🧭 Four Conversational Reasoning Skills (Agent Skills)
 
-> **Ready to use**: any command-line-capable AI agent can directly invoke the three "conversational chart-casting" skills distilled from this project — the conversational side and the web app share the same deterministic rule foundation.
+> **Ready to use**: any command-line-capable AI agent can directly invoke the four "conversational chart-casting" skills distilled from this project — the conversational side and the web app share the same deterministic rule foundation.
 
-All three skills are **isomorphic**, following an **interview → deterministic computation (script) → AI interpretation** three-stage flow: clarify the question first, run fixed calculations via script (never let the model do chart math in its head), then translate the structured conclusion into readable, actionable language. The compute core is fully local and needs no API key — the agent only needs to run a script.
+All four skills are **isomorphic**, following an **interview → deterministic computation (script) → AI interpretation** three-stage flow: clarify the question first, run fixed calculations via script (never let the model do chart math in its head), then translate the structured conclusion into readable, actionable language. The compute core is fully local and needs no API key — the agent only needs to run a script.
 
 | Skill | What it reads | Compute core | Definition |
 | --- | --- | --- | --- |
@@ -35,7 +35,7 @@ All three skills are **isomorphic**, following an **interview → deterministic 
 | **Western natal chart** `astro` | planets in signs and houses, Ascendant/MC, houses, major aspects | `scripts/astro_cli.cjs` (astronomy-engine ephemeris, Node) | [SKILL.md](../../.claude/skills/astro/SKILL.md) |
 
 - **Why not let the model cast the chart itself**: chart generation, patterns, strength, favorable/unfavorable gods, and question reasoning are all deterministic — handed entirely to the script; the model only interviews and interprets, avoiding non-reproducible errors from "mentally computing" day pillars and luck cycles.
-- **One contract**: the three CLIs share one birth-input parser (`lib/birthInput.cjs`; hour and gender required, a birthplace enables true-solar-time correction) and one output envelope (`lib/cliEnvelope.cjs`: `chart` / `judgments` / `evidence` / `confidence` / `limitations` / `warnings` / `conventions`). A calendar CLI, `scripts/calendar_cli.cjs`, handles solar↔lunar conversion, true solar time and solar terms.
+- **One contract**: the CLIs share one birth-input parser (`lib/birthInput.cjs`; birth time required; Bazi and Zi Wei also need gender, and a birthplace enables true-solar-time correction; the Western chart needs no gender and converts local time to UTC by the birthplace's time zone instead of true solar time) and one output envelope (`lib/cliEnvelope.cjs`: `chart` / `judgments` / `evidence` / `confidence` / `limitations` / `warnings` / `conventions`). A calendar CLI, `scripts/calendar_cli.cjs`, handles solar↔lunar conversion, true solar time and solar terms.
 - **One source for reading guidelines**: the interview and interpretation rules live in [`packages/xuanxue-mcp/prompts/`](../../packages/xuanxue-mcp/prompts/); the SKILL.md files and the MCP prompts share that text.
 - **The Bazi skill ships with layered checks**: `scripts/bazi_cli.test.cjs` (lossless-wrapper parity test, wired into `npm test`) plus [`eval/bazi-skill/`](../../eval/bazi-skill/) (triggering accuracy, route prediction, interpretation faithfulness).
 
@@ -44,7 +44,7 @@ See the [Qimen Dunjia Agent Skill](#qimen-dunjia-agent-skill-conversational-reas
 
 ## 🔌 MCP Server (xuanxue-mcp)
 
-The Bazi, Zi Wei Dou Shu and Qimen Dunjia engines (plus calendar tools) are also available as a stdio MCP server for Claude Code, Claude Desktop, Codex, Cursor and other clients: four tools (`bazi` / `ziwei` / `qimen` / `calendar`) plus three reading-guideline prompts. Fully local, no network, no API key; requires Node ≥ 22.12.
+The Bazi, Zi Wei Dou Shu, Qimen Dunjia and Western natal chart engines (plus calendar tools) are also available as a stdio MCP server for Claude Code, Claude Desktop, Codex, Cursor and other clients: five tools (`bazi` / `ziwei` / `qimen` / `astro` / `calendar`) plus four reading-guideline prompts. Fully local, no network, no API key; requires Node ≥ 22.12.
 
 > **Not published to npm yet.** Until then, run it from this repo, e.g. in Claude Code: `claude mcp add xuanxue -- node <absolute repo path>/packages/xuanxue-mcp/src/server.mjs`. After publishing, `npx -y xuanxue-mcp` will work.
 
@@ -104,6 +104,13 @@ The natal chart is the potential (the seed); the luck cycle is the environment (
 ## Core Features
 
 ### Changelog
+
+**2026-11-10 · Western natal chart (astro) in the CLI and MCP**
+
+- Added `scripts/astro_cli.cjs`, the MCP `astro` tool, the `astro_reading` prompt and the `astro` skill: a Western natal chart with planets in signs and houses (with retrogrades), Ascendant/MC, house cusps, the five major aspects, element/modality balance, day/night sect and chart ruler.
+- Conventions: tropical zodiac, Placidus houses by default (falls back to whole-sign at latitudes where Placidus has no solution), mean node; a missing birth time returns `TIME_REQUIRED`; natal chart only for now, and `judgments` is empty (no interpretation rule base yet).
+- Ephemeris by astronomy-engine (MIT, pure JS); checked against Swiss Ephemeris on six reference charts: planets and nodes within 1′, Ascendant, MC and cusps within 2′. Birth time is converted to UTC by IANA time zone (historical DST included), with no true-solar-time correction.
+- Place lookup now accepts "city + district" forms (e.g. 厦门市集美区, 厦门集美, 恩施利川); shared by Bazi, Zi Wei and the Western chart.
 
 **2026-11-05 · Qimen skill fix, unified CLI contract, xuanxue-mcp**
 
