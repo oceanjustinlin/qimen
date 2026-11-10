@@ -50,6 +50,8 @@ The Bazi, Zi Wei Dou Shu, Qimen Dunjia and Western natal chart engines (plus cal
 
 Setup, tool parameters and output reference: [packages/xuanxue-mcp/README.md](../../packages/xuanxue-mcp/README.md).
 
+**DeepSeek Harness (dsh) plugin**: [`packages/xuanxue-dsh`](../../packages/xuanxue-dsh/) is a thin bundle over xuanxue-mcp. It connects the 5 tools through dsh's built-in MCP client and registers the 4 reading guides as dsh skills (dsh does not support MCP prompts). Once published, install it with `dsh plugin --profile web add xuanxue-dsh`; it is not on npm yet either.
+
 ---
 
 ## Overview
@@ -516,6 +518,7 @@ Database migration scripts are kept in `docs/sql/` for the author's own maintena
 /
 ├── worker/          # Backend API entry point and Cloudflare Workers config
 ├── packages/xuanxue-mcp/  # MCP server (tools, reading-guideline prompts, prepack)
+├── packages/xuanxue-dsh/  # DeepSeek Harness plugin (thin shell: MCP wiring + reading-guide skills)
 ├── .claude/skills/  # Qimen / Bazi / Zi Wei Agent Skills (.agents/skills/ mirrors them)
 ├── knowledge/ziwei/ # Zi Wei rules, interpretations and source metadata
 ├── schemas/         # JSON Schema for the unified CLI output envelope

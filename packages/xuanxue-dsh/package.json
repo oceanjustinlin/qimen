@@ -1,0 +1,20 @@
+{
+  "name": "xuanxue-dsh",
+  "version": "0.1.0",
+  "description": "DeepSeek Harness (dsh) plugin: Bazi, Zi Wei, Qimen and Western natal chart engines via xuanxue-mcp, plus reading-guide skills",
+  "type": "module",
+  "license": "MIT",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json"
+  },
+  "files": ["index.js", "cordis.patch.yml", "prompts/", "locale/*.json", "README.md", "LICENSE", "CHANGELOG.md"],
+  "keywords": ["dsh", "dsh-plugin", "deepseek-harness", "mcp", "bazi", "ziwei", "qimen", "astrology"],
+  "engines": { "node": ">=24.9", "dsh": ">=0.2.2-rc.1" },
+  "scripts": { "prepack": "node scripts/prepack.mjs" },
+  "dsh": {
+    "manifestVersion": 1,
+    "bundle": { "patch": "./cordis.patch.yml" }
+  }
+}

@@ -1,0 +1,16 @@
+# xuanxue-dsh 组合包层：在 base 之上插入两行。
+# 1. xuanxue-mcp：用 dsh 自带的 MCP 客户端以 stdio 启动 xuanxue-mcp，模型看到的工具名是
+#    mcp__xuanxue__bazi / ziwei / qimen / astro / calendar。版本钉死，升级时与 xuanxue-mcp 同步（测试会检查）。
+# 2. xuanxue-skills：本包 index.js，把四份解读守则注册为 skill（dsh 的 MCP 客户端不支持 MCP prompts）。
+# 用户可在 profile 的 cordis.patch.yml 里按 id 覆盖，例如把 command/args 换成本地 node + server.mjs 路径。
+- insert:
+    - id: xuanxue-mcp
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: xuanxue
+        transport: stdio
+        command: npx
+        args: ['-y', 'xuanxue-mcp@0.1.0']
+
+    - id: xuanxue-skills
+      name: xuanxue-dsh
