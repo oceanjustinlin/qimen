@@ -306,3 +306,28 @@
 [data-theme="dark"] .skeleton-block,
 [data-theme="dark"] .skeleton-pill { background:rgba(255,255,255,0.06); }
 [data-theme="dark"] .monthly-chart-grid { stroke:rgba(255,255,255,0.08); }
+
+/* ── 四项运势：一行一项的列表（替代 2×2 卡片） ── */
+.fortune-list { grid-template-columns:1fr; gap:0; padding:4px 16px; background:var(--bg-card); border:1px solid var(--line); border-radius:var(--radius-card); }
+.fortune-list .fortune-grid-card { display:grid; grid-template-columns:76px minmax(0,1fr); align-items:start; gap:10px; padding:13px 0; border:0; border-radius:0; box-shadow:none; background:transparent; }
+.fortune-list .fortune-grid-card + .fortune-grid-card { border-top:1px solid var(--line); }
+.fortune-list .fortune-grid-card:hover { box-shadow:none; }
+.fortune-list .grid-card-header { margin-bottom:0; }
+.fortune-list .grid-card-label { color:var(--ink); font-weight:700; }
+.fortune-list .grid-card-text { font-size:13.5px; }
+
+/* ── 十二时辰格 ── */
+.shichen-grid { display:grid; grid-template-columns:repeat(6, minmax(0,1fr)); gap:6px; margin-bottom:8px; }
+.shichen-cell { display:flex; flex-direction:column; align-items:center; gap:1px; padding:7px 0 6px; border:1px solid var(--line); border-radius:8px; color:var(--ink-muted); }
+.shichen-cell b { font-family:var(--font-ganzhi); font-size:16px; font-weight:600; line-height:1.2; color:var(--ink); }
+.shichen-cell small { font-size:10px; color:var(--ink-dim); font-variant-numeric:tabular-nums; }
+.shichen-cell.lucky { border-color:var(--gold-border); background:var(--gold-dim); }
+.shichen-cell.lucky b { color:var(--gold); }
+.shichen-cell.kong { border-style:dashed; opacity:.65; }
+.shichen-cell.now { box-shadow:inset 0 -2px 0 var(--ink); }
+.shichen-legend { display:flex; align-items:center; gap:6px; margin-bottom:14px; font-size:11.5px; color:var(--ink-dim); }
+.shichen-legend .lg { display:inline-block; width:12px; height:9px; border-radius:2px; border:1px solid var(--line); margin-left:8px; }
+.shichen-legend .lg:first-child { margin-left:0; }
+.shichen-legend .lg.lucky { background:var(--gold-dim); border-color:var(--gold-border); }
+.shichen-legend .lg.kong { border-style:dashed; }
+.shichen-legend .lg.now { border:0; box-shadow:inset 0 -2px 0 var(--ink); }
