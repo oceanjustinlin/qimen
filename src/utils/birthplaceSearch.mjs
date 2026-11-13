@@ -100,3 +100,18 @@ export const findBirthplaceByRegion = ({ country, admin1, city, county }) => {
     (!county || place.county === county || place.name === county)
   )) || null
 }
+
+// 按已保存的 birth_location 标签反查出生地（档案只存了标签和经纬度，没存时区）。
+// 标签完全匹配优先；否则在经纬度完全相同的记录里取第一条。
+export const findBirthplaceForProfile = ({ label, latitude, longitude } = {}) => {
+  const normalizedLabel = String(label || '').trim()
+  if (normalizedLabel) {
+    const byLabel = index.find((place) => place.label === normalizedLabel)
+    if (byLabel) return byLabel
+  }
+  const lat = Number(latitude)
+  const lng = Number(longitude)
+  if (latitude === null || latitude === undefined || longitude === null || longitude === undefined) return null
+  if (!Number.isFinite(lat) || !Number.isFinite(lng)) return null
+  return index.find((place) => place.lat === lat && place.lng === lng) || null
+}

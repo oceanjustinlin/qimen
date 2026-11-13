@@ -4,6 +4,7 @@ import assert from 'node:assert/strict'
 import {
   findBirthplaceByName,
   findBirthplaceByRegion,
+  findBirthplaceForProfile,
   getBirthplaceAdminOptions,
   getBirthplaceCityOptions,
   getBirthplaceCountries,
@@ -50,4 +51,11 @@ test('birthplace region helpers expose country admin city hierarchy', () => {
   assert.ok(getBirthplaceAdminOptions('中国').includes('四川'))
   assert.ok(getBirthplaceCityOptions('中国', '四川').some((place) => place.name === '成都市'))
   assert.equal(findBirthplaceByRegion({ country: '中国', admin1: '四川', city: '成都市', county: '成都市' })?.lng, 104.07)
+})
+
+test('findBirthplaceForProfile resolves saved labels and coordinates back to a time zone', () => {
+  assert.equal(findBirthplaceForProfile({ label: '纽约 · 纽约州 · 美国' }).timeZone, 'America/New_York')
+  assert.equal(findBirthplaceForProfile({ label: '港澳台 - 香港' }).timeZone, 'Asia/Hong_Kong')
+  assert.equal(findBirthplaceForProfile({ label: '不存在', latitude: 51.5072, longitude: -0.1276 }).timeZone, 'Europe/London')
+  assert.equal(findBirthplaceForProfile({ label: '不存在' }), null)
 })
