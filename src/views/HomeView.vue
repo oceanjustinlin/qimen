@@ -3828,17 +3828,34 @@ const deriveScoreBasisFromM3 = (m3, formations) => {
 // ── 流式脚手架：复用真实卡片的 CSS class，保证与最终 buildCardHTML 视觉一致。 ──
 // 排盘表头：暴露完整起局校验字段（局名/节气元/旬首/值符值使及落宫/空亡·马星地支）供核对。
 const buildQimenPanInfo = (ju = {}, ts = {}, aux = {}) => {
-  const yuanText = [ju.jieqi, ju.yuan].filter(Boolean).join(' ')
-  const xunText = ju.xun_shou ? `　旬首：<b>${ju.xun_shou}</b>` : ''
-  const zhiFuPalace = ju.zhi_fu_palace ? `（${ju.zhi_fu_palace}）` : ''
-  const zhiShiPalace = ju.zhi_shi_palace ? `（${ju.zhi_shi_palace}）` : ''
   const kong = aux.kong_wang || {}
   const ma = aux.ma_xing || {}
-  const kongMaText = (kong.day || kong.hour || ma.day || ma.hour)
-    ? `<br>空亡：<b>日 ${kong.day || '-'} / 时 ${kong.hour || '-'}</b>　马星：<b>日 ${ma.day || '-'} / 时 ${ma.hour || '-'}</b>`
-    : ''
-  return `<div class="pan-info">${ts.solar || ''} | ${ju.name || ''} · ${yuanText}${xunText}<br>值符：<b>${ju.zhi_fu || '-'}</b>${zhiFuPalace}&emsp;值使：<b>${ju.zhi_shi || '-'}</b>${zhiShiPalace}${kongMaText}</div>`
+  const fact = (k, v) => v ? `<div><dt>${k}</dt><dd>${v}</dd></div>` : ''
+  const line = [ts.solar, ju.name, [ju.jieqi, ju.yuan].filter(Boolean).join(' ')].filter(Boolean).join(' · ')
+  const facts = [
+    fact('旬首', ju.xun_shou),
+    fact('值符', `<b>${ju.zhi_fu || '-'}</b>${ju.zhi_fu_palace ? `<small>${ju.zhi_fu_palace}</small>` : ''}`),
+    fact('值使', `<b>${ju.zhi_shi || '-'}</b>${ju.zhi_shi_palace ? `<small>${ju.zhi_shi_palace}</small>` : ''}`),
+    (kong.day || kong.hour) ? fact('空亡', `日 ${kong.day || '-'}<i>/</i>时 ${kong.hour || '-'}`) : '',
+    (ma.day || ma.hour) ? fact('马星', `日 ${ma.day || '-'}<i>/</i>时 ${ma.hour || '-'}`) : '',
+  ].join('')
+  return `<div class="pan-info">${line}</div><dl class="pan-facts">${facts}</dl>`
 }
+// 四柱表头：年月日时各一格
+const buildQimenPanPillars = (pillars = {}) => [['年', pillars.year], ['月', pillars.month], ['日', pillars.day], ['时', pillars.hour]]
+  .filter(([, v]) => v).map(([k, v]) => `<span><i>${k}</i>${v}</span>`).join('')
+// 九宫单宫内容：顶行宫名·八神·角色标；左列九星、八门，右列天盘干在上、地盘干在下（寄干紧跟其后）；左下马/空
+const buildPanCellBody = (p, { isZhiFu, isZhiShi, roleTags = '' }) => {
+  let marks = ''
+  if (p.ma_xing?.has_ma) marks += `<span class="pan-mark mark-ma">马</span>`
+  if (p.kong_wang?.is_kong) marks += `<span class="pan-mark mark-kong">空</span>`
+  const stem = (main, ji, cls) => `<div class="pan-stem ${cls}">${main || ''}${ji ? `<small>${ji}</small>` : ''}</div>`
+  return `<div class="pan-top"><span class="pan-pos">${String(p.name || '').replace(/宫$/, '')}</span><span class="pan-god">${p.god || ''}</span><span class="pan-roles">${roleTags}</span></div>`
+    + `<div class="pan-main"><div class="pan-sd"><div class="pan-star ${isZhiFu(p.star) ? 'highlight-text' : ''}">${p.star || ''}</div><div class="pan-door ${isZhiShi(p.door) ? 'highlight-text' : ''}">${p.door || ''}</div></div>`
+    + `<div class="pan-stems">${stem(p.sky, p.ji_sky, 'stem-sky')}${stem(p.earth, p.ji_earth, 'stem-earth')}</div></div>`
+    + `<div class="pan-marks">${marks}</div>`
+}
+const buildPanCenterBody = (p) => `<span class="pan-pos">${String(p.name || '中5宫').replace(/宫$/, '')}</span><div class="pan-center-earth">${p.earth || ''}</div>`
 
 // engine 为 engine_complete 的 engineOutput（可为 null，表示尚未起盘）。
 // 7 个流式散文段以 <span data-wslot="KEY"> 占位，初始为骨架，由 SSE delta 就地打补丁。
@@ -3918,14 +3935,10 @@ const buildStreamingScaffoldHTML = (engine = null, statusText = '') => {
   if (palaces.length) {
     const isZhiFu = s => s && ju.zhi_fu && s.includes(ju.zhi_fu)
     const isZhiShi = d => d && ju.zhi_shi && d.includes(ju.zhi_shi)
-    const cells = palaces.map(p => {
-      if (p.is_center) return `<div class="pan-cell"><div class="pan-center-earth">${p.earth || ''}</div></div>`
-      let marks = ''
-      if (p.ma_xing?.has_ma) marks += `<span class="pan-mark mark-ma">马</span>`
-      if (p.kong_wang?.is_kong) marks += `<span class="pan-mark mark-kong">空</span>`
-      return `<div class="pan-cell"><div class="pan-god">${p.god || ''}</div><div class="pan-stem stem-sky">${p.sky || ''}</div>${p.ji_sky ? `<div class="pan-stem ji-sky">${p.ji_sky}</div>` : ''}<div class="pan-star ${isZhiFu(p.star) ? 'highlight-text' : ''}">${p.star || ''}</div><div class="pan-door ${isZhiShi(p.door) ? 'highlight-text' : ''}">${p.door || ''}</div><div class="pan-stem stem-earth">${p.earth || ''}</div>${p.ji_earth ? `<div class="pan-stem ji-earth">${p.ji_earth}</div>` : ''}<div class="pan-marks">${marks}</div></div>`
-    }).join('')
-    panInnerHTML = `<div class="pan-wrapper"><div class="pan-header"><div class="pan-pillars">${[pillars.year, pillars.month, pillars.day, pillars.hour].filter(Boolean).join('　')}</div>${buildQimenPanInfo(ju, ts, aux)}</div><div class="pan-grid">${cells}</div></div>`
+    const cells = palaces.map(p => p.is_center
+      ? `<div class="pan-cell" data-center="1">${buildPanCenterBody(p)}</div>`
+      : `<div class="pan-cell">${buildPanCellBody(p, { isZhiFu, isZhiShi })}</div>`).join('')
+    panInnerHTML = `<div class="pan-wrapper"><div class="pan-header"><div class="pan-pillars">${buildQimenPanPillars(pillars)}</div>${buildQimenPanInfo(ju, ts, aux)}</div><div class="pan-grid">${cells}</div></div>`
   } else {
     panInnerHTML = `<div class="pan-skeleton">${sk(1)}<div class="pan-grid">${'<div class="pan-cell"><span class="wsk"><i></i></span></div>'.repeat(9)}</div></div>`
   }
@@ -4191,12 +4204,7 @@ const buildCardHTML = (data, opts = {}) => {
     const pick = (i) => `var w=this.closest('.pan-wrapper');if(!w)return;var on=this.classList.contains('sel');w.querySelectorAll('.pan-cell').forEach(function(c){c.classList.remove('sel')});w.querySelectorAll('.pan-detail-item').forEach(function(d){d.hidden=on||d.getAttribute('data-i')!=='${i}'});var h=w.querySelector('.pan-detail-hint');if(h)h.hidden=!on;if(!on)this.classList.add('sel')`
     const details = []
     const cells = palaces.map((p, i) => {
-      if (p.is_center) return `<div class="pan-cell"><div class="pan-center-earth">${p.earth || ''}</div></div>`
-      const starCls = isZhiFu(p.star) ? 'highlight-text' : ''
-      const doorCls = isZhiShi(p.door) ? 'highlight-text' : ''
-      let marks = ''
-      if (p.ma_xing?.has_ma) marks += `<span class="pan-mark mark-ma">马</span>`
-      if (p.kong_wang?.is_kong) marks += `<span class="pan-mark mark-kong">空</span>`
+      if (p.is_center) return `<div class="pan-cell" data-center="1">${buildPanCenterBody(p)}</div>`
       const roles = palaceRoles(p)
       const roleTags = roles.filter(r => r.short).map(r => `<span class="pan-role ${r.cls}">${r.short}</span>`).join('')
       const flags = [p.kong_wang?.is_kong ? '逢空亡' : '', p.ma_xing?.has_ma ? '临驿马' : ''].filter(Boolean).join('，')
@@ -4205,10 +4213,10 @@ const buildCardHTML = (data, opts = {}) => {
         <div class="pan-detail-grid"><span>八神</span><b>${p.god || '—'}</b><span>九星</span><b>${p.star || '—'}</b><span>八门</span><b>${p.door || '—'}</b><span>天盘</span><b>${[p.sky, p.ji_sky].filter(Boolean).join(' ') || '—'}</b><span>地盘</span><b>${[p.earth, p.ji_earth].filter(Boolean).join(' ') || '—'}</b></div>
         ${roles.length ? `<ul class="pan-detail-roles">${roles.map(r => `<li>${r.text}</li>`).join('')}</ul>` : '<p class="pan-detail-none">本次所问之事未直接取用此宫。</p>'}
       </div>`)
-      return `<div class="pan-cell pan-pickable" role="button" tabindex="0" aria-label="${p.name || ''}，点击查看详情" onclick="${pick(i)}"><div class="pan-roles">${roleTags}</div><div class="pan-god">${p.god || ''}</div><div class="pan-stem stem-sky">${p.sky || ''}</div>${p.ji_sky ? `<div class="pan-stem ji-sky">${p.ji_sky}</div>` : ''}<div class="pan-star ${starCls}">${p.star || ''}</div><div class="pan-door ${doorCls}">${p.door || ''}</div><div class="pan-stem stem-earth">${p.earth || ''}</div>${p.ji_earth ? `<div class="pan-stem ji-earth">${p.ji_earth}</div>` : ''}<div class="pan-marks">${marks}</div></div>`
+      return `<div class="pan-cell pan-pickable" role="button" tabindex="0" aria-label="${p.name || ''}，点击查看详情" onclick="${pick(i)}">${buildPanCellBody(p, { isZhiFu, isZhiShi, roleTags })}</div>`
     }).join('')
     const panDetail = `<div class="pan-detail"><p class="pan-detail-hint">点任一宫看神、星、门、干和它在本事中的角色。<span class="pan-role role-day">日</span>日干 <span class="pan-role role-hour">时</span>时干 <span class="pan-role role-ys">用</span>用神</p>${details.join('')}</div>`
-    panInnerHTML = `<div class="pan-wrapper"><div class="pan-header"><div class="pan-pillars">${[pillars.year, pillars.month, pillars.day, pillars.hour].filter(Boolean).join('　')}</div>${buildQimenPanInfo(ju, ts, aux)}</div><div class="pan-grid">${cells}</div>${panDetail}</div>`
+    panInnerHTML = `<div class="pan-wrapper"><div class="pan-header"><div class="pan-pillars">${buildQimenPanPillars(pillars)}</div>${buildQimenPanInfo(ju, ts, aux)}</div><div class="pan-grid">${cells}</div>${panDetail}</div>`
   }
 
   // ── 格局吉凶
@@ -5774,50 +5782,65 @@ input::placeholder { color: var(--text-muted); }
 :deep(.domain-decision) { display:grid; gap:8px; margin-top:10px; }
 :deep(.domain-decision div) { display:flex; gap:9px; align-items:flex-start; padding:10px 12px; border-radius:10px; background:var(--paper-soft); color:var(--ink-muted); font-size:13px; line-height:1.65; overflow-wrap:anywhere; }
 :deep(.domain-decision span) { flex:0 0 auto; width:22px; height:22px; border-radius:50%; display:grid; place-items:center; background:var(--gold-dim); color:var(--gold); font-size:11px; font-weight:700; }
-/* 九宫格 — 浅色古籍风格 */
-:deep(.pan-wrapper) { background:transparent; border:0; border-radius:0; padding:0; position:relative; overflow:visible; }
-:deep(.pan-header) { text-align:center; margin-bottom:12px; }
-:deep(.pan-pillars) { font-family:var(--font-body); font-size:14px; font-weight:600; color:var(--ink); letter-spacing:.08em; margin-bottom:5px; }
-:deep(.pan-info) { font-size:11px; color:var(--text-muted); line-height:1.75; }
-:deep(.pan-info b) { color:var(--gold); font-weight:600; }
-:deep(.pan-grid) { display:grid; grid-template-columns:repeat(3,1fr); gap:0; background:var(--line); border-radius:0; overflow:hidden; border:1px solid var(--line); }
-:deep(.pan-cell) { background:var(--paper); aspect-ratio:1; position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; transition:background .2s; border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
+/* 九宫格：发丝线式盘。宽屏限宽居中，格内左列星门、右列天地盘干 */
+:deep(.pan-wrapper) { background:transparent; border:0; border-radius:0; padding:0; position:relative; overflow:visible; max-width:560px; margin:0 auto; }
+:deep(.pan-header) { margin-bottom:14px; }
+:deep(.pan-pillars) { display:grid; grid-template-columns:repeat(4,1fr); border:1px solid var(--line-strong); font-family:var(--font-ganzhi); }
+:deep(.pan-pillars span) { display:flex; flex-direction:column; align-items:center; gap:3px; padding:8px 0 9px; font-size:18px; font-weight:700; letter-spacing:.06em; color:var(--ink); border-right:1px solid var(--line); }
+:deep(.pan-pillars span:last-child) { border-right:0; }
+:deep(.pan-pillars i) { font-style:normal; font-size:11px; font-weight:400; letter-spacing:.1em; color:var(--ink-dim); }
+:deep(.pan-info) { margin-top:10px; font-size:12.5px; color:var(--ink-muted); line-height:1.6; text-align:center; }
+:deep(.pan-facts) { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:0 16px; margin-top:8px; padding:6px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+:deep(.pan-facts > div) { display:flex; align-items:baseline; gap:10px; padding:4px 0; font-size:13px; min-width:0; }
+:deep(.pan-facts dt) { flex:none; color:var(--ink-dim); font-size:12px; letter-spacing:.08em; }
+:deep(.pan-facts dd) { color:var(--ink); min-width:0; }
+:deep(.pan-facts dd b) { color:var(--gold); font-weight:700; }
+:deep(.pan-facts dd small) { margin-left:6px; font-size:11.5px; color:var(--ink-dim); }
+:deep(.pan-facts dd i) { font-style:normal; margin:0 6px; color:var(--line-strong); }
+:deep(.pan-grid) { display:grid; grid-template-columns:repeat(3,1fr); gap:0; border:1px solid var(--line-strong); }
+:deep(.pan-cell) { aspect-ratio:1; min-width:0; position:relative; display:flex; flex-direction:column; padding:6px 7px 7px; background:var(--paper); border-right:1px solid var(--line); border-bottom:1px solid var(--line); transition:background .2s; font-family:var(--font-ganzhi); }
 :deep(.pan-cell:nth-child(3n)) { border-right:none; }
 :deep(.pan-cell:nth-child(n+7)) { border-bottom:none; }
-:deep(.pan-cell:hover) { background:var(--paper-soft); }
 :deep(.pan-pickable) { cursor:pointer; }
+:deep(.pan-pickable:hover) { background:var(--paper-soft); }
 :deep(.pan-cell.sel) { background:var(--gold-dim); box-shadow:inset 0 0 0 1.5px var(--gold); }
-:deep(.pan-roles) { position:absolute; top:5px; right:5px; display:flex; gap:2px; }
-:deep(.pan-role) { display:inline-flex; align-items:center; justify-content:center; width:16px; height:16px; border-radius:3px; font-size:10px; font-weight:700; line-height:1; border:1px solid currentColor; color:var(--ink-muted); vertical-align:-2px; }
+:deep(.pan-cell[data-center]) { align-items:center; justify-content:center; background:transparent; }
+:deep(.pan-cell[data-center] .pan-pos) { position:absolute; top:6px; left:7px; }
+:deep(.pan-top) { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:2px; min-height:16px; }
+:deep(.pan-pos) { font-size:10.5px; letter-spacing:.02em; color:var(--ink-dim); white-space:nowrap; }
+:deep(.pan-god) { font-size:12.5px; color:var(--ink-muted); white-space:nowrap; }
+:deep(.pan-roles) { display:flex; justify-content:flex-end; gap:2px; }
+:deep(.pan-role) { display:inline-flex; align-items:center; justify-content:center; width:15px; height:15px; border-radius:0; font-size:10px; font-weight:700; line-height:1; border:1px solid currentColor; color:var(--ink-muted); vertical-align:-2px; }
 :deep(.pan-role.role-day) { color:var(--tone-ji); }
 :deep(.pan-role.role-hour) { color:var(--wx-shui); }
 :deep(.pan-role.role-ys) { color:var(--gold); background:var(--gold-dim); }
+:deep(.pan-main) { flex:1; display:grid; grid-template-columns:1fr auto; align-items:center; gap:4px; min-height:0; }
+:deep(.pan-sd) { display:flex; flex-direction:column; align-items:center; gap:2px; padding-left:14%; }
+:deep(.pan-star) { font-size:clamp(12px,3.4vw,15px); color:var(--ink-muted); white-space:nowrap; }
+:deep(.pan-door) { font-size:clamp(17px,5vw,22px); font-weight:700; color:var(--ink); white-space:nowrap; line-height:1.15; }
+:deep(.pan-stems) { display:flex; flex-direction:column; align-items:center; justify-content:center; min-width:22px; }
+:deep(.pan-stem) { display:flex; align-items:baseline; font-weight:700; line-height:1.25; }
+:deep(.pan-stem small) { margin-left:1px; font-size:.68em; font-weight:500; color:var(--ink-dim); }
+:deep(.stem-sky) { font-size:clamp(15px,4.4vw,19px); color:var(--ink); padding-bottom:3px; border-bottom:1px solid var(--line-strong); }
+:deep(.stem-earth) { font-size:clamp(13px,3.8vw,16px); color:var(--ink-dim); padding-top:3px; font-weight:500; }
+:deep(.pan-marks) { position:absolute; bottom:5px; left:6px; display:flex; gap:3px; }
+:deep(.pan-mark) { display:inline-flex; align-items:center; justify-content:center; width:15px; height:15px; font-size:10px; line-height:1; font-weight:700; border-radius:50%; }
+:deep(.mark-ma) { background:var(--gold); color:var(--on-gold); }
+:deep(.mark-kong) { border:1px dashed var(--line-strong); color:var(--ink-dim); }
+:deep(.pan-center-earth) { font-size:34px; font-weight:900; color:var(--ink); opacity:.12; font-family:var(--font-ganzhi); }
+:deep(.highlight-text) { color:var(--gold) !important; }
 :deep(.pan-detail) { margin-top:10px; }
 :deep(.pan-detail-hint) { font-size:12px; line-height:1.9; color:var(--ink-dim); }
 :deep(.pan-detail-hint .pan-role) { margin:0 2px 0 6px; }
 :deep(.pan-detail-item) { padding:12px 14px; border:1px solid var(--line); border-left:2px solid var(--gold); background:var(--paper-soft); }
 :deep(.pan-detail-head) { display:flex; align-items:baseline; gap:10px; margin-bottom:8px; }
 :deep(.pan-detail-head b) { font-family:var(--font-serif); font-size:16px; color:var(--ink); }
-:deep(.pan-detail-head span) { font-size:12px; color:var(--crimson); }
+:deep(.pan-detail-head span) { font-size:12px; color:var(--tone-xiong); }
 :deep(.pan-detail-grid) { display:grid; grid-template-columns:auto 1fr auto 1fr; gap:4px 10px; font-size:13px; }
 :deep(.pan-detail-grid span) { color:var(--ink-dim); }
 :deep(.pan-detail-grid b) { color:var(--ink); font-weight:600; }
 :deep(.pan-detail-roles) { margin:8px 0 0; padding-left:1.2em; font-size:13px; line-height:1.7; color:var(--ink); }
 :deep(.pan-detail-none) { margin-top:8px; font-size:12.5px; color:var(--ink-dim); }
-:deep(.pan-center-earth) { font-size:30px; font-weight:900; color:var(--ink); opacity:.12; font-family:'Noto Serif SC',serif; }
-:deep(.pan-god) { position:absolute; top:5px; font-size:13px; color:var(--text-muted); font-family:'Noto Serif SC',serif; }
-:deep(.pan-star) { font-size:15px; color:var(--ink-muted); margin-bottom:1px; z-index:2; font-family:'Noto Serif SC',serif; }
-:deep(.pan-door) { font-size:19px; font-weight:700; color:var(--ink); z-index:2; font-family:'Noto Serif SC',serif; }
-:deep(.pan-stem) { position:absolute; font-size:14px; font-weight:600; font-family:'Noto Serif SC',serif; }
-:deep(.stem-sky) { top:5px; left:6px; color:var(--ink); }
-:deep(.stem-earth) { bottom:5px; right:6px; color:var(--ink-muted); }
-:deep(.ji-sky) { top:18px; left:6px; font-size:8px; color:var(--text-muted); }
-:deep(.ji-earth) { bottom:18px; right:6px; font-size:8px; color:var(--text-muted); }
-:deep(.pan-marks) { position:absolute; bottom:4px; left:4px; display:flex; gap:2px; z-index:3; }
-:deep(.pan-mark) { font-size:8px; padding:1px 3px; border-radius:3px; font-weight:700; }
-:deep(.mark-ma) { background:var(--gold); color:white; }
-:deep(.mark-kong) { border:1px solid var(--line); color:var(--text-muted); background:var(--paper-soft); }
-:deep(.highlight-text) { color:var(--gold) !important; }
 /* 单列洞察条 */
 :deep(.insight-flow) { display:flex; flex-direction:column; gap:10px; }
 :deep(.insight-strip) { position:relative; padding:14px 16px 14px 18px; background:var(--paper-soft); border:1px solid var(--line); border-radius:12px; border-left:3px solid var(--line); transition:border-color .3s, transform .25s; }
