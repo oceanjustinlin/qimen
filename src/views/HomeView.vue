@@ -4378,6 +4378,10 @@ const buildCardHTML = (data, opts = {}) => {
         </div>
         <h1>${orSkel(reportM1.title || summary.title, '本局断语', 1)}</h1>
         <p>${orSkel(reportM1.conclusion || summary.conclusion, '', 3)}</p>
+        ${!streaming && summary.score !== null && summary.score !== undefined ? `<div class="mag-scale" aria-label="参考指数 ${score}，凶 55 以下，平 55 至 74，吉 75 以上">
+          <div class="mag-scale-bar"><i class="seg-xiong"></i><i class="seg-ping"></i><i class="seg-ji"></i><b style="left:${Math.max(0, Math.min(100, Number(score) || 0))}%"></b></div>
+          <div class="mag-scale-labels"><span>凶</span><span style="left:55%">55</span><span style="left:65%">平</span><span style="left:75%">75</span><span style="left:100%">吉</span></div>
+        </div>` : ''}
       </div>
     </section>
 
@@ -6002,23 +6006,47 @@ input::placeholder { color: var(--text-muted); }
   line-height: 1.4;
 }
 :deep(.mag-verdict-badge) {
+  /* 吉凶做成一方印：方角、双线框，颜色跟随吉凶色调 token */
+  --seal: var(--tone-ping);
   display: inline-flex;
   align-items: center;
-  min-height: 28px;
-  padding: 4px 13px;
-  border: 1px solid;
-  border-radius: 999px;
+  justify-content: center;
+  min-width: 34px;
+  min-height: 34px;
+  padding: 3px 7px;
+  border: 1.5px solid var(--seal);
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 2px var(--paper), inset 0 0 0 3px var(--seal);
+  color: var(--seal);
+  background: color-mix(in srgb, var(--seal) 8%, transparent);
   font-family: var(--font-serif);
-  font-size: 13px;
-  font-weight: 650;
-  letter-spacing: 0.06em;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
   white-space: nowrap;
 }
-:deep(.mag-verdict-ji)    { color: #0d9488; background: rgba(13,148,136,0.08); border-color: rgba(13,148,136,0.25); }
-:deep(.mag-verdict-da-ji) { color: #047857; background: rgba(5,150,105,0.08); border-color: rgba(5,150,105,0.24); }
-:deep(.mag-verdict-ping)  { color: #9a6f1f; background: rgba(181,141,59,0.11); border-color: rgba(181,141,59,0.28); }
-:deep(.mag-verdict-warn)  { color: #b45309; background: rgba(217,119,6,0.08); border-color: rgba(217,119,6,0.22); }
-:deep(.mag-verdict-xiong) { color: #b91c1c; background: rgba(220,38,38,0.07); border-color: rgba(220,38,38,0.22); }
+:deep(.mag-verdict-ji),
+:deep(.mag-verdict-da-ji),
+:deep(.mag-verdict-xiao-ji) { --seal: var(--tone-ji); }
+:deep(.mag-verdict-ping)    { --seal: var(--tone-ping); }
+:deep(.mag-verdict-warn),
+:deep(.mag-verdict-xiong),
+:deep(.mag-verdict-da-xiong) { --seal: var(--tone-xiong); }
+/* 分数刻度：说明分数落在凶 / 平 / 吉哪一段 */
+:deep(.mag-scale) { margin-top: 18px; max-width: 360px; }
+:deep(.mag-scale-bar) { position: relative; display: flex; height: 4px; }
+:deep(.mag-scale-bar i) { display: block; height: 100%; opacity: .35; }
+:deep(.mag-scale-bar .seg-xiong) { width: 55%; background: var(--tone-xiong); }
+:deep(.mag-scale-bar .seg-ping)  { width: 20%; background: var(--tone-ping); }
+:deep(.mag-scale-bar .seg-ji)    { width: 25%; background: var(--tone-ji); }
+:deep(.mag-scale-bar b) {
+  position: absolute; top: 50%; width: 12px; height: 12px; margin: -6px 0 0 -6px;
+  border-radius: 50%; background: var(--theme-color); box-shadow: 0 0 0 3px var(--paper);
+}
+:deep(.mag-scale-labels) { position: relative; height: 18px; margin-top: 6px; font-size: 11px; color: var(--ink-dim); }
+:deep(.mag-scale-labels span) { position: absolute; top: 0; transform: translateX(-50%); white-space: nowrap; }
+:deep(.mag-scale-labels span:first-child) { left: 0; transform: none; }
+:deep(.mag-scale-labels span:last-child) { transform: translateX(-100%); }
 :deep(.mag-hero-panel h1) {
   margin: 0;
   max-width: 12em;
@@ -6090,8 +6118,9 @@ input::placeholder { color: var(--text-muted); }
   padding: 0 0 8px;
   color: var(--ink-dim);
   font-family: var(--font-display);
-  font-size: clamp(20px, 6vw, 28px);
-  font-weight: 850;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
   line-height: 1;
   cursor: pointer;
   transition: color 0.2s;
@@ -6535,7 +6564,7 @@ input::placeholder { color: var(--text-muted); }
 
 @media(max-width:380px) {
   :deep(.mag-tab) {
-    font-size: 20px;
+    font-size: 16px;
   }
 }
 
