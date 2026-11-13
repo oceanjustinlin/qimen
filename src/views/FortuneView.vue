@@ -12,9 +12,14 @@
       <div class="container">
         <div v-if="showProfileSwitcher" class="glass-card profile-switch-card">
           <div class="profile-switcher" :class="{ open: isProfileMenuOpen }">
-            <button class="profile-switch-trigger" @click="toggleProfileMenu">
-              <span class="profile-switch-name">{{ activeProfileName }}</span>
-              <span class="profile-switch-symbol" aria-hidden="true">⇄</span>
+            <!-- 命主一栏：写明这份运势算的是哪个档案，点右侧切换 -->
+            <button class="profile-switch-trigger" :aria-expanded="isProfileMenuOpen" @click="toggleProfileMenu">
+              <span class="profile-switch-who">
+                <small>命主</small>
+                <span class="profile-switch-name">{{ activeProfileName }}</span>
+                <span v-if="activeProfile" class="profile-switch-meta">{{ [profileMetaText(activeProfile), formatSolarDate(activeProfile.birth_date)].filter(Boolean).join(' · ') }}</span>
+              </span>
+              <span class="profile-switch-action">切换<span class="profile-switch-symbol" aria-hidden="true">⇄</span></span>
             </button>
             <div v-if="isProfileMenuOpen" class="profile-flyout">
               <button
