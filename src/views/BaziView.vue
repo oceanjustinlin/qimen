@@ -1057,8 +1057,13 @@
                                  :class="'bg-' + getWuxingClass(wx)"
                                  :style="{ width: ratio + '%' }"
                                  :title="wx + ' ' + Math.round(ratio) + '%'">
-                                <span v-if="ratio > 10" class="wuxing-bar-label">{{ wx }} {{ Math.round(ratio) }}%</span>
                             </div>
+                        </div>
+                        <!-- 图例放在条外：五行全部列出，占比小的也看得到 -->
+                        <div class="wuxing-legend">
+                            <span v-for="(ratio, wx) in activeProfile.bazi_detail.wuxing_ratio" :key="'lg-' + wx" class="wuxing-legend-item">
+                                <i :class="'bg-' + getWuxingClass(wx)"></i><b :class="'wx-' + ({ 金: 'jin', 木: 'mu', 水: 'shui', 火: 'huo', 土: 'tu' }[wx] || 'none')">{{ wx }}</b>{{ Math.round(ratio) }}%
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -5378,8 +5383,9 @@ const getShenColor = (shen) => {
 
 .wuxing-bar-container {
     display: flex;
-    height: 28px;
-    border-radius: 6px;
+    gap: 2px;
+    height: 10px;
+    border-radius: 3px;
     overflow: hidden;
     background: var(--paper-soft);
     box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
@@ -5399,11 +5405,17 @@ const getShenColor = (shen) => {
     overflow: hidden;
 }
 
-.bg-gold { background: linear-gradient(135deg, #FFDF73, #D4AF37); }
-.bg-wood { background: linear-gradient(135deg, #81C784, #388E3C); }
-.bg-water { background: linear-gradient(135deg, #4FC3F7, #0288D1); }
-.bg-fire { background: linear-gradient(135deg, #E57373, #D32F2F); }
-.bg-earth { background: linear-gradient(135deg, #DCE775, #AFB42B); }
+.wuxing-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 10px; font-size: 12.5px; color: var(--ink-muted); }
+.wuxing-legend-item { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.wuxing-legend-item i { width: 8px; height: 8px; border-radius: 2px; }
+.wuxing-legend-item b { font-weight: 700; }
+
+/* 五行色走全站 token，深浅主题自动切换 */
+.bg-gold { background: var(--wx-jin); }
+.bg-wood { background: var(--wx-mu); }
+.bg-water { background: var(--wx-shui); }
+.bg-fire { background: var(--wx-huo); }
+.bg-earth { background: var(--wx-tu); }
 
 .scoring-list {
     display: flex;
