@@ -202,7 +202,6 @@
             <div v-show="viewState === 'input'" class="input-wrapper">
               <div class="tagline">
                 <div class="tagline-main">天时 · 地利 · 人和</div>
-                <div class="tagline-sub">洞察天机，决胜千里</div>
               </div>
 
               <div class="glass-card qimen-profile-panel">
@@ -210,11 +209,9 @@
                   <!-- 命主一栏：直接写出这次问事用哪份八字，点右侧切换 -->
                   <button class="profile-switch-trigger" type="button" :aria-expanded="isProfileMenuOpen" @click="toggleProfileMenu">
                     <span class="profile-switch-who">
-                      <small>本次命主</small>
-                      <span class="profile-switch-line">
-                        <span class="profile-switch-name">{{ activeProfileName }}</span>
-                        <span v-if="activeBaziProfile" class="profile-switch-meta">{{ [profileMetaText(activeBaziProfile), formatSolarDate(activeBaziProfile.birth_date).split(' ')[0]].filter(Boolean).join(' · ') }}</span>
-                      </span>
+                      <small>命主</small>
+                      <span class="profile-switch-name">{{ activeProfileName }}</span>
+                      <span v-if="activeBaziProfile" class="profile-switch-meta">{{ activeBaziProfile.gender === 'M' ? '乾造' : '坤造' }} · {{ formatSolarDate(activeBaziProfile.birth_date).split(' ')[0] }}</span>
                     </span>
                     <span class="profile-switch-action">切换<span class="profile-switch-symbol" aria-hidden="true">⇄</span></span>
                   </button>
@@ -237,9 +234,6 @@
                   添加八字档案
                 </button>
               </div>
-              <p v-if="showProfileSwitcher" class="route-hint">
-                问长期格局会用到这份八字，问眼前一件具体的事只起奇门局，系统自动判断。<button type="button" @click="showRouteInfoModal = true">怎么判断</button>
-              </p>
 
               <div class="glass-card input-card">
                 <div class="input-label">
@@ -288,7 +282,6 @@
                     <span class="cta-text">{{ isGuest ? '请先登录' : '洞察天机' }}</span>
                   </div>
                 </button>
-                <div class="cta-hint">奇门遁甲 · AI 深度推演</div>
               </div>
 
               <!-- 最近问过：首页直接回到旧局，方便继续追问 -->
@@ -4771,9 +4764,8 @@ const buildCardHTML = (data, opts = {}) => {
   font-size: 12px;
   line-height: 1.7;
 }
-.tagline { text-align: center; padding: 20px 0 12px; }
-.tagline-main { font-family: var(--font-serif); font-size: 13px; font-weight: 300; letter-spacing: .3em; color: var(--text-muted); margin-bottom: 6px; }
-.tagline-sub { font-size: 11px; letter-spacing: .18em; color: var(--text-dim); }
+.tagline { text-align: center; padding: 14px 0 12px; }
+.tagline-main { font-family: var(--font-serif); font-size: 13px; font-weight: 300; letter-spacing: .3em; color: var(--text-muted); }
 
 @media(max-width:920px) {
   .page-wrap { padding: 76px 18px 60px; }
@@ -5131,11 +5123,11 @@ input::placeholder { color: var(--text-muted); }
 .forgot-password-link:hover { color: var(--gold-light); }
 .auth-notice { padding: 10px 12px; border-radius: 12px; background: rgba(13,148,136,0.06); border: 1px solid rgba(13,148,136,0.2); color: var(--ink-muted); font-size: 12px; line-height: 1.6; text-align: center; }
 
-.qimen-profile-panel { position: relative; z-index: 42; padding: 14px 16px; overflow: visible; margin-bottom: 16px; }
+.qimen-profile-panel { position: relative; z-index: 42; padding: 10px 16px; overflow: visible; margin-bottom: 14px; }
 .profile-switcher { position: relative; z-index: 60; }
 .profile-switch-trigger {
   width: 100%;
-  min-height: 52px;
+  min-height: 36px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -5147,16 +5139,13 @@ input::placeholder { color: var(--text-muted); }
   cursor: pointer;
   text-align: left;
 }
-.profile-switch-who { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.profile-switch-who small { font-size: 12px; color: var(--ink-dim); }
-.profile-switch-line { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 8px; min-width: 0; }
+.profile-switch-who { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+.profile-switch-who small { flex: none; font-size: 12px; color: var(--ink-dim); }
 .profile-switch-name { flex: none; max-width: 9em; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--font-serif); font-size: 17px; font-weight: 700; letter-spacing: .5px; line-height: 1.3; }
 .profile-switch-meta { min-width: 0; max-width: 100%; font-size: 12.5px; color: var(--ink-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .profile-switch-action { flex: none; display: inline-flex; align-items: center; gap: 4px; font-size: 13px; color: var(--gold); }
 .profile-switch-symbol { color: var(--gold); font-size: 15px; line-height: 1; }
 .profile-switcher.open .profile-switch-action { opacity: .7; }
-.route-hint { margin: -6px 4px 16px; font-size: 12.5px; line-height: 1.7; color: var(--ink-dim); }
-.route-hint button { border: 0; padding: 0; background: none; color: var(--gold); font: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; margin-left: 4px; }
 .recent-asks { margin-top: 28px; }
 .recent-head { display: flex; align-items: baseline; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
 .recent-head h3 { font-family: var(--font-serif); font-size: 18px; font-weight: 700; color: var(--ink); }
@@ -5645,7 +5634,7 @@ input::placeholder { color: var(--text-muted); }
   .auth-taiji-wrap { display: block; }
   .hero-name { font-size: 44px; }
   .afm-title { font-size: 32px; }
-  .qimen-profile-panel { padding: 12px 14px; }
+  .qimen-profile-panel { padding: 10px 14px; }
   .add-bazi-profile-btn { min-height: 52px; }
   .profile-flyout-item { grid-template-columns: minmax(0, 1fr) auto auto; gap: 8px; padding: 11px 12px; }
   .profile-item-date,
