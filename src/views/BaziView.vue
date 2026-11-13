@@ -25,13 +25,6 @@
                     </button>
                 </div>
 
-                <!-- Dates above name -->
-                <div v-if="activeProfile" class="hero-dates-top">
-                    <span class="hero-birth">{{ solarDateStr }}</span>
-                    <span class="hero-sep">·</span>
-                    <span class="hero-lunar">{{ lunarDateStr }}</span>
-                </div>
-
                 <div class="profile-strip-wrap" :class="{ open: isProfileMenuOpen }">
                     <button class="hero-name-trigger" @click="toggleProfileMenu">
                         <span class="hero-display-name">{{ activeProfileName }}</span>
@@ -40,6 +33,12 @@
                           <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </button>
+                    <!-- 生辰一行放在昵称下面 -->
+                    <div v-if="activeProfile" class="hero-dates-top">
+                        <span class="hero-birth">{{ solarDateStr }}</span>
+                        <span class="hero-sep">·</span>
+                        <span class="hero-lunar">{{ lunarDateStr }}</span>
+                    </div>
                     <div v-if="activeProfile" class="hero-meta">
                         <div class="hero-badges">
                             <span
@@ -2977,12 +2976,12 @@ const heroStickyStyle = computed(() => {
         '--hero-dates-height': `${22 * (1 - p)}px`,
         '--hero-dates-opacity': Math.max(0, 1 - (p * 1.15)),
         '--hero-dates-offset': `${-6 * p}px`,
-        '--hero-name-size': `${42 - (22 * p)}px`,
-        '--hero-meta-margin': `${18 - (18 * p)}px`,
+        '--hero-name-size': `${28 - (8 * p)}px`,
+        '--hero-meta-margin': `${12 - (12 * p)}px`,
         '--hero-meta-height': `${34 * (1 - p)}px`,
         '--hero-meta-opacity': Math.max(0, 1 - (p * 1.2)),
         '--hero-meta-offset': `${-5 * p}px`,
-        '--hero-strip-gap': `${18 - (10 * p)}px`,
+        '--hero-strip-gap': `${14 - (6 * p)}px`,
         '--hero-side-opacity': Math.max(0, 1 - (p * 1.35)),
         '--hero-badge-width': `${48 * (1 - p)}px`,
         '--hero-caret-width': `${9 * (1 - p)}px`,
@@ -5155,7 +5154,7 @@ const getShenColor = (shen) => {
     letter-spacing: 1px;
     text-transform: none;
     font-weight: 700;
-    color: var(--gold);
+    color: var(--ink);
 }
 .rpt-h2 {
     font-family: var(--font-display);
@@ -5252,7 +5251,7 @@ const getShenColor = (shen) => {
     letter-spacing: 0.8px;
     text-transform: none;
     font-weight: 700;
-    color: var(--gold);
+    color: var(--ink);
 }
 .rpt-sub-title {
     font-size: 14px;
@@ -6894,7 +6893,7 @@ const getShenColor = (shen) => {
     display: flex;
     align-items: center;
     gap: 5px;
-    margin-bottom: var(--hero-dates-margin, 6px);
+    margin-top: var(--hero-dates-margin, 6px);
     padding-right: 50px; /* clear 1 button */
     max-height: var(--hero-dates-height, 22px);
     opacity: var(--hero-dates-opacity, 1);
@@ -6904,13 +6903,13 @@ const getShenColor = (shen) => {
     transition: opacity .12s linear, max-height .12s linear, margin-bottom .12s linear, transform .12s linear;
 }
 .hero-birth, .hero-lunar {
-    font-size: 11px;
+    font-size: 12.5px;
     color: var(--ink-muted);
     font-family: var(--font-body);
     letter-spacing: 0.3px;
     white-space: nowrap;
 }
-.hero-sep { font-size: 11px; color: var(--ink-dim); }
+.hero-sep { font-size: 12.5px; color: var(--ink-dim); }
 
 /* Name trigger — wraps name + caret tightly */
 .hero-name-trigger {
@@ -7026,8 +7025,8 @@ const getShenColor = (shen) => {
 /* Override magazine border-radius:0 for hero pills */
 .hero-pill {
     border-radius: 999px !important;
-    padding: 4px 14px !important;
-    font-size: 12px !important;
+    padding: 2px 12px !important;
+    font-size: 12.5px !important;
     letter-spacing: 0.5px;
 }
 
@@ -7090,12 +7089,13 @@ const getShenColor = (shen) => {
 .bazi-tab-bar::-webkit-scrollbar { display: none; }
 .bazi-tab {
     flex: none;
-    min-height: 40px;
-    padding: 8px 20px;
+    min-height: 42px;
+    padding: 8px 0;
+    margin-right: 22px;
     border: none;
     background: transparent;
     color: var(--ink-dim);
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 700;
     cursor: pointer;
     font-family: var(--font-body);
@@ -7118,7 +7118,7 @@ const getShenColor = (shen) => {
     bottom: 0;
     left: 0;
     height: 2px;
-    background: var(--ink);
+    background: var(--gold);
     transition: transform .28s cubic-bezier(.4,0,.2,1), width .28s cubic-bezier(.4,0,.2,1), opacity .15s;
     pointer-events: none;
     will-change: transform, width;

@@ -1,6 +1,10 @@
 <template>
   <div class="bazi-table-wrap">
     <table class="bazi-table">
+      <colgroup>
+        <col>
+        <col v-for="col in columns" :key="'cg-col-' + col.name" :class="{ 'is-day': col.name === '日' }">
+      </colgroup>
       <thead>
         <tr>
           <th class="bz-label">柱位</th>
@@ -129,6 +133,10 @@ function normalizeHiddenStems(stems) {
 }
 .bazi-table th { color: var(--gold); font-family: var(--font-serif); font-size: 13px; font-weight: normal; letter-spacing: 1px; }
 .bazi-table th:first-child, .bazi-table td:first-child { width: 48px; }
+/* 排盘表画成格子：竖向发丝线 + 外框，日柱一列淡底突出日主 */
+.bazi-table { border: 1px solid var(--line); }
+.bazi-table th + th, .bazi-table td + td { border-left: 1px solid var(--line); }
+.bazi-table .is-day { background: color-mix(in srgb, var(--gold) 8%, transparent); }
 /* higher specificity to beat .bazi-table th on <th class="bz-label"> */
 .bazi-table th.bz-label { color: var(--ink-muted, #55595d); font-size: var(--bz-label-size); letter-spacing: 0; }
 .bz-label { color: var(--ink-muted, #55595d); font-weight: 500; font-size: var(--bz-label-size); }
