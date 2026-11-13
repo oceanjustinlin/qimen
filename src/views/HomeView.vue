@@ -207,9 +207,16 @@
 
               <div class="glass-card qimen-profile-panel">
                 <div v-if="showProfileSwitcher" class="profile-switcher" :class="{ open: isProfileMenuOpen }">
-                  <button class="profile-switch-trigger" type="button" @click="toggleProfileMenu">
-                    <span class="profile-switch-name">{{ activeProfileName }}</span>
-                    <span class="profile-switch-symbol" aria-hidden="true">⇄</span>
+                  <!-- 命主一栏：直接写出这次问事用哪份八字，点右侧切换 -->
+                  <button class="profile-switch-trigger" type="button" :aria-expanded="isProfileMenuOpen" @click="toggleProfileMenu">
+                    <span class="profile-switch-who">
+                      <small>本次命主</small>
+                      <span class="profile-switch-line">
+                        <span class="profile-switch-name">{{ activeProfileName }}</span>
+                        <span v-if="activeBaziProfile" class="profile-switch-meta">{{ [profileMetaText(activeBaziProfile), formatSolarDate(activeBaziProfile.birth_date)].filter(Boolean).join(' · ') }}</span>
+                      </span>
+                    </span>
+                    <span class="profile-switch-action">切换<span class="profile-switch-symbol" aria-hidden="true">⇄</span></span>
                   </button>
                   <div v-if="isProfileMenuOpen" class="profile-flyout">
                     <button
@@ -230,6 +237,9 @@
                   添加八字档案
                 </button>
               </div>
+              <p v-if="showProfileSwitcher" class="route-hint">
+                问长期格局会用到这份八字，问眼前一件具体的事只起奇门局，系统自动判断。<button type="button" @click="showRouteInfoModal = true">怎么判断</button>
+              </p>
 
               <div class="glass-card input-card">
                 <div class="input-label">
@@ -280,6 +290,19 @@
                 </button>
                 <div class="cta-hint">奇门遁甲 · AI 深度推演</div>
               </div>
+
+              <!-- 最近问过：首页直接回到旧局，方便继续追问 -->
+              <section v-if="recentRecords.length" class="recent-asks">
+                <div class="recent-head">
+                  <h3>最近问过</h3>
+                  <button type="button" @click="globalState.isDrawerOpen = true">全部记录</button>
+                </div>
+                <button v-for="item in recentRecords" :key="'recent-' + item.id" type="button" class="recent-item" @click="loadRecord(item)">
+                  <span class="recent-q">{{ item.question }}</span>
+                  <span class="recent-meta">{{ item.dateStr }} · {{ item.catLabel }}</span>
+                  <span v-if="!isBaziRecord(item)" class="recent-score" :class="'verdict-' + getVerdictInfo(item.score).cls">{{ getVerdictInfo(item.score).label }} {{ item.score }}</span>
+                </button>
+              </section>
 
             </div>
           </transition>
@@ -1002,6 +1025,7 @@ const isAuthLanding = computed(() => ['login', 'register'].includes(route.query.
 const canUseApp = computed(() => Boolean(currentUser.value || (isGuest.value && globalState.guestAccessUnlocked && !isAuthLanding.value)))
 
 const historyRecords = ref([])
+const recentRecords = ref([])
 const historyLoading = ref(false)
 const historyLoaded = ref(false)
 const historyHasMore = ref(true)
@@ -2115,6 +2139,7 @@ const handleSessionUpdate = (session) => {
     currentUser.value = session.user
     resetHistoryState()
     fetchBaziProfiles()
+    loadRecentRecords()
     warmFortuneCacheFromSupabase({
       supabase,
       storage: getFortuneStorage(),
@@ -2123,6 +2148,7 @@ const handleSessionUpdate = (session) => {
   } else {
     lastHandledSessionKey = ''
     currentUser.value = null
+    recentRecords.value = []
     if (!isGuest.value) {
       resetHistoryState()
       resetToInput()
@@ -3095,6 +3121,21 @@ const loadHistoryPage = async ({ reset = false } = {}) => {
   }
 }
 
+// 首页「最近问过」：只取最新 3 条，与侧栏历史分开，侧栏关闭时不清空
+const loadRecentRecords = async () => {
+  if (!currentUser.value) { recentRecords.value = []; return }
+  try {
+    const { data } = await supabase
+      .from('qimen_records')
+      .select(QIMEN_HISTORY_LIST_SELECT)
+      .order('created_at', { ascending: false })
+      .range(0, 2)
+    recentRecords.value = mergeQimenFeedbackIntoRecords(normalizeHistoryRows(data || []), [], currentUser.value)
+  } catch (err) {
+    console.warn('加载最近问过失败:', err?.message || err)
+  }
+}
+
 const ensureHistoryLoaded = () => {
   if (!historyLoaded.value) loadHistoryPage({ reset: true })
 }
@@ -3152,6 +3193,7 @@ const saveRecordToDatabase = async (question, data) => {
   } : null
   if (savedRecord && historyLoaded.value && (activeCategory.value === 'all' || activeCategory.value === savedRecord.category)) {
     historyRecords.value = [savedRecord, ...historyRecords.value]
+    recentRecords.value = [savedRecord, ...recentRecords.value.filter(r => r.id !== savedRecord.id)].slice(0, 3)
   }
   return savedRecord
 }
@@ -5054,20 +5096,38 @@ input::placeholder { color: var(--text-muted); }
 .profile-switcher { position: relative; z-index: 60; }
 .profile-switch-trigger {
   width: 100%;
-  min-height: 56px;
+  min-height: 52px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 14px;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: var(--paper-soft);
+  justify-content: space-between;
+  gap: 10px;
+  padding: 0;
+  border: 0;
+  background: transparent;
   color: var(--ink);
   cursor: pointer;
+  text-align: left;
 }
-.profile-switch-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--font-serif); font-size: 24px; letter-spacing: 1px; line-height: 1; }
-.profile-switch-symbol { color: var(--gold); font-size: 24px; line-height: 1; opacity: .92; }
-.profile-switcher.open .profile-switch-trigger { border-color: var(--gold-border); box-shadow: 0 0 0 3px var(--gold-dim); }
+.profile-switch-who { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.profile-switch-who small { font-size: 12px; color: var(--ink-dim); }
+.profile-switch-line { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+.profile-switch-name { flex: none; max-width: 9em; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--font-serif); font-size: 17px; font-weight: 700; letter-spacing: .5px; line-height: 1.3; }
+.profile-switch-meta { min-width: 0; font-size: 12.5px; color: var(--ink-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.profile-switch-action { flex: none; display: inline-flex; align-items: center; gap: 4px; font-size: 13px; color: var(--gold); }
+.profile-switch-symbol { color: var(--gold); font-size: 15px; line-height: 1; }
+.profile-switcher.open .profile-switch-action { opacity: .7; }
+.route-hint { margin: -6px 4px 16px; font-size: 12.5px; line-height: 1.7; color: var(--ink-dim); }
+.route-hint button { border: 0; padding: 0; background: none; color: var(--gold); font: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; margin-left: 4px; }
+.recent-asks { margin-top: 28px; }
+.recent-head { display: flex; align-items: baseline; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+.recent-head h3 { font-family: var(--font-serif); font-size: 18px; font-weight: 700; color: var(--ink); }
+.recent-head button { border: 0; background: none; padding: 0; font: inherit; font-size: 12.5px; color: var(--ink-dim); cursor: pointer; }
+.recent-item { width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto; column-gap: 12px; row-gap: 2px; padding: 12px 0; border: 0; border-bottom: 1px solid var(--line); background: transparent; color: var(--ink); text-align: left; cursor: pointer; }
+.recent-q { grid-column: 1; font-size: 14.5px; line-height: 1.5; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.recent-meta { grid-column: 1; grid-row: 2; font-size: 12px; color: var(--ink-dim); }
+.recent-score { grid-column: 2; grid-row: 1 / span 2; align-self: center; font-size: 13px; font-weight: 700; white-space: nowrap; color: var(--tone-ping); background: none !important; border: 0 !important; padding: 0 !important; }
+.recent-score.verdict-da-ji, .recent-score.verdict-xiao-ji { color: var(--tone-ji); }
+.recent-score.verdict-da-xiong { color: var(--tone-xiong); }
 .profile-flyout { position: absolute; top: calc(100% + 10px); left: 0; right: 0; z-index: 120; padding: 8px; border-radius: 16px; background: var(--bg-card); border: 1px solid var(--line); box-shadow: 0 12px 36px rgba(0,0,0,.12); max-height: min(56vh, 420px); overflow-y: auto; overscroll-behavior: contain; }
 .profile-flyout-item { width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 12px; padding: 12px 14px; border: none; border-radius: 12px; background: transparent; color: var(--text-primary); cursor: pointer; text-align: left; }
 .profile-flyout-item + .profile-flyout-item { margin-top: 4px; }
@@ -5547,10 +5607,7 @@ input::placeholder { color: var(--text-muted); }
   .hero-name { font-size: 44px; }
   .afm-title { font-size: 32px; }
   .qimen-profile-panel { padding: 12px 14px; }
-  .profile-switch-trigger,
   .add-bazi-profile-btn { min-height: 52px; }
-  .profile-switch-name { font-size: 20px; }
-  .profile-switch-symbol { font-size: 21px; }
   .profile-flyout-item { grid-template-columns: minmax(0, 1fr) auto auto; gap: 8px; padding: 11px 12px; }
   .profile-item-date,
   .profile-item-meta { font-size: 11px; }
