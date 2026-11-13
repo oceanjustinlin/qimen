@@ -338,8 +338,8 @@
             <div v-show="viewState === 'result'" class="result-wrapper">
               <!-- 持久能量球层：覆盖 hero 区，卡片切换时不销毁，保证膨胀/变色/定格全程丝滑 -->
               <div v-show="showOrbFx" class="wenshi-orb-fx" :class="[orbSettling ? 'settling' : '', orbTone]">
-                <!-- 粒子星盘：加载~定格期间渲染，定格时随 .settling 淡出，由 .wo-final 接管 -->
-                <WenshiOrb ref="wenshiOrbRef" class="wenshi-orb-particles" :tone="orbTone" :active="showOrbFx" />
+                <!-- 式盘动画：加载~定格期间渲染，定格时随 .settling 淡出，由 .wo-final 接管 -->
+                <WenshiOrb ref="wenshiOrbRef" class="wenshi-orb-particles" :tone="orbTone" :active="showOrbFx" :variant="sseBranch === 'bazi' ? 'bazi' : 'qimen'" />
                 <div class="wenshi-orb">
                   <!-- 终态色球：默认透明，定格时缓慢淡入并随 wrapper 放大，化成 hero 渐变 -->
                   <div class="wo-final"></div>
@@ -1377,7 +1377,7 @@ const orbSettling = ref(false) // 是否进入定格态（膨胀+变色）
 const orbTone = ref('')        // wo-tone-gold / wo-tone-teal / wo-tone-warn
 const finalOverlayHtml = ref('') // 终态覆盖层 HTML（在脚手架之上淡入，避免空档）
 const wenShiStreamSections = {} // {sectionKey: 累计文本}（非响应式，直接 DOM 打补丁）
-const wenshiOrbRef = ref(null) // 粒子星盘组件实例（用于中间产物抖动）
+const wenshiOrbRef = ref(null) // 式盘动画组件实例（出中间产物时转盘进一格）
 // 更新 hero 能量球下方的状态行（响应式，只展示最新一条）+ 出中间产物时星盘抖一下
 function patchOrbStatus(text) {
   if (text) wenShiStatus.value = text
@@ -5300,7 +5300,9 @@ input::placeholder { color: var(--text-muted); }
 .wenshi-orb-fx > .wenshi-orb{ z-index:1; }
 /* 状态文字绝对贴底：与球体拉开间距，且不影响 .wenshi-orb 占位盒（定格 bloom 居中对齐） */
 .wenshi-orb-fx > .wenshi-orb-status{ position:absolute; left:0; right:0; bottom:50px; z-index:2; justify-content:center; }
-.wenshi-orb-fx.settling .wenshi-orb-particles{ opacity:0; transition:opacity .8s ease; }
+.wenshi-orb-particles{ transform-origin:50% 45%; }
+/* 定格：式盘一边放大一边淡出，化进后面的色盘光晕 */
+.wenshi-orb-fx.settling .wenshi-orb-particles{ opacity:0; transform:scale(1.5); transition:opacity .8s ease, transform 1.2s cubic-bezier(.25,.1,.25,1); }
 /* .wenshi-orb：仅承载定格色盘 .wo-final，定格时放大 4.4x 化成 hero 渐变（粒子球见 WenshiOrb.vue） */
 :deep(.wenshi-orb){ position:relative; width:200px; height:200px; border-radius:50%; isolation:isolate; transform:translateZ(0); transition:transform 1.7s cubic-bezier(.25,.1,.25,1); }
 :deep(.wenshi-orb-status){ display:flex; align-items:center; gap:2px; font-size:14px; color:var(--muted, #8b8167); letter-spacing:.05em; }
