@@ -11,4 +11,5 @@
    - `dsh plugin --profile web add xuanxue-dsh@<版本>`（或先用 `npm pack` 出的 tarball 路径）。
    - `dsh --profile web --dump-config` 能看到 `xuanxue-mcp`、`xuanxue-skills` 两行。
    - `dsh web` 里分别问一次八字、紫微、奇门、星盘问题，模型应先加载对应 `xuanxue-*` skill，再调用 `mcp__xuanxue__*` 工具拿到 `ok: true`。
-7. `cd packages/xuanxue-dsh && npm publish`，打 tag 并更新 CHANGELOG。
+7. `cd packages/xuanxue-dsh && npm publish`（账号开了 security key 2FA 时用 `npx -y npm@11 publish --auth-type=web`，在浏览器确认），打 tag 并更新 CHANGELOG。
+8. 同步独立仓库 oceanjustinlin/xuanxue-dsh（dsh 社区目录 dsplugin.app 从这里收录）：`node packages/xuanxue-dsh/scripts/export-repo.mjs <xuanxue-dsh 本地克隆>`，在那边提交、打同版本 tag 并推送。
