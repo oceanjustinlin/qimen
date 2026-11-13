@@ -4167,16 +4167,41 @@ const buildCardHTML = (data, opts = {}) => {
   if (hasChart) {
     const isZhiFu = s => s && ju.zhi_fu && s.includes(ju.zhi_fu)
     const isZhiShi = d => d && ju.zhi_shi && d.includes(ju.zhi_shi)
-    const cells = palaces.map(p => {
+    // 点宫看详情：日干、时干、用神所在宫直接标在格子里，点任一宫在盘下展开该宫的神星门干与角色
+    const ysCardsForPan = (Array.isArray(reportM2.yongshen_cards) ? reportM2.yongshen_cards : []).map(card => buildReportCard(card))
+    const palaceRoles = (p) => {
+      const roles = []
+      const stems = [p.sky, p.ji_sky].filter(Boolean).join('')
+      if (dayStem && stems.includes(dayStem)) roles.push({ cls: 'role-day', short: '日', text: `日干${dayStem}：代表求测人自己` })
+      if (hourStem && stems.includes(hourStem)) roles.push({ cls: 'role-hour', short: '时', text: `时干${hourStem}：代表所问之事` })
+      ysCardsForPan.filter(c => c.palace && p.name && String(c.palace).includes(String(p.name).replace(/宫$/, ''))).forEach(c => {
+        roles.push({ cls: 'role-ys', short: '用', text: `${c.label}${c.symbol ? '（' + c.symbol + '）' : ''}` })
+      })
+      if (isZhiFu(p.star)) roles.push({ cls: '', short: '', text: `值符${ju.zhi_fu}落此宫` })
+      if (isZhiShi(p.door)) roles.push({ cls: '', short: '', text: `值使${ju.zhi_shi}落此宫` })
+      return roles
+    }
+    const pick = (i) => `var w=this.closest('.pan-wrapper');if(!w)return;var on=this.classList.contains('sel');w.querySelectorAll('.pan-cell').forEach(function(c){c.classList.remove('sel')});w.querySelectorAll('.pan-detail-item').forEach(function(d){d.hidden=on||d.getAttribute('data-i')!=='${i}'});var h=w.querySelector('.pan-detail-hint');if(h)h.hidden=!on;if(!on)this.classList.add('sel')`
+    const details = []
+    const cells = palaces.map((p, i) => {
       if (p.is_center) return `<div class="pan-cell"><div class="pan-center-earth">${p.earth || ''}</div></div>`
       const starCls = isZhiFu(p.star) ? 'highlight-text' : ''
       const doorCls = isZhiShi(p.door) ? 'highlight-text' : ''
       let marks = ''
       if (p.ma_xing?.has_ma) marks += `<span class="pan-mark mark-ma">马</span>`
       if (p.kong_wang?.is_kong) marks += `<span class="pan-mark mark-kong">空</span>`
-      return `<div class="pan-cell"><div class="pan-god">${p.god || ''}</div><div class="pan-stem stem-sky">${p.sky || ''}</div>${p.ji_sky ? `<div class="pan-stem ji-sky">${p.ji_sky}</div>` : ''}<div class="pan-star ${starCls}">${p.star || ''}</div><div class="pan-door ${doorCls}">${p.door || ''}</div><div class="pan-stem stem-earth">${p.earth || ''}</div>${p.ji_earth ? `<div class="pan-stem ji-earth">${p.ji_earth}</div>` : ''}<div class="pan-marks">${marks}</div></div>`
+      const roles = palaceRoles(p)
+      const roleTags = roles.filter(r => r.short).map(r => `<span class="pan-role ${r.cls}">${r.short}</span>`).join('')
+      const flags = [p.kong_wang?.is_kong ? '逢空亡' : '', p.ma_xing?.has_ma ? '临驿马' : ''].filter(Boolean).join('，')
+      details.push(`<div class="pan-detail-item" data-i="${i}" hidden>
+        <div class="pan-detail-head"><b>${p.name || ''}</b>${flags ? `<span>${flags}</span>` : ''}</div>
+        <div class="pan-detail-grid"><span>八神</span><b>${p.god || '—'}</b><span>九星</span><b>${p.star || '—'}</b><span>八门</span><b>${p.door || '—'}</b><span>天盘</span><b>${[p.sky, p.ji_sky].filter(Boolean).join(' ') || '—'}</b><span>地盘</span><b>${[p.earth, p.ji_earth].filter(Boolean).join(' ') || '—'}</b></div>
+        ${roles.length ? `<ul class="pan-detail-roles">${roles.map(r => `<li>${r.text}</li>`).join('')}</ul>` : '<p class="pan-detail-none">本次所问之事未直接取用此宫。</p>'}
+      </div>`)
+      return `<div class="pan-cell pan-pickable" role="button" tabindex="0" aria-label="${p.name || ''}，点击查看详情" onclick="${pick(i)}"><div class="pan-roles">${roleTags}</div><div class="pan-god">${p.god || ''}</div><div class="pan-stem stem-sky">${p.sky || ''}</div>${p.ji_sky ? `<div class="pan-stem ji-sky">${p.ji_sky}</div>` : ''}<div class="pan-star ${starCls}">${p.star || ''}</div><div class="pan-door ${doorCls}">${p.door || ''}</div><div class="pan-stem stem-earth">${p.earth || ''}</div>${p.ji_earth ? `<div class="pan-stem ji-earth">${p.ji_earth}</div>` : ''}<div class="pan-marks">${marks}</div></div>`
     }).join('')
-    panInnerHTML = `<div class="pan-wrapper"><div class="pan-header"><div class="pan-pillars">${[pillars.year, pillars.month, pillars.day, pillars.hour].filter(Boolean).join('　')}</div>${buildQimenPanInfo(ju, ts, aux)}</div><div class="pan-grid">${cells}</div></div>`
+    const panDetail = `<div class="pan-detail"><p class="pan-detail-hint">点任一宫看神、星、门、干和它在本事中的角色。<span class="pan-role role-day">日</span>日干 <span class="pan-role role-hour">时</span>时干 <span class="pan-role role-ys">用</span>用神</p>${details.join('')}</div>`
+    panInnerHTML = `<div class="pan-wrapper"><div class="pan-header"><div class="pan-pillars">${[pillars.year, pillars.month, pillars.day, pillars.hour].filter(Boolean).join('　')}</div>${buildQimenPanInfo(ju, ts, aux)}</div><div class="pan-grid">${cells}</div>${panDetail}</div>`
   }
 
   // ── 格局吉凶
@@ -5755,6 +5780,25 @@ input::placeholder { color: var(--text-muted); }
 :deep(.pan-cell:nth-child(3n)) { border-right:none; }
 :deep(.pan-cell:nth-child(n+7)) { border-bottom:none; }
 :deep(.pan-cell:hover) { background:var(--paper-soft); }
+:deep(.pan-pickable) { cursor:pointer; }
+:deep(.pan-cell.sel) { background:var(--gold-dim); box-shadow:inset 0 0 0 1.5px var(--gold); }
+:deep(.pan-roles) { position:absolute; top:5px; right:5px; display:flex; gap:2px; }
+:deep(.pan-role) { display:inline-flex; align-items:center; justify-content:center; width:16px; height:16px; border-radius:3px; font-size:10px; font-weight:700; line-height:1; border:1px solid currentColor; color:var(--ink-muted); vertical-align:-2px; }
+:deep(.pan-role.role-day) { color:var(--tone-ji); }
+:deep(.pan-role.role-hour) { color:var(--wx-shui); }
+:deep(.pan-role.role-ys) { color:var(--gold); background:var(--gold-dim); }
+:deep(.pan-detail) { margin-top:10px; }
+:deep(.pan-detail-hint) { font-size:12px; line-height:1.9; color:var(--ink-dim); }
+:deep(.pan-detail-hint .pan-role) { margin:0 2px 0 6px; }
+:deep(.pan-detail-item) { padding:12px 14px; border:1px solid var(--line); border-left:2px solid var(--gold); background:var(--paper-soft); }
+:deep(.pan-detail-head) { display:flex; align-items:baseline; gap:10px; margin-bottom:8px; }
+:deep(.pan-detail-head b) { font-family:var(--font-serif); font-size:16px; color:var(--ink); }
+:deep(.pan-detail-head span) { font-size:12px; color:var(--crimson); }
+:deep(.pan-detail-grid) { display:grid; grid-template-columns:auto 1fr auto 1fr; gap:4px 10px; font-size:13px; }
+:deep(.pan-detail-grid span) { color:var(--ink-dim); }
+:deep(.pan-detail-grid b) { color:var(--ink); font-weight:600; }
+:deep(.pan-detail-roles) { margin:8px 0 0; padding-left:1.2em; font-size:13px; line-height:1.7; color:var(--ink); }
+:deep(.pan-detail-none) { margin-top:8px; font-size:12.5px; color:var(--ink-dim); }
 :deep(.pan-center-earth) { font-size:30px; font-weight:900; color:rgba(11,11,11,0.1); font-family:'Noto Serif SC',serif; }
 :deep(.pan-god) { position:absolute; top:5px; font-size:13px; color:var(--text-muted); font-family:'Noto Serif SC',serif; }
 :deep(.pan-star) { font-size:15px; color:var(--ink-muted); margin-bottom:1px; z-index:2; font-family:'Noto Serif SC',serif; }
