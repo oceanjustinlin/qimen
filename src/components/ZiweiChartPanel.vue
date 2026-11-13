@@ -484,9 +484,6 @@ onUnmounted(() => { window.removeEventListener('resize', onResize); clearTimeout
 .zw-pillars b { font-size: 19px; text-align: center; font-weight: 700; line-height: 1.25; font-family: var(--font-ganzhi, var(--font-serif)); }
 .zw-decades { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 0 2px; text-align: center; font-size: 12px; color: var(--ink); line-height: 1.35; font-variant-numeric: tabular-nums; }
 .zw-decades small { font-size: 9.5px; color: var(--ink-dim); }
-.wx-jin { color: #9a7a1a; } .wx-mu { color: #2e7d32; } .wx-shui { color: #1565c0; } .wx-huo { color: #c62828; } .wx-tu { color: #7b5e00; }
-[data-theme="dark"] .wx-jin { color: #e8cc80; } [data-theme="dark"] .wx-mu { color: #6fcf7a; } [data-theme="dark"] .wx-shui { color: #6aa8f0; }
-[data-theme="dark"] .wx-huo { color: #ff7b6b; } [data-theme="dark"] .wx-tu { color: #d9b45a; }
 
 .zw-lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
 .zw-lines .tri { stroke: var(--gold); stroke-width: 1.2; stroke-dasharray: 4 3; opacity: .45; fill: none; }

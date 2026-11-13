@@ -207,9 +207,16 @@
 
               <div class="glass-card qimen-profile-panel">
                 <div v-if="showProfileSwitcher" class="profile-switcher" :class="{ open: isProfileMenuOpen }">
-                  <button class="profile-switch-trigger" type="button" @click="toggleProfileMenu">
-                    <span class="profile-switch-name">{{ activeProfileName }}</span>
-                    <span class="profile-switch-symbol" aria-hidden="true">⇄</span>
+                  <!-- 命主一栏：直接写出这次问事用哪份八字，点右侧切换 -->
+                  <button class="profile-switch-trigger" type="button" :aria-expanded="isProfileMenuOpen" @click="toggleProfileMenu">
+                    <span class="profile-switch-who">
+                      <small>本次命主</small>
+                      <span class="profile-switch-line">
+                        <span class="profile-switch-name">{{ activeProfileName }}</span>
+                        <span v-if="activeBaziProfile" class="profile-switch-meta">{{ [profileMetaText(activeBaziProfile), formatSolarDate(activeBaziProfile.birth_date).split(' ')[0]].filter(Boolean).join(' · ') }}</span>
+                      </span>
+                    </span>
+                    <span class="profile-switch-action">切换<span class="profile-switch-symbol" aria-hidden="true">⇄</span></span>
                   </button>
                   <div v-if="isProfileMenuOpen" class="profile-flyout">
                     <button
@@ -230,6 +237,9 @@
                   添加八字档案
                 </button>
               </div>
+              <p v-if="showProfileSwitcher" class="route-hint">
+                问长期格局会用到这份八字，问眼前一件具体的事只起奇门局，系统自动判断。<button type="button" @click="showRouteInfoModal = true">怎么判断</button>
+              </p>
 
               <div class="glass-card input-card">
                 <div class="input-label">
@@ -280,6 +290,19 @@
                 </button>
                 <div class="cta-hint">奇门遁甲 · AI 深度推演</div>
               </div>
+
+              <!-- 最近问过：首页直接回到旧局，方便继续追问 -->
+              <section v-if="recentRecords.length" class="recent-asks">
+                <div class="recent-head">
+                  <h3>最近问过</h3>
+                  <button type="button" @click="globalState.isDrawerOpen = true">全部记录</button>
+                </div>
+                <button v-for="item in recentRecords" :key="'recent-' + item.id" type="button" class="recent-item" @click="loadRecord(item)">
+                  <span class="recent-q">{{ item.question }}</span>
+                  <span class="recent-meta">{{ formatRecentDate(item.created_at) }} · {{ item.catLabel }}</span>
+                  <span v-if="!isBaziRecord(item)" class="recent-score" :class="'verdict-' + getVerdictInfo(item.score).cls">{{ getVerdictInfo(item.score).label }} {{ item.score }}</span>
+                </button>
+              </section>
 
             </div>
           </transition>
@@ -1002,6 +1025,7 @@ const isAuthLanding = computed(() => ['login', 'register'].includes(route.query.
 const canUseApp = computed(() => Boolean(currentUser.value || (isGuest.value && globalState.guestAccessUnlocked && !isAuthLanding.value)))
 
 const historyRecords = ref([])
+const recentRecords = ref([])
 const historyLoading = ref(false)
 const historyLoaded = ref(false)
 const historyHasMore = ref(true)
@@ -2115,6 +2139,7 @@ const handleSessionUpdate = (session) => {
     currentUser.value = session.user
     resetHistoryState()
     fetchBaziProfiles()
+    loadRecentRecords()
     warmFortuneCacheFromSupabase({
       supabase,
       storage: getFortuneStorage(),
@@ -2123,6 +2148,7 @@ const handleSessionUpdate = (session) => {
   } else {
     lastHandledSessionKey = ''
     currentUser.value = null
+    recentRecords.value = []
     if (!isGuest.value) {
       resetHistoryState()
       resetToInput()
@@ -2241,6 +2267,14 @@ const formatSolarDate = (value) => {
   if (!p || p.length < 3) return '阳历待确认'
   const time = p.length >= 5 ? ` ${p[3].padStart(2, '0')}:${p[4].padStart(2, '0')}` : ''
   return `${p[0]}.${p[1].padStart(2, '0')}.${p[2].padStart(2, '0')}${time}`
+}
+
+const formatRecentDate = (value) => {
+  const d = new Date(value)
+  if (Number.isNaN(d.getTime())) return ''
+  const now = new Date()
+  const md = `${d.getMonth() + 1}月${d.getDate()}日`
+  return d.getFullYear() === now.getFullYear() ? md : `${d.getFullYear()}年${md}`
 }
 
 const profileMetaText = (profile) => {
@@ -3095,6 +3129,21 @@ const loadHistoryPage = async ({ reset = false } = {}) => {
   }
 }
 
+// 首页「最近问过」：只取最新 3 条，与侧栏历史分开，侧栏关闭时不清空
+const loadRecentRecords = async () => {
+  if (!currentUser.value) { recentRecords.value = []; return }
+  try {
+    const { data } = await supabase
+      .from('qimen_records')
+      .select(QIMEN_HISTORY_LIST_SELECT)
+      .order('created_at', { ascending: false })
+      .range(0, 2)
+    recentRecords.value = mergeQimenFeedbackIntoRecords(normalizeHistoryRows(data || []), [], currentUser.value)
+  } catch (err) {
+    console.warn('加载最近问过失败:', err?.message || err)
+  }
+}
+
 const ensureHistoryLoaded = () => {
   if (!historyLoaded.value) loadHistoryPage({ reset: true })
 }
@@ -3153,6 +3202,8 @@ const saveRecordToDatabase = async (question, data) => {
   if (savedRecord && historyLoaded.value && (activeCategory.value === 'all' || activeCategory.value === savedRecord.category)) {
     historyRecords.value = [savedRecord, ...historyRecords.value]
   }
+  // 「最近问过」与历史抽屉是否加载过无关，新记录总是放到最前
+  if (savedRecord) recentRecords.value = [savedRecord, ...recentRecords.value.filter(r => r.id !== savedRecord.id)].slice(0, 3)
   return savedRecord
 }
 
@@ -4062,8 +4113,13 @@ const buildCardHTML = (data, opts = {}) => {
   const primaryStrategies = strategyItems.slice(0, 3)
   const domainView = data.domain_view
   const luckyTips = advice.lucky_tips || {}
+  // 甲不上盘，遁于本旬六仪之下：日/时干为甲时按其柱（即旬首）找所遁之仪
+  const JIA_YI = { 甲子: '戊', 甲戌: '己', 甲申: '庚', 甲午: '辛', 甲辰: '壬', 甲寅: '癸' }
+  const panStem = (pillar) => { const g = String(pillar || '').slice(0, 2); return g.charAt(0) === '甲' ? (JIA_YI[g] || '') : g.charAt(0) }
   const dayStem = String(pillars.day || '').charAt(0)
   const hourStem = String(pillars.hour || '').charAt(0)
+  const dayPanStem = panStem(pillars.day)
+  const hourPanStem = panStem(pillars.hour)
   const toneBadge = { positive: '顺', mixed: '参', warning: '慎' }
   const normalizeTone = (tone) => ['positive', 'mixed', 'warning'].includes(tone) ? tone : 'mixed'
   const formatSymbol = (label, symbol) => [label, symbol].filter(Boolean).join(' ')
@@ -4125,16 +4181,41 @@ const buildCardHTML = (data, opts = {}) => {
   if (hasChart) {
     const isZhiFu = s => s && ju.zhi_fu && s.includes(ju.zhi_fu)
     const isZhiShi = d => d && ju.zhi_shi && d.includes(ju.zhi_shi)
-    const cells = palaces.map(p => {
+    // 点宫看详情：日干、时干、用神所在宫直接标在格子里，点任一宫在盘下展开该宫的神星门干与角色
+    const ysCardsForPan = (Array.isArray(reportM2.yongshen_cards) ? reportM2.yongshen_cards : []).map(card => buildReportCard(card))
+    const palaceRoles = (p) => {
+      const roles = []
+      const stems = [p.sky, p.ji_sky].filter(Boolean).join('')
+      if (dayPanStem && stems.includes(dayPanStem)) roles.push({ cls: 'role-day', short: '日', text: `日干${dayStem}${dayStem !== dayPanStem ? '（遁' + dayPanStem + '）' : ''}：代表求测人自己` })
+      if (hourPanStem && stems.includes(hourPanStem)) roles.push({ cls: 'role-hour', short: '时', text: `时干${hourStem}${hourStem !== hourPanStem ? '（遁' + hourPanStem + '）' : ''}：代表所问之事` })
+      ysCardsForPan.filter(c => c.palace && p.name && String(c.palace).includes(String(p.name).replace(/宫$/, ''))).forEach(c => {
+        roles.push({ cls: 'role-ys', short: '用', text: `${c.label}${c.symbol ? '（' + c.symbol + '）' : ''}` })
+      })
+      if (isZhiFu(p.star)) roles.push({ cls: '', short: '', text: `值符${ju.zhi_fu}落此宫` })
+      if (isZhiShi(p.door)) roles.push({ cls: '', short: '', text: `值使${ju.zhi_shi}落此宫` })
+      return roles
+    }
+    const pick = (i) => `var w=this.closest('.pan-wrapper');if(!w)return;var on=this.classList.contains('sel');w.querySelectorAll('.pan-cell').forEach(function(c){c.classList.remove('sel')});w.querySelectorAll('.pan-detail-item').forEach(function(d){d.hidden=on||d.getAttribute('data-i')!=='${i}'});var h=w.querySelector('.pan-detail-hint');if(h)h.hidden=!on;if(!on)this.classList.add('sel')`
+    const details = []
+    const cells = palaces.map((p, i) => {
       if (p.is_center) return `<div class="pan-cell"><div class="pan-center-earth">${p.earth || ''}</div></div>`
       const starCls = isZhiFu(p.star) ? 'highlight-text' : ''
       const doorCls = isZhiShi(p.door) ? 'highlight-text' : ''
       let marks = ''
       if (p.ma_xing?.has_ma) marks += `<span class="pan-mark mark-ma">马</span>`
       if (p.kong_wang?.is_kong) marks += `<span class="pan-mark mark-kong">空</span>`
-      return `<div class="pan-cell"><div class="pan-god">${p.god || ''}</div><div class="pan-stem stem-sky">${p.sky || ''}</div>${p.ji_sky ? `<div class="pan-stem ji-sky">${p.ji_sky}</div>` : ''}<div class="pan-star ${starCls}">${p.star || ''}</div><div class="pan-door ${doorCls}">${p.door || ''}</div><div class="pan-stem stem-earth">${p.earth || ''}</div>${p.ji_earth ? `<div class="pan-stem ji-earth">${p.ji_earth}</div>` : ''}<div class="pan-marks">${marks}</div></div>`
+      const roles = palaceRoles(p)
+      const roleTags = roles.filter(r => r.short).map(r => `<span class="pan-role ${r.cls}">${r.short}</span>`).join('')
+      const flags = [p.kong_wang?.is_kong ? '逢空亡' : '', p.ma_xing?.has_ma ? '临驿马' : ''].filter(Boolean).join('，')
+      details.push(`<div class="pan-detail-item" data-i="${i}" hidden>
+        <div class="pan-detail-head"><b>${p.name || ''}</b>${flags ? `<span>${flags}</span>` : ''}</div>
+        <div class="pan-detail-grid"><span>八神</span><b>${p.god || '—'}</b><span>九星</span><b>${p.star || '—'}</b><span>八门</span><b>${p.door || '—'}</b><span>天盘</span><b>${[p.sky, p.ji_sky].filter(Boolean).join(' ') || '—'}</b><span>地盘</span><b>${[p.earth, p.ji_earth].filter(Boolean).join(' ') || '—'}</b></div>
+        ${roles.length ? `<ul class="pan-detail-roles">${roles.map(r => `<li>${r.text}</li>`).join('')}</ul>` : '<p class="pan-detail-none">本次所问之事未直接取用此宫。</p>'}
+      </div>`)
+      return `<div class="pan-cell pan-pickable" role="button" tabindex="0" aria-label="${p.name || ''}，点击查看详情" onclick="${pick(i)}"><div class="pan-roles">${roleTags}</div><div class="pan-god">${p.god || ''}</div><div class="pan-stem stem-sky">${p.sky || ''}</div>${p.ji_sky ? `<div class="pan-stem ji-sky">${p.ji_sky}</div>` : ''}<div class="pan-star ${starCls}">${p.star || ''}</div><div class="pan-door ${doorCls}">${p.door || ''}</div><div class="pan-stem stem-earth">${p.earth || ''}</div>${p.ji_earth ? `<div class="pan-stem ji-earth">${p.ji_earth}</div>` : ''}<div class="pan-marks">${marks}</div></div>`
     }).join('')
-    panInnerHTML = `<div class="pan-wrapper"><div class="pan-header"><div class="pan-pillars">${[pillars.year, pillars.month, pillars.day, pillars.hour].filter(Boolean).join('　')}</div>${buildQimenPanInfo(ju, ts, aux)}</div><div class="pan-grid">${cells}</div></div>`
+    const panDetail = `<div class="pan-detail"><p class="pan-detail-hint">点任一宫看神、星、门、干和它在本事中的角色。<span class="pan-role role-day">日</span>日干 <span class="pan-role role-hour">时</span>时干 <span class="pan-role role-ys">用</span>用神</p>${details.join('')}</div>`
+    panInnerHTML = `<div class="pan-wrapper"><div class="pan-header"><div class="pan-pillars">${[pillars.year, pillars.month, pillars.day, pillars.hour].filter(Boolean).join('　')}</div>${buildQimenPanInfo(ju, ts, aux)}</div><div class="pan-grid">${cells}</div>${panDetail}</div>`
   }
 
   // ── 格局吉凶
@@ -4378,6 +4459,10 @@ const buildCardHTML = (data, opts = {}) => {
         </div>
         <h1>${orSkel(reportM1.title || summary.title, '本局断语', 1)}</h1>
         <p>${orSkel(reportM1.conclusion || summary.conclusion, '', 3)}</p>
+        ${!streaming && summary.score !== null && summary.score !== undefined ? `<div class="mag-scale" aria-label="参考指数 ${score}，凶 55 以下，平 55 至 74，吉 75 以上">
+          <div class="mag-scale-bar"><i class="seg-xiong"></i><i class="seg-ping"></i><i class="seg-ji"></i><b style="left:${Math.max(0, Math.min(100, Number(score) || 0))}%"></b></div>
+          <div class="mag-scale-labels"><span>凶</span><span style="left:55%">55</span><span style="left:65%">平</span><span style="left:75%">75</span><span style="left:100%">吉</span></div>
+        </div>` : ''}
       </div>
     </section>
 
@@ -5050,20 +5135,38 @@ input::placeholder { color: var(--text-muted); }
 .profile-switcher { position: relative; z-index: 60; }
 .profile-switch-trigger {
   width: 100%;
-  min-height: 56px;
+  min-height: 52px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 14px;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: var(--paper-soft);
+  justify-content: space-between;
+  gap: 10px;
+  padding: 0;
+  border: 0;
+  background: transparent;
   color: var(--ink);
   cursor: pointer;
+  text-align: left;
 }
-.profile-switch-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--font-serif); font-size: 24px; letter-spacing: 1px; line-height: 1; }
-.profile-switch-symbol { color: var(--gold); font-size: 24px; line-height: 1; opacity: .92; }
-.profile-switcher.open .profile-switch-trigger { border-color: var(--gold-border); box-shadow: 0 0 0 3px var(--gold-dim); }
+.profile-switch-who { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.profile-switch-who small { font-size: 12px; color: var(--ink-dim); }
+.profile-switch-line { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 8px; min-width: 0; }
+.profile-switch-name { flex: none; max-width: 9em; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--font-serif); font-size: 17px; font-weight: 700; letter-spacing: .5px; line-height: 1.3; }
+.profile-switch-meta { min-width: 0; max-width: 100%; font-size: 12.5px; color: var(--ink-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.profile-switch-action { flex: none; display: inline-flex; align-items: center; gap: 4px; font-size: 13px; color: var(--gold); }
+.profile-switch-symbol { color: var(--gold); font-size: 15px; line-height: 1; }
+.profile-switcher.open .profile-switch-action { opacity: .7; }
+.route-hint { margin: -6px 4px 16px; font-size: 12.5px; line-height: 1.7; color: var(--ink-dim); }
+.route-hint button { border: 0; padding: 0; background: none; color: var(--gold); font: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; margin-left: 4px; }
+.recent-asks { margin-top: 28px; }
+.recent-head { display: flex; align-items: baseline; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+.recent-head h3 { font-family: var(--font-serif); font-size: 18px; font-weight: 700; color: var(--ink); }
+.recent-head button { border: 0; background: none; padding: 0; font: inherit; font-size: 12.5px; color: var(--ink-dim); cursor: pointer; }
+.recent-item { width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto; column-gap: 12px; row-gap: 2px; padding: 12px 0; border: 0; border-bottom: 1px solid var(--line); background: transparent; color: var(--ink); text-align: left; cursor: pointer; }
+.recent-q { grid-column: 1; font-size: 14.5px; line-height: 1.5; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.recent-meta { grid-column: 1; grid-row: 2; font-size: 12px; color: var(--ink-dim); }
+.recent-score { grid-column: 2; grid-row: 1 / span 2; align-self: center; font-size: 13px; font-weight: 700; white-space: nowrap; color: var(--tone-ping); background: none !important; border: 0 !important; padding: 0 !important; }
+.recent-score.verdict-da-ji, .recent-score.verdict-xiao-ji { color: var(--tone-ji); }
+.recent-score.verdict-da-xiong { color: var(--tone-xiong); }
 .profile-flyout { position: absolute; top: calc(100% + 10px); left: 0; right: 0; z-index: 120; padding: 8px; border-radius: 16px; background: var(--bg-card); border: 1px solid var(--line); box-shadow: 0 12px 36px rgba(0,0,0,.12); max-height: min(56vh, 420px); overflow-y: auto; overscroll-behavior: contain; }
 .profile-flyout-item { width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 12px; padding: 12px 14px; border: none; border-radius: 12px; background: transparent; color: var(--text-primary); cursor: pointer; text-align: left; }
 .profile-flyout-item + .profile-flyout-item { margin-top: 4px; }
@@ -5543,10 +5646,7 @@ input::placeholder { color: var(--text-muted); }
   .hero-name { font-size: 44px; }
   .afm-title { font-size: 32px; }
   .qimen-profile-panel { padding: 12px 14px; }
-  .profile-switch-trigger,
   .add-bazi-profile-btn { min-height: 52px; }
-  .profile-switch-name { font-size: 20px; }
-  .profile-switch-symbol { font-size: 21px; }
   .profile-flyout-item { grid-template-columns: minmax(0, 1fr) auto auto; gap: 8px; padding: 11px 12px; }
   .profile-item-date,
   .profile-item-meta { font-size: 11px; }
@@ -5694,7 +5794,26 @@ input::placeholder { color: var(--text-muted); }
 :deep(.pan-cell:nth-child(3n)) { border-right:none; }
 :deep(.pan-cell:nth-child(n+7)) { border-bottom:none; }
 :deep(.pan-cell:hover) { background:var(--paper-soft); }
-:deep(.pan-center-earth) { font-size:30px; font-weight:900; color:rgba(11,11,11,0.1); font-family:'Noto Serif SC',serif; }
+:deep(.pan-pickable) { cursor:pointer; }
+:deep(.pan-cell.sel) { background:var(--gold-dim); box-shadow:inset 0 0 0 1.5px var(--gold); }
+:deep(.pan-roles) { position:absolute; top:5px; right:5px; display:flex; gap:2px; }
+:deep(.pan-role) { display:inline-flex; align-items:center; justify-content:center; width:16px; height:16px; border-radius:3px; font-size:10px; font-weight:700; line-height:1; border:1px solid currentColor; color:var(--ink-muted); vertical-align:-2px; }
+:deep(.pan-role.role-day) { color:var(--tone-ji); }
+:deep(.pan-role.role-hour) { color:var(--wx-shui); }
+:deep(.pan-role.role-ys) { color:var(--gold); background:var(--gold-dim); }
+:deep(.pan-detail) { margin-top:10px; }
+:deep(.pan-detail-hint) { font-size:12px; line-height:1.9; color:var(--ink-dim); }
+:deep(.pan-detail-hint .pan-role) { margin:0 2px 0 6px; }
+:deep(.pan-detail-item) { padding:12px 14px; border:1px solid var(--line); border-left:2px solid var(--gold); background:var(--paper-soft); }
+:deep(.pan-detail-head) { display:flex; align-items:baseline; gap:10px; margin-bottom:8px; }
+:deep(.pan-detail-head b) { font-family:var(--font-serif); font-size:16px; color:var(--ink); }
+:deep(.pan-detail-head span) { font-size:12px; color:var(--crimson); }
+:deep(.pan-detail-grid) { display:grid; grid-template-columns:auto 1fr auto 1fr; gap:4px 10px; font-size:13px; }
+:deep(.pan-detail-grid span) { color:var(--ink-dim); }
+:deep(.pan-detail-grid b) { color:var(--ink); font-weight:600; }
+:deep(.pan-detail-roles) { margin:8px 0 0; padding-left:1.2em; font-size:13px; line-height:1.7; color:var(--ink); }
+:deep(.pan-detail-none) { margin-top:8px; font-size:12.5px; color:var(--ink-dim); }
+:deep(.pan-center-earth) { font-size:30px; font-weight:900; color:var(--ink); opacity:.12; font-family:'Noto Serif SC',serif; }
 :deep(.pan-god) { position:absolute; top:5px; font-size:13px; color:var(--text-muted); font-family:'Noto Serif SC',serif; }
 :deep(.pan-star) { font-size:15px; color:var(--ink-muted); margin-bottom:1px; z-index:2; font-family:'Noto Serif SC',serif; }
 :deep(.pan-door) { font-size:19px; font-weight:700; color:var(--ink); z-index:2; font-family:'Noto Serif SC',serif; }
@@ -6002,23 +6121,47 @@ input::placeholder { color: var(--text-muted); }
   line-height: 1.4;
 }
 :deep(.mag-verdict-badge) {
+  /* 吉凶做成一方印：方角、双线框，颜色跟随吉凶色调 token */
+  --seal: var(--tone-ping);
   display: inline-flex;
   align-items: center;
-  min-height: 28px;
-  padding: 4px 13px;
-  border: 1px solid;
-  border-radius: 999px;
+  justify-content: center;
+  min-width: 34px;
+  min-height: 34px;
+  padding: 3px 7px;
+  border: 1.5px solid var(--seal);
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 2px var(--paper), inset 0 0 0 3px var(--seal);
+  color: var(--seal);
+  background: color-mix(in srgb, var(--seal) 8%, transparent);
   font-family: var(--font-serif);
-  font-size: 13px;
-  font-weight: 650;
-  letter-spacing: 0.06em;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
   white-space: nowrap;
 }
-:deep(.mag-verdict-ji)    { color: #0d9488; background: rgba(13,148,136,0.08); border-color: rgba(13,148,136,0.25); }
-:deep(.mag-verdict-da-ji) { color: #047857; background: rgba(5,150,105,0.08); border-color: rgba(5,150,105,0.24); }
-:deep(.mag-verdict-ping)  { color: #9a6f1f; background: rgba(181,141,59,0.11); border-color: rgba(181,141,59,0.28); }
-:deep(.mag-verdict-warn)  { color: #b45309; background: rgba(217,119,6,0.08); border-color: rgba(217,119,6,0.22); }
-:deep(.mag-verdict-xiong) { color: #b91c1c; background: rgba(220,38,38,0.07); border-color: rgba(220,38,38,0.22); }
+:deep(.mag-verdict-ji),
+:deep(.mag-verdict-da-ji),
+:deep(.mag-verdict-xiao-ji) { --seal: var(--tone-ji); }
+:deep(.mag-verdict-ping)    { --seal: var(--tone-ping); }
+:deep(.mag-verdict-warn),
+:deep(.mag-verdict-xiong),
+:deep(.mag-verdict-da-xiong) { --seal: var(--tone-xiong); }
+/* 分数刻度：说明分数落在凶 / 平 / 吉哪一段 */
+:deep(.mag-scale) { margin-top: 18px; width: 100%; }
+:deep(.mag-scale-bar) { position: relative; display: flex; height: 4px; }
+:deep(.mag-scale-bar i) { display: block; height: 100%; opacity: .35; }
+:deep(.mag-scale-bar .seg-xiong) { width: 55%; background: var(--tone-xiong); }
+:deep(.mag-scale-bar .seg-ping)  { width: 20%; background: var(--tone-ping); }
+:deep(.mag-scale-bar .seg-ji)    { width: 25%; background: var(--tone-ji); }
+:deep(.mag-scale-bar b) {
+  position: absolute; top: 50%; width: 12px; height: 12px; margin: -6px 0 0 -6px;
+  border-radius: 50%; background: var(--theme-color); box-shadow: 0 0 0 3px var(--paper);
+}
+:deep(.mag-scale-labels) { position: relative; height: 18px; margin-top: 6px; font-size: 11px; color: var(--ink-dim); }
+:deep(.mag-scale-labels span) { position: absolute; top: 0; transform: translateX(-50%); white-space: nowrap; }
+:deep(.mag-scale-labels span:first-child) { left: 0; transform: none; }
+:deep(.mag-scale-labels span:last-child) { transform: translateX(-100%); }
 :deep(.mag-hero-panel h1) {
   margin: 0;
   max-width: 12em;
@@ -6067,7 +6210,7 @@ input::placeholder { color: var(--text-muted); }
   z-index: 50;
   display: flex;
   align-items: flex-end;
-  gap: 20px;
+  gap: 18px;
   overflow-x: auto;
   touch-action: pan-x;
   padding: 14px 0 10px;
@@ -6090,8 +6233,10 @@ input::placeholder { color: var(--text-muted); }
   padding: 0 0 8px;
   color: var(--ink-dim);
   font-family: var(--font-display);
-  font-size: clamp(20px, 6vw, 28px);
-  font-weight: 850;
+  /* 随屏宽放大：390 宽约 18px，440 宽约 20px，四个标签始终一屏放下 */
+  font-size: clamp(16px, 4.6vw, 24px);
+  font-weight: 800;
+  letter-spacing: 0.02em;
   line-height: 1;
   cursor: pointer;
   transition: color 0.2s;
@@ -6533,10 +6678,11 @@ input::placeholder { color: var(--text-muted); }
   }
 }
 
-@media(max-width:380px) {
+@media(max-width:360px) {
   :deep(.mag-tab) {
-    font-size: 20px;
+    font-size: 16px;
   }
+  :deep(.mag-tabs) { gap: 14px; }
 }
 
 .screen-toast {

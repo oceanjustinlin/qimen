@@ -12,9 +12,14 @@
       <div class="container">
         <div v-if="showProfileSwitcher" class="glass-card profile-switch-card">
           <div class="profile-switcher" :class="{ open: isProfileMenuOpen }">
-            <button class="profile-switch-trigger" @click="toggleProfileMenu">
-              <span class="profile-switch-name">{{ activeProfileName }}</span>
-              <span class="profile-switch-symbol" aria-hidden="true">⇄</span>
+            <!-- 命主一栏：写明这份运势算的是哪个档案，点右侧切换 -->
+            <button class="profile-switch-trigger" :aria-expanded="isProfileMenuOpen" @click="toggleProfileMenu">
+              <span class="profile-switch-who">
+                <small>命主</small>
+                <span class="profile-switch-name">{{ activeProfileName }}</span>
+                <span v-if="activeProfile" class="profile-switch-meta">{{ [profileMetaText(activeProfile), formatSolarDate(activeProfile.birth_date)].filter(Boolean).join(' · ') }}</span>
+              </span>
+              <span class="profile-switch-action">切换<span class="profile-switch-symbol" aria-hidden="true">⇄</span></span>
             </button>
             <div v-if="isProfileMenuOpen" class="profile-flyout">
               <button
@@ -99,7 +104,7 @@
 
               <template v-if="!isGuest">
               <!-- ═══ 2. Four Fortune Grid ═══ -->
-              <div class="fortune-grid">
+              <div class="fortune-grid fortune-list">
                 <div v-for="item in fortuneGridItems" :key="item.key" class="fortune-grid-card">
                   <div class="grid-card-header">
                     <span class="grid-card-icon" v-html="item.icon"></span>
@@ -172,6 +177,17 @@
 
                   <hr class="guide-divider" />
                   <div class="timeline-title"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="vertical-align:-1px;margin-right:4px"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg> 今日吉时</div>
+                  <!-- 十二时辰格：吉时标亮，日空亡时辰虚线 -->
+                  <div class="shichen-grid" role="list" aria-label="十二时辰吉凶">
+                    <div
+                      v-for="sc in shichenCells" :key="sc.zhi" role="listitem"
+                      :class="['shichen-cell', { lucky: sc.lucky, kong: sc.kong, now: sc.now }]"
+                      :title="sc.zhi + '时 ' + sc.range + (sc.lucky ? ' · 吉时' : '') + (sc.kong ? ' · 空亡' : '')"
+                    >
+                      <b>{{ sc.zhi }}</b><small>{{ sc.range }}</small>
+                    </div>
+                  </div>
+                  <div class="shichen-legend"><span class="lg lucky"></span>吉时<span class="lg kong"></span>空亡<span class="lg now"></span>当前</div>
                   <div class="timeline" v-if="luckyHours.length">
                     <div v-for="(h, i) in luckyHours" :key="i" class="timeline-item">
                       <div class="timeline-dot"></div>
@@ -1060,6 +1076,29 @@ const weeklyChartAvgLineY = computed(() => {
   if (!Array.isArray(points) || !points.length) return 0
   const avg = points.reduce((sum, item) => sum + (Number(item.score) || 0), 0) / points.length
   return Math.round((116 - ((Math.min(98, Math.max(45, avg)) - 45) / 53) * 92) * 10) / 10
+})
+
+const SHICHEN = [
+  ['子', '23–1'], ['丑', '1–3'], ['寅', '3–5'], ['卯', '5–7'], ['辰', '7–9'], ['巳', '9–11'],
+  ['午', '11–13'], ['未', '13–15'], ['申', '15–17'], ['酉', '17–19'], ['戌', '19–21'], ['亥', '21–23'],
+]
+// 十二时辰格：吉时取引擎给的 lucky_hour_zhis（缺省时从 lucky_hours 文案里取地支），空亡取 day_void
+const shichenCells = computed(() => {
+  const data = fortuneData.value || {}
+  let lucky = Array.isArray(data.lucky_hour_zhis) ? data.lucky_hour_zhis : []
+  if (!lucky.length) lucky = luckyHours.value.map(h => String(h?.hour || '').charAt(0))
+  const kong = String(data.day_void || '')
+  const now = new Date()
+  const todayKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`
+  const isToday = selectedDate.value === todayKey
+  const h = now.getHours()
+  const nowIdx = Math.floor(((h + 1) % 24) / 2)
+  return SHICHEN.map(([zhi, range], i) => ({
+    zhi, range,
+    lucky: lucky.includes(zhi),
+    kong: kong.includes(zhi),
+    now: isToday && i === nowIdx,
+  }))
 })
 
 const luckyHours = computed(() => {

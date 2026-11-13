@@ -9,15 +9,27 @@
     --paper-soft:    #ebe6da;
     --ink:           #0b0b0b;
     --ink-muted:     #55595d;
-    --ink-dim:       #777b80;
+    --ink-dim:       #6b6f74;
     --line:          rgba(11,11,11,.12);
+    --line-strong:   rgba(11,11,11,.22);
+    --on-gold:       #1a1405;
+    /* 五行色：全站统一，浅色压暗以保证宣纸底上的可读性 */
+    --wx-mu:         #3f8a55;
+    --wx-huo:        #c8503f;
+    --wx-tu:         #96663a;
+    --wx-jin:        #a88a14;
+    --wx-shui:       #3878b0;
+    /* 吉凶色调：问事结果 hero、分数、格局标签共用 */
+    --tone-ji:       #0d8177;
+    --tone-ping:     #9d7a2f;
+    --tone-xiong:    #c0413c;
     --chrome:        #efefef;
     --chrome-muted:  #9a9a9a;
     --bg-deep:       #f7f4ee;
     --bg-card:       #ffffff;
     --glass-border:  rgba(11,11,11,.12);
     --text-primary:  #0b0b0b;
-    --text-muted:    #777b80;
+    --text-muted:    #6b6f74;
     --text-dim:      rgba(11,11,11,0.28);
     --radius-card:   16px;
     --radius-item:   12px;
@@ -43,16 +55,25 @@
     --paper:         #05050A;
     --paper-soft:    #0E0E1F;
     --ink:           rgba(240,237,230,0.95);
-    --ink-muted:     #9a9aaa;
-    --ink-dim:       rgba(255,255,255,0.45);
-    --line:          rgba(255,255,255,0.07);
+    --ink-muted:     #b0b0bf;
+    --ink-dim:       rgba(255,255,255,0.55);
+    --line:          rgba(255,255,255,0.08);
+    --line-strong:   rgba(255,255,255,0.2);
+    --wx-mu:         #6fbf86;
+    --wx-huo:        #f0796a;
+    --wx-tu:         #c99a6a;
+    --wx-jin:        #f0d870;
+    --wx-shui:       #6aaee6;
+    --tone-ji:       #4ecdc4;
+    --tone-ping:     #dcbb55;
+    --tone-xiong:    #ff6b64;
     --chrome:        #0f0f1e;
     --chrome-muted:  #555566;
     --bg-deep:       #05050A;
     --bg-card:       #12121e;
     --glass-border:  rgba(255,255,255,0.07);
     --text-primary:  rgba(240,237,230,0.95);
-    --text-muted:    #8E8E93;
+    --text-muted:    #9a9aa8;
     --text-dim:      rgba(255,255,255,0.42);
     --teal:          #4ECDC4;
     --crimson:       #FF5E57;
@@ -90,3 +111,11 @@ button,input,textarea,select{font-family:inherit}
         radial-gradient(ellipse 55% 45% at 15% 15%,rgba(107,140,255,0.06) 0%,transparent 60%),
         radial-gradient(ellipse 50% 55% at 85% 85%,rgba(212,175,55,0.05) 0%,transparent 60%),
         linear-gradient(155deg,#05050A 0%,#0E0E1F 55%,#1A1A2E 100%)}
+
+/* ── 五行字色（全站共用，深浅主题由 token 切换）── */
+.wx-mu   { color: var(--wx-mu); }
+.wx-huo  { color: var(--wx-huo); }
+.wx-tu   { color: var(--wx-tu); }
+.wx-jin  { color: var(--wx-jin); }
+.wx-shui { color: var(--wx-shui); }
+.wx-none { color: var(--ink-muted); }

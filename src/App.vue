@@ -179,10 +179,17 @@ onUnmounted(() => {
     padding-bottom: env(safe-area-inset-bottom);
 }
 .nav-item {
+    position: relative;
     flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;
     color: var(--chrome-muted, #9a9a9a); text-decoration: none; transition: color 0.3s;
 }
 .nav-item.active { color: var(--ink, #0b0b0b); }
+/* 当前页：顶部一道鎏金短线，金色只做强调 */
+.nav-item.active::before {
+    content: ""; position: absolute; top: -10px; left: 50%;
+    width: 22px; height: 2px; margin-left: -11px;
+    background: var(--gold);
+}
 .nav-icon { width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; }
 .nav-icon svg { width: 26px; height: 26px; stroke-width: 1.6; }
 .nav-label { font-size: 10px; font-weight: 600; letter-spacing: 1px; }

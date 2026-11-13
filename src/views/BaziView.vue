@@ -25,13 +25,6 @@
                     </button>
                 </div>
 
-                <!-- Dates above name -->
-                <div v-if="activeProfile" class="hero-dates-top">
-                    <span class="hero-birth">{{ solarDateStr }}</span>
-                    <span class="hero-sep">·</span>
-                    <span class="hero-lunar">{{ lunarDateStr }}</span>
-                </div>
-
                 <div class="profile-strip-wrap" :class="{ open: isProfileMenuOpen }">
                     <button class="hero-name-trigger" @click="toggleProfileMenu">
                         <span class="hero-display-name">{{ activeProfileName }}</span>
@@ -40,6 +33,12 @@
                           <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </button>
+                    <!-- 生辰一行放在昵称下面 -->
+                    <div v-if="activeProfile" class="hero-dates-top">
+                        <span class="hero-birth">{{ solarDateStr }}</span>
+                        <span class="hero-sep">·</span>
+                        <span class="hero-lunar">{{ lunarDateStr }}</span>
+                    </div>
                     <div v-if="activeProfile" class="hero-meta">
                         <div class="hero-badges">
                             <span
@@ -1057,8 +1056,13 @@
                                  :class="'bg-' + getWuxingClass(wx)"
                                  :style="{ width: ratio + '%' }"
                                  :title="wx + ' ' + Math.round(ratio) + '%'">
-                                <span v-if="ratio > 10" class="wuxing-bar-label">{{ wx }} {{ Math.round(ratio) }}%</span>
                             </div>
+                        </div>
+                        <!-- 图例放在条外：五行全部列出，占比小的也看得到 -->
+                        <div class="wuxing-legend">
+                            <span v-for="(ratio, wx) in activeProfile.bazi_detail.wuxing_ratio" :key="'lg-' + wx" class="wuxing-legend-item">
+                                <i :class="'bg-' + getWuxingClass(wx)"></i><b :class="'wx-' + ({ 金: 'jin', 木: 'mu', 水: 'shui', 火: 'huo', 土: 'tu' }[wx] || 'none')">{{ wx }}</b>{{ Math.round(ratio) }}%
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -2972,12 +2976,12 @@ const heroStickyStyle = computed(() => {
         '--hero-dates-height': `${22 * (1 - p)}px`,
         '--hero-dates-opacity': Math.max(0, 1 - (p * 1.15)),
         '--hero-dates-offset': `${-6 * p}px`,
-        '--hero-name-size': `${42 - (22 * p)}px`,
-        '--hero-meta-margin': `${18 - (18 * p)}px`,
+        '--hero-name-size': `${28 - (8 * p)}px`,
+        '--hero-meta-margin': `${12 - (12 * p)}px`,
         '--hero-meta-height': `${34 * (1 - p)}px`,
         '--hero-meta-opacity': Math.max(0, 1 - (p * 1.2)),
         '--hero-meta-offset': `${-5 * p}px`,
-        '--hero-strip-gap': `${18 - (10 * p)}px`,
+        '--hero-strip-gap': `${14 - (6 * p)}px`,
         '--hero-side-opacity': Math.max(0, 1 - (p * 1.35)),
         '--hero-badge-width': `${48 * (1 - p)}px`,
         '--hero-caret-width': `${9 * (1 - p)}px`,
@@ -4708,7 +4712,6 @@ const getShenColor = (shen) => {
 .bz-char { font-size: var(--bz-char-size); font-weight: 600; font-family: var(--font-ganzhi); margin: 2px 0; }
 .bz-sub { font-size: var(--bz-meta-size); color: var(--ink-muted); line-height: 1.4; }
 .bz-shensha { font-size: 11px; color: #7c5cbf; line-height: 1.4; }
-.wx-jin { color: #E8CC80; } .wx-mu { color: #81C784; } .wx-shui { color: #64B5F6; } .wx-huo { color: #E57373; } .wx-tu { color: #DCE775; } .wx-none { color: #666; }
 
 .timeline-section { margin-top: 16px; border-top: 1px dashed var(--line); padding-top: 16px; }
 .timeline-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
@@ -5151,7 +5154,7 @@ const getShenColor = (shen) => {
     letter-spacing: 1px;
     text-transform: none;
     font-weight: 700;
-    color: var(--gold);
+    color: var(--ink);
 }
 .rpt-h2 {
     font-family: var(--font-display);
@@ -5248,7 +5251,7 @@ const getShenColor = (shen) => {
     letter-spacing: 0.8px;
     text-transform: none;
     font-weight: 700;
-    color: var(--gold);
+    color: var(--ink);
 }
 .rpt-sub-title {
     font-size: 14px;
@@ -5379,8 +5382,9 @@ const getShenColor = (shen) => {
 
 .wuxing-bar-container {
     display: flex;
-    height: 28px;
-    border-radius: 6px;
+    gap: 2px;
+    height: 10px;
+    border-radius: 3px;
     overflow: hidden;
     background: var(--paper-soft);
     box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
@@ -5400,11 +5404,17 @@ const getShenColor = (shen) => {
     overflow: hidden;
 }
 
-.bg-gold { background: linear-gradient(135deg, #FFDF73, #D4AF37); }
-.bg-wood { background: linear-gradient(135deg, #81C784, #388E3C); }
-.bg-water { background: linear-gradient(135deg, #4FC3F7, #0288D1); }
-.bg-fire { background: linear-gradient(135deg, #E57373, #D32F2F); }
-.bg-earth { background: linear-gradient(135deg, #DCE775, #AFB42B); }
+.wuxing-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 10px; font-size: 12.5px; color: var(--ink-muted); }
+.wuxing-legend-item { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.wuxing-legend-item i { width: 8px; height: 8px; border-radius: 2px; }
+.wuxing-legend-item b { font-weight: 700; }
+
+/* 五行色走全站 token，深浅主题自动切换 */
+.bg-gold { background: var(--wx-jin); }
+.bg-wood { background: var(--wx-mu); }
+.bg-water { background: var(--wx-shui); }
+.bg-fire { background: var(--wx-huo); }
+.bg-earth { background: var(--wx-tu); }
 
 .scoring-list {
     display: flex;
@@ -6883,7 +6893,7 @@ const getShenColor = (shen) => {
     display: flex;
     align-items: center;
     gap: 5px;
-    margin-bottom: var(--hero-dates-margin, 6px);
+    margin-top: var(--hero-dates-margin, 6px);
     padding-right: 50px; /* clear 1 button */
     max-height: var(--hero-dates-height, 22px);
     opacity: var(--hero-dates-opacity, 1);
@@ -6893,13 +6903,13 @@ const getShenColor = (shen) => {
     transition: opacity .12s linear, max-height .12s linear, margin-bottom .12s linear, transform .12s linear;
 }
 .hero-birth, .hero-lunar {
-    font-size: 11px;
+    font-size: 12.5px;
     color: var(--ink-muted);
     font-family: var(--font-body);
     letter-spacing: 0.3px;
     white-space: nowrap;
 }
-.hero-sep { font-size: 11px; color: var(--ink-dim); }
+.hero-sep { font-size: 12.5px; color: var(--ink-dim); }
 
 /* Name trigger — wraps name + caret tightly */
 .hero-name-trigger {
@@ -7015,8 +7025,8 @@ const getShenColor = (shen) => {
 /* Override magazine border-radius:0 for hero pills */
 .hero-pill {
     border-radius: 999px !important;
-    padding: 4px 14px !important;
-    font-size: 12px !important;
+    padding: 2px 12px !important;
+    font-size: 12.5px !important;
     letter-spacing: 0.5px;
 }
 
@@ -7079,12 +7089,13 @@ const getShenColor = (shen) => {
 .bazi-tab-bar::-webkit-scrollbar { display: none; }
 .bazi-tab {
     flex: none;
-    min-height: 40px;
-    padding: 8px 20px;
+    min-height: 42px;
+    padding: 8px 0;
+    margin-right: 22px;
     border: none;
     background: transparent;
     color: var(--ink-dim);
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 700;
     cursor: pointer;
     font-family: var(--font-body);
@@ -7107,7 +7118,7 @@ const getShenColor = (shen) => {
     bottom: 0;
     left: 0;
     height: 2px;
-    background: var(--ink);
+    background: var(--gold);
     transition: transform .28s cubic-bezier(.4,0,.2,1), width .28s cubic-bezier(.4,0,.2,1), opacity .15s;
     pointer-events: none;
     will-change: transform, width;
