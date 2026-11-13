@@ -1,229 +1,297 @@
 <script setup>
 /**
- * 问事能量球 —— canvas 3D 粒子星盘
- * - Fibonacci 球面分布 + 透视投影 + 加色辉光（深底）/ 正常混合（浅底）
- * - 命理/学术层：赤道环 + 周天刻度 + 十二地支标注 + 黄道斜环 + 经纬网
- * - 中间产物反馈：父级每出一条状态调 pulse() 抖一下
+ * 问事起局动画 —— canvas 式盘（罗盘）
+ * - 外圈：周天刻度 + 十二地支，缓慢顺转
+ * - 中圈：奇门为八门转盘，八字为十天干；每出一条进度逆转一格「咔」地定位，顶部指针读当前一格
+ * - 内盘：奇门为洛书九宫，光点按 1→9 飞宫顺序走；八字为五行相生相克图，光点沿相生一圈走
+ * - 发丝线 + 宋体字，浅色纸白墨线、深色玄夜鎏金，强调色跟随 tone（吉凶 / 喜用五行）
+ * - 中间产物反馈：父级每出一条状态调 pulse()，转盘进一格并荡开一圈涟漪
  * - 定格：父级 .settling 把本 canvas 淡出，由 .wo-final 色盘 bloom 接管
  */
 import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
 
 const props = defineProps({
-  tone: { type: String, default: '' },        // wo-tone-xxx（空=默认 teal）
-  active: { type: Boolean, default: true },    // 不可见时停 RAF
-  shakeType: { type: String, default: 'tremor' },// pulse | tremor | shock | lurch
+  tone: { type: String, default: '' },          // wo-tone-xxx（空=鎏金）
+  active: { type: Boolean, default: true },      // 不可见时停 RAF
+  variant: { type: String, default: 'qimen' },   // qimen | bazi
+  shakeType: { type: String, default: '' },      // 兼容旧参数，不再使用
 })
 
-// tone → 两套 ramp（深→中→浅三段，竖向渐变用；已降饱和、亮尖端收回柔色不白爆）
-// d 深底（夜·加色辉光） / l 浅底（日·正常混合，更深以在奶白上成形）
-const TONES = {
-  // 青金双调：底深青 → 中青玉 → 顶暖金（冷暖过渡极光，顶部金色呼应页面金调）
-  '':              { d:['#1a6a62','#5cb8a6','#e8cf94'], l:['#175049','#3f9a86','#b89244'] },
-  'wo-tone-teal':  { d:['#1a6a62','#5cb8a6','#e8cf94'], l:['#175049','#3f9a86','#b89244'] },
-  'wo-tone-gold':  { d:['#7a5e20','#c9a64e','#f1e0ad'], l:['#6b521a','#9c7c30','#c2a256'] },
-  'wo-tone-warn':  { d:['#7a2a26','#cf6358','#f0cdc4'], l:['#6e2420','#a3433a','#c25e52'] },
-  'wo-tone-wood':  { d:['#1e6446','#4cbf8c','#cdeeda'], l:['#155138','#2c8a60','#5cae84'] },
-  'wo-tone-fire':  { d:['#7a2a26','#cf6358','#f0cdc4'], l:['#6e2420','#a3433a','#c25e52'] },
-  'wo-tone-earth': { d:['#7a5e20','#c9a64e','#f1e0ad'], l:['#6b521a','#9c7c30','#c2a256'] },
-  'wo-tone-metal': { d:['#7c7150','#c2b184','#ede4cd'], l:['#6a5f3e','#928460','#bcae84'] },
-  'wo-tone-water': { d:['#234e7e','#5b92cf','#cfe2f4'], l:['#1e4368','#3f6fae','#6f9cc8'] },
+// 强调色：d 深底 / l 浅底
+const GOLD = { d: '#e3c170', l: '#a8843a' }
+const RED = { d: '#e07a6c', l: '#b0463c' }
+const ACCENTS = {
+  '': GOLD,
+  'wo-tone-gold': GOLD,
+  'wo-tone-earth': GOLD,
+  'wo-tone-teal': { d: '#5cc0ae', l: '#1f7f72' },
+  'wo-tone-warn': RED,
+  'wo-tone-fire': RED,
+  'wo-tone-wood': { d: '#5cc596', l: '#2c8a60' },
+  'wo-tone-metal': { d: '#d8cba4', l: '#8a7c56' },
+  'wo-tone-water': { d: '#74a8de', l: '#3f6fae' },
 }
-const DIZHI = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥']
-const RAMP_N = 24, SPRITE = 64
+const DIZHI = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥']
+const BAMEN = ['休', '生', '伤', '杜', '景', '死', '惊', '开']
+const TIANGAN = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸']
+// 洛书九宫：行列位置上的数；飞宫顺序即 1→9
+const LUOSHU = [4, 9, 2, 3, 5, 7, 8, 1, 6]
+const LUOSHU_CN = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九']
+// 五行按相生顺序顺时针排，火在上
+const WUXING = ['火', '土', '金', '水', '木']
+const WX_VAR = { 火: '--wx-huo', 土: '--wx-tu', 金: '--wx-jin', 水: '--wx-shui', 木: '--wx-mu' }
+const SERIF = '"Noto Serif SC","Songti SC","STSong","SimSun",serif'
+const TAU = Math.PI * 2
+const TOP = -Math.PI / 2
 
 const canvasEl = ref(null)
 let ctx = null, raf = 0
-let W = 0, H = 0, DPR = 1, cx = 0, cy = 0, R = 0
+let W = 0, H = 0, DPR = 1, cx = 0, cy = 0, Ro = 0
 let dark = true
+let wxColors = {}
 const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-// ---- 粒子 ----
-let px, py, pz, pShade, pTwPhase, pJx, pJy, N = 0
-function buildParticles() {
-  N = window.innerWidth < 480 ? 1500 : 2200
-  px = new Float32Array(N); py = new Float32Array(N); pz = new Float32Array(N)
-  pShade = new Float32Array(N); pTwPhase = new Float32Array(N)
-  pJx = new Float32Array(N); pJy = new Float32Array(N)
-  const GA = Math.PI * (3 - Math.sqrt(5))
-  for (let i = 0; i < N; i++) {
-    const y = 1 - (i / (N - 1)) * 2
-    const r = Math.sqrt(Math.max(0, 1 - y * y))
-    const t = GA * i
-    const rr = 1 - Math.random() * 0.1
-    px[i] = Math.cos(t) * r * rr; py[i] = y * rr; pz[i] = Math.sin(t) * r * rr
-    pShade[i] = Math.pow(Math.random(), 1.4)
-    pTwPhase[i] = Math.random() * Math.PI * 2
-    const ja = Math.random() * Math.PI * 2
-    pJx[i] = Math.cos(ja); pJy[i] = Math.sin(ja)
-  }
-}
-
-// ---- 辉光贴图 ----
-let sprites = []
 const hexToRgb = h => { const n = parseInt(h.slice(1), 16); return [n >> 16 & 255, n >> 8 & 255, n & 255] }
-const lerp = (a, b, t) => a + (b - a) * t
-function rampColor(t) {
-  const [c0, c1, c2] = (TONES[props.tone] || TONES[''])[dark ? 'd' : 'l'].map(hexToRgb)
-  if (t < .5) { const k = t / .5; return [lerp(c0[0], c1[0], k), lerp(c0[1], c1[1], k), lerp(c0[2], c1[2], k)] }
-  const k = (t - .5) / .5; return [lerp(c1[0], c2[0], k), lerp(c1[1], c2[1], k), lerp(c1[2], c2[2], k)]
+const clamp01 = v => (v < 0 ? 0 : v > 1 ? 1 : v)
+const easeOut = p => 1 - Math.pow(1 - clamp01(p), 3)
+const smooth = p => { p = clamp01(p); return p * p * (3 - 2 * p) }
+
+// ---- 颜色 ----
+let accent = hexToRgb(GOLD.d), accentTo = accent
+const lineRGB = () => (dark ? '232,207,148' : '34,27,14')
+const textRGB = () => (dark ? '240,229,200' : '24,19,10')
+const rgba = (rgb, a) => `rgba(${rgb},${a < 0 ? 0 : a > 1 ? 1 : a})`
+const acc = a => rgba(`${accent[0] | 0},${accent[1] | 0},${accent[2] | 0}`, a)
+function syncAccent(jump) {
+  accentTo = hexToRgb((ACCENTS[props.tone] || GOLD)[dark ? 'd' : 'l'])
+  if (jump) accent = accentTo.slice()
 }
-function buildSprites() {
-  sprites = []
-  for (let i = 0; i < RAMP_N; i++) {
-    const [r, g, b] = rampColor(i / (RAMP_N - 1))
-    const c = document.createElement('canvas'); c.width = c.height = SPRITE
-    const g2 = c.getContext('2d')
-    const grd = g2.createRadialGradient(SPRITE/2, SPRITE/2, 0, SPRITE/2, SPRITE/2, SPRITE/2)
-    grd.addColorStop(0.00, `rgba(${r},${g},${b},1)`)
-    grd.addColorStop(0.16, `rgba(${r},${g},${b},.85)`)
-    grd.addColorStop(0.42, `rgba(${r},${g},${b},.30)`)
-    grd.addColorStop(0.75, `rgba(${r},${g},${b},.06)`)
-    grd.addColorStop(1.00, `rgba(${r},${g},${b},0)`)
-    g2.fillStyle = grd; g2.fillRect(0, 0, SPRITE, SPRITE)
-    sprites.push(c)
-  }
+function syncTheme() {
+  dark = document.documentElement.getAttribute('data-theme') === 'dark'
+  const cs = getComputedStyle(document.documentElement)
+  wxColors = {}
+  for (const k of WUXING) wxColors[k] = cs.getPropertyValue(WX_VAR[k]).trim() || ''
+  syncAccent(true)
 }
 
-// ---- 投影 + 星盘 ----
-let _cosY = 1, _sinY = 0, _cosX = 1, _sinX = 0, _D = 1, _Rr = 1
-function project(x, y, z) {
-  x *= _Rr; y *= _Rr; z *= _Rr
-  const x1 = x * _cosY - z * _sinY, z1 = x * _sinY + z * _cosY
-  const y1 = y * _cosX - z1 * _sinX, z2 = y * _sinX + z1 * _cosX
-  const persp = _D / (_D - z2)
-  return { sx: cx + x1 * persp, sy: cy + y1 * persp, depth: (z2 + _Rr) / (2 * _Rr) }
-}
-const ringPt = (theta, tilt, rr) => {
-  const x = Math.cos(theta) * rr, z0 = Math.sin(theta) * rr
-  return [x, -z0 * Math.sin(tilt), z0 * Math.cos(tilt)]
-}
-const ringRGB = () => (dark ? '205,255,252' : '44,84,80')
-function drawRing(tilt, rr, alphaMul) {
-  const seg = 120, rgb = ringRGB(); ctx.lineWidth = 1.1
-  for (let i = 0; i < seg; i++) {
-    const p0 = project(...ringPt(i / seg * Math.PI * 2, tilt, rr))
-    const p1 = project(...ringPt((i + 1) / seg * Math.PI * 2, tilt, rr))
-    const d = (p0.depth + p1.depth) / 2
-    ctx.strokeStyle = `rgba(${rgb},${Math.max(0, (0.05 + 0.32 * d)) * alphaMul})`
-    ctx.beginPath(); ctx.moveTo(p0.sx, p0.sy); ctx.lineTo(p1.sx, p1.sy); ctx.stroke()
-  }
-}
-function drawDial(tilt, rr) {
-  const rgb = ringRGB()
-  ctx.lineWidth = 1
-  for (let i = 0; i < 60; i++) {
-    const a = i / 60 * Math.PI * 2
-    const p0 = project(...ringPt(a, tilt, rr)), p1 = project(...ringPt(a, tilt, rr * 1.03))
-    const d = (p0.depth + p1.depth) / 2
-    ctx.strokeStyle = `rgba(${rgb},${Math.max(0, (0.03 + 0.18 * d))})`
-    ctx.beginPath(); ctx.moveTo(p0.sx, p0.sy); ctx.lineTo(p1.sx, p1.sy); ctx.stroke()
-  }
-  ctx.font = `500 ${Math.round(R * 0.085)}px "Songti SC","STSong","SimSun",serif`
-  ctx.textAlign = 'center'; ctx.textBaseline = 'middle'
-  for (let i = 0; i < 12; i++) {
-    const a = -Math.PI / 2 + i / 12 * Math.PI * 2
-    const p0 = project(...ringPt(a, tilt, rr)), p1 = project(...ringPt(a, tilt, rr * 1.07))
-    const d = (p0.depth + p1.depth) / 2
-    ctx.lineWidth = 1.4
-    ctx.strokeStyle = `rgba(${rgb},${Math.max(0, (0.08 + 0.4 * d))})`
-    ctx.beginPath(); ctx.moveTo(p0.sx, p0.sy); ctx.lineTo(p1.sx, p1.sy); ctx.stroke()
-    const lp = project(...ringPt(a, tilt, rr * 1.18))
-    const la = Math.max(0, Math.min(0.9, 0.04 + 0.86 * lp.depth))
-    if (la < 0.05) continue
-    ctx.fillStyle = `rgba(${rgb},${la})`
-    ctx.fillText(DIZHI[i], lp.sx, lp.sy)
-  }
-}
-function drawGraticule() {
-  const rgb = ringRGB(); ctx.lineWidth = 1
-  const poly = pts => {
-    for (let i = 0; i < pts.length - 1; i++) {
-      const d = (pts[i].depth + pts[i + 1].depth) / 2
-      ctx.strokeStyle = `rgba(${rgb},${Math.max(0, (0.02 + 0.1 * d))})`
-      ctx.beginPath(); ctx.moveTo(pts[i].sx, pts[i].sy); ctx.lineTo(pts[i + 1].sx, pts[i + 1].sy); ctx.stroke()
-    }
-  }
-  for (const phi of [-0.62, -0.32, 0, 0.32, 0.62]) {
-    const y = Math.sin(phi), rr = Math.cos(phi), pts = []
-    for (let i = 0; i <= 64; i++) { const a = i / 64 * Math.PI * 2; pts.push(project(Math.cos(a) * rr, y, Math.sin(a) * rr)) }
-    poly(pts)
-  }
-  for (let m = 0; m < 6; m++) {
-    const lon = m / 6 * Math.PI * 2, pts = []
-    for (let i = 0; i <= 40; i++) { const b = -Math.PI / 2 + i / 40 * Math.PI, c = Math.cos(b); pts.push(project(Math.cos(lon) * c, Math.sin(b), Math.sin(lon) * c)) }
-    poly(pts)
-  }
-}
+// ---- 状态 ----
+let t = 0, t0 = 0
+let outerAng = 0
+let midAng = 0, midTarget = 0, sinceStep = 0
+let ripples = []
+let flash = 0
+const midCount = () => (props.variant === 'bazi' ? 10 : 8)
 
-// ---- 抖动状态机 ----
-let shake = null, autoKick = 0
-const SHAKE_DUR = { pulse: 0.7, tremor: 0.62, shock: 0.85, lurch: 0.9 }
-function pulse(type) {
-  type = type || props.shakeType
-  shake = { type, t: 0, dur: SHAKE_DUR[type] || 0.7 }
-  if (type === 'lurch') autoKick += 0.45
+function stepDial() {
+  midTarget -= TAU / midCount()
+  sinceStep = 0
+}
+function pulse() {
+  stepDial()
+  ripples.push(0)
+  if (ripples.length > 3) ripples.shift()
+  flash = 1
 }
 defineExpose({ pulse })
 
+// ---- 画件 ----
+function sweepCircle(r, alpha, p, width) {
+  if (p <= 0) return
+  ctx.lineWidth = width || 1
+  ctx.strokeStyle = rgba(lineRGB(), alpha)
+  ctx.beginPath(); ctx.arc(cx, cy, r, TOP, TOP + TAU * p); ctx.stroke()
+}
+// 沿环排字：字头朝外
+function ringText(chars, r, base, size, weight, colorAt) {
+  ctx.font = `${weight} ${Math.round(size)}px ${SERIF}`
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle'
+  const n = chars.length
+  for (let i = 0; i < n; i++) {
+    const a = base + i / n * TAU
+    ctx.save()
+    ctx.translate(cx + Math.cos(a) * r, cy + Math.sin(a) * r)
+    ctx.rotate(a + Math.PI / 2)
+    ctx.fillStyle = colorAt(i, a)
+    ctx.fillText(chars[i], 0, 0)
+    ctx.restore()
+  }
+}
+// 角度到顶部指针的距离（0~π）
+const distTop = a => { let d = (a - TOP) % TAU; if (d < 0) d += TAU; return d > Math.PI ? TAU - d : d }
+
+function drawOuter(intro, textA) {
+  const r1 = Ro, r2 = Ro * 0.76
+  sweepCircle(r1, 0.42, intro, 1)
+  sweepCircle(r2, 0.3, easeOut((t - 0.12) / 0.9), 1)
+  // 周天六十刻度
+  ctx.lineWidth = 1
+  for (let i = 0; i < 60; i++) {
+    const a = outerAng + i / 60 * TAU
+    const major = i % 5 === 0
+    const len = major ? Ro * 0.06 : Ro * 0.032
+    const c = Math.cos(a), s = Math.sin(a)
+    ctx.strokeStyle = rgba(lineRGB(), (major ? 0.5 : 0.24) * textA)
+    ctx.beginPath(); ctx.moveTo(cx + c * r1, cy + s * r1); ctx.lineTo(cx + c * (r1 - len), cy + s * (r1 - len)); ctx.stroke()
+  }
+  // 十二地支：字在两条大刻度之间
+  ringText(DIZHI, Ro * 0.865, outerAng + TAU / 24, Ro * 0.092, 500, () => rgba(textRGB(), 0.62 * textA))
+}
+
+function drawMid(textA) {
+  const n = midCount(), seg = TAU / n
+  const r2 = Ro * 0.76, r3 = Ro * 0.53
+  // 顶部读数窗：固定不转
+  ctx.fillStyle = acc((dark ? 0.16 : 0.13) * textA + flash * 0.1)
+  ctx.beginPath(); ctx.arc(cx, cy, r2, TOP - seg / 2, TOP + seg / 2); ctx.arc(cx, cy, r3, TOP + seg / 2, TOP - seg / 2, true); ctx.closePath(); ctx.fill()
+  // 分格线
+  ctx.lineWidth = 1
+  for (let i = 0; i < n; i++) {
+    const a = midAng + (i + 0.5) * seg + TOP
+    const c = Math.cos(a), s = Math.sin(a)
+    ctx.strokeStyle = rgba(lineRGB(), 0.26 * textA)
+    ctx.beginPath(); ctx.moveTo(cx + c * r3, cy + s * r3); ctx.lineTo(cx + c * r2, cy + s * r2); ctx.stroke()
+  }
+  const chars = props.variant === 'bazi' ? TIANGAN : BAMEN
+  ringText(chars, (r2 + r3) / 2, midAng + TOP, Ro * (n === 10 ? 0.105 : 0.118), 700, (i, a) => {
+    const k = 1 - smooth(distTop(a) / (seg * 0.7))   // 靠近指针的一格转强调色
+    return k > 0.02 ? acc((0.55 + 0.45 * k) * textA) : rgba(textRGB(), 0.78 * textA)
+  })
+  // 指针：顶上的小三角
+  const py = cy - Ro - Ro * 0.045, pw = Ro * 0.04
+  ctx.fillStyle = acc(0.95 * textA)
+  ctx.beginPath(); ctx.moveTo(cx, py + pw * 1.5); ctx.lineTo(cx - pw, py); ctx.lineTo(cx + pw, py); ctx.closePath(); ctx.fill()
+}
+
+// 光点走格：第 k 个节点（共 n 个）在 phase 时刻的亮度，刚到最亮、随后拖尾衰减
+function nodeGlow(k, n, phase) {
+  let age = (phase - k) % n; if (age < 0) age += n
+  return smooth(age / 0.3) * Math.exp(-age * 0.85)
+}
+
+function drawJiugong(textA) {
+  const r3 = Ro * 0.53
+  sweepCircle(r3, 0.36, easeOut((t - 0.24) / 0.9), 1)
+  const side = r3 * 1.26, cell = side / 3, x0 = cx - side / 2, y0 = cy - side / 2
+  const phase = t / (reduce ? 1.2 : 0.46)
+  const center = n => { const i = LUOSHU.indexOf(n); return [x0 + (i % 3 + 0.5) * cell, y0 + ((i / 3 | 0) + 0.5) * cell] }
+  // 格内亮度
+  for (let n = 1; n <= 9; n++) {
+    const g = nodeGlow(n - 1, 9, phase)
+    if (g < 0.02) continue
+    const i = LUOSHU.indexOf(n)
+    ctx.fillStyle = acc((dark ? 0.3 : 0.24) * g * textA)
+    ctx.fillRect(x0 + (i % 3) * cell + 0.5, y0 + (i / 3 | 0) * cell + 0.5, cell - 1, cell - 1)
+  }
+  // 九宫格线
+  ctx.lineWidth = 1
+  ctx.strokeStyle = rgba(lineRGB(), 0.34 * textA)
+  ctx.strokeRect(x0, y0, side, side)
+  ctx.beginPath()
+  for (let k = 1; k < 3; k++) {
+    ctx.moveTo(x0 + k * cell, y0); ctx.lineTo(x0 + k * cell, y0 + side)
+    ctx.moveTo(x0, y0 + k * cell); ctx.lineTo(x0 + side, y0 + k * cell)
+  }
+  ctx.stroke()
+  // 飞宫轨迹：最近走过的几段
+  const head = Math.floor(phase), frac = phase - head
+  ctx.lineWidth = 1.2; ctx.lineCap = 'round'
+  for (let back = 0; back < 2; back++) {
+    const from = ((head - back) % 9 + 9) % 9 + 1, to = from % 9 + 1
+    if (to === 1) continue                      // 九回一不连线，另起一轮
+    const [ax, ay] = center(from), [bx, by] = center(to)
+    const p = back === 0 ? easeOut(frac / 0.8) : 1
+    ctx.strokeStyle = acc((back === 0 ? 0.8 : 0.8 * (1 - smooth(frac / 0.9))) * textA)
+    ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(ax + (bx - ax) * p, ay + (by - ay) * p); ctx.stroke()
+  }
+  // 洛书数
+  ctx.font = `600 ${Math.round(cell * 0.46)}px ${SERIF}`
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle'
+  for (let n = 1; n <= 9; n++) {
+    const [x, y] = center(n), g = nodeGlow(n - 1, 9, phase)
+    ctx.fillStyle = g > 0.25 ? acc((0.6 + 0.4 * g) * textA) : rgba(textRGB(), (0.4 + 0.5 * g) * textA)
+    ctx.fillText(LUOSHU_CN[n], x, y + 0.5)
+  }
+}
+
+function drawWuxing(textA) {
+  const r3 = Ro * 0.53, rn = r3 * 0.62
+  sweepCircle(r3, 0.36, easeOut((t - 0.24) / 0.9), 1)
+  const phase = t / (reduce ? 1.6 : 0.62)
+  const pt = i => { const a = TOP + i / 5 * TAU; return [cx + Math.cos(a) * rn, cy + Math.sin(a) * rn] }
+  // 相克：五角星
+  ctx.lineWidth = 1
+  ctx.strokeStyle = rgba(lineRGB(), 0.2 * textA)
+  ctx.beginPath()
+  for (let i = 0; i < 5; i++) { const [ax, ay] = pt(i), [bx, by] = pt((i + 2) % 5); ctx.moveTo(ax, ay); ctx.lineTo(bx, by) }
+  ctx.stroke()
+  // 相生：外圆
+  ctx.strokeStyle = rgba(lineRGB(), 0.3 * textA)
+  ctx.beginPath(); ctx.arc(cx, cy, rn, 0, TAU); ctx.stroke()
+  // 相生光弧：从刚走过的一行到下一行
+  const head = Math.floor(phase), frac = phase - head
+  const a0 = TOP + (head % 5) / 5 * TAU
+  ctx.lineWidth = 1.6; ctx.lineCap = 'round'
+  ctx.strokeStyle = acc(0.8 * textA)
+  ctx.beginPath(); ctx.arc(cx, cy, rn, a0, a0 + TAU / 5 * easeOut(frac / 0.8)); ctx.stroke()
+  // 五行节点
+  const nr = r3 * 0.2
+  ctx.font = `700 ${Math.round(nr * 1.08)}px ${SERIF}`
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle'
+  for (let i = 0; i < 5; i++) {
+    const [x, y] = pt(i), g = nodeGlow(i, 5, phase)
+    ctx.fillStyle = dark ? 'rgba(10,10,18,.92)' : 'rgba(247,244,238,.94)'
+    ctx.beginPath(); ctx.arc(x, y, nr, 0, TAU); ctx.fill()
+    if (g > 0.02) { ctx.fillStyle = acc((dark ? 0.3 : 0.22) * g * textA); ctx.fill() }
+    ctx.lineWidth = 1
+    ctx.strokeStyle = g > 0.2 ? acc((0.5 + 0.5 * g) * textA) : rgba(lineRGB(), 0.36 * textA)
+    ctx.stroke()
+    ctx.globalAlpha = (0.72 + 0.28 * g) * textA
+    ctx.fillStyle = wxColors[WUXING[i]] || rgba(textRGB(), 1)
+    ctx.fillText(WUXING[i], x, y + 0.5)
+    ctx.globalAlpha = 1
+  }
+}
+
 // ---- 主循环 ----
-let angX = 0.42, autoY = 0, t0 = 0
 function frame(now) {
   if (!t0) t0 = now
   const dt = Math.min(0.05, (now - t0) / 1000); t0 = now
+  t += dt
 
-  let pScale = 1, flash = 0, tremorA = 0, shockD = -1
-  if (shake) {
-    shake.t += dt / shake.dur
-    if (shake.t >= 1) shake = null
-    else {
-      const p = shake.t
-      if (shake.type === 'pulse') { const e = Math.sin(p * Math.PI); pScale = 1 + 0.11 * e; flash = 0.55 * e }
-      else if (shake.type === 'tremor') { tremorA = R * 0.05 * Math.exp(-4.2 * p); flash = 0.12 * Math.exp(-4 * p) }
-      else if (shake.type === 'shock') { shockD = p; flash = 0.08 }
-      else if (shake.type === 'lurch') { pScale = 1 + 0.03 * Math.sin(p * Math.PI) }
-    }
-  }
+  // 强调色渐变
+  const k = 1 - Math.exp(-dt * 5)
+  for (let i = 0; i < 3; i++) accent[i] += (accentTo[i] - accent[i]) * k
 
-  const spin = reduce ? 0.12 : 0.32
-  autoY += dt * spin * 1.0 + autoKick; autoKick *= 0.86
-  const tilt = angX + Math.sin(now * 0.0004) * 0.05
-  const cosY = Math.cos(autoY), sinY = Math.sin(autoY)
-  const cosX = Math.cos(tilt), sinX = Math.sin(tilt)
-  const D = R * 3.2, Rr = R * pScale
-  const glowBase = R * 0.08
-  _cosY = cosY; _sinY = sinY; _cosX = cosX; _sinX = sinX; _D = D; _Rr = Rr
+  outerAng += dt * (reduce ? 0.02 : 0.055)
+  sinceStep += dt
+  if (!reduce && sinceStep > 2.6) stepDial()        // 没有新进度时也每隔一会儿自己走一格
+  midAng += (midTarget - midAng) * (1 - Math.exp(-dt * 9))
+  flash *= Math.exp(-dt * 3.2)
+
+  const intro = easeOut(t / 0.9)
+  const textA = smooth((t - 0.25) / 0.7)
 
   ctx.clearRect(0, 0, W, H)
-  const light = !dark
-  ctx.globalCompositeOperation = light ? 'source-over' : 'lighter'
 
-  for (let i = 0; i < N; i++) {
-    const x = px[i] * Rr, y = py[i] * Rr, z = pz[i] * Rr
-    const x1 = x * cosY - z * sinY, z1 = x * sinY + z * cosY
-    const y1 = y * cosX - z1 * sinX, z2 = y * sinX + z1 * cosX
-    const persp = D / (D - z2)
-    let sx = cx + x1 * persp, sy = cy + y1 * persp
-    const depth = (z2 + Rr) / (2 * Rr)
-    if (tremorA) { const j = tremorA * Math.sin(now * 0.05 + pTwPhase[i] * 3); sx += pJx[i] * j; sy += pJy[i] * j }
-    let boost = flash
-    if (shockD >= 0) { const dd = 1 - Math.min(1, Math.abs(depth - shockD) / 0.16); if (dd > 0) boost += dd * 0.9 }
-    const tw = 0.82 + 0.18 * Math.sin(now * 0.003 + pTwPhase[i])
-    // 颜色走竖向渐变：顶浅底深（像自上而下受光）；叠少量随机散色 + 抖动提亮
-    let gpos = 0.5 - (sy - cy) / (2.0 * R)
-    if (gpos < 0) gpos = 0; else if (gpos > 1) gpos = 1
-    let ri = (gpos * 0.82 + pShade[i] * 0.18 + boost * 0.4) * (RAMP_N - 1) | 0
-    if (ri < 0) ri = 0; else if (ri >= RAMP_N) ri = RAMP_N - 1
-    const size = glowBase * (0.45 + 0.95 * persp) * (light ? 0.82 : 1) * (1 + boost * 0.4)
-    ctx.globalAlpha = (light ? (0.28 + 0.54 * depth) : (0.12 + 0.66 * depth)) * tw * (1 + boost * 0.5)
-    ctx.drawImage(sprites[ri], sx - size / 2, sy - size / 2, size, size)
+  // 底光
+  const glow = ctx.createRadialGradient(cx, cy, Ro * 0.2, cx, cy, Ro * 1.45)
+  glow.addColorStop(0, acc((dark ? 0.13 : 0.07) * intro + flash * 0.06))
+  glow.addColorStop(1, acc(0))
+  ctx.fillStyle = glow; ctx.fillRect(0, 0, W, H)
+
+  // 涟漪
+  ctx.lineWidth = 1.2
+  for (let i = ripples.length - 1; i >= 0; i--) {
+    ripples[i] += dt / 1.15
+    const p = ripples[i]
+    if (p >= 1) { ripples.splice(i, 1); continue }
+    ctx.strokeStyle = acc(0.55 * (1 - p) * (1 - p))
+    ctx.beginPath(); ctx.arc(cx, cy, Ro * (0.53 + 0.66 * easeOut(p)), 0, TAU); ctx.stroke()
   }
 
-  ctx.globalAlpha = 1
-  ctx.globalCompositeOperation = 'source-over'
-  drawGraticule()
-  drawRing(0, 1.16, 1)
-  drawDial(0, 1.16)
-  drawRing(0.41, 1.16, 0.7)
+  drawOuter(intro, textA)
+  drawMid(textA)
+  if (props.variant === 'bazi') drawWuxing(textA); else drawJiugong(textA)
 
   raf = requestAnimationFrame(frame)
 }
@@ -231,33 +299,31 @@ function frame(now) {
 // ---- 尺寸 / 生命周期 ----
 function resize() {
   const el = canvasEl.value; if (!el) return
-  DPR = Math.min(window.devicePixelRatio || 1, 2)
+  DPR = Math.min(window.devicePixelRatio || 1, 3)
   W = el.clientWidth; H = el.clientHeight
   if (!W || !H) return
   el.width = W * DPR; el.height = H * DPR
   ctx.setTransform(DPR, 0, 0, DPR, 0, 0)
-  cx = W / 2; cy = H / 2
-  R = Math.min(W, H) * 0.28
+  Ro = Math.min(W, H) * 0.34
+  cx = W / 2; cy = H / 2 - Ro * 0.11         // 略上移，给底部状态文字让位
 }
-function start() { if (!raf) { t0 = 0; raf = requestAnimationFrame(frame) } }
+function reset() { t = 0; t0 = 0; outerAng = 0; midAng = midTarget = 0; sinceStep = 0; ripples = []; flash = 0; syncAccent(true) }
+function start() { if (!raf) { reset(); raf = requestAnimationFrame(frame) } }
 function stop() { if (raf) { cancelAnimationFrame(raf); raf = 0 } }
+function resume() { if (!raf) { t0 = 0; raf = requestAnimationFrame(frame) } }
 
 let ro = null, mo = null
-function syncDark() {
-  const d = document.documentElement.getAttribute('data-theme') === 'dark'
-  if (d !== dark) { dark = d; buildSprites() }
-}
-function onVis() { if (document.hidden) stop(); else if (props.active) start() }
+function onVis() { if (document.hidden) stop(); else if (props.active) resume() }
 
-watch(() => props.tone, buildSprites)
+watch(() => props.tone, () => syncAccent(false))
+watch(() => props.variant, () => { midAng = midTarget = 0 })
 watch(() => props.active, a => { a ? start() : stop() })
 
 onMounted(() => {
   ctx = canvasEl.value.getContext('2d')
-  dark = document.documentElement.getAttribute('data-theme') === 'dark'
-  buildParticles(); buildSprites(); resize()
+  syncTheme(); resize()
   ro = new ResizeObserver(resize); ro.observe(canvasEl.value)
-  mo = new MutationObserver(syncDark); mo.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
+  mo = new MutationObserver(syncTheme); mo.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
   document.addEventListener('visibilitychange', onVis)
   if (props.active) start()
 })
