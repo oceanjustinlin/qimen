@@ -1225,7 +1225,7 @@ import {
 } from '../utils/baziLocalMatrix.mjs'
 import { getShenShaArray, getShenshaInfo, sortedShensha } from '../utils/baziShensha.mjs'
 import { resolveBaziInterpretation } from '../utils/baziInterpretation.mjs'
-import { buildCalibrationPrompt, hasValidCalibration } from '../utils/buildCalibrationPrompt.mjs'
+import { hasValidCalibration } from '../utils/buildCalibrationPrompt.mjs'
 import {
     buildLiuRiList,
     findTransitSelectionByDate
@@ -3824,8 +3824,7 @@ const triggerCalibration = async ({ profileId = activeProfile.value?.id, force =
     if (!force && hasValidCalibration(activeProfile.value, lifeEvents.value)) return
     isCalibrating.value = true
     try {
-        const pd = promptDataObj.value
-        const prompt = buildCalibrationPrompt(activeProfile.value, lifeEvents.value, pd)
+        // prompt 由后端按档案与人生事件组装，前端只传档案 id
         const { data: { session } } = await supabase.auth.getSession()
         if (!session?.access_token) throw new Error('登录状态已失效，请重新登录')
 
@@ -3835,7 +3834,7 @@ const triggerCalibration = async ({ profileId = activeProfile.value?.id, force =
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${session.access_token}`,
             },
-            body: JSON.stringify({ profileId, prompt }),
+            body: JSON.stringify({ profileId }),
         })
 
         const data = await res.json()
