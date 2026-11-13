@@ -26,9 +26,9 @@
           <td class="bz-label">藏干</td>
           <td v-for="col in columns" :key="'cg-' + col.name" class="bz-sub">
             <template v-for="stem in normalizeHiddenStems(col.hidden_stems)" :key="stem.gan">
-              <span class="cg-line"><span :class="WX_MAP[stem.gan] || 'wx-none'">{{ stem.gan }}</span><span class="cg-shen">{{ stem.shi_shen }}</span></span>
+              <span class="cg-line"><span class="cg-gan" :class="WX_MAP[stem.gan] || 'wx-none'">{{ stem.gan }}{{ WX_NAME[WX_MAP[stem.gan]] || '' }}</span><span class="cg-shen">{{ stem.shi_shen }}</span></span>
             </template>
-            <span v-if="!normalizeHiddenStems(col.hidden_stems).length" style="color:#555">-</span>
+            <span v-if="!normalizeHiddenStems(col.hidden_stems).length" style="color:var(--ink-dim)">-</span>
           </td>
         </tr>
         <tr>
@@ -44,7 +44,7 @@
           <td v-for="col in columns" :key="'kong-' + col.name" class="bz-sub">
             <span v-if="col.kong && col.kong !== '-'">{{ col.kong }}</span>
             <span v-else-if="col.is_kong" style="color:var(--crimson)">空亡</span>
-            <span v-else style="color:#555">-</span>
+            <span v-else style="color:var(--ink-dim)">-</span>
           </td>
         </tr>
         <tr>
@@ -72,7 +72,7 @@
               >{{ s }}</div>
               <span v-if="shenshaCollapsed && sortedShensha(col.shensha).length > 1" class="ss-more">+{{ sortedShensha(col.shensha).length - 1 }}</span>
             </template>
-            <span v-else style="color:#555">-</span>
+            <span v-else style="color:var(--ink-dim)">-</span>
           </td>
         </tr>
       </tbody>
@@ -93,6 +93,8 @@ const WX_MAP = {
   庚: 'wx-jin', 辛: 'wx-jin', 申: 'wx-jin', 酉: 'wx-jin',
   壬: 'wx-shui', 癸: 'wx-shui', 亥: 'wx-shui', 子: 'wx-shui'
 }
+// 藏干按传统排盘写法带五行：庚金 / 壬水 / 戊土
+const WX_NAME = { 'wx-mu': '木', 'wx-huo': '火', 'wx-tu': '土', 'wx-jin': '金', 'wx-shui': '水' }
 
 defineProps({
   columns: { type: Array, default: () => [] },
@@ -140,14 +142,8 @@ function normalizeHiddenStems(stems) {
 .ss-吉 { color: #2e7d49; }
 .ss-中性 { color: #7c5cbf; }
 .ss-凶 { color: #c0392b; }
-/* five-element colours adapted for paper background */
-.wx-jin { color: #9a7a1a; }
-.wx-mu { color: #2e7d32; }
-.wx-shui { color: #1565c0; }
-.wx-huo { color: #c62828; }
-.wx-tu { color: #7b5e00; }
-.wx-none { color: var(--ink-muted, #55595d); }
-.cg-line { display: block; line-height: 1.55; }
+.cg-line { display: block; line-height: 1.55; white-space: nowrap; }
+.cg-gan { font-weight: 600; }
 .cg-shen { color: var(--ink-muted, #55595d); font-size: 11px; margin-left: 2px; }
 .ss-toggle { display: inline-flex; align-items: center; justify-content: center; background: none; border: none; padding: 2px; margin: 2px 0 1px; cursor: pointer; color: var(--ink-muted, #55595d); vertical-align: middle; border-radius: 4px; transition: background .15s; }
 .ss-toggle:hover { background: rgba(0,0,0,.06); color: var(--ink, #0b0b0b); }

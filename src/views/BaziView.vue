@@ -4708,7 +4708,6 @@ const getShenColor = (shen) => {
 .bz-char { font-size: var(--bz-char-size); font-weight: 600; font-family: var(--font-ganzhi); margin: 2px 0; }
 .bz-sub { font-size: var(--bz-meta-size); color: var(--ink-muted); line-height: 1.4; }
 .bz-shensha { font-size: 11px; color: #7c5cbf; line-height: 1.4; }
-.wx-jin { color: #E8CC80; } .wx-mu { color: #81C784; } .wx-shui { color: #64B5F6; } .wx-huo { color: #E57373; } .wx-tu { color: #DCE775; } .wx-none { color: #666; }
 
 .timeline-section { margin-top: 16px; border-top: 1px dashed var(--line); padding-top: 16px; }
 .timeline-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
