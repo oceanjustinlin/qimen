@@ -41,7 +41,10 @@
 
 /* Date Scroll */
 .date-scroll-container { display:flex; overflow-x:auto; touch-action:pan-x; gap:12px; padding-bottom:10px; margin-bottom:16px; }
-.day-scroll-container { justify-content:center; }
+.day-scroll-container { justify-content:flex-start; }
+/* 放不下时 center 会把「今日」挤出左侧且滑不回来；用 auto 外边距居中，溢出时自然从左排 */
+.day-scroll-container > :first-child { margin-left:auto; }
+.day-scroll-container > :last-child { margin-right:auto; }
 .month-scroll-container { padding-left:2px; padding-right:2px; scroll-snap-type:x proximity; }
 .week-scroll-container { padding-left:2px; padding-right:2px; scroll-snap-type:x proximity; }
 .date-scroll-container::-webkit-scrollbar { display:none; }
@@ -266,7 +269,6 @@
   .profile-item-date { font-size:11px; }
   .profile-item-meta { font-size:11px; }
   .date-scroll-container { gap:8px; }
-  .day-scroll-container { justify-content:center; }
   .date-item { padding:9px 12px; }
   .month-item { min-width:58px; }
   .week-item { width:172px; min-height:58px; }

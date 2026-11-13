@@ -213,7 +213,7 @@
                       <small>本次命主</small>
                       <span class="profile-switch-line">
                         <span class="profile-switch-name">{{ activeProfileName }}</span>
-                        <span v-if="activeBaziProfile" class="profile-switch-meta">{{ [profileMetaText(activeBaziProfile), formatSolarDate(activeBaziProfile.birth_date)].filter(Boolean).join(' · ') }}</span>
+                        <span v-if="activeBaziProfile" class="profile-switch-meta">{{ [profileMetaText(activeBaziProfile), formatSolarDate(activeBaziProfile.birth_date).split(' ')[0]].filter(Boolean).join(' · ') }}</span>
                       </span>
                     </span>
                     <span class="profile-switch-action">切换<span class="profile-switch-symbol" aria-hidden="true">⇄</span></span>
@@ -299,7 +299,7 @@
                 </div>
                 <button v-for="item in recentRecords" :key="'recent-' + item.id" type="button" class="recent-item" @click="loadRecord(item)">
                   <span class="recent-q">{{ item.question }}</span>
-                  <span class="recent-meta">{{ item.dateStr }} · {{ item.catLabel }}</span>
+                  <span class="recent-meta">{{ formatRecentDate(item.created_at) }} · {{ item.catLabel }}</span>
                   <span v-if="!isBaziRecord(item)" class="recent-score" :class="'verdict-' + getVerdictInfo(item.score).cls">{{ getVerdictInfo(item.score).label }} {{ item.score }}</span>
                 </button>
               </section>
@@ -2269,6 +2269,14 @@ const formatSolarDate = (value) => {
   return `${p[0]}.${p[1].padStart(2, '0')}.${p[2].padStart(2, '0')}${time}`
 }
 
+const formatRecentDate = (value) => {
+  const d = new Date(value)
+  if (Number.isNaN(d.getTime())) return ''
+  const now = new Date()
+  const md = `${d.getMonth() + 1}月${d.getDate()}日`
+  return d.getFullYear() === now.getFullYear() ? md : `${d.getFullYear()}年${md}`
+}
+
 const profileMetaText = (profile) => {
   const parts = [profile.gender === 'M' ? '乾造' : '坤造']
   if (profile.birth_location) parts.push(profile.birth_location)
@@ -3193,8 +3201,9 @@ const saveRecordToDatabase = async (question, data) => {
   } : null
   if (savedRecord && historyLoaded.value && (activeCategory.value === 'all' || activeCategory.value === savedRecord.category)) {
     historyRecords.value = [savedRecord, ...historyRecords.value]
-    recentRecords.value = [savedRecord, ...recentRecords.value.filter(r => r.id !== savedRecord.id)].slice(0, 3)
   }
+  // 「最近问过」与历史抽屉是否加载过无关，新记录总是放到最前
+  if (savedRecord) recentRecords.value = [savedRecord, ...recentRecords.value.filter(r => r.id !== savedRecord.id)].slice(0, 3)
   return savedRecord
 }
 
@@ -4104,8 +4113,13 @@ const buildCardHTML = (data, opts = {}) => {
   const primaryStrategies = strategyItems.slice(0, 3)
   const domainView = data.domain_view
   const luckyTips = advice.lucky_tips || {}
+  // 甲不上盘，遁于本旬六仪之下：日/时干为甲时按其柱（即旬首）找所遁之仪
+  const JIA_YI = { 甲子: '戊', 甲戌: '己', 甲申: '庚', 甲午: '辛', 甲辰: '壬', 甲寅: '癸' }
+  const panStem = (pillar) => { const g = String(pillar || '').slice(0, 2); return g.charAt(0) === '甲' ? (JIA_YI[g] || '') : g.charAt(0) }
   const dayStem = String(pillars.day || '').charAt(0)
   const hourStem = String(pillars.hour || '').charAt(0)
+  const dayPanStem = panStem(pillars.day)
+  const hourPanStem = panStem(pillars.hour)
   const toneBadge = { positive: '顺', mixed: '参', warning: '慎' }
   const normalizeTone = (tone) => ['positive', 'mixed', 'warning'].includes(tone) ? tone : 'mixed'
   const formatSymbol = (label, symbol) => [label, symbol].filter(Boolean).join(' ')
@@ -4172,8 +4186,8 @@ const buildCardHTML = (data, opts = {}) => {
     const palaceRoles = (p) => {
       const roles = []
       const stems = [p.sky, p.ji_sky].filter(Boolean).join('')
-      if (dayStem && stems.includes(dayStem)) roles.push({ cls: 'role-day', short: '日', text: `日干${dayStem}：代表求测人自己` })
-      if (hourStem && stems.includes(hourStem)) roles.push({ cls: 'role-hour', short: '时', text: `时干${hourStem}：代表所问之事` })
+      if (dayPanStem && stems.includes(dayPanStem)) roles.push({ cls: 'role-day', short: '日', text: `日干${dayStem}${dayStem !== dayPanStem ? '（遁' + dayPanStem + '）' : ''}：代表求测人自己` })
+      if (hourPanStem && stems.includes(hourPanStem)) roles.push({ cls: 'role-hour', short: '时', text: `时干${hourStem}${hourStem !== hourPanStem ? '（遁' + hourPanStem + '）' : ''}：代表所问之事` })
       ysCardsForPan.filter(c => c.palace && p.name && String(c.palace).includes(String(p.name).replace(/宫$/, ''))).forEach(c => {
         roles.push({ cls: 'role-ys', short: '用', text: `${c.label}${c.symbol ? '（' + c.symbol + '）' : ''}` })
       })
@@ -5135,9 +5149,9 @@ input::placeholder { color: var(--text-muted); }
 }
 .profile-switch-who { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .profile-switch-who small { font-size: 12px; color: var(--ink-dim); }
-.profile-switch-line { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+.profile-switch-line { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 8px; min-width: 0; }
 .profile-switch-name { flex: none; max-width: 9em; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--font-serif); font-size: 17px; font-weight: 700; letter-spacing: .5px; line-height: 1.3; }
-.profile-switch-meta { min-width: 0; font-size: 12.5px; color: var(--ink-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.profile-switch-meta { min-width: 0; max-width: 100%; font-size: 12.5px; color: var(--ink-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .profile-switch-action { flex: none; display: inline-flex; align-items: center; gap: 4px; font-size: 13px; color: var(--gold); }
 .profile-switch-symbol { color: var(--gold); font-size: 15px; line-height: 1; }
 .profile-switcher.open .profile-switch-action { opacity: .7; }
@@ -5799,7 +5813,7 @@ input::placeholder { color: var(--text-muted); }
 :deep(.pan-detail-grid b) { color:var(--ink); font-weight:600; }
 :deep(.pan-detail-roles) { margin:8px 0 0; padding-left:1.2em; font-size:13px; line-height:1.7; color:var(--ink); }
 :deep(.pan-detail-none) { margin-top:8px; font-size:12.5px; color:var(--ink-dim); }
-:deep(.pan-center-earth) { font-size:30px; font-weight:900; color:rgba(11,11,11,0.1); font-family:'Noto Serif SC',serif; }
+:deep(.pan-center-earth) { font-size:30px; font-weight:900; color:var(--ink); opacity:.12; font-family:'Noto Serif SC',serif; }
 :deep(.pan-god) { position:absolute; top:5px; font-size:13px; color:var(--text-muted); font-family:'Noto Serif SC',serif; }
 :deep(.pan-star) { font-size:15px; color:var(--ink-muted); margin-bottom:1px; z-index:2; font-family:'Noto Serif SC',serif; }
 :deep(.pan-door) { font-size:19px; font-weight:700; color:var(--ink); z-index:2; font-family:'Noto Serif SC',serif; }
