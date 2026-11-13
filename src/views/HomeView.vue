@@ -6033,7 +6033,7 @@ input::placeholder { color: var(--text-muted); }
 :deep(.mag-verdict-xiong),
 :deep(.mag-verdict-da-xiong) { --seal: var(--tone-xiong); }
 /* 分数刻度：说明分数落在凶 / 平 / 吉哪一段 */
-:deep(.mag-scale) { margin-top: 18px; max-width: 360px; }
+:deep(.mag-scale) { margin-top: 18px; width: 100%; }
 :deep(.mag-scale-bar) { position: relative; display: flex; height: 4px; }
 :deep(.mag-scale-bar i) { display: block; height: 100%; opacity: .35; }
 :deep(.mag-scale-bar .seg-xiong) { width: 55%; background: var(--tone-xiong); }
@@ -6095,7 +6095,7 @@ input::placeholder { color: var(--text-muted); }
   z-index: 50;
   display: flex;
   align-items: flex-end;
-  gap: 20px;
+  gap: 18px;
   overflow-x: auto;
   touch-action: pan-x;
   padding: 14px 0 10px;
@@ -6118,7 +6118,8 @@ input::placeholder { color: var(--text-muted); }
   padding: 0 0 8px;
   color: var(--ink-dim);
   font-family: var(--font-display);
-  font-size: 17px;
+  /* 随屏宽放大：390 宽约 18px，440 宽约 20px，四个标签始终一屏放下 */
+  font-size: clamp(16px, 4.6vw, 24px);
   font-weight: 800;
   letter-spacing: 0.02em;
   line-height: 1;
@@ -6562,10 +6563,11 @@ input::placeholder { color: var(--text-muted); }
   }
 }
 
-@media(max-width:380px) {
+@media(max-width:360px) {
   :deep(.mag-tab) {
     font-size: 16px;
   }
+  :deep(.mag-tabs) { gap: 14px; }
 }
 
 .screen-toast {
