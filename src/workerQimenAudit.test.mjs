@@ -14,13 +14,12 @@ test('qimen worker builds and optionally inserts question audit snapshot', () =>
   assert.match(source, /console\.warn\('\[qimen-api\] qimen audit insert failed:/)
 })
 
-test('qimen worker prompt uses narrative sections instead of a large JSON schema template', () => {
-  assert.match(source, /buildFrontendCopyProtocolSection/)
-  assert.match(source, /buildQimenInferenceRulesSection/)
-  assert.match(source, /buildQimenOutputContractSection/)
-  assert.match(source, /inferenceRulesSection/)
-  assert.match(source, /frontendCopyProtocolSection/)
-  assert.match(source, /outputContractSection/)
+test('qimen worker prompt splits fixed system rules from per-request user material', () => {
+  assert.match(source, /buildQimenSystemPrompt/)
+  assert.match(source, /buildScoreEvidenceSection/)
+  assert.match(source, /const qimenPrompt = \{ system: buildQimenSystemPrompt\(\), user: qimenUserPrompt \}/)
+  assert.match(source, /<user_question>/)
+  assert.doesNotMatch(source, /convertQimenPromptToTextMode/)
   assert.match(source, /aiJsonData\.score_review \|\| aiJsonData\.score_audit/)
   assert.match(source, /rawLlmTimingReview/)
   assert.doesNotMatch(source, /请严格按照以下 JSON 结构返回数据/)
