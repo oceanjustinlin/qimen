@@ -66,7 +66,7 @@ async function pushPrompt({ name, prompt, tags = [] }) {
 const divinationRouter = require('../lib/divinationRouter.js');
 // ── P0: lib/wenshiFollowup.js 三个追问 prompt ──
 const wenshiFollowup = require('../lib/wenshiFollowup.js');
-// ── P1: lib/qimenPromptSections.js 四个纯静态 section ──
+// ── P1: lib/qimenPromptSections.js 奇门 system prompt（纯静态）──
 const qimenPromptSections = require('../lib/qimenPromptSections.js');
 // ── P2: lib/baziQuestionCore.js 的 readings schema（按 mode）+ 两个共用纯静态块 ──
 const baziQuestionCore = require('../lib/baziQuestionCore.js');
@@ -127,26 +127,8 @@ async function main() {
   }));
 
   results.push(await pushPrompt({
-    name: 'qimen/summary-section',
-    prompt: qimenPromptSections.buildSummaryPromptSection(),
-    tags: ['qimen', 'static'],
-  }));
-
-  results.push(await pushPrompt({
-    name: 'qimen/report-schema',
-    prompt: qimenPromptSections.buildReportSchemaPromptSection(),
-    tags: ['qimen', 'static'],
-  }));
-
-  results.push(await pushPrompt({
-    name: 'qimen/inference-rules',
-    prompt: qimenPromptSections.buildQimenInferenceRulesSection(),
-    tags: ['qimen', 'static'],
-  }));
-
-  results.push(await pushPrompt({
-    name: 'qimen/frontend-copy-protocol',
-    prompt: qimenPromptSections.buildFrontendCopyProtocolSection(),
+    name: 'qimen/system',
+    prompt: qimenPromptSections.buildQimenSystemPrompt(),
     tags: ['qimen', 'static'],
   }));
 
