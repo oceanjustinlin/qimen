@@ -17,4 +17,9 @@
 - [ ] 是否在共享主题树中新增「自我画像 / 性格」类别：紫微、八字的整体报告目前没有对应节点（category 为 null）。新增会改变问事路由的分类 prompt，需要单独评估。
 - [ ] Stage 8 Activation Resolver 的连接口径：等原书到位后再评估（案例见 2026-11-03 对话：同宫、对宫化忌、三合会照、单侧邻宫、宫位角色叠加、跨层禄忌交叠、大限作用点每年重复）。
 
+## LLM 解读（2026-11-15）
+
+- [ ] 拍板上线门槛（严格 / 分级 / 三级证据），见 [`ziwei-llm-reading-design.md`](./ziwei-llm-reading-design.md) §9。
+- [ ] 酉宫 3 格亮度差异（太阳、太阴、七杀）是否需要第三来源裁决，见同文 §4.2。
+
 参见 [`ziwei-interpretation-model-design.md`](./ziwei-interpretation-model-design.md) §11、§14、§16。
