@@ -32,9 +32,12 @@ create table if not exists compatibility_sessions (
   total_score      integer
 );
 
--- Public insert (no auth needed for anonymous sessions)
+-- RLS 开启且不建任何策略：匿名与登录角色都不能直接读写这张表。
+-- 读写只经 Worker（/api/compatibility/init），它使用服务端密钥，不受 RLS 限制。
+-- 2026-11-16：原先这里有两条匿名策略（insert with check (true)、select using (true)），
+-- 其中查询策略会让任何持匿名密钥的人读出全表的姓名、生日和出生地，已删除。
 alter table compatibility_sessions enable row level security;
-create policy "allow anon insert" on compatibility_sessions
-  for insert to anon with check (true);
-create policy "allow anon select own" on compatibility_sessions
-  for select to anon using (true);
+
+-- 若旧版脚本曾被执行过，清掉遗留策略（幂等）
+drop policy if exists "allow anon insert"     on compatibility_sessions;
+drop policy if exists "allow anon select own" on compatibility_sessions;
