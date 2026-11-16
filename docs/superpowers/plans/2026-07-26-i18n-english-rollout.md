@@ -1,5 +1,7 @@
 # English Internationalization Rollout Implementation Plan
 
+> **已被取代（2026-11-16）：** 本计划只落地了 `src/i18n/` 的空壳，其余内容已过时。多语言适配请以 [`docs/superpowers/specs/2026-11-16-i18n-multilingual-spec.md`](../specs/2026-11-16-i18n-multilingual-spec.md) 为准，本文仅作历史参考。
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Provide a complete English user experience while preserving Chinese as a supported locale and without changing the meaning of persisted, rule-engine, or LLM-routing values.
