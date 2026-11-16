@@ -1,6 +1,6 @@
 # 双人合盘重设计 Spec
 
-> 状态：设计稿（2026-11-16），尚未实现。理论依据见 [`compatibility-theory.md`](./compatibility-theory.md)，下文称「理论文档」。
+> 状态：设计稿（2026-11-16），尚未实现。§12 的三项已由 Justin 拍板（同日），实施任务分解见 §13。理论依据见 [`compatibility-theory.md`](./compatibility-theory.md)，下文称「理论文档」。
 > 涉及现有代码：`public/wrapped.html`（朋友合盘页面与评分）、`worker/src/index.js` 的 `handleCompatibilityInit`、`docs/sql/compatibility-sessions-migration.sql`、`src/views/ReportView.vue`（入口卡片）、`src/wrappedCompatibility.test.mjs`。
 
 ## 1. 目标与边界
@@ -32,7 +32,8 @@
 |---|---|---|---|
 | E1 | `worker/src/index.js` L2847 | 时辰不详时按 12:00 排盘，`five_shens` 与 `wuxing_ratio` 混入虚构的午时柱 | §7 时辰不详的处理 |
 | E2 | 同上 L2850–2855 | 真太阳时修正只调整小时并对 24 取模，不回退或前进日期。子时（取 0:00）遇到负修正时，时间变成当天 23 点多而不是前一天 23 点多 | 改用带日期进位的时间运算；与档案页共用 `lib/birthInput.cjs` 的口径 |
-| E3 | `docs/sql/compatibility-sessions-migration.sql` | 匿名角色的查询策略是 `using (true)`，名为「select own」实则任何持匿名密钥的人都能读出全表的姓名、生日、出生地。Worker 用服务端密钥写库，本来就不需要匿名策略 | §8，删除两条匿名策略。属于线上数据库变更，需用户确认后执行 |
+| E3 | `docs/sql/compatibility-sessions-migration.sql` | 匿名角色的查询策略是 `using (true)`，名为「select own」实则任何持匿名密钥的人都能读出全表的姓名、生日、出生地。Worker 用服务端密钥写库，本来就不需要匿名策略 | 已处理：脚本里的两条匿名策略已删除（2026-11-16）。核查线上库发现这张表从未建过，所以没有数据暴露，也无需执行任何线上变更 |
+| E7 | `worker/src/index.js` L2896–2922 | 线上库没有 `compatibility_sessions` 表，写库每次都失败并被 `catch` 吞掉，接口返回的 `sessionId` 恒为 `null`。合盘会话目前实际上没有被保存 | P1 建表（§8），建表前合盘功能照常可用 |
 | E4 | `public/wrapped.html` L1971 `computeScores`、L1921 `computeMockBazi` | 基于随机数的旧评分函数与模拟排盘函数仍留在页面里，已没有任何调用 | 引擎迁移时删除 |
 | E5 | `public/wrapped.html` 全部评分 | 评分在前端内联脚本里，唯一的测试是对 HTML 源码做正则匹配，无法验证数值行为 | §3 迁移到 `lib/` |
 | E6 | 测试注释提到的「compatibility PRD」 | 仓库内找不到这份文档 | 以本文与理论文档为准 |
@@ -66,7 +67,7 @@ POST /api/compatibility/init
 | 调候 | `lib/constants/tiaohou.js`、`lib/calculateTiaohouRatio.js` |
 | 大运流年评分 | `lib/calculateAnnualScore.js` |
 
-`baziRelationScanner` 目前扫描的是同一张盘内部的关系，需要抽出一个接受「目标字」与「来源字」的纯函数接口，供跨盘扫描使用。这是对该模块的一次重构，行为保持不变，由现有测试守住。
+跨盘扫描不改动 `baziRelationScanner`（它与单盘的宫位、旺衰逻辑耦合较深），`lib/synastry/bonds.js` 直接使用 `lib/constants/relations.js` 的关系表（`GAN_HES`、`ZHI_6HES`、`ZHI_HALF_3HES`、`ZHI_3HES`、`ZHI_HUIS`、`ZHI_CHONGS`、`XINGS`、`ZI_XINGS`、`ZHI_HAIS`）自行两两比对。相破（`ZHI_POS`）不用。
 
 前端 `public/wrapped.html` 只保留展示：从接口返回里读分数和证据，渲染现有的各页。页面里的 `l1Score`、`l3Score`、`compScore`、`zhiRel` 等评分函数全部删除。
 
@@ -262,29 +263,25 @@ POST /api/compatibility/init
 
 ## 8. 存储
 
-`compatibility_sessions` 新增列：
+线上库（Supabase 项目 Qimen Engine）目前没有 `compatibility_sessions` 表。P1 先执行已修正的 `docs/sql/compatibility-sessions-migration.sql` 建表（RLS 开启、不建任何策略），再执行新增列：
 
 ```sql
 alter table compatibility_sessions
   add column if not exists relation_type  text not null default 'friend',
   add column if not exists engine_version text,
   add column if not exists report         jsonb;
-
-drop policy if exists "allow anon insert"     on compatibility_sessions;
-drop policy if exists "allow anon select own" on compatibility_sessions;
 ```
 
 - `dim_scores` 与 `total_score` 两列保留，朋友合盘继续写入，改由后端在同一次请求里写，不再依赖前端回传。
-- 删除两条匿名策略后，表只能通过 Worker 的服务端密钥读写。执行前需要确认没有任何客户端直接用匿名密钥访问这张表（目前代码里没有发现）。
-- 迁移脚本放在 `docs/sql/compatibility-synastry-migration.sql`，由用户确认后在 Supabase 执行。
+- 表只能通过 Worker 的服务端密钥读写。前端代码里没有任何地方直接访问这张表（全仓库只有 `worker/src/index.js` 一处引用），所以不建匿名策略不影响任何功能。
+- 新增列的脚本放在 `docs/sql/compatibility-synastry-migration.sql`。建表属于线上数据库变更，执行前向用户确认。
 
 ## 9. 婚恋合盘（新报告类型）
 
 - **入口**：`src/views/ReportView.vue` 的报告列表里新增一张卡片「八字双人合盘 · 姻缘」，链接到 `/wrapped.html?type=romance`。现有的朋友合盘卡片不动。
 - **向导**：与朋友合盘完全相同的两步，不新增字段。性别选项现有向导里已经有，但默认预选为男（`public/wrapped.html` L1425）。婚恋合盘里性别决定配偶星与大运顺逆，默认值会悄悄给出错误结果，所以这个入口下改为不预选，未选时不能进入下一步。朋友合盘不使用性别相关的结论，保持现状。
-- **展示**：复用现有的逐页演示框架，章节改为四问：缘、和、益、久，每章仍是「理论页、扫描页、分析页、计分页」的结构。结果页不给八档称号，改为显示结构类型（相成、纠缠、偏济、淡益、平行）加四问的等级。
+- **展示**：复用现有的逐页演示框架，章节改为四问：缘、和、益、久，每章仍是「理论页、扫描页、分析页、计分页」的结构。**不给总分，也不给八档称号**（已拍板），结果页显示结构类型（相成、纠缠、偏济、淡益、平行）加四问的等级。接口返回里 romance 类型不含 `friendDims`，也不含任何合成的总分字段。
 - **文案**：婚恋文案新写，口径遵守理论文档第 8 节的全部禁区。朋友合盘的戏谑语气不沿用到婚恋。
-- 是否给婚恋合盘一个总分，见 §12 待拍板第 1 项。
 
 ## 10. 测试与校准
 
@@ -323,11 +320,158 @@ drop policy if exists "allow anon select own" on compatibility_sessions;
 
 P0 可以单独发一个小 PR。P1 是主体。每一期开工前先确认。
 
-## 12. 待拍板
+## 12. 决定与待定
 
-1. **婚恋合盘要不要总分。** 建议不给单一总分，只给结构类型和四问的等级。理由是理论上「缘深而互耗」与「缘浅而无害」无法用一个数排出高低，而一个低分对一段真实的感情可能造成不必要的伤害。朋友合盘因为定位是娱乐分享，总分与称号照旧。
-2. **朋友合盘分数整体变化是否可以接受。** P1 上线后，同一对人的分数会与现在不同。是否需要保留旧会话的旧分数（库里已有 `dim_scores`），或者对旧链接不做处理。
-3. **匿名策略的删除**（E3）是否现在就执行。
-4. **传统合婚文献。** 是否提供《三命通会》《滴天髓》《命理探原》的相关篇章，用于把「通行·待核」的规则升级。没有的话这些规则维持半权重。
-5. **人工评议**（§10）是否愿意提供十对左右熟悉的关系用于校准。
-6. **婚恋合盘是否允许从八字档案里直接选人**，免去重复填写。这会让登录用户少填一步，不增加步骤，但涉及合盘页与档案系统的打通，工作量另算。
+**已拍板（Justin，2026-11-16）**
+
+1. 婚恋合盘**不给总分**，只给结构类型和四问的等级。朋友合盘的总分与称号照旧。
+2. 匿名策略**删除**。迁移脚本已改；线上没有这张表，无需执行变更。
+3. P0 暂不实施。本文先保证各期任务拆到可以独立完成的颗粒度（§13）。
+
+**仍待定**（不阻塞 P0 与 P1 的开发，括号内为未答复时的默认做法）
+
+4. 朋友合盘分数整体变化是否可以接受。（默认：接受，旧会话本来就没有落库，不存在新旧对照的问题）
+5. 是否提供传统合婚文献。（默认：`tradition_unverified` 规则维持半权重）
+6. 是否提供十对左右熟悉的关系做人工评议。（默认：先只做分布校准）
+7. 婚恋合盘是否允许从八字档案里直接选人。（默认：不做）
+
+## 13. 实施任务分解
+
+每个任务都可以单独开发、单独验收。任务之间的依赖写在「前置」里。除特别说明外，新模块一律用 CommonJS（`module.exports`，文件扩展名 `.js`），与 `lib/` 现有模块一致，Worker 以默认导入的方式使用。
+
+### 13.0 通用约定
+
+- **测试入口**：`package.json` 的 `test` 脚本目前只匹配 `lib/*.test.js`，不会进入子目录。T1 需要在脚本里加上 `lib/synastry/*.test.js`。
+- **运行**：`npm ci --ignore-scripts && npm test`。
+- **命盘样本**：下表的样本用于各任务的验收，均按 10:00、男、不做真太阳时修正排盘（`Solar.fromYmdHms(y, m, d, 10, 0, 0)`）。数值由当前主干的引擎算出，引擎升级后若喜忌变化，以引擎为准更新样本。
+
+| 代号 | 出生 | 四柱 | 强弱 | 用神 / 喜神 / 忌神 / 仇神 |
+|---|---|---|---|---|
+| S1 | 1992-02-18 | 壬申 壬寅 甲子 己巳 | 身强 | 食神 / 正财 / 正印 / 偏印 |
+| S2 | 1992-01-14 | 辛未 辛丑 己丑 己巳 | 身弱 | 正印 / 正官 / 比肩 / 无 |
+| S3 | 1992-02-24 | 壬申 壬寅 庚午 辛巳 | 身弱 | 食神 / 正财、偏财、偏印 / 七杀 / 正官 |
+| S4 | 1992-01-19 | 辛未 辛丑 甲午 己巳 | 身弱 | 正财 / 偏财 / 劫财 / 比肩 |
+| S5 | 1992-02-20 | 壬申 壬寅 丙寅 癸巳 | 身强 | 七杀 / 无 / 无 / 无 |
+| S6 | 1992-02-05 | 壬申 壬寅 辛亥 癸巳 | 身弱 | 食神 / 伤官、正财 / 偏印 / 正印 |
+
+- **引擎字段**：`buildCompleteBaziDetail` 返回值里本设计用到的字段及形态：
+  - `pillars.ganzhi`：`{ year, month, day, time }`，每项是两个字的干支。
+  - `matrix.pillars`：四个对象，`{ name: '年'|'月'|'日'|'时', gan, zhi, hidden_stems: [{ gan, shi_shen }], ... }`。`assessOriginalChartState` 需要它。
+  - `strong_weak`：`'身强' | '身弱' | '中和'`；`strength_detail.total_score`：0 到 10；`strength_detail.band`：极弱、偏弱、偏强等。
+  - `five_shens`：`{ yong: 十神名, yong_confidence: 'HIGH'|'LOW', xi: [], ji: [], chou: [], xian: [] }`，内容是十神全称。
+  - `wuxing_ratio`：`{ 金, 木, 水, 火, 土 }`，百分数，合计 100。
+  - `tiaohou_detail.primary_gods`：`[{ gan, wuxing, priority }]`。
+  - `special_patterns`：数组，非空表示特殊格局。
+- **十神到五行的换算**：以日干五行为基准，比劫为同行，食伤为我生，财为我克，官杀为克我，印为生我。页面里现有的 `shenWx` 就是这个逻辑，移到 `lib/synastry/elements.js`。
+- **临界判定**：`five_shens.yong_confidence === 'LOW'`，或 `strength_detail.total_score` 落在 4.5 到 5.5 之间，视为强弱临界。
+
+### 13.1 P0 修缺陷（暂缓，已拆好）
+
+**T0.1 时辰不详不再使用假时柱**
+- 文件：`worker/src/index.js` 的 `parsePerson`；新增 `lib/synastry/input.js`、`lib/synastry/input.test.js`。
+- 接口：`normalizePerson(profile) → { hourKnown, charts }`。`hourKnown` 为真时 `charts` 只有一项；为假时是十二项（子到亥各取时辰中点排一次）。`resolveStable(charts) → { strongWeak, yongWuxing, stable, wuxingRatio3 }`，规则见 §7。
+- 验收：`hour_index: -1` 时，返回的 `A.gans[3]` 与 `A.zhis[3]` 为空串（与现状一致），且 `A.five_shens`、`A.wuxing_ratio` 不再随「假设为午时」而定：对同一出生日期，把内部默认时辰从午改成任何其他时辰，输出不变。
+- 前置：无。
+
+**T0.2 真太阳时修正跨日**
+- 文件：`lib/synastry/input.js`（同上）。
+- 做法：用 `Solar.fromYmdHms(y, m, d, h, 0, 0).next(...)` 或等价的分钟级加减得到修正后的完整日期时间，不再对小时取模。
+- 验收：出生日期 2000-01-02、子时（`hour_index: 0`）、`tst_correction_min: -90`，排盘用的时间是 2000-01-01 22:30，日柱为 1 月 1 日的日柱；`tst_correction_min: 0` 时仍是 1 月 2 日 00:00。
+- 前置：无。
+
+**T0.3 文案与计分对齐、引文核对**
+- 文件：`public/wrapped.html` 的 `DIM_VERDICTS`（d4、d5 的正文）与五处 `th-src`、`th-quote`。
+- 做法：d4 文案里的「月支相生」「成长宫位」改为与实际来源（五神互补、贵人）一致的说法；d5 文案里的「年支」改为日支。五处引文逐条核对原书，核对不到的把书名号出处改成「释义」，不保留引号。
+- 验收：`src/wrappedCompatibility.test.mjs` 增加断言：`DIM_VERDICTS` 的 d5 段不含「年支」，d4 段不含「月支相生」。
+- 前置：无。本任务在 P1 完成后会被新文案覆盖，若 P0 与 P1 连着做可以跳过。
+
+### 13.2 P1 引擎与朋友合盘投影
+
+**T1.1 骨架、常量与证据结构**
+- 文件：`lib/synastry/index.js`、`weights.js`、`elements.js`、`evidence.js`、`index.test.js`；`package.json`（测试脚本）。
+- 接口：
+  - `buildSynastryReport({ A, B, relationType }) → report`，`A`、`B` 为 `normalizePerson` 的输出；`report` 形态见 §4.2。本任务里各层先返回空数组，四问返回占位。
+  - `makeEvidence(fields) → evidence`，校验 §4.1 的字段与取值范围，非法时抛错。
+  - `elements.js`：`ganWuxing(gan)`、`zhiWuxing(zhi)`、`shenToWuxing(dayGan, shenName)`、`tenGod(dayGan, otherGan)`、`needVector(detail) → { 金, 木, 水, 火, 土 }`（用神 +1.5、喜神 +1.0、闲神 0、仇神 −1.0、忌神 −1.3，同一五行取绝对值最大的那个）。
+  - `weights.js`：§5 的全部数值，一个导出对象，不在其他文件里写魔法数字。
+- 验收：`needVector(S1)` 中火（食神）为 +1.5、土（正财）为 +1.0、水（印）为 −1.3；`tenGod('甲','己') === '正财'`，`tenGod('己','甲') === '正官'`；`makeEvidence({ tie: 5 })` 抛错。
+- 前置：T0.1（需要 `normalizePerson`；若 P0 未做，本任务一并实现它）。
+
+**T1.2 勾连层**
+- 文件：`lib/synastry/bonds.js`、`bonds.test.js`。
+- 接口：`scanBonds(A, B, relationType) → evidence[]`。对四柱天干两两、地支两两比对，量值与位置系数取 §5.3；顺逆判定用 `needVector`。
+- 细节：同一对地支命中多种关系时各出一条；补局只在两盘各出至少一支、合起来凑齐三合或三会三支时成立；日柱天合地合、天克地冲各出一条额外证据，`id` 为 `bond.day_pillar.double_he`、`bond.day_pillar.clash`。
+- 验收：
+  - S1 对 S2：日干甲己合、日支子丑合，且有 `bond.day_pillar.double_he`。
+  - S1 对 S3：日干甲庚同性相克、日支子午冲，且有 `bond.day_pillar.clash`。
+  - S5 对 S6：日干丙辛合、日支寅亥合。
+  - S1 对 S4：日干相同、日支子午冲。
+  - 交换 A 与 B，证据条数不变，`mutual` 证据的 `tie`、`strain` 不变，`benefit.A` 与 `benefit.B` 互换。
+  - 任一方 `hourKnown` 为假时，结果里没有 `locus` 涉及 `time` 的证据。
+- 前置：T1.1。
+
+**T1.3 互济层**
+- 文件：`lib/synastry/complement.js`、`complement.test.js`。
+- 接口：`assessComplement(A, B, relationType) → evidence[]`，对两个方向各出：喜用互济一条（`complement.need_supply`）、日主入用至多一条（`complement.daymaster_as_yong`）、调候互济零到多条、得药或增病至多一条、伤用至多一条。规则与初始阈值见 §5.2。
+- 验收：
+  - 构造两个最小的假命盘对象（只含本层用到的字段）：受方用神为火，供方火占 50% 且日主为丙，则有 `complement.daymaster_as_yong`，`benefit` 为正；把受方用神改成水、忌神改成火，同一供方给出的 `complement.need_supply` 的 `benefit` 为负。这一条就是「同一股气，对喜它的人是益，对忌它的人是损」的测试。
+  - 受方 `yong_confidence` 为 `LOW` 时，该方向全部证据 `confidence === 'low'`。
+  - 时辰不详且 `stable` 为假的受方，量值减半。
+- 前置：T1.1。
+
+**T1.4 角色层与辅证层**
+- 文件：`lib/synastry/roles.js`、`aux.js` 及各自的测试。
+- 接口：`mapRoles(A, B, relationType) → evidence[]`；`collectAux(A, B) → evidence[]`。
+- 细节：日干原型六选一，`id` 为 `role.archetype`，`kind` 取 `tongdao`（同道）、`jinghe`（竞合）、`gongyang`（供养与受养）、`qifa`（启发与庇护）、`jiayu`（驾驭与受制）、`xianghe`（相合）；相生与相克的原型在 `seed` 里写明谁生谁、谁克谁。星见、星透、宫合只在 `romance` 下生成，性别缺失时不生成并加一条 `caveats`。天乙贵人用 `lib/constants/shensha.js` 里 `天乙` 的映射（与页面现有的 `tianyiBranches` 等价）。生肖与纳音为 `folk`，量值全为 0。
+- 验收：五对天干五合（甲己、乙庚、丙辛、丁壬、戊癸）的日干组合全部得到 `xianghe`，且 `tie` 高于任何一种同性相克的组合；S1 对 S4 为 `tongdao`；`friend` 类型下没有任何 `role.spouse_*` 证据。
+- 前置：T1.1。
+
+**T1.5 底色层**
+- 文件：`lib/synastry/baseline.js`、`baseline.test.js`。
+- 接口：`assessBaseline(person, relationType) → { stability, evidence[] }`，内部调用 `assessOriginalChartState({ matrix, targetSpec, dayStem, gender, favorableWuxing, unfavorableWuxing, geju })`，`targetSpec` 为 `{ primary_shishen, primary_gongwei, extra_static_checks: [] }`，取值见 §5.1。`primary_gongwei` 是字符串数组，写作 `['日支']` 或 `['月柱']`（内部去掉「支」「柱」后按柱名匹配）；`favorableWuxing`、`unfavorableWuxing` 是五行的 `Set`，由 `needVector` 的正负项得到。返回值的 `overall_stability` 取 `strong`、`stable`、`dynamic`、`buried`、`damaged` 之一。已用 S1 实测过这一调用方式可行。
+- 验收：对 S1 到 S6 调用不抛错，`stability` 取值为上述五个之一；时辰不详的人用十二组里出现次数最多的等级，并标 `confidence: 'mid'`。
+- 前置：T1.1。
+
+**T1.6 四问与结构类型**
+- 文件：`lib/synastry/score.js`、`score.test.js`；`scripts/synastry_calibrate.cjs`；`eval/synastry/distribution.json`。
+- 接口：`scoreFourQuestions(evidence, baselines, relationType, norms) → fourQuestions`；`classifyStructure(fourQuestions) → structure`。`norms` 是校准脚本产出的各原始量的第 50、第 95 百分位，存放在 `lib/synastry/norms.json`。
+- 校准脚本：用固定种子生成一万对 1950 到 2010 年间的随机出生时间（两成设为时辰不详），跑 T1.2 到 T1.5，输出各原始量的分位数与五种结构类型的占比。
+- 验收：校准后的随机样本里，「缘」的中位数在 48 到 52 之间，五种结构类型里没有哪一种的占比低于 5% 或高于 45%；S1 对 S2 的「缘」高于 S1 对 S5；交换 A 与 B，`tie`、`ease`、`lasting` 不变，`benefit.A` 与 `benefit.B` 互换。
+- 前置：T1.2 到 T1.5。
+
+**T1.7 朋友合盘五维度投影**
+- 文件：`lib/synastry/friendDims.js`、`friendDims.test.js`。
+- 接口：`projectFriendDims(report) → { d1, d2, d3, d4, d5, total, tier, raw }`。`raw` 保持现有形态 `{ d1: { s1, s3 }, ... }`，页面的计分页直接可用。来源映射见 §6.2；总分权重与八档称号文案从页面原样搬来，分数线用校准分布重划，使八档的占比依次大约为 5%、12%、20%、18%、18%、14%、9%、4%。
+- 验收：`d3` 恒不大于 0；所有维度在 −100 到 100 之间；一万对随机样本的称号占比与目标占比的偏差不超过 3 个百分点。
+- 前置：T1.6。
+
+**T1.8 接口接入**
+- 文件：`worker/src/index.js` 的 `handleCompatibilityInit`；`src/workerCompatibility.test.mjs`（参照现有的 `src/workerBaziAudit.test.mjs` 写法）；`docs/sql/compatibility-synastry-migration.sql`。
+- 做法：`parsePerson` 改为调用 `normalizePerson`；返回里保留 `A`、`B` 的全部现有字段，新增 `report`；落库时一并写 `relation_type`、`engine_version`、`report`、`dim_scores`、`total_score`，落库失败仍不影响返回。
+- 验收：不带 `relationType` 的请求返回 `report.relationType === 'friend'` 且含 `friendDims`；`relationType: 'romance'` 的返回不含 `friendDims`，也没有任何名为 `total` 的字段；现有页面在不改动的情况下仍能跑通（它只读 `A`、`B`）。
+- 前置：T1.7。
+
+**T1.9 页面改读接口**
+- 文件：`public/wrapped.html`；`src/wrappedCompatibility.test.mjs`。
+- 做法：删除 `computeScores`、`computeMockBazi`、`l1Score`、`l3*`、`l4*`、`l5NobleScore`、`dayZhiMoneyScore`、`compScore`、`zhiRel`、`computeRealDIMs` 及只被它们使用的常量；`S.dims`、`S.dimRaw`、`S.total`、`S.tier` 改为从 `data.report.friendDims` 取。各维度的分析页与扫描页改为按证据渲染：高亮哪些字由证据的 `locus` 与 `chars` 决定，小标题写明方向。`DIM_ANALYSIS_CONFIG`、`DIM_VERDICTS` 的文案按 §6.2 的新来源重写。
+- 验收：页面里不再有任何计算分数的函数；用 Playwright 走一遍 S1 对 S2 的完整流程，五个维度页、悬念页、结果页、分享图都能出现，控制台无报错；深浅两套配色下各截一张结果页。
+- 前置：T1.8。前端样式以另行确认的设计稿为准。
+
+### 13.3 P2 婚恋合盘
+
+**T2.1 入口与类型透传**
+- 文件：`src/views/ReportView.vue`（新增卡片，文案走 `src/i18n`）；`public/wrapped.html`（读取 `?type=romance`，请求体带 `relationType`，性别不预选）。
+- 验收：从新卡片进入，落地页标题为姻缘版；未选性别时「下一步」不可点；朋友入口的行为与改动前逐像素一致。
+- 前置：T1.9。
+
+**T2.2 四问章节与结果页**
+- 文件：`public/wrapped.html`（或拆出 `public/wrapped-romance.js`，由体量决定）。
+- 做法：章节为缘、和、益、久四章，每章沿用「理论页、扫描页、分析页、计分页」；计分页显示等级而不是数字；结果页显示结构类型、四问等级、两到三条最重要的证据、`caveats`，以及理论文档第 8 节的说明文字。`lasting.available` 为假时，「久」一章只展示底色，注明岁运部分尚未开放。
+- 验收：页面上任何位置都不出现合成的总分或称号；文案全文检索不含「克夫」「克妻」「旺夫」「注定」「必」；分享图同样不含总分。
+- 前置：T2.1。
+
+### 13.4 P3 到 P5（开工前再细化）
+
+- **P3 同步层**：`lib/synastry/timing.js`，`assessTiming(A, B, { fromYear, years }) → { trend: [{ year, a, b, label }], triggers: [{ year, who, kind }], resonance: [year] }`。逐年调用 `calculateAnnualScore`（入参见该文件 L700 起的注释），大运取自 `matrix.dayun_list`。验收用书中三例的结构：流年支与日支成六合或六冲的年份必须出现在 `triggers` 里。
+- **P4 LLM 解读**：解读包由证据的 `seed` 与等级组成，不含分数。细化时参照紫微解读设计的 §7。
+- **P5 侧验**：等紫微飞入对方命盘的书证补齐后再设计。
