@@ -30,6 +30,7 @@ import { langfuseTelemetry } from './langfuse.mjs';
 import requestLocaleLib from '../../lib/i18n/requestLocale.js';
 import serverMessages from '../../lib/i18n/serverMessages.js';
 import outputLanguage from '../../lib/i18n/outputLanguage.js';
+import detectProseLocale from '../../lib/i18n/detectProseLocale.js';
 
 const { buildCompleteBaziDetail, buildQualitativeSections, hasCompleteLlmCache, hasLatestEngineCache, hasExistingLlm, CALIBRATION_VERSION, computeEventsHash, hasValidCalibration } = baziCore;
 const { normalizeQimenLlmOutput } = qimenLlmOutput;
@@ -991,6 +992,22 @@ function baziSectionsAreBad(sec, mode) {
   return false;
 }
 
+// 英文请求：可见正文段任一段不是英文 → 按结构不合格处理（spec T3.3）。中文请求恒为 false，不多调模型。
+function proseLocaleIsBad(sec, keys, contentLocale) {
+  if (contentLocale !== 'en-US' || !sec) return false;
+  return !detectProseLocale.sectionsMatchLocale(keys.map((k) => sec[k]).filter(Boolean), contentLocale);
+}
+
+// JSON 型接口（日运、月运、纠偏）：英文请求下文本字段不是英文就重试一次；仍不对则照常返回并标 mixed。
+async function requestLLMInLocale(prompt, env, model, temperature, ctx, traceMeta, contentLocale) {
+  const { result, mixed, attempts } = await detectProseLocale.withLocaleRetry(
+    (attempt) => requestLLM(prompt, env, model, temperature, ctx, attempt ? { ...traceMeta, name: `${traceMeta?.name || 'requestLLM'}-locale-retry` } : traceMeta),
+    { contentLocale },
+  );
+  if (attempts > 1) console.warn('[i18n] JSON output not in requested language, retried once', { trace: traceMeta?.name, contentLocale, mixed });
+  return { llmJson: result, mixed };
+}
+
 async function requestLLMStreamSections(prompt, env, handlers = {}, model = deepModel(env), temperature = 0.65, ctx, traceMeta = {}) {
   if (!env.LLM_API_KEY) throw new Error('LLM_API_KEY not configured');
   const langfuse = beginLangfuseGeneration({
@@ -1464,7 +1481,9 @@ async function handleBaziQuestion(request, env, ctx) {
     }
     // 结构校验：空流 / 核心段缺失 / data_json 不可解析 → 打回让 LLM 重试一次（非流式）
     let baziSec = baziParser.finish();
-    if (baziSectionsAreBad(baziSec, _baziMode)) {
+    const BAZI_PROSE_KEYS = baziTextFields(_baziMode).map(([k]) => k);
+    let outputLocaleMixed = false;
+    if (baziSectionsAreBad(baziSec, _baziMode) || proseLocaleIsBad(baziSec, BAZI_PROSE_KEYS, contentLocale)) {
       console.warn('[bazi-question] bad structure, retrying non-streaming...', { mode: _baziMode, len: llmFullText.length });
       // 通知前端清空已显示的半截内容，重置回骨架
       emit({ type: 'llm_retry', message: 'AI 重新推演中…' });
@@ -1481,6 +1500,10 @@ async function handleBaziQuestion(request, env, ctx) {
       if (baziSectionsAreBad(baziSec, _baziMode)) {
         emit({ type: 'error', message: 'AI 推演暂时不可用，请稍后重试', code: 'LLM_UNAVAILABLE' });
         return;
+      }
+      if (proseLocaleIsBad(baziSec, BAZI_PROSE_KEYS, contentLocale)) {
+        outputLocaleMixed = true;
+        console.warn('[i18n] output locale mismatch after retry', { trace: 'bazi-question-answer-retry', contentLocale });
       }
       for (const [k] of baziTextFields(_baziMode)) {
         if (baziSec[k]) emit({ type: 'llm_delta', section: k, text: baziSec[k] });
@@ -1538,6 +1561,7 @@ async function handleBaziQuestion(request, env, ctx) {
       favorable_element: _favEl,
       subject_snapshot,
       output_locale: contentLocale,
+      ...(outputLocaleMixed ? { output_locale_actual: 'mixed' } : {}),
       five_shens,
       ...(pipelineResult ? {
         state_report: pipelineResult.stateReport || null,
@@ -1633,9 +1657,9 @@ async function handleBaziCalibrate(request, env, ctx) {
     // 人生大事自由描述可能涉及婚姻/疾病/官司等隐私内容，上报 Langfuse 时不传原文，只传统计摘要。
     const _calibrateTraceInput = JSON.stringify({ profileId, eventCount: lifeEvents.length, promptLength: prompt.length });
 
-    const llmJson = await requestLLM(prompt, env, deepModel(env), 0.2, ctx, {
+    const { llmJson } = await requestLLMInLocale(prompt, env, deepModel(env), 0.2, ctx, {
       name: 'bazi-calibrate', scenario: 'bazi-calibrate', traceInputOverride: _calibrateTraceInput, userId: user.id,
-    });
+    }, contentLocale);
     if (!llmJson.yuanju_core || !llmJson.current_dayun || !llmJson.current_liunian) {
       return json({ error: 'LLM 返回格式不符预期' }, { status: 500 }, request, env);
     }
@@ -1689,8 +1713,8 @@ async function handleFortuneDailyInterpretation(request, env, ctx) {
     const baseJson = cached ? { ...cached, ...latestBaseJson } : latestBaseJson;
     
     const prompt = outputLanguage.appendOutputLanguage(buildInterpretationPrompt(context), contentLocale);
-    const llmJson = await requestLLM(prompt, env, fastModel(env), 0.5, ctx, { name: 'fortune-daily-interpretation', scenario: 'fortune-daily', userId: user.id });
-    const mergedJson = { ...mergeInterpretation(baseJson, llmJson), output_locale: contentLocale };
+    const { llmJson, mixed } = await requestLLMInLocale(prompt, env, fastModel(env), 0.5, ctx, { name: 'fortune-daily-interpretation', scenario: 'fortune-daily', userId: user.id }, contentLocale);
+    const mergedJson = { ...mergeInterpretation(baseJson, llmJson), output_locale: contentLocale, ...(mixed ? { output_locale_actual: 'mixed' } : {}) };
 
     await upsertFortuneCache(user.id, 'day', periodKey, mergedJson, expiresAt, env);
     return json(pickInterpretationFields(mergedJson), { status: 200 }, request, env);
@@ -1731,8 +1755,8 @@ async function handleFortuneMonthlyInterpretation(request, env, ctx) {
       recent_monthly_contexts: recentMonthlyContexts,
     }), contentLocale);
     
-    const llmJson = await requestLLM(prompt, env, fastModel(env), 0.5, ctx, { name: 'fortune-monthly-interpretation', scenario: 'fortune-monthly', dimension, userId: user.id });
-    const mergedJson = { ...mergeMonthlyInterpretation(baseJson, llmJson, dimension), output_locale: contentLocale };
+    const { llmJson, mixed } = await requestLLMInLocale(prompt, env, fastModel(env), 0.5, ctx, { name: 'fortune-monthly-interpretation', scenario: 'fortune-monthly', dimension, userId: user.id }, contentLocale);
+    const mergedJson = { ...mergeMonthlyInterpretation(baseJson, llmJson, dimension), output_locale: contentLocale, ...(mixed ? { output_locale_actual: 'mixed' } : {}) };
 
     await upsertFortuneCache(user.id, 'month_interpretation', periodKey, mergedJson, flowMonth.expiresAt, env);
     return json(pickMonthlyInterpretationFields(mergedJson), { status: 200 }, request, env);
@@ -1895,14 +1919,15 @@ async function handleQimenFollowup(request, env, ctx) {
 
     // 兜底：目标段全空 → 非流式重试一次
     const hasAny = fr.target_sections.some((k) => sec[k] && sec[k].trim());
-    if (!hasAny) {
-      console.warn('[followup] empty patch, retrying non-streaming...');
+    if (!hasAny || proseLocaleIsBad(sec, fr.target_sections, contentLocale)) {
+      console.warn('[followup] empty patch or wrong language, retrying non-streaming...', { contentLocale });
       emit({ type: 'patch_retry' });
       try {
         full = await requestLLMText(patchPrompt, env, patchModel, FOLLOWUP_TEMPERATURE, ctx, { ..._followupTraceMeta, name: 'qimen-followup-patch-retry' });
         const retry = createSentinelStreamParser(visible, {});
         retry.push(full);
         sec = retry.finish();
+        if (proseLocaleIsBad(sec, fr.target_sections, contentLocale)) console.warn('[i18n] output locale mismatch after retry', { trace: 'qimen-followup-patch-retry', contentLocale });
         for (const k of fr.target_sections) if (sec[k]) emit({ type: 'patch_delta', section: k, text: sec[k] });
       } catch (e) {
         emit({ type: 'error', message: '追问生成暂时不可用，请稍后重试', code: 'FOLLOWUP_UNAVAILABLE' });
@@ -2071,15 +2096,17 @@ async function handleBaziFollowup(request, env, ctx) {
     if (!streamed) {
       for (const k of decision.target_sections) if (supplements[k]) emit({ type: 'patch_delta', section: k, text: supplements[k] });
     }
-    // 仍为空 → 非流式重试一次
-    if (!Object.keys(supplements).length) {
-      console.warn('[bazi-followup] empty answer, retrying non-streaming...');
+    // 仍为空，或英文请求下不是英文 → 非流式重试一次
+    if (!Object.keys(supplements).length || proseLocaleIsBad(supplements, Object.keys(supplements), contentLocale)) {
+      console.warn('[bazi-followup] empty answer or wrong language, retrying non-streaming...', { contentLocale });
+      for (const k of Object.keys(supplements)) delete supplements[k];
       emit({ type: 'patch_retry' });
       try {
         const retryFull = await requestLLMText(prompt, env, model, FOLLOWUP_TEMPERATURE, ctx, { ..._baziFollowupTraceMeta, name: 'bazi-followup-decide-retry' });
         const rp = createSentinelStreamParser(visible, {});
         rp.push(retryFull); const rsec = rp.finish();
         for (const k of patchable) if (rsec[k] && rsec[k].trim()) { supplements[k] = rsec[k].trim(); emit({ type: 'patch_delta', section: k, text: supplements[k] }); }
+        if (proseLocaleIsBad(supplements, Object.keys(supplements), contentLocale)) console.warn('[i18n] output locale mismatch after retry', { trace: 'bazi-followup-decide-retry', contentLocale });
       } catch (e) {
         emit({ type: 'error', message: '追问生成暂时不可用，请稍后重试', code: 'FOLLOWUP_UNAVAILABLE' });
         return;
@@ -2337,8 +2364,10 @@ ${scoreEvidenceSection}
     }
     // 结构校验：空流 / 核心段缺失 / data_json 不可解析 → 打回让 LLM 重试一次（非流式）
     let sec = sentinelParser.finish();
-    if (qimenSectionsAreBad(sec)) {
-      console.warn('[qimen-api] bad structure, retrying non-streaming...', { len: llmFullText.length });
+    const QIMEN_PROSE_KEYS = ['conclusion', 'subject_reading', 'target_reading', 'environment_reading', 'support_summary', 'constraint_summary', 'decision_reading'];
+    let outputLocaleMixed = false;
+    if (qimenSectionsAreBad(sec) || proseLocaleIsBad(sec, QIMEN_PROSE_KEYS, contentLocale)) {
+      console.warn('[qimen-api] bad structure, retrying non-streaming...', { len: llmFullText.length, contentLocale });
       // 通知前端清空已显示的半截内容，重置回骨架
       emit({ type: 'llm_retry', message: 'AI 重新推演中…' });
       try {
@@ -2354,6 +2383,10 @@ ${scoreEvidenceSection}
       if (qimenSectionsAreBad(sec)) {
         emit({ type: 'error', message: 'AI 推演暂时不可用，请稍后重试', code: 'LLM_UNAVAILABLE' });
         return;
+      }
+      if (proseLocaleIsBad(sec, QIMEN_PROSE_KEYS, contentLocale)) {
+        outputLocaleMixed = true;
+        console.warn('[i18n] output locale mismatch after retry', { trace: 'qimen-answer-retry', contentLocale });
       }
       // 用重试内容重新 emit 可见段（含 title）
       const VISIBLE_ORDER = ['conclusion', 'subject_reading', 'target_reading',
@@ -2603,6 +2636,7 @@ ${scoreEvidenceSection}
         }
 	
     finalOutput.output_locale = contentLocale;
+    if (outputLocaleMixed) finalOutput.output_locale_actual = 'mixed';
     qimenMemoryCache[cacheKey] = finalOutput;
     emit({ type: 'complete', result: finalOutput });
 
@@ -2781,6 +2815,22 @@ async function handleBazi(request, env, ctx) {
           emit({ type: 'llm_error', message: 'AI 深度断语暂时不可用，已保留规则引擎结果' });
           emit({ type: 'complete', pct: 100, profileId: promptData.profileId, partial: true });
           return;
+        }
+        // 英文请求：三段断语任一段不是英文 → 重试一次，只发整段替换（llm_section_done），不叠加旧文字
+        const PROFILE_PROSE_KEYS = Object.keys(llmSections || {});
+        if (proseLocaleIsBad(llmSections, PROFILE_PROSE_KEYS, contentLocale)) {
+          console.warn('[i18n] bazi profile sections not in requested language, retrying once', { contentLocale });
+          try {
+            const retried = await requestLLMStreamSections(promptText, env, {
+              onSectionDone: (section, text) => emit({ type: 'llm_section_done', section, text }),
+            }, deepModel(env), BAZI_ANSWER_TEMPERATURE, ctx, { name: 'bazi-profile-sections-locale-retry', scenario: 'bazi-profile-init', userId: user.id });
+            if (retried && Object.keys(retried).length) llmSections = retried;
+            if (proseLocaleIsBad(llmSections, Object.keys(llmSections), contentLocale)) {
+              console.warn('[i18n] output locale mismatch after retry', { trace: 'bazi-profile-sections-locale-retry', contentLocale });
+            }
+          } catch (retryErr) {
+            console.warn('[i18n] bazi profile locale retry failed, keeping first answer:', retryErr.message || retryErr);
+          }
         }
 
         const llmQualitative = {

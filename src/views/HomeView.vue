@@ -2763,6 +2763,9 @@ const readFollowupSSE = async (response, q, branch = 'qimen') => {
         accum[ev.section] = (accum[ev.section] || '') + ev.text
         const el = ensureLiveFollowupSlot(ev.section, q, nature, branch)
         if (el) { el.classList.add('wstream-active'); el.innerHTML = renderStreamProse(accum[ev.section]) }
+      } else if (ev.type === 'patch_retry') {
+        // 重试会整段重发：清掉上一轮已累积的文字，避免两轮拼在一起
+        for (const k of Object.keys(accum)) delete accum[k]
       } else if (ev.type === 'patch_complete') {
         Object.assign(supplements, ev.supplements || {})
         nature = ev.nature || nature
