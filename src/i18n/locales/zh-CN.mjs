@@ -7,6 +7,7 @@ import reports from './zh-CN/reports.mjs'
 import fortune from './zh-CN/fortune.mjs'
 import about from './zh-CN/about.mjs'
 import legal from './zh-CN/legal.mjs'
+import ziwei from './zh-CN/ziwei.mjs'
 
 export default {
   home,
@@ -17,6 +18,7 @@ export default {
   fortune,
   about,
   legal,
+  ziwei,
   common: {
     cancel: '取消',
     close: '关闭',

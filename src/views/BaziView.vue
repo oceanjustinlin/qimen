@@ -2986,7 +2986,7 @@ const heroStickyStyle = computed(() => {
         '--hero-meta-offset': `${-5 * p}px`,
         '--hero-strip-gap': `${14 - (6 * p)}px`,
         '--hero-side-opacity': Math.max(0, 1 - (p * 1.35)),
-        '--hero-badge-width': `${48 * (1 - p)}px`,
+        '--hero-badge-width': `${(locale.value === 'en-US' ? 64 : 48) * (1 - p)}px`, // 英文「Default」比「默认」宽
         '--hero-caret-width': `${9 * (1 - p)}px`,
         '--hero-action-opacity': Math.max(0, 1 - (p * 1.35)),
         '--hero-note-height': `${42 * (1 - p)}px`,
@@ -6947,6 +6947,9 @@ const getShenColor = (shen) => {
     flex-shrink: 0;
     letter-spacing: 1px;
     max-width: var(--hero-badge-width, 48px);
+}
+:root[lang="en-US"] .profile-strip-badge {
+    letter-spacing: 0;
     opacity: var(--hero-side-opacity, 1);
     overflow: hidden;
     white-space: nowrap;

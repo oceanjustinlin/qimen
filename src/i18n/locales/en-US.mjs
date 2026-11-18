@@ -7,6 +7,7 @@ import reports from './en-US/reports.mjs'
 import fortune from './en-US/fortune.mjs'
 import about from './en-US/about.mjs'
 import legal from './en-US/legal.mjs'
+import ziwei from './en-US/ziwei.mjs'
 
 export default {
   home,
@@ -17,6 +18,7 @@ export default {
   fortune,
   about,
   legal,
+  ziwei,
   common: {
     cancel: 'Cancel',
     close: 'Close',

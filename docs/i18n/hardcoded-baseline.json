@@ -4,7 +4,7 @@
   "src/components/BaziPillarTable.vue": 21,
   "src/components/BaziStaticPanel.vue": 131,
   "src/components/WenshiOrb.vue": 6,
-  "src/components/ZiweiChartPanel.vue": 52,
+  "src/components/ZiweiChartPanel.vue": 3,
   "src/composables/useBaziColumns.js": 2,
   "src/fortuneWarmup.mjs": 1,
   "src/i18n/index.mjs": 2,
