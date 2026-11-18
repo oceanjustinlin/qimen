@@ -27,7 +27,7 @@
 
                 <div class="profile-strip-wrap" :class="{ open: isProfileMenuOpen }">
                     <button class="hero-name-trigger" @click="toggleProfileMenu">
-                        <span class="hero-display-name">{{ activeProfileName }}</span>
+                        <span class="hero-display-name" :data-i18n-skip="activeProfile?.name ? '' : null">{{ activeProfileName }}</span>
                         <span v-if="activeProfile?.is_default" class="profile-strip-badge">默认</span>
                         <svg class="profile-strip-caret" :class="{ open: isProfileMenuOpen }" aria-hidden="true" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -92,7 +92,7 @@
                                         @click="selectProfile(profile.id); swipedProfileId = null"
                                     >
                                         <span class="spi-indicator" :class="{ active: profile.id === selectedProfileId }"></span>
-                                        <span class="spi-name">{{ profile.name || '未命名' }}</span>
+                                        <span class="spi-name" :data-i18n-skip="profile.name ? '' : null">{{ profile.name || '未命名' }}</span>
                                         <span class="spi-date">{{ formatSolarDate(profile.birth_date) }}</span>
                                         <span v-if="profile.is_default" class="spi-default">默认</span>
                                     </button>
@@ -436,7 +436,7 @@
                                     </span>
                                     <button class="le-del" @click="deleteLifeEvent(ev.id)">×</button>
                                 </div>
-                                <p class="le-desc">{{ ev.description }}</p>
+                                <p class="le-desc" data-i18n-skip>{{ ev.description }}</p>
                             </div>
                         </div>
                     </div>

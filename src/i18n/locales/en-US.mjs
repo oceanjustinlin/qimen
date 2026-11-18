@@ -4,4 +4,7 @@ export default {
     bazi: 'Bazi',
     fortune: 'Fortune',
   },
+  account: {
+    language: 'Language',
+  },
 };

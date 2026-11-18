@@ -47,7 +47,7 @@
           <div v-else class="d-hist-item" v-for="item in filteredHistory" :key="item.id" @click="loadRecord(item)">
             <span class="d-hist-dot" :class="getVerdictCls(item.score)"></span>
             <div class="d-hist-info">
-              <div class="d-hist-q">{{ item.question }}</div>
+              <div class="d-hist-q" data-i18n-skip>{{ item.question }}</div>
               <div class="d-hist-meta">
                 <span>{{ item.dateStr }}</span><span>·</span>
                 <span>{{ item.catLabel }}</span><span v-if="!isBaziRecord(item)">·</span>
@@ -210,7 +210,7 @@
                   <button class="profile-switch-trigger" type="button" :aria-expanded="isProfileMenuOpen" @click="toggleProfileMenu">
                     <span class="profile-switch-who">
                       <small>命主</small>
-                      <span class="profile-switch-name">{{ activeProfileName }}</span>
+                      <span class="profile-switch-name" :data-i18n-skip="activeBaziProfile?.name ? '' : null">{{ activeProfileName }}</span>
                       <span v-if="activeBaziProfile" class="profile-switch-meta">{{ activeBaziProfile.gender === 'M' ? '乾造' : '坤造' }} · {{ formatSolarDate(activeBaziProfile.birth_date).split(' ')[0] }}</span>
                     </span>
                     <span class="profile-switch-action">切换<span class="profile-switch-symbol" aria-hidden="true">⇄</span></span>
@@ -224,7 +224,7 @@
                       type="button"
                       @click="selectProfile(profile.id)"
                     >
-                      <span class="profile-item-main">{{ profile.name }}</span>
+                      <span class="profile-item-main" data-i18n-skip>{{ profile.name }}</span>
                       <span class="profile-item-date">{{ formatSolarDate(profile.birth_date) }}</span>
                       <span class="profile-item-meta">{{ profileMetaText(profile) }}</span>
                     </button>
@@ -291,7 +291,7 @@
                   <button type="button" @click="globalState.isDrawerOpen = true">全部记录</button>
                 </div>
                 <button v-for="item in recentRecords" :key="'recent-' + item.id" type="button" class="recent-item" @click="loadRecord(item)">
-                  <span class="recent-q">{{ item.question }}</span>
+                  <span class="recent-q" data-i18n-skip>{{ item.question }}</span>
                   <span class="recent-meta">{{ formatRecentDate(item.created_at) }} · {{ item.catLabel }}</span>
                   <span v-if="!isBaziRecord(item)" class="recent-score" :class="'verdict-' + getVerdictInfo(item.score).cls">{{ getVerdictInfo(item.score).label }} {{ item.score }}</span>
                 </button>
@@ -364,7 +364,7 @@
                     <div v-if="snapshotProfile && snapshotProfile.name" class="backing-identity">
                       <div class="backing-section-title">原局命盘</div>
                       <div class="backing-name-row">
-                        <span class="backing-name">{{ snapshotProfile.name }}</span>
+                        <span class="backing-name" data-i18n-skip>{{ snapshotProfile.name }}</span>
                         <span v-if="snapshotProfile.strong_weak" class="backing-badge badge-blue">{{ snapshotProfile.strong_weak }}</span>
                         <span v-if="snapshotPatternName" class="backing-badge badge-gold">{{ snapshotPatternName }}</span>
                       </div>
@@ -504,7 +504,7 @@
         </div>
 
         <div v-if="feedbackTargetRecord" class="feedback-summary">
-          <div class="feedback-question">“{{ feedbackTargetRecord.question }}”</div>
+          <div class="feedback-question" data-i18n-skip>“{{ feedbackTargetRecord.question }}”</div>
           <div class="feedback-meta">
             <span>{{ feedbackTargetRecord.dateStr }}</span>
             <span>{{ feedbackTargetRecord.catLabel }}</span>
@@ -663,6 +663,7 @@
 import { ref, reactive, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { supabase } from '../lib/supabase.mjs'
+import { displayText } from '../i18n/localeDisplay.mjs'
 import { Solar } from 'lunar-javascript'
 import { getGuestState, trackGuestEvent } from '../guestMode.mjs'
 import {
@@ -1254,7 +1255,7 @@ const saveAsImage = async () => {
       const link = document.createElement('a')
       const now = new Date()
       const dateStr = `${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}`
-      link.download = `奇门推演_${dateStr}.png`
+      link.download = displayText(`奇门推演_${dateStr}.png`)
       link.href = imgData
       link.click()
     }
@@ -1305,7 +1306,7 @@ const addWatermark = (sourceCanvas) => {
   ctx.font = `500 ${fontSize}px 'Noto Serif SC', 'Songti SC', 'STSong', serif`
   ctx.fillStyle = 'rgba(212,175,55,0.85)'
   ctx.textBaseline = 'middle'
-  ctx.fillText('奇门遁甲 AI 推演', 24, wmY + wmH / 2)
+  ctx.fillText(displayText('奇门遁甲 AI 推演'), 24, wmY + wmH / 2)
 
   // 域名
   const domainFontSize = Math.round(12 * scale)
@@ -3456,7 +3457,7 @@ const buildBaziQuestionCardHTML = (data) => {
   const basisText = typeof summary.basis === 'string' ? summary.basis : (summary.basis?.logic || '')
   const m1HTML = `<section class="mag-section" id="bazi-m1">
     <div class="module-heading"><h2>结论先行</h2></div>
-    ${question ? `<blockquote class="mag-question">"${question}"</blockquote>` : ''}
+    ${question ? `<blockquote class="mag-question" data-i18n-skip>"${question}"</blockquote>` : ''}
     ${basisText ? `<p class="bazi-basis-text">${sanitizeBaziDisplayText(basisText, targetLabel)}</p>` : ''}
   </section>`
 
@@ -3875,7 +3876,7 @@ const buildBaziStreamingScaffoldHTML = (engine = null, statusText = '') => {
     </nav>
     <section class="mag-section" id="bazi-m1">
       <div class="module-heading"><h2>结论先行</h2></div>
-      ${question ? `<blockquote class="mag-question">"${question}"</blockquote>` : ''}
+      ${question ? `<blockquote class="mag-question" data-i18n-skip>"${question}"</blockquote>` : ''}
       <p class="bazi-basis-text">${slot('summary_basis')}</p>
     </section>
     <section class="mag-section" id="bazi-m2">
@@ -3974,7 +3975,7 @@ const buildStreamingScaffoldHTML = (engine = null, statusText = '') => {
 
     <section class="mag-section" id="mag-m1">
       <div class="module-heading"><h2>结论先行</h2></div>
-      ${question ? `<blockquote class="mag-question">"${question}"</blockquote>` : ''}
+      ${question ? `<blockquote class="mag-question" data-i18n-skip>"${question}"</blockquote>` : ''}
       <div class="report-subtitle">行动建议</div>
       ${actionsHTML}
     </section>
@@ -4024,7 +4025,7 @@ const renderFollowupBlockHTML = ({ q = '', section = '', text = '', nature = 'de
   const badge = nature === 'revise' ? '因新情况修正' : '追问深挖'
   const body = streaming ? '<span class="wsk"><i></i><i></i></span>' : mdBold(escapeHtmlText(text))
   return `<div class="mag-followup${streaming ? ' mag-followup-pop' : ''}${nature === 'revise' ? ' is-revise' : ''}">`
-    + `<div class="mag-followup-q"><span class="mag-followup-badge">${badge}</span>${escapeHtmlText(q)}</div>`
+    + `<div class="mag-followup-q"><span class="mag-followup-badge">${badge}</span><span data-i18n-skip>${escapeHtmlText(q)}</span></div>`
     + `<div class="mag-followup-body"${streaming ? ` data-fslot="${section}"` : ''}>${body}</div>`
     + `</div>`
 }
@@ -4469,7 +4470,7 @@ const buildCardHTML = (data, opts = {}) => {
 
     <section class="mag-section" id="mag-m1">
       <div class="module-heading"><h2>结论先行</h2></div>
-      ${question ? `<blockquote class="mag-question">"${question}"</blockquote>` : ''}
+      ${question ? `<blockquote class="mag-question" data-i18n-skip>"${question}"</blockquote>` : ''}
       <div class="report-subtitle">行动建议</div>
       <div class="mag-action-list">${magActionListHTML}</div>
       ${renderFollowupsForModule('m1', followups)}

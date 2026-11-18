@@ -28,6 +28,12 @@
         <span class="theme-current">{{ currentThemeLabel }}</span>
       </button>
 
+      <!-- 语言切换：单击循环，交互与主题行相同 -->
+      <button v-if="showLanguageRow" class="account-menu-link theme-cycle-row language-cycle-row" type="button" @click.stop="cycleLocale">
+        <span>{{ t('account.language') }}</span>
+        <span class="theme-current" data-i18n-skip>{{ currentLocaleLabel }}</span>
+      </button>
+
       <router-link class="account-menu-link feedback" to="/feedback" @click="closeMenu">
         反馈与共创
       </router-link>
@@ -46,6 +52,8 @@ import { supabase } from '../lib/supabase.mjs'
 import { globalState } from '../store.js'
 import { themePreference, setThemePreference } from '../composables/useTheme.js'
 import AfdianSupportLink from './AfdianSupportLink.vue'
+import { useI18n } from 'vue-i18n'
+import { ENABLED_LOCALES, LOCALE_NATIVE_NAMES, nextLocale, setLocale } from '../i18n/index.mjs'
 const router = useRouter()
 
 const isOpen = ref(false)
@@ -58,6 +66,13 @@ const currentThemeLabel = computed(() => THEME_LABELS[themePreference.value] ?? 
 const cycleTheme = () => {
   const idx = THEME_ORDER.indexOf(themePreference.value)
   setThemePreference(THEME_ORDER[(idx + 1) % 3])
+}
+
+const { t, locale } = useI18n()
+const showLanguageRow = ENABLED_LOCALES.length >= 2
+const currentLocaleLabel = computed(() => LOCALE_NATIVE_NAMES[locale.value] ?? LOCALE_NATIVE_NAMES['zh-CN'])
+const cycleLocale = () => {
+  setLocale(nextLocale(locale.value, ENABLED_LOCALES))
 }
 
 const identityText = computed(() => {
