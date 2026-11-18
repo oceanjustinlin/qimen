@@ -9,14 +9,14 @@ test('合盘页不再在前端计算分数，分数与称号取自接口的 repo
     'dayZhiMoneyScore', 'compScore', 'zhiRel', 'computeRealDIMs', 'weightedDimPart']) {
     assert.doesNotMatch(wrappedHtml, new RegExp(`function ${fn}\\b`), fn)
   }
-  assert.match(wrappedHtml, /relationType: 'friend'/)
+  assert.match(wrappedHtml, /relationType: REL/)
   assert.match(wrappedHtml, /data\.report\?\.friendDims/)
   assert.match(wrappedHtml, /function applyReport\(report\)/)
   assert.match(wrappedHtml, /S\.total=f\.total;S\.tier=f\.tier;S\.tierClass=f\.tierClass/)
 })
 
 test('分析页与扫盘页按证据渲染：高亮由 locus 与 chars 决定，小标题写明方向', () => {
-  assert.match(wrappedHtml, /function marksFor\(key,list\)/)
+  assert.match(wrappedHtml, /function marksFor\(key,list,toneFn=evTone\)/)
   assert.match(wrappedHtml, /loc==='chart'/)
   assert.match(wrappedHtml, /e\.dir==='A<-B'/)
   assert.match(wrappedHtml, /e\.dir==='B<-A'/)
@@ -45,4 +45,26 @@ test('wrapped birthplace dropdown shows enough county-level matches', () => {
   assert.doesNotMatch(wrappedHtml, /CITY_DISTRICT_FALLBACKS/)
   assert.doesNotMatch(wrappedHtml, /fallbackDistrictPlace/)
   assert.match(wrappedHtml, /api\.searchBirthplaces\(query, limit\)/)
+})
+
+const romanceJs = readFileSync(new URL('../public/wrapped-romance.js', import.meta.url), 'utf8')
+const reportView = readFileSync(new URL('./views/ReportView.vue', import.meta.url), 'utf8')
+
+test('婚恋合盘入口：?type=romance 透传 relationType，性别不预选且必须选', () => {
+  assert.match(reportView, /href="\/wrapped\.html\?type=romance"/)
+  assert.match(reportView, /href="\/wrapped\.html" class="report-card card-friendship"/)
+  assert.match(wrappedHtml, /get\('type'\)==='romance'\?'romance':'friend'/)
+  assert.match(wrappedHtml, /relationType: REL/)
+  assert.match(wrappedHtml, /const DEFAULT_GENDER=REL==='romance'\?'':'M'/)
+  assert.match(wrappedHtml, /\(REL!=='romance'\|\|S\.genderA\)/)
+  assert.match(wrappedHtml, /\(REL!=='romance'\|\|S\.genderB\)/)
+  assert.match(wrappedHtml, /<script src="\.\/wrapped-romance\.js"><\/script>/)
+})
+
+test('婚恋合盘：四问用短问，不出现单字章节名、总分、称号与禁用词', () => {
+  for (const ask of ['有缘吗', '处得顺吗', '谁成就谁', '走得远吗']) assert.match(romanceJs, new RegExp(ask))
+  assert.match(romanceJs, /待开放/)
+  assert.doesNotMatch(romanceJs, /friendDims|对盘指数|TIER_LINES/)
+  for (const src of [wrappedHtml, romanceJs]) assert.doesNotMatch(src, /克夫|克妻|旺夫|注定|必/)
+  assert.doesNotMatch(romanceJs, /'缘'|'和'|'益'|'久'/)
 })

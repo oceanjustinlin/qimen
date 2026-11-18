@@ -327,6 +327,44 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
 .tc-slate{--tc:var(--ink2)}
 .tc-orange,.tc-rose,.tc-red{--tc:var(--crimson)}
 
+
+/* ══ 婚恋合盘 ══ */
+.f-hint{font-weight:400;color:var(--ink3);margin-left:4px}
+.g-pos{color:var(--teal)}.g-mid{color:var(--ink2)}.g-neg{color:var(--crimson)}.g-off{color:var(--ink3)}
+.s-pos{--sc:var(--teal);--tc:var(--teal)}.s-mid{--sc:var(--ink2);--tc:var(--ink2)}.s-neg{--sc:var(--crimson);--tc:var(--crimson)}
+.grade-big{font-size:88px;font-weight:900;line-height:1.1;letter-spacing:.04em;margin-top:10px}
+.grade-sides{width:100%;max-width:306px;margin-top:22px;border-top:1px solid var(--line2)}
+.gs-row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:15px;color:var(--ink2)}
+.gs-row span:last-child{font-weight:900;font-size:17px}
+.susp-steps.s-pos .susp-score-reveal,.susp-steps.s-mid .susp-score-reveal,.susp-steps.s-neg .susp-score-reveal{color:var(--sc)}
+.susp-steps.s-pos .susp-tier,.susp-steps.s-mid .susp-tier,.susp-steps.s-neg .susp-tier{color:var(--ink2);border:0;font-size:18px;font-weight:600;letter-spacing:.04em}
+#result-r{overflow-y:auto;-webkit-overflow-scrolling:touch}
+.rr-top{display:flex;justify-content:space-between;font-size:12px;letter-spacing:.16em}
+.rr-kicker{color:var(--goldtxt)}
+.rr-struct{margin-top:22px;padding:20px 0;border-top:1px solid var(--line2);border-bottom:1px solid var(--line2);display:flex;align-items:center;gap:20px}
+.rr-seal{width:92px;height:92px;flex-shrink:0;border:3px solid var(--sc);color:var(--sc);display:grid;place-items:center;font-size:34px;line-height:1.1;font-weight:900;letter-spacing:.06em}
+.rr-struct-col{display:flex;flex-direction:column;gap:6px}
+.rr-struct-line{font-size:17px;line-height:1.6;font-weight:600}
+.rr-grid{margin-top:20px;display:grid;grid-template-columns:40px repeat(4,52px);column-gap:12px;row-gap:2px;align-items:center;justify-content:center}
+.rr-grid .lb{font-size:12px;color:var(--ink3);text-align:center}
+.rr-grid .nm{font-size:12px;color:var(--ink3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rr-grid .pc{height:44px;font-size:24px}
+.rr-grid .pc.empty{font-size:13px}
+.lk{height:34px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.lk i{display:block;width:1px;height:6px;background:var(--line2)}
+.lk b{font-size:12px;padding:1px 5px;border:1px solid var(--line2);color:var(--ink2);font-weight:600}
+.lk-he i{background:var(--goldfill)}.lk-he b{background:var(--goldfill);border-color:var(--goldfill);color:var(--ongold);font-weight:900}
+.lk-clash i{background:var(--crimson)}.lk-clash b{border-color:var(--crimson);color:var(--crimson)}
+.rr-qs{margin-top:20px;border-top:1px solid var(--line2)}
+.rq-row{display:grid;grid-template-columns:84px 64px 1fr;column-gap:10px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line)}
+.rq-ask{font-size:16px;font-weight:900}
+.rq-grade{font-size:16px;font-weight:600}
+.rq-fact{font-size:13px;line-height:1.7;color:var(--ink2)}
+.rq-fact.off{color:var(--ink3)}
+.rr-keycard{margin-top:22px}
+.rr-keytag{color:var(--goldtxt)}
+.rr-key{font-size:15px;line-height:1.8;color:var(--ink)}
+
 @media screen and (max-width:500px){
   .wiz-topbar{padding:6px 14px}
   .wiz-slide{padding:10px 16px;gap:8px}
@@ -855,6 +893,170 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
 </div><!-- /dim5 -->
 
 <!-- ══════════════════════════════════════
+     婚恋合盘 · 第一问 · 有缘吗
+══════════════════════════════════════ -->
+<div class="phase dim-phase" id="rq1">
+  <div class="dim-prog" id="rq1-prog"></div>
+  <div class="tap-zones" id="rq1-tap">
+    <div></div>
+    <div></div>
+  </div>
+  <div class="dim-slides" id="rq1-slides">
+    <div class="dim-slide ds-on" id="rq1-s0" style="text-align:center">
+      <div class="dim-eyebrow afu" style="animation-delay:.2s">第一问</div>
+      <h1 class="dim-h1 afu" style="animation-delay:.4s">有缘吗</h1>
+      <p class="dim-sub afu" style="animation-delay:.7s">两张盘之间，<br>有多少实在的牵连。</p>
+      <div class="tap-hint"><div class="th-dot"></div>点右侧看下一页</div>
+    </div>
+    <div class="dim-slide" id="rq1-s1">
+      <div class="theory-block afu" style="animation-delay:.1s">
+        <div class="th-src">释义</div>
+        <div class="th-quote">合者，有情。<br>两盘的字<em>相合、相同</em>，<br>便有牵连。</div>
+        <div class="th-modern">看两张盘之间的天干五合、地支六合与三合、日干的原型，以及配偶星、配偶宫是否互见。牵连多，两个人容易走近；牵连少，谈不上合与不合。</div>
+      </div>
+    </div>
+    <div class="dim-slide" id="rq1-s2">
+      <div class="analysis-wrap" id="rq1-analysis"></div>
+    </div>
+    <div class="dim-slide" id="rq1-s3">
+      <p class="c4-head afu" style="animation-delay:.1s">看两张盘之间<br>相合、相同的字</p>
+      <div class="scan-wrap" id="rq1-scan"></div>
+      <div class="scan-legend afu" style="animation-delay:2.4s"><span class="k-hit">金框</span> 相合相助的字　<span class="k-warn">朱框</span> 相冲相耗的字</div>
+    </div>
+    <div class="dim-slide" id="rq1-s4" style="text-align:center;align-items:center">
+      <div class="score-ctx afu" style="animation-delay:.1s">第一问 · 有缘吗</div>
+      <div class="grade-big asi" id="q1-grade" style="animation-delay:.6s">—</div>
+      <div class="score-sub afu" id="q1-sub" style="animation-delay:1.2s"></div>
+      <div class="grade-sides afu" id="q1-sides" style="animation-delay:1.6s"></div>
+      <div class="swipe-hint"><div class="swipe-arrow">↑</div>上滑看下一问</div>
+    </div>
+  </div>
+</div><!-- /rq1 -->
+
+<!-- ══════════════════════════════════════
+     婚恋合盘 · 第二问 · 处得顺吗
+══════════════════════════════════════ -->
+<div class="phase dim-phase" id="rq2">
+  <div class="dim-prog" id="rq2-prog"></div>
+  <div class="tap-zones" id="rq2-tap">
+    <div></div>
+    <div></div>
+  </div>
+  <div class="dim-slides" id="rq2-slides">
+    <div class="dim-slide ds-on" id="rq2-s0" style="text-align:center">
+      <div class="dim-eyebrow afu" style="animation-delay:.2s">第二问</div>
+      <h1 class="dim-h1 afu" style="animation-delay:.4s">处得顺吗</h1>
+      <p class="dim-sub afu" style="animation-delay:.7s">日子里，<br>磕碰多不多。</p>
+      <div class="tap-hint"><div class="th-dot"></div>点右侧看下一页</div>
+    </div>
+    <div class="dim-slide" id="rq2-s1">
+      <div class="theory-block afu" style="animation-delay:.1s">
+        <div class="th-src">释义</div>
+        <div class="th-quote">冲者，动也。<br>两盘<em>相冲相刑</em>，<br>相处就多摩擦。</div>
+        <div class="th-modern">看两张盘之间的冲、刑、害与天干相克，落在日柱、月柱上的分量最重。冲刑多，日常摩擦就多；不见冲刑，相处就顺。</div>
+      </div>
+    </div>
+    <div class="dim-slide" id="rq2-s2">
+      <div class="analysis-wrap" id="rq2-analysis"></div>
+    </div>
+    <div class="dim-slide" id="rq2-s3">
+      <p class="c4-head afu" style="animation-delay:.1s">看两张盘之间<br>相冲、相刑的字</p>
+      <div class="scan-wrap" id="rq2-scan"></div>
+      <div class="scan-legend afu" style="animation-delay:2.4s"><span class="k-hit">金框</span> 相合相助的字　<span class="k-warn">朱框</span> 相冲相耗的字</div>
+    </div>
+    <div class="dim-slide" id="rq2-s4" style="text-align:center;align-items:center">
+      <div class="score-ctx afu" style="animation-delay:.1s">第二问 · 处得顺吗</div>
+      <div class="grade-big asi" id="q2-grade" style="animation-delay:.6s">—</div>
+      <div class="score-sub afu" id="q2-sub" style="animation-delay:1.2s"></div>
+      <div class="grade-sides afu" id="q2-sides" style="animation-delay:1.6s"></div>
+      <div class="swipe-hint"><div class="swipe-arrow">↑</div>上滑看下一问</div>
+    </div>
+  </div>
+</div><!-- /rq2 -->
+
+<!-- ══════════════════════════════════════
+     婚恋合盘 · 第三问 · 谁成就谁
+══════════════════════════════════════ -->
+<div class="phase dim-phase" id="rq3">
+  <div class="dim-prog" id="rq3-prog"></div>
+  <div class="tap-zones" id="rq3-tap">
+    <div></div>
+    <div></div>
+  </div>
+  <div class="dim-slides" id="rq3-slides">
+    <div class="dim-slide ds-on" id="rq3-s0" style="text-align:center">
+      <div class="dim-eyebrow afu" style="animation-delay:.2s">第三问</div>
+      <h1 class="dim-h1 afu" style="animation-delay:.4s">谁成就谁</h1>
+      <p class="dim-sub afu" style="animation-delay:.7s">对方的盘，<br>对你像一步什么样的运。</p>
+      <div class="tap-hint"><div class="th-dot"></div>点右侧看下一页</div>
+    </div>
+    <div class="dim-slide" id="rq3-s1">
+      <div class="theory-block afu" style="animation-delay:.1s">
+        <div class="th-src">释义</div>
+        <div class="th-quote">对方的盘，<br>对我<em>如行一运</em>。</div>
+        <div class="th-modern">对方盘里旺的五行若正是我所喜，就像走了一步好运；若正是我所忌，就是消耗。两个方向分开看，所以会有一方得益、另一方付出的情形。</div>
+      </div>
+    </div>
+    <div class="dim-slide" id="rq3-s2">
+      <div class="analysis-wrap" id="rq3-analysis"></div>
+    </div>
+    <div class="dim-slide" id="rq3-s3">
+      <p class="c4-head afu" style="animation-delay:.1s">看对方盘里<br>哪些字在帮你，哪些在耗你</p>
+      <div class="scan-wrap" id="rq3-scan"></div>
+      <div class="scan-legend afu" style="animation-delay:2.4s"><span class="k-hit">金框</span> 相合相助的字　<span class="k-warn">朱框</span> 相冲相耗的字</div>
+    </div>
+    <div class="dim-slide" id="rq3-s4" style="text-align:center;align-items:center">
+      <div class="score-ctx afu" style="animation-delay:.1s">第三问 · 谁成就谁</div>
+      <div class="grade-big asi" id="q3-grade" style="animation-delay:.6s">—</div>
+      <div class="score-sub afu" id="q3-sub" style="animation-delay:1.2s"></div>
+      <div class="grade-sides afu" id="q3-sides" style="animation-delay:1.6s"></div>
+      <div class="swipe-hint"><div class="swipe-arrow">↑</div>上滑看下一问</div>
+    </div>
+  </div>
+</div><!-- /rq3 -->
+
+<!-- ══════════════════════════════════════
+     婚恋合盘 · 第四问 · 走得远吗
+══════════════════════════════════════ -->
+<div class="phase dim-phase" id="rq4">
+  <div class="dim-prog" id="rq4-prog"></div>
+  <div class="tap-zones" id="rq4-tap">
+    <div></div>
+    <div></div>
+  </div>
+  <div class="dim-slides" id="rq4-slides">
+    <div class="dim-slide ds-on" id="rq4-s0" style="text-align:center">
+      <div class="dim-eyebrow afu" style="animation-delay:.2s">第四问</div>
+      <h1 class="dim-h1 afu" style="animation-delay:.4s">走得远吗</h1>
+      <p class="dim-sub afu" style="animation-delay:.7s">先看两个人各自的盘里，<br>这段关系的底子稳不稳。</p>
+      <div class="tap-hint"><div class="th-dot"></div>点右侧看下一页</div>
+    </div>
+    <div class="dim-slide" id="rq4-s1">
+      <div class="theory-block afu" style="animation-delay:.1s">
+        <div class="th-src">释义</div>
+        <div class="th-quote">先看各自命里的<br><em>配偶星与配偶宫</em>。</div>
+        <div class="th-modern">配偶星与配偶宫安稳的人，关系的底子就稳。两人大运是否同步、哪些年份是关口，属于岁运部分，后续版本提供。</div>
+      </div>
+    </div>
+    <div class="dim-slide" id="rq4-s2">
+      <div class="analysis-wrap" id="rq4-analysis"></div>
+    </div>
+    <div class="dim-slide" id="rq4-s3">
+      <p class="c4-head afu" style="animation-delay:.1s">看两人的配偶宫<br>（日支）</p>
+      <div class="scan-wrap" id="rq4-scan"></div>
+      <div class="scan-legend afu" style="animation-delay:2.4s"><span class="k-hit">金框</span> 相合相助的字　<span class="k-warn">朱框</span> 相冲相耗的字</div>
+    </div>
+    <div class="dim-slide" id="rq4-s4" style="text-align:center;align-items:center">
+      <div class="score-ctx afu" style="animation-delay:.1s">第四问 · 走得远吗</div>
+      <div class="grade-big asi" id="q4-grade" style="animation-delay:.6s">—</div>
+      <div class="score-sub afu" id="q4-sub" style="animation-delay:1.2s"></div>
+      <div class="grade-sides afu" id="q4-sides" style="animation-delay:1.6s"></div>
+      <div class="swipe-hint"><div class="swipe-arrow">↑</div>上滑看结果</div>
+    </div>
+  </div>
+</div><!-- /rq4 -->
+
+<!-- ══════════════════════════════════════
      SUSPENSE
 ══════════════════════════════════════ -->
 <div class="phase" id="suspense">
@@ -924,6 +1126,33 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
   </div>
 </div><!-- /result -->
 
+<!-- ══════════════════════════════════════
+     婚恋合盘 · RESULT（无总分、无称号）
+══════════════════════════════════════ -->
+<div class="phase" id="result-r">
+  <div class="res-wrap">
+    <div class="rr-top"><span class="rr-kicker">八字双人合盘 · 姻缘</span><span class="res-date mono" id="rr-date"></span></div>
+    <div class="res-names" id="rr-names">A × B</div>
+    <div class="rr-struct">
+      <div class="rr-seal" id="rr-seal">—</div>
+      <div class="rr-struct-col"><span class="res-eyebrow">这段关系的结构</span><span class="rr-struct-line" id="rr-struct-line"></span></div>
+    </div>
+    <div class="rr-grid" id="rr-grid"></div>
+    <div class="rr-qs" id="rr-qs"></div>
+    <div class="res-icard rr-keycard"><div class="ic-tag rr-keytag">最要紧的一条</div><div class="ic-body rr-key" id="rr-key"></div></div>
+    <p class="res-caveat" id="rr-folk" hidden></p>
+    <p class="res-caveat" id="rr-caveat" hidden></p>
+    <div class="res-actions">
+      <button class="btn-share-main" id="rr-btn-share">分享这张合盘</button>
+      <div class="res-secondary-row">
+        <button class="btn-secondary" id="rr-btn-try">再测一对</button>
+        <button class="btn-secondary" id="rr-btn-rewatch">重看一遍</button>
+      </div>
+      <div class="res-disclaimer">这是两张盘的结构关系，不是对两个人的判决。<br>命盘是底色，相处是选择。</div>
+    </div>
+  </div>
+</div><!-- /result-r -->
+
 </div><!-- /shell -->
 
 <div class="share-sheet" id="share-sheet" aria-hidden="true">
@@ -955,12 +1184,16 @@ window.__birthplaceSearch = { searchBirthplaces, findBirthplaceByName };
 <script>
 'use strict';
 
+/* 关系类型：?type=romance 为婚恋合盘（四问，无总分），其余为朋友合盘 */
+const REL=(()=>{try{return new URLSearchParams(location.search).get('type')==='romance'?'romance':'friend';}catch(e){return 'friend';}})();
+const DEFAULT_GENDER=REL==='romance'?'':'M';   // 婚恋合盘性别决定配偶星，不预选
+
 /* ══════════════════════════════════════════════════
    STATE
 ══════════════════════════════════════════════════ */
 const S = {
   nameA:'', nameB:'',
-  genderA:'M', genderB:'M',
+  genderA:DEFAULT_GENDER, genderB:DEFAULT_GENDER,
   yearA:0,monthA:0,dayA:0,hourA:-1,
   yearB:0,monthB:0,dayB:0,hourB:-1,
   skipA:false, skipB:false,
@@ -1268,6 +1501,7 @@ function setGender(suf,val){
   S[`gender${suf}`]=val;
   document.getElementById(`g${suf}-M`).classList.toggle('on',val==='M');
   document.getElementById(`g${suf}-F`).classList.toggle('on',val==='F');
+  if(suf==='A')checkS0();else checkS1();
 }
 
 /* 时辰 */
@@ -1300,12 +1534,12 @@ function toggleSkip(suf){
 function checkS0(){
   const y=+document.getElementById('yearA').value,m=+document.getElementById('monthA').value,d=+document.getElementById('dayA').value;
   const n=document.getElementById('nameA').value.trim();
-  document.getElementById('nextS0').disabled=!(n&&y>=1930&&y<=2010&&m>=1&&m<=12&&d>=1&&d<=31);
+  document.getElementById('nextS0').disabled=!(n&&y>=1930&&y<=2010&&m>=1&&m<=12&&d>=1&&d<=31&&(REL!=='romance'||S.genderA));
 }
 function checkS1(){
   const y=+document.getElementById('yearB').value,m=+document.getElementById('monthB').value,d=+document.getElementById('dayB').value;
   const n=document.getElementById('nameB').value.trim();
-  document.getElementById('nextS1').disabled=!(n&&y>=1930&&y<=2010&&m>=1&&m<=12&&d>=1&&d<=31);
+  document.getElementById('nextS1').disabled=!(n&&y>=1930&&y<=2010&&m>=1&&m<=12&&d>=1&&d<=31&&(REL!=='romance'||S.genderB));
 }
 function setStartLoading(on){
   const btn=document.getElementById('nextS1');
@@ -1357,21 +1591,21 @@ async function startReport(){
   try {
     const resp = await fetch('/api/compatibility/init', {
       method: 'POST', headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({ profileA, profileB, relationType: 'friend' }),
+      body: JSON.stringify({ profileA, profileB, relationType: REL }),
     });
     const data = await resp.json().catch(()=>null);
-    if (!resp.ok || !data?.ok || !data.A || !data.B || !data.report?.friendDims) {
+    if (!resp.ok || !data?.ok || !data.A || !data.B || !(REL==='romance' ? data.report?.fourQuestions : data.report?.friendDims)) {
       throw new Error(data?.error || '合盘接口暂时不可用');
     }
     populateBaziFromCompact(data.A, data.B);
     S.compat={A:data.A,B:data.B};
-    applyReport(data.report);
+    if (REL==='romance') applyRomanceReport(data.report); else applyReport(data.report);
   } catch(e) {
     showStartError(`排盘失败：${e.message || '网络异常'}。请稍后重试。`);
     return;
   }
 
-  buildAllDIMContent();
+  if (REL==='romance') buildRomanceContent(); else buildAllDIMContent();
   setStartLoading(false);
 
   const wiz=document.getElementById('wizard');
@@ -1379,7 +1613,8 @@ async function startReport(){
   wiz.style.transform='translateY(100%)';
   setTimeout(()=>{
     wiz.classList.remove('active');wiz.style.transform='';wiz.style.transition='';
-    initDim('dim1');showPhaseImmediate('dim1');
+    const first=REL==='romance'?'rq1':'dim1';
+    initDim(first);showPhaseImmediate(first);
   },460);
 }
 
@@ -1497,12 +1732,12 @@ function topFacts(key,n,preferTone){
 }
 
 /* 证据的 locus / chars → 两人四柱上要标的字 */
-function marksFor(key,list){
+function marksFor(key,list,toneFn=evTone){
   const blank=()=>POS.map(()=>({gan:'',zhi:''}));
   const m={A:blank(),B:blank()};
   const set=(side,i,part,tone)=>{const c=m[side][i];if(c[part]!=='warn')c[part]=tone;};
   list.forEach(e=>{
-    const tone=evTone(key,e);
+    const tone=toneFn(key,e);
     [['a','A'],['b','B']].forEach(([lk,side])=>{
       const loc=e.locus?.[lk];if(!loc)return;
       const pillars=S.bazi[side]||[];
@@ -1714,6 +1949,7 @@ function runScanAnim(dimId){
 }
 
 function runScoreAnim(dimId){
+  if(REL==='romance')return;   // 婚恋合盘的等级页只有入场动画，没有分数
   const key=DIM_CFG[dimId].scoreId;
   const score=S.dims[key]||0;
   const parts=S.dimParts[key]||{s1:0,s3:0};
@@ -1775,7 +2011,7 @@ function goPrevChapter(dimId){
   clearTimeout(dimTimers[dimId]);
   const prevId=DIM_PREV[dimId];
   if(!prevId) {
-     if(dimId==='dim1') showPhaseImmediate('landing');
+     if(dimId==='dim1'||dimId==='rq1') showPhaseImmediate('landing');
      return;
   }
   initDim(prevId);
@@ -1882,6 +2118,7 @@ function resumeDim(dimId){
 function goSuspense(){showPhase('suspense');setTimeout(runSuspense,400);}
 
 function runSuspense(){
+  if(REL==='romance'){runSuspenseRomance();return;}
   const steps=['susp-0','susp-1','susp-2'];
   function showStep(i){
     steps.forEach((id,j)=>{
@@ -1973,6 +2210,7 @@ function getSharePayload(){
 
 /* 分享图：纸墨配色，跟随当前深浅主题 */
 function renderShareBlob(){
+  if(REL==='romance')return renderRomanceShareBlob();
   const p=getSharePayload();
   const root=getComputedStyle(document.documentElement);
   const v=(n,f)=>root.getPropertyValue(n).trim()||f;
@@ -2065,7 +2303,7 @@ async function openShareSheet(){
 
 async function resShare(){
   const title='奇门道·合盘';
-  const text=`${S.nameA}×${S.nameB} 对盘指数 ${fmtSigned(S.total)} · ${S.tier}`;
+  const text=REL==='romance'?`${S.nameA}×${S.nameB} 姻缘合盘 · ${S.structure||''}`:`${S.nameA}×${S.nameB} 对盘指数 ${fmtSigned(S.total)} · ${S.tier}`;
   if(isWeChat()){
     await openShareSheet();
     return;
@@ -2085,13 +2323,13 @@ async function resShare(){
   }
 }
 function resTryAnother(){resetAll();showPhaseImmediate('landing');}
-function resRewatch(){Object.keys(dimTimers).forEach(k=>clearTimeout(dimTimers[k]));showPhaseImmediate('dim1');initDim('dim1');}
+function resRewatch(){Object.keys(dimTimers).forEach(k=>clearTimeout(dimTimers[k]));const first=REL==='romance'?'rq1':'dim1';showPhaseImmediate(first);initDim(first);}
 
 function resetAll(){
   ['nameA','yearA','monthA','dayA','nameB','yearB','monthB','dayB','cityA','cityB'].forEach(id=>{
     const el=document.getElementById(id);if(el)el.value='';
   });
-  S.skipA=false;S.skipB=false;S.hourA=-1;S.hourB=-1;S.genderA='M';S.genderB='M';S.placeA=null;S.placeB=null;
+  S.skipA=false;S.skipB=false;S.hourA=-1;S.hourB=-1;S.genderA=DEFAULT_GENDER;S.genderB=DEFAULT_GENDER;S.placeA=null;S.placeB=null;
   S.tstA=true;S.tstB=true;
   S.compat={A:null,B:null};
   document.querySelectorAll('.shi-btn').forEach(b=>b.classList.remove('sel'));
@@ -2100,7 +2338,7 @@ function resetAll(){
   ['tstA-chk','tstB-chk'].forEach(id=>document.getElementById(id)?.classList.add('on'));
   ['tstA-badge','tstB-badge'].forEach(id=>{const el=document.getElementById(id);if(el){el.textContent='真太阳时';el.className='tst-badge';}});
   // Reset gender
-  ['gA-M','gB-M'].forEach(id=>document.getElementById(id)?.classList.add('on'));
+  ['gA-M','gB-M'].forEach(id=>document.getElementById(id)?.classList.toggle('on',DEFAULT_GENDER==='M'));
   ['gA-F','gB-F'].forEach(id=>document.getElementById(id)?.classList.remove('on'));
   document.getElementById('nextS0').disabled=true;
   document.getElementById('nextS1').disabled=true;
@@ -2145,5 +2383,6 @@ if(typeof resShare === 'function') window.resShare = resShare;
 if(typeof resTryAnother === 'function') window.resTryAnother = resTryAnother;
 if(typeof resRewatch === 'function') window.resRewatch = resRewatch;
 </script>
+<script src="./wrapped-romance.js"></script>
 </body>
 </html>
