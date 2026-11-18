@@ -1,5 +1,5 @@
 {
-  "src/components/BaziBackingPanel.vue": 26,
+  "src/components/BaziBackingPanel.vue": 10,
   "src/components/BaziDynamicPanel.vue": 45,
   "src/components/BaziPillarTable.vue": 6,
   "src/components/BaziStaticPanel.vue": 131,
@@ -19,7 +19,7 @@
   "src/utils/monthlyScoreHits.mjs": 13,
   "src/utils/qimenCardFallbacks.mjs": 11,
   "src/utils/ziweiChart.mjs": 19,
-  "src/views/BaziView.vue": 425,
+  "src/views/BaziView.vue": 405,
   "src/views/FortuneView.vue": 8,
   "src/views/HomeView.vue": 338
 }

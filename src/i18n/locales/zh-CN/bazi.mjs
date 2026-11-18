@@ -22,6 +22,41 @@ export default {
   "common": {
     "confirm": "确定"
   },
+  "interactions": { "title": "生克合化注意", "ganYuanju": "天干本命", "zhiYuanju": "地支本命", "ganYun": "天干运势", "zhiYun": "地支运势", "none": "暂无明显的合冲破害关系" },
+  "timeline": {
+    "title": "专业四柱大运流年流月流日联动",
+    "today": "回到今日",
+    "dayun": "大运",
+    "liunian": "流年",
+    "expand": "展开大运流年",
+    "collapse": "收起大运流年",
+    "rowDayun": "大运",
+    "rowLiunian": "流年",
+    "rowLiuyue": "流月",
+    "rowLiuri": "流日",
+    "xiaoyun": "小运",
+    "ageRange": "{start}~{end}岁",
+    "month": "{n}月",
+    "week": { "0": "周日", "1": "周一", "2": "周二", "3": "周三", "4": "周四", "5": "周五", "6": "周六" },
+    "legend": "比 比肩 · 劫 劫财 · 食 食神 · 伤 伤官 · 财 正财 · 才 偏财 · 官 正官 · 杀 七杀 · 印 正印 · 枭 偏印"
+  },
+  "shenshaModal": { "good": "吉", "bad": "忌", "classics": "古籍", "ok": "知晓" },
+  "insight": {
+    "kicker": "命局天机",
+    "infoTitle": "查看命局判定",
+    "strengthPattern": "旺衰格局",
+    "subPattern": "小格",
+    "basePattern": "基础格局",
+    "leaning": "{name}倾向 {score}%",
+    "imageMatch": "形象匹配度 {score}%",
+    "climate": "调候诊断",
+    "primary": "第一调候",
+    "secondary": "辅助调候",
+    "avoid": "慎见",
+    "none": "未触发",
+    "wuxing": "五行能量池",
+    "overload": "能量偏盛"
+  },
   "pillarTable": {
     "pillar": "柱位",
     "suffix": "柱",

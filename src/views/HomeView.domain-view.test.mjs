@@ -442,7 +442,7 @@ test('八字问答结果不展示兼容 analysis 摘要和 fallback 边界提示
 })
 
 test('背书板块采用八字档案专业排盘结构而不是临时卡片', () => {
-  const component = readFileSync(new URL('../components/BaziBackingPanel.vue', import.meta.url), 'utf8')
+  const component = resolveSource(readFileSync(new URL('../components/BaziBackingPanel.vue', import.meta.url), 'utf8'))
   assert.match(component, /BaziPillarTable/)
   assert.match(component, /专业四柱大运流年/)
   assert.match(component, /linkage-row/)
@@ -451,8 +451,9 @@ test('背书板块采用八字档案专业排盘结构而不是临时卡片', ()
   assert.match(component, /xiaoyunList/)
   assert.match(component, /current_liunian/)
   assert.match(component, /selectedDayun/)
-  assert.match(component, /流<br>月/)
-  assert.match(component, /流<br>日/)
+  // 行名改为竖排（writing-mode），不再用 <br> 断行
+  assert.match(component, /流月/)
+  assert.match(component, /流日/)
   assert.doesNotMatch(component, /命盘背书/)
 })
 

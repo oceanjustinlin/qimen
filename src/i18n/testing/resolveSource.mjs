@@ -14,6 +14,8 @@ export function resolveSource(source) {
     .replace(/:([\w-]+)="t\('([\w.]+)'\)"/g, (m, attr, key) => (typeof get(key) === 'string' ? `${attr}="${get(key)}"` : m))
     // 模板字符串 ${t('x')} / ${i18n.t('x')}
     .replace(/\$\{\s*(?:i18n\.)?t\('([\w.]+)'\)\s*\}/g, (m, key) => (typeof get(key) === 'string' ? get(key) : m))
+    // 带参数的 t('x', {...})：原样保留调用，前面插一段注释写出原文（含 {占位符}）
+    .replace(/(?<![\w.$])t\('([\w.]+)',/g, (m, key) => (typeof get(key) === 'string' ? `t(/* ${get(key)} */ '${key}',` : m))
     // 其余脚本表达式里的 t('x') → 'x 的原文'（如 return t('x')）
     .replace(/(?<![\w.$])t\('([\w.]+)'\)/g, (m, key) => (typeof get(key) === 'string' ? `'${get(key)}'` : m))
 }

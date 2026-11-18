@@ -113,7 +113,21 @@ export function symbolName(zh, locale) {
   if (empty(zh)) return ''
   const value = String(zh)
   if (!isEnglish(locale)) return value
-  return glossary.toEnglish(value) || value
+  return glossary.toEnglish(value) || composedPatternName(value) || value
+}
+
+// 引擎拼出来的格局名：「火土成象」→ Fire-Earth Image；「甲己化土」→ Jia-Ji Transforming to Earth
+const EL = '[木火土金水]' // i18n-ignore
+const TWO_QI_IMAGE = new RegExp(`^(${EL})(${EL})成象$`) // i18n-ignore
+const STEM_TRANSFORM = new RegExp(`^(.)(.)化(${EL})格?$`) // i18n-ignore
+function composedPatternName(value) {
+  let m = value.match(TWO_QI_IMAGE)
+  if (m) return `${glossary.toEnglish(m[1])}-${glossary.toEnglish(m[2])} Image`
+  m = value.match(STEM_TRANSFORM)
+  if (m && glossary.lookup(m[1])?.group === 'stem' && glossary.lookup(m[2])?.group === 'stem') {
+    return `${glossary.toEnglish(m[1])}-${glossary.toEnglish(m[2])} Transforming to ${glossary.toEnglish(m[3])}`
+  }
+  return ''
 }
 
 // 干支只要拼音名：'壬辰' → 'Ren Chen'（英文）；中文原样。
@@ -138,4 +152,52 @@ export function symbolHint(zh, locale) {
     return chars.map((ch) => glossary.toEnglish(ch)).join(' ')
   }
   return ''
+}
+
+// 十神英文缩写（英文八字软件常用写法），用于大运流年等小标签；查不到原样返回
+const TEN_GOD_ABBR = {
+  'Friend': 'F', 'Rob Wealth': 'RW', 'Eating God': 'EG', 'Hurting Officer': 'HO',
+  'Indirect Wealth': 'IW', 'Direct Wealth': 'DW', 'Seven Killings': '7K',
+  'Direct Officer': 'DO', 'Indirect Resource': 'IR', 'Direct Resource': 'DR',
+}
+export function tenGodAbbr(zh) {
+  if (empty(zh)) return ''
+  const entry = glossary.lookup(String(zh))
+  return (entry && TEN_GOD_ABBR[entry.en]) || String(zh)
+}
+
+// 干支合冲刑害：「己癸相克」→ Ji-Gui Control；「甲己合化土」→ Jia-Ji Combine into Earth；
+// 「巳午未三会火局」→ Si-Wu-Wei Directional Fire；「子午半三合水局」→ Zi-Wu Half Three Harmony Water。
+// 关系译名按英文八字书通行叫法（Clash / Punishment / Harm / Destruction / Six Harmony / Three Harmony）。
+const RELATIONS = [ // i18n-ignore-start
+  [/^相克$/, () => 'Control'],
+  [/^相冲$/, () => 'Clash'],
+  [/^相刑$/, () => 'Punishment'],
+  [/^自刑$/, () => 'Self Punishment'],
+  [/^相害$/, () => 'Harm'],
+  [/^相破$/, () => 'Destruction'],
+  [/^六合$/, () => 'Six Harmony'],
+  [/^合化(.)$/, (m) => `Combine into ${glossary.toEnglish(m[1]) || m[1]}`],
+  [/^半三合(.)局$/, (m) => `Half Three Harmony ${glossary.toEnglish(m[1]) || m[1]}`],
+  [/^半合(.)局$/, (m) => `Half Three Harmony ${glossary.toEnglish(m[1]) || m[1]}`],
+  [/^三合(.)局$/, (m) => `Three Harmony ${glossary.toEnglish(m[1]) || m[1]}`],
+  [/^三会(.)局$/, (m) => `Directional ${glossary.toEnglish(m[1]) || m[1]}`],
+] // i18n-ignore-end
+export function interactionLabel(name, locale) {
+  if (empty(name)) return ''
+  const value = String(name)
+  if (!isEnglish(locale)) return value
+  const chars = []
+  for (const ch of value) {
+    const g = glossary.lookup(ch)?.group
+    if (g !== 'stem' && g !== 'branch') break
+    chars.push(ch)
+  }
+  if (chars.length < 2) return value
+  const rest = value.slice(chars.join('').length)
+  for (const [re, fn] of RELATIONS) {
+    const m = rest.match(re)
+    if (m) return `${chars.map((c) => glossary.toEnglish(c)).join('-')} ${fn(m)}`
+  }
+  return value
 }

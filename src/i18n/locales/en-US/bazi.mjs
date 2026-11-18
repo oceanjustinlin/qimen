@@ -22,6 +22,41 @@ export default {
   "common": {
     "confirm": "Done"
   },
+  "interactions": { "title": "Combinations & Clashes", "ganYuanju": "Stems · Natal", "zhiYuanju": "Branches · Natal", "ganYun": "Stems · Luck & Year", "zhiYun": "Branches · Luck & Year", "none": "No notable combinations or clashes" },
+  "timeline": {
+    "title": "Luck Pillars · Annual · Monthly · Daily",
+    "today": "Back to today",
+    "dayun": "Luck",
+    "liunian": "Year",
+    "expand": "Show luck pillars",
+    "collapse": "Hide luck pillars",
+    "rowDayun": "Luck",
+    "rowLiunian": "Year",
+    "rowLiuyue": "Month",
+    "rowLiuri": "Day",
+    "xiaoyun": "Minor Luck",
+    "ageRange": "Age {start}–{end}",
+    "month": "Month {n}",
+    "week": { "0": "Sun", "1": "Mon", "2": "Tue", "3": "Wed", "4": "Thu", "5": "Fri", "6": "Sat" },
+    "legend": "F Friend · RW Rob Wealth · EG Eating God · HO Hurting Officer · DW Direct Wealth · IW Indirect Wealth · DO Direct Officer · 7K Seven Killings · DR Direct Resource · IR Indirect Resource"
+  },
+  "shenshaModal": { "good": "Favorable", "bad": "Caution", "classics": "Classics", "ok": "Got it" },
+  "insight": {
+    "kicker": "Chart Insights",
+    "infoTitle": "How this is judged",
+    "strengthPattern": "Strength & Structure",
+    "subPattern": "Sub-structure",
+    "basePattern": "Base Structure",
+    "leaning": "Leans {name} {score}%",
+    "imageMatch": "Image match {score}%",
+    "climate": "Climate Balance",
+    "primary": "Primary",
+    "secondary": "Secondary",
+    "avoid": "Avoid",
+    "none": "None",
+    "wuxing": "Five Elements",
+    "overload": "Overloaded"
+  },
   "pillarTable": {
     "pillar": "Pillar",
     "suffix": "",
