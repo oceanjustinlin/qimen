@@ -22,6 +22,24 @@ export default {
   "common": {
     "confirm": "确定"
   },
+  "pillarTable": {
+    "pillar": "柱位",
+    "suffix": "柱",
+    "col": { "年": "年", "月": "月", "日": "日", "时": "时", "大运": "大运", "流年": "流年", "小运": "小运" },
+    "tenGod": "主星",
+    "stem": "天干",
+    "branch": "地支",
+    "hidden": "藏干",
+    "lifeStage": "星运",
+    "selfSeat": "自座",
+    "void": "空亡",
+    "nayin": "纳音",
+    "shensha": "神煞",
+    "tapHint": "(点击)",
+    "expand": "展开",
+    "collapse": "折叠"
+  },
+  "nature": { "吉": "吉", "中性": "中性", "凶": "凶" },
   "tab": {
     "basic": "基础排盘",
     "pro": "专业细盘",

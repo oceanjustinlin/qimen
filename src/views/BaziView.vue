@@ -46,13 +46,13 @@
                                 class="badge badge-blue badge-action hero-pill"
                                 role="button" tabindex="0"
                                 @click.stop="openInsightPanel('strength')"
-                            >{{ activeProfile.strong_weak }}</span>
+                            >{{ symbolName(activeProfile.strong_weak, locale) }}</span>
                             <span
                                 v-if="activeProfile.geju"
                                 class="badge badge-gold badge-action hero-pill"
                                 role="button" tabindex="0"
                                 @click.stop="openInsightPanel('geju')"
-                            >{{ patternFinalName }}</span>
+                            >{{ symbolName(patternFinalName, locale) }}</span>
                         </div>
                     </div>
                 </div>
@@ -692,8 +692,8 @@
                     <div v-if="selectedShensha" class="modal-overlay" @click="selectedShensha = null">
                         <div class="shensha-modal bsheet-inner" @click.stop>
                             <div class="shensha-modal-head">
-                                <h4>{{ getShenshaInfo(selectedShensha).label || selectedShensha }}</h4>
-                                <span class="shensha-nature-badge" :class="'nature-' + getShenshaInfo(selectedShensha).nature">{{ getShenshaInfo(selectedShensha).nature }}</span>
+                                <h4>{{ symbolLabel(getShenshaInfo(selectedShensha).label || selectedShensha, locale) }}</h4>
+                                <span class="shensha-nature-badge" :class="'nature-' + getShenshaInfo(selectedShensha).nature">{{ t('bazi.nature.' + getShenshaInfo(selectedShensha).nature) }}</span>
                             </div>
                             <p class="shensha-summary">{{ getShenshaInfo(selectedShensha).summary }}</p>
                             <div v-if="getShenshaInfo(selectedShensha).auspicious" class="shensha-section shensha-ji">
@@ -1183,6 +1183,7 @@
 import { ref, reactive, computed, nextTick, onMounted, onUnmounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import { symbolLabel, symbolName } from '../i18n/domainLabels.mjs'
 import { localizeApiError, localeJson, withLocaleQuery } from '../i18n/requestLocale.mjs'
 import { contentLocaleOf } from '../i18n/index.mjs'
 import { contextFieldLabel, contextFieldPlaceholder, contextOptionLabel, monthlySectionTitle, noteCategoryLabel, noteImpactLabel, profileSectionTitle } from '../i18n/notesLabels.mjs'

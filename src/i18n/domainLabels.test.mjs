@@ -52,3 +52,17 @@ test('ganzhiName 只给拼音名', async () => {
   assert.equal(ganzhiName('壬辰', 'en-US'), 'Ren Chen')
   assert.equal(ganzhiName('壬辰', 'zh-CN'), '壬辰')
 })
+
+test('symbolHint: 盘表英文小字', async () => {
+  const { symbolHint } = await import('./domainLabels.mjs')
+  assert.equal(symbolHint('甲', 'en-US'), 'Yang Wood')
+  assert.equal(symbolHint('子', 'en-US'), 'Rat')
+  assert.equal(symbolHint('七杀', 'en-US'), 'Seven Killings')
+  assert.equal(symbolHint('元男', 'en-US'), 'Day Master')
+  assert.equal(symbolHint('天乙', 'en-US'), 'Heavenly Nobleman')
+  assert.equal(symbolHint('海中金', 'en-US'), 'Gold in the Sea')
+  assert.equal(symbolHint('戌亥', 'en-US'), 'Xu Hai')
+  assert.equal(symbolHint('帝旺', 'en-US'), 'Peak')
+  assert.equal(symbolHint('甲', 'zh-CN'), '')
+  assert.equal(symbolHint('不存在的词', 'en-US'), '')
+})

@@ -22,6 +22,24 @@ export default {
   "common": {
     "confirm": "Done"
   },
+  "pillarTable": {
+    "pillar": "Pillar",
+    "suffix": "",
+    "col": { "年": "Year", "月": "Month", "日": "Day", "时": "Hour", "大运": "Luck", "流年": "Annual", "小运": "Minor Luck" },
+    "tenGod": "Ten God",
+    "stem": "Stem",
+    "branch": "Branch",
+    "hidden": "Hidden Stems",
+    "lifeStage": "Life Stage",
+    "selfSeat": "Self Seat",
+    "void": "Void",
+    "nayin": "Na Yin",
+    "shensha": "Stars",
+    "tapHint": "(tap)",
+    "expand": "Expand",
+    "collapse": "Collapse"
+  },
+  "nature": { "吉": "Auspicious", "中性": "Neutral", "凶": "Inauspicious" },
   "tab": {
     "basic": "Chart",
     "pro": "Pro chart",

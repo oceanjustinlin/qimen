@@ -123,3 +123,19 @@ export function ganzhiName(gz, locale) {
   if (!isEnglish(locale)) return value
   return [...value].map((ch) => symbolName(ch, locale)).join(' ')
 }
+
+// 盘表「汉字大字＋英文小字」的那行小字（Justin 2026-11-18 拍板）：
+//   天干 → 阴阳五行（甲 → Yang Wood），地支 → 生肖（子 → Rat），
+//   其他符号 → 术语表英文名（七杀 → Seven Killings）；多字干支（空亡 '戌亥'）→ 逐字拼音。
+// 非英文或查不到时返回 ''，调用方据此不渲染小字。
+export function symbolHint(zh, locale) {
+  if (empty(zh) || !isEnglish(locale)) return ''
+  const value = String(zh)
+  const entry = glossary.lookup(value)
+  if (entry) return entry.desc || entry.en
+  const chars = [...value]
+  if (chars.length > 1 && chars.every((ch) => glossary.lookup(ch))) {
+    return chars.map((ch) => glossary.toEnglish(ch)).join(' ')
+  }
+  return ''
+}
