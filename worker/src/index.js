@@ -1306,6 +1306,7 @@ async function handleBaziQuestion(request, env, ctx) {
 
   const userToken = request.headers.get('Authorization')?.replace('Bearer ', '');
   const body = await readJson(request);
+  const { contentLocale } = requestLocaleLib.resolveRequestLocale({ bodyLocale: body?.locale });
   const question = String(body.question || '').trim();
   const profileId = String(body.profileId || '').trim();
   if (!question) return json({ error: '问题不能为空' }, { status: 400 }, request, env);
@@ -1448,7 +1449,7 @@ async function handleBaziQuestion(request, env, ctx) {
     emit({ type: 'active', index: 5, pct: 75 });
 
     const _baziMode = semanticRoute.analysis_mode || 'status';
-    const textPrompt = convertPromptToTextMode(prompt, _baziMode);
+    const textPrompt = outputLanguage.appendOutputLanguage(convertPromptToTextMode(prompt, _baziMode), contentLocale);
     const questionModel = resolveQuestionModel(env);
     let llmFullText = '';
     const baziParser = createSentinelStreamParser(baziVisibleSections(_baziMode), {
@@ -1593,6 +1594,7 @@ async function handleBaziCalibrate(request, env, ctx) {
   try {
     const user = await getAuthedUser(request, env);
     const body = await readJson(request);
+    const { contentLocale } = requestLocaleLib.resolveRequestLocale({ bodyLocale: body?.locale });
     // prompt 由 Worker 按数据库里的档案与人生事件组装（lib/baziCalibrationPrompt.js）；
     // 不再接收前端传来的 prompt，避免接口被用来向付费模型发送任意内容。
     const { profileId } = body;
@@ -1624,7 +1626,7 @@ async function handleBaziCalibrate(request, env, ctx) {
 
     const lifeEvents = Array.isArray(profile.life_events) ? profile.life_events : [];
     if (!lifeEvents.length) return json({ error: '还没有填写人生大事，无法校准' }, { status: 400 }, request, env);
-    const prompt = buildCalibrationPrompt(profile, lifeEvents, { now: getBeijingDayInfo().bjTime });
+    const prompt = outputLanguage.appendOutputLanguage(buildCalibrationPrompt(profile, lifeEvents, { now: getBeijingDayInfo().bjTime }), contentLocale);
     // 人生大事自由描述可能涉及婚姻/疾病/官司等隐私内容，上报 Langfuse 时不传原文，只传统计摘要。
     const _calibrateTraceInput = JSON.stringify({ profileId, eventCount: lifeEvents.length, promptLength: prompt.length });
 
@@ -1663,13 +1665,15 @@ async function handleFortuneDailyInterpretation(request, env, ctx) {
   const url = new URL(request.url);
   let body = {};
   if (request.method === 'POST') body = await readJson(request);
+  const { contentLocale } = requestLocaleLib.resolveRequestLocale({ bodyLocale: body?.locale, queryLocale: url?.searchParams?.get('locale') });
 
   try {
     const user = await getAuthedUser(request, env);
     const targetDate = getTargetDate(url, body);
     const { bjTime, todayKey, expiresAt } = getBeijingDayInfo(targetDate);
     const requestedProfileId = getRequestedProfileId(url, body);
-    const periodKey = buildDailyPeriodKey(todayKey, requestedProfileId);
+    // 英文断语与中文分开缓存（§5.9）；简体键不变
+    const periodKey = `${buildDailyPeriodKey(todayKey, requestedProfileId)}${requestLocaleLib.localeCacheSuffix(contentLocale)}`;
 
     const cached = await getCachedFortune(user.id, 'day', periodKey, env);
     if (hasReadyInterpretation(cached)) return json(pickInterpretationFields(cached), { status: 200 }, request, env);
@@ -1681,9 +1685,9 @@ async function handleFortuneDailyInterpretation(request, env, ctx) {
     const latestBaseJson = buildBaseFortunePayload(context);
     const baseJson = cached ? { ...cached, ...latestBaseJson } : latestBaseJson;
     
-    const prompt = buildInterpretationPrompt(context);
+    const prompt = outputLanguage.appendOutputLanguage(buildInterpretationPrompt(context), contentLocale);
     const llmJson = await requestLLM(prompt, env, fastModel(env), 0.5, ctx, { name: 'fortune-daily-interpretation', scenario: 'fortune-daily', userId: user.id });
-    const mergedJson = mergeInterpretation(baseJson, llmJson);
+    const mergedJson = { ...mergeInterpretation(baseJson, llmJson), output_locale: contentLocale };
 
     await upsertFortuneCache(user.id, 'day', periodKey, mergedJson, expiresAt, env);
     return json(pickInterpretationFields(mergedJson), { status: 200 }, request, env);
@@ -1699,6 +1703,7 @@ async function handleFortuneMonthlyInterpretation(request, env, ctx) {
   const url = new URL(request.url);
   let body = {};
   if (request.method === 'POST') body = await readJson(request);
+  const { contentLocale } = requestLocaleLib.resolveRequestLocale({ bodyLocale: body?.locale, queryLocale: url?.searchParams?.get('locale') });
 
   try {
     const user = await getAuthedUser(request, env);
@@ -1711,20 +1716,20 @@ async function handleFortuneMonthlyInterpretation(request, env, ctx) {
     const profileContext = await getProfileContext(profile.id, env);
     const { record: currentMonthlyContext, recent_records: recentMonthlyContexts } = await getMonthlyContext(profile.id, flowMonth.context_month_key, env);
     const contextSeed = buildContextVersionSeed(profileContext, recentMonthlyContexts);
-    const periodKey = buildMonthlyInterpretationPeriodKey(flowMonth.period_key, profile.id, dimension, contextSeed);
+    const periodKey = `${buildMonthlyInterpretationPeriodKey(flowMonth.period_key, profile.id, dimension, contextSeed)}${requestLocaleLib.localeCacheSuffix(contentLocale)}`;
 
     const cached = await getCachedFortune(user.id, 'month_interpretation', periodKey, env);
     if (hasReadyMonthlyInterpretation(cached)) return json(pickMonthlyInterpretationFields(cached), { status: 200 }, request, env);
 
     const baseJson = buildMonthlyFortunePayload(profile, flowMonth);
-    const prompt = buildMonthlyInterpretationPrompt(profile, baseJson, dimension, {
+    const prompt = outputLanguage.appendOutputLanguage(buildMonthlyInterpretationPrompt(profile, baseJson, dimension, {
       profile_context: profileContext,
       current_monthly_context: currentMonthlyContext,
       recent_monthly_contexts: recentMonthlyContexts,
-    });
+    }), contentLocale);
     
     const llmJson = await requestLLM(prompt, env, fastModel(env), 0.5, ctx, { name: 'fortune-monthly-interpretation', scenario: 'fortune-monthly', dimension, userId: user.id });
-    const mergedJson = mergeMonthlyInterpretation(baseJson, llmJson, dimension);
+    const mergedJson = { ...mergeMonthlyInterpretation(baseJson, llmJson, dimension), output_locale: contentLocale };
 
     await upsertFortuneCache(user.id, 'month_interpretation', periodKey, mergedJson, flowMonth.expiresAt, env);
     return json(pickMonthlyInterpretationFields(mergedJson), { status: 200 }, request, env);
