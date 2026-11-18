@@ -1,10 +1,10 @@
 <template>
   <div class="home-view">
     <header id="siteHeader" :class="{ 'result-header': viewState === 'result' }">
-      <button class="hamburger" :class="{ open: globalState.isDrawerOpen }" @click="toggleDrawer" aria-label="历史记录">
+      <button class="hamburger" :class="{ open: globalState.isDrawerOpen }" @click="toggleDrawer" :aria-label="t('home.drawer.history')">
         <span></span><span></span><span></span>
       </button>
-      <div v-if="viewState !== 'result'" class="site-logo" @click="resetToInput" style="cursor: pointer;" title="返回首页">奇门道</div>
+      <div v-if="viewState !== 'result'" class="site-logo" @click="resetToInput" style="cursor: pointer;" :title="t('home.backHome')">{{ t('brand.name') }}</div>
       <div v-if="viewState !== 'result'" class="header-actions">
         <OpenSourceLinks />
         <AccountMenu />
@@ -16,18 +16,18 @@
       <div id="historyDrawer" :class="{ open: globalState.isDrawerOpen }">
         <div class="drawer-head">
           <div class="drawer-topbar">
-            <div class="drawer-brand">奇门道</div>
-            <button class="drawer-close" type="button" @click="globalState.isDrawerOpen = false" aria-label="关闭历史记录">×</button>
+            <div class="drawer-brand">{{ t('brand.name') }}</div>
+            <button class="drawer-close" type="button" @click="globalState.isDrawerOpen = false" :aria-label="t('home.drawer.closeHistory')">×</button>
           </div>
           <button class="drawer-new-session" type="button" @click="startNewSession">
-            <span>再起一局</span>
+            <span>{{ t('home.newReading') }}</span>
             <span aria-hidden="true">↗</span>
           </button>
-          <div class="drawer-title-txt">推演回溯</div>
+          <div class="drawer-title-txt">{{ t('home.drawer.title') }}</div>
         </div>
         <div class="drawer-filter">
           <div class="filter-select-wrap">
-            <select id="historyCategorySelect" v-model="activeCategory" class="filter-select" aria-label="分类查阅">
+            <select id="historyCategorySelect" v-model="activeCategory" class="filter-select" :aria-label="t('home.drawer.filter')">
               <option v-for="cat in categories" :key="cat.value" :value="cat.value">
                 {{ cat.label }}
               </option>
@@ -42,23 +42,23 @@
               <circle cx="32" cy="32" r="18" stroke="rgba(212,175,55,0.3)" stroke-width="1" stroke-dasharray="3 3"/>
               <circle cx="32" cy="32" r="3" fill="rgba(212,175,55,0.5)"/>
             </svg>
-            <p>尚无推演记录<br>缘起于此，万象皆空</p>
+            <p>{{ t('home.drawer.emptyLine1') }}<br>{{ t('home.drawer.emptyLine2') }}</p>
           </div>
           <div v-else class="d-hist-item" v-for="item in filteredHistory" :key="item.id" @click="loadRecord(item)">
             <span class="d-hist-dot" :class="getVerdictCls(item.score)"></span>
             <div class="d-hist-info">
-              <div class="d-hist-q">{{ item.question }}</div>
+              <div class="d-hist-q" data-i18n-skip>{{ item.question }}</div>
               <div class="d-hist-meta">
                 <span>{{ item.dateStr }}</span><span>·</span>
-                <span>{{ item.catLabel }}</span><span v-if="!isBaziRecord(item)">·</span>
-                <span v-if="!isBaziRecord(item)">参考指数 {{ item.score }}</span>
+                <span>{{ historyCatLabel(item.category) }}</span><span v-if="!isBaziRecord(item)">·</span>
+                <span v-if="!isBaziRecord(item)">{{ t('home.scoreIndex', { score: item.score }) }}</span>
               </div>
             </div>
-            <span v-if="!isBaziRecord(item)" class="d-hist-badge" :class="'verdict-' + getVerdictInfo(item.score).cls">{{ getVerdictInfo(item.score).label }}</span>
+            <span v-if="!isBaziRecord(item)" class="d-hist-badge" :class="'verdict-' + getVerdictInfo(item.score).cls">{{ verdictLabel(getVerdictInfo(item.score).label, locale) }}</span>
           </div>
-          <div v-if="historyLoading" class="drawer-loading">加载中…</div>
+          <div v-if="historyLoading" class="drawer-loading">{{ t('common.loading') }}</div>
           <button v-else-if="historyHasMore && filteredHistory.length" class="drawer-load-more" type="button" @click="loadHistoryPage()">
-            加载更多
+            {{ t('home.drawer.loadMore') }}
           </button>
         </div>
       </div>
@@ -67,23 +67,23 @@
     <div class="page-wrap" :class="{ 'result-page-wrap': viewState === 'result' }">
       <div class="container" :class="{ 'public-landing-container': !canUseApp && viewState === 'input' }">
         <section v-if="!canUseApp && viewState === 'input'" class="seo-landing" aria-labelledby="seoLandingTitle">
-          <h1 id="seoLandingTitle">奇门遁甲在线排盘与 AI 解盘</h1>
+          <h1 id="seoLandingTitle">{{ t('home.seo.title') }}</h1>
           <p class="seo-lead">
-            奇门道提供奇门遁甲在线排盘、八字四柱排盘和今日运势分析。输入时间、地点和所问之事，即可生成局盘、宫位、干支、评分与行动建议。
+            {{ t('home.seo.intro') }}
           </p>
-          <div class="seo-proof">规则引擎先排盘，AI 负责解释。</div>
-          <div class="seo-entry-grid" aria-label="核心功能入口">
+          <div class="seo-proof">{{ t('home.seo.proof') }}</div>
+          <div class="seo-entry-grid" :aria-label="t('home.seo.entries')">
             <div class="seo-entry">
-              <span>奇门问事</span>
-              <small>按当下时辰起局，分析感情、事业、财运与选择。</small>
+              <span>{{ t('home.seo.qimenTitle') }}</span>
+              <small>{{ t('home.seo.qimenText') }}</small>
             </div>
             <div class="seo-entry">
-              <span>八字排盘</span>
-              <small>四柱十神、喜用神、格局、大运流年一键生成。</small>
+              <span>{{ t('home.seo.baziTitle') }}</span>
+              <small>{{ t('home.seo.baziText') }}</small>
             </div>
             <div class="seo-entry">
-              <span>今日运势</span>
-              <small>每日、每周、月度节奏和可执行建议。</small>
+              <span>{{ t('home.seo.fortuneTitle') }}</span>
+              <small>{{ t('home.seo.fortuneText') }}</small>
             </div>
           </div>
         </section>
@@ -111,12 +111,12 @@
               </div>
               <div class="hero-brand">
                 <div class="hero-label">QIMEN DAO</div>
-                <h1 class="hero-name">奇门道</h1>
-                <p class="hero-sub">洞察天机，<em>决胜千里</em></p>
+                <h1 class="hero-name">{{ t('brand.name') }}</h1>
+                <p class="hero-sub">{{ t('home.hero.sub1') }}<em>{{ t('home.hero.sub2') }}</em></p>
               </div>
             </div>
             <div class="auth-btns">
-              <button class="abtn abtn--solid" type="button" @click="authView = 'login'">登录</button>
+              <button class="abtn abtn--solid" type="button" @click="authView = 'login'">{{ t('account.signIn') }}</button>
               <button class="abtn abtn--border" type="button" :disabled="googleAuthLoading || authLoading" @click="handleGoogleAuth">
                 <span class="google-mark" aria-hidden="true">
                   <svg viewBox="0 0 24 24" focusable="false">
@@ -126,15 +126,15 @@
                     <path fill="#EA4335" d="M12 5.37c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06L5.84 9.9C6.71 7.3 9.14 5.37 12 5.37z"/>
                   </svg>
                 </span>
-                {{ googleAuthLoading ? '正在跳转...' : 'Google 登录' }}
+                {{ googleAuthLoading ? t('home.auth.redirecting') : t('home.auth.google') }}
               </button>
-              <div class="abtn-divider"><span>——或者——</span></div>
-              <button class="abtn abtn--ghost" type="button" @click="handleGuestEntry">访客登录</button>
-              <button class="abtn-text" type="button" @click="authView = 'register'">注册</button>
+              <div class="abtn-divider"><span>{{ t('home.auth.or') }}</span></div>
+              <button class="abtn abtn--ghost" type="button" @click="handleGuestEntry">{{ t('home.auth.guest') }}</button>
+              <button class="abtn-text" type="button" @click="authView = 'register'">{{ t('account.register') }}</button>
               <p class="auth-legal">
-                继续即表示同意
-                <router-link to="/terms">《用户协议》</router-link>与
-                <router-link to="/privacy">《隐私政策》</router-link>
+                {{ t('home.auth.legalPrefix') }}
+                <router-link to="/terms">{{ t('home.auth.terms') }}</router-link>{{ t('home.auth.legalAnd') }}
+                <router-link to="/privacy">{{ t('home.auth.privacy') }}</router-link>
               </p>
             </div>
           </template>
@@ -143,25 +143,25 @@
             <div class="auth-form-pg">
               <button class="auth-back" type="button" @click="authView = 'landing'">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                返回
+                {{ t('common.back') }}
               </button>
-              <h2 class="afm-title">登录</h2>
+              <h2 class="afm-title">{{ t('account.signIn') }}</h2>
               <div class="afm-fields">
                 <label class="afm-field">
-                  <span>邮箱</span>
+                  <span>{{ t('home.auth.email') }}</span>
                   <input type="email" v-model="authForm.email" placeholder="name@example.com" autocomplete="email"/>
                 </label>
                 <label class="afm-field">
-                  <span>密码</span>
-                  <input type="password" v-model="authForm.password" placeholder="至少 6 位" autocomplete="current-password"/>
+                  <span>{{ t('home.auth.password') }}</span>
+                  <input type="password" v-model="authForm.password" :placeholder="t('home.auth.passwordHint')" autocomplete="current-password"/>
                 </label>
               </div>
               <button class="abtn abtn--solid" type="button" :disabled="authLoading" @click="handleAuth">
-                {{ authLoading ? '验证中...' : '登录' }}
+                {{ authLoading ? t('home.auth.verifying') : t('account.signIn') }}
               </button>
               <div class="afm-sub">
                 <button class="forgot-password-link" type="button" :disabled="resetEmailLoading" @click="handleResetPasswordEmail">
-                  {{ resetEmailLoading ? '正在发送...' : '忘记密码' }}
+                  {{ resetEmailLoading ? t('home.auth.sending') : t('home.auth.forgot') }}
                 </button>
               </div>
               <div v-if="resetEmailNotice" class="auth-notice">{{ resetEmailNotice }}</div>
@@ -172,26 +172,26 @@
             <div class="auth-form-pg">
               <button class="auth-back" type="button" @click="authView = 'landing'">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                返回
+                {{ t('common.back') }}
               </button>
-              <h2 class="afm-title">注册</h2>
+              <h2 class="afm-title">{{ t('account.register') }}</h2>
               <div class="afm-fields">
                 <label class="afm-field">
-                  <span>邮箱</span>
+                  <span>{{ t('home.auth.email') }}</span>
                   <input type="email" v-model="authForm.email" placeholder="name@example.com" autocomplete="email"/>
                 </label>
                 <label class="afm-field">
-                  <span>密码</span>
-                  <input type="password" v-model="authForm.password" placeholder="至少 6 位" autocomplete="new-password"/>
+                  <span>{{ t('home.auth.password') }}</span>
+                  <input type="password" v-model="authForm.password" :placeholder="t('home.auth.passwordHint')" autocomplete="new-password"/>
                 </label>
               </div>
               <button class="abtn abtn--solid" type="button" :disabled="authLoading" @click="handleAuth">
-                {{ authLoading ? '注册中...' : '注册' }}
+                {{ authLoading ? t('home.auth.registering') : t('account.register') }}
               </button>
               <p class="auth-legal">
-                继续即表示同意
-                <router-link to="/terms">《用户协议》</router-link>与
-                <router-link to="/privacy">《隐私政策》</router-link>
+                {{ t('home.auth.legalPrefix') }}
+                <router-link to="/terms">{{ t('home.auth.terms') }}</router-link>{{ t('home.auth.legalAnd') }}
+                <router-link to="/privacy">{{ t('home.auth.privacy') }}</router-link>
               </p>
             </div>
           </template>
@@ -201,7 +201,7 @@
           <transition name="fade" mode="out-in">
             <div v-show="viewState === 'input'" class="input-wrapper">
               <div class="tagline">
-                <div class="tagline-main">天时 · 地利 · 人和</div>
+                <div class="tagline-main">{{ t('home.tagline') }}</div>
               </div>
 
               <div class="glass-card qimen-profile-panel">
@@ -209,11 +209,11 @@
                   <!-- 命主一栏：直接写出这次问事用哪份八字，点右侧切换 -->
                   <button class="profile-switch-trigger" type="button" :aria-expanded="isProfileMenuOpen" @click="toggleProfileMenu">
                     <span class="profile-switch-who">
-                      <small>命主</small>
-                      <span class="profile-switch-name">{{ activeProfileName }}</span>
-                      <span v-if="activeBaziProfile" class="profile-switch-meta">{{ activeBaziProfile.gender === 'M' ? '乾造' : '坤造' }} · {{ formatSolarDate(activeBaziProfile.birth_date).split(' ')[0] }}</span>
+                      <small>{{ t('home.profile.owner') }}</small>
+                      <span class="profile-switch-name" :data-i18n-skip="activeBaziProfile?.name ? '' : null">{{ activeProfileName }}</span>
+                      <span v-if="activeBaziProfile" class="profile-switch-meta">{{ genderLabel(activeBaziProfile.gender, locale, { zao: true }) }} · {{ formatSolarDate(activeBaziProfile.birth_date).split(' ')[0] }}</span>
                     </span>
-                    <span class="profile-switch-action">切换<span class="profile-switch-symbol" aria-hidden="true">⇄</span></span>
+                    <span class="profile-switch-action">{{ t('home.profile.switch') }}<span class="profile-switch-symbol" aria-hidden="true">⇄</span></span>
                   </button>
                   <div v-if="isProfileMenuOpen" class="profile-flyout">
                     <button
@@ -224,23 +224,23 @@
                       type="button"
                       @click="selectProfile(profile.id)"
                     >
-                      <span class="profile-item-main">{{ profile.name }}</span>
+                      <span class="profile-item-main" data-i18n-skip>{{ profile.name }}</span>
                       <span class="profile-item-date">{{ formatSolarDate(profile.birth_date) }}</span>
                       <span class="profile-item-meta">{{ profileMetaText(profile) }}</span>
                     </button>
                   </div>
                 </div>
                 <button v-else class="add-bazi-profile-btn" type="button" @click="goToBaziProfiles">
-                  添加八字档案
+                  {{ t('home.profile.add') }}
                 </button>
               </div>
 
               <div class="glass-card input-card">
                 <div class="input-label">
-                  <span>叩问天机</span>
-                  <button class="route-info-trigger" type="button" @click.stop="showRouteInfoModal = true" aria-label="查看八字与奇门分流说明">i</button>
+                  <span>{{ t('home.ask.title') }}</span>
+                  <button class="route-info-trigger" type="button" @click.stop="showRouteInfoModal = true" :aria-label="t('home.ask.routeInfo')">i</button>
                 </div>
-                <textarea v-model="questionInput" placeholder="在心中默念所求之事，写下您的羁绊与心中所惑……"></textarea>
+                <textarea v-model="questionInput" :placeholder="t('home.ask.placeholder')"></textarea>
                 <div class="suggestion-slot">
                   <Transition name="sugg-row" mode="out-in">
                     <div v-if="!questionInput" :key="suggestionPairIdx" class="suggestion-row">
@@ -262,7 +262,7 @@
                     <span>{{ clockText }}</span>
                     <span class="time-edit-ic" aria-hidden="true">✎</span>
                   </div>
-                  <div class="time-note" :class="{ 'is-reset': panTime }" @click="onTimeNoteClick">{{ panTime ? '重置为现在' : '以当下时辰起局' }}</div>
+                  <div class="time-note" :class="{ 'is-reset': panTime }" @click="onTimeNoteClick">{{ panTime ? t('home.ask.resetToNow') : t('home.ask.castNow') }}</div>
                 </div>
               </div>
 
@@ -279,7 +279,7 @@
                       <circle cx="10" cy="5.75" r="1.5" fill="#1a1000"/>
                       <circle cx="10" cy="14.25" r="1.5" fill="#1a1000" opacity=".4"/>
                     </svg>
-                    <span class="cta-text">{{ isGuest ? '请先登录' : '洞察天机' }}</span>
+                    <span class="cta-text">{{ isGuest ? t('home.ask.signInFirst') : t('home.ask.submit') }}</span>
                   </div>
                 </button>
               </div>
@@ -287,13 +287,13 @@
               <!-- 最近问过：首页直接回到旧局，方便继续追问 -->
               <section v-if="recentRecords.length" class="recent-asks">
                 <div class="recent-head">
-                  <h3>最近问过</h3>
-                  <button type="button" @click="globalState.isDrawerOpen = true">全部记录</button>
+                  <h3>{{ t('home.recent.title') }}</h3>
+                  <button type="button" @click="globalState.isDrawerOpen = true">{{ t('home.recent.all') }}</button>
                 </div>
                 <button v-for="item in recentRecords" :key="'recent-' + item.id" type="button" class="recent-item" @click="loadRecord(item)">
-                  <span class="recent-q">{{ item.question }}</span>
-                  <span class="recent-meta">{{ formatRecentDate(item.created_at) }} · {{ item.catLabel }}</span>
-                  <span v-if="!isBaziRecord(item)" class="recent-score" :class="'verdict-' + getVerdictInfo(item.score).cls">{{ getVerdictInfo(item.score).label }} {{ item.score }}</span>
+                  <span class="recent-q" data-i18n-skip>{{ item.question }}</span>
+                  <span class="recent-meta">{{ formatRecentDate(item.created_at) }} · {{ historyCatLabel(item.category) }}</span>
+                  <span v-if="!isBaziRecord(item)" class="recent-score" :class="'verdict-' + getVerdictInfo(item.score).cls">{{ verdictLabel(getVerdictInfo(item.score).label, locale) }} {{ item.score }}</span>
                 </button>
               </section>
 
@@ -311,7 +311,7 @@
                       :key="tag.label"
                       class="wenshi-tag"
                       :class="{ 'score-pending': tag.isScore && isWenShiLlmLoading }"
-                    >{{ tag.label }}</span>
+                    >{{ tagLabel(tag, i18nCtx) }}</span>
                   </div>
                 </div>
                 <div v-else class="wenshi-tags-skeleton">
@@ -346,7 +346,7 @@
                 </div>
                 <div class="wenshi-orb-status" v-show="!orbSettling"><span class="txt">{{ wenShiStatus }}</span><span class="dots"></span></div>
               </div>
-              <div v-html="resultHtml" class="html-container"></div>
+              <div v-html="resultHtml" class="html-container" :lang="resultContentLang"></div>
               <!-- 终态覆盖层：在脚手架之上淡入，盖满后底层再无声切换为终态，全程底层不空 -->
               <Transition name="ov-fade">
                 <div v-if="finalOverlayHtml" v-html="finalOverlayHtml" class="html-container result-overlay"></div>
@@ -362,13 +362,13 @@
                 >
                   <template #identity>
                     <div v-if="snapshotProfile && snapshotProfile.name" class="backing-identity">
-                      <div class="backing-section-title">原局命盘</div>
+                      <div class="backing-section-title">{{ t('home.backing.natalChart') }}</div>
                       <div class="backing-name-row">
-                        <span class="backing-name">{{ snapshotProfile.name }}</span>
+                        <span class="backing-name" data-i18n-skip>{{ snapshotProfile.name }}</span>
                         <span v-if="snapshotProfile.strong_weak" class="backing-badge badge-blue">{{ snapshotProfile.strong_weak }}</span>
                         <span v-if="snapshotPatternName" class="backing-badge badge-gold">{{ snapshotPatternName }}</span>
                       </div>
-                      <div v-if="snapshotLunarStr" class="backing-meta">农历：{{ snapshotLunarStr }}</div>
+                      <div v-if="snapshotLunarStr" class="backing-meta">{{ t('home.backing.lunar', { date: snapshotLunarStr }) }}</div>
                     </div>
                   </template>
                 </BaziBackingPanel>
@@ -401,14 +401,14 @@
               <div class="result-actions">
                 <button class="reset-btn" @click="resetToInput">
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7a5 5 0 1 0 1.4-3.5L2 2v3h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  再起一局
+                  {{ t('home.newReading') }}
                 </button>
                 <button
                   class="result-save-img-btn"
                   :class="{ saving: isSavingImage }"
                   @click="saveAsImage"
                   :disabled="isSavingImage"
-                  title="保存为图片分享"
+                  :title="t('home.result.saveImageTitle')"
                 >
                   <svg v-if="!isSavingImage" width="14" height="14" viewBox="0 0 14 14" fill="none">
                     <path d="M7 1v8M4 6l3 3 3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
@@ -417,7 +417,7 @@
                   <svg v-else class="spin-icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
                     <circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.3" stroke-dasharray="10 8" stroke-linecap="round"/>
                   </svg>
-                  {{ isSavingImage ? '生成中' : '保存' }}
+                  {{ isSavingImage ? t('home.result.saving') : t('common.save') }}
                 </button>
                 <button
                   v-if="activeResultRecord?.canFeedback"
@@ -425,7 +425,7 @@
                   :class="{ done: activeResultRecord.hasFeedback }"
                   @click="openFeedbackDrawer(activeResultRecord)"
                 >
-                  {{ activeResultRecord.hasFeedback ? '已反馈' : '反馈' }}
+                  {{ activeResultRecord.hasFeedback ? t('home.result.feedbackDone') : t('home.result.feedback') }}
                 </button>
               </div>
 
@@ -436,10 +436,10 @@
               <div v-if="canFollowup" class="wenshi-followup-dock">
                 <Transition name="dock-pop" mode="out-in">
                   <div v-if="followupNewMatter" key="newmatter" class="followup-newmatter">
-                    <span class="fn-text">这看起来是一个新问题，原局答不了。要为它重新起一局吗？</span>
+                    <span class="fn-text">{{ t('home.followup.newMatter') }}</span>
                     <div class="fn-actions">
-                      <button class="fn-confirm" @click="confirmRecastFromFollowup">重新起局</button>
-                      <button class="fn-cancel" @click="followupNewMatter = null">取消</button>
+                      <button class="fn-confirm" @click="confirmRecastFromFollowup">{{ t('home.followup.recast') }}</button>
+                      <button class="fn-cancel" @click="followupNewMatter = null">{{ t('common.cancel') }}</button>
                     </div>
                   </div>
                   <div v-else key="bar" class="followup-bar">
@@ -448,7 +448,7 @@
                       v-model="followupInput"
                       class="followup-input"
                       rows="1"
-                      :placeholder="followupSubmitting ? '正在追问解读…' : '就这一局继续追问…'"
+                      :placeholder="followupSubmitting ? t('home.followup.submitting') : t('home.followup.placeholder')"
                       :disabled="followupSubmitting"
                       @input="autoGrowFollowup"
                       @keydown.enter.exact.prevent="submitFollowup"
@@ -458,7 +458,7 @@
                       :class="{ loading: followupSubmitting }"
                       :disabled="followupSubmitting || !followupInput.trim()"
                       @click="submitFollowup"
-                      aria-label="发送追问"
+                      :aria-label="t('home.followup.send')"
                     >
                       <svg v-if="!followupSubmitting" viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                       <svg v-else class="dock-spin" viewBox="0 0 24 24" width="18" height="18" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2.4" stroke-dasharray="16 12" stroke-linecap="round"/></svg>
@@ -470,23 +470,23 @@
           </transition>
         </div>
 
-        <section v-if="!canUseApp && viewState === 'input'" class="seo-faq-section" aria-label="常见问题">
+        <section v-if="!canUseApp && viewState === 'input'" class="seo-faq-section" :aria-label="t('home.faq.title')">
           <div class="seo-faq-head">
-            <h2>常见问题</h2>
-            <p>把搜索用户最关心的问题放在工具入口之后，先体验，再解释边界。</p>
+            <h2>{{ t('home.faq.title') }}</h2>
+            <p>{{ t('home.faq.intro') }}</p>
           </div>
           <div class="seo-faq-list">
             <details>
-              <summary>奇门道可以做什么？</summary>
-              <p>可以在线生成奇门遁甲局盘、AI 解盘、八字四柱排盘和每日运势分析。</p>
+              <summary>{{ t('home.faq.q1') }}</summary>
+              <p>{{ t('home.faq.a1') }}</p>
             </details>
             <details>
-              <summary>AI 解盘和传统排盘有什么区别？</summary>
-              <p>奇门道先用规则引擎计算时间、干支、宫位和评分，再由 AI 把盘面转成可读解释。</p>
+              <summary>{{ t('home.faq.q2') }}</summary>
+              <p>{{ t('home.faq.a2') }}</p>
             </details>
             <details>
-              <summary>奇门问事需要出生时间吗？</summary>
-              <p>奇门问事可以按当前时间起局；八字排盘和长期运势分析需要出生日期、时间和出生地。</p>
+              <summary>{{ t('home.faq.q3') }}</summary>
+              <p>{{ t('home.faq.a3') }}</p>
             </details>
           </div>
         </section>
@@ -497,25 +497,25 @@
       <aside class="feedback-drawer" @click.stop>
         <div class="feedback-head">
           <div>
-            <div class="feedback-kicker">应验反馈</div>
-            <h3>这一次推演后来怎么样？</h3>
+            <div class="feedback-kicker">{{ t('home.feedback.kicker') }}</div>
+            <h3>{{ t('home.feedback.title') }}</h3>
           </div>
-          <button class="feedback-close" @click="closeFeedbackDrawer" aria-label="关闭反馈抽屉">&times;</button>
+          <button class="feedback-close" @click="closeFeedbackDrawer" :aria-label="t('home.feedback.close')">&times;</button>
         </div>
 
         <div v-if="feedbackTargetRecord" class="feedback-summary">
-          <div class="feedback-question">“{{ feedbackTargetRecord.question }}”</div>
+          <div class="feedback-question" data-i18n-skip>“{{ feedbackTargetRecord.question }}”</div>
           <div class="feedback-meta">
             <span>{{ feedbackTargetRecord.dateStr }}</span>
-            <span>{{ feedbackTargetRecord.catLabel }}</span>
-            <span>参考指数 {{ feedbackTargetRecord.score }}</span>
+            <span>{{ historyCatLabel(feedbackTargetRecord.category) }}</span>
+            <span>{{ t('home.scoreIndex', { score: feedbackTargetRecord.score }) }}</span>
           </div>
           <p v-if="feedbackConclusion" class="feedback-conclusion">{{ feedbackConclusion }}</p>
         </div>
 
         <div class="feedback-form">
           <div class="feedback-field">
-            <div class="feedback-label">应验程度</div>
+            <div class="feedback-label">{{ t('home.feedback.accuracy') }}</div>
             <div class="feedback-options">
               <button
                 v-for="option in feedbackAccuracyOptions"
@@ -524,13 +524,13 @@
                 :class="{ active: feedbackForm.accuracy_status === option.value }"
                 @click="feedbackForm.accuracy_status = option.value"
               >
-                {{ option.label }}
+                {{ feedbackOptionLabel('accuracy', option.value, locale) }}
               </button>
             </div>
           </div>
 
           <div class="feedback-field">
-            <div class="feedback-label">结果方向</div>
+            <div class="feedback-label">{{ t('home.feedback.direction') }}</div>
             <div class="feedback-options">
               <button
                 v-for="option in feedbackDirectionOptions"
@@ -539,26 +539,26 @@
                 :class="{ active: feedbackForm.actual_direction === option.value }"
                 @click="feedbackForm.actual_direction = option.value"
               >
-                {{ option.label }}
+                {{ feedbackOptionLabel('direction', option.value, locale) }}
               </button>
             </div>
           </div>
 
           <div class="feedback-field">
-            <div class="feedback-label">补充说明 <span>{{ feedbackForm.note.length }}/200</span></div>
+            <div class="feedback-label">{{ t('home.feedback.note') }} <span>{{ feedbackForm.note.length }}/200</span></div>
             <textarea
               v-model="feedbackForm.note"
               class="feedback-note"
               maxlength="200"
-              placeholder="例如：实际第二天下午收到回复，但结果没有继续推进。"
+              :placeholder="t('home.feedback.notePlaceholder')"
             ></textarea>
           </div>
         </div>
 
         <div class="feedback-actions">
-          <button class="feedback-secondary" @click="closeFeedbackDrawer">取消</button>
+          <button class="feedback-secondary" @click="closeFeedbackDrawer">{{ t('common.cancel') }}</button>
           <button class="feedback-primary" :disabled="feedbackSaving" @click="submitQimenFeedback">
-            {{ feedbackSaving ? '保存中...' : (feedbackTargetRecord?.hasFeedback ? '更新反馈' : '提交反馈') }}
+            {{ feedbackSaving ? t('home.feedback.saving') : (feedbackTargetRecord?.hasFeedback ? t('home.feedback.update') : t('home.feedback.submit')) }}
           </button>
         </div>
       </aside>
@@ -567,36 +567,36 @@
     <div class="route-info-overlay" :class="{ show: showRouteInfoModal }" @click="showRouteInfoModal = false">
       <div class="route-info-card" @click.stop>
         <div class="route-info-title">
-          <span>系统如何自动判断</span>
-          <button class="route-info-close" type="button" @click="showRouteInfoModal = false" aria-label="关闭分流说明">&times;</button>
+          <span>{{ t('home.route.title') }}</span>
+          <button class="route-info-close" type="button" @click="showRouteInfoModal = false" :aria-label="t('home.route.close')">&times;</button>
         </div>
         <div class="route-info-grid">
           <div class="route-info-row">
-            <div class="route-tool">八字</div>
+            <div class="route-tool">{{ t('nav.bazi') }}</div>
             <div>
-              <div class="route-focus">长期格局</div>
-              <p>看命局、大运流年、行业适配、财官婚健的长期趋势。</p>
+              <div class="route-focus">{{ t('home.route.baziFocus') }}</div>
+              <p>{{ t('home.route.baziText') }}</p>
             </div>
           </div>
           <div class="route-info-row">
-            <div class="route-tool">奇门</div>
+            <div class="route-tool">{{ t('nav.qimen') }}</div>
             <div>
-              <div class="route-focus">具体事件</div>
-              <p>看成败、应期、方位、A/B 选择和短期行动策略。</p>
+              <div class="route-focus">{{ t('home.route.qimenFocus') }}</div>
+              <p>{{ t('home.route.qimenText') }}</p>
             </div>
           </div>
           <div class="route-info-row">
-            <div class="route-tool">综合</div>
+            <div class="route-tool">{{ t('home.route.hybrid') }}</div>
             <div>
-              <div class="route-focus">宏观定调，微观决策</div>
-              <p>先看八字底色，再用奇门判断眼前这件事怎么动。</p>
+              <div class="route-focus">{{ t('home.route.hybridFocus') }}</div>
+              <p>{{ t('home.route.hybridText') }}</p>
             </div>
           </div>
         </div>
         <div class="route-quota-bar">
-          <span class="rq-label">今日问事额度</span>
+          <span class="rq-label">{{ t('home.quota.label') }}</span>
           <template v-if="currentUser">
-            <span v-if="dailyQimenUsed === null" class="rq-loading">查询中…</span>
+            <span v-if="dailyQimenUsed === null" class="rq-loading">{{ t('home.quota.loading') }}</span>
             <span v-else class="rq-count">
               <span
                 v-for="i in DAILY_QIMEN_LIMIT"
@@ -604,12 +604,12 @@
                 class="rq-pip"
                 :class="{ 'rq-pip--used': i <= dailyQimenUsed }"
               ></span>
-              <span class="rq-text">今日剩余 {{ Math.max(0, DAILY_QIMEN_LIMIT - dailyQimenUsed) }} / {{ DAILY_QIMEN_LIMIT }}</span>
+              <span class="rq-text">{{ t('home.quota.left', { left: Math.max(0, DAILY_QIMEN_LIMIT - dailyQimenUsed), limit: DAILY_QIMEN_LIMIT }) }}</span>
             </span>
           </template>
-          <span v-else class="rq-guest">登录后可用</span>
+          <span v-else class="rq-guest">{{ t('home.quota.guest') }}</span>
         </div>
-        <div class="route-info-note">你只需自然提问；系统会先识别问题类型，自动选择八字、奇门或综合路径，并注入对应规则。</div>
+        <div class="route-info-note">{{ t('home.route.note') }}</div>
       </div>
     </div>
 
@@ -628,11 +628,11 @@
     <Teleport to="body">
       <div class="reset-time-overlay" :class="{ show: showResetTimeConfirm }" @click="showResetTimeConfirm = false">
         <div class="reset-time-box" @click.stop>
-          <p>重置为现在的时辰？</p>
-          <small v-if="panTime">将放弃已选 {{ panTime.month }}月{{ panTime.day }}日 {{ String(panTime.hour).padStart(2, '0') }}:{{ String(panTime.minute).padStart(2, '0') }}</small>
+          <p>{{ t('home.resetTime.title') }}</p>
+          <small v-if="panTime">{{ t('home.resetTime.discard', { month: panTime.month, day: panTime.day, time: `${String(panTime.hour).padStart(2, '0')}:${String(panTime.minute).padStart(2, '0')}` }) }}</small>
           <div class="reset-time-actions">
-            <button type="button" class="rt-ghost" @click="showResetTimeConfirm = false">取消</button>
-            <button type="button" class="rt-solid" @click="confirmResetTime">重置</button>
+            <button type="button" class="rt-ghost" @click="showResetTimeConfirm = false">{{ t('common.cancel') }}</button>
+            <button type="button" class="rt-solid" @click="confirmResetTime">{{ t('home.resetTime.confirm') }}</button>
           </div>
         </div>
       </div>
@@ -643,15 +643,15 @@
       <div class="share-img-modal" @click.stop>
         <div class="share-img-header">
           <span class="share-img-kicker">SHARE IMAGE</span>
-          <span class="share-img-title">长按图片保存</span>
-          <button class="share-img-close" @click="closeShareModal" aria-label="关闭">×</button>
+          <span class="share-img-title">{{ t('home.share.longPress') }}</span>
+          <button class="share-img-close" @click="closeShareModal" :aria-label="t('common.close')">×</button>
         </div>
         <div class="share-img-body">
           <img
             v-if="shareImgUrl"
             :src="shareImgUrl"
             class="share-img-preview"
-            alt="奇门推演结果图"
+            :alt="t('home.share.alt')"
           />
         </div>
       </div>
@@ -663,6 +663,15 @@
 import { ref, reactive, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { supabase } from '../lib/supabase.mjs'
+import { displayText } from '../i18n/localeDisplay.mjs'
+import { useI18n } from 'vue-i18n'
+import { localizeApiError, localeJson } from '../i18n/requestLocale.mjs'
+import { contentLocaleOf } from '../i18n/index.mjs'
+import { chipLine, tagLabel, sseText } from '../i18n/sseLabels.mjs'
+import zhCNCatalogue from '../i18n/locales/zh-CN.mjs'
+import enUSCatalogue from '../i18n/locales/en-US.mjs'
+import { formatDate } from '../i18n/formatters.mjs'
+import { genderLabel, categoryLabel, verdictLabel, feedbackOptionLabel, shortCategoryLabel, symbolName, ganzhiName } from '../i18n/domainLabels.mjs'
 import { Solar } from 'lunar-javascript'
 import { getGuestState, trackGuestEvent } from '../guestMode.mjs'
 import {
@@ -724,6 +733,14 @@ const ROUTE_API_URL = apiPath("/api/divination-route")
 const BAZI_QUESTION_API_URL = apiPath("/api/bazi-question")
 const router = useRouter()
 const route = useRoute()
+const { t, te, locale } = useI18n()
+const i18nCtx = { t, te, get locale() { return locale.value } }
+// 记录语言与界面内容语言不一致时（如英文界面打开中文历史），容器标 lang；不提示、不重算（§5.9）
+const resultContentLang = computed(() => {
+  if (!currentResultData.value) return undefined
+  const recordLocale = currentResultData.value.output_locale || 'zh-CN'
+  return recordLocale === contentLocaleOf(locale.value) ? undefined : recordLocale
+})
 
 const currentUser = ref(globalState.currentUser)
 const authView = ref('landing')
@@ -738,35 +755,14 @@ const viewState = ref('input')
 const questionInput = ref('')
 const isSubmitting = ref(false)
 
-const SUGGESTED_QUESTIONS = [
-  '这次合作谈判能顺利吗？',
-  '我现在换工作时机合适吗？',
-  '这段感情还值得继续吗？',
-  '这笔投资现在能入场吗？',
-  '我近期的财运走势如何？',
-  '近期有没有贵人相助？',
-  '这件事情近期能有结果吗？',
-  '最近身体状况需要注意什么？',
-  '未来老公大概是什么长相和职业？',
-  '我的正缘会在什么场景下出现？',
-  '未来伴侣的经济实力和家境如何？',
-  '未来的另一半比我大还是比我小？',
-  '我的婚姻是强强联合还是被照顾？',
-  '未来的小孩大概有什么天赋特长？',
-  '有了小孩后，会带旺我的财运吗？',
-  '我的子女缘深吗？何时会有宝宝？',
-  '以后和孩子的相处模式是怎样的？',
-  '除了主业，我适合发展什么副业？',
-  '现在工作内耗，命盘有破局建议吗？',
-  '我身上有什么没被挖掘的隐藏天赋？',
-  '近期偏财运如何？有没有意外之财？',
-]
+// 示例问题：中英各 21 条，英文为意译
+const SUGGESTED_QUESTIONS = computed(() => (locale.value === 'en-US' ? enUSCatalogue : zhCNCatalogue).home.samples)
 const suggestionPairIdx = ref(0)
 const visibleSuggestions = computed(() => {
-  const len = SUGGESTED_QUESTIONS.length
+  const len = SUGGESTED_QUESTIONS.value.length
   return [
-    SUGGESTED_QUESTIONS[suggestionPairIdx.value % len],
-    SUGGESTED_QUESTIONS[(suggestionPairIdx.value + 1) % len],
+    SUGGESTED_QUESTIONS.value[suggestionPairIdx.value % len],
+    SUGGESTED_QUESTIONS.value[(suggestionPairIdx.value + 1) % len],
   ]
 })
 const selectSuggestion = (q) => {
@@ -791,7 +787,7 @@ const handleGuestLoginRedirect = () => {
   leaveGuestMode()
   authView.value = 'login'
 }
-const clockText = ref('载入时辰中…')
+const clockText = ref(t('home.clock.loading'))
 // 固定起局时刻：null = 用当前时刻；否则为 { year, month, day, hour, minute }（北京民用时）
 const panTime = ref(null)
 const showTimePicker = ref(false)
@@ -1012,7 +1008,7 @@ async function fetchMissingFiveShens() {
 }
 
 const showProfileSwitcher = computed(() => baziProfiles.value.length > 0)
-const activeProfileName = computed(() => activeBaziProfile.value?.name || '命主未设')
+const activeProfileName = computed(() => activeBaziProfile.value?.name || t('home.profile.unset'))
 const isGuest = computed(() => globalState.isGuest)
 const isAuthLanding = computed(() => ['login', 'register'].includes(route.query.auth))
 const canUseApp = computed(() => Boolean(currentUser.value || (isGuest.value && globalState.guestAccessUnlocked && !isAuthLanding.value)))
@@ -1056,15 +1052,11 @@ const canFollowup = computed(() =>
   && (sseBranch.value === 'qimen' || sseBranch.value === 'bazi') && !!currentResultData.value)
 // 当前追问分支（八字结果的 currentResultData.branch==='bazi'）
 const followupBranch = computed(() => (currentResultData.value?.branch === 'bazi' ? 'bazi' : 'qimen'))
-const categories = [
-  { label: '全部', value: 'all' },
-  { label: '事业', value: 'career_business' },
-  { label: '求财', value: 'finance_wealth' },
-  { label: '感情', value: 'relationship' },
-  { label: '健康', value: 'health_action' },
-  { label: '交易', value: 'item_transaction' },
-  { label: '杂事', value: 'general' }
-]
+// 只存 code；显示名随语言变化（传给 Supabase 的仍是 code）
+const CATEGORY_FILTER_CODES = ['all', 'career_business', 'finance_wealth', 'relationship', 'health_action', 'item_transaction', 'general']
+const categories = computed(() => CATEGORY_FILTER_CODES.map((value) => ({ value, label: shortCategoryLabel(value, locale.value) })))
+// 历史条目的分类短名：不在筛选列表里的分类归为「杂事」（与原逻辑一致）
+const historyCatLabel = (code) => shortCategoryLabel(CATEGORY_FILTER_CODES.includes(code) && code !== 'all' ? code : 'general', locale.value)
 const feedbackAccuracyOptions = QIMEN_ACCURACY_OPTIONS
 const feedbackDirectionOptions = QIMEN_DIRECTION_OPTIONS
 const isFeedbackDrawerOpen = ref(false)
@@ -1156,7 +1148,7 @@ const saveAsImage = async () => {
   try {
     const h2c = await loadHtml2Canvas()
     const captureEl = document.querySelector('.html-container')
-    if (!captureEl) { alert('未找到推演结果，请重新推演'); return }
+    if (!captureEl) { alert(t('home.alert.noResult')); return }
 
     // 截图前向真实 document 注入兼容补丁（覆盖 color-mix 属性）
     // Vite dev 模式用 adoptedStyleSheets，onclone 内替换无效，需在源 doc 提前覆盖
@@ -1254,7 +1246,7 @@ const saveAsImage = async () => {
       const link = document.createElement('a')
       const now = new Date()
       const dateStr = `${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}`
-      link.download = `奇门推演_${dateStr}.png`
+      link.download = displayText(`奇门推演_${dateStr}.png`)
       link.href = imgData
       link.click()
     }
@@ -1262,7 +1254,7 @@ const saveAsImage = async () => {
     shareImgUrl.value = imgData
   } catch (err) {
     console.error('生成图片失败:', err)
-    alert('图片生成失败：' + (err.message || '未知错误'))
+    alert(t('home.alert.imageFailed', { error: err.message || t('home.alert.unknownError') }))
   } finally {
     isSavingImage.value = false
   }
@@ -1305,7 +1297,7 @@ const addWatermark = (sourceCanvas) => {
   ctx.font = `500 ${fontSize}px 'Noto Serif SC', 'Songti SC', 'STSong', serif`
   ctx.fillStyle = 'rgba(212,175,55,0.85)'
   ctx.textBaseline = 'middle'
-  ctx.fillText('奇门遁甲 AI 推演', 24, wmY + wmH / 2)
+  ctx.fillText(displayText('奇门遁甲 AI 推演'), 24, wmY + wmH / 2)
 
   // 域名
   const domainFontSize = Math.round(12 * scale)
@@ -1400,6 +1392,7 @@ function withOrbHero(html) {
   return html.replace('class="mag-result ', 'class="mag-result wenshi-orb-mode ')
 }
 
+// i18n-ignore-start 开发用 mock 数据（生产形态的中文样本，不是界面文案）
 // ═══════ 开发用：奇门流式 mock（生产形态数据，走真实代码路径，不调 API）═══════
 const MOCK_QIMEN = (() => {
   const palaces = [
@@ -1798,6 +1791,7 @@ async function runBaziMock(mode = 'status') {
   }
 }
 if (typeof window !== 'undefined') window.__mockBazi = runBaziMock
+// i18n-ignore-end
 // 把某段流式文本就地补丁进卡片对应槽位（带 ** 加粗 + 流式光标）
 function patchStreamSlot(section, fullText) {
   const root = document.querySelector('.html-container .wenshi-streaming')
@@ -1855,7 +1849,7 @@ async function readSSEStream(response) {
         if (wenShiStreaming.value) {
           // 状态行只展示最新中间产物：优先 chip（产物），否则当前步骤名
           const stepName = sseCurrentSteps.value[event.index + 1]?.name || sseCurrentSteps.value[event.index]?.name || ''
-          const label = event.chip ? `${event.chip.main}${event.chip.sub ? ' · ' + event.chip.sub : ''}` : stepName
+          const label = event.chip ? chipLine(event.chip, i18nCtx) : stepName
           patchOrbStatus(label)
         }
       } else if (event.type === 'engine_complete') {
@@ -1865,7 +1859,7 @@ async function readSSEStream(response) {
         if (eo?.branch === 'qimen') {
           wenShiStreaming.value = true
           for (const k in wenShiStreamSections) delete wenShiStreamSections[k]
-          patchOrbStatus(`初分 ${eo.pre_score} · 深度推演`)
+          patchOrbStatus(t('sse.preScoreDeep', { score: eo.pre_score }))
           const root = document.querySelector('.html-container .wenshi-streaming')
           if (root) {
             // 已在脚手架中：只就地补丁「奇门定基」(盘面/格局)，保留能量球 DOM，避免重建闪动
@@ -1883,7 +1877,7 @@ async function readSSEStream(response) {
           wenShiStreaming.value = true
           for (const k in wenShiStreamSections) delete wenShiStreamSections[k]
           orbTone.value = 'wo-tone-' + baziElementTone(eo.favorable_element).tone
-          patchOrbStatus('深度推演中')
+          patchOrbStatus(t('sse.deepReadingNow'))
           // 兜底：若尚未是 bazi 脚手架，切过去
           if (!document.querySelector('.html-container #bazi-hero')) {
             resultPhase.value = 'stream'
@@ -1909,7 +1903,7 @@ async function readSSEStream(response) {
             el.innerHTML = '<span class="wsk"><i></i><i></i></span>'
           })
         }
-        if (wenShiStreaming.value) patchOrbStatus(event.message || 'AI 重新推演中…')
+        if (wenShiStreaming.value) patchOrbStatus(sseText(event.message || t('sse.llmRetry'), event.messageKey, null, i18nCtx))
         else { wenShiLlm.value = { status: 'pending', text: '' } }
       } else if (event.type === 'llm_delta') {
         if (wenShiStreaming.value && event.section) {
@@ -1932,7 +1926,7 @@ async function readSSEStream(response) {
         ssePct.value = 100
         return event.result
       } else if (event.type === 'error') {
-        throw new Error(event.message || '推演失败')
+        throw new Error(localizeApiError(event, i18nCtx, event.message || '推演失败'))
       }
     }
   }
@@ -2073,8 +2067,9 @@ onMounted(() => {
   if (route.query.mock === 'bazi') setTimeout(() => runBaziMock(String(route.query.mode || 'status')), 600)
   updateClock()
   clockInterval = setInterval(updateClock, 30000)
+  watch(locale, updateClock)
   suggestionTimer = setInterval(() => {
-    suggestionPairIdx.value = (suggestionPairIdx.value + 2) % SUGGESTED_QUESTIONS.length
+    suggestionPairIdx.value = (suggestionPairIdx.value + 2) % SUGGESTED_QUESTIONS.value.length
   }, 5000)
   document.addEventListener('click', handleDocumentClick)
   document.addEventListener('click', handleGeTagClick)
@@ -2136,7 +2131,8 @@ const handleSessionUpdate = (session) => {
     warmFortuneCacheFromSupabase({
       supabase,
       storage: getFortuneStorage(),
-      userId: session.user.id
+      userId: session.user.id,
+      contentLocale: contentLocaleOf(locale.value),
     })
   } else {
     lastHandledSessionKey = ''
@@ -2150,7 +2146,7 @@ const handleSessionUpdate = (session) => {
 }
 
 const handleAuth = async () => {
-  if (!authForm.email || !authForm.password) return alert("请填写完整的邮箱和密码")
+  if (!authForm.email || !authForm.password) return alert(t('home.alert.needEmailPassword'))
   authLoading.value = true
   try {
     if (isLoginMode.value) {
@@ -2159,10 +2155,10 @@ const handleAuth = async () => {
     } else {
       const { error } = await supabase.auth.signUp({ email: authForm.email, password: authForm.password })
       if (error) throw error
-      alert("注册成功！请去邮箱点击验证链接后登录。")
+      alert(t('home.alert.registered'))
     }
   } catch (error) {
-    alert("认证失败: " + error.message)
+    alert(t('home.alert.authFailed', { error: error.message }))
   } finally {
     authLoading.value = false
   }
@@ -2175,22 +2171,22 @@ const handleGoogleAuth = async () => {
     const { error } = await supabase.auth.signInWithOAuth(buildGoogleOAuthSignInArgs(href))
     if (error) throw error
   } catch (error) {
-    alert("Google 登录失败: " + error.message)
+    alert(t('home.alert.googleFailed', { error: error.message }))
     googleAuthLoading.value = false
   }
 }
 
 const handleResetPasswordEmail = async () => {
-  if (!authForm.email) return alert('请先输入邮箱地址')
+  if (!authForm.email) return alert(t('home.alert.needEmail'))
   resetEmailLoading.value = true
   resetEmailNotice.value = ''
   try {
     const href = typeof window === 'undefined' ? 'https://xkbqiiwwgfzkyfhxuoev.supabase.co' : window.location.href
     const { error } = await supabase.auth.resetPasswordForEmail(authForm.email, buildPasswordResetEmailArgs(href))
     if (error) throw error
-    resetEmailNotice.value = '重设密码邮件已发送，请前往邮箱查收。'
+    resetEmailNotice.value = t('home.alert.resetSent')
   } catch (error) {
-    alert('重设邮件发送失败: ' + error.message)
+    alert(t('home.alert.resetFailed', { error: error.message }))
   } finally {
     resetEmailLoading.value = false
   }
@@ -2214,13 +2210,16 @@ const handleGuestEntry = async () => {
   await trackGuestEvent(supabase, 'guest_started', 'auth')
 }
 
+// 时钟里的干支：中文原样；英文取拼音名（「Jia Zi」）
+const clockGanzhi = (gz) => ganzhiName(gz, locale.value)
+
 const updateClock = () => {
   // 自定义固定时刻：用 lunar 精确干支展示（带日期前缀），并停止跟随系统时钟
   if (panTime.value) {
     const p = panTime.value
     try {
       const l = Solar.fromYmdHms(p.year, p.month, p.day, p.hour, p.minute, 0).getLunar()
-      clockText.value = `${p.month}月${p.day}日 ${String(p.hour).padStart(2, '0')}:${String(p.minute).padStart(2, '0')} ${l.getDayInGanZhi()}日 ${l.getTimeZhi()}时`
+      clockText.value = t('home.clock.fixed', { month: p.month, day: p.day, time: `${String(p.hour).padStart(2, '0')}:${String(p.minute).padStart(2, '0')}`, dayGz: clockGanzhi(l.getDayInGanZhi()), hourZhi: symbolName(l.getTimeZhi(), locale.value) })
     } catch {
       clockText.value = `${p.year}-${p.month}-${p.day} ${p.hour}:${String(p.minute).padStart(2, '0')}`
     }
@@ -2235,7 +2234,7 @@ const updateClock = () => {
   const _l = Solar.fromYmdHms(now.getFullYear(), now.getMonth() + 1, now.getDate(), now.getHours(), now.getMinutes(), 0).getLunar()
   const stemIdx = Math.max(0, TIAN_GAN.indexOf(_l.getDayGan()))
   const shichenIdx = Math.max(0, DI_ZHI.indexOf(_l.getTimeZhi()))
-  clockText.value = `${h}:${m}\u2002${TIAN_GAN[stemIdx]}日 ${DI_ZHI[shichenIdx]}时`
+  clockText.value = t('home.clock.now', { time: `${h}:${m}`, dayGan: symbolName(TIAN_GAN[stemIdx], locale.value), hourZhi: symbolName(DI_ZHI[shichenIdx], locale.value) })
 }
 
 // 时间选择器：确认 / 重置
@@ -2442,7 +2441,7 @@ const fetchMissingPanelMatrix = async () => {
     const res = await fetch(apiPath('/api/bazi-panel'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
-      body: JSON.stringify({
+      body: localeJson({
         profileId,
         category: data.meta?.category,
         subcategory: data.meta?.subcategory,
@@ -2476,7 +2475,7 @@ const fetchMissingPanelData = async (data) => {
     const res = await fetch(apiPath('/api/bazi-panel'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
-      body: JSON.stringify({
+      body: localeJson({
         profileId,
         category: data.meta?.category,
         subcategory: data.meta?.subcategory,
@@ -2773,11 +2772,14 @@ const readFollowupSSE = async (response, q, branch = 'qimen') => {
         accum[ev.section] = (accum[ev.section] || '') + ev.text
         const el = ensureLiveFollowupSlot(ev.section, q, nature, branch)
         if (el) { el.classList.add('wstream-active'); el.innerHTML = renderStreamProse(accum[ev.section]) }
+      } else if (ev.type === 'patch_retry') {
+        // 重试会整段重发：清掉上一轮已累积的文字，避免两轮拼在一起
+        for (const k of Object.keys(accum)) delete accum[k]
       } else if (ev.type === 'patch_complete') {
         Object.assign(supplements, ev.supplements || {})
         nature = ev.nature || nature
       } else if (ev.type === 'error') {
-        throw new Error(ev.message || '追问失败')
+        throw new Error(localizeApiError(ev, i18nCtx, ev.message || '追问失败'))
       }
     }
   }
@@ -2804,7 +2806,7 @@ const submitFollowup = async () => {
   const q = followupInput.value.trim()
   if (!q || followupSubmitting.value || !currentResultData.value) return
   const { data: { session } } = await supabase.auth.getSession()
-  if (!session) return alert('请先登录')
+  if (!session) return alert(t('home.alert.needLogin'))
   const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` }
 
   followupSubmitting.value = true
@@ -2813,13 +2815,16 @@ const submitFollowup = async () => {
     const branch = followupBranch.value
     const isBazi = branch === 'bazi'
     const origin = isBazi ? buildBaziOrigin(currentResultData.value) : buildFollowupOrigin(currentResultData.value)
+    // 追问沿用原报告语言；旧记录没有 output_locale，按中文处理（spec T3.5）
+    const originLocale = currentResultData.value?.output_locale || 'zh-CN'
+    origin.output_locale = originLocale
     const response = await fetch(isBazi ? BAZI_FOLLOWUP_API_URL : FOLLOWUP_API_URL, {
       method: 'POST', headers,
-      body: JSON.stringify({ followup: q, branch, origin }),
+      body: localeJson({ followup: q, branch, origin, originLocale }),
     })
     if (!response.ok) {
       const e = await response.json().catch(() => ({}))
-      throw new Error(e.details || e.error || '追问失败')
+      throw new Error(localizeApiError(e, i18nCtx, e.details || e.error || '追问失败'))
     }
     const outcome = await readFollowupSSE(response, q, branch)
     if (outcome.scope === 'new_matter') {
@@ -2870,14 +2875,14 @@ const confirmRecastFromFollowup = () => {
 
 const startDivination = async () => {
   const input = questionInput.value.trim()
-  if (!input) return alert("问题不能为空！")
+  if (!input) return alert(t('home.alert.emptyQuestion'))
   activeBaziResultData.value = null
   baziCardSelectedYear.value = null
   showBaziBackingAnchor.value = false
   showBaziPanelAnchor.value = false
 
   const { data: { session } } = await supabase.auth.getSession()
-  if (!session) return alert("请先登录")
+  if (!session) return alert(t('home.alert.needLogin'))
 
   const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` }
   let routeData = null
@@ -2899,7 +2904,7 @@ const startDivination = async () => {
     const routeResponse = await fetch(ROUTE_API_URL, {
       method: 'POST',
       headers,
-      body: JSON.stringify({
+      body: localeJson({
         question: input,
         hasBaziProfile: Boolean(selectedProfileId.value || baziProfiles.value.length),
         hasPanTime: Boolean(panTime.value)
@@ -2907,20 +2912,25 @@ const startDivination = async () => {
     })
     routeData = await routeResponse.json()
     if (!routeResponse.ok || routeData.error) {
-      const err = new Error(routeData.details || routeData.error || '分类失败')
+      const err = new Error(localizeApiError(routeData, i18nCtx, routeData.details || routeData.error || '分类失败'))
       err.httpStatus = routeResponse.status
       throw err
     }
 
     if (routeData.branch === 'clarify') {
-      alert(routeData.followupQuestion || '请补充你想看长期趋势，还是判断眼前某一件具体事情。')
+      alert(routeData.followupQuestion || t('home.alert.clarify'))
       viewState.value = 'input'
       return
     }
 
     // Mark step 0 done with routing result
     sseBranch.value = routeData.branch === 'bazi' ? 'bazi' : 'qimen'
-    sseChips.value = { 0: { main: CATEGORY_LABEL_MAP[routeData.category] || '综合运势', sub: routeData.branch === 'bazi' ? '八字命理' : routeData.branch === 'hybrid' ? '综合推演' : '奇门遁甲' } }
+    sseChips.value = { 0: {
+      main: CATEGORY_LABEL_MAP[routeData.category] || '综合运势', // i18n-ignore
+      sub: routeData.branch === 'bazi' ? '八字命理' : routeData.branch === 'hybrid' ? '综合推演' : '奇门遁甲', // i18n-ignore
+      mainKey: `enum.category.${CATEGORY_LABEL_MAP[routeData.category] ? routeData.category : 'general'}`,
+      subKey: routeData.branch === 'bazi' ? 'sse.chip.branchBazi' : routeData.branch === 'hybrid' ? 'sse.chip.branchHybrid' : 'sse.chip.branchQimen',
+    } }
     sseActiveIndex.value = 1
     ssePct.value = 10
 
@@ -2929,7 +2939,7 @@ const startDivination = async () => {
       const profileId = selectedProfileId.value || baziProfiles.value.find(p => p.is_default)?.id || baziProfiles.value[0]?.id || ''
       if (!profileId) {
         showOrbFx.value = false; wenShiStreaming.value = false; viewState.value = 'input'
-        alert('这个问题需要八字档案才能分析，请先进入八字页建立命主资料。')
+        alert(t('home.alert.needProfile'))
         router.push({ name: 'bazi', query: { question: input } })
         return
       }
@@ -2943,17 +2953,17 @@ const startDivination = async () => {
       const response = await fetch(BAZI_QUESTION_API_URL, {
         method: 'POST',
         headers,
-        body: JSON.stringify({ question: input, profileId, route: routeData })
+        body: localeJson({ question: input, profileId, route: routeData })
       })
       if (!response.ok) {
         const errData = await response.json()
         if (errData.code === 'BAZI_PROFILE_INCOMPLETE') {
           showOrbFx.value = false; wenShiStreaming.value = false; viewState.value = 'input'
-          alert('该档案还没有完整排盘数据，请先进入八字页完成命盘推演。')
+          alert(t('home.alert.profileIncomplete'))
           router.push({ name: 'bazi', query: { profileId, question: input } })
           return
         }
-        const err = new Error(errData.details || errData.error || '八字问答失败')
+        const err = new Error(localizeApiError(errData, i18nCtx, errData.details || errData.error || '八字问答失败'))
         err.httpStatus = response.status
         throw err
       }
@@ -2988,7 +2998,7 @@ const startDivination = async () => {
     const response = await fetch(API_URL, {
       method: 'POST',
       headers,
-      body: JSON.stringify({
+      body: localeJson({
         question: input,
         route: routeData,
         baziInfo: (routeData.branch === 'qimen') ? null : (currentBaziString.value || null),
@@ -2997,7 +3007,7 @@ const startDivination = async () => {
     })
     if (!response.ok) {
       const errData = await response.json()
-      const err = new Error(errData.details || errData.error || '推演失败')
+      const err = new Error(localizeApiError(errData, i18nCtx, errData.details || errData.error || '推演失败'))
       err.httpStatus = response.status
       throw err
     }
@@ -3053,9 +3063,9 @@ const animateScore = (targetScore, fromScore = 0) => {
 
 const normalizeHistoryRows = (rows = []) => rows.map(r => ({
     ...r,
-    dateStr: new Date(r.created_at).toLocaleDateString(),
+    dateStr: formatDate(r.created_at, locale.value),
     score: Number(r.score) || 0,
-    catLabel: categories.find(c => c.value === r.category)?.label || '杂事'
+    catLabel: historyCatLabel(r.category)
   }))
 
 const resetHistoryState = () => {
@@ -3163,9 +3173,9 @@ const saveRecordToDatabase = async (question, data) => {
       question,
       qimen_data: data,
       category: data.category || 'general',
-      dateStr: new Date().toLocaleDateString(),
+      dateStr: formatDate(new Date(), locale.value),
       score: data.summary?.score || 0,
-      catLabel: categories.find(c => c.value === data.category)?.label || '杂事',
+      catLabel: historyCatLabel(data.category),
       canFeedback: false,
       hasFeedback: false,
       feedback: null
@@ -3183,11 +3193,11 @@ const saveRecordToDatabase = async (question, data) => {
   const savedRecord = inserted ? {
     ...inserted,
     qimen_data: data,
-    dateStr: new Date(inserted.created_at).toLocaleDateString(),
+    dateStr: formatDate(inserted.created_at, locale.value),
     score: data.summary?.score || 0,
     branch: data.branch || 'qimen',
     conclusion: data.summary?.conclusion || '',
-    catLabel: categories.find(c => c.value === (data.category || 'general'))?.label || '杂事',
+    catLabel: historyCatLabel(data.category || 'general'),
     canFeedback: Boolean(currentUser.value?.id),
     hasFeedback: false,
     feedback: null
@@ -3267,9 +3277,9 @@ const submitQimenFeedback = async () => {
     if (error) throw error
     await loadHistory()
     closeFeedbackDrawer()
-    alert('反馈已保存')
+    alert(t('home.alert.feedbackSaved'))
   } catch (error) {
-    alert('反馈保存失败: ' + error.message)
+    alert(t('home.alert.feedbackFailed', { error: error.message }))
   } finally {
     feedbackSaving.value = false
   }
@@ -3456,7 +3466,7 @@ const buildBaziQuestionCardHTML = (data) => {
   const basisText = typeof summary.basis === 'string' ? summary.basis : (summary.basis?.logic || '')
   const m1HTML = `<section class="mag-section" id="bazi-m1">
     <div class="module-heading"><h2>结论先行</h2></div>
-    ${question ? `<blockquote class="mag-question">"${question}"</blockquote>` : ''}
+    ${question ? `<blockquote class="mag-question" data-i18n-skip>"${question}"</blockquote>` : ''}
     ${basisText ? `<p class="bazi-basis-text">${sanitizeBaziDisplayText(basisText, targetLabel)}</p>` : ''}
   </section>`
 
@@ -3875,7 +3885,7 @@ const buildBaziStreamingScaffoldHTML = (engine = null, statusText = '') => {
     </nav>
     <section class="mag-section" id="bazi-m1">
       <div class="module-heading"><h2>结论先行</h2></div>
-      ${question ? `<blockquote class="mag-question">"${question}"</blockquote>` : ''}
+      ${question ? `<blockquote class="mag-question" data-i18n-skip>"${question}"</blockquote>` : ''}
       <p class="bazi-basis-text">${slot('summary_basis')}</p>
     </section>
     <section class="mag-section" id="bazi-m2">
@@ -3974,7 +3984,7 @@ const buildStreamingScaffoldHTML = (engine = null, statusText = '') => {
 
     <section class="mag-section" id="mag-m1">
       <div class="module-heading"><h2>结论先行</h2></div>
-      ${question ? `<blockquote class="mag-question">"${question}"</blockquote>` : ''}
+      ${question ? `<blockquote class="mag-question" data-i18n-skip>"${question}"</blockquote>` : ''}
       <div class="report-subtitle">行动建议</div>
       ${actionsHTML}
     </section>
@@ -4024,7 +4034,7 @@ const renderFollowupBlockHTML = ({ q = '', section = '', text = '', nature = 'de
   const badge = nature === 'revise' ? '因新情况修正' : '追问深挖'
   const body = streaming ? '<span class="wsk"><i></i><i></i></span>' : mdBold(escapeHtmlText(text))
   return `<div class="mag-followup${streaming ? ' mag-followup-pop' : ''}${nature === 'revise' ? ' is-revise' : ''}">`
-    + `<div class="mag-followup-q"><span class="mag-followup-badge">${badge}</span>${escapeHtmlText(q)}</div>`
+    + `<div class="mag-followup-q"><span class="mag-followup-badge">${badge}</span><span data-i18n-skip>${escapeHtmlText(q)}</span></div>`
     + `<div class="mag-followup-body"${streaming ? ` data-fslot="${section}"` : ''}>${body}</div>`
     + `</div>`
 }
@@ -4469,7 +4479,7 @@ const buildCardHTML = (data, opts = {}) => {
 
     <section class="mag-section" id="mag-m1">
       <div class="module-heading"><h2>结论先行</h2></div>
-      ${question ? `<blockquote class="mag-question">"${question}"</blockquote>` : ''}
+      ${question ? `<blockquote class="mag-question" data-i18n-skip>"${question}"</blockquote>` : ''}
       <div class="report-subtitle">行动建议</div>
       <div class="mag-action-list">${magActionListHTML}</div>
       ${renderFollowupsForModule('m1', followups)}

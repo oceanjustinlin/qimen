@@ -2,6 +2,7 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 
 import {
+  birthplaceSearchReady,
   findBirthplaceByName,
   findBirthplaceByRegion,
   getBirthplaceAdminOptions,
@@ -50,4 +51,14 @@ test('birthplace region helpers expose country admin city hierarchy', () => {
   assert.ok(getBirthplaceAdminOptions('中国').includes('四川'))
   assert.ok(getBirthplaceCityOptions('中国', '四川').some((place) => place.name === '成都市'))
   assert.equal(findBirthplaceByRegion({ country: '中国', admin1: '四川', city: '成都市', county: '成都市' })?.lng, 104.07)
+})
+
+test('繁体查询命中与简体相同的记录', async () => {
+  await birthplaceSearchReady
+  for (const [hant, hans] of [['臺北', '台北'], ['廈門市思明區', '厦门市思明区'], ['廣州', '广州']]) {
+    const a = searchBirthplaces(hant, 3).map((p) => p.id)
+    const b = searchBirthplaces(hans, 3).map((p) => p.id)
+    assert.ok(a.length > 0, hant)
+    assert.deepEqual(a, b, hant)
+  }
 })

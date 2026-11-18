@@ -119,3 +119,14 @@ button,input,textarea,select{font-family:inherit}
 .wx-jin  { color: var(--wx-jin); }
 .wx-shui { color: var(--wx-shui); }
 .wx-none { color: var(--ink-muted); }
+
+/* 繁體：字体栈首选 Noto Serif TC（由 src/i18n/hantFont.mjs 在进入繁体时懒加载），其后保留原回退栈。只改字体变量。 */
+:root[lang="zh-TW"] {
+    --font-serif:    'Noto Serif TC','Noto Serif SC','Songti TC','Songti SC','STSong',serif;
+    --font-display:  'Noto Serif TC','Noto Serif SC','Songti TC','Songti SC','STSong',serif;
+    --font-ganzhi:   'Noto Serif TC','Noto Serif SC','Songti TC','Songti SC','STSong','SimSun',serif;
+    --font-body:     'Noto Serif TC','Noto Serif SC','Songti TC','Songti SC','STSong',serif;
+}
+
+/* English：中文排版用的字距在英文下归零。只改排版参数，不改颜色。 */
+:root[lang="en-US"] #globalBottomNav .nav-label { letter-spacing: 0; }

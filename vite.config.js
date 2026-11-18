@@ -43,8 +43,30 @@ function baziPanelMiddleware() {
   }
 }
 
+// lib/i18n/ 下是前后端共用的 CommonJS 文件（Worker 与 node --test 直接用）。
+// 浏览器端把它们包成 ESM：`import x from '../../lib/i18n/foo.js'` 拿到 module.exports。
+// 只支持不 require 其他模块的纯数据/纯函数文件。
+const SHARED_CJS_DIR = new URL('./lib/i18n/', import.meta.url).pathname.replace(/\\/g, '/')
+
+function sharedCjsInterop() {
+  return {
+    name: 'shared-cjs-interop',
+    transform(code, id) {
+      const file = id.split('?')[0].replace(/\\/g, '/')
+      if (!file.startsWith(SHARED_CJS_DIR) || !/^[^/]+\.js$/.test(file.slice(SHARED_CJS_DIR.length))) return null
+      if (/\brequire\(/.test(code)) {
+        this.error(`${file} 被浏览器端引用，不能再 require 其他模块`)
+      }
+      return {
+        code: `const module = { exports: {} }; const exports = module.exports;\n${code}\nexport default module.exports;\n`,
+        map: null,
+      }
+    },
+  }
+}
+
 export default defineConfig({
-  plugins: [vue(), baziPanelMiddleware()],
+  plugins: [vue(), baziPanelMiddleware(), sharedCjsInterop()],
   server: {
     proxy: {
       '/api': {

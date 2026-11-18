@@ -1,8 +1,9 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
+import { resolveSource } from '../i18n/testing/resolveSource.mjs'
 
-const source = readFileSync(new URL('./BaziView.vue', import.meta.url), 'utf8')
+const source = resolveSource(readFileSync(new URL('./BaziView.vue', import.meta.url), 'utf8'))
 
 test('专业页不再内联维护大运流年流月流日四套交互', () => {
   const matches = source.match(/class="item-body stacked-ganzhi"/g) || []

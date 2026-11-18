@@ -1,12 +1,12 @@
 <template>
-  <div class="open-source-links" aria-label="开源项目链接">
+  <div class="open-source-links" :aria-label="t('links.openSource')">
     <a
       class="source-link"
       :href="githubUrl"
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="查看 GitHub 源码"
-      title="GitHub 源码"
+      :aria-label="t('links.viewGithub')"
+      :title="t('links.githubSource')"
     >
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path
@@ -19,6 +19,8 @@
 </template>
 
 <script setup>
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 const githubUrl = import.meta.env.VITE_GITHUB_URL || 'https://github.com/oceanjustinlin/qimen'
 </script>
 

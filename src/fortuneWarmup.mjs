@@ -24,29 +24,33 @@ export const buildUpcomingDateKeys = (start = new Date(), count = 7) => {
   })
 }
 
-const buildWarmupKey = (userId, todayKey) => `${userId}::${todayKey}`
+const buildWarmupKey = (userId, todayKey, contentLocale) => `${userId}::${todayKey}${contentLocale === 'en-US' ? '::en-US' : ''}`
 
 export const warmFortuneCache = async ({
   storage,
   userId,
   now = new Date(),
   fetchFortunes,
+  contentLocale = 'zh-CN',
 }) => {
   if (!userId || typeof fetchFortunes !== 'function') return
 
   const todayKey = toBeijingDateKey(now)
-  const warmupKey = buildWarmupKey(userId, todayKey)
+  const warmupKey = buildWarmupKey(userId, todayKey, contentLocale)
+  // 英文：断语行的 period_key 带 ::en-US 后缀（i18n §5.9），预热读英文行、写英文缓存键
+  const suffix = contentLocale === 'en-US' ? '::en-US' : ''
 
   if (warmedUsersByDay.has(warmupKey)) return
   if (pendingWarmups.has(warmupKey)) return pendingWarmups.get(warmupKey)
 
   const pending = (async () => {
-    const dateKeys = buildUpcomingDateKeys(now, 7)
+    const dateKeys = buildUpcomingDateKeys(now, 7).map((d) => `${d}${suffix}`)
     const rows = await fetchFortunes({ userId, dateKeys })
 
     ;(Array.isArray(rows) ? rows : []).forEach((row) => {
       if (!row?.period_key || !row?.data_json) return
-      rememberFortuneCache(storage, userId, row.period_key, row.data_json, now)
+      const dateStr = suffix && row.period_key.endsWith(suffix) ? row.period_key.slice(0, -suffix.length) : row.period_key
+      rememberFortuneCache(storage, userId, dateStr, row.data_json, now, '', contentLocale)
     })
 
     warmedUsersByDay.add(warmupKey)
@@ -63,6 +67,7 @@ export const warmFortuneCacheFromSupabase = async ({
   storage,
   userId,
   now = new Date(),
+  contentLocale = 'zh-CN',
 }) => {
   if (!supabase || !userId) return
 
@@ -70,6 +75,7 @@ export const warmFortuneCacheFromSupabase = async ({
     storage,
     userId,
     now,
+    contentLocale,
     fetchFortunes: async ({ dateKeys }) => {
       const { data, error } = await supabase
         .from('fortune_cache')

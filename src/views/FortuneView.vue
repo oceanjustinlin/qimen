@@ -1,7 +1,7 @@
 <template>
   <div class="fortune-view">
     <header class="page-header">
-      <div class="header-title">天机日运</div>
+      <div class="header-title">{{ t('fortune.header') }}</div>
       <div class="header-actions">
         <OpenSourceLinks />
         <AccountMenu />
@@ -15,11 +15,11 @@
             <!-- 命主一栏：写明这份运势算的是哪个档案，点右侧切换 -->
             <button class="profile-switch-trigger" :aria-expanded="isProfileMenuOpen" @click="toggleProfileMenu">
               <span class="profile-switch-who">
-                <small>命主</small>
+                <small>{{ t('fortune.owner') }}</small>
                 <span class="profile-switch-name">{{ activeProfileName }}</span>
                 <span v-if="activeProfile" class="profile-switch-meta">{{ [profileMetaText(activeProfile), formatSolarDate(activeProfile.birth_date)].filter(Boolean).join(' · ') }}</span>
               </span>
-              <span class="profile-switch-action">切换<span class="profile-switch-symbol" aria-hidden="true">⇄</span></span>
+              <span class="profile-switch-action">{{ t('fortune.switch') }}<span class="profile-switch-symbol" aria-hidden="true">⇄</span></span>
             </button>
             <div v-if="isProfileMenuOpen" class="profile-flyout">
               <button
@@ -66,7 +66,7 @@
                   <circle cx="60" cy="60" r="36" stroke="rgba(212,175,55,0.35)" stroke-width="1.5" fill="none" stroke-dasharray="8 6"/>
                 </svg>
               </div>
-              <div class="loader-text-block">天机推演中...</div>
+              <div class="loader-text-block">{{ t('fortune.loading.day') }}</div>
             </div>
 
             <div v-else-if="fortuneData" class="fortune-display">
@@ -77,7 +77,7 @@
                   <div class="score-ring" :style="scoreRingStyle">
                     <div class="score-inner">
                       <span class="score-value">{{ fortuneData.day_score || 0 }}</span>
-                      <span class="score-unit">分</span>
+                      <span class="score-unit">{{ t('fortune.points') }}</span>
                     </div>
                   </div>
                   <div class="score-side">
@@ -89,7 +89,7 @@
                       </div>
                     </template>
                     <p v-else :class="['score-insight', { muted: isInterpretationLoading && !hasInterpretationContent }]">
-                      {{ hasInterpretationContent ? (fortuneData.day_insight || '平稳度日，顺势而为') : interpretationPlaceholder }}
+                      {{ hasInterpretationContent ? (fortuneData.day_insight || t('fortune.day.insightFallback')) : interpretationPlaceholder }}
                     </p>
                     <div v-if="fortuneData.day_warning" class="warning-tag inline-warning">
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:4px"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>{{ fortuneData.day_warning }}</div>
@@ -99,7 +99,7 @@
               </div>
 
               <div v-if="isGuest" class="glass-card guest-score-note">
-                访客模式仅展示今日日运得分。登录后可查看完整断语、开运指南与多日趋势。
+                {{ t('fortune.guestNote') }}
               </div>
 
               <template v-if="!isGuest">
@@ -117,14 +117,14 @@
                     </div>
                   </template>
                   <p v-else :class="['grid-card-text', { muted: !hasInterpretationContent }]">
-                    {{ hasInterpretationContent ? (fortuneData[item.key] || '暂无') : '生成中...' }}
+                    {{ hasInterpretationContent ? (fortuneData[item.key] || t('fortune.none')) : t('fortune.generating') }}
                   </p>
                 </div>
               </div>
 
               <!-- ═══ 3. Guide + Timeline ═══ -->
               <div class="glass-card info-card">
-                <h3 class="card-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg> 行事指南</h3>
+                <h3 class="card-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg> {{ t('fortune.day.guide') }}</h3>
                 <template v-if="!hasInterpretationContent && isInterpretationLoading">
                   <div class="daily-info-skeleton">
                     <div class="daily-guide-skeleton-row">
@@ -142,7 +142,7 @@
                       </div>
                     </div>
                     <hr class="guide-divider" />
-                    <div class="timeline-title"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="vertical-align:-1px;margin-right:4px"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg> 今日吉时</div>
+                    <div class="timeline-title"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="vertical-align:-1px;margin-right:4px"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg> {{ t('fortune.day.luckyHours') }}</div>
                     <div class="daily-timeline-skeleton">
                       <div class="daily-timeline-skeleton-item">
                         <div class="timeline-dot"></div>
@@ -163,31 +163,31 @@
                 </template>
                 <template v-else>
                   <div class="guide-row">
-                    <span class="guide-label good">宜</span>
+                    <span class="guide-label good">{{ t('fortune.day.do') }}</span>
                     <span :class="['guide-content', { muted: !hasInterpretationContent }]">
-                      {{ hasInterpretationContent ? formatGuide(fortuneData.day_guide, '宜') : '断语生成中...' }}
+                      {{ hasInterpretationContent ? formatGuide(fortuneData.day_guide, 'do') : t('fortune.day.readingPending') }}
                     </span>
                   </div>
                   <div class="guide-row mt-2">
-                    <span class="guide-label bad">忌</span>
+                    <span class="guide-label bad">{{ t('fortune.day.avoid') }}</span>
                     <span :class="['guide-content', { muted: !hasInterpretationContent }]">
-                      {{ hasInterpretationContent ? formatGuide(fortuneData.day_guide, '忌') : '稍后呈现' }}
+                      {{ hasInterpretationContent ? formatGuide(fortuneData.day_guide, 'avoid') : t('fortune.day.later') }}
                     </span>
                   </div>
 
                   <hr class="guide-divider" />
-                  <div class="timeline-title"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="vertical-align:-1px;margin-right:4px"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg> 今日吉时</div>
+                  <div class="timeline-title"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="vertical-align:-1px;margin-right:4px"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg> {{ t('fortune.day.luckyHours') }}</div>
                   <!-- 十二时辰格：吉时标亮，日空亡时辰虚线 -->
-                  <div class="shichen-grid" role="list" aria-label="十二时辰吉凶">
+                  <div class="shichen-grid" role="list" :aria-label="t('fortune.day.shichenAria')">
                     <div
                       v-for="sc in shichenCells" :key="sc.zhi" role="listitem"
                       :class="['shichen-cell', { lucky: sc.lucky, kong: sc.kong, now: sc.now }]"
-                      :title="sc.zhi + '时 ' + sc.range + (sc.lucky ? ' · 吉时' : '') + (sc.kong ? ' · 空亡' : '')"
+                      :title="shichenTitle(sc)"
                     >
                       <b>{{ sc.zhi }}</b><small>{{ sc.range }}</small>
                     </div>
                   </div>
-                  <div class="shichen-legend"><span class="lg lucky"></span>吉时<span class="lg kong"></span>空亡<span class="lg now"></span>当前</div>
+                  <div class="shichen-legend"><span class="lg lucky"></span>{{ t('fortune.day.legendLucky') }}<span class="lg kong"></span>{{ t('fortune.day.legendKong') }}<span class="lg now"></span>{{ t('fortune.day.legendNow') }}</div>
                   <div class="timeline" v-if="luckyHours.length">
                     <div v-for="(h, i) in luckyHours" :key="i" class="timeline-item">
                       <div class="timeline-dot"></div>
@@ -195,13 +195,13 @@
                       <div class="timeline-tip">{{ h.tip }}</div>
                     </div>
                   </div>
-                  <div v-else class="timeline-tip" style="padding-left:4px;">吉时信息生成中...</div>
+                  <div v-else class="timeline-tip" style="padding-left:4px;">{{ t('fortune.day.luckyPending') }}</div>
                 </template>
               </div>
 
               <!-- ═══ 4. Lucky Grid ═══ -->
               <div class="glass-card info-card">
-                <h3 class="card-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21h6M12 3a7 7 0 0 1 7 7c0 2.5-1.3 4.6-3 6a2 2 0 0 0-1 1.7V19H9v-1.3A2 2 0 0 0 8 16c-1.7-1.4-3-3.5-3-6a7 7 0 0 1 7-7Z"/></svg> 开运密码</h3>
+                <h3 class="card-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21h6M12 3a7 7 0 0 1 7 7c0 2.5-1.3 4.6-3 6a2 2 0 0 0-1 1.7V19H9v-1.3A2 2 0 0 0 8 16c-1.7-1.4-3-3.5-3-6a7 7 0 0 1 7-7Z"/></svg> {{ t('fortune.day.luckyCode') }}</h3>
                 <template v-if="!hasInterpretationContent && isInterpretationLoading">
                   <div class="lucky-grid daily-lucky-skeleton">
                     <div v-for="cell in 4" :key="cell" class="lucky-cell">
@@ -212,22 +212,22 @@
                 </template>
                 <div v-else class="lucky-grid">
                   <div class="lucky-cell">
-                    <span class="lucky-cell-label">幸运数字</span>
+                    <span class="lucky-cell-label">{{ t('fortune.day.luckyNumber') }}</span>
                     <span class="lucky-cell-value">{{ luckyNumberText }}</span>
                   </div>
                   <div class="lucky-cell">
-                    <span class="lucky-cell-label">五行喜用</span>
+                    <span class="lucky-cell-label">{{ t('fortune.day.luckyElement') }}</span>
                     <span class="lucky-cell-value">{{ fortuneData.lucky_element || '-' }}</span>
                   </div>
                   <div class="lucky-cell">
-                    <span class="lucky-cell-label">幸运色彩</span>
+                    <span class="lucky-cell-label">{{ t('fortune.day.luckyColor') }}</span>
                     <div :class="['color-display', { muted: !hasInterpretationContent }]">
                       <span class="color-dot" :style="{ backgroundColor: fortuneData.lucky_color_hex || '#CCC' }"></span>
-                      {{ hasInterpretationContent ? (fortuneData.lucky_color || '-') : '生成中' }}
+                      {{ hasInterpretationContent ? (fortuneData.lucky_color || '-') : t('fortune.generatingShort') }}
                     </div>
                   </div>
                   <div class="lucky-cell">
-                    <span class="lucky-cell-label">贵人方位</span>
+                    <span class="lucky-cell-label">{{ t('fortune.day.helperDirection') }}</span>
                     <span class="lucky-cell-value">{{ luckyDirectionShort }}</span>
                   </div>
                 </div>
@@ -235,13 +235,13 @@
 
               <!-- ═══ 5. Resolve Tip ═══ -->
               <div v-if="hasInterpretationContent && fortuneData.resolve_tip" class="glass-card resolve-card">
-                <div class="resolve-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="resolve-icon"><path d="M12 22V12M12 12C12 8 15 4 20 3c0 5-2 9-8 9ZM12 12C12 7 9 3 4 2c0 6 3 9 8 10Z"/></svg> 旺运秘诀</div>
+                <div class="resolve-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="resolve-icon"><path d="M12 22V12M12 12C12 8 15 4 20 3c0 5-2 9-8 9ZM12 12C12 7 9 3 4 2c0 6 3 9 8 10Z"/></svg> {{ t('fortune.day.boost') }}</div>
                 <p class="resolve-text">{{ fortuneData.resolve_tip }}</p>
               </div>
 
               <!-- ═══ 6. Hook Teaser ═══ -->
               <div v-if="hasInterpretationContent && fortuneData.hook_teaser" class="glass-card hook-card">
-                <div class="hook-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="hook-icon"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 明日预告</div>
+                <div class="hook-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="hook-icon"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> {{ t('fortune.day.tomorrow') }}</div>
                 <p class="hook-text">{{ fortuneData.hook_teaser }}</p>
               </div>
               </template>
@@ -272,7 +272,7 @@
                   <circle cx="60" cy="60" r="36" stroke="rgba(212,175,55,0.35)" stroke-width="1.5" fill="none" stroke-dasharray="8 6"/>
                 </svg>
               </div>
-              <div class="loader-text-block">周运推演中...</div>
+              <div class="loader-text-block">{{ t('fortune.loading.week') }}</div>
             </div>
 
             <div v-else-if="weeklyData" class="fortune-display weekly-display">
@@ -281,13 +281,13 @@
                   <div class="score-ring" :style="weeklyScoreRingStyle">
                     <div class="score-inner">
                       <span class="score-value">{{ weeklyData.weekly_score || 0 }}</span>
-                      <span class="score-unit">分</span>
+                      <span class="score-unit">{{ t('fortune.points') }}</span>
                     </div>
                   </div>
                   <div class="score-side">
                     <div class="weekly-title-row">
-                      <div class="score-ganzhi">{{ weeklyData.weekly_tag || '本周运势' }}</div>
-                      <span v-if="weeklyData.metrics?.has_jieqi" class="weekly-chip">节气转折</span>
+                      <div class="score-ganzhi">{{ weeklyData.weekly_tag || t('fortune.week.fallbackTag') }}</div>
+                      <span v-if="weeklyData.metrics?.has_jieqi" class="weekly-chip">{{ t('fortune.week.jieqi') }}</span>
                     </div>
                     <p class="score-insight">{{ weeklySummaryText }}</p>
                     <div class="weekly-metric-strip">
@@ -295,18 +295,18 @@
                       <span>{{ weeklyData.metrics?.volatility_type || '-' }}</span>
                       <span>{{ weeklyDominantText }}</span>
                     </div>
-                    <div v-if="weeklyData.metrics?.has_sanxing" class="warning-tag inline-warning">三刑引动</div>
-                    <div v-else-if="weeklyData.metrics?.has_kongwang" class="warning-tag inline-warning">空亡虚耗</div>
+                    <div v-if="weeklyData.metrics?.has_sanxing" class="warning-tag inline-warning">{{ t('fortune.week.sanxing') }}</div>
+                    <div v-else-if="weeklyData.metrics?.has_kongwang" class="warning-tag inline-warning">{{ t('fortune.week.kongwang') }}</div>
                   </div>
                 </div>
               </div>
 
               <div class="glass-card monthly-chart-card weekly-chart-card">
                 <div class="module-title-bar">
-                  <h3 class="card-title compact-title"><span>✦</span> 七日走势</h3>
+                  <h3 class="card-title compact-title"><span>✦</span> {{ t('fortune.week.trend') }}</h3>
                   <span class="weekly-range-text">{{ weeklyRangeText }}</span>
                 </div>
-                <svg class="monthly-chart weekly-chart" viewBox="0 0 320 140" role="img" aria-label="本周每日分数变化曲线">
+                <svg class="monthly-chart weekly-chart" viewBox="0 0 320 140" role="img" :aria-label="t('fortune.week.chartAria')">
                   <line x1="12" y1="24" x2="308" y2="24" class="monthly-chart-grid" />
                   <line x1="12" y1="70" x2="308" y2="70" class="monthly-chart-grid" />
                   <line x1="12" y1="116" x2="308" y2="116" class="monthly-chart-grid" />
@@ -348,56 +348,56 @@
                 <div class="fortune-grid-card">
                   <div class="grid-card-header">
                     <span class="grid-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span>
-                    <span class="grid-card-label">事业运</span>
+                    <span class="grid-card-label">{{ t('fortune.area.career') }}</span>
                   </div>
-                  <p class="grid-card-text">{{ weeklyData.event_forecast?.career || '暂无' }}</p>
+                  <p class="grid-card-text">{{ weeklyData.event_forecast?.career || t('fortune.none') }}</p>
                 </div>
                 <div class="fortune-grid-card">
                   <div class="grid-card-header">
                     <span class="grid-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5A2.5 2.5 0 0 1 12 8a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 0 0 5c1.38 0 2.5-1.12 2.5-2.5"/></svg></span>
-                    <span class="grid-card-label">财富运</span>
+                    <span class="grid-card-label">{{ t('fortune.area.wealth') }}</span>
                   </div>
-                  <p class="grid-card-text">{{ weeklyData.event_forecast?.wealth || '暂无' }}</p>
+                  <p class="grid-card-text">{{ weeklyData.event_forecast?.wealth || t('fortune.none') }}</p>
                 </div>
                 <div class="fortune-grid-card weekly-forecast-wide">
                   <div class="grid-card-header">
                     <span class="grid-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-9-6-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6-9 12-9 12Z"/></svg></span>
-                    <span class="grid-card-label">关系运</span>
+                    <span class="grid-card-label">{{ t('fortune.area.relationship') }}</span>
                   </div>
-                  <p class="grid-card-text">{{ weeklyData.event_forecast?.relationship || '暂无' }}</p>
+                  <p class="grid-card-text">{{ weeklyData.event_forecast?.relationship || t('fortune.none') }}</p>
                 </div>
               </div>
 
               <div class="glass-card info-card weekly-key-card">
                 <div class="module-title-bar">
-                  <h3 class="card-title compact-title"><span>✦</span> 关键节点</h3>
+                  <h3 class="card-title compact-title"><span>✦</span> {{ t('fortune.week.keyDates') }}</h3>
                 </div>
                 <div class="weekly-key-grid">
                   <div class="weekly-key-item best">
-                    <span class="weekly-key-label">顺势日</span>
+                    <span class="weekly-key-label">{{ t('fortune.week.bestDay') }}</span>
                     <strong>{{ formatMonthDay(weeklyData.key_dates?.best_day?.date) }}</strong>
-                    <span>{{ weeklyData.key_dates?.best_day?.score || '-' }}分 · {{ weeklyData.key_dates?.best_day?.dominant_shishen || '-' }}</span>
+                    <span>{{ t('fortune.pointsValue', { score: weeklyData.key_dates?.best_day?.score || '-' }) }} · {{ weeklyData.key_dates?.best_day?.dominant_shishen || '-' }}</span>
                   </div>
                   <div class="weekly-key-item worst">
-                    <span class="weekly-key-label">谨慎日</span>
+                    <span class="weekly-key-label">{{ t('fortune.week.worstDay') }}</span>
                     <strong>{{ formatMonthDay(weeklyData.key_dates?.worst_day?.date) }}</strong>
-                    <span>{{ weeklyData.key_dates?.worst_day?.score || '-' }}分 · {{ formatTriggers(weeklyData.key_dates?.worst_day?.triggers) }}</span>
+                    <span>{{ t('fortune.pointsValue', { score: weeklyData.key_dates?.worst_day?.score || '-' }) }} · {{ formatTriggers(weeklyData.key_dates?.worst_day?.triggers) }}</span>
                   </div>
                 </div>
                 <div class="monthly-detail-row">
-                  <span class="monthly-detail-label">净值主导</span>
-                  <span class="monthly-detail-value">{{ weeklyDominantText }} · 喜用 {{ weeklyData.dominant_energy?.fav_weighted_score || 0 }} / 忌仇 {{ weeklyData.dominant_energy?.unfav_weighted_score || 0 }}</span>
+                  <span class="monthly-detail-label">{{ t('fortune.week.dominant') }}</span>
+                  <span class="monthly-detail-value">{{ t('fortune.week.dominantValue', { lead: weeklyDominantText, fav: weeklyData.dominant_energy?.fav_weighted_score || 0, unfav: weeklyData.dominant_energy?.unfav_weighted_score || 0 }) }}</span>
                 </div>
                 <div class="monthly-detail-row">
-                  <span class="monthly-detail-label">波动极差</span>
-                  <span class="monthly-detail-value">{{ weeklyData.metrics?.extreme_diff ?? '-' }}分{{ weeklyData.metrics?.has_trough ? ' · 已触发连续低谷' : ' · 无连续低谷' }}</span>
+                  <span class="monthly-detail-label">{{ t('fortune.week.range') }}</span>
+                  <span class="monthly-detail-value">{{ t('fortune.pointsValue', { score: weeklyData.metrics?.extreme_diff ?? '-' }) }} · {{ weeklyData.metrics?.has_trough ? t('fortune.troughYes') : t('fortune.troughNo') }}</span>
                 </div>
               </div>
             </div>
 
             <div v-else class="glass-card placeholder-content">
               <div class="placeholder-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 22h14M5 2h14M17 22v-4.17a2 2 0 0 0-.59-1.41L12 12m5-9.83V6.17a2 2 0 0 1-.59 1.41L12 12M7 22v-4.17a2 2 0 0 1 .59-1.41L12 12M7 2.17V6.17a2 2 0 0 0 .59 1.41L12 12"/></svg></div>
-              <p>{{ weekError || '周运数据暂未生成' }}</p>
+              <p>{{ weekError || t('fortune.week.empty') }}</p>
             </div>
           </transition>
         </div>
@@ -424,7 +424,7 @@
                   <circle cx="60" cy="60" r="36" stroke="rgba(212,175,55,0.35)" stroke-width="1.5" fill="none" stroke-dasharray="8 6"/>
                 </svg>
               </div>
-              <div class="loader-text-block">流月推演中...</div>
+              <div class="loader-text-block">{{ t('fortune.loading.month') }}</div>
             </div>
 
             <div v-else-if="visibleMonthlyData" class="fortune-display">
@@ -433,7 +433,7 @@
                   <div class="score-ring" :style="monthlyScoreRingStyle">
                     <div class="score-inner">
                       <span class="score-value">{{ visibleMonthlyData.monthly_score || 0 }}</span>
-                      <span class="score-unit">分</span>
+                      <span class="score-unit">{{ t('fortune.points') }}</span>
                     </div>
                   </div>
                   <div class="score-side">
@@ -444,23 +444,23 @@
                         type="button"
                         class="monthly-score-hit-trigger"
                         @click="showMonthlyScoreHitsGuide = true"
-                        aria-label="查看月运评分架构"
+                        :aria-label="t('fortune.month.scoreHelp')"
                       >
                         i
                       </button>
                     </div>
                     <p class="score-insight">{{ monthlyScoreSummary }}</p>
-                    <div v-if="visibleMonthlyData.is_kongwang" class="warning-tag inline-warning">空亡封顶</div>
-                    <div v-else-if="visibleMonthlyData.has_sanxing" class="warning-tag inline-warning">三刑触发</div>
+                    <div v-if="visibleMonthlyData.is_kongwang" class="warning-tag inline-warning">{{ t('fortune.kongCap') }}</div>
+                    <div v-else-if="visibleMonthlyData.has_sanxing" class="warning-tag inline-warning">{{ t('fortune.month.sanxing') }}</div>
                   </div>
                 </div>
               </div>
 
               <div class="glass-card monthly-chart-card">
                 <div class="module-title-bar">
-                  <h3 class="card-title compact-title"><span>✦</span> 月度曲线</h3>
+                  <h3 class="card-title compact-title"><span>✦</span> {{ t('fortune.month.curve') }}</h3>
                 </div>
-                <svg class="monthly-chart" viewBox="0 0 320 140" role="img" aria-label="月度每日分数变化曲线">
+                <svg class="monthly-chart" viewBox="0 0 320 140" role="img" :aria-label="t('fortune.month.chartAria')">
                   <line x1="12" y1="24" x2="308" y2="24" class="monthly-chart-grid" />
                   <line x1="12" y1="70" x2="308" y2="70" class="monthly-chart-grid" />
                   <line x1="12" y1="116" x2="308" y2="116" class="monthly-chart-grid" />
@@ -487,33 +487,33 @@
                   />
                 </svg>
                 <div class="monthly-chart-meta">
-                  <span>高分日 {{ visibleMonthlyData.high_score_days }}</span>
-                  <span>低分日 {{ visibleMonthlyData.low_score_days }}</span>
-                  <span>最佳 {{ formatMonthDay(visibleMonthlyData.best_date) }}</span>
+                  <span>{{ t('fortune.month.highDays', { count: visibleMonthlyData.high_score_days }) }}</span>
+                  <span>{{ t('fortune.month.lowDays', { count: visibleMonthlyData.low_score_days }) }}</span>
+                  <span>{{ t('fortune.month.best', { date: formatMonthDay(visibleMonthlyData.best_date) }) }}</span>
                 </div>
               </div>
 
               <div class="glass-card info-card">
                 <div class="module-title-bar">
-                  <h3 class="card-title compact-title"><span>✦</span> 流月节律</h3>
+                  <h3 class="card-title compact-title"><span>✦</span> {{ t('fortune.month.rhythm') }}</h3>
                 </div>
                 <div class="monthly-detail-row">
-                  <span class="monthly-detail-label">月令五行</span>
-                  <span class="monthly-detail-value">{{ visibleMonthlyData.month_wuxing || '-' }} · {{ visibleMonthlyData.month_wuxing_relation || '闲' }}</span>
+                  <span class="monthly-detail-label">{{ t('fortune.month.element') }}</span>
+                  <span class="monthly-detail-value">{{ visibleMonthlyData.month_wuxing || '-' }} · {{ visibleMonthlyData.month_wuxing_relation || t('fortune.month.idle') }}</span>
                 </div>
                 <div class="monthly-detail-row">
-                  <span class="monthly-detail-label">节气</span>
+                  <span class="monthly-detail-label">{{ t('fortune.month.jieqi') }}</span>
                   <span class="monthly-detail-value">{{ formatList(visibleMonthlyData.jieqi_list) }}</span>
                 </div>
                 <div class="monthly-detail-row">
-                  <span class="monthly-detail-label">低谷期</span>
-                  <span class="monthly-detail-value">{{ visibleMonthlyData.has_trough ? visibleMonthlyData.trough_period : '无连续低谷' }}</span>
+                  <span class="monthly-detail-label">{{ t('fortune.month.trough') }}</span>
+                  <span class="monthly-detail-value">{{ visibleMonthlyData.has_trough ? visibleMonthlyData.trough_period : t('fortune.troughNo') }}</span>
                 </div>
                 <div class="monthly-detail-row">
-                  <span class="monthly-detail-label">最高/最低</span>
+                  <span class="monthly-detail-label">{{ t('fortune.month.highLow') }}</span>
                   <span class="monthly-detail-value">
-                    {{ formatMonthDay(visibleMonthlyData.best_date) }} {{ visibleMonthlyData.best_score }}分 /
-                    {{ formatMonthDay(visibleMonthlyData.worst_date) }} {{ visibleMonthlyData.worst_score }}分
+                    {{ formatMonthDay(visibleMonthlyData.best_date) }} {{ t('fortune.pointsValue', { score: visibleMonthlyData.best_score }) }} /
+                    {{ formatMonthDay(visibleMonthlyData.worst_date) }} {{ t('fortune.pointsValue', { score: visibleMonthlyData.worst_score }) }}
                   </span>
                 </div>
               </div>
@@ -522,15 +522,15 @@
                 <div class="module-title-bar monthly-interpretation-head">
                   <h3 class="card-title compact-title">
                     <span>✦</span>
-                    月度详批
+                    {{ t('fortune.month.detail') }}
                     <button type="button" class="monthly-info-btn" @click="showMonthlyFactorsGuide = true">?</button>
                   </h3>
                   <div class="monthly-head-side">
                     <span v-if="monthlyRefreshMessage" class="monthly-refresh-chip">{{ monthlyRefreshMessage }}</span>
-                    <span v-if="activeMonthlyInterpretation?.interpretation_status === 'ready'" class="interpretation-ready">已生成</span>
+                    <span v-if="activeMonthlyInterpretation?.interpretation_status === 'ready'" class="interpretation-ready">{{ t('fortune.month.ready') }}</span>
                   </div>
                 </div>
-                <div class="monthly-dimension-tabs" role="tablist" aria-label="月运解读维度">
+                <div class="monthly-dimension-tabs" role="tablist" :aria-label="t('fortune.month.dimensionAria')">
                   <button
                     v-for="item in monthlyInterpretationTabs"
                     :key="item.value"
@@ -575,14 +575,14 @@
                 </div>
 
                 <div v-else class="monthly-interpretation-empty">
-                  {{ monthlyInterpretationError || '选择一个维度，生成本月白话断语' }}
+                  {{ monthlyInterpretationError || t('fortune.month.pick') }}
                 </div>
               </div>
             </div>
 
             <div v-else class="glass-card placeholder-content">
               <div class="placeholder-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 22h14M5 2h14M17 22v-4.17a2 2 0 0 0-.59-1.41L12 12m5-9.83V6.17a2 2 0 0 1-.59 1.41L12 12M7 22v-4.17a2 2 0 0 1 .59-1.41L12 12M7 2.17V6.17a2 2 0 0 0 .59 1.41L12 12"/></svg></div>
-              <p>{{ monthError || '流月数据暂未生成' }}</p>
+              <p>{{ monthError || t('fortune.month.empty') }}</p>
             </div>
           </transition>
         </div>
@@ -595,7 +595,7 @@
               :class="['date-item', 'month-item', { active: selectedYear === yearItem.key }]"
               @click="selectYear(yearItem.key)"
             >
-              <span class="day-of-week">{{ yearItem.label }}年</span>
+              <span class="day-of-week">{{ t('fortune.year.label', { year: yearItem.label }) }}</span>
               <span class="date-num">{{ getAnnualGanZhi(yearItem.yearValue) }}</span>
             </div>
           </div>
@@ -608,7 +608,7 @@
                   <circle cx="60" cy="60" r="36" stroke="rgba(212,175,55,0.35)" stroke-width="1.5" fill="none" stroke-dasharray="8 6"/>
                 </svg>
               </div>
-              <div class="loader-text-block">流年推演中...</div>
+              <div class="loader-text-block">{{ t('fortune.loading.year') }}</div>
             </div>
 
             <div v-else-if="visibleAnnualData" class="fortune-display">
@@ -617,46 +617,46 @@
                   <div class="score-ring" :style="{ background: `conic-gradient(var(--gold) ${Math.min(100, Math.max(0, visibleAnnualData.annual_score || 0))}%, rgba(255,255,255,0.05) 0deg)` }">
                     <div class="score-inner">
                       <span class="score-value">{{ visibleAnnualData.annual_score || 0 }}</span>
-                      <span class="score-unit">分</span>
+                      <span class="score-unit">{{ t('fortune.points') }}</span>
                     </div>
                   </div>
                   <div class="score-side">
                     <div class="monthly-score-title-row">
-                      <div class="score-ganzhi">{{ visibleAnnualData.liunian_gz }}年</div>
+                      <div class="score-ganzhi">{{ t('fortune.year.ganzhi', { gz: ganzhiName(visibleAnnualData.liunian_gz, locale) }) }}</div>
                       <button
                         v-if="annualScoreHitLayers.length"
                         type="button"
                         class="monthly-score-hit-trigger"
                         @click="showAnnualScoreHitsGuide = true"
-                        aria-label="查看年运三层命中"
+                        :aria-label="t('fortune.year.scoreHelp')"
                       >
                         i
                       </button>
                     </div>
                     <p class="score-insight">{{ annualScoreSummary }}</p>
-                    <div v-if="visibleAnnualData.is_kongwang" class="warning-tag inline-warning">空亡封顶</div>
-                    <div v-else-if="visibleAnnualData.is_benmingnian" class="warning-tag inline-warning">本命年</div>
-                    <div v-else-if="visibleAnnualData.is_zixing" class="warning-tag inline-warning">自刑</div>
-                    <div v-else-if="visibleAnnualData.liunian_sanxing" class="warning-tag inline-warning">流年三刑</div>
+                    <div v-if="visibleAnnualData.is_kongwang" class="warning-tag inline-warning">{{ t('fortune.kongCap') }}</div>
+                    <div v-else-if="visibleAnnualData.is_benmingnian" class="warning-tag inline-warning">{{ t('fortune.year.benming') }}</div>
+                    <div v-else-if="visibleAnnualData.is_zixing" class="warning-tag inline-warning">{{ t('fortune.year.zixing') }}</div>
+                    <div v-else-if="visibleAnnualData.liunian_sanxing" class="warning-tag inline-warning">{{ t('fortune.year.sanxing') }}</div>
                   </div>
                 </div>
               </div>
               
               <div class="glass-card info-card">
                 <div class="module-title-bar">
-                  <h3 class="card-title compact-title"><span>✦</span> 岁运简批</h3>
+                  <h3 class="card-title compact-title"><span>✦</span> {{ t('fortune.year.brief') }}</h3>
                 </div>
                 <div class="monthly-detail-row">
-                  <span class="monthly-detail-label">流年十神</span>
+                  <span class="monthly-detail-label">{{ t('fortune.year.shishen') }}</span>
                   <span class="monthly-detail-value">{{ visibleAnnualData.liunian_gan_shishen }}</span>
                 </div>
                 <div class="monthly-detail-row">
-                  <span class="monthly-detail-label">大运背景</span>
+                  <span class="monthly-detail-label">{{ t('fortune.year.dayun') }}</span>
                   <span class="monthly-detail-value">{{ annualDayunBackgroundText }}</span>
                 </div>
                 <div class="monthly-detail-row">
-                  <span class="monthly-detail-label">流年与原局</span>
-                  <span class="monthly-detail-value">{{ visibleAnnualData.year_relations || '无特殊互动' }}</span>
+                  <span class="monthly-detail-label">{{ t('fortune.year.relations') }}</span>
+                  <span class="monthly-detail-value">{{ visibleAnnualData.year_relations || t('fortune.year.noRelations') }}</span>
                 </div>
               </div>
               
@@ -664,21 +664,21 @@
 
             <div v-else class="glass-card placeholder-content">
               <div class="placeholder-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 22h14M5 2h14M17 22v-4.17a2 2 0 0 0-.59-1.41L12 12m5-9.83V6.17a2 2 0 0 1-.59 1.41L12 12M7 22v-4.17a2 2 0 0 1 .59-1.41L12 12M7 2.17V6.17a2 2 0 0 0 .59 1.41L12 12"/></svg></div>
-              <p>{{ annualError || '流年数据暂未生成' }}</p>
+              <p>{{ annualError || t('fortune.year.empty') }}</p>
             </div>
           </transition>
         </div>
 
         <div v-else class="glass-card placeholder-content">
           <div class="placeholder-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 22h14M5 2h14M17 22v-4.17a2 2 0 0 0-.59-1.41L12 12m5-9.83V6.17a2 2 0 0 1-.59 1.41L12 12M7 22v-4.17a2 2 0 0 1 .59-1.41L12 12M7 2.17V6.17a2 2 0 0 0 .59 1.41L12 12"/></svg></div>
-          <p>【{{ getTabLabel(currentTab) }}运】推演引擎升级中<br>敬请期待</p>
+          <p>{{ t('fortune.upgrading', { tab: getTabLabel(currentTab) }) }}<br>{{ t('fortune.stayTuned') }}</p>
         </div>
 
         <Teleport to="body">
           <div v-if="showMonthlyScoreHitsGuide" class="fortune-modal-overlay" @click="showMonthlyScoreHitsGuide = false">
             <div class="fortune-guide-modal monthly-hit-modal" @click.stop>
               <div class="fortune-guide-head">
-                <span>月运评分架构</span>
+                <span>{{ t('fortune.month.scoreHelpTitle') }}</span>
                 <button type="button" class="fortune-guide-close" @click="showMonthlyScoreHitsGuide = false">×</button>
               </div>
               <div class="fortune-guide-body monthly-hit-layers">
@@ -701,7 +701,7 @@
           <div v-if="showAnnualScoreHitsGuide" class="fortune-modal-overlay" @click="showAnnualScoreHitsGuide = false">
             <div class="fortune-guide-modal monthly-hit-modal" @click.stop>
               <div class="fortune-guide-head">
-                <span>年运三层命中</span>
+                <span>{{ t('fortune.year.scoreHelpTitle') }}</span>
                 <button type="button" class="fortune-guide-close" @click="showAnnualScoreHitsGuide = false">×</button>
               </div>
               <div class="fortune-guide-body monthly-hit-layers">
@@ -724,21 +724,21 @@
           <div v-if="showMonthlyFactorsGuide" class="fortune-modal-overlay" @click="showMonthlyFactorsGuide = false">
             <div class="fortune-guide-modal" @click.stop>
               <div class="fortune-guide-head">
-                <span>这段月运文案怎么看出来的？</span>
+                <span>{{ t('fortune.factors.title') }}</span>
                 <button type="button" class="fortune-guide-close" @click="showMonthlyFactorsGuide = false">×</button>
               </div>
               <div class="fortune-guide-body">
-                <div v-for="item in monthlyInterpretationFactors" :key="item.title" class="fortune-guide-item">
+                <div v-for="item in monthlyInterpretationFactors" :key="item.key" class="fortune-guide-item">
                   <div class="fortune-guide-item-title">{{ item.title }}</div>
                   <div class="fortune-guide-item-copy">
                     {{ item.copy }}
                     <button
-                      v-if="item.title === '你的现实背景'"
+                      v-if="item.key === 'context'"
                       type="button"
                       class="fortune-guide-link"
                       @click="openMonthlyContextNotes"
                     >
-                      去填写基调
+                      {{ t('fortune.factors.fillContext') }}
                     </button>
                   </div>
                 </div>
@@ -755,6 +755,10 @@
 <script setup>
 import { ref, computed, nextTick, onMounted, onUnmounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+import { localizeApiError, localeJson } from '../i18n/requestLocale.mjs'
+import { contentLocaleOf } from '../i18n/index.mjs'
+import { ganzhiName, genderLabel } from '../i18n/domainLabels.mjs'
 import { supabase } from '../lib/supabase.mjs'
 import { globalState, resolveSelectedBaziProfileId, setSelectedBaziProfileId } from '../store.js'
 import { getGuestState, recordGuestFortuneViewed, trackGuestEvent } from '../guestMode.mjs'
@@ -786,13 +790,25 @@ import { BAZI_PROFILE_LIST_SELECT } from '../baziProfileFields.mjs'
 
 const route = useRoute()
 const router = useRouter()
+const { t, te, locale } = useI18n()
+// 浏览器缓存按内容语言分开（繁体与简体共用中文内容）
+const cacheLocale = () => contentLocaleOf(locale.value)
+const i18nCtx = { t, te, get locale() { return locale.value } }
 
-const tabs = [
-  { label: '日', value: 'day' },
-  { label: '周', value: 'week' },
-  { label: '月', value: 'month' },
-  { label: '年', value: 'year' }
-]
+const WEEKDAY_KEYS = ['fortune.weekday.0', 'fortune.weekday.1', 'fortune.weekday.2', 'fortune.weekday.3', 'fortune.weekday.4', 'fortune.weekday.5', 'fortune.weekday.6']
+const weekdayShort = (day) => t(WEEKDAY_KEYS[day] || WEEKDAY_KEYS[0])
+const shichenTitle = (sc) => [
+  t('fortune.day.shichenTitle', { zhi: sc.zhi, range: sc.range }),
+  sc.lucky ? t('fortune.day.legendLucky') : '',
+  sc.kong ? t('fortune.day.legendKong') : '',
+].filter(Boolean).join(' · ')
+
+const tabs = computed(() => [
+  { label: t('fortune.tab.day'), value: 'day' },
+  { label: t('fortune.tab.week'), value: 'week' },
+  { label: t('fortune.tab.month'), value: 'month' },
+  { label: t('fortune.tab.year'), value: 'year' },
+])
 const currentTab = ref('day')
 const availableDays = ref([])
 const availableWeeks = ref([])
@@ -828,46 +844,31 @@ const monthScrollerRef = ref(null)
 const yearScrollerRef = ref(null)
 const isGuest = computed(() => globalState.isGuest)
 
-const fortuneGridItems = [
-  { key: 'career_insight', label: '事业运', icon: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>' },
-  { key: 'wealth_insight', label: '财富运', icon: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5A2.5 2.5 0 0 1 12 8a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 0 0 5c1.38 0 2.5-1.12 2.5-2.5"/></svg>' },
-  { key: 'love_insight',   label: '感情运', icon: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-9-6-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6-9 12-9 12Z"/></svg>' },
-  { key: 'health_insight', label: '健康运', icon: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>' },
-]
+const fortuneGridItems = computed(() => [
+  { key: 'career_insight', label: t('fortune.area.career'), icon: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>' },
+  { key: 'wealth_insight', label: t('fortune.area.wealth'), icon: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5A2.5 2.5 0 0 1 12 8a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 0 0 5c1.38 0 2.5-1.12 2.5-2.5"/></svg>' },
+  { key: 'love_insight',   label: t('fortune.area.love'), icon: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-9-6-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6-9 12-9 12Z"/></svg>' },
+  { key: 'health_insight', label: t('fortune.area.health'), icon: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>' },
+])
 
-const monthlyInterpretationTabs = [
-  { label: '综合', value: 'overall' },
-  { label: '事业', value: 'career' },
-  { label: '财运', value: 'wealth' },
-  { label: '感情', value: 'love' },
-]
+const monthlyInterpretationTabs = computed(() => [
+  { label: t('fortune.dimension.overall'), value: 'overall' },
+  { label: t('fortune.dimension.career'), value: 'career' },
+  { label: t('fortune.dimension.wealth'), value: 'wealth' },
+  { label: t('fortune.dimension.love'), value: 'love' },
+])
 
-const monthlyInterpretationFactors = [
-  {
-    title: '流月本身',
-    copy: '看这个月的干支五行，对你是助力还是压力。',
-  },
-  {
-    title: '和原局、岁运的关系',
-    copy: '看它和你的原局、大运、流年之间，是顺势承接，还是有冲撞波动。',
-  },
-  {
-    title: '月内节奏',
-    copy: '看这个月高分日、低谷期、节气前后，哪些时间更适合推进，哪些时间更适合放缓。',
-  },
-  {
-    title: '神煞与结构信号',
-    copy: '会参考贵人、文昌、驿马、月德等辅助信号，但不会只靠单一神煞下结论。',
-  },
-  {
-    title: '你的现实背景',
-    copy: '如果你填写了长期基调和本月现状，系统会把命理信号落到更贴近你当下的处境里，比如工作、感情、财务或生活状态。',
-  },
-]
+const monthlyInterpretationFactors = computed(() => [
+  { key: 'month', title: t('fortune.factors.month.title'), copy: t('fortune.factors.month.copy') },
+  { key: 'relations', title: t('fortune.factors.relations.title'), copy: t('fortune.factors.relations.copy') },
+  { key: 'rhythm', title: t('fortune.factors.rhythm.title'), copy: t('fortune.factors.rhythm.copy') },
+  { key: 'signals', title: t('fortune.factors.signals.title'), copy: t('fortune.factors.signals.copy') },
+  { key: 'context', title: t('fortune.factors.context.title'), copy: t('fortune.factors.context.copy') },
+])
 const monthlyRefreshMessage = computed(() => {
-  if (monthlyRefreshState.value === 'refreshing') return '检测到基调有较大更新，正在刷新本月详批…'
-  if (monthlyRefreshState.value === 'updated') return '本月详批已按最新基调刷新'
-  if (monthlyRefreshState.value === 'pending') return '基调有明显更新，进入月运时会自动刷新详批'
+  if (monthlyRefreshState.value === 'refreshing') return t('fortune.refresh.refreshing')
+  if (monthlyRefreshState.value === 'updated') return t('fortune.refresh.updated')
+  if (monthlyRefreshState.value === 'pending') return t('fortune.refresh.pending')
   return ''
 })
 
@@ -892,17 +893,17 @@ const hasInterpretationFields = (data) => {
 const hasInterpretationContent = computed(() => hasInterpretationFields(fortuneData.value))
 const showProfileSwitcher = computed(() => baziProfiles.value.length > 0)
 const activeProfile = computed(() => baziProfiles.value.find(profile => profile.id === selectedProfileId.value) || null)
-const activeProfileName = computed(() => activeProfile.value?.name || '命主未设')
+const activeProfileName = computed(() => activeProfile.value?.name || t('fortune.profileUnset'))
 const currentProfileCacheKey = computed(() => selectedProfileId.value || '')
 const fortuneGanzhiText = computed(() => {
   if (!fortuneData.value) return '-'
-  const month = fortuneData.value.month_gz ? `${fortuneData.value.month_gz}月` : ''
-  const day = fortuneData.value.day_gz ? `${fortuneData.value.day_gz}日` : ''
+  const month = fortuneData.value.month_gz ? t('fortune.gzMonth', { gz: ganzhiName(fortuneData.value.month_gz, locale.value) }) : ''
+  const day = fortuneData.value.day_gz ? t('fortune.gzDay', { gz: ganzhiName(fortuneData.value.day_gz, locale.value) }) : ''
   return `${month} ${day}`.trim() || '-'
 })
 
 const interpretationPlaceholder = computed(() => (
-  isInterpretationLoading.value ? '断语生成中，分数已先行呈现' : '断语稍后呈现'
+  isInterpretationLoading.value ? t('fortune.day.scoreFirst') : t('fortune.day.readingLater')
 ))
 
 const scoreRingStyle = computed(() => {
@@ -1116,19 +1117,17 @@ const luckyDirectionShort = computed(() => {
   return dir.split('——')[0] || '-'
 })
 
-const buildDayItem = (dateStr, label = '所选') => {
+const buildDayItem = (dateStr, label = t('fortune.selected')) => {
   const target = new Date(`${dateStr}T12:00:00`)
-  const weekMap = ['日', '一', '二', '三', '四', '五', '六']
   return {
     fullDate: dateStr,
     dateNum: String(target.getDate()).padStart(2, '0'),
-    weekDay: label || `周${weekMap[target.getDay()]}`
+    weekDay: label || weekdayShort(target.getDay())
   }
 }
 
 const generateDays = (preferredDate = '') => {
   const days = []
-  const weekMap = ['日', '一', '二', '三', '四', '五', '六']
   const today = new Date()
   const dayCount = isGuest.value ? 1 : 7
   for (let i = 0; i < dayCount; i++) {
@@ -1140,7 +1139,7 @@ const generateDays = (preferredDate = '') => {
     days.push({
       fullDate: `${year}-${month}-${date}`,
       dateNum: date,
-      weekDay: i === 0 ? '今日' : `周${weekMap[target.getDay()]}`
+      weekDay: i === 0 ? t('fortune.today') : weekdayShort(target.getDay())
     })
   }
   const normalizedPreferred = normalizeDateString(preferredDate)
@@ -1165,7 +1164,7 @@ const generateMonths = () => {
   const months = listClientFlowMonths(todayKey, 6, 24)
     .map((monthItem, index) => ({
       key: monthItem.key,
-      label: index === 6 ? '本月' : monthItem.shortRangeLabel,
+      label: index === 6 ? t('fortune.thisMonth') : monthItem.shortRangeLabel,
       monthText: monthItem.label,
       rangeText: monthItem.rangeLabel,
       contextMonthKey: monthItem.contextMonthKey,
@@ -1205,26 +1204,27 @@ const selectYear = (key) => {
   scrollSelectedYearIntoView()
 }
 
-const getTabLabel = (val) => tabs.find(t => t.value === val)?.label
+const getTabLabel = (val) => tabs.value.find(tab => tab.value === val)?.label
 
 const formatSolarDate = (value) => {
-  if (!value) return '阳历待确认'
+  if (!value) return t('fortune.solarPending')
   const p = String(value).match(/\d+/g)
-  if (!p || p.length < 3) return '阳历待确认'
+  if (!p || p.length < 3) return t('fortune.solarPending')
   return `${p[0]}.${p[1].padStart(2, '0')}.${p[2].padStart(2, '0')}`
 }
 
 const profileMetaText = (profile) => {
-  const parts = [profile.gender === 'M' ? '乾造' : '坤造']
-  if (profile.is_default) parts.push('默认')
+  const parts = [genderLabel(profile.gender, locale.value, { zao: true })]
+  if (profile.is_default) parts.push(t('fortune.default'))
   return parts.join(' · ')
 }
 
 const formatGuide = (guideStr, type) => {
-  if (!guideStr) return '无特殊忌讳'
-  const parts = guideStr.split('；')
-  if (type === '宜' && parts[0]) return parts[0].replace('宜', '').trim()
-  if (type === '忌' && parts[1]) return parts[1].replace('忌', '').trim()
+  if (!guideStr) return t('fortune.day.noGuide')
+  const parts = guideStr.split('；') // i18n-ignore
+  // 引擎写的是「宜…；忌…」，这里按中文标记拆分（数据格式，不随界面语言变化）
+  if (type === 'do' && parts[0]) return parts[0].replace('宜', '').trim() // i18n-ignore
+  if (type === 'avoid' && parts[1]) return parts[1].replace('忌', '').trim() // i18n-ignore
   return guideStr
 }
 
@@ -1233,26 +1233,26 @@ const formatList = (items) => Array.isArray(items) && items.length ? items.join(
 const formatMonthDay = (dateStr) => {
   const match = String(dateStr || '').match(/^\d{4}-(\d{2})-(\d{2})$/)
   if (!match) return '-'
-  return `${Number(match[1])}月${Number(match[2])}日`
+  return t('fortune.monthDay', { month: Number(match[1]), day: Number(match[2]) })
 }
 
 const formatWeekday = (dateStr) => {
   const match = String(dateStr || '').match(/^\d{4}-\d{2}-\d{2}$/)
   if (!match) return '-'
   const target = new Date(`${dateStr}T12:00:00`)
-  return `周${'日一二三四五六'[target.getDay()]}`
+  return weekdayShort(target.getDay())
 }
 
 const formatTriggers = (triggers = []) => {
   const names = {
-    sanxing: '三刑',
-    kongwang: '空亡',
-    chong_rizhi: '冲日支',
-    high_shishen: '高分十神',
+    sanxing: t('fortune.trigger.sanxing'),
+    kongwang: t('fortune.trigger.kongwang'),
+    chong_rizhi: t('fortune.trigger.chongRizhi'),
+    high_shishen: t('fortune.trigger.highShishen'),
   }
   return Array.isArray(triggers) && triggers.length
-    ? triggers.map(item => names[item] || item).join('、')
-    : '纯分数低点'
+    ? triggers.map(item => names[item] || item).join(t('fortune.listSep'))
+    : t('fortune.trigger.scoreOnly')
 }
 
 const getFortuneStorage = () => (typeof window === 'undefined' ? null : window.localStorage)
@@ -1262,10 +1262,10 @@ const syncMonthlyRefreshSignal = (profileId = currentProfileCacheKey.value, mont
 }
 
 const rememberFortuneCache = (userId, dateStr, data, profileId = '') => {
-  rememberSharedFortuneCache(getFortuneStorage(), userId, dateStr, data, new Date(), profileId)
+  rememberSharedFortuneCache(getFortuneStorage(), userId, dateStr, data, new Date(), profileId, cacheLocale())
 }
 
-const loadCachedFortune = (userId, dateStr, profileId = '') => loadSharedCachedFortune(getFortuneStorage(), userId, dateStr, new Date(), profileId)
+const loadCachedFortune = (userId, dateStr, profileId = '') => loadSharedCachedFortune(getFortuneStorage(), userId, dateStr, new Date(), profileId, cacheLocale())
 
 const buildGuestFortuneData = (dateStr) => ({
   ...guestFortuneData,
@@ -1332,11 +1332,11 @@ const fetchFortuneBaseFromApi = async (dateStr, accessToken, profileId) => {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${accessToken}`
     },
-    body: JSON.stringify({ target_date: dateStr, profile_id: profileId || undefined })
+    body: localeJson({ target_date: dateStr, profile_id: profileId || undefined })
   })
   if (!response.ok) {
     const err = await response.json()
-    throw new Error(err.error || '推演失败')
+    throw new Error(localizeApiError(err, i18nCtx, err.error || t('fortune.error.day')))
   }
   return response.json()
 }
@@ -1348,11 +1348,11 @@ const fetchMonthlyFortuneFromApi = async (monthKey, accessToken, profileId) => {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${accessToken}`
     },
-    body: JSON.stringify({ target_month: monthKey, profile_id: profileId || undefined })
+    body: localeJson({ target_month: monthKey, profile_id: profileId || undefined })
   })
   if (!response.ok) {
     const err = await response.json()
-    throw new Error(err.error || '月运推演失败')
+    throw new Error(localizeApiError(err, i18nCtx, err.error || t('fortune.error.month')))
   }
   return response.json()
 }
@@ -1364,11 +1364,11 @@ const fetchWeeklyFortuneFromApi = async (dateStr, accessToken, profileId) => {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${accessToken}`
     },
-    body: JSON.stringify({ target_date: dateStr, profile_id: profileId || undefined })
+    body: localeJson({ target_date: dateStr, profile_id: profileId || undefined })
   })
   if (!response.ok) {
     const err = await response.json()
-    throw new Error(err.error || '周运推演失败')
+    throw new Error(localizeApiError(err, i18nCtx, err.error || t('fortune.error.week')))
   }
   return response.json()
 }
@@ -1380,11 +1380,11 @@ const fetchAnnualFortuneFromApi = async (targetYear, accessToken, profileId) => 
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${accessToken}`
     },
-    body: JSON.stringify({ target_year: targetYear, profile_id: profileId || undefined })
+    body: localeJson({ target_year: targetYear, profile_id: profileId || undefined })
   })
   if (!response.ok) {
     const err = await response.json()
-    throw new Error(err.error || '年运推演失败')
+    throw new Error(localizeApiError(err, i18nCtx, err.error || t('fortune.error.year')))
   }
   return response.json()
 }
@@ -1433,11 +1433,11 @@ const requestMonthlyInterpretation = async (monthKey, accessToken, profileId, di
       'Authorization': `Bearer ${accessToken}`,
       'Accept': 'application/json, text/event-stream',
     },
-    body: JSON.stringify({ target_month: monthKey, profile_id: profileId || undefined, dimension })
+    body: localeJson({ target_month: monthKey, profile_id: profileId || undefined, dimension })
   })
   if (!response.ok) {
     const err = await response.json().catch(() => ({}))
-    throw new Error(err.error || '月运断语生成失败')
+    throw new Error(localizeApiError(err, i18nCtx, err.error || t('fortune.error.monthReading')))
   }
 
   const contentType = response.headers.get('content-type') || ''
@@ -1473,15 +1473,16 @@ const requestMonthlyInterpretation = async (monthKey, accessToken, profileId, di
   return {
     dimension,
     details: fullText,
-    title: '月度详批生成中',
-    highlight: '断语已流式返回',
+    title: t('fortune.month.streamingTitle'),
+    highlight: t('fortune.month.streamingHighlight'),
     tags: [],
     advice: [],
   }
 }
 
 const requestFortuneInterpretation = async (userId, dateStr, accessToken, profileId) => {
-  const existingPending = getPendingInterpretation(userId, dateStr, profileId)
+  const loc = cacheLocale()
+  const existingPending = getPendingInterpretation(userId, dateStr, profileId, loc)
   if (!existingPending) {
     const pendingRequest = fetch('/api/fortune-daily-interpretation', {
       method: 'POST',
@@ -1489,21 +1490,21 @@ const requestFortuneInterpretation = async (userId, dateStr, accessToken, profil
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${accessToken}`
       },
-      body: JSON.stringify({ target_date: dateStr, profile_id: profileId || undefined })
+      body: localeJson({ target_date: dateStr, profile_id: profileId || undefined })
     })
       .then(async (response) => {
         if (!response.ok) {
           const err = await response.json()
-          throw new Error(err.error || '断语生成失败')
+          throw new Error(localizeApiError(err, i18nCtx, err.error || t('fortune.error.reading')))
         }
         return response.json()
       })
-      .finally(() => clearPendingInterpretation(userId, dateStr, profileId))
+      .finally(() => clearPendingInterpretation(userId, dateStr, profileId, loc))
 
-    rememberPendingInterpretation(userId, dateStr, pendingRequest, profileId)
+    rememberPendingInterpretation(userId, dateStr, pendingRequest, profileId, loc)
   }
 
-  return getPendingInterpretation(userId, dateStr, profileId)
+  return getPendingInterpretation(userId, dateStr, profileId, loc)
 }
 
 const fetchFortuneData = async (dateStr) => {
@@ -1540,7 +1541,7 @@ const fetchFortuneData = async (dateStr) => {
       await trackGuestEvent(supabase, 'guest_fortune_viewed', 'fortune', { date: dateStr })
       return
     }
-    if (!session) { alert('请先前往首页登录'); return }
+    if (!session) { alert(t('fortune.needLogin')); return }
 
     let cachedData = loadCachedFortune(session.user.id, dateStr, profileId)
     if (currentRequest !== requestSerial.value) return
@@ -1583,10 +1584,10 @@ const fetchMonthlyFortuneData = async () => {
     const { data: { session } } = await supabase.auth.getSession()
     if (!session && isGuest.value) {
       monthlyData.value = null
-      monthError.value = '访客模式暂不展示月运'
+      monthError.value = t('fortune.guest.month')
       return
     }
-    if (!session) { alert('请先前往首页登录'); return }
+    if (!session) { alert(t('fortune.needLogin')); return }
 
     isMonthLoading.value = true
     const profileId = currentProfileCacheKey.value
@@ -1617,10 +1618,10 @@ const fetchWeeklyFortuneData = async () => {
     const { data: { session } } = await supabase.auth.getSession()
     if (!session && isGuest.value) {
       weeklyData.value = null
-      weekError.value = '访客模式暂不展示周运'
+      weekError.value = t('fortune.guest.week')
       return
     }
-    if (!session) { alert('请先前往首页登录'); return }
+    if (!session) { alert(t('fortune.needLogin')); return }
 
     isWeekLoading.value = true
     const profileId = currentProfileCacheKey.value
@@ -1647,10 +1648,10 @@ const fetchAnnualFortuneData = async () => {
     const { data: { session } } = await supabase.auth.getSession()
     if (!session && isGuest.value) {
       annualDataList.value = []
-      annualError.value = '访客模式暂不展示年运'
+      annualError.value = t('fortune.guest.year')
       return
     }
-    if (!session) { alert('请先前往首页登录'); return }
+    if (!session) { alert(t('fortune.needLogin')); return }
 
     isAnnualLoading.value = true
     const profileId = currentProfileCacheKey.value
@@ -1699,7 +1700,7 @@ const fetchMonthlyInterpretation = async (dimension = selectedMonthlyDimension.v
   } catch (error) {
     if (currentRequest !== monthlyInterpretationSerial.value) return
     console.error(error)
-    monthlyInterpretationError.value = '月度断语暂未生成，请稍后重试'
+    monthlyInterpretationError.value = t('fortune.month.retry')
   } finally {
     if (currentRequest === monthlyInterpretationSerial.value) isMonthlyInterpretationLoading.value = false
   }
@@ -1736,7 +1737,7 @@ const fetchFortuneInterpretation = async (userId, dateStr, accessToken, profileI
   } catch (error) {
     if (requestId !== requestSerial.value) return
     console.error(error)
-    interpretationError.value = '断语暂未生成，请稍后重试'
+    interpretationError.value = t('fortune.day.retry')
   } finally {
     if (requestId === requestSerial.value) isInterpretationLoading.value = false
   }

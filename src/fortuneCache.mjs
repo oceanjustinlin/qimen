@@ -6,7 +6,9 @@ const pendingInterpretationByKey = new Map()
 
 const normalizeProfileKey = (profileId) => profileId || 'default'
 
-const buildCacheKey = (userId, dateStr, profileId) => `${userId}::${dateStr}::${normalizeProfileKey(profileId)}`
+// 英文断语与中文分开缓存（i18n §5.9）；简体键不变
+const localeSuffix = (contentLocale) => (contentLocale === 'en-US' ? '::en-US' : '')
+const buildCacheKey = (userId, dateStr, profileId, contentLocale) => `${userId}::${dateStr}::${normalizeProfileKey(profileId)}${localeSuffix(contentLocale)}`
 
 const getBeijingExpiry = (dateStr) => {
   if (!dateStr || !/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) return 0
@@ -19,7 +21,7 @@ const readStorageState = (storage) => {
     const raw = storage.getItem(STORAGE_KEY)
     return raw ? JSON.parse(raw) : {}
   } catch (error) {
-    console.warn('日运本地缓存读取失败，忽略缓存:', error)
+    console.warn('日运本地缓存读取失败，忽略缓存:', error) // i18n-ignore 开发日志
     return {}
   }
 }
@@ -33,7 +35,7 @@ const writeStorageState = (storage, state) => {
     }
     storage.setItem(STORAGE_KEY, JSON.stringify(state))
   } catch (error) {
-    console.warn('日运本地缓存写入失败，忽略缓存:', error)
+    console.warn('日运本地缓存写入失败，忽略缓存:', error) // i18n-ignore 开发日志
   }
 }
 
@@ -43,7 +45,7 @@ const readJsonState = (storage, key, fallback) => {
     const raw = storage.getItem(key)
     return raw ? JSON.parse(raw) : fallback
   } catch (error) {
-    console.warn('本地状态读取失败，忽略缓存:', error)
+    console.warn('本地状态读取失败，忽略缓存:', error) // i18n-ignore 开发日志
     return fallback
   }
 }
@@ -57,7 +59,7 @@ const writeJsonState = (storage, key, value) => {
     }
     storage.setItem(key, JSON.stringify(value))
   } catch (error) {
-    console.warn('本地状态写入失败，忽略缓存:', error)
+    console.warn('本地状态写入失败，忽略缓存:', error) // i18n-ignore 开发日志
   }
 }
 
@@ -69,10 +71,10 @@ const pruneExpiredEntries = (state, nowMs) => {
   return nextState
 }
 
-export const loadCachedFortune = (storage, userId, dateStr, now = new Date(), profileId = '') => {
+export const loadCachedFortune = (storage, userId, dateStr, now = new Date(), profileId = '', contentLocale = 'zh-CN') => {
   if (!userId || !dateStr) return null
 
-  const key = buildCacheKey(userId, dateStr, profileId)
+  const key = buildCacheKey(userId, dateStr, profileId, contentLocale)
   const nowMs = now instanceof Date ? now.getTime() : new Date(now).getTime()
   const memoryCached = fortuneCacheByKey.get(key)
   if (memoryCached) return memoryCached
@@ -89,10 +91,10 @@ export const loadCachedFortune = (storage, userId, dateStr, now = new Date(), pr
   return entry.data
 }
 
-export const rememberFortuneCache = (storage, userId, dateStr, data, now = new Date(), profileId = '') => {
+export const rememberFortuneCache = (storage, userId, dateStr, data, now = new Date(), profileId = '', contentLocale = 'zh-CN') => {
   if (!userId || !dateStr || !data) return
 
-  const key = buildCacheKey(userId, dateStr, profileId)
+  const key = buildCacheKey(userId, dateStr, profileId, contentLocale)
   const nowMs = now instanceof Date ? now.getTime() : new Date(now).getTime()
   const expiresAt = getBeijingExpiry(dateStr)
   if (expiresAt <= nowMs) return
@@ -104,19 +106,19 @@ export const rememberFortuneCache = (storage, userId, dateStr, data, now = new D
   writeStorageState(storage, storageState)
 }
 
-export const getPendingInterpretation = (userId, dateStr, profileId = '') => {
+export const getPendingInterpretation = (userId, dateStr, profileId = '', contentLocale = 'zh-CN') => {
   if (!userId || !dateStr) return null
-  return pendingInterpretationByKey.get(buildCacheKey(userId, dateStr, profileId)) || null
+  return pendingInterpretationByKey.get(buildCacheKey(userId, dateStr, profileId, contentLocale)) || null
 }
 
-export const rememberPendingInterpretation = (userId, dateStr, promise, profileId = '') => {
+export const rememberPendingInterpretation = (userId, dateStr, promise, profileId = '', contentLocale = 'zh-CN') => {
   if (!userId || !dateStr || !promise) return
-  pendingInterpretationByKey.set(buildCacheKey(userId, dateStr, profileId), promise)
+  pendingInterpretationByKey.set(buildCacheKey(userId, dateStr, profileId, contentLocale), promise)
 }
 
-export const clearPendingInterpretation = (userId, dateStr, profileId = '') => {
+export const clearPendingInterpretation = (userId, dateStr, profileId = '', contentLocale = 'zh-CN') => {
   if (!userId || !dateStr) return
-  pendingInterpretationByKey.delete(buildCacheKey(userId, dateStr, profileId))
+  pendingInterpretationByKey.delete(buildCacheKey(userId, dateStr, profileId, contentLocale))
 }
 
 export const rememberMonthlyInterpretationRefresh = (storage, signal) => {

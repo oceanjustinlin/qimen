@@ -1,6 +1,13 @@
 import { BIRTHPLACES } from '../data/birthplaces.mjs'
 
-const normalize = (value) => String(value || '')
+// 繁→简字表约 18 KB，懒加载，不进主入口 chunk。加载完成前查询按原样匹配（简体输入不受影响）。
+let toSimplified = (value) => value
+export const birthplaceSearchReady = import('./t2s.mjs')
+  .then((mod) => { toSimplified = mod.toSimplified })
+  .catch(() => {})
+
+// 繁体输入（臺北、廈門市思明區）先归一成简体再匹配
+const normalize = (value) => toSimplified(String(value || ''))
   .trim()
   .toLowerCase()
   .replace(/[\s'’`·.-]/g, '')

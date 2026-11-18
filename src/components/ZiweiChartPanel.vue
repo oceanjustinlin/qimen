@@ -1,24 +1,24 @@
 <template>
   <section class="ziwei-panel">
     <div v-if="error" class="zw-state zw-error">{{ error }}</div>
-    <div v-else-if="!astrolabe" class="zw-state">正在排紫微盘…</div>
+    <div v-else-if="!astrolabe" class="zw-state">{{ t('ziwei.loading') }}</div>
     <template v-else>
       <div class="zw-toolbar">
-        <div class="zw-seg" role="group" aria-label="看盘方式">
-          <button type="button" :aria-pressed="view === 'sanhe'" @click="view = 'sanhe'">三合</button>
-          <button type="button" :aria-pressed="view === 'sihua'" @click="view = 'sihua'">四化</button>
+        <div class="zw-seg" role="group" :aria-label="t('ziwei.viewMode')">
+          <button type="button" :aria-pressed="view === 'sanhe'" @click="view = 'sanhe'">{{ t('ziwei.sanhe') }}</button>
+          <button type="button" :aria-pressed="view === 'sihua'" @click="view = 'sihua'">{{ t('ziwei.sihua') }}</button>
         </div>
         <div class="zw-layer-note">
-          <template v-if="!layerInfo">当前：<b>本命盘</b><span class="zw-hint">，可在盘下选择大限 / 流年 / 流月</span></template>
+          <template v-if="!layerInfo">{{ t('ziwei.current') }}<b>{{ t('ziwei.natalChart') }}</b><span class="zw-hint">{{ t('ziwei.layerHint') }}</span></template>
           <template v-else>
-            当前：<b>{{ layerInfo.title }} · {{ layerInfo.ganzhi }}</b>
+            {{ t('ziwei.current') }}<b>{{ layerInfo.title }} · {{ layerInfo.ganzhi }}</b>
             <span v-for="(star, k) in layerInfo.mutagens" :key="star" class="zw-inline">{{ star }}<i :class="['mu', 'o', 'mu-' + MUTAGENS[k]]">{{ MUTAGENS[k] }}</i></span>
           </template>
         </div>
       </div>
 
       <div class="zw-board-scroll">
-        <div ref="boardRef" class="zw-board" aria-label="紫微十二宫盘">
+        <div ref="boardRef" class="zw-board" :aria-label="t('ziwei.boardAria')">
           <button
             v-for="cell in palaceCells"
             :key="cell.index"
@@ -34,12 +34,12 @@
               <span v-for="star in cell.stars" :key="star.key" :class="['st', star.cls]">
                 <span class="nm"><span v-for="(ch, ci) in star.name" :key="ci">{{ ch }}</span></span>
                 <span v-if="star.showBrightness" class="br">{{ star.brightness }}</span>
-                <i v-if="star.mutagen" :class="['mu', 'mu-' + star.mutagen]" :title="'生年化' + star.mutagen">{{ star.mutagen }}</i>
-                <i v-if="star.periodMutagen" :class="['mu', 'o', 'mu-' + star.periodMutagen]" :title="layerPrefix + '化' + star.periodMutagen">{{ star.periodMutagen }}</i>
-                <i v-for="mark in star.marks" :key="mark.kind + mark.mutagen" :class="['zi', 'c-' + mark.mutagen]" :title="(mark.kind === 'self' ? '本宫自化' : '对宫化入') + mark.mutagen">{{ mark.kind === 'self' ? '↓' : '↗' }}</i>
+                <i v-if="star.mutagen" :class="['mu', 'mu-' + star.mutagen]" :title="t('ziwei.natalMutagen', { m: star.mutagen })">{{ star.mutagen }}</i>
+                <i v-if="star.periodMutagen" :class="['mu', 'o', 'mu-' + star.periodMutagen]" :title="t('ziwei.periodMutagen', { m: star.periodMutagen })">{{ star.periodMutagen }}</i>
+                <i v-for="mark in star.marks" :key="mark.kind + mark.mutagen" :class="['zi', 'c-' + mark.mutagen]" :title="mark.kind === 'self' ? t('ziwei.selfMutagen', { m: mark.mutagen }) : t('ziwei.oppositeMutagen', { m: mark.mutagen })">{{ mark.kind === 'self' ? '↓' : '↗' }}</i>
               </span>
             </div>
-            <div class="zw-ages">流年 {{ cell.flowAges }}<br><span class="xl">小限 {{ cell.smallAges }}</span></div>
+            <div class="zw-ages">流年 {{ cell.flowAges }}<br><span class="xl">小限 {{ cell.smallAges }}</span></div><!-- i18n-ignore 盘面格子保持汉字 -->
             <div class="zw-foot">
               <div>
                 <div class="gods">{{ cell.palace.boshi12 }} · {{ cell.palace.jiangqian12 }} · {{ cell.palace.suiqian12 }}</div>
@@ -47,7 +47,7 @@
                 <div class="mid">
                   <span class="pname">{{ cell.palace.name }}</span>
                   <span v-if="cell.periodName" class="tag pp">{{ cell.periodName }}</span>
-                  <span v-if="cell.palace.isBodyPalace" class="tag body">身</span>
+                  <span v-if="cell.palace.isBodyPalace" class="tag body">身</span><!-- i18n-ignore 盘面格子 -->
                 </div>
               </div>
               <div class="right">
@@ -58,22 +58,22 @@
           </button>
 
           <div class="zw-center">
-            <h3>{{ profile?.name || '命主' }} <small>{{ centerInfo.yinyang }}{{ astrolabe.gender }} · {{ astrolabe.fiveElementsClass }}</small></h3>
+            <h3><span :data-i18n-skip="profile?.name ? '' : null">{{ profile?.name || t('ziwei.owner') }}</span> <small>{{ centerInfo.yinyangGender }} · {{ astrolabe.fiveElementsClass }}</small></h3>
             <dl>
-              <dt>{{ isSolarTime ? '真太阳时' : '钟表时间' }}</dt>
+              <dt>{{ isSolarTime ? t('ziwei.trueSolar') : t('ziwei.clockTime') }}</dt>
               <dd>{{ astrolabe.solarDate }} {{ pad(input.hour) }}:{{ pad(input.minute) }}</dd>
-              <dt>农历</dt><dd>{{ astrolabe.lunarDate }} {{ astrolabe.time }}</dd>
+              <dt>{{ t('ziwei.lunar') }}</dt><dd>{{ astrolabe.lunarDate }} {{ astrolabe.time }}</dd>
             </dl>
             <div class="zw-pillars">
-              <span class="lab">四柱</span>
+              <span class="lab">{{ t('ziwei.pillars') }}</span>
               <b v-for="(ch, k) in centerInfo.pillarChars" :key="k" :class="WX_CLASS[ch]">{{ ch }}</b>
             </div>
             <div class="zw-decades">
-              <span v-for="d in centerInfo.decades" :key="d.start">{{ d.stem }}<br>{{ d.branch }}<br><small>{{ d.start }}岁</small></span>
+              <span v-for="d in centerInfo.decades" :key="d.start">{{ d.stem }}<br>{{ d.branch }}<br><small>{{ t('ziwei.age', { age: d.start }) }}</small></span>
             </div>
             <dl>
-              <dt>命主 / 身主</dt><dd>{{ astrolabe.soul }} / {{ astrolabe.body }}　身宫：{{ centerInfo.bodyPalace }}</dd>
-              <dt>生年四化</dt>
+              <dt>{{ t('ziwei.soulBody') }}</dt><dd>{{ astrolabe.soul }} / {{ astrolabe.body }}　{{ t('ziwei.bodyPalace', { palace: centerInfo.bodyPalace }) }}</dd>
+              <dt>{{ t('ziwei.natalSihua') }}</dt>
               <dd class="zw-legend">
                 <span v-for="m in MUTAGENS" :key="m" class="zw-inline">{{ centerInfo.natal[m] }}<i :class="['mu', 'mu-' + m]">{{ m }}</i></span>
               </dd>
@@ -102,9 +102,9 @@
 
       <div class="zw-strips">
         <div class="strip">
-          <div class="lab">大限</div>
+          <div class="lab">{{ t('ziwei.decade') }}</div>
           <div class="cells">
-            <button type="button" class="cell" :aria-pressed="layer === 'natal'" @click="selectNatal"><b>本命</b>原局</button>
+            <button type="button" class="cell" :aria-pressed="layer === 'natal'" @click="selectNatal"><b>{{ t('ziwei.natal') }}</b>{{ t('ziwei.natalSub') }}</button>
             <button
               v-for="d in decadalCells" :key="d.index" type="button" :class="['cell', { now: d.isNow }]"
               :aria-pressed="layer === 'decadal' && d.index === horoscope.decadal.index"
@@ -113,17 +113,17 @@
           </div>
         </div>
         <div class="strip">
-          <div class="lab">流年</div>
+          <div class="lab">{{ t('ziwei.year') }}</div>
           <div class="cells">
             <button
               v-for="y in yearCells" :key="y.year" type="button" :class="['cell', { now: y.isNow }]"
               :aria-pressed="(layer === 'yearly' || layer === 'monthly') && y.year === target.getFullYear()"
               @click="selectYear(y.year)"
-            ><b>{{ y.year }}</b>{{ y.age }}岁 {{ y.ganzhi }}</button>
+            ><b>{{ y.year }}</b>{{ t('ziwei.age', { age: y.age }) }} {{ y.ganzhi }}</button>
           </div>
         </div>
         <div class="strip">
-          <div class="lab">流月</div>
+          <div class="lab">{{ t('ziwei.month') }}</div>
           <div class="cells">
             <button
               v-for="m in monthCells" :key="m.label" type="button" class="cell" :disabled="!m.date"
@@ -136,31 +136,33 @@
 
       <div class="zw-detail" aria-live="polite">
         <h4>{{ detail.title }}</h4>
-        <div v-if="detail.periodName" class="row"><span>{{ layerPrefix }}限宫位</span><span>{{ detail.periodName }}</span></div>
+        <div v-if="detail.periodName" class="row"><span>{{ periodPalaceLabel }}</span><span>{{ ziweiLabel(detail.periodName, 'palace', locale) }}</span></div>
         <div v-for="group in detail.starGroups" :key="group.label" class="row">
           <span>{{ group.label }}</span>
           <span v-if="group.stars.length">
-            <span v-for="star in group.stars" :key="star.name" class="zw-inline zw-gap">{{ star.name }}<small v-if="star.brightness">{{ star.brightness }}</small><i v-if="star.mutagen" :class="['mu', 'mu-' + star.mutagen]">{{ star.mutagen }}</i></span>
+            <span v-for="star in group.stars" :key="star.name" class="zw-inline zw-gap">{{ ziweiLabel(star.name, 'star', locale) }}<small v-if="star.brightness">{{ star.brightness }}</small><i v-if="star.mutagen" :class="['mu', 'mu-' + star.mutagen]">{{ star.mutagen }}</i></span>
           </span>
-          <span v-else class="dim">无</span>
+          <span v-else class="dim">{{ t('ziwei.none') }}</span>
         </div>
-        <div class="row"><span>杂曜</span><span>{{ detail.adjective || '无' }}</span></div>
+        <div class="row"><span>{{ t('ziwei.adjective') }}</span><span>{{ detail.adjective || t('ziwei.none') }}</span></div>
         <div class="row">
-          <span>宫干四化</span>
-          <span>{{ detail.stem }}干：<span v-for="f in detail.flying" :key="f.mutagen" class="zw-inline zw-gap">{{ f.star }}<i :class="['mu', 'mu-' + f.mutagen]">{{ f.mutagen }}</i>→{{ f.where }}</span></span>
+          <span>{{ t('ziwei.palaceSihua') }}</span>
+          <span>{{ t('ziwei.stemPrefix', { stem: detail.stem }) }}<span v-for="f in detail.flying" :key="f.mutagen" class="zw-inline zw-gap">{{ ziweiLabel(f.star, 'star', locale) }}<i :class="['mu', 'mu-' + f.mutagen]">{{ f.mutagen }}</i>→{{ f.where }}</span></span>
         </div>
-        <div class="row"><span>十二神</span><span>{{ detail.gods }}</span></div>
-        <div class="row"><span>大限 / 岁数</span><span>{{ detail.ages }}</span></div>
-        <div class="row"><span>三方四正</span><span>{{ detail.related }}</span></div>
+        <div class="row"><span>{{ t('ziwei.gods') }}</span><span>{{ detail.gods }}</span></div>
+        <div class="row"><span>{{ t('ziwei.ages') }}</span><span>{{ detail.ages }}</span></div>
+        <div class="row"><span>{{ t('ziwei.related') }}</span><span>{{ detail.related }}</span></div>
       </div>
 
-      <p class="zw-note">实底方块为生年四化，空心方块为所选运限四化；↓ 本宫自化，↗ 对宫化入。三合视图点宫位看三方四正，四化视图看宫干禄权科忌飞入哪一宫。晚子时按次日起盘，年界按农历正月初一。</p>
+      <p class="zw-note">{{ t('ziwei.note') }}</p>
     </template>
   </section>
 </template>
 
 <script setup>
 import { computed, nextTick, onMounted, onUnmounted, reactive, ref, shallowRef, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { ziweiLabel } from '../i18n/ziweiLabels.mjs'
 import {
   MUTAGENS,
   STEM_MUTAGENS,
@@ -178,11 +180,14 @@ import {
 const props = defineProps({
   profile: { type: Object, default: null },
 })
+const { t, locale } = useI18n()
 
+// i18n-ignore-start 盘面符号表
 const GRID = { 巳: [1, 1], 午: [1, 2], 未: [1, 3], 申: [1, 4], 辰: [2, 1], 酉: [2, 4], 卯: [3, 1], 戌: [3, 4], 寅: [4, 1], 丑: [4, 2], 子: [4, 3], 亥: [4, 4] }
 const SHORT = { 命宫: '命', 兄弟: '兄', 夫妻: '夫', 子女: '子', 财帛: '财', 疾厄: '疾', 迁移: '迁', 仆役: '友', 官禄: '官', 田宅: '田', 福德: '福', 父母: '父' }
 const LAYER_PREFIX = { decadal: '大', yearly: '年', monthly: '月' }
 const WX_CLASS = { 甲: 'wx-mu', 乙: 'wx-mu', 寅: 'wx-mu', 卯: 'wx-mu', 丙: 'wx-huo', 丁: 'wx-huo', 巳: 'wx-huo', 午: 'wx-huo', 戊: 'wx-tu', 己: 'wx-tu', 辰: 'wx-tu', 戌: 'wx-tu', 丑: 'wx-tu', 未: 'wx-tu', 庚: 'wx-jin', 辛: 'wx-jin', 申: 'wx-jin', 酉: 'wx-jin', 壬: 'wx-shui', 癸: 'wx-shui', 亥: 'wx-shui', 子: 'wx-shui' }
+// i18n-ignore-end
 const uid = Math.random().toString(36).slice(2, 8)
 
 const astrolabe = shallowRef(null)
@@ -216,7 +221,7 @@ async function build() {
     setTarget(new Date())
     selected.value = astrolabe.value.palaces.findIndex((p) => p.name === '命宫')
   } catch (err) {
-    error.value = err?.message || '紫微排盘失败，请稍后重试。'
+    error.value = err?.message || t('ziwei.error')
   }
 }
 
@@ -229,6 +234,8 @@ function setTarget(date, { keepMonths = false } = {}) {
 
 const birthYear = computed(() => input.value?.year || 0)
 const layerPrefix = computed(() => LAYER_PREFIX[layer.value] || '')
+const PERIOD_PALACE_KEYS = { decadal: 'ziwei.periodPalace.decadal', yearly: 'ziwei.periodPalace.yearly', monthly: 'ziwei.periodPalace.monthly' }
+const periodPalaceLabel = computed(() => (PERIOD_PALACE_KEYS[layer.value] ? t(PERIOD_PALACE_KEYS[layer.value]) : ''))
 const layerData = computed(() => (layer.value === 'natal' || !horoscope.value ? null : horoscope.value[layer.value]))
 const layerMutagenMap = computed(() => {
   const map = {}
@@ -240,9 +247,9 @@ const layerInfo = computed(() => {
   const L = layerData.value
   if (!L) return null
   const titles = {
-    decadal: () => `大限 ${astrolabe.value.palaces[L.index].decadal.range.join('–')} 岁`,
-    yearly: () => `${target.value.getFullYear()} 流年 · 虚岁 ${horoscope.value.age.nominalAge}`,
-    monthly: () => `${target.value.getFullYear()} 年流月`,
+    decadal: () => t('ziwei.layer.decadal', { range: astrolabe.value.palaces[L.index].decadal.range.join('–') }),
+    yearly: () => t('ziwei.layer.yearly', { year: target.value.getFullYear(), age: horoscope.value.age.nominalAge }),
+    monthly: () => t('ziwei.layer.monthly', { year: target.value.getFullYear() }),
   }
   return { title: titles[layer.value](), ganzhi: `${L.heavenlyStem}${L.earthlyBranch}`, mutagens: L.mutagen || [] }
 })
@@ -296,7 +303,8 @@ const centerInfo = computed(() => {
   const pillars = a.chineseDate.split(' ')
   const body = a.palaces.find((p) => p.isBodyPalace)
   return {
-    yinyang: '甲丙戊庚壬'.includes(pillars[0][0]) ? '阳' : '阴',
+    yinyang: '甲丙戊庚壬'.includes(pillars[0][0]) ? '阳' : '阴', // i18n-ignore 计算用
+    yinyangGender: t('ziwei.yinyangGender', { yy: t('甲丙戊庚壬'.includes(pillars[0][0]) ? 'ziwei.yang' : 'ziwei.yin'), gender: a.gender === '男' ? t('ziwei.male') : t('ziwei.female') }), // i18n-ignore iztro 性别值
     pillarChars: [...pillars.map((p) => p[0]), ...pillars.map((p) => p[1])],
     decades: [...a.palaces].sort((x, y) => x.decadal.range[0] - y.decadal.range[0]).slice(0, 8)
       .map((p) => ({ stem: p.heavenlyStem, branch: p.earthlyBranch, start: p.decadal.range[0] })),
@@ -334,26 +342,28 @@ const detail = computed(() => {
   const a = astrolabe.value
   const palace = a.palaces[selected.value]
   const related = relatedPalaceIndexes(selected.value)
-  const nameOf = (i) => `${pname(a.palaces[i].name)}（${a.palaces[i].earthlyBranch}）`
+  const plabel = (name) => ziweiLabel(pname(name), 'palace', locale.value)
+  const sep = t('ziwei.listSep')
+  const nameOf = (i) => t('ziwei.palaceWithBranch', { palace: plabel(a.palaces[i].name), branch: a.palaces[i].earthlyBranch })
   const targets = flyingTargets(a.palaces, selected.value)
   const star = (s) => ({ name: s.name, brightness: s.brightness || '', mutagen: s.mutagen || '' })
   return {
-    title: `${pname(palace.name)} · ${palace.heavenlyStem}${palace.earthlyBranch}${palace.isBodyPalace ? '（身宫）' : ''}`,
+    title: `${plabel(palace.name)} · ${palace.heavenlyStem}${palace.earthlyBranch}${palace.isBodyPalace ? t('ziwei.bodyMark') : ''}`,
     periodName: layerData.value?.palaceNames?.[selected.value] || '',
     starGroups: [
-      { label: '主星', stars: palace.majorStars.map(star) },
-      { label: '辅星', stars: palace.minorStars.map(star) },
+      { label: t('ziwei.majorStars'), stars: palace.majorStars.map(star) },
+      { label: t('ziwei.minorStars'), stars: palace.minorStars.map(star) },
     ],
-    adjective: palace.adjectiveStars.map((s) => s.name).join('、'),
+    adjective: palace.adjectiveStars.map((s) => s.name).join(sep),
     stem: palace.heavenlyStem,
     flying: STEM_MUTAGENS[palace.heavenlyStem].map((s, k) => ({
       star: s,
       mutagen: MUTAGENS[k],
-      where: targets[k] < 0 ? '盘中无此星' : targets[k] === selected.value ? '本宫（自化）' : pname(a.palaces[targets[k]].name),
+      where: targets[k] < 0 ? t('ziwei.notInChart') : targets[k] === selected.value ? t('ziwei.selfPalace') : plabel(a.palaces[targets[k]].name),
     })),
-    ages: `大限 ${palace.decadal.range[0]}–${palace.decadal.range[1]} 岁；流年 ${flowYearAges(birthYear.value, palace.earthlyBranch).join('、')}；小限 ${palace.ages.slice(0, 6).join('、')}`,
-    gods: `长生：${palace.changsheng12} · 博士：${palace.boshi12} · 将前：${palace.jiangqian12} · 岁前：${palace.suiqian12}`,
-    related: `对宫 ${nameOf(related.opposite)}；三合 ${nameOf(related.trines[0])}、${nameOf(related.trines[1])}`,
+    ages: t('ziwei.agesValue', { from: palace.decadal.range[0], to: palace.decadal.range[1], flow: flowYearAges(birthYear.value, palace.earthlyBranch).join(sep), small: palace.ages.slice(0, 6).join(sep) }),
+    gods: t('ziwei.godsValue', { cs: palace.changsheng12, bs: palace.boshi12, jq: palace.jiangqian12, sq: palace.suiqian12 }),
+    related: t('ziwei.relatedValue', { opp: nameOf(related.opposite), a: nameOf(related.trines[0]), b: nameOf(related.trines[1]) }),
   }
 })
 
@@ -548,5 +558,7 @@ onUnmounted(() => { window.removeEventListener('resize', onResize); clearTimeout
   .cell { min-width: 50px; padding: 3px 4px; font-size: 10.5px; line-height: 1.25; }
   .cell b { font-size: 12.5px; }
 }
+/* 英文标签（Decade / Year / Month）比两字中文宽：缩字号、允许断行，不改格子宽度 */
+:root[lang="en-US"] .strip .lab { font-size: 9.5px; letter-spacing: 0; white-space: nowrap; padding: 0 1px; }
 @media (prefers-reduced-motion: reduce) { .zw-palace { transition: none; } }
 </style>

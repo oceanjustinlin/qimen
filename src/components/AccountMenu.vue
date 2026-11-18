@@ -1,6 +1,6 @@
 <template>
   <div class="account-menu-wrap">
-    <button class="account-menu-btn" type="button" title="账号" aria-label="账号菜单" @click.stop="toggleMenu">
+    <button class="account-menu-btn" type="button" :title="t('account.menuTitle')" :aria-label="t('account.menu')" @click.stop="toggleMenu">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
         <circle cx="8" cy="6" r="3" stroke="currentColor" stroke-width="1.2"/>
         <path d="M2 15c0-3.3 2.7-5 6-5s6 1.7 6 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
@@ -10,29 +10,35 @@
     <div class="account-menu-panel" :class="{ open: isOpen }" @click.stop>
       <div class="account-menu-identity">{{ identityText }}</div>
       <router-link class="account-menu-link featured" to="/engineering" @click="closeMenu">
-        关于
+        {{ t('account.about') }}
       </router-link>
       <router-link v-if="globalState.currentUser" class="account-menu-link" to="/reset-password" @click="closeMenu">
-        修改密码
+        {{ t('account.changePassword') }}
       </router-link>
       <router-link v-if="!globalState.currentUser" class="account-menu-link" :to="{ path: '/', query: { auth: 'login' } }" @click="closeMenu">
-        登录
+        {{ t('account.signIn') }}
       </router-link>
       <router-link v-if="!globalState.currentUser" class="account-menu-link" :to="{ path: '/', query: { auth: 'register' } }" @click="closeMenu">
-        注册
+        {{ t('account.register') }}
       </router-link>
 
       <!-- 主题切换：单击循环 -->
       <button class="account-menu-link theme-cycle-row" type="button" @click.stop="cycleTheme">
-        <span>主题</span>
+        <span>{{ t('account.theme') }}</span>
         <span class="theme-current">{{ currentThemeLabel }}</span>
       </button>
 
+      <!-- 语言切换：单击循环，交互与主题行相同 -->
+      <button v-if="showLanguageRow" class="account-menu-link theme-cycle-row language-cycle-row" type="button" @click.stop="cycleLocale">
+        <span>{{ t('account.language') }}</span>
+        <span class="theme-current" data-i18n-skip>{{ currentLocaleLabel }}</span>
+      </button>
+
       <router-link class="account-menu-link feedback" to="/feedback" @click="closeMenu">
-        反馈与共创
+        {{ t('account.feedback') }}
       </router-link>
       <button v-if="globalState.currentUser" class="account-menu-action" type="button" @click="handleSignOut">
-        退出登录
+        {{ t('account.signOut') }}
       </button>
       <AfdianSupportLink />
     </div>
@@ -46,24 +52,33 @@ import { supabase } from '../lib/supabase.mjs'
 import { globalState } from '../store.js'
 import { themePreference, setThemePreference } from '../composables/useTheme.js'
 import AfdianSupportLink from './AfdianSupportLink.vue'
+import { useI18n } from 'vue-i18n'
+import { ENABLED_LOCALES, LOCALE_NATIVE_NAMES, nextLocale, setLocale } from '../i18n/index.mjs'
 const router = useRouter()
 
 const isOpen = ref(false)
+const { t, locale } = useI18n()
 
 const THEME_ORDER = ['light', 'dark', 'system']
-const THEME_LABELS = { light: '浅色', dark: '深色', system: '系统' }
+const THEME_LABEL_KEYS = { light: 'account.themeLight', dark: 'account.themeDark', system: 'account.themeSystem' }
 
-const currentThemeLabel = computed(() => THEME_LABELS[themePreference.value] ?? '系统')
+const currentThemeLabel = computed(() => t(THEME_LABEL_KEYS[themePreference.value] ?? 'account.themeSystem'))
 
 const cycleTheme = () => {
   const idx = THEME_ORDER.indexOf(themePreference.value)
   setThemePreference(THEME_ORDER[(idx + 1) % 3])
 }
 
+const showLanguageRow = ENABLED_LOCALES.length >= 2
+const currentLocaleLabel = computed(() => LOCALE_NATIVE_NAMES[locale.value] ?? LOCALE_NATIVE_NAMES['zh-CN'])
+const cycleLocale = () => {
+  setLocale(nextLocale(locale.value, ENABLED_LOCALES))
+}
+
 const identityText = computed(() => {
   if (globalState.currentUser?.email) return globalState.currentUser.email
-  if (globalState.isGuest) return '访客模式'
-  return '未登录'
+  if (globalState.isGuest) return t('account.identityGuest')
+  return t('account.identityAnonymous')
 })
 
 const closeMenu = () => {

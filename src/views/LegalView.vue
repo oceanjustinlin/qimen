@@ -1,17 +1,18 @@
 <template>
   <div class="legal-view">
     <header class="legal-header">
-      <router-link class="back-link" to="/">返回</router-link>
-      <div class="site-logo">{{ currentDoc.title }}</div>
+      <router-link class="back-link" to="/">{{ t('common.back') }}</router-link>
+      <div class="site-logo">{{ isPrivacy ? t('legal.privacyTitle') : t('legal.termsTitle') }}</div>
       <div class="header-spacer"></div>
     </header>
 
     <main class="legal-page-wrap">
       <article class="legal-panel">
         <div class="panel-glow" aria-hidden="true"></div>
+        <p v-if="locale === 'en-US'" class="legal-translation-note">{{ t('legal.translationNote') }}</p>
         <div class="legal-kicker">{{ currentDoc.kicker }}</div>
         <h1>{{ currentDoc.title }}</h1>
-        <p class="legal-updated">最后更新：{{ currentDoc.updatedAt }}</p>
+        <p class="legal-updated">{{ t('legal.updated', { date: currentDoc.updatedAt }) }}</p>
         <p class="legal-intro">{{ currentDoc.intro }}</p>
 
         <section v-for="section in currentDoc.sections" :key="section.title" class="legal-section">
@@ -23,13 +24,13 @@
         </section>
 
         <div class="legal-note">
-          本页面为产品上线前的通用草案。正式发布前，请将运营主体名称、联系邮箱、争议管辖等信息替换为真实信息，并由专业法律顾问复核。
+          {{ t('legal.draftNote') }}
         </div>
 
         <div class="legal-actions">
-          <router-link v-if="isPrivacy" to="/terms">查看用户协议</router-link>
-          <router-link v-else to="/privacy">查看隐私政策</router-link>
-          <router-link to="/">返回登录</router-link>
+          <router-link v-if="isPrivacy" to="/terms">{{ t('legal.viewTerms') }}</router-link>
+          <router-link v-else to="/privacy">{{ t('legal.viewPrivacy') }}</router-link>
+          <router-link to="/">{{ t('legal.backToLogin') }}</router-link>
         </div>
       </article>
     </main>
@@ -39,7 +40,12 @@
 <script setup>
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 
+const { t, locale } = useI18n()
+
+// 条款正文不翻译（spec §10 第 6 项）：英文界面顶部提示以中文为准，正文仍显示中文。
+// i18n-ignore-start
 const updatedAt = '2026年5月11日'
 
 const termsDoc = {
@@ -202,6 +208,7 @@ const privacyDoc = {
     }
   ]
 }
+// i18n-ignore-end
 
 const route = useRoute()
 const isPrivacy = computed(() => route.name === 'privacy')
@@ -259,6 +266,7 @@ const currentDoc = computed(() => (isPrivacy.value ? privacyDoc : termsDoc))
   pointer-events: none;
   background: radial-gradient(circle, rgba(232,204,128,0.13), transparent 66%);
 }
+.legal-translation-note { margin: 0 0 16px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; color: var(--ink-muted); font-size: 12px; line-height: 1.6; }
 .legal-kicker { color: var(--teal); font-size: 10px; letter-spacing: .3em; font-weight: 700; margin-bottom: 10px; }
 h1 { margin: 0; color: var(--gold-light); font-family: var(--font-serif); font-size: 30px; font-weight: 500; letter-spacing: .08em; }
 .legal-updated { margin: 10px 0 0; color: var(--text-dim); font-size: 12px; }

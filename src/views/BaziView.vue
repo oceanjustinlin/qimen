@@ -27,8 +27,8 @@
 
                 <div class="profile-strip-wrap" :class="{ open: isProfileMenuOpen }">
                     <button class="hero-name-trigger" @click="toggleProfileMenu">
-                        <span class="hero-display-name">{{ activeProfileName }}</span>
-                        <span v-if="activeProfile?.is_default" class="profile-strip-badge">默认</span>
+                        <span class="hero-display-name" :data-i18n-skip="activeProfile?.name ? '' : null">{{ activeProfileName }}</span>
+                        <span v-if="activeProfile?.is_default" class="profile-strip-badge">{{ t('bazi.profile.default') }}</span>
                         <svg class="profile-strip-caret" :class="{ open: isProfileMenuOpen }" aria-hidden="true" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
@@ -66,9 +66,9 @@
                         <div v-if="isProfileMenuOpen" class="profile-bottom-sheet" @click.stop>
                             <div class="sheet-handle"></div>
                             <div class="sheet-header">
-                                <span class="sheet-title">切换档案</span>
+                                <span class="sheet-title">{{ t('bazi.profile.switch') }}</span>
                                 <div class="sheet-header-actions">
-                                    <button class="sheet-add-btn" title="新增档案" @click="openAddProfile">
+                                    <button class="sheet-add-btn" :title="t('bazi.profile.add')" @click="openAddProfile">
                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
                                             <path d="M12 5v14M5 12h14"/>
                                         </svg>
@@ -77,7 +77,7 @@
                                 </div>
                             </div>
                             <div class="sheet-list">
-                                <div v-if="!baziProfiles.length" class="sheet-empty">暂无档案</div>
+                                <div v-if="!baziProfiles.length" class="sheet-empty">{{ t('bazi.profile.empty') }}</div>
                                 <div
                                     v-for="profile in baziProfiles"
                                     :key="profile.id"
@@ -92,47 +92,47 @@
                                         @click="selectProfile(profile.id); swipedProfileId = null"
                                     >
                                         <span class="spi-indicator" :class="{ active: profile.id === selectedProfileId }"></span>
-                                        <span class="spi-name">{{ profile.name || '未命名' }}</span>
+                                        <span class="spi-name" :data-i18n-skip="profile.name ? '' : null">{{ profile.name || t('bazi.profile.unnamed') }}</span>
                                         <span class="spi-date">{{ formatSolarDate(profile.birth_date) }}</span>
-                                        <span v-if="profile.is_default" class="spi-default">默认</span>
+                                        <span v-if="profile.is_default" class="spi-default">{{ t('bazi.profile.default') }}</span>
                                     </button>
                                     <div class="swipe-actions" v-if="!isGuest">
-                                        <button class="swa-btn swa-rename" @click.stop="renameProfileById(profile.id)">改昵称</button>
-                                        <button class="swa-btn swa-delete" @click.stop="deleteProfileById(profile.id)">删除</button>
+                                        <button class="swa-btn swa-rename" @click.stop="renameProfileById(profile.id)">{{ t('bazi.profile.rename') }}</button>
+                                        <button class="swa-btn swa-delete" @click.stop="deleteProfileById(profile.id)">{{ t('bazi.profile.delete') }}</button>
                                     </div>
                                 </div>
                             </div>
                             <div v-if="activeProfile && !isGuest" class="sheet-footer">
                                 <button class="sheet-default-btn" :disabled="activeProfile.is_default" @click="setDefaultProfile">
-                                    {{ activeProfile.is_default ? '✓ 已设为默认' : '设为默认档案' }}
+                                    {{ activeProfile.is_default ? t('bazi.profile.isDefault') : t('bazi.profile.makeDefault') }}
                                 </button>
                             </div>
                         </div>
                     </Transition>
                 </Teleport>
 
-                <div v-if="isGuest" class="guest-limit-note">访客模式仅保存 1 个本地命主档案，登录后可维护多个云端档案。</div>
+                <div v-if="isGuest" class="guest-limit-note">{{ t('bazi.profile.guestLimit') }}</div>
 
                 <div v-show="showRename" class="profile-form rename-form">
                     <div class="form-row">
-                        <input type="text" v-model="renameName" placeholder="新的昵称">
+                        <input type="text" v-model="renameName" :placeholder="t('bazi.profile.newName')">
                     </div>
                     <div class="form-actions">
-                        <button class="btn-ghost" style="border:none;color:var(--text-muted)" @click="showRename = false">取消</button>
-                        <button class="btn-ghost" @click="renameProfile">保存昵称</button>
+                        <button class="btn-ghost" style="border:none;color:var(--text-muted)" @click="showRename = false">{{ t('common.cancel') }}</button>
+                        <button class="btn-ghost" @click="renameProfile">{{ t('bazi.profile.saveName') }}</button>
                     </div>
                 </div>
 
                 <div v-if="activeProfile" class="bazi-tab-bar" ref="tabBarRef">
-                    <button :class="['bazi-tab', { active: currentTab === 'basic' }]" @click="currentTab = 'basic'">基础排盘</button>
-                    <button :class="['bazi-tab', { active: currentTab === 'pro' }]" @click="currentTab = 'pro'">专业细盘</button>
-                    <button :class="['bazi-tab', { active: currentTab === 'ziwei' }]" @click="currentTab = 'ziwei'">紫微盘</button>
+                    <button :class="['bazi-tab', { active: currentTab === 'basic' }]" @click="currentTab = 'basic'">{{ t('bazi.tab.basic') }}</button>
+                    <button :class="['bazi-tab', { active: currentTab === 'pro' }]" @click="currentTab = 'pro'">{{ t('bazi.tab.pro') }}</button>
+                    <button :class="['bazi-tab', { active: currentTab === 'ziwei' }]" @click="currentTab = 'ziwei'">{{ t('bazi.tab.ziwei') }}</button>
                     <button
                         v-if="activeProfile && !needsUpgrade && !isGuest"
                         :class="['bazi-tab', { active: currentTab === 'events' }]"
                         @click="currentTab = 'events'"
                     >
-                        断事笔记
+                        {{ t('bazi.tab.notes') }}
                         <span v-if="lifeEvents.length" class="bazi-tab-count">{{ lifeEvents.length }}</span>
                     </button>
                     <span class="bazi-tab-ink" :style="{ transform: `translateX(${inkLeft}px)`, width: inkWidth + 'px', opacity: inkReady ? 1 : 0 }"></span>
@@ -144,33 +144,33 @@
                             <div class="picker-sheet-handle" aria-hidden="true"></div>
                             <div class="picker-topbar">
                                 <div class="picker-topcopy">
-                                    <div class="picker-heading">新增排盘资料</div>
+                                    <div class="picker-heading">{{ t('bazi.form.heading') }}</div>
                                 </div>
                                 <div class="picker-mode-tabs">
                                     <button
                                         class="picker-mode-tab"
                                         :class="{ active: entryMode === ENTRY_MODE.SOLAR }"
                                         @click="entryMode = ENTRY_MODE.SOLAR"
-                                    >公历</button>
+                                    >{{ t('bazi.form.modeSolar') }}</button>
                                     <button
                                         class="picker-mode-tab"
                                         :class="{ active: entryMode === ENTRY_MODE.PILLARS }"
                                         @click="entryMode = ENTRY_MODE.PILLARS"
-                                    >四柱</button>
+                                    >{{ t('bazi.form.modePillars') }}</button>
                                 </div>
-                                <button class="close-button picker-close dark" title="关闭" @click="showAdd = false">×</button>
+                                <button class="close-button picker-close dark" :title="t('common.close')" @click="showAdd = false">×</button>
                             </div>
 
                             <div class="picker-form-row">
                                 <label class="picker-text-field">
-                                    <span>姓名</span>
-                                    <input type="text" v-model.trim="form.name" placeholder="请输入姓名">
+                                    <span>{{ t('bazi.form.name') }}</span>
+                                    <input type="text" v-model.trim="form.name" :placeholder="t('bazi.form.namePlaceholder')">
                                 </label>
                                 <div class="picker-gender-field">
-                                    <span>性别</span>
+                                    <span>{{ t('bazi.form.gender') }}</span>
                                     <div class="gender-segment">
-                                        <button :class="{ active: form.gender === 'M' }" @click="form.gender = 'M'">男</button>
-                                        <button :class="{ active: form.gender === 'F' }" @click="form.gender = 'F'">女</button>
+                                        <button :class="{ active: form.gender === 'M' }" @click="form.gender = 'M'">{{ t('bazi.form.male') }}</button>
+                                        <button :class="{ active: form.gender === 'F' }" @click="form.gender = 'F'">{{ t('bazi.form.female') }}</button>
                                     </div>
                                 </div>
                             </div>
@@ -178,7 +178,7 @@
                             <div v-if="entryMode === ENTRY_MODE.SOLAR" class="picker-panel">
                                 <div class="date-input-panel">
                                     <div class="date-input-card">
-                                        <label class="date-input-label">出生时间</label>
+                                        <label class="date-input-label">{{ t('bazi.form.birthTime') }}</label>
                                         <input
                                             type="text"
                                             inputmode="numeric"
@@ -188,13 +188,13 @@
                                             enterkeyhint="done"
                                             :value="solarInputMasked"
                                             @input="handleSolarInput"
-                                            placeholder="输入 199303270255"
+                                            :placeholder="t('bazi.form.datePlaceholder')"
                                         >
-                                        <div class="date-input-hint">仅支持数字输入，格式为 YYYYMMDDHHmm，也可只输入到日期或小时。</div>
+                                        <div class="date-input-hint">{{ t('bazi.form.dateHint') }}</div>
                                     </div>
                                     <div class="location-search-card">
                                         <label class="location-search-field">
-                                            <span>出生地址</span>
+                                            <span>{{ t('bazi.form.birthplace') }}</span>
                                             <div class="location-search-input-wrap">
                                                 <svg viewBox="0 0 24 24" aria-hidden="true">
                                                     <circle cx="11" cy="11" r="7"></circle>
@@ -204,13 +204,13 @@
                                                     type="search"
                                                     v-model.trim="birthplaceQuery"
                                                     autocomplete="off"
-                                                    placeholder="搜索省市区县，如 福建省厦门市思明区"
+                                                    :placeholder="t('bazi.form.birthplacePlaceholder')"
                                                     @focus="isBirthplaceSearchOpen = true"
                                                 >
                                                 <button
                                                     v-if="birthplaceQuery || form.birthLocation"
                                                     class="location-clear-btn"
-                                                    title="清除地址"
+                                                    :title="t('bazi.form.clearPlace')"
                                                     @click="resetBirthplaceSearch"
                                                 >×</button>
                                             </div>
@@ -223,34 +223,34 @@
                                                 @click="selectBirthplace(place)"
                                             >
                                                 <span>{{ place.label }}</span>
-                                                <small>北纬{{ place.lat }} 东经{{ place.lng }}</small>
+                                                <small>{{ t('bazi.form.latLng', { lat: place.lat, lng: place.lng }) }}</small>
                                             </button>
-                                            <div v-if="birthplaceQuery && !birthplaceSearchResults.length" class="location-empty">未找到匹配地址</div>
+                                            <div v-if="birthplaceQuery && !birthplaceSearchResults.length" class="location-empty">{{ t('bazi.form.noPlace') }}</div>
                                         </div>
                                         <div class="time-toggle-row">
                                             <label class="time-check" :class="{ active: form.solarTimeMode === 'apparent', disabled: !form.birthLocation }">
                                                 <input type="checkbox" :checked="form.solarTimeMode === 'apparent'" :disabled="!form.birthLocation" @change="toggleApparentSolarTime">
-                                                <span>真太阳时</span>
+                                                <span>{{ t('bazi.form.trueSolar') }}</span>
                                             </label>
                                             <label class="time-check" :class="{ active: daylightSavingAutoActive, disabled: true }">
                                                 <input type="checkbox" :checked="daylightSavingAutoActive" disabled>
-                                                <span>夏令时</span>
+                                                <span>{{ t('bazi.form.dst') }}</span>
                                             </label>
                                         </div>
                                     </div>
                                     <div class="date-segment-row">
-                                        <div class="date-segment"><span>年</span><strong>{{ solarInputDigits.slice(0, 4) || '----' }}</strong></div>
-                                        <div class="date-segment"><span>月</span><strong>{{ solarInputDigits.slice(4, 6) || '--' }}</strong></div>
-                                        <div class="date-segment"><span>日</span><strong>{{ solarInputDigits.slice(6, 8) || '--' }}</strong></div>
-                                        <div class="date-segment"><span>时</span><strong>{{ solarInputDigits.slice(8, 10) || '--' }}</strong></div>
-                                        <div class="date-segment"><span>分</span><strong>{{ solarInputDigits.slice(10, 12) || '--' }}</strong></div>
+                                        <div class="date-segment"><span>{{ t('bazi.form.seg.year') }}</span><strong>{{ solarInputDigits.slice(0, 4) || '----' }}</strong></div>
+                                        <div class="date-segment"><span>{{ t('bazi.form.seg.month') }}</span><strong>{{ solarInputDigits.slice(4, 6) || '--' }}</strong></div>
+                                        <div class="date-segment"><span>{{ t('bazi.form.seg.day') }}</span><strong>{{ solarInputDigits.slice(6, 8) || '--' }}</strong></div>
+                                        <div class="date-segment"><span>{{ t('bazi.form.seg.hour') }}</span><strong>{{ solarInputDigits.slice(8, 10) || '--' }}</strong></div>
+                                        <div class="date-segment"><span>{{ t('bazi.form.seg.minute') }}</span><strong>{{ solarInputDigits.slice(10, 12) || '--' }}</strong></div>
                                     </div>
                                 </div>
                                 <div v-if="solarPreview" class="picker-preview-card">
-                                    <div>钟表阳历：{{ solarPreview.solarText }}</div>
-                                    <div v-if="solarTimeAdjustmentText">排盘时间：{{ solarPreview.adjustedSolarText }}（{{ solarTimeAdjustmentText }}）</div>
-                                    <div>农历：{{ solarPreview.lunarText }}</div>
-                                    <div>四柱：{{ solarPreview.baziStr }}</div>
+                                    <div>{{ t('bazi.form.preview.clock', { value: solarPreview.solarText }) }}</div>
+                                    <div v-if="solarTimeAdjustmentText">{{ t('bazi.form.preview.adjusted', { value: solarPreview.adjustedSolarText, note: solarTimeAdjustmentText }) }}</div>
+                                    <div>{{ t('bazi.form.preview.lunar', { value: solarPreview.lunarText }) }}</div>
+                                    <div>{{ t('bazi.form.preview.pillars', { value: solarPreview.baziStr }) }}</div>
                                 </div>
                                 <div v-else class="picker-preview-card muted">
                                     <div>{{ solarInputError }}</div>
@@ -264,76 +264,76 @@
                                         :class="{ active: activePillarSlot === 'yearGan' }"
                                         @click="setActivePillarSlot('yearGan')"
                                     >
-                                        <span class="slot-label">年干</span>
-                                        <strong class="slot-value">{{ pillarInput.yearPillar.charAt(0) || '年干' }}</strong>
+                                        <span class="slot-label">{{ t('bazi.slot.yearGan') }}</span>
+                                        <strong class="slot-value">{{ pillarInput.yearPillar.charAt(0) || t('bazi.slot.yearGan') }}</strong>
                                     </button>
                                     <button
                                         class="pillar-slot derived"
                                         :class="{ active: activePillarSlot === 'monthGan' }"
                                         @click="setActivePillarSlot('monthGan')"
                                     >
-                                        <span class="slot-label">月干</span>
-                                        <strong class="slot-value">{{ pillarInput.monthPillar.charAt(0) || '月干' }}</strong>
+                                        <span class="slot-label">{{ t('bazi.slot.monthGan') }}</span>
+                                        <strong class="slot-value">{{ pillarInput.monthPillar.charAt(0) || t('bazi.slot.monthGan') }}</strong>
                                     </button>
                                     <button
                                         class="pillar-slot"
                                         :class="{ active: activePillarSlot === 'dayGan' }"
                                         @click="setActivePillarSlot('dayGan')"
                                     >
-                                        <span class="slot-label">日干</span>
-                                        <strong class="slot-value">{{ pillarInput.dayPillar.charAt(0) || '日干' }}</strong>
+                                        <span class="slot-label">{{ t('bazi.slot.dayGan') }}</span>
+                                        <strong class="slot-value">{{ pillarInput.dayPillar.charAt(0) || t('bazi.slot.dayGan') }}</strong>
                                     </button>
                                     <button
                                         class="pillar-slot derived"
                                         :class="{ active: activePillarSlot === 'timeGan' }"
                                         @click="setActivePillarSlot('timeGan')"
                                     >
-                                        <span class="slot-label">时干</span>
-                                        <strong class="slot-value">{{ pillarInput.timePillar.charAt(0) || '时干' }}</strong>
+                                        <span class="slot-label">{{ t('bazi.slot.timeGan') }}</span>
+                                        <strong class="slot-value">{{ pillarInput.timePillar.charAt(0) || t('bazi.slot.timeGan') }}</strong>
                                     </button>
                                     <button
                                         class="pillar-slot"
                                         :class="{ active: activePillarSlot === 'yearZhi' }"
                                         @click="setActivePillarSlot('yearZhi')"
                                     >
-                                        <span class="slot-label">年支</span>
-                                        <strong class="slot-value">{{ pillarInput.yearPillar.charAt(1) || '年支' }}</strong>
+                                        <span class="slot-label">{{ t('bazi.slot.yearZhi') }}</span>
+                                        <strong class="slot-value">{{ pillarInput.yearPillar.charAt(1) || t('bazi.slot.yearZhi') }}</strong>
                                     </button>
                                     <button
                                         class="pillar-slot"
                                         :class="{ active: activePillarSlot === 'monthZhi' }"
                                         @click="setActivePillarSlot('monthZhi')"
                                     >
-                                        <span class="slot-label">月支</span>
-                                        <strong class="slot-value">{{ pillarInput.monthPillar.charAt(1) || '月支' }}</strong>
+                                        <span class="slot-label">{{ t('bazi.slot.monthZhi') }}</span>
+                                        <strong class="slot-value">{{ pillarInput.monthPillar.charAt(1) || t('bazi.slot.monthZhi') }}</strong>
                                     </button>
                                     <button
                                         class="pillar-slot"
                                         :class="{ active: activePillarSlot === 'dayZhi' }"
                                         @click="setActivePillarSlot('dayZhi')"
                                     >
-                                        <span class="slot-label">日支</span>
-                                        <strong class="slot-value">{{ pillarInput.dayPillar.charAt(1) || '日支' }}</strong>
+                                        <span class="slot-label">{{ t('bazi.slot.dayZhi') }}</span>
+                                        <strong class="slot-value">{{ pillarInput.dayPillar.charAt(1) || t('bazi.slot.dayZhi') }}</strong>
                                     </button>
                                     <button
                                         class="pillar-slot"
                                         :class="{ active: activePillarSlot === 'timeZhi' }"
                                         @click="setActivePillarSlot('timeZhi')"
                                     >
-                                        <span class="slot-label">时支</span>
-                                        <strong class="slot-value">{{ pillarInput.timePillar.charAt(1) || '时支' }}</strong>
+                                        <span class="slot-label">{{ t('bazi.slot.timeZhi') }}</span>
+                                        <strong class="slot-value">{{ pillarInput.timePillar.charAt(1) || t('bazi.slot.timeZhi') }}</strong>
                                     </button>
                                 </div>
                                 <div class="pillar-choice-panel">
                                     <div class="pillar-choice-head">
-                                        <div class="picker-column-label">当前选择：{{ activeSlotLabel }}</div>
+                                        <div class="picker-column-label">{{ t('bazi.form.currentSlot', { slot: activeSlotLabel }) }}</div>
                                         <div class="pillar-orb-current">{{ activeSlotValue || activeSlotLabel }}</div>
                                     </div>
                                     <div v-if="activeSlotHint" class="pillar-rule-tip">
                                         {{ activeSlotHint }}
                                     </div>
                                     <div class="orb-section">
-                                        <div class="orb-title">{{ activeSlotType === 'gan' ? '天干' : '地支' }}</div>
+                                        <div class="orb-title">{{ activeSlotType === 'gan' ? t('bazi.form.stem') : t('bazi.form.branch') }}</div>
                                         <div class="choice-chip-grid" :class="{ 'choice-chip-grid-gz': activeSlotType === 'gan', 'choice-chip-grid-zhi': activeSlotType === 'zhi' }">
                                             <button
                                                 v-for="item in activeCandidateOptions"
@@ -346,16 +346,16 @@
                                     </div>
                                 </div>
                                 <div v-if="pillarPreview" class="picker-preview-card">
-                                    <div>匹配结果：{{ pillarPreview.solarText }}</div>
-                                    <div>农历：{{ pillarPreview.lunarText }}</div>
-                                    <div>候选数量：{{ pillarMatches.length }} 个，默认采用最近日期</div>
+                                    <div>{{ t('bazi.form.preview.match', { value: pillarPreview.solarText }) }}</div>
+                                    <div>{{ t('bazi.form.preview.lunar', { value: pillarPreview.lunarText }) }}</div>
+                                    <div>{{ t('bazi.form.preview.candidates', { count: pillarMatches.length }) }}</div>
                                 </div>
                                 <div v-else class="picker-preview-card muted">
                                     <div>{{ pillarPreviewError }}</div>
                                 </div>
                             </div>
 
-                            <button class="picker-save-btn" @click="saveProfile">确定</button>
+                            <button class="picker-save-btn" @click="saveProfile">{{ t('bazi.common.confirm') }}</button>
                         </div>
                     </div>
                 </Teleport>
@@ -367,13 +367,13 @@
                     <Transition name="bsheet">
                     <div v-if="showGuestLoginGuide" class="modal-overlay" @click="showGuestLoginGuide = false">
                         <div class="guest-login-modal bsheet-inner" @click.stop>
-                            <button class="close-button guest-login-close" title="关闭" @click="showGuestLoginGuide = false">×</button>
-                            <div class="guest-login-kicker">访客模式</div>
-                            <h3>登录后生成完整云端排盘</h3>
+                            <button class="close-button guest-login-close" :title="t('common.close')" @click="showGuestLoginGuide = false">×</button>
+                            <div class="guest-login-kicker">{{ t('bazi.guest.kicker') }}</div>
+                            <h3>{{ t('bazi.guest.title') }}</h3>
                             <p>
-                                访客本地档案已保存。
-                                <router-link :to="{ path: '/', query: { auth: 'login' } }" @click="showGuestLoginGuide = false">登录</router-link>
-                                后可补全格局、喜忌、断语与岁运细解。
+                                {{ t('bazi.guest.saved') }}
+                                <router-link :to="{ path: '/', query: { auth: 'login' } }" @click="showGuestLoginGuide = false">{{ t('bazi.guest.login') }}</router-link>
+                                {{ t('bazi.guest.after') }}
                             </p>
                         </div>
                     </div>
@@ -386,14 +386,14 @@
                     </div>
                     <div class="analysis-copy">
                         <div class="analysis-title">{{ isAnalyzing ? analysisSteps[analysisStageIndex] : analysisNotice }}</div>
-                        <div class="analysis-subtitle">{{ isAnalyzing ? '排盘、格局、岁运与喜忌正在同步校验' : '最新结果已写入当前档案' }}</div>
+                        <div class="analysis-subtitle">{{ isAnalyzing ? t('bazi.analysis.running') : t('bazi.analysis.done') }}</div>
                     </div>
                     <button
                         v-if="analysisNotice && !isAnalyzing"
                         class="analysis-dismiss"
                         type="button"
-                        aria-label="关闭推演状态提示"
-                        title="关闭"
+                        :aria-label="t('bazi.analysis.closeNotice')"
+                        :title="t('common.close')"
                         @click="analysisNotice = ''"
                     >×</button>
                     <div v-if="isAnalyzing" class="analysis-progress">
@@ -407,11 +407,11 @@
                 <!-- ══ 命主断事笔记 ══ -->
                 <div v-if="currentTab === 'events' && activeProfile && !needsUpgrade && !isGuest" class="life-events-card">
                     <div class="ai-header-row notes-card-header">
-                        <div class="ai-header-title">断事笔记</div>
+                        <div class="ai-header-title">{{ t('bazi.tab.notes') }}</div>
                         <div class="context-card-top-actions">
-                            <button class="info-button" title="功能说明" @click="openLeGuide('events')">?</button>
+                            <button class="info-button" :title="t('bazi.notes.help')" @click="openLeGuide('events')">?</button>
                             <span v-if="isCalibrated" class="calibrated-badge">
-                                已深度校准 · {{ calibratedTimeStr }}
+                                {{ t('bazi.notes.calibrated', { time: calibratedTimeStr }) }}
                             </span>
                         </div>
                     </div>
@@ -427,44 +427,44 @@
                             <div class="le-card">
                                 <div class="le-card-head">
                                     <span class="le-year">
-                                        {{ ev.year }}年{{ ev.month ? ev.month + '月' : '' }}
+                                        {{ ev.month ? t('bazi.notes.yearMonth', { year: ev.year, month: ev.month }) : t('bazi.notes.year', { year: ev.year }) }}
                                     </span>
-                                    <span v-if="ev.dayun_at_time" class="le-dayun">大运 {{ ev.dayun_at_time }}</span>
+                                    <span v-if="ev.dayun_at_time" class="le-dayun">{{ t('bazi.notes.dayun', { value: ev.dayun_at_time }) }}</span>
                                     <span class="le-cat">{{ eventCategoryLabel(ev.category) }}</span>
                                     <span class="le-impact" :class="`le-impact--${eventImpactClass(ev.impact)}`">
                                         {{ eventImpactLabel(ev.impact) }}
                                     </span>
                                     <button class="le-del" @click="deleteLifeEvent(ev.id)">×</button>
                                 </div>
-                                <p class="le-desc">{{ ev.description }}</p>
+                                <p class="le-desc" data-i18n-skip>{{ ev.description }}</p>
                             </div>
                         </div>
                     </div>
-                    <div v-else class="le-empty">暂无记录，添加真实大事以校准盘面</div>
+                    <div v-else class="le-empty">{{ t('bazi.notes.empty') }}</div>
 
                     <button class="le-toggle-btn" @click="isFormOpen = !isFormOpen">
-                        {{ isFormOpen ? '收起' : '+ 添加事件' }}
+                        {{ isFormOpen ? t('bazi.notes.collapse') : t('bazi.notes.addEvent') }}
                     </button>
 
                     <div v-if="isFormOpen" class="le-form">
                         <div class="le-form-row">
                             <div class="le-field">
-                                <label>发生年份 *</label>
+                                <label>{{ t('bazi.notes.form.year') }}</label>
                                 <select v-model.number="eventForm.year">
-                                    <option v-for="year in eventYearOptions" :key="year" :value="year">{{ year }} 年</option>
+                                    <option v-for="year in eventYearOptions" :key="year" :value="year">{{ t('bazi.notes.yearOption', { year }) }}</option>
                                 </select>
                             </div>
                             <div class="le-field">
-                                <label>发生月份（选填）</label>
+                                <label>{{ t('bazi.notes.form.month') }}</label>
                                 <select v-model.number="eventForm.month">
-                                    <option :value="undefined">不填</option>
-                                    <option v-for="m in 12" :key="m" :value="m">{{ m }} 月</option>
+                                    <option :value="undefined">{{ t('bazi.notes.form.noMonth') }}</option>
+                                    <option v-for="m in 12" :key="m" :value="m">{{ t('bazi.notes.monthOption', { month: m }) }}</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="le-field">
-                            <label>事件领域 *</label>
+                            <label>{{ t('bazi.notes.form.category') }}</label>
                             <div class="le-cats">
                                 <button
                                     v-for="cat in LIFE_EVENT_CATEGORIES"
@@ -473,13 +473,13 @@
                                     :class="{ active: eventForm.category === cat.value }"
                                     @click="eventForm.category = cat.value"
                                 >
-                                    {{ cat.label }}
+                                    {{ noteCategoryLabel(cat.value, cat.label, locale) }}
                                 </button>
                             </div>
                         </div>
 
                         <div class="le-field">
-                            <label>事件性质 *</label>
+                            <label>{{ t('bazi.notes.form.impact') }}</label>
                             <div class="le-impacts">
                                 <button
                                     v-for="opt in IMPACT_OPTIONS"
@@ -488,14 +488,14 @@
                                     :class="[`le-impact-btn--${opt.cls}`, { active: eventForm.impact === opt.value }]"
                                     @click="eventForm.impact = opt.value"
                                 >
-                                    {{ opt.label }}
+                                    {{ noteImpactLabel(opt.value, opt.label, locale) }}
                                 </button>
                             </div>
                         </div>
 
                         <div class="le-field">
                             <label>
-                                事件描述 *
+                                {{ t('bazi.notes.form.description') }}
                                 <span
                                     class="le-charcount"
                                     :class="{ warn: eventForm.description.length > 180 }"
@@ -505,14 +505,14 @@
                                 v-model="eventForm.description"
                                 maxlength="200"
                                 rows="3"
-                                placeholder="简述经过与影响，如：入职某AI公司任技术负责人，薪资翻倍..."
+                                :placeholder="t('bazi.notes.form.descriptionPlaceholder')"
                             ></textarea>
                         </div>
 
                         <div class="le-form-actions">
-                            <button class="btn-ghost" @click="resetEventForm">取消</button>
+                            <button class="btn-ghost" @click="resetEventForm">{{ t('common.cancel') }}</button>
                             <button class="btn-primary" :disabled="!isEventFormValid" @click="submitLifeEvent">
-                                确认添加
+                                {{ t('bazi.notes.form.submit') }}
                             </button>
                         </div>
                     </div>
@@ -520,41 +520,41 @@
 
                 <div v-if="currentTab === 'events' && activeProfile && !needsUpgrade && !isGuest" class="life-events-card">
                     <div class="ai-header-row notes-card-header">
-                        <div class="ai-header-title">长期基调</div>
+                        <div class="ai-header-title">{{ t('bazi.context.profileTitle') }}</div>
                         <div class="context-card-top-actions">
-                            <button class="info-button" title="查看长期基调说明" @click="openLeGuide('profile')">?</button>
+                            <button class="info-button" :title="t('bazi.context.profileHelp')" @click="openLeGuide('profile')">?</button>
                             <button class="btn-ghost btn-compact" :disabled="isSavingProfileContext" @click="saveProfileContextDraft">
-                                {{ isSavingProfileContext ? '保存中…' : '保存基调' }}
+                                {{ isSavingProfileContext ? t('bazi.context.saving') : t('bazi.context.saveProfile') }}
                             </button>
                         </div>
                     </div>
                     <div class="context-card">
-                        <p class="context-card-desc">这部分是较稳定的人生背景，只影响月运断语落点，不参与算分。</p>
+                        <p class="context-card-desc">{{ t('bazi.context.profileDesc') }}</p>
                         <div class="context-grid">
                             <article v-for="section in PROFILE_CONTEXT_SECTIONS" :key="section.key" class="context-panel">
-                                <div class="section-kicker">{{ section.title }}</div>
+                                <div class="section-kicker">{{ profileSectionTitle(section.key, section.title, locale) }}</div>
                                 <div class="context-field" v-for="field in section.fields" :key="field.key">
-                                    <label>{{ field.label }}</label>
+                                    <label>{{ contextFieldLabel(section.key, field.key, field.label, locale) }}</label>
                                     <select
                                         v-if="field.type === 'select'"
                                         v-model="profileContextDraft[section.storeKey][field.key]"
                                     >
-                                        <option value="">暂不填写</option>
-                                        <option v-for="option in field.options" :key="option" :value="option">{{ option }}</option>
+                                        <option value="">{{ t('bazi.context.unset') }}</option>
+                                        <option v-for="option in field.options" :key="option" :value="option">{{ contextOptionLabel(option, locale) }}</option>
                                     </select>
                                     <input
                                         v-else-if="field.type === 'text'"
                                         v-model.trim="profileContextDraft[section.storeKey][field.key]"
                                         type="text"
                                         :maxlength="field.maxlength || 80"
-                                        :placeholder="field.placeholder || ''"
+                                        :placeholder="contextFieldPlaceholder(section.key, field.key, field.placeholder || '', locale)"
                                     >
                                     <textarea
                                         v-else
                                         v-model.trim="profileContextDraft[section.storeKey][field.key]"
                                         rows="3"
                                         :maxlength="field.maxlength || 80"
-                                        :placeholder="field.placeholder || ''"
+                                        :placeholder="contextFieldPlaceholder(section.key, field.key, field.placeholder || '', locale)"
                                     ></textarea>
                                 </div>
                             </article>
@@ -564,72 +564,72 @@
 
                 <div v-if="currentTab === 'events' && activeProfile && !needsUpgrade && !isGuest" class="life-events-card">
                     <div class="ai-header-row notes-card-header">
-                        <div class="ai-header-title">月度基调</div>
+                        <div class="ai-header-title">{{ t('bazi.context.monthlyTitle') }}</div>
                         <div class="context-card-top-actions">
-                            <button class="info-button" title="查看月度基调说明" @click="openLeGuide('monthly')">?</button>
+                            <button class="info-button" :title="t('bazi.context.monthlyHelp')" @click="openLeGuide('monthly')">?</button>
                             <select v-model="notesMonthKey" class="context-month-select">
                                 <option v-for="option in notesMonthOptions" :key="option.value" :value="option.value">{{ option.label }}</option>
                             </select>
                             <button class="mini-action mini-action--subtle" :disabled="!hasPreviousMonthlyContext || isSavingMonthlyContext" @click="copyPreviousMonthlyContext">
-                                沿用上月
+                                {{ t('bazi.context.copyPrevious') }}
                             </button>
                             <button class="btn-ghost btn-compact" :disabled="isSavingMonthlyContext" @click="saveMonthlyContextDraft">
-                                {{ isSavingMonthlyContext ? '保存中…' : '保存本月' }}
+                                {{ isSavingMonthlyContext ? t('bazi.context.saving') : t('bazi.context.saveMonthly') }}
                             </button>
                         </div>
                     </div>
                     <div class="context-card">
-                        <p class="context-card-desc">默认会把当前月作为主基调，并参考近 3 个月记录。主维度注入完整信息，其余维度只注入状态。</p>
+                        <p class="context-card-desc">{{ t('bazi.context.monthlyDesc') }}</p>
                         <div class="context-field">
-                            <label>本月总说明</label>
+                            <label>{{ t('bazi.context.overall') }}</label>
                             <textarea
                                 v-model.trim="monthlyContextDraft.overall_note"
                                 rows="3"
                                 maxlength="100"
-                                placeholder="例如：这个月刚换城市，工作和感情都在重建。"
+                                :placeholder="t('bazi.context.overallPlaceholder')"
                             ></textarea>
                         </div>
                         <div class="context-grid">
                             <article v-for="section in MONTHLY_CONTEXT_SECTIONS" :key="section.key" class="context-panel">
-                                <div class="section-kicker">{{ section.title }}</div>
+                                <div class="section-kicker">{{ monthlySectionTitle(section.key, section.title, locale) }}</div>
                                 <div class="context-field">
-                                    <label>当前状态</label>
+                                    <label>{{ t('bazi.context.status') }}</label>
                                     <select v-model="monthlyContextDraft[section.storeKey].status">
-                                        <option value="">暂不填写</option>
-                                        <option v-for="option in section.statusOptions" :key="option" :value="option">{{ option }}</option>
+                                        <option value="">{{ t('bazi.context.unset') }}</option>
+                                        <option v-for="option in section.statusOptions" :key="option" :value="option">{{ contextOptionLabel(option, locale) }}</option>
                                     </select>
                                 </div>
                                 <div class="context-field">
-                                    <label>本月现状</label>
+                                    <label>{{ t('bazi.context.summary') }}</label>
                                     <textarea
                                         v-model.trim="monthlyContextDraft[section.storeKey].summary"
                                         rows="3"
                                         maxlength="80"
-                                        placeholder="用一句话写清楚这个月正在经历什么。"
+                                        :placeholder="t('bazi.context.summaryPlaceholder')"
                                     ></textarea>
                                 </div>
                                 <div class="context-field">
-                                    <label>本月目标</label>
+                                    <label>{{ t('bazi.context.goal') }}</label>
                                     <input
                                         v-model.trim="monthlyContextDraft[section.storeKey].goal"
                                         type="text"
                                         maxlength="50"
-                                        placeholder="例如：拿到 offer / 稳住关系 / 控制开支"
+                                        :placeholder="t('bazi.context.goalPlaceholder')"
                                     >
                                 </div>
                                 <div class="context-field">
-                                    <label>本月最担心</label>
+                                    <label>{{ t('bazi.context.worry') }}</label>
                                     <input
                                         v-model.trim="monthlyContextDraft[section.storeKey].worry"
                                         type="text"
                                         maxlength="50"
-                                        placeholder="例如：反馈拖延 / 情绪反复 / 现金流紧"
+                                        :placeholder="t('bazi.context.worryPlaceholder')"
                                     >
                                 </div>
                             </article>
                         </div>
                         <div v-if="recentMonthlyContextRecords.length" class="context-recent-list">
-                            <div class="context-recent-title">近 3 个月记录</div>
+                            <div class="context-recent-title">{{ t('bazi.context.recent') }}</div>
                             <div v-for="item in recentMonthlyContextRecords" :key="item.month_key" class="context-recent-item">
                                 <div class="context-recent-month">{{ item.month_key }}</div>
                                 <div class="context-recent-copy">
@@ -722,7 +722,7 @@
                             <div class="insight-sticky-head">
                                 <div class="drawer-head">
                                     <div class="drawer-head-title">命局天机</div>
-                                    <button class="close-button" title="关闭" @click="activeInfoPanel = null">×</button>
+                                    <button class="close-button" :title="t('common.close')" @click="activeInfoPanel = null">×</button>
                                 </div>
                                 <div class="insight-tab-bar" ref="insightTabBarRef">
                                     <button class="insight-bazi-tab" :class="{ active: insightTab === 'strength' }" @click="insightTab = 'strength'">身强/身弱</button>
@@ -883,7 +883,7 @@
                             <div class="insight-sticky-head">
                                 <div class="drawer-head">
                                     <div class="drawer-head-title">天机锦囊</div>
-                                    <button class="close-button" title="关闭" @click="activeInfoPanel = null">×</button>
+                                    <button class="close-button" :title="t('common.close')" @click="activeInfoPanel = null">×</button>
                                 </div>
                             </div>
 
@@ -935,7 +935,7 @@
                         <div class="le-guide-card bsheet-inner" @click.stop>
                             <div class="le-guide-head">
                                 <span>{{ currentLeGuideContent.title }}</span>
-                                <button class="close-button" title="关闭" @click="showLeGuide = false">×</button>
+                                <button class="close-button" :title="t('common.close')" @click="showLeGuide = false">×</button>
                             </div>
 
                             <div class="le-guide-body">
@@ -967,7 +967,7 @@
                                     <div class="section-kicker">调候诊断</div>
                                     <h4>{{ tiaohouPanelContent.climateState }}</h4>
                                 </div>
-                                <button class="close-button" title="关闭" @click="activeInfoPanel = null">×</button>
+                                <button class="close-button" :title="t('common.close')" @click="activeInfoPanel = null">×</button>
                             </div>
                             <div class="tiaohou-modal-urgency-row">
                                 <span class="tiaohou-urgency" :class="tiaohouPanelContent.urgencyClass">{{ tiaohouPanelContent.urgency }}</span>
@@ -1182,6 +1182,10 @@
 <script setup>
 import { ref, reactive, computed, nextTick, onMounted, onUnmounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+import { localizeApiError, localeJson, withLocaleQuery } from '../i18n/requestLocale.mjs'
+import { contentLocaleOf } from '../i18n/index.mjs'
+import { contextFieldLabel, contextFieldPlaceholder, contextOptionLabel, monthlySectionTitle, noteCategoryLabel, noteImpactLabel, profileSectionTitle } from '../i18n/notesLabels.mjs'
 import { supabase } from '../lib/supabase.mjs'
 import { Solar } from 'lunar-javascript'
 import { clearBaziProfilesCache, getCachedBaziProfiles, globalState, resolveSelectedBaziProfileId, setCachedBaziProfiles, setSelectedBaziProfileId } from '../store.js'
@@ -1233,6 +1237,8 @@ import {
 
 const router = useRouter()
 const route = useRoute()
+const { t, te, locale } = useI18n()
+const i18nCtx = { t, te, get locale() { return locale.value } }
 const getFortuneStorage = () => (typeof window === 'undefined' ? null : window.localStorage)
 
 // 与后端 lib/baziCore.js 的 BAZI_ENGINE_VERSION 保持同步
@@ -1495,13 +1501,13 @@ const renameName = ref('')
 const analysisNotice = ref('')
 const analysisStageIndex = ref(0)
 const analysisProgress = ref(8)
-const analysisSteps = [
-    '校准出生时空',
-    '排布四柱格局',
-    '核对喜忌用神',
-    '联动大运流年',
-    '整理天机断语'
-]
+const analysisSteps = computed(() => [
+    t('bazi.analysis.steps.place'),
+    t('bazi.analysis.steps.pillars'),
+    t('bazi.analysis.steps.useful'),
+    t('bazi.analysis.steps.luck'),
+    t('bazi.analysis.steps.reading'),
+])
 const ANALYSIS_PROGRESS_FRAMES = [8, 12, 17, 23, 29, 36, 43, 50, 57, 64, 70, 76, 81, 85, 89, 92]
 let analysisTimer = null
 let analysisFrameIndex = 0
@@ -1589,15 +1595,15 @@ const ganOptions = GAN
 const zhiOptions = ZHI
 const activeSlotType = computed(() => activePillarSlot.value.endsWith('Gan') ? 'gan' : 'zhi')
 const activeSlotLabel = computed(() => ({
-    yearGan: '年干',
-    monthGan: '月干',
-    dayGan: '日干',
-    timeGan: '时干',
-    yearZhi: '年支',
-    monthZhi: '月支',
-    dayZhi: '日支',
-    timeZhi: '时支'
-}[activePillarSlot.value] || '年干'))
+    yearGan: t('bazi.slot.yearGan'),
+    monthGan: t('bazi.slot.monthGan'),
+    dayGan: t('bazi.slot.dayGan'),
+    timeGan: t('bazi.slot.timeGan'),
+    yearZhi: t('bazi.slot.yearZhi'),
+    monthZhi: t('bazi.slot.monthZhi'),
+    dayZhi: t('bazi.slot.dayZhi'),
+    timeZhi: t('bazi.slot.timeZhi'),
+}[activePillarSlot.value] || t('bazi.slot.yearGan')))
 const monthBranchOptions = computed(() => getAllowedMonthBranchesByStem(pillarInput.monthPillar.charAt(0)))
 const timeBranchOptions = computed(() => getAllowedTimeBranchesByStem(pillarInput.timePillar.charAt(0)))
 const activeCandidateOptions = computed(() => {
@@ -1621,18 +1627,18 @@ const activeSlotValue = computed(() => {
 })
 const activeSlotHint = computed(() => {
     if (activePillarSlot.value === 'monthZhi') {
-        return `已按月干 ${pillarInput.monthPillar.charAt(0)} 限定月支，可选六支：${monthBranchOptions.value.join('、')}`
+        return t('bazi.slot.monthZhiHint', { stem: pillarInput.monthPillar.charAt(0), options: monthBranchOptions.value.join(t('bazi.listSep')) })
     }
     if (activePillarSlot.value === 'timeZhi') {
-        return `已按时干 ${pillarInput.timePillar.charAt(0)} 限定时支，可选六支：${timeBranchOptions.value.join('、')}`
+        return t('bazi.slot.timeZhiHint', { stem: pillarInput.timePillar.charAt(0), options: timeBranchOptions.value.join(t('bazi.listSep')) })
     }
-    if (activePillarSlot.value === 'monthGan') return '先定月干，再进入月支选择。'
-    if (activePillarSlot.value === 'timeGan') return '先定时干，再进入时支选择。'
+    if (activePillarSlot.value === 'monthGan') return t('bazi.slot.monthGanHint')
+    if (activePillarSlot.value === 'timeGan') return t('bazi.slot.timeGanHint')
     return ''
 })
 const pillarPreviewError = computed(() => {
     if (pillarMatches.value.length) return ''
-    return '当前四柱暂无匹配日期，请调整后再试。'
+    return t('bazi.form.noPillarMatch')
 })
 
 // 计算属性 (Vue 魔法：数据变化自动更新 UI)
@@ -1662,12 +1668,12 @@ const notesMonthOptions = computed(() => {
     return options
 })
 const isGuest = computed(() => globalState.isGuest && !currentUser.value)
-const activeProfileName = computed(() => activeProfile.value?.name || (baziProfiles.value.length ? '请选择命主档案' : '暂无命主档案'))
+const activeProfileName = computed(() => activeProfile.value?.name || (baziProfiles.value.length ? t('bazi.profile.pick') : t('bazi.profile.none')))
 
 const formatSolarDate = (value) => {
-    if (!value) return '未录入阳历'
+    if (!value) return t('bazi.form.noSolar')
     const p = String(value).match(/\d+/g)
-    if (!p || p.length < 3) return '阳历待确认'
+    if (!p || p.length < 3) return t('bazi.form.solarPending')
     const time = p.length >= 5 ? ` ${p[3].padStart(2, '0')}:${p[4].padStart(2, '0')}` : ''
     return `${p[0]}.${p[1].padStart(2, '0')}.${p[2].padStart(2, '0')}${time}`
 }
@@ -2174,7 +2180,8 @@ const previewFortuneCache = computed(() => {
         currentUser.value.id,
         activeLiuri.value.dateKey,
         new Date(),
-        activeProfile.value?.id || ''
+        activeProfile.value?.id || '',
+        contentLocaleOf(locale.value)
     )
 })
 
@@ -2857,13 +2864,13 @@ watch([birthYear, currentEventYear], ([nextBirthYear, nextCurrentYear]) => {
 }, { immediate: true })
 
 const eventCategoryLabel = (val) =>
-    LIFE_EVENT_CATEGORIES.find(c => c.value === val)?.label || val
+    noteCategoryLabel(val, LIFE_EVENT_CATEGORIES.find(c => c.value === val)?.label || val, locale.value)
 
 const eventImpactClass = (val) =>
     val === 1 ? 'positive' : val === -1 ? 'negative' : 'neutral'
 
 const eventImpactLabel = (val) =>
-    IMPACT_OPTIONS.find(o => o.value === val)?.label || ''
+    noteImpactLabel(val, IMPACT_OPTIONS.find(o => o.value === val)?.label || '', locale.value)
 
 // 时间解析逻辑
 const promptDataObj = computed(() => {
@@ -2875,12 +2882,12 @@ const solarParsedInput = computed(() => parseCompactSolarInput(solarInput.text))
 const solarInputDigits = computed(() => String(solarInput.text || '').replace(/\D/g, '').slice(0, 12))
 const solarInputError = computed(() => {
     const digits = solarInputDigits.value
-    if (!digits.length) return '请输入出生年月日时分'
-    if (![8, 10, 12].includes(digits.length)) return '请输入 8 位、10 位或 12 位数字，例如 199303270255'
+    if (!digits.length) return t('bazi.form.error.empty')
+    if (![8, 10, 12].includes(digits.length)) return t('bazi.form.error.length')
     const parsed = solarParsedInput.value
-    if (!parsed) return '日期格式不正确'
+    if (!parsed) return t('bazi.form.error.format')
     if (parsed.month < 1 || parsed.month > 12 || parsed.day < 1 || parsed.day > 31 || parsed.hour > 23 || parsed.minute > 59) {
-        return '日期格式不正确，请检查月份、日期、小时和分钟'
+        return t('bazi.form.error.range')
     }
     return ''
 })
@@ -2941,7 +2948,7 @@ const pillarPreview = computed(() => {
 
 const solarDateStr = computed(() => {
     const data = promptDataObj.value
-    if (!data || !data.birthStr) return '阳历加载中...'
+    if (!data || !data.birthStr) return t('bazi.form.solarLoading')
     const p = data.birthStr.match(/\d+/g)
     if (!p || p.length < 3) return ''
     const s = Solar.fromYmdHms(parseInt(p[0]), parseInt(p[1]), parseInt(p[2]), parseInt(p[3]||12), parseInt(p[4]||0), 0)
@@ -2950,7 +2957,7 @@ const solarDateStr = computed(() => {
 
 const lunarDateStr = computed(() => {
     const data = promptDataObj.value
-    if (!data || !data.birthStr) return '农历加载中...'
+    if (!data || !data.birthStr) return t('bazi.form.lunarLoading')
     const p = data.birthStr.match(/\d+/g)
     if (!p || p.length < 3) return ''
     const s = Solar.fromYmdHms(parseInt(p[0]), parseInt(p[1]), parseInt(p[2]), parseInt(p[3]||12), parseInt(p[4]||0), 0)
@@ -2983,7 +2990,7 @@ const heroStickyStyle = computed(() => {
         '--hero-meta-offset': `${-5 * p}px`,
         '--hero-strip-gap': `${14 - (6 * p)}px`,
         '--hero-side-opacity': Math.max(0, 1 - (p * 1.35)),
-        '--hero-badge-width': `${48 * (1 - p)}px`,
+        '--hero-badge-width': `${(locale.value === 'en-US' ? 64 : 48) * (1 - p)}px`, // 英文「Default」比「默认」宽
         '--hero-caret-width': `${9 * (1 - p)}px`,
         '--hero-action-opacity': Math.max(0, 1 - (p * 1.35)),
         '--hero-note-height': `${42 * (1 - p)}px`,
@@ -3143,11 +3150,11 @@ const fetchProfileContextDraft = async () => {
     }
     try {
         const accessToken = await getAccessToken()
-        const response = await fetch(apiPath(`/api/context-notes?scope=profile&profile_id=${encodeURIComponent(activeProfile.value.id)}`), {
+        const response = await fetch(apiPath(withLocaleQuery(`/api/context-notes?scope=profile&profile_id=${encodeURIComponent(activeProfile.value.id)}`)), {
             headers: { Authorization: `Bearer ${accessToken}` },
         })
         const payload = await response.json()
-        if (!response.ok || payload.error) throw new Error(payload.details || payload.error || '加载长期基调失败')
+        if (!response.ok || payload.error) throw new Error(localizeApiError(payload, i18nCtx, payload.details || payload.error || '加载长期基调失败'))
         profileContextDraft.value = payload.data || createEmptyProfileContextDraft()
         profileContextBaseline.value = cloneContextValue(profileContextDraft.value)
     } catch (error) {
@@ -3166,11 +3173,11 @@ const fetchMonthlyContextDraft = async () => {
     }
     try {
         const accessToken = await getAccessToken()
-        const response = await fetch(apiPath(`/api/context-notes?scope=monthly&profile_id=${encodeURIComponent(activeProfile.value.id)}&month_key=${encodeURIComponent(notesMonthKey.value)}`), {
+        const response = await fetch(apiPath(withLocaleQuery(`/api/context-notes?scope=monthly&profile_id=${encodeURIComponent(activeProfile.value.id)}&month_key=${encodeURIComponent(notesMonthKey.value)}`)), {
             headers: { Authorization: `Bearer ${accessToken}` },
         })
         const payload = await response.json()
-        if (!response.ok || payload.error) throw new Error(payload.details || payload.error || '加载月度现状失败')
+        if (!response.ok || payload.error) throw new Error(localizeApiError(payload, i18nCtx, payload.details || payload.error || '加载月度现状失败'))
         monthlyContextDraft.value = payload.record || createEmptyMonthlyContextDraft(notesMonthKey.value)
         monthlyContextBaseline.value = cloneContextValue(monthlyContextDraft.value)
         recentMonthlyContextRecords.value = Array.isArray(payload.recent_records) ? payload.recent_records : []
@@ -3204,14 +3211,14 @@ const saveProfileContextDraft = async () => {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${accessToken}`,
             },
-            body: JSON.stringify({
+            body: localeJson({
                 scope: 'profile',
                 profile_id: activeProfile.value.id,
                 data: profileContextDraft.value,
             }),
         })
         const payload = await response.json()
-        if (!response.ok || payload.error) throw new Error(payload.details || payload.error || '保存长期基调失败')
+        if (!response.ok || payload.error) throw new Error(localizeApiError(payload, i18nCtx, payload.details || payload.error || '保存长期基调失败'))
         profileContextDraft.value = payload.data || createEmptyProfileContextDraft()
         profileContextBaseline.value = cloneContextValue(profileContextDraft.value)
         if (shouldRefreshInterpretation) {
@@ -3238,7 +3245,7 @@ const saveMonthlyContextDraft = async () => {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${accessToken}`,
             },
-            body: JSON.stringify({
+            body: localeJson({
                 scope: 'monthly',
                 profile_id: activeProfile.value.id,
                 month_key: notesMonthKey.value,
@@ -3246,7 +3253,7 @@ const saveMonthlyContextDraft = async () => {
             }),
         })
         const payload = await response.json()
-        if (!response.ok || payload.error) throw new Error(payload.details || payload.error || '保存月度现状失败')
+        if (!response.ok || payload.error) throw new Error(localizeApiError(payload, i18nCtx, payload.details || payload.error || '保存月度现状失败'))
         monthlyContextDraft.value = payload.record || createEmptyMonthlyContextDraft(notesMonthKey.value)
         monthlyContextBaseline.value = cloneContextValue(monthlyContextDraft.value)
         recentMonthlyContextRecords.value = Array.isArray(payload.recent_records) ? payload.recent_records : []
@@ -3304,7 +3311,7 @@ const handleDocumentClick = (event) => {
 
 const openAddProfile = () => {
     if (isGuest.value && baziProfiles.value.length >= 1) {
-        alert('访客模式仅可添加 1 个本地八字档案')
+        alert(t('bazi.profile.guestOnlyOne'))
         return
     }
     resetProfileEntry()
@@ -3437,7 +3444,7 @@ const updateActivePillar = (value) => {
 const buildProfilePayloadFromEntry = () => {
     const name = form.name.trim()
     if (!name) {
-        throw new Error('请先填写命主姓名')
+        throw new Error(t('bazi.form.error.name'))
     }
 
     if (entryMode.value === ENTRY_MODE.SOLAR) {
@@ -3506,7 +3513,7 @@ const saveProfile = async () => {
     }
     if (error) {
         if (isMissingBaziProfileSolarTimeColumnError(error)) {
-            alert('数据库缺少出生地/真太阳时字段，请先执行 docs/sql/bazi-birthplace-solar-time-migration.sql 后再保存带出生地校正的档案。')
+            alert(t('bazi.form.error.migration'))
         } else {
             alert(error.message)
         }
@@ -3559,7 +3566,7 @@ const buildGuestProfile = (payload) => {
         birth_longitude: payload.birth_longitude,
         solar_time_mode: payload.solar_time_mode,
         solar_time_adjustment_minutes: payload.solar_time_adjustment_minutes,
-        bazi_summary: '访客本地档案已保存。登录后可生成完整云端命理解读与日运联动。',
+        bazi_summary: '访客本地档案已保存。登录后可生成完整云端命理解读与日运联动。', // i18n-ignore 存储值，不随界面语言变化
         is_default: true
     }
 }
@@ -3567,7 +3574,7 @@ const buildGuestProfile = (payload) => {
 const renameProfile = async () => {
     if (!activeProfile.value) return
     const nextName = renameName.value.trim()
-    if (!nextName) return alert('昵称不能为空')
+    if (!nextName) return alert(t('bazi.profile.nameEmpty'))
     const { error } = await supabase.from('bazi_profiles').update({ name: nextName }).eq('id', activeProfile.value.id)
     if (error) alert(error.message)
     else {
@@ -3594,7 +3601,7 @@ const setDefaultProfile = async () => {
 
 const deleteProfile = async (idOverride) => {
     const deletedId = idOverride || selectedProfileId.value
-    if (deletedId && confirm("确认删除该档案？")) {
+    if (deletedId && confirm(t('bazi.profile.confirmDelete'))) {
         const nextList = baziProfiles.value.filter(profile => profile.id !== deletedId)
         const nextProfileId = resolveSelectedBaziProfileId(nextList)
         selectedProfileId.value = nextProfileId
@@ -3615,7 +3622,7 @@ const startAnalysisMotion = () => {
     analysisTimer = window.setInterval(() => {
         analysisFrameIndex = Math.min(ANALYSIS_PROGRESS_FRAMES.length - 1, analysisFrameIndex + 1)
         analysisProgress.value = ANALYSIS_PROGRESS_FRAMES[analysisFrameIndex]
-        analysisStageIndex.value = Math.min(analysisSteps.length - 1, Math.floor((analysisProgress.value / 100) * analysisSteps.length))
+        analysisStageIndex.value = Math.min(analysisSteps.value.length - 1, Math.floor((analysisProgress.value / 100) * analysisSteps.length))
     }, 1300)
 }
 
@@ -3661,7 +3668,7 @@ async function readBaziSSEStream(response, profileId) {
 
             if (event.type === 'step') {
                 analysisProgress.value = event.pct ?? analysisProgress.value
-                analysisStageIndex.value = Math.min(analysisSteps.length - 1, Math.max(0, Number(event.index || 0)))
+                analysisStageIndex.value = Math.min(analysisSteps.value.length - 1, Math.max(0, Number(event.index || 0)))
             } else if (event.type === 'engine_complete') {
                 analysisProgress.value = event.pct ?? 45
                 applyStreamResult(event.result)
@@ -3700,7 +3707,7 @@ async function readBaziSSEStream(response, profileId) {
                 }
                 return event.result || null
             } else if (event.type === 'error') {
-                const err = new Error(event.message || '八字推演失败')
+                const err = new Error(localizeApiError(event, i18nCtx, event.message || '八字推演失败'))
                 err.profileId = profileId
                 throw err
             }
@@ -3728,7 +3735,7 @@ const requestAiSummary = async ({ force = false } = {}) => {
         const response = await fetch(apiPath('/api/bazi'), {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
-            body: JSON.stringify({ 
+            body: localeJson({ 
                 promptData: { profileId, gender: pd.gender, birthStr: pd.birthStr, baziStr: pd.baziStr, daYunStr: "当前大运", force }
             })
         })
@@ -3738,7 +3745,7 @@ const requestAiSummary = async ({ force = false } = {}) => {
             ? await readBaziSSEStream(response, profileId)
             : await response.json()
         if (data?.error) {
-            const err = new Error(data.error)
+            const err = new Error(localizeApiError(data, i18nCtx, data.error))
             err.httpStatus = response.status
             throw err
         }
@@ -3748,7 +3755,7 @@ const requestAiSummary = async ({ force = false } = {}) => {
         if (shouldCalibrateFromEvents) {
             await triggerCalibration({ profileId, force })
         }
-        analysisNotice.value = '推演完成'
+        analysisNotice.value = t('bazi.analysis.finished')
     } catch (err) {
         if (err.httpStatus === 403) {
             showToast(err.message || '今日额度已用尽，请明日再来', 'error')
@@ -3826,7 +3833,7 @@ const triggerCalibration = async ({ profileId = activeProfile.value?.id, force =
     try {
         // prompt 由后端按档案与人生事件组装，前端只传档案 id
         const { data: { session } } = await supabase.auth.getSession()
-        if (!session?.access_token) throw new Error('登录状态已失效，请重新登录')
+        if (!session?.access_token) throw new Error(t('bazi.sessionExpired'))
 
         const res = await fetch(apiPath('/api/bazi-calibrate'), {
             method: 'POST',
@@ -3834,11 +3841,11 @@ const triggerCalibration = async ({ profileId = activeProfile.value?.id, force =
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${session.access_token}`,
             },
-            body: JSON.stringify({ profileId }),
+            body: localeJson({ profileId }),
         })
 
         const data = await res.json()
-        if (data.error) throw new Error(data.error)
+        if (data.error) throw new Error(localizeApiError(data, i18nCtx, data.error))
 
         const idx = baziProfiles.value.findIndex(p => p.id === profileId)
         if (idx !== -1) {
@@ -4037,10 +4044,10 @@ const hasPreviousMonthlyContext = computed(() =>
     recentMonthlyContextRecords.value.some(item => item.month_key && item.month_key !== notesMonthKey.value)
 )
 const rerunButtonLabel = computed(() => {
-    if (isAnalyzing.value) return '正在推演'
-    if (needsUpgrade.value) return '生成排盘'
-    if (isGuest.value) return '生成排盘'
-    return '重新推演'
+    if (isAnalyzing.value) return t('bazi.analysis.running2')
+    if (needsUpgrade.value) return t('bazi.analysis.generate')
+    if (isGuest.value) return t('bazi.analysis.generate')
+    return t('bazi.analysis.rerun')
 })
 
 
@@ -6944,6 +6951,9 @@ const getShenColor = (shen) => {
     flex-shrink: 0;
     letter-spacing: 1px;
     max-width: var(--hero-badge-width, 48px);
+}
+:root[lang="en-US"] .profile-strip-badge {
+    letter-spacing: 0;
     opacity: var(--hero-side-opacity, 1);
     overflow: hidden;
     white-space: nowrap;
