@@ -139,5 +139,5 @@ test('nextLocale 按开放顺序循环', () => {
   for (let i = 0; i < 3; i += 1) { cur = nextLocale(cur, all); seen.push(cur); }
   assert.deepEqual(seen, ['zh-TW', 'en-US', 'zh-CN']);
   assert.equal(nextLocale('en-US', ['zh-CN', 'zh-TW']), 'zh-CN');
-  assert.ok(ENABLED_LOCALES.includes('zh-CN'));
+  assert.deepEqual(ENABLED_LOCALES, ['zh-CN', 'zh-TW', 'en-US']);
 });

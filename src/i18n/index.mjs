@@ -5,9 +5,9 @@ import enUS from './locales/en-US.mjs';
 export const DEFAULT_LOCALE = 'zh-CN';
 export const LOCALE_STORAGE_KEY = 'qimen-locale';
 export const SUPPORTED_LOCALES = ['zh-CN', 'zh-TW', 'en-US'];
-// 上线开关：菜单里能切到的语言。M1 繁體上线时为 zh-CN + zh-TW；M3 英文上线时加入 en-US。
-// 未开放的语言只能通过预览查询串 ?locale=xx 强制进入。
-export const ENABLED_LOCALES = ['zh-CN', 'zh-TW'];
+// 上线开关：菜单里能切到的语言。M1 繁體上线时为 zh-CN + zh-TW；M3 加入 en-US（2026-11-18 Justin 拍板跳过评测直接开放）。
+// 浏览器语言为英文且没手动选过的访客，首次进入即为英文。
+export const ENABLED_LOCALES = ['zh-CN', 'zh-TW', 'en-US'];
 
 // 每种语言的自称，不翻译。
 export const LOCALE_NATIVE_NAMES = {

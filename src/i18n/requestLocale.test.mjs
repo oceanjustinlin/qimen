@@ -1,3 +1,4 @@
+import { currentLocale } from './index.mjs'
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
@@ -6,7 +7,8 @@ import { apiErrorText, localeJson, withLocale, withLocaleQuery } from './request
 test('withLocale / localeJson 带上界面语言', () => {
   assert.deepEqual(withLocale({ a: 1 }, 'en-US'), { a: 1, locale: 'en-US' })
   assert.equal(localeJson({ a: 1 }, 'zh-TW'), '{"a":1,"locale":"zh-TW"}')
-  assert.equal(withLocale({}).locale, 'zh-CN')
+  // 默认取当前界面语言（Node 的 navigator.language 是 en-US，英文开放后初始即英文）
+  assert.equal(withLocale({}).locale, currentLocale())
 })
 
 test('withLocaleQuery 追加或覆盖 locale', () => {
