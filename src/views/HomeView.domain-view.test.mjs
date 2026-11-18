@@ -1,8 +1,9 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
+import { resolveSource } from '../i18n/testing/resolveSource.mjs'
 
-const source = readFileSync(new URL('./HomeView.vue', import.meta.url), 'utf8')
+const source = resolveSource(readFileSync(new URL('./HomeView.vue', import.meta.url), 'utf8'))
 
 test('奇门结果卡片按四个模块顺序渲染且不展示 M 编号', () => {
   assert.match(source, /const getApiBase = \(\) =>/)

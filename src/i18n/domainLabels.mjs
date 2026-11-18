@@ -92,3 +92,18 @@ export function genderLabel(code, locale, { zao = false } = {}) {
   if (!isEnglish(locale)) return cat[zaoKey]
   return `${cat[zaoKey]} (${zhCN.enum.gender[zaoKey]})`
 }
+
+// 应验反馈选项：kind 为 'accuracy' | 'direction'，value 为写库的 code
+const FEEDBACK_KINDS = new Set(['accuracy', 'direction'])
+export function feedbackOptionLabel(kind, value, locale) {
+  if (!FEEDBACK_KINDS.has(kind) || empty(value)) return ''
+  return catalogueFor(locale).qimenFeedback[kind][value] ?? String(value)
+}
+
+// 历史抽屉的分类筛选用短名
+const SHORT_CATEGORY_CODES = new Set(['all', 'career_business', 'finance_wealth', 'relationship', 'health_action', 'item_transaction', 'general'])
+export function shortCategoryLabel(code, locale) {
+  if (empty(code)) return ''
+  if (!SHORT_CATEGORY_CODES.has(code)) return categoryLabel(code, locale)
+  return catalogueFor(locale).home.category[code]
+}

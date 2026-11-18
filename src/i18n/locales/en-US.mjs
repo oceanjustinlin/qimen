@@ -1,5 +1,8 @@
 // English catalogue. Keys must mirror zh-CN.mjs exactly (see catalogueParity.test.mjs).
+import home from './en-US/home.mjs'
+
 export default {
+  home,
   common: {
     cancel: 'Cancel',
     close: 'Close',

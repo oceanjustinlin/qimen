@@ -1,5 +1,8 @@
 // 简体词条。值必须与原硬编码文字逐字相同（含全角标点、省略号）。繁体共用本文件，由展示层转繁。
+import home from './zh-CN/home.mjs'
+
 export default {
+  home,
   common: {
     cancel: '取消',
     close: '关闭',

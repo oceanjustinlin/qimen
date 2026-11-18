@@ -1,11 +1,12 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
+import { resolveSource } from './i18n/testing/resolveSource.mjs'
 
 const indexHtml = readFileSync(new URL('../index.html', import.meta.url), 'utf8')
 const routerSource = readFileSync(new URL('./router/index.js', import.meta.url), 'utf8')
 const mainSource = readFileSync(new URL('./main.js', import.meta.url), 'utf8')
-const homeSource = readFileSync(new URL('./views/HomeView.vue', import.meta.url), 'utf8')
+const homeSource = resolveSource(readFileSync(new URL('./views/HomeView.vue', import.meta.url), 'utf8'))
 const sitemapSource = readFileSync(new URL('../public/sitemap.xml', import.meta.url), 'utf8')
 const robotsSource = readFileSync(new URL('../public/robots.txt', import.meta.url), 'utf8')
 

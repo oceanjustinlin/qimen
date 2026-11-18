@@ -1,8 +1,9 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
+import { resolveSource } from '../i18n/testing/resolveSource.mjs'
 
-const source = readFileSync(new URL('./EngineeringView.vue', import.meta.url), 'utf8')
+const source = resolveSource(readFileSync(new URL('./EngineeringView.vue', import.meta.url), 'utf8'))
 const currentUpdatesBlock = source.slice(
   source.indexOf('const currentUpdates = ['),
   source.indexOf('const historyUpdates = [')

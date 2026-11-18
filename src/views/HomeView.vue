@@ -1,10 +1,10 @@
 <template>
   <div class="home-view">
     <header id="siteHeader" :class="{ 'result-header': viewState === 'result' }">
-      <button class="hamburger" :class="{ open: globalState.isDrawerOpen }" @click="toggleDrawer" aria-label="历史记录">
+      <button class="hamburger" :class="{ open: globalState.isDrawerOpen }" @click="toggleDrawer" :aria-label="t('home.drawer.history')">
         <span></span><span></span><span></span>
       </button>
-      <div v-if="viewState !== 'result'" class="site-logo" @click="resetToInput" style="cursor: pointer;" title="返回首页">奇门道</div>
+      <div v-if="viewState !== 'result'" class="site-logo" @click="resetToInput" style="cursor: pointer;" :title="t('home.backHome')">{{ t('brand.name') }}</div>
       <div v-if="viewState !== 'result'" class="header-actions">
         <OpenSourceLinks />
         <AccountMenu />
@@ -16,18 +16,18 @@
       <div id="historyDrawer" :class="{ open: globalState.isDrawerOpen }">
         <div class="drawer-head">
           <div class="drawer-topbar">
-            <div class="drawer-brand">奇门道</div>
-            <button class="drawer-close" type="button" @click="globalState.isDrawerOpen = false" aria-label="关闭历史记录">×</button>
+            <div class="drawer-brand">{{ t('brand.name') }}</div>
+            <button class="drawer-close" type="button" @click="globalState.isDrawerOpen = false" :aria-label="t('home.drawer.closeHistory')">×</button>
           </div>
           <button class="drawer-new-session" type="button" @click="startNewSession">
-            <span>再起一局</span>
+            <span>{{ t('home.newReading') }}</span>
             <span aria-hidden="true">↗</span>
           </button>
-          <div class="drawer-title-txt">推演回溯</div>
+          <div class="drawer-title-txt">{{ t('home.drawer.title') }}</div>
         </div>
         <div class="drawer-filter">
           <div class="filter-select-wrap">
-            <select id="historyCategorySelect" v-model="activeCategory" class="filter-select" aria-label="分类查阅">
+            <select id="historyCategorySelect" v-model="activeCategory" class="filter-select" :aria-label="t('home.drawer.filter')">
               <option v-for="cat in categories" :key="cat.value" :value="cat.value">
                 {{ cat.label }}
               </option>
@@ -42,7 +42,7 @@
               <circle cx="32" cy="32" r="18" stroke="rgba(212,175,55,0.3)" stroke-width="1" stroke-dasharray="3 3"/>
               <circle cx="32" cy="32" r="3" fill="rgba(212,175,55,0.5)"/>
             </svg>
-            <p>尚无推演记录<br>缘起于此，万象皆空</p>
+            <p>{{ t('home.drawer.emptyLine1') }}<br>{{ t('home.drawer.emptyLine2') }}</p>
           </div>
           <div v-else class="d-hist-item" v-for="item in filteredHistory" :key="item.id" @click="loadRecord(item)">
             <span class="d-hist-dot" :class="getVerdictCls(item.score)"></span>
@@ -50,15 +50,15 @@
               <div class="d-hist-q" data-i18n-skip>{{ item.question }}</div>
               <div class="d-hist-meta">
                 <span>{{ item.dateStr }}</span><span>·</span>
-                <span>{{ item.catLabel }}</span><span v-if="!isBaziRecord(item)">·</span>
-                <span v-if="!isBaziRecord(item)">参考指数 {{ item.score }}</span>
+                <span>{{ historyCatLabel(item.category) }}</span><span v-if="!isBaziRecord(item)">·</span>
+                <span v-if="!isBaziRecord(item)">{{ t('home.scoreIndex', { score: item.score }) }}</span>
               </div>
             </div>
-            <span v-if="!isBaziRecord(item)" class="d-hist-badge" :class="'verdict-' + getVerdictInfo(item.score).cls">{{ getVerdictInfo(item.score).label }}</span>
+            <span v-if="!isBaziRecord(item)" class="d-hist-badge" :class="'verdict-' + getVerdictInfo(item.score).cls">{{ verdictLabel(getVerdictInfo(item.score).label, locale) }}</span>
           </div>
-          <div v-if="historyLoading" class="drawer-loading">加载中…</div>
+          <div v-if="historyLoading" class="drawer-loading">{{ t('common.loading') }}</div>
           <button v-else-if="historyHasMore && filteredHistory.length" class="drawer-load-more" type="button" @click="loadHistoryPage()">
-            加载更多
+            {{ t('home.drawer.loadMore') }}
           </button>
         </div>
       </div>
@@ -67,23 +67,23 @@
     <div class="page-wrap" :class="{ 'result-page-wrap': viewState === 'result' }">
       <div class="container" :class="{ 'public-landing-container': !canUseApp && viewState === 'input' }">
         <section v-if="!canUseApp && viewState === 'input'" class="seo-landing" aria-labelledby="seoLandingTitle">
-          <h1 id="seoLandingTitle">奇门遁甲在线排盘与 AI 解盘</h1>
+          <h1 id="seoLandingTitle">{{ t('home.seo.title') }}</h1>
           <p class="seo-lead">
-            奇门道提供奇门遁甲在线排盘、八字四柱排盘和今日运势分析。输入时间、地点和所问之事，即可生成局盘、宫位、干支、评分与行动建议。
+            {{ t('home.seo.intro') }}
           </p>
-          <div class="seo-proof">规则引擎先排盘，AI 负责解释。</div>
-          <div class="seo-entry-grid" aria-label="核心功能入口">
+          <div class="seo-proof">{{ t('home.seo.proof') }}</div>
+          <div class="seo-entry-grid" :aria-label="t('home.seo.entries')">
             <div class="seo-entry">
-              <span>奇门问事</span>
-              <small>按当下时辰起局，分析感情、事业、财运与选择。</small>
+              <span>{{ t('home.seo.qimenTitle') }}</span>
+              <small>{{ t('home.seo.qimenText') }}</small>
             </div>
             <div class="seo-entry">
-              <span>八字排盘</span>
-              <small>四柱十神、喜用神、格局、大运流年一键生成。</small>
+              <span>{{ t('home.seo.baziTitle') }}</span>
+              <small>{{ t('home.seo.baziText') }}</small>
             </div>
             <div class="seo-entry">
-              <span>今日运势</span>
-              <small>每日、每周、月度节奏和可执行建议。</small>
+              <span>{{ t('home.seo.fortuneTitle') }}</span>
+              <small>{{ t('home.seo.fortuneText') }}</small>
             </div>
           </div>
         </section>
@@ -111,12 +111,12 @@
               </div>
               <div class="hero-brand">
                 <div class="hero-label">QIMEN DAO</div>
-                <h1 class="hero-name">奇门道</h1>
-                <p class="hero-sub">洞察天机，<em>决胜千里</em></p>
+                <h1 class="hero-name">{{ t('brand.name') }}</h1>
+                <p class="hero-sub">{{ t('home.hero.sub1') }}<em>{{ t('home.hero.sub2') }}</em></p>
               </div>
             </div>
             <div class="auth-btns">
-              <button class="abtn abtn--solid" type="button" @click="authView = 'login'">登录</button>
+              <button class="abtn abtn--solid" type="button" @click="authView = 'login'">{{ t('account.signIn') }}</button>
               <button class="abtn abtn--border" type="button" :disabled="googleAuthLoading || authLoading" @click="handleGoogleAuth">
                 <span class="google-mark" aria-hidden="true">
                   <svg viewBox="0 0 24 24" focusable="false">
@@ -126,15 +126,15 @@
                     <path fill="#EA4335" d="M12 5.37c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06L5.84 9.9C6.71 7.3 9.14 5.37 12 5.37z"/>
                   </svg>
                 </span>
-                {{ googleAuthLoading ? '正在跳转...' : 'Google 登录' }}
+                {{ googleAuthLoading ? t('home.auth.redirecting') : t('home.auth.google') }}
               </button>
-              <div class="abtn-divider"><span>——或者——</span></div>
-              <button class="abtn abtn--ghost" type="button" @click="handleGuestEntry">访客登录</button>
-              <button class="abtn-text" type="button" @click="authView = 'register'">注册</button>
+              <div class="abtn-divider"><span>{{ t('home.auth.or') }}</span></div>
+              <button class="abtn abtn--ghost" type="button" @click="handleGuestEntry">{{ t('home.auth.guest') }}</button>
+              <button class="abtn-text" type="button" @click="authView = 'register'">{{ t('account.register') }}</button>
               <p class="auth-legal">
-                继续即表示同意
-                <router-link to="/terms">《用户协议》</router-link>与
-                <router-link to="/privacy">《隐私政策》</router-link>
+                {{ t('home.auth.legalPrefix') }}
+                <router-link to="/terms">{{ t('home.auth.terms') }}</router-link>{{ t('home.auth.legalAnd') }}
+                <router-link to="/privacy">{{ t('home.auth.privacy') }}</router-link>
               </p>
             </div>
           </template>
@@ -143,25 +143,25 @@
             <div class="auth-form-pg">
               <button class="auth-back" type="button" @click="authView = 'landing'">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                返回
+                {{ t('common.back') }}
               </button>
-              <h2 class="afm-title">登录</h2>
+              <h2 class="afm-title">{{ t('account.signIn') }}</h2>
               <div class="afm-fields">
                 <label class="afm-field">
-                  <span>邮箱</span>
+                  <span>{{ t('home.auth.email') }}</span>
                   <input type="email" v-model="authForm.email" placeholder="name@example.com" autocomplete="email"/>
                 </label>
                 <label class="afm-field">
-                  <span>密码</span>
-                  <input type="password" v-model="authForm.password" placeholder="至少 6 位" autocomplete="current-password"/>
+                  <span>{{ t('home.auth.password') }}</span>
+                  <input type="password" v-model="authForm.password" :placeholder="t('home.auth.passwordHint')" autocomplete="current-password"/>
                 </label>
               </div>
               <button class="abtn abtn--solid" type="button" :disabled="authLoading" @click="handleAuth">
-                {{ authLoading ? '验证中...' : '登录' }}
+                {{ authLoading ? t('home.auth.verifying') : t('account.signIn') }}
               </button>
               <div class="afm-sub">
                 <button class="forgot-password-link" type="button" :disabled="resetEmailLoading" @click="handleResetPasswordEmail">
-                  {{ resetEmailLoading ? '正在发送...' : '忘记密码' }}
+                  {{ resetEmailLoading ? t('home.auth.sending') : t('home.auth.forgot') }}
                 </button>
               </div>
               <div v-if="resetEmailNotice" class="auth-notice">{{ resetEmailNotice }}</div>
@@ -172,26 +172,26 @@
             <div class="auth-form-pg">
               <button class="auth-back" type="button" @click="authView = 'landing'">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                返回
+                {{ t('common.back') }}
               </button>
-              <h2 class="afm-title">注册</h2>
+              <h2 class="afm-title">{{ t('account.register') }}</h2>
               <div class="afm-fields">
                 <label class="afm-field">
-                  <span>邮箱</span>
+                  <span>{{ t('home.auth.email') }}</span>
                   <input type="email" v-model="authForm.email" placeholder="name@example.com" autocomplete="email"/>
                 </label>
                 <label class="afm-field">
-                  <span>密码</span>
-                  <input type="password" v-model="authForm.password" placeholder="至少 6 位" autocomplete="new-password"/>
+                  <span>{{ t('home.auth.password') }}</span>
+                  <input type="password" v-model="authForm.password" :placeholder="t('home.auth.passwordHint')" autocomplete="new-password"/>
                 </label>
               </div>
               <button class="abtn abtn--solid" type="button" :disabled="authLoading" @click="handleAuth">
-                {{ authLoading ? '注册中...' : '注册' }}
+                {{ authLoading ? t('home.auth.registering') : t('account.register') }}
               </button>
               <p class="auth-legal">
-                继续即表示同意
-                <router-link to="/terms">《用户协议》</router-link>与
-                <router-link to="/privacy">《隐私政策》</router-link>
+                {{ t('home.auth.legalPrefix') }}
+                <router-link to="/terms">{{ t('home.auth.terms') }}</router-link>{{ t('home.auth.legalAnd') }}
+                <router-link to="/privacy">{{ t('home.auth.privacy') }}</router-link>
               </p>
             </div>
           </template>
@@ -201,7 +201,7 @@
           <transition name="fade" mode="out-in">
             <div v-show="viewState === 'input'" class="input-wrapper">
               <div class="tagline">
-                <div class="tagline-main">天时 · 地利 · 人和</div>
+                <div class="tagline-main">{{ t('home.tagline') }}</div>
               </div>
 
               <div class="glass-card qimen-profile-panel">
@@ -209,11 +209,11 @@
                   <!-- 命主一栏：直接写出这次问事用哪份八字，点右侧切换 -->
                   <button class="profile-switch-trigger" type="button" :aria-expanded="isProfileMenuOpen" @click="toggleProfileMenu">
                     <span class="profile-switch-who">
-                      <small>命主</small>
+                      <small>{{ t('home.profile.owner') }}</small>
                       <span class="profile-switch-name" :data-i18n-skip="activeBaziProfile?.name ? '' : null">{{ activeProfileName }}</span>
-                      <span v-if="activeBaziProfile" class="profile-switch-meta">{{ activeBaziProfile.gender === 'M' ? '乾造' : '坤造' }} · {{ formatSolarDate(activeBaziProfile.birth_date).split(' ')[0] }}</span>
+                      <span v-if="activeBaziProfile" class="profile-switch-meta">{{ genderLabel(activeBaziProfile.gender, locale, { zao: true }) }} · {{ formatSolarDate(activeBaziProfile.birth_date).split(' ')[0] }}</span>
                     </span>
-                    <span class="profile-switch-action">切换<span class="profile-switch-symbol" aria-hidden="true">⇄</span></span>
+                    <span class="profile-switch-action">{{ t('home.profile.switch') }}<span class="profile-switch-symbol" aria-hidden="true">⇄</span></span>
                   </button>
                   <div v-if="isProfileMenuOpen" class="profile-flyout">
                     <button
@@ -231,16 +231,16 @@
                   </div>
                 </div>
                 <button v-else class="add-bazi-profile-btn" type="button" @click="goToBaziProfiles">
-                  添加八字档案
+                  {{ t('home.profile.add') }}
                 </button>
               </div>
 
               <div class="glass-card input-card">
                 <div class="input-label">
-                  <span>叩问天机</span>
-                  <button class="route-info-trigger" type="button" @click.stop="showRouteInfoModal = true" aria-label="查看八字与奇门分流说明">i</button>
+                  <span>{{ t('home.ask.title') }}</span>
+                  <button class="route-info-trigger" type="button" @click.stop="showRouteInfoModal = true" :aria-label="t('home.ask.routeInfo')">i</button>
                 </div>
-                <textarea v-model="questionInput" placeholder="在心中默念所求之事，写下您的羁绊与心中所惑……"></textarea>
+                <textarea v-model="questionInput" :placeholder="t('home.ask.placeholder')"></textarea>
                 <div class="suggestion-slot">
                   <Transition name="sugg-row" mode="out-in">
                     <div v-if="!questionInput" :key="suggestionPairIdx" class="suggestion-row">
@@ -262,7 +262,7 @@
                     <span>{{ clockText }}</span>
                     <span class="time-edit-ic" aria-hidden="true">✎</span>
                   </div>
-                  <div class="time-note" :class="{ 'is-reset': panTime }" @click="onTimeNoteClick">{{ panTime ? '重置为现在' : '以当下时辰起局' }}</div>
+                  <div class="time-note" :class="{ 'is-reset': panTime }" @click="onTimeNoteClick">{{ panTime ? t('home.ask.resetToNow') : t('home.ask.castNow') }}</div>
                 </div>
               </div>
 
@@ -279,7 +279,7 @@
                       <circle cx="10" cy="5.75" r="1.5" fill="#1a1000"/>
                       <circle cx="10" cy="14.25" r="1.5" fill="#1a1000" opacity=".4"/>
                     </svg>
-                    <span class="cta-text">{{ isGuest ? '请先登录' : '洞察天机' }}</span>
+                    <span class="cta-text">{{ isGuest ? t('home.ask.signInFirst') : t('home.ask.submit') }}</span>
                   </div>
                 </button>
               </div>
@@ -287,13 +287,13 @@
               <!-- 最近问过：首页直接回到旧局，方便继续追问 -->
               <section v-if="recentRecords.length" class="recent-asks">
                 <div class="recent-head">
-                  <h3>最近问过</h3>
-                  <button type="button" @click="globalState.isDrawerOpen = true">全部记录</button>
+                  <h3>{{ t('home.recent.title') }}</h3>
+                  <button type="button" @click="globalState.isDrawerOpen = true">{{ t('home.recent.all') }}</button>
                 </div>
                 <button v-for="item in recentRecords" :key="'recent-' + item.id" type="button" class="recent-item" @click="loadRecord(item)">
                   <span class="recent-q" data-i18n-skip>{{ item.question }}</span>
-                  <span class="recent-meta">{{ formatRecentDate(item.created_at) }} · {{ item.catLabel }}</span>
-                  <span v-if="!isBaziRecord(item)" class="recent-score" :class="'verdict-' + getVerdictInfo(item.score).cls">{{ getVerdictInfo(item.score).label }} {{ item.score }}</span>
+                  <span class="recent-meta">{{ formatRecentDate(item.created_at) }} · {{ historyCatLabel(item.category) }}</span>
+                  <span v-if="!isBaziRecord(item)" class="recent-score" :class="'verdict-' + getVerdictInfo(item.score).cls">{{ verdictLabel(getVerdictInfo(item.score).label, locale) }} {{ item.score }}</span>
                 </button>
               </section>
 
@@ -362,13 +362,13 @@
                 >
                   <template #identity>
                     <div v-if="snapshotProfile && snapshotProfile.name" class="backing-identity">
-                      <div class="backing-section-title">原局命盘</div>
+                      <div class="backing-section-title">{{ t('home.backing.natalChart') }}</div>
                       <div class="backing-name-row">
                         <span class="backing-name" data-i18n-skip>{{ snapshotProfile.name }}</span>
                         <span v-if="snapshotProfile.strong_weak" class="backing-badge badge-blue">{{ snapshotProfile.strong_weak }}</span>
                         <span v-if="snapshotPatternName" class="backing-badge badge-gold">{{ snapshotPatternName }}</span>
                       </div>
-                      <div v-if="snapshotLunarStr" class="backing-meta">农历：{{ snapshotLunarStr }}</div>
+                      <div v-if="snapshotLunarStr" class="backing-meta">{{ t('home.backing.lunar', { date: snapshotLunarStr }) }}</div>
                     </div>
                   </template>
                 </BaziBackingPanel>
@@ -401,14 +401,14 @@
               <div class="result-actions">
                 <button class="reset-btn" @click="resetToInput">
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7a5 5 0 1 0 1.4-3.5L2 2v3h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  再起一局
+                  {{ t('home.newReading') }}
                 </button>
                 <button
                   class="result-save-img-btn"
                   :class="{ saving: isSavingImage }"
                   @click="saveAsImage"
                   :disabled="isSavingImage"
-                  title="保存为图片分享"
+                  :title="t('home.result.saveImageTitle')"
                 >
                   <svg v-if="!isSavingImage" width="14" height="14" viewBox="0 0 14 14" fill="none">
                     <path d="M7 1v8M4 6l3 3 3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
@@ -417,7 +417,7 @@
                   <svg v-else class="spin-icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
                     <circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.3" stroke-dasharray="10 8" stroke-linecap="round"/>
                   </svg>
-                  {{ isSavingImage ? '生成中' : '保存' }}
+                  {{ isSavingImage ? t('home.result.saving') : t('common.save') }}
                 </button>
                 <button
                   v-if="activeResultRecord?.canFeedback"
@@ -425,7 +425,7 @@
                   :class="{ done: activeResultRecord.hasFeedback }"
                   @click="openFeedbackDrawer(activeResultRecord)"
                 >
-                  {{ activeResultRecord.hasFeedback ? '已反馈' : '反馈' }}
+                  {{ activeResultRecord.hasFeedback ? t('home.result.feedbackDone') : t('home.result.feedback') }}
                 </button>
               </div>
 
@@ -436,10 +436,10 @@
               <div v-if="canFollowup" class="wenshi-followup-dock">
                 <Transition name="dock-pop" mode="out-in">
                   <div v-if="followupNewMatter" key="newmatter" class="followup-newmatter">
-                    <span class="fn-text">这看起来是一个新问题，原局答不了。要为它重新起一局吗？</span>
+                    <span class="fn-text">{{ t('home.followup.newMatter') }}</span>
                     <div class="fn-actions">
-                      <button class="fn-confirm" @click="confirmRecastFromFollowup">重新起局</button>
-                      <button class="fn-cancel" @click="followupNewMatter = null">取消</button>
+                      <button class="fn-confirm" @click="confirmRecastFromFollowup">{{ t('home.followup.recast') }}</button>
+                      <button class="fn-cancel" @click="followupNewMatter = null">{{ t('common.cancel') }}</button>
                     </div>
                   </div>
                   <div v-else key="bar" class="followup-bar">
@@ -448,7 +448,7 @@
                       v-model="followupInput"
                       class="followup-input"
                       rows="1"
-                      :placeholder="followupSubmitting ? '正在追问解读…' : '就这一局继续追问…'"
+                      :placeholder="followupSubmitting ? t('home.followup.submitting') : t('home.followup.placeholder')"
                       :disabled="followupSubmitting"
                       @input="autoGrowFollowup"
                       @keydown.enter.exact.prevent="submitFollowup"
@@ -458,7 +458,7 @@
                       :class="{ loading: followupSubmitting }"
                       :disabled="followupSubmitting || !followupInput.trim()"
                       @click="submitFollowup"
-                      aria-label="发送追问"
+                      :aria-label="t('home.followup.send')"
                     >
                       <svg v-if="!followupSubmitting" viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                       <svg v-else class="dock-spin" viewBox="0 0 24 24" width="18" height="18" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2.4" stroke-dasharray="16 12" stroke-linecap="round"/></svg>
@@ -470,23 +470,23 @@
           </transition>
         </div>
 
-        <section v-if="!canUseApp && viewState === 'input'" class="seo-faq-section" aria-label="常见问题">
+        <section v-if="!canUseApp && viewState === 'input'" class="seo-faq-section" :aria-label="t('home.faq.title')">
           <div class="seo-faq-head">
-            <h2>常见问题</h2>
-            <p>把搜索用户最关心的问题放在工具入口之后，先体验，再解释边界。</p>
+            <h2>{{ t('home.faq.title') }}</h2>
+            <p>{{ t('home.faq.intro') }}</p>
           </div>
           <div class="seo-faq-list">
             <details>
-              <summary>奇门道可以做什么？</summary>
-              <p>可以在线生成奇门遁甲局盘、AI 解盘、八字四柱排盘和每日运势分析。</p>
+              <summary>{{ t('home.faq.q1') }}</summary>
+              <p>{{ t('home.faq.a1') }}</p>
             </details>
             <details>
-              <summary>AI 解盘和传统排盘有什么区别？</summary>
-              <p>奇门道先用规则引擎计算时间、干支、宫位和评分，再由 AI 把盘面转成可读解释。</p>
+              <summary>{{ t('home.faq.q2') }}</summary>
+              <p>{{ t('home.faq.a2') }}</p>
             </details>
             <details>
-              <summary>奇门问事需要出生时间吗？</summary>
-              <p>奇门问事可以按当前时间起局；八字排盘和长期运势分析需要出生日期、时间和出生地。</p>
+              <summary>{{ t('home.faq.q3') }}</summary>
+              <p>{{ t('home.faq.a3') }}</p>
             </details>
           </div>
         </section>
@@ -497,25 +497,25 @@
       <aside class="feedback-drawer" @click.stop>
         <div class="feedback-head">
           <div>
-            <div class="feedback-kicker">应验反馈</div>
-            <h3>这一次推演后来怎么样？</h3>
+            <div class="feedback-kicker">{{ t('home.feedback.kicker') }}</div>
+            <h3>{{ t('home.feedback.title') }}</h3>
           </div>
-          <button class="feedback-close" @click="closeFeedbackDrawer" aria-label="关闭反馈抽屉">&times;</button>
+          <button class="feedback-close" @click="closeFeedbackDrawer" :aria-label="t('home.feedback.close')">&times;</button>
         </div>
 
         <div v-if="feedbackTargetRecord" class="feedback-summary">
           <div class="feedback-question" data-i18n-skip>“{{ feedbackTargetRecord.question }}”</div>
           <div class="feedback-meta">
             <span>{{ feedbackTargetRecord.dateStr }}</span>
-            <span>{{ feedbackTargetRecord.catLabel }}</span>
-            <span>参考指数 {{ feedbackTargetRecord.score }}</span>
+            <span>{{ historyCatLabel(feedbackTargetRecord.category) }}</span>
+            <span>{{ t('home.scoreIndex', { score: feedbackTargetRecord.score }) }}</span>
           </div>
           <p v-if="feedbackConclusion" class="feedback-conclusion">{{ feedbackConclusion }}</p>
         </div>
 
         <div class="feedback-form">
           <div class="feedback-field">
-            <div class="feedback-label">应验程度</div>
+            <div class="feedback-label">{{ t('home.feedback.accuracy') }}</div>
             <div class="feedback-options">
               <button
                 v-for="option in feedbackAccuracyOptions"
@@ -524,13 +524,13 @@
                 :class="{ active: feedbackForm.accuracy_status === option.value }"
                 @click="feedbackForm.accuracy_status = option.value"
               >
-                {{ option.label }}
+                {{ feedbackOptionLabel('accuracy', option.value, locale) }}
               </button>
             </div>
           </div>
 
           <div class="feedback-field">
-            <div class="feedback-label">结果方向</div>
+            <div class="feedback-label">{{ t('home.feedback.direction') }}</div>
             <div class="feedback-options">
               <button
                 v-for="option in feedbackDirectionOptions"
@@ -539,26 +539,26 @@
                 :class="{ active: feedbackForm.actual_direction === option.value }"
                 @click="feedbackForm.actual_direction = option.value"
               >
-                {{ option.label }}
+                {{ feedbackOptionLabel('direction', option.value, locale) }}
               </button>
             </div>
           </div>
 
           <div class="feedback-field">
-            <div class="feedback-label">补充说明 <span>{{ feedbackForm.note.length }}/200</span></div>
+            <div class="feedback-label">{{ t('home.feedback.note') }} <span>{{ feedbackForm.note.length }}/200</span></div>
             <textarea
               v-model="feedbackForm.note"
               class="feedback-note"
               maxlength="200"
-              placeholder="例如：实际第二天下午收到回复，但结果没有继续推进。"
+              :placeholder="t('home.feedback.notePlaceholder')"
             ></textarea>
           </div>
         </div>
 
         <div class="feedback-actions">
-          <button class="feedback-secondary" @click="closeFeedbackDrawer">取消</button>
+          <button class="feedback-secondary" @click="closeFeedbackDrawer">{{ t('common.cancel') }}</button>
           <button class="feedback-primary" :disabled="feedbackSaving" @click="submitQimenFeedback">
-            {{ feedbackSaving ? '保存中...' : (feedbackTargetRecord?.hasFeedback ? '更新反馈' : '提交反馈') }}
+            {{ feedbackSaving ? t('home.feedback.saving') : (feedbackTargetRecord?.hasFeedback ? t('home.feedback.update') : t('home.feedback.submit')) }}
           </button>
         </div>
       </aside>
@@ -567,36 +567,36 @@
     <div class="route-info-overlay" :class="{ show: showRouteInfoModal }" @click="showRouteInfoModal = false">
       <div class="route-info-card" @click.stop>
         <div class="route-info-title">
-          <span>系统如何自动判断</span>
-          <button class="route-info-close" type="button" @click="showRouteInfoModal = false" aria-label="关闭分流说明">&times;</button>
+          <span>{{ t('home.route.title') }}</span>
+          <button class="route-info-close" type="button" @click="showRouteInfoModal = false" :aria-label="t('home.route.close')">&times;</button>
         </div>
         <div class="route-info-grid">
           <div class="route-info-row">
-            <div class="route-tool">八字</div>
+            <div class="route-tool">{{ t('nav.bazi') }}</div>
             <div>
-              <div class="route-focus">长期格局</div>
-              <p>看命局、大运流年、行业适配、财官婚健的长期趋势。</p>
+              <div class="route-focus">{{ t('home.route.baziFocus') }}</div>
+              <p>{{ t('home.route.baziText') }}</p>
             </div>
           </div>
           <div class="route-info-row">
-            <div class="route-tool">奇门</div>
+            <div class="route-tool">{{ t('nav.qimen') }}</div>
             <div>
-              <div class="route-focus">具体事件</div>
-              <p>看成败、应期、方位、A/B 选择和短期行动策略。</p>
+              <div class="route-focus">{{ t('home.route.qimenFocus') }}</div>
+              <p>{{ t('home.route.qimenText') }}</p>
             </div>
           </div>
           <div class="route-info-row">
-            <div class="route-tool">综合</div>
+            <div class="route-tool">{{ t('home.route.hybrid') }}</div>
             <div>
-              <div class="route-focus">宏观定调，微观决策</div>
-              <p>先看八字底色，再用奇门判断眼前这件事怎么动。</p>
+              <div class="route-focus">{{ t('home.route.hybridFocus') }}</div>
+              <p>{{ t('home.route.hybridText') }}</p>
             </div>
           </div>
         </div>
         <div class="route-quota-bar">
-          <span class="rq-label">今日问事额度</span>
+          <span class="rq-label">{{ t('home.quota.label') }}</span>
           <template v-if="currentUser">
-            <span v-if="dailyQimenUsed === null" class="rq-loading">查询中…</span>
+            <span v-if="dailyQimenUsed === null" class="rq-loading">{{ t('home.quota.loading') }}</span>
             <span v-else class="rq-count">
               <span
                 v-for="i in DAILY_QIMEN_LIMIT"
@@ -604,12 +604,12 @@
                 class="rq-pip"
                 :class="{ 'rq-pip--used': i <= dailyQimenUsed }"
               ></span>
-              <span class="rq-text">今日剩余 {{ Math.max(0, DAILY_QIMEN_LIMIT - dailyQimenUsed) }} / {{ DAILY_QIMEN_LIMIT }}</span>
+              <span class="rq-text">{{ t('home.quota.left', { left: Math.max(0, DAILY_QIMEN_LIMIT - dailyQimenUsed), limit: DAILY_QIMEN_LIMIT }) }}</span>
             </span>
           </template>
-          <span v-else class="rq-guest">登录后可用</span>
+          <span v-else class="rq-guest">{{ t('home.quota.guest') }}</span>
         </div>
-        <div class="route-info-note">你只需自然提问；系统会先识别问题类型，自动选择八字、奇门或综合路径，并注入对应规则。</div>
+        <div class="route-info-note">{{ t('home.route.note') }}</div>
       </div>
     </div>
 
@@ -628,11 +628,11 @@
     <Teleport to="body">
       <div class="reset-time-overlay" :class="{ show: showResetTimeConfirm }" @click="showResetTimeConfirm = false">
         <div class="reset-time-box" @click.stop>
-          <p>重置为现在的时辰？</p>
-          <small v-if="panTime">将放弃已选 {{ panTime.month }}月{{ panTime.day }}日 {{ String(panTime.hour).padStart(2, '0') }}:{{ String(panTime.minute).padStart(2, '0') }}</small>
+          <p>{{ t('home.resetTime.title') }}</p>
+          <small v-if="panTime">{{ t('home.resetTime.discard', { month: panTime.month, day: panTime.day, time: `${String(panTime.hour).padStart(2, '0')}:${String(panTime.minute).padStart(2, '0')}` }) }}</small>
           <div class="reset-time-actions">
-            <button type="button" class="rt-ghost" @click="showResetTimeConfirm = false">取消</button>
-            <button type="button" class="rt-solid" @click="confirmResetTime">重置</button>
+            <button type="button" class="rt-ghost" @click="showResetTimeConfirm = false">{{ t('common.cancel') }}</button>
+            <button type="button" class="rt-solid" @click="confirmResetTime">{{ t('home.resetTime.confirm') }}</button>
           </div>
         </div>
       </div>
@@ -643,15 +643,15 @@
       <div class="share-img-modal" @click.stop>
         <div class="share-img-header">
           <span class="share-img-kicker">SHARE IMAGE</span>
-          <span class="share-img-title">长按图片保存</span>
-          <button class="share-img-close" @click="closeShareModal" aria-label="关闭">×</button>
+          <span class="share-img-title">{{ t('home.share.longPress') }}</span>
+          <button class="share-img-close" @click="closeShareModal" :aria-label="t('common.close')">×</button>
         </div>
         <div class="share-img-body">
           <img
             v-if="shareImgUrl"
             :src="shareImgUrl"
             class="share-img-preview"
-            alt="奇门推演结果图"
+            :alt="t('home.share.alt')"
           />
         </div>
       </div>
@@ -664,6 +664,9 @@ import { ref, reactive, computed, onMounted, onUnmounted, nextTick, watch } from
 import { useRoute, useRouter } from 'vue-router'
 import { supabase } from '../lib/supabase.mjs'
 import { displayText } from '../i18n/localeDisplay.mjs'
+import { useI18n } from 'vue-i18n'
+import { formatDate } from '../i18n/formatters.mjs'
+import { genderLabel, categoryLabel, verdictLabel, feedbackOptionLabel, shortCategoryLabel } from '../i18n/domainLabels.mjs'
 import { Solar } from 'lunar-javascript'
 import { getGuestState, trackGuestEvent } from '../guestMode.mjs'
 import {
@@ -1057,15 +1060,12 @@ const canFollowup = computed(() =>
   && (sseBranch.value === 'qimen' || sseBranch.value === 'bazi') && !!currentResultData.value)
 // 当前追问分支（八字结果的 currentResultData.branch==='bazi'）
 const followupBranch = computed(() => (currentResultData.value?.branch === 'bazi' ? 'bazi' : 'qimen'))
-const categories = [
-  { label: '全部', value: 'all' },
-  { label: '事业', value: 'career_business' },
-  { label: '求财', value: 'finance_wealth' },
-  { label: '感情', value: 'relationship' },
-  { label: '健康', value: 'health_action' },
-  { label: '交易', value: 'item_transaction' },
-  { label: '杂事', value: 'general' }
-]
+const { t, locale } = useI18n()
+// 只存 code；显示名随语言变化（传给 Supabase 的仍是 code）
+const CATEGORY_FILTER_CODES = ['all', 'career_business', 'finance_wealth', 'relationship', 'health_action', 'item_transaction', 'general']
+const categories = computed(() => CATEGORY_FILTER_CODES.map((value) => ({ value, label: shortCategoryLabel(value, locale.value) })))
+// 历史条目的分类短名：不在筛选列表里的分类归为「杂事」（与原逻辑一致）
+const historyCatLabel = (code) => shortCategoryLabel(CATEGORY_FILTER_CODES.includes(code) && code !== 'all' ? code : 'general', locale.value)
 const feedbackAccuracyOptions = QIMEN_ACCURACY_OPTIONS
 const feedbackDirectionOptions = QIMEN_DIRECTION_OPTIONS
 const isFeedbackDrawerOpen = ref(false)
@@ -3054,9 +3054,9 @@ const animateScore = (targetScore, fromScore = 0) => {
 
 const normalizeHistoryRows = (rows = []) => rows.map(r => ({
     ...r,
-    dateStr: new Date(r.created_at).toLocaleDateString(),
+    dateStr: formatDate(r.created_at, locale.value),
     score: Number(r.score) || 0,
-    catLabel: categories.find(c => c.value === r.category)?.label || '杂事'
+    catLabel: historyCatLabel(r.category)
   }))
 
 const resetHistoryState = () => {
@@ -3164,9 +3164,9 @@ const saveRecordToDatabase = async (question, data) => {
       question,
       qimen_data: data,
       category: data.category || 'general',
-      dateStr: new Date().toLocaleDateString(),
+      dateStr: formatDate(new Date(), locale.value),
       score: data.summary?.score || 0,
-      catLabel: categories.find(c => c.value === data.category)?.label || '杂事',
+      catLabel: historyCatLabel(data.category),
       canFeedback: false,
       hasFeedback: false,
       feedback: null
@@ -3184,11 +3184,11 @@ const saveRecordToDatabase = async (question, data) => {
   const savedRecord = inserted ? {
     ...inserted,
     qimen_data: data,
-    dateStr: new Date(inserted.created_at).toLocaleDateString(),
+    dateStr: formatDate(inserted.created_at, locale.value),
     score: data.summary?.score || 0,
     branch: data.branch || 'qimen',
     conclusion: data.summary?.conclusion || '',
-    catLabel: categories.find(c => c.value === (data.category || 'general'))?.label || '杂事',
+    catLabel: historyCatLabel(data.category || 'general'),
     canFeedback: Boolean(currentUser.value?.id),
     hasFeedback: false,
     feedback: null
