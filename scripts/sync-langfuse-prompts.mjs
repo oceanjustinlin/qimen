@@ -68,6 +68,8 @@ const divinationRouter = require('../lib/divinationRouter.js');
 const wenshiFollowup = require('../lib/wenshiFollowup.js');
 // ── P1: lib/qimenPromptSections.js 奇门 system prompt（纯静态）──
 const qimenPromptSections = require('../lib/qimenPromptSections.js');
+// ── i18n T3.2：英文输出语言块（*-en 版本 = 中文 prompt + 末尾语言块）──
+const outputLanguage = require('../lib/i18n/outputLanguage.js');
 // ── P2: lib/baziQuestionCore.js 的 readings schema（按 mode）+ 两个共用纯静态块 ──
 const baziQuestionCore = require('../lib/baziQuestionCore.js');
 const BAZI_MODES = ['status', 'timing', 'pattern', 'character', 'profile_driven'];
@@ -162,6 +164,41 @@ async function main() {
     name: 'qimen/sentinel-instruction',
     prompt: SENTINEL_INSTRUCTION,
     tags: ['qimen', 'protocol'],
+  }));
+
+  // ── i18n T3.2：会出正文的 prompt 各多推一份英文版（名字加 -en），中文版不变 ──
+  results.push(await pushPrompt({
+    name: 'i18n/output-language-block-en',
+    prompt: outputLanguage.buildOutputLanguageBlock('en-US'),
+    tags: ['i18n', 'static', `version:${outputLanguage.OUTPUT_LANGUAGE_BLOCK_VERSION}`],
+  }));
+  results.push(await pushPrompt({
+    name: 'qimen/system-en',
+    prompt: qimenPromptSections.buildQimenSystemPrompt('en-US'),
+    tags: ['qimen', 'static', 'i18n'],
+  }));
+  results.push(await pushPrompt({
+    name: 'followup/qimen-patch-en',
+    prompt: outputLanguage.appendOutputLanguage(wenshiFollowup.buildFollowupPatchPrompt({
+      branch: 'qimen',
+      followup: '那如果对方拖延怎么办',
+      evidence: {},
+      sections: { conclusion: '本月时机偏弱，建议再等一等。' },
+      targetSections: ['conclusion'],
+      nature: 'deepen',
+    }), 'en-US'),
+    tags: ['followup', 'qimen', 'i18n'],
+  }));
+  results.push(await pushPrompt({
+    name: 'followup/bazi-decide-en',
+    prompt: outputLanguage.appendOutputLanguage(wenshiFollowup.buildBaziFollowupPrompt({
+      followup: '那具体是哪一年比较关键',
+      originQuestion: SAMPLE_BAZI_QUESTION,
+      evidenceText: '（示例证据块，实际由首轮 pipelineResult 生成）',
+      sections: { summary_conclusion: '未来三年整体呈上升趋势。' },
+      route: { branch: 'bazi', analysis_mode: 'status' },
+    }), 'en-US'),
+    tags: ['followup', 'bazi', 'i18n'],
   }));
 
   const failed = results.filter((r) => !r);

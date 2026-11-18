@@ -2803,6 +2803,8 @@ const submitFollowup = async () => {
     const branch = followupBranch.value
     const isBazi = branch === 'bazi'
     const origin = isBazi ? buildBaziOrigin(currentResultData.value) : buildFollowupOrigin(currentResultData.value)
+    // 追问沿用原报告语言；旧记录没有 output_locale，按中文处理（spec T3.5）
+    origin.output_locale = currentResultData.value?.output_locale || 'zh-CN'
     const response = await fetch(isBazi ? BAZI_FOLLOWUP_API_URL : FOLLOWUP_API_URL, {
       method: 'POST', headers,
       body: localeJson({ followup: q, branch, origin }),

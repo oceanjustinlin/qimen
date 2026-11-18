@@ -146,7 +146,7 @@ function parseAuditDelta(value) {
   return Math.round(clampNumber(match ? Number(match[0]) : 0, -20, 20));
 }
 
-function deriveScoreBasisFromM3(m3Inference, formationAdjustments, finalScore) {
+function deriveScoreBasisFromM3(m3Inference, formationAdjustments, finalScore, contentLocale = 'zh-CN') {
   const positive = [];
   const negative = [];
   const textOf = (...values) => values.find(v => typeof v === 'string' && v.trim()) || '';
@@ -199,7 +199,7 @@ function deriveScoreBasisFromM3(m3Inference, formationAdjustments, finalScore) {
     });
   }
 
-  const fallbackLogic = `综合用神状态、主客关系、空亡与应期后，本局落在${finalScore >= 75 ? '偏有利' : finalScore >= 60 ? '中等可观察' : finalScore >= 40 ? '偏谨慎' : '明显谨慎'}区间。`;
+  const fallbackLogic = serverMessages.scoreLogicFallback(finalScore, contentLocale);
   return {
     positive_signals: positive.slice(0, 3),
     negative_signals: negative.slice(0, 3),
@@ -212,6 +212,8 @@ function sanitizeUserText(value) {
     .replace(/后端初分\s*\d+[^，。；,.]*[，。；,.]?/g, '')
     .replace(/后端[^，。；,.]*?(?:下调|上调|审计|初算|初分|preliminary|backend|audit)[^，。；,.]*[，。；,.]?/gi, '')
     .replace(/(?:LLM|模型)?审计修正\s*[+-]?\d+[^，。；,.]*[，。；,.]?/gi, '')
+    .replace(/\b(?:the\s+)?backend\s+(?:pre-?score|preliminary\s+score|score)\b[^,.;]*[,.;]?/gi, '')
+    .replace(/\b(?:model\s+|LLM\s+)?audit\s+(?:adjustment|delta|correction)\s*[+-]?\d*[^,.;]*[,.;]?/gi, '')
     .replace(/audit_delta|backend_pre_score|final_score_suggestion|preliminary_score_audit|qimen-score-v\d(?:\.\d+)?/gi, '')
     .replace(/\s+/g, ' ')
     .trim();
@@ -1535,6 +1537,7 @@ async function handleBaziQuestion(request, env, ctx) {
       llmText: llmFullText,
       favorable_element: _favEl,
       subject_snapshot,
+      output_locale: contentLocale,
       five_shens,
       ...(pipelineResult ? {
         state_report: pipelineResult.stateReport || null,
@@ -1806,6 +1809,8 @@ async function handleQimenFollowup(request, env, ctx) {
   const followup = String(body.followup || '').trim();
   const branch = body.branch === 'bazi' ? 'bazi' : 'qimen';
   const origin = body.origin && typeof body.origin === 'object' ? body.origin : {};
+  // 追问跟原报告同语言（spec T3.5）：优先 origin.output_locale，其次本次请求的界面语言。
+  const { contentLocale } = requestLocaleLib.resolveRequestLocale({ bodyLocale: origin.output_locale || origin.originLocale || body?.locale });
   if (!followup) return json({ error: '追问不能为空' }, { status: 400 }, request, env);
   if (!origin.evidence) return json({ error: '缺少原局上下文（evidence）' }, { status: 400 }, request, env);
 
@@ -1865,7 +1870,7 @@ async function handleQimenFollowup(request, env, ctx) {
     // ── Step B: 增补 patch（与问事同档模型，哨兵分段流式）──
     emit({ type: 'followup_step', stage: 'patch', target_sections: fr.target_sections, nature: fr.nature });
     const patchModel = resolveQuestionModel(env);
-    const patchPrompt = buildFollowupPatchPrompt({
+    const patchPrompt = outputLanguage.appendOutputLanguage(buildFollowupPatchPrompt({
       branch,
       followup,
       evidence: origin.evidence,
@@ -1873,7 +1878,7 @@ async function handleQimenFollowup(request, env, ctx) {
       sections,
       targetSections: fr.target_sections,
       nature: fr.nature,
-    });
+    }), contentLocale);
     if (env.FOLLOWUP_DEBUG === '1') console.log('[followup][prompt:patch]\n' + patchPrompt);
 
     const visible = new Set(fr.target_sections);
@@ -1962,6 +1967,7 @@ async function handleBaziFollowup(request, env, ctx) {
   const body = await readJson(request);
   const followup = String(body.followup || '').trim();
   const origin = body.origin && typeof body.origin === 'object' ? body.origin : {};
+  const { contentLocale } = requestLocaleLib.resolveRequestLocale({ bodyLocale: origin.output_locale || origin.originLocale || body?.locale });
   const profileId = String(origin.profileId || origin.profile_id || '').trim();
   if (!followup) return json({ error: '追问不能为空' }, { status: 400 }, request, env);
   if (!profileId) return json({ error: '缺少八字档案 ID（origin.profileId）' }, { status: 400 }, request, env);
@@ -1999,10 +2005,10 @@ async function handleBaziFollowup(request, env, ctx) {
     // ── 主 LLM 第一跳：决策 prompt（answer / recompute / new_matter）──
     emit({ type: 'followup_step', stage: 'decide' });
     const model = resolveQuestionModel(env);
-    const prompt = buildBaziFollowupPrompt({
+    const prompt = outputLanguage.appendOutputLanguage(buildBaziFollowupPrompt({
       followup, originQuestion, evidenceText, sections, followups, route: originRoute,
       today: getBeijingDayInfo().todayKey,
-    });
+    }), contentLocale);
     if (env.FOLLOWUP_DEBUG === '1') console.log('[followup][bazi][prompt]\n' + prompt);
 
     const patchable = PATCHABLE_SECTIONS.bazi;
@@ -2427,7 +2433,7 @@ ${scoreEvidenceSection}
     const m3Inference = (aiJsonData.qimen_report || {}).m3_inference;
     const rawScoreBasisFallback = (aiJsonData.summary || {}).score_basis || {};
     const derivedBasis = m3Inference
-        ? deriveScoreBasisFromM3(m3Inference, backendScoreAudit.adjustments, finalScore)
+        ? deriveScoreBasisFromM3(m3Inference, backendScoreAudit.adjustments, finalScore, contentLocale)
         : {
             positive_signals: rawScoreBasisFallback.positive_signals,
             negative_signals: rawScoreBasisFallback.negative_signals,
@@ -2436,7 +2442,7 @@ ${scoreEvidenceSection}
     const sanitizedPositiveSignals = sanitizeSignalList(derivedBasis.positive_signals);
     const sanitizedNegativeSignals = sanitizeSignalList(derivedBasis.negative_signals);
     const sanitizedScoreLogic = sanitizeUserText(derivedBasis.score_logic)
-        || `综合用神状态、主客关系、空亡与应期后，本局落在${finalScore >= 75 ? '偏有利' : finalScore >= 60 ? '中等可观察' : finalScore >= 40 ? '偏谨慎' : '明显谨慎'}区间。`;
+        || serverMessages.scoreLogicFallback(finalScore, contentLocale);
     postprocessAudit.sanitized_summary_basis = {
         positive_signals: sanitizedPositiveSignals,
         negative_signals: sanitizedNegativeSignals,
@@ -2616,6 +2622,7 @@ async function handleBazi(request, env, ctx) {
   try {
     const user = await getAuthedUser(request, env);
     const body = await readJson(request);
+    const { contentLocale } = requestLocaleLib.resolveRequestLocale({ bodyLocale: body?.locale });
     const promptData = body.promptData;
     if (!promptData || !promptData.profileId) return json({ error: "缺少档案 ID" }, { status: 400 }, request, env);
 
@@ -2748,7 +2755,7 @@ async function handleBazi(request, env, ctx) {
         });
         emit({ type: 'step', index: 2, pct: 50, label: 'AI 断语生成' });
 
-        const promptText = buildBaziProfileSectionPrompt({
+        const promptText = outputLanguage.appendOutputLanguage(buildBaziProfileSectionPrompt({
           gender: promptData.gender,
           birthStr: promptData.birthStr,
           baziStr: promptData.baziStr,
@@ -2760,7 +2767,7 @@ async function handleBazi(request, env, ctx) {
           imageAnalysis: baziDetail.image_analysis,
           currentDaYunText,
           currentLiuNianText
-        });
+        }), contentLocale);
 
         let llmSections;
         try {
