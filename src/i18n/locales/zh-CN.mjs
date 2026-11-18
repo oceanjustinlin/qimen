@@ -9,6 +9,7 @@ import about from './zh-CN/about.mjs'
 import legal from './zh-CN/legal.mjs'
 import ziwei from './zh-CN/ziwei.mjs'
 import error from './zh-CN/error.mjs'
+import sse from './zh-CN/sse.mjs'
 
 export default {
   home,
@@ -21,6 +22,7 @@ export default {
   legal,
   ziwei,
   error,
+  sse,
   common: {
     cancel: '取消',
     close: '关闭',

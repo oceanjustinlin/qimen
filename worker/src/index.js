@@ -31,6 +31,7 @@ import requestLocaleLib from '../../lib/i18n/requestLocale.js';
 import serverMessages from '../../lib/i18n/serverMessages.js';
 import outputLanguage from '../../lib/i18n/outputLanguage.js';
 import detectProseLocale from '../../lib/i18n/detectProseLocale.js';
+import sseChips from '../../lib/i18n/sseChips.js';
 
 const { buildCompleteBaziDetail, buildQualitativeSections, hasCompleteLlmCache, hasLatestEngineCache, hasExistingLlm, CALIBRATION_VERSION, computeEventsHash, hasValidCalibration } = baziCore;
 const { normalizeQimenLlmOutput } = qimenLlmOutput;
@@ -368,11 +369,7 @@ function createSSEResponse(request, env) {
   return { emit, close, response: new Response(stream, { status: 200, headers }) };
 }
 
-const QIMEN_CATEGORY_LABELS = {
-  career_business: '事业运势', finance_wealth: '财运分析',
-  relationship: '感情婚恋', health_action: '健康行动', general: '综合运势',
-};
-const QIMEN_SCORE_LABEL = s => s >= 70 ? '中上吉' : s >= 50 ? '中平' : '偏凶';
+const QIMEN_SCORE_LABEL = sseChips.qimenScoreLabel;
 
 async function readJson(request) {
   if (!request.body) return {};
@@ -1347,13 +1344,12 @@ async function handleBaziQuestion(request, env, ctx) {
     const baseRoute = normalizeDivinationRoute({ branch: 'bazi', category: 'general', ...requestRoute });
 
     // ── SSE Step 0: 解析问题意图 (routing was done by client) ──
-    const _cat0 = QIMEN_CATEGORY_LABELS[baseRoute.category] || '综合运势';
-    emit({ type: 'step', index: 0, pct: 10, chip: { main: _cat0, sub: '八字命理' } });
+    emit({ type: 'step', index: 0, pct: 10, chip: sseChips.baziCategoryChip(baseRoute.category) });
 
     // ── SSE Step 1: 调取命盘完成 ──
     const dayMaster = profile.bazi_detail?.day_master || profile.bazi_str?.split(' ')?.[2]?.[0] || '日主';
     const strengthLabel = profile.bazi_detail?.strength_label || '';
-    emit({ type: 'step', index: 1, pct: 22, chip: { main: `日主${dayMaster}`, sub: strengthLabel || '命盘就绪' } });
+    emit({ type: 'step', index: 1, pct: 22, chip: sseChips.baziDayMasterChip(dayMaster, strengthLabel) });
 
     const cheapRouteHint = ruleRouteHint(question, { forceBranch: baseRoute.branch === 'hybrid' ? 'hybrid' : 'bazi' });
     const routeHint = {
@@ -1402,25 +1398,20 @@ async function handleBaziQuestion(request, env, ctx) {
     }
 
     // ── SSE Step 2: 语义路由完成 ──
-    const _BAZI_MODE_CN = { timing: '时间推演', pattern: '格局分析', character: '性格命理', status: '当下状态' };
-    const _modeLabel = _BAZI_MODE_CN[semanticRoute.analysis_mode] || '分析模式';
-    const _modeSub   = _BAZI_MODE_CN[semanticRoute.analysis_mode] ? (semanticRoute.branch === 'hybrid' ? '综合推演' : '八字命理') : '命理分析';
-    emit({ type: 'step', index: 2, pct: 36, chip: { main: _modeLabel, sub: _modeSub } });
+    emit({ type: 'step', index: 2, pct: 36, chip: sseChips.baziModeChip(semanticRoute.analysis_mode, semanticRoute.branch) });
 
     const { prompt, pipelineResult } = buildBaziQuestionPrompt({ profile, question, route: semanticRoute });
 
     // ── SSE Step 3: 构建推演框架完成 ──
-    const _SCOPE_CN = { current_year: '今年', next_3_years: '近三年', next_5_years: '近五年', next_10_years: '未来十年', unknown: '命局综合' };
     const _scopeType = semanticRoute.time_scope?.type || 'unknown';
     const _scopeYears = semanticRoute.time_scope?.start_year && semanticRoute.time_scope?.end_year
       ? `${semanticRoute.time_scope.start_year}–${semanticRoute.time_scope.end_year}`
       : null;
-    const _scopeMain = _SCOPE_CN[_scopeType] || '命局综合';
-    emit({ type: 'step', index: 3, pct: 48, chip: { main: _scopeMain, sub: _scopeYears || '命局推演' } });
+    emit({ type: 'step', index: 3, pct: 48, chip: sseChips.baziScopeChip(_scopeType, _scopeYears) });
 
     // ── SSE Step 4: 五行喜忌 (instant — derived from pipelineResult) ──
     const _favorable = pipelineResult?.favorable_elements?.join('') || pipelineResult?.favorable || '';
-    emit({ type: 'step', index: 4, pct: 62, chip: _favorable ? { main: `喜${_favorable}`, sub: '忌神已标记' } : null });
+    emit({ type: 'step', index: 4, pct: 62, chip: sseChips.baziFavorableChip(_favorable) });
 
     // ── Engine complete: emit pre-LLM structured data for immediate frontend display ──
     const subject_snapshot = {
@@ -1449,12 +1440,7 @@ async function handleBaziQuestion(request, env, ctx) {
         subcategory: semanticRoute.subcategory || '',
         favorable_element: _favEl,
         question,
-        tags: [
-          { label: _cat0 },
-          { label: `日主${dayMaster}` },
-          ...(_favorable ? [{ label: `喜${_favorable}` }] : []),
-          { label: _modeLabel },
-        ],
+        tags: sseChips.baziEngineTags({ category: baseRoute.category, dayMaster, favorable: _favorable, mode: semanticRoute.analysis_mode }),
         stateReport:      pipelineResult?.stateReport      ?? null,
         dynamicReport:    pipelineResult?.dynamicReport    ?? null,
         targetSpec:       pipelineResult?.targetSpec       ?? null,
@@ -1486,7 +1472,7 @@ async function handleBaziQuestion(request, env, ctx) {
     if (baziSectionsAreBad(baziSec, _baziMode) || proseLocaleIsBad(baziSec, BAZI_PROSE_KEYS, contentLocale)) {
       console.warn('[bazi-question] bad structure, retrying non-streaming...', { mode: _baziMode, len: llmFullText.length });
       // 通知前端清空已显示的半截内容，重置回骨架
-      emit({ type: 'llm_retry', message: 'AI 重新推演中…' });
+      emit({ type: 'llm_retry', message: 'AI 重新推演中…', messageKey: 'sse.llmRetry' });
       try {
         llmFullText = await requestLLMText(textPrompt, env, questionModel, BAZI_ANSWER_TEMPERATURE, ctx, { ..._baziTraceMeta, name: 'bazi-question-answer-retry' });
       } catch (retryErr) {
@@ -2211,13 +2197,12 @@ async function handleQimen(request, env, ctx) {
     if (qimenMemoryCache[cacheKey]) {
       console.log("⚡️ 命中云端时辰缓存！直接返回。");
       const cached = qimenMemoryCache[cacheKey];
-      const cachedCat = QIMEN_CATEGORY_LABELS[cached.category] || '综合运势';
       const cachedScore = cached.backend_score_audit?.final_score ?? cached.summary?.score ?? 72;
-      emit({ type: 'step', index: 0, pct: 10, chip: { main: cachedCat, sub: cached.branch === 'hybrid' ? '综合推演' : '奇门遁甲' } });
+      emit({ type: 'step', index: 0, pct: 10, chip: sseChips.qimenCategoryChip(cached.category, cached.branch) });
       emit({ type: 'step', index: 1, pct: 25, chip: { main: cached.qimen_data?.ju_info?.name || '已起盘', sub: cached.qimen_data?.pillars?.hour || '' } });
       emit({ type: 'step', index: 2, pct: 42, chip: null });
       emit({ type: 'step', index: 3, pct: 58, chip: null });
-      emit({ type: 'step', index: 4, pct: 72, chip: { main: `初分 ${cachedScore}`, sub: QIMEN_SCORE_LABEL(cachedScore) } });
+      emit({ type: 'step', index: 4, pct: 72, chip: sseChips.qimenPreScoreChip(cachedScore) });
       emit({ type: 'step', index: 5, pct: 90, chip: null });
       emit({ type: 'complete', result: cached });
       return;
@@ -2251,17 +2236,13 @@ async function handleQimen(request, env, ctx) {
     } = ev;
 
     // ── SSE 进度：pipeline 已一次算完，按 index 顺序回报（chip 内容与旧版逐字一致）──
-    const _cat0 = QIMEN_CATEGORY_LABELS[detectedIntent.category] || '综合运势';
-    const _sub0 = detectedIntent.branch === 'hybrid' ? '综合推演' : '奇门遁甲';
-    emit({ type: 'step', index: 0, pct: 10, chip: { main: _cat0, sub: _sub0 } });
+    emit({ type: 'step', index: 0, pct: 10, chip: sseChips.qimenCategoryChip(detectedIntent.category, detectedIntent.branch) });
     emit({ type: 'step', index: 1, pct: 25, chip: { main: qimen_structure, sub: ganzhiHour } });
     const _primarySymbol = yongshenRule?.yongshen?.primary?.[0]?.symbol || '用神';
     emit({ type: 'step', index: 2, pct: 42, chip: { main: _primarySymbol, sub: detectedIntent.subcategory || detectedIntent.category || '' } });
     const _windows = timingAnalysis?.p2_scan?.candidates || [];
-    const _firstWin = _windows[0];
-    const _winSub = _firstWin ? (_firstWin.date || '近日') : '暂无明确窗口';
-    emit({ type: 'step', index: 3, pct: 58, chip: { main: `发现 ${_windows.length} 个窗口`, sub: _winSub } });
-    emit({ type: 'step', index: 4, pct: 72, chip: { main: `初分 ${backendScoreAudit.final_score}`, sub: QIMEN_SCORE_LABEL(backendScoreAudit.final_score) } });
+    emit({ type: 'step', index: 3, pct: 58, chip: sseChips.qimenWindowsChip(_windows) });
+    emit({ type: 'step', index: 4, pct: 72, chip: sseChips.qimenPreScoreChip(backendScoreAudit.final_score) });
 
     // ── Engine complete: emit pre-LLM data for immediate frontend display ──
     emit({
@@ -2277,12 +2258,7 @@ async function handleQimen(request, env, ctx) {
         qimen_data: qimenData,
         formation_tags: backendFormationTags,
         timing_window_count: _windows.length,
-        tags: [
-          { label: _cat0 },
-          { label: qimen_structure },
-          { label: `初分${backendScoreAudit.final_score} · ${QIMEN_SCORE_LABEL(backendScoreAudit.final_score)}`, isScore: true },
-          ...(_windows.length ? [{ label: `${_windows.length}个应期窗口` }] : []),
-        ],
+        tags: sseChips.qimenEngineTags({ category: detectedIntent.category, structure: qimen_structure, score: backendScoreAudit.final_score, windowCount: _windows.length }),
       }
     });
 
@@ -2369,7 +2345,7 @@ ${scoreEvidenceSection}
     if (qimenSectionsAreBad(sec) || proseLocaleIsBad(sec, QIMEN_PROSE_KEYS, contentLocale)) {
       console.warn('[qimen-api] bad structure, retrying non-streaming...', { len: llmFullText.length, contentLocale });
       // 通知前端清空已显示的半截内容，重置回骨架
-      emit({ type: 'llm_retry', message: 'AI 重新推演中…' });
+      emit({ type: 'llm_retry', message: 'AI 重新推演中…', messageKey: 'sse.llmRetry' });
       try {
         llmFullText = await requestLLMText(qimenPrompt, env, questionModel, QIMEN_ANSWER_TEMPERATURE, ctx, { ..._qimenTraceMeta, name: 'qimen-answer-retry' });
       } catch (retryErr) {
@@ -2713,8 +2689,8 @@ async function handleBazi(request, env, ctx) {
 
     (async () => {
       try {
-        emit({ type: 'step', index: 0, pct: 10, label: '校验档案' });
-        emit({ type: 'step', index: 1, pct: 25, label: '排盘计算' });
+        emit(sseChips.profileStep(0, 10, 'validate'));
+        emit(sseChips.profileStep(1, 25, 'compute'));
 
         const engineQualitative = {
           ...buildQualitativeSections({
@@ -2787,7 +2763,7 @@ async function handleBazi(request, env, ctx) {
             unfavorable_elements: engineUpdatePayload.unfavorable_elements
           }
         });
-        emit({ type: 'step', index: 2, pct: 50, label: 'AI 断语生成' });
+        emit(sseChips.profileStep(2, 50, 'llm'));
 
         const promptText = outputLanguage.appendOutputLanguage(buildBaziProfileSectionPrompt({
           gender: promptData.gender,
@@ -2812,7 +2788,7 @@ async function handleBazi(request, env, ctx) {
           }, deepModel(env), BAZI_ANSWER_TEMPERATURE, ctx, { name: 'bazi-profile-sections', scenario: 'bazi-profile-init', userId: user.id });
         } catch (llmError) {
           console.warn('[qimen-api] bazi llm stream failed:', llmError.message || llmError);
-          emit({ type: 'llm_error', message: 'AI 深度断语暂时不可用，已保留规则引擎结果' });
+          emit({ type: 'llm_error', message: 'AI 深度断语暂时不可用，已保留规则引擎结果', code: 'LLM_UNAVAILABLE_PARTIAL' });
           emit({ type: 'complete', pct: 100, profileId: promptData.profileId, partial: true });
           return;
         }

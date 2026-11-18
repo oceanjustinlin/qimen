@@ -311,7 +311,7 @@
                       :key="tag.label"
                       class="wenshi-tag"
                       :class="{ 'score-pending': tag.isScore && isWenShiLlmLoading }"
-                    >{{ tag.label }}</span>
+                    >{{ tagLabel(tag, i18nCtx) }}</span>
                   </div>
                 </div>
                 <div v-else class="wenshi-tags-skeleton">
@@ -666,6 +666,7 @@ import { supabase } from '../lib/supabase.mjs'
 import { displayText } from '../i18n/localeDisplay.mjs'
 import { useI18n } from 'vue-i18n'
 import { localizeApiError, localeJson } from '../i18n/requestLocale.mjs'
+import { chipLine, tagLabel, sseText } from '../i18n/sseLabels.mjs'
 import zhCNCatalogue from '../i18n/locales/zh-CN.mjs'
 import enUSCatalogue from '../i18n/locales/en-US.mjs'
 import { formatDate } from '../i18n/formatters.mjs'
@@ -1841,7 +1842,7 @@ async function readSSEStream(response) {
         if (wenShiStreaming.value) {
           // 状态行只展示最新中间产物：优先 chip（产物），否则当前步骤名
           const stepName = sseCurrentSteps.value[event.index + 1]?.name || sseCurrentSteps.value[event.index]?.name || ''
-          const label = event.chip ? `${event.chip.main}${event.chip.sub ? ' · ' + event.chip.sub : ''}` : stepName
+          const label = event.chip ? chipLine(event.chip, i18nCtx) : stepName
           patchOrbStatus(label)
         }
       } else if (event.type === 'engine_complete') {
@@ -1851,7 +1852,7 @@ async function readSSEStream(response) {
         if (eo?.branch === 'qimen') {
           wenShiStreaming.value = true
           for (const k in wenShiStreamSections) delete wenShiStreamSections[k]
-          patchOrbStatus(`初分 ${eo.pre_score} · 深度推演`)
+          patchOrbStatus(t('sse.preScoreDeep', { score: eo.pre_score }))
           const root = document.querySelector('.html-container .wenshi-streaming')
           if (root) {
             // 已在脚手架中：只就地补丁「奇门定基」(盘面/格局)，保留能量球 DOM，避免重建闪动
@@ -1869,7 +1870,7 @@ async function readSSEStream(response) {
           wenShiStreaming.value = true
           for (const k in wenShiStreamSections) delete wenShiStreamSections[k]
           orbTone.value = 'wo-tone-' + baziElementTone(eo.favorable_element).tone
-          patchOrbStatus('深度推演中')
+          patchOrbStatus(t('sse.deepReadingNow'))
           // 兜底：若尚未是 bazi 脚手架，切过去
           if (!document.querySelector('.html-container #bazi-hero')) {
             resultPhase.value = 'stream'
@@ -1895,7 +1896,7 @@ async function readSSEStream(response) {
             el.innerHTML = '<span class="wsk"><i></i><i></i></span>'
           })
         }
-        if (wenShiStreaming.value) patchOrbStatus(event.message || 'AI 重新推演中…')
+        if (wenShiStreaming.value) patchOrbStatus(sseText(event.message || t('sse.llmRetry'), event.messageKey, null, i18nCtx))
         else { wenShiLlm.value = { status: 'pending', text: '' } }
       } else if (event.type === 'llm_delta') {
         if (wenShiStreaming.value && event.section) {
@@ -2915,7 +2916,12 @@ const startDivination = async () => {
 
     // Mark step 0 done with routing result
     sseBranch.value = routeData.branch === 'bazi' ? 'bazi' : 'qimen'
-    sseChips.value = { 0: { main: CATEGORY_LABEL_MAP[routeData.category] || '综合运势', sub: routeData.branch === 'bazi' ? '八字命理' : routeData.branch === 'hybrid' ? '综合推演' : '奇门遁甲' } }
+    sseChips.value = { 0: {
+      main: CATEGORY_LABEL_MAP[routeData.category] || '综合运势', // i18n-ignore
+      sub: routeData.branch === 'bazi' ? '八字命理' : routeData.branch === 'hybrid' ? '综合推演' : '奇门遁甲', // i18n-ignore
+      mainKey: `enum.category.${CATEGORY_LABEL_MAP[routeData.category] ? routeData.category : 'general'}`,
+      subKey: routeData.branch === 'bazi' ? 'sse.chip.branchBazi' : routeData.branch === 'hybrid' ? 'sse.chip.branchHybrid' : 'sse.chip.branchQimen',
+    } }
     sseActiveIndex.value = 1
     ssePct.value = 10
 
