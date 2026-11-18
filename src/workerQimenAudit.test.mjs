@@ -17,7 +17,7 @@ test('qimen worker builds and optionally inserts question audit snapshot', () =>
 test('qimen worker prompt splits fixed system rules from per-request user material', () => {
   assert.match(source, /buildQimenSystemPrompt/)
   assert.match(source, /buildScoreEvidenceSection/)
-  assert.match(source, /const qimenPrompt = \{ system: buildQimenSystemPrompt\(\), user: qimenUserPrompt \}/)
+  assert.match(source, /const qimenPrompt = \{ system: buildQimenSystemPrompt\(contentLocale\), user: qimenUserPrompt \}/)
   assert.match(source, /<user_question>/)
   assert.doesNotMatch(source, /convertQimenPromptToTextMode/)
   assert.match(source, /aiJsonData\.score_review \|\| aiJsonData\.score_audit/)

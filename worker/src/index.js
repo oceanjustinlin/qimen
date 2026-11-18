@@ -29,6 +29,7 @@ import llmFetch from '../../lib/llmFetch.js';
 import { langfuseTelemetry } from './langfuse.mjs';
 import requestLocaleLib from '../../lib/i18n/requestLocale.js';
 import serverMessages from '../../lib/i18n/serverMessages.js';
+import outputLanguage from '../../lib/i18n/outputLanguage.js';
 
 const { buildCompleteBaziDetail, buildQualitativeSections, hasCompleteLlmCache, hasLatestEngineCache, hasExistingLlm, CALIBRATION_VERSION, computeEventsHash, hasValidCalibration } = baziCore;
 const { normalizeQimenLlmOutput } = qimenLlmOutput;
@@ -2111,6 +2112,8 @@ async function handleQimen(request, env, ctx) {
 
   // Body must be read before SSE starts (Request.body can only be consumed once)
   const body = await readJson(request);
+  // 内容语言（§5.8）：只看请求体里显式的 locale；简体与繁体都是 zh-CN
+  const { contentLocale } = requestLocaleLib.resolveRequestLocale({ bodyLocale: body?.locale });
 
   // Quota enforcement
   const currentUserEmail = user?.email ? user.email.toLowerCase() : "";
@@ -2164,7 +2167,8 @@ async function handleQimen(request, env, ctx) {
     
     const baziInfo = body.baziInfo || "未提供八字信息";
     const baziHash = baziInfo === "未提供八字信息" ? "NoBazi" : baziInfo.substring(0, 15);
-    const cacheKey = `${year}-${month}-${day}-${ganzhiHour}-${userQuestion}-${baziHash}`;
+    // 英文键尾加后缀，简体键不变（§5.9）
+    const cacheKey = `${year}-${month}-${day}-${ganzhiHour}-${userQuestion}-${baziHash}${contentLocale === 'en-US' ? '-en-US' : ''}`;
     
     if (qimenMemoryCache[cacheKey]) {
       console.log("⚡️ 命中云端时辰缓存！直接返回。");
@@ -2299,8 +2303,8 @@ ${polarityPromptSection ? `\n【格局极性】\n${toSimplified(polarityPromptSe
 ${toSimplified(timingPromptSection)}
 ${scoreEvidenceSection}
 
-请按 system 中的步骤和输出格式，回答 <user_question> 里的问题。`;
-    const qimenPrompt = { system: buildQimenSystemPrompt(), user: qimenUserPrompt };
+请按 system 中的步骤和输出格式，回答 <user_question> 里的问题。${contentLocale === 'en-US' ? `\n${outputLanguage.buildUserLanguageReminder(contentLocale)}` : ''}`;
+    const qimenPrompt = { system: buildQimenSystemPrompt(contentLocale), user: qimenUserPrompt };
 
     // ── SSE Step 5: AI 推演开始（流式文字输出） ──
     emit({ type: 'active', index: 5, pct: 78 });
@@ -2587,6 +2591,7 @@ ${scoreEvidenceSection}
             console.warn('[qimen-api] qimen audit insert failed:', auditErr.message || auditErr);
         }
 	
+    finalOutput.output_locale = contentLocale;
     qimenMemoryCache[cacheKey] = finalOutput;
     emit({ type: 'complete', result: finalOutput });
 
