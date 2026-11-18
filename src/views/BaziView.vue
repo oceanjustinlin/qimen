@@ -1184,6 +1184,7 @@ import { ref, reactive, computed, nextTick, onMounted, onUnmounted, watch } from
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { localizeApiError, localeJson, withLocaleQuery } from '../i18n/requestLocale.mjs'
+import { contentLocaleOf } from '../i18n/index.mjs'
 import { contextFieldLabel, contextFieldPlaceholder, contextOptionLabel, monthlySectionTitle, noteCategoryLabel, noteImpactLabel, profileSectionTitle } from '../i18n/notesLabels.mjs'
 import { supabase } from '../lib/supabase.mjs'
 import { Solar } from 'lunar-javascript'
@@ -2179,7 +2180,8 @@ const previewFortuneCache = computed(() => {
         currentUser.value.id,
         activeLiuri.value.dateKey,
         new Date(),
-        activeProfile.value?.id || ''
+        activeProfile.value?.id || '',
+        contentLocaleOf(locale.value)
     )
 })
 

@@ -346,7 +346,7 @@
                 </div>
                 <div class="wenshi-orb-status" v-show="!orbSettling"><span class="txt">{{ wenShiStatus }}</span><span class="dots"></span></div>
               </div>
-              <div v-html="resultHtml" class="html-container"></div>
+              <div v-html="resultHtml" class="html-container" :lang="resultContentLang"></div>
               <!-- 终态覆盖层：在脚手架之上淡入，盖满后底层再无声切换为终态，全程底层不空 -->
               <Transition name="ov-fade">
                 <div v-if="finalOverlayHtml" v-html="finalOverlayHtml" class="html-container result-overlay"></div>
@@ -666,6 +666,7 @@ import { supabase } from '../lib/supabase.mjs'
 import { displayText } from '../i18n/localeDisplay.mjs'
 import { useI18n } from 'vue-i18n'
 import { localizeApiError, localeJson } from '../i18n/requestLocale.mjs'
+import { contentLocaleOf } from '../i18n/index.mjs'
 import { chipLine, tagLabel, sseText } from '../i18n/sseLabels.mjs'
 import zhCNCatalogue from '../i18n/locales/zh-CN.mjs'
 import enUSCatalogue from '../i18n/locales/en-US.mjs'
@@ -734,6 +735,12 @@ const router = useRouter()
 const route = useRoute()
 const { t, te, locale } = useI18n()
 const i18nCtx = { t, te, get locale() { return locale.value } }
+// 记录语言与界面内容语言不一致时（如英文界面打开中文历史），容器标 lang；不提示、不重算（§5.9）
+const resultContentLang = computed(() => {
+  if (!currentResultData.value) return undefined
+  const recordLocale = currentResultData.value.output_locale || 'zh-CN'
+  return recordLocale === contentLocaleOf(locale.value) ? undefined : recordLocale
+})
 
 const currentUser = ref(globalState.currentUser)
 const authView = ref('landing')
@@ -2124,7 +2131,8 @@ const handleSessionUpdate = (session) => {
     warmFortuneCacheFromSupabase({
       supabase,
       storage: getFortuneStorage(),
-      userId: session.user.id
+      userId: session.user.id,
+      contentLocale: contentLocaleOf(locale.value),
     })
   } else {
     lastHandledSessionKey = ''
@@ -2808,10 +2816,11 @@ const submitFollowup = async () => {
     const isBazi = branch === 'bazi'
     const origin = isBazi ? buildBaziOrigin(currentResultData.value) : buildFollowupOrigin(currentResultData.value)
     // 追问沿用原报告语言；旧记录没有 output_locale，按中文处理（spec T3.5）
-    origin.output_locale = currentResultData.value?.output_locale || 'zh-CN'
+    const originLocale = currentResultData.value?.output_locale || 'zh-CN'
+    origin.output_locale = originLocale
     const response = await fetch(isBazi ? BAZI_FOLLOWUP_API_URL : FOLLOWUP_API_URL, {
       method: 'POST', headers,
-      body: localeJson({ followup: q, branch, origin }),
+      body: localeJson({ followup: q, branch, origin, originLocale }),
     })
     if (!response.ok) {
       const e = await response.json().catch(() => ({}))

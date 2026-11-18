@@ -1686,7 +1686,7 @@ async function handleFortuneDailyInterpretation(request, env, ctx) {
     const { bjTime, todayKey, expiresAt } = getBeijingDayInfo(targetDate);
     const requestedProfileId = getRequestedProfileId(url, body);
     // 英文断语与中文分开缓存（§5.9）；简体键不变
-    const periodKey = `${buildDailyPeriodKey(todayKey, requestedProfileId)}${requestLocaleLib.localeCacheSuffix(contentLocale)}`;
+    const periodKey = buildDailyPeriodKey(todayKey, requestedProfileId, contentLocale);
 
     const cached = await getCachedFortune(user.id, 'day', periodKey, env);
     if (hasReadyInterpretation(cached)) return json(pickInterpretationFields(cached), { status: 200 }, request, env);
@@ -1729,7 +1729,7 @@ async function handleFortuneMonthlyInterpretation(request, env, ctx) {
     const profileContext = await getProfileContext(profile.id, env);
     const { record: currentMonthlyContext, recent_records: recentMonthlyContexts } = await getMonthlyContext(profile.id, flowMonth.context_month_key, env);
     const contextSeed = buildContextVersionSeed(profileContext, recentMonthlyContexts);
-    const periodKey = `${buildMonthlyInterpretationPeriodKey(flowMonth.period_key, profile.id, dimension, contextSeed)}${requestLocaleLib.localeCacheSuffix(contentLocale)}`;
+    const periodKey = buildMonthlyInterpretationPeriodKey(flowMonth.period_key, profile.id, dimension, contextSeed, contentLocale);
 
     const cached = await getCachedFortune(user.id, 'month_interpretation', periodKey, env);
     if (hasReadyMonthlyInterpretation(cached)) return json(pickMonthlyInterpretationFields(cached), { status: 200 }, request, env);
@@ -1820,7 +1820,7 @@ async function handleQimenFollowup(request, env, ctx) {
   const branch = body.branch === 'bazi' ? 'bazi' : 'qimen';
   const origin = body.origin && typeof body.origin === 'object' ? body.origin : {};
   // 追问跟原报告同语言（spec T3.5）：优先 origin.output_locale，其次本次请求的界面语言。
-  const { contentLocale } = requestLocaleLib.resolveRequestLocale({ bodyLocale: origin.output_locale || origin.originLocale || body?.locale });
+  const { contentLocale } = requestLocaleLib.resolveRequestLocale({ bodyLocale: body?.originLocale || origin.output_locale || body?.locale });
   if (!followup) return json({ error: '追问不能为空' }, { status: 400 }, request, env);
   if (!origin.evidence) return json({ error: '缺少原局上下文（evidence）' }, { status: 400 }, request, env);
 
@@ -1978,7 +1978,7 @@ async function handleBaziFollowup(request, env, ctx) {
   const body = await readJson(request);
   const followup = String(body.followup || '').trim();
   const origin = body.origin && typeof body.origin === 'object' ? body.origin : {};
-  const { contentLocale } = requestLocaleLib.resolveRequestLocale({ bodyLocale: origin.output_locale || origin.originLocale || body?.locale });
+  const { contentLocale } = requestLocaleLib.resolveRequestLocale({ bodyLocale: body?.originLocale || origin.output_locale || body?.locale });
   const profileId = String(origin.profileId || origin.profile_id || '').trim();
   if (!followup) return json({ error: '追问不能为空' }, { status: 400 }, request, env);
   if (!profileId) return json({ error: '缺少八字档案 ID（origin.profileId）' }, { status: 400 }, request, env);
@@ -2816,7 +2816,8 @@ async function handleBazi(request, env, ctx) {
             engineQualitativeData
           }),
           status: 'llm_complete',
-          display_source: 'llm'
+          display_source: 'llm',
+          output_locale: contentLocale
         };
         const finalBaziDetail = {
           ...baziDetail,

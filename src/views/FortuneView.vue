@@ -757,6 +757,7 @@ import { ref, computed, nextTick, onMounted, onUnmounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { localizeApiError, localeJson } from '../i18n/requestLocale.mjs'
+import { contentLocaleOf } from '../i18n/index.mjs'
 import { ganzhiName, genderLabel } from '../i18n/domainLabels.mjs'
 import { supabase } from '../lib/supabase.mjs'
 import { globalState, resolveSelectedBaziProfileId, setSelectedBaziProfileId } from '../store.js'
@@ -790,6 +791,8 @@ import { BAZI_PROFILE_LIST_SELECT } from '../baziProfileFields.mjs'
 const route = useRoute()
 const router = useRouter()
 const { t, te, locale } = useI18n()
+// 浏览器缓存按内容语言分开（繁体与简体共用中文内容）
+const cacheLocale = () => contentLocaleOf(locale.value)
 const i18nCtx = { t, te, get locale() { return locale.value } }
 
 const WEEKDAY_KEYS = ['fortune.weekday.0', 'fortune.weekday.1', 'fortune.weekday.2', 'fortune.weekday.3', 'fortune.weekday.4', 'fortune.weekday.5', 'fortune.weekday.6']
@@ -1259,10 +1262,10 @@ const syncMonthlyRefreshSignal = (profileId = currentProfileCacheKey.value, mont
 }
 
 const rememberFortuneCache = (userId, dateStr, data, profileId = '') => {
-  rememberSharedFortuneCache(getFortuneStorage(), userId, dateStr, data, new Date(), profileId)
+  rememberSharedFortuneCache(getFortuneStorage(), userId, dateStr, data, new Date(), profileId, cacheLocale())
 }
 
-const loadCachedFortune = (userId, dateStr, profileId = '') => loadSharedCachedFortune(getFortuneStorage(), userId, dateStr, new Date(), profileId)
+const loadCachedFortune = (userId, dateStr, profileId = '') => loadSharedCachedFortune(getFortuneStorage(), userId, dateStr, new Date(), profileId, cacheLocale())
 
 const buildGuestFortuneData = (dateStr) => ({
   ...guestFortuneData,
@@ -1478,7 +1481,8 @@ const requestMonthlyInterpretation = async (monthKey, accessToken, profileId, di
 }
 
 const requestFortuneInterpretation = async (userId, dateStr, accessToken, profileId) => {
-  const existingPending = getPendingInterpretation(userId, dateStr, profileId)
+  const loc = cacheLocale()
+  const existingPending = getPendingInterpretation(userId, dateStr, profileId, loc)
   if (!existingPending) {
     const pendingRequest = fetch('/api/fortune-daily-interpretation', {
       method: 'POST',
@@ -1495,12 +1499,12 @@ const requestFortuneInterpretation = async (userId, dateStr, accessToken, profil
         }
         return response.json()
       })
-      .finally(() => clearPendingInterpretation(userId, dateStr, profileId))
+      .finally(() => clearPendingInterpretation(userId, dateStr, profileId, loc))
 
-    rememberPendingInterpretation(userId, dateStr, pendingRequest, profileId)
+    rememberPendingInterpretation(userId, dateStr, pendingRequest, profileId, loc)
   }
 
-  return getPendingInterpretation(userId, dateStr, profileId)
+  return getPendingInterpretation(userId, dateStr, profileId, loc)
 }
 
 const fetchFortuneData = async (dateStr) => {
