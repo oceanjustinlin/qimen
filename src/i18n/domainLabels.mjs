@@ -107,3 +107,11 @@ export function shortCategoryLabel(code, locale) {
   if (!SHORT_CATEGORY_CODES.has(code)) return categoryLabel(code, locale)
   return catalogueFor(locale).home.category[code]
 }
+
+// 只要英文名、不带汉字括注（如时钟里的「Jia day」）；查不到或非英文时原样返回。
+export function symbolName(zh, locale) {
+  if (empty(zh)) return ''
+  const value = String(zh)
+  if (!isEnglish(locale)) return value
+  return glossary.toEnglish(value) || value
+}

@@ -4,7 +4,8 @@
 // 扫描 src/**/*.{vue,js,mjs}，统计每个文件「模板与脚本中、非注释、含 CJK 字符」的行数，与基线比较：
 //   - 任何文件的计数高于基线 → 退出码 1，并列出该文件含中文的行；
 //   - 低于基线 → 提示运行 --update 刷新基线（退出码 0）。
-// 行尾注释 `// i18n-ignore`（或 `<!-- i18n-ignore -->`）的行不计数，用于盘面符号常量等确实不该翻译的行。
+// 行尾注释 `// i18n-ignore`（或 `<!-- i18n-ignore -->`）的行不计数，用于盘面符号常量等确实不该翻译的行；
+// `// i18n-ignore-start` 与 `// i18n-ignore-end` 之间的整块不计数（开发用 mock 数据等）。
 //
 // 用法：
 //   node scripts/i18n_lint.mjs            检查
@@ -123,8 +124,15 @@ export function findCjkLines(source, filename) {
     text = stripComments(source, 'js');
   }
   const lines = text.split('\n');
+  const rawLines = source.split('\n');
   const hits = [];
+  let inIgnoredBlock = false;
   lines.forEach((line, idx) => {
+    // 整块豁免：// i18n-ignore-start … // i18n-ignore-end（开发用 mock、盘面符号表等）
+    const raw = rawLines[idx] || '';
+    if (/i18n-ignore-start/.test(raw)) { inIgnoredBlock = true; return; }
+    if (/i18n-ignore-end/.test(raw)) { inIgnoredBlock = false; return; }
+    if (inIgnoredBlock) return;
     if (!CJK.test(line)) return;
     if (IGNORE_MARK.test(line)) return;
     hits.push(idx + 1);

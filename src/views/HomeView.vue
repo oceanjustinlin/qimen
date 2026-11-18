@@ -665,8 +665,10 @@ import { useRoute, useRouter } from 'vue-router'
 import { supabase } from '../lib/supabase.mjs'
 import { displayText } from '../i18n/localeDisplay.mjs'
 import { useI18n } from 'vue-i18n'
+import zhCNCatalogue from '../i18n/locales/zh-CN.mjs'
+import enUSCatalogue from '../i18n/locales/en-US.mjs'
 import { formatDate } from '../i18n/formatters.mjs'
-import { genderLabel, categoryLabel, verdictLabel, feedbackOptionLabel, shortCategoryLabel } from '../i18n/domainLabels.mjs'
+import { genderLabel, categoryLabel, verdictLabel, feedbackOptionLabel, shortCategoryLabel, symbolName } from '../i18n/domainLabels.mjs'
 import { Solar } from 'lunar-javascript'
 import { getGuestState, trackGuestEvent } from '../guestMode.mjs'
 import {
@@ -728,6 +730,7 @@ const ROUTE_API_URL = apiPath("/api/divination-route")
 const BAZI_QUESTION_API_URL = apiPath("/api/bazi-question")
 const router = useRouter()
 const route = useRoute()
+const { t, locale } = useI18n()
 
 const currentUser = ref(globalState.currentUser)
 const authView = ref('landing')
@@ -742,35 +745,14 @@ const viewState = ref('input')
 const questionInput = ref('')
 const isSubmitting = ref(false)
 
-const SUGGESTED_QUESTIONS = [
-  '这次合作谈判能顺利吗？',
-  '我现在换工作时机合适吗？',
-  '这段感情还值得继续吗？',
-  '这笔投资现在能入场吗？',
-  '我近期的财运走势如何？',
-  '近期有没有贵人相助？',
-  '这件事情近期能有结果吗？',
-  '最近身体状况需要注意什么？',
-  '未来老公大概是什么长相和职业？',
-  '我的正缘会在什么场景下出现？',
-  '未来伴侣的经济实力和家境如何？',
-  '未来的另一半比我大还是比我小？',
-  '我的婚姻是强强联合还是被照顾？',
-  '未来的小孩大概有什么天赋特长？',
-  '有了小孩后，会带旺我的财运吗？',
-  '我的子女缘深吗？何时会有宝宝？',
-  '以后和孩子的相处模式是怎样的？',
-  '除了主业，我适合发展什么副业？',
-  '现在工作内耗，命盘有破局建议吗？',
-  '我身上有什么没被挖掘的隐藏天赋？',
-  '近期偏财运如何？有没有意外之财？',
-]
+// 示例问题：中英各 21 条，英文为意译
+const SUGGESTED_QUESTIONS = computed(() => (locale.value === 'en-US' ? enUSCatalogue : zhCNCatalogue).home.samples)
 const suggestionPairIdx = ref(0)
 const visibleSuggestions = computed(() => {
-  const len = SUGGESTED_QUESTIONS.length
+  const len = SUGGESTED_QUESTIONS.value.length
   return [
-    SUGGESTED_QUESTIONS[suggestionPairIdx.value % len],
-    SUGGESTED_QUESTIONS[(suggestionPairIdx.value + 1) % len],
+    SUGGESTED_QUESTIONS.value[suggestionPairIdx.value % len],
+    SUGGESTED_QUESTIONS.value[(suggestionPairIdx.value + 1) % len],
   ]
 })
 const selectSuggestion = (q) => {
@@ -795,7 +777,7 @@ const handleGuestLoginRedirect = () => {
   leaveGuestMode()
   authView.value = 'login'
 }
-const clockText = ref('载入时辰中…')
+const clockText = ref(t('home.clock.loading'))
 // 固定起局时刻：null = 用当前时刻；否则为 { year, month, day, hour, minute }（北京民用时）
 const panTime = ref(null)
 const showTimePicker = ref(false)
@@ -1016,7 +998,7 @@ async function fetchMissingFiveShens() {
 }
 
 const showProfileSwitcher = computed(() => baziProfiles.value.length > 0)
-const activeProfileName = computed(() => activeBaziProfile.value?.name || '命主未设')
+const activeProfileName = computed(() => activeBaziProfile.value?.name || t('home.profile.unset'))
 const isGuest = computed(() => globalState.isGuest)
 const isAuthLanding = computed(() => ['login', 'register'].includes(route.query.auth))
 const canUseApp = computed(() => Boolean(currentUser.value || (isGuest.value && globalState.guestAccessUnlocked && !isAuthLanding.value)))
@@ -1060,7 +1042,6 @@ const canFollowup = computed(() =>
   && (sseBranch.value === 'qimen' || sseBranch.value === 'bazi') && !!currentResultData.value)
 // 当前追问分支（八字结果的 currentResultData.branch==='bazi'）
 const followupBranch = computed(() => (currentResultData.value?.branch === 'bazi' ? 'bazi' : 'qimen'))
-const { t, locale } = useI18n()
 // 只存 code；显示名随语言变化（传给 Supabase 的仍是 code）
 const CATEGORY_FILTER_CODES = ['all', 'career_business', 'finance_wealth', 'relationship', 'health_action', 'item_transaction', 'general']
 const categories = computed(() => CATEGORY_FILTER_CODES.map((value) => ({ value, label: shortCategoryLabel(value, locale.value) })))
@@ -1157,7 +1138,7 @@ const saveAsImage = async () => {
   try {
     const h2c = await loadHtml2Canvas()
     const captureEl = document.querySelector('.html-container')
-    if (!captureEl) { alert('未找到推演结果，请重新推演'); return }
+    if (!captureEl) { alert(t('home.alert.noResult')); return }
 
     // 截图前向真实 document 注入兼容补丁（覆盖 color-mix 属性）
     // Vite dev 模式用 adoptedStyleSheets，onclone 内替换无效，需在源 doc 提前覆盖
@@ -1263,7 +1244,7 @@ const saveAsImage = async () => {
     shareImgUrl.value = imgData
   } catch (err) {
     console.error('生成图片失败:', err)
-    alert('图片生成失败：' + (err.message || '未知错误'))
+    alert(t('home.alert.imageFailed', { error: err.message || t('home.alert.unknownError') }))
   } finally {
     isSavingImage.value = false
   }
@@ -1401,6 +1382,7 @@ function withOrbHero(html) {
   return html.replace('class="mag-result ', 'class="mag-result wenshi-orb-mode ')
 }
 
+// i18n-ignore-start 开发用 mock 数据（生产形态的中文样本，不是界面文案）
 // ═══════ 开发用：奇门流式 mock（生产形态数据，走真实代码路径，不调 API）═══════
 const MOCK_QIMEN = (() => {
   const palaces = [
@@ -1799,6 +1781,7 @@ async function runBaziMock(mode = 'status') {
   }
 }
 if (typeof window !== 'undefined') window.__mockBazi = runBaziMock
+// i18n-ignore-end
 // 把某段流式文本就地补丁进卡片对应槽位（带 ** 加粗 + 流式光标）
 function patchStreamSlot(section, fullText) {
   const root = document.querySelector('.html-container .wenshi-streaming')
@@ -2074,8 +2057,9 @@ onMounted(() => {
   if (route.query.mock === 'bazi') setTimeout(() => runBaziMock(String(route.query.mode || 'status')), 600)
   updateClock()
   clockInterval = setInterval(updateClock, 30000)
+  watch(locale, updateClock)
   suggestionTimer = setInterval(() => {
-    suggestionPairIdx.value = (suggestionPairIdx.value + 2) % SUGGESTED_QUESTIONS.length
+    suggestionPairIdx.value = (suggestionPairIdx.value + 2) % SUGGESTED_QUESTIONS.value.length
   }, 5000)
   document.addEventListener('click', handleDocumentClick)
   document.addEventListener('click', handleGeTagClick)
@@ -2151,7 +2135,7 @@ const handleSessionUpdate = (session) => {
 }
 
 const handleAuth = async () => {
-  if (!authForm.email || !authForm.password) return alert("请填写完整的邮箱和密码")
+  if (!authForm.email || !authForm.password) return alert(t('home.alert.needEmailPassword'))
   authLoading.value = true
   try {
     if (isLoginMode.value) {
@@ -2160,10 +2144,10 @@ const handleAuth = async () => {
     } else {
       const { error } = await supabase.auth.signUp({ email: authForm.email, password: authForm.password })
       if (error) throw error
-      alert("注册成功！请去邮箱点击验证链接后登录。")
+      alert(t('home.alert.registered'))
     }
   } catch (error) {
-    alert("认证失败: " + error.message)
+    alert(t('home.alert.authFailed', { error: error.message }))
   } finally {
     authLoading.value = false
   }
@@ -2176,22 +2160,22 @@ const handleGoogleAuth = async () => {
     const { error } = await supabase.auth.signInWithOAuth(buildGoogleOAuthSignInArgs(href))
     if (error) throw error
   } catch (error) {
-    alert("Google 登录失败: " + error.message)
+    alert(t('home.alert.googleFailed', { error: error.message }))
     googleAuthLoading.value = false
   }
 }
 
 const handleResetPasswordEmail = async () => {
-  if (!authForm.email) return alert('请先输入邮箱地址')
+  if (!authForm.email) return alert(t('home.alert.needEmail'))
   resetEmailLoading.value = true
   resetEmailNotice.value = ''
   try {
     const href = typeof window === 'undefined' ? 'https://xkbqiiwwgfzkyfhxuoev.supabase.co' : window.location.href
     const { error } = await supabase.auth.resetPasswordForEmail(authForm.email, buildPasswordResetEmailArgs(href))
     if (error) throw error
-    resetEmailNotice.value = '重设密码邮件已发送，请前往邮箱查收。'
+    resetEmailNotice.value = t('home.alert.resetSent')
   } catch (error) {
-    alert('重设邮件发送失败: ' + error.message)
+    alert(t('home.alert.resetFailed', { error: error.message }))
   } finally {
     resetEmailLoading.value = false
   }
@@ -2215,13 +2199,16 @@ const handleGuestEntry = async () => {
   await trackGuestEvent(supabase, 'guest_started', 'auth')
 }
 
+// 时钟里的干支：中文原样；英文逐字取拼音名（「Jia Zi」）
+const clockGanzhi = (gz) => (locale.value === 'en-US' ? [...String(gz)].map((ch) => symbolName(ch, 'en-US')).join(' ') : gz)
+
 const updateClock = () => {
   // 自定义固定时刻：用 lunar 精确干支展示（带日期前缀），并停止跟随系统时钟
   if (panTime.value) {
     const p = panTime.value
     try {
       const l = Solar.fromYmdHms(p.year, p.month, p.day, p.hour, p.minute, 0).getLunar()
-      clockText.value = `${p.month}月${p.day}日 ${String(p.hour).padStart(2, '0')}:${String(p.minute).padStart(2, '0')} ${l.getDayInGanZhi()}日 ${l.getTimeZhi()}时`
+      clockText.value = t('home.clock.fixed', { month: p.month, day: p.day, time: `${String(p.hour).padStart(2, '0')}:${String(p.minute).padStart(2, '0')}`, dayGz: clockGanzhi(l.getDayInGanZhi()), hourZhi: symbolName(l.getTimeZhi(), locale.value) })
     } catch {
       clockText.value = `${p.year}-${p.month}-${p.day} ${p.hour}:${String(p.minute).padStart(2, '0')}`
     }
@@ -2236,7 +2223,7 @@ const updateClock = () => {
   const _l = Solar.fromYmdHms(now.getFullYear(), now.getMonth() + 1, now.getDate(), now.getHours(), now.getMinutes(), 0).getLunar()
   const stemIdx = Math.max(0, TIAN_GAN.indexOf(_l.getDayGan()))
   const shichenIdx = Math.max(0, DI_ZHI.indexOf(_l.getTimeZhi()))
-  clockText.value = `${h}:${m}\u2002${TIAN_GAN[stemIdx]}日 ${DI_ZHI[shichenIdx]}时`
+  clockText.value = t('home.clock.now', { time: `${h}:${m}`, dayGan: symbolName(TIAN_GAN[stemIdx], locale.value), hourZhi: symbolName(DI_ZHI[shichenIdx], locale.value) })
 }
 
 // 时间选择器：确认 / 重置
@@ -2805,7 +2792,7 @@ const submitFollowup = async () => {
   const q = followupInput.value.trim()
   if (!q || followupSubmitting.value || !currentResultData.value) return
   const { data: { session } } = await supabase.auth.getSession()
-  if (!session) return alert('请先登录')
+  if (!session) return alert(t('home.alert.needLogin'))
   const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` }
 
   followupSubmitting.value = true
@@ -2871,14 +2858,14 @@ const confirmRecastFromFollowup = () => {
 
 const startDivination = async () => {
   const input = questionInput.value.trim()
-  if (!input) return alert("问题不能为空！")
+  if (!input) return alert(t('home.alert.emptyQuestion'))
   activeBaziResultData.value = null
   baziCardSelectedYear.value = null
   showBaziBackingAnchor.value = false
   showBaziPanelAnchor.value = false
 
   const { data: { session } } = await supabase.auth.getSession()
-  if (!session) return alert("请先登录")
+  if (!session) return alert(t('home.alert.needLogin'))
 
   const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` }
   let routeData = null
@@ -2914,7 +2901,7 @@ const startDivination = async () => {
     }
 
     if (routeData.branch === 'clarify') {
-      alert(routeData.followupQuestion || '请补充你想看长期趋势，还是判断眼前某一件具体事情。')
+      alert(routeData.followupQuestion || t('home.alert.clarify'))
       viewState.value = 'input'
       return
     }
@@ -2930,7 +2917,7 @@ const startDivination = async () => {
       const profileId = selectedProfileId.value || baziProfiles.value.find(p => p.is_default)?.id || baziProfiles.value[0]?.id || ''
       if (!profileId) {
         showOrbFx.value = false; wenShiStreaming.value = false; viewState.value = 'input'
-        alert('这个问题需要八字档案才能分析，请先进入八字页建立命主资料。')
+        alert(t('home.alert.needProfile'))
         router.push({ name: 'bazi', query: { question: input } })
         return
       }
@@ -2950,7 +2937,7 @@ const startDivination = async () => {
         const errData = await response.json()
         if (errData.code === 'BAZI_PROFILE_INCOMPLETE') {
           showOrbFx.value = false; wenShiStreaming.value = false; viewState.value = 'input'
-          alert('该档案还没有完整排盘数据，请先进入八字页完成命盘推演。')
+          alert(t('home.alert.profileIncomplete'))
           router.push({ name: 'bazi', query: { profileId, question: input } })
           return
         }
@@ -3268,9 +3255,9 @@ const submitQimenFeedback = async () => {
     if (error) throw error
     await loadHistory()
     closeFeedbackDrawer()
-    alert('反馈已保存')
+    alert(t('home.alert.feedbackSaved'))
   } catch (error) {
-    alert('反馈保存失败: ' + error.message)
+    alert(t('home.alert.feedbackFailed', { error: error.message }))
   } finally {
     feedbackSaving.value = false
   }

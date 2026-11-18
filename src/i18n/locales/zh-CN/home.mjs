@@ -49,7 +49,8 @@ export default {
   "profile": {
     "owner": "命主",
     "switch": "切换",
-    "add": "添加八字档案"
+    "add": "添加八字档案",
+    "unset": "命主未设"
   },
   "ask": {
     "title": "叩问天机",
@@ -138,5 +139,52 @@ export default {
     "health_action": "健康",
     "item_transaction": "交易",
     "general": "杂事"
+  },
+  "samples": [
+    "这次合作谈判能顺利吗？",
+    "我现在换工作时机合适吗？",
+    "这段感情还值得继续吗？",
+    "这笔投资现在能入场吗？",
+    "我近期的财运走势如何？",
+    "近期有没有贵人相助？",
+    "这件事情近期能有结果吗？",
+    "最近身体状况需要注意什么？",
+    "未来老公大概是什么长相和职业？",
+    "我的正缘会在什么场景下出现？",
+    "未来伴侣的经济实力和家境如何？",
+    "未来的另一半比我大还是比我小？",
+    "我的婚姻是强强联合还是被照顾？",
+    "未来的小孩大概有什么天赋特长？",
+    "有了小孩后，会带旺我的财运吗？",
+    "我的子女缘深吗？何时会有宝宝？",
+    "以后和孩子的相处模式是怎样的？",
+    "除了主业，我适合发展什么副业？",
+    "现在工作内耗，命盘有破局建议吗？",
+    "我身上有什么没被挖掘的隐藏天赋？",
+    "近期偏财运如何？有没有意外之财？"
+  ],
+  "clock": {
+    "loading": "载入时辰中…",
+    "fixed": "{month}月{day}日 {time} {dayGz}日 {hourZhi}时",
+    "now": "{time} {dayGan}日 {hourZhi}时"
+  },
+  "alert": {
+    "noResult": "未找到推演结果，请重新推演",
+    "imageFailed": "图片生成失败：{error}",
+    "unknownError": "未知错误",
+    "needEmailPassword": "请填写完整的邮箱和密码",
+    "registered": "注册成功！请去邮箱点击验证链接后登录。",
+    "authFailed": "认证失败: {error}",
+    "googleFailed": "Google 登录失败: {error}",
+    "needEmail": "请先输入邮箱地址",
+    "resetSent": "重设密码邮件已发送，请前往邮箱查收。",
+    "resetFailed": "重设邮件发送失败: {error}",
+    "needLogin": "请先登录",
+    "emptyQuestion": "问题不能为空！",
+    "clarify": "请补充你想看长期趋势，还是判断眼前某一件具体事情。",
+    "needProfile": "这个问题需要八字档案才能分析，请先进入八字页建立命主资料。",
+    "profileIncomplete": "该档案还没有完整排盘数据，请先进入八字页完成命盘推演。",
+    "feedbackSaved": "反馈已保存",
+    "feedbackFailed": "反馈保存失败: {error}"
   }
 }
