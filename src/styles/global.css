@@ -127,3 +127,6 @@ button,input,textarea,select{font-family:inherit}
     --font-ganzhi:   'Noto Serif TC','Noto Serif SC','Songti TC','Songti SC','STSong','SimSun',serif;
     --font-body:     'Noto Serif TC','Noto Serif SC','Songti TC','Songti SC','STSong',serif;
 }
+
+/* English：中文排版用的字距在英文下归零。只改排版参数，不改颜色。 */
+:root[lang="en-US"] #globalBottomNav .nav-label { letter-spacing: 0; }

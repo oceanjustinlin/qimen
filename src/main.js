@@ -2,7 +2,7 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
-import router from './router'
+import router, { resolveRouteMeta } from './router'
 import i18n from './i18n/index.mjs'
 import { displayText, installLocaleDisplay, prepareLocale } from './i18n/localeDisplay.mjs'
 import { supabase } from './lib/supabase.mjs'
@@ -19,9 +19,10 @@ router.afterEach((to) => applyRouteHead(to))
 function applyRouteHead(to) {
   const m = to.meta ?? {}
 
-  const title = m.seoTitle ?? m.title ?? '奇门遁甲在线排盘_AI解盘与八字运势分析 - 奇门道'
-  const shownTitle = displayText(title)
-  const description = displayText(m.seoDescription ?? m.description ?? '')
+  // 中文：const title = m.seoTitle ?? m.title（取值规则见 resolveRouteMeta）；英文取 en-US 词条
+  const resolved = resolveRouteMeta(to, i18n.global.locale.value)
+  const shownTitle = displayText(resolved.title)
+  const description = displayText(resolved.description)
   document.title = shownTitle
 
   setMeta('name', 'description', description)
