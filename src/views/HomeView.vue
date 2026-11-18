@@ -670,7 +670,7 @@ import { contentLocaleOf } from '../i18n/index.mjs'
 import { chipLine, tagLabel, sseText } from '../i18n/sseLabels.mjs'
 import zhCNCatalogue from '../i18n/locales/zh-CN.mjs'
 import enUSCatalogue from '../i18n/locales/en-US.mjs'
-import { formatDate } from '../i18n/formatters.mjs'
+import { formatDate, formatShortDate } from '../i18n/formatters.mjs'
 import { genderLabel, categoryLabel, verdictLabel, feedbackOptionLabel, shortCategoryLabel, symbolName, ganzhiName } from '../i18n/domainLabels.mjs'
 import { Solar } from 'lunar-javascript'
 import { getGuestState, trackGuestEvent } from '../guestMode.mjs'
@@ -2261,13 +2261,7 @@ const formatSolarDate = (value) => {
   return `${p[0]}.${p[1].padStart(2, '0')}.${p[2].padStart(2, '0')}${time}`
 }
 
-const formatRecentDate = (value) => {
-  const d = new Date(value)
-  if (Number.isNaN(d.getTime())) return ''
-  const now = new Date()
-  const md = `${d.getMonth() + 1}月${d.getDate()}日`
-  return d.getFullYear() === now.getFullYear() ? md : `${d.getFullYear()}年${md}`
-}
+const formatRecentDate = (value) => formatShortDate(value, locale.value)
 
 const profileMetaText = (profile) => {
   const parts = [profile.gender === 'M' ? '乾造' : '坤造']
@@ -3063,7 +3057,7 @@ const animateScore = (targetScore, fromScore = 0) => {
 
 const normalizeHistoryRows = (rows = []) => rows.map(r => ({
     ...r,
-    dateStr: formatDate(r.created_at, locale.value),
+    dateStr: locale.value === 'en-US' ? formatShortDate(r.created_at, locale.value) : formatDate(r.created_at, locale.value),
     score: Number(r.score) || 0,
     catLabel: historyCatLabel(r.category)
   }))
@@ -3173,7 +3167,7 @@ const saveRecordToDatabase = async (question, data) => {
       question,
       qimen_data: data,
       category: data.category || 'general',
-      dateStr: formatDate(new Date(), locale.value),
+      dateStr: locale.value === 'en-US' ? formatShortDate(new Date(), locale.value) : formatDate(new Date(), locale.value),
       score: data.summary?.score || 0,
       catLabel: historyCatLabel(data.category),
       canFeedback: false,
@@ -3193,7 +3187,7 @@ const saveRecordToDatabase = async (question, data) => {
   const savedRecord = inserted ? {
     ...inserted,
     qimen_data: data,
-    dateStr: formatDate(inserted.created_at, locale.value),
+    dateStr: locale.value === 'en-US' ? formatShortDate(inserted.created_at, locale.value) : formatDate(inserted.created_at, locale.value),
     score: data.summary?.score || 0,
     branch: data.branch || 'qimen',
     conclusion: data.summary?.conclusion || '',
@@ -4649,6 +4643,8 @@ const buildCardHTML = (data, opts = {}) => {
 .d-hist-info { flex: 1; overflow: hidden; }
 .d-hist-q { font-family: var(--font-serif); font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; }
 .d-hist-meta { font-family: var(--font-serif); font-size: 10px; color: var(--text-muted); display: flex; gap: 8px; align-items: center; }
+.d-hist-meta > span { white-space: nowrap; }
+:root[lang="en-US"] .d-hist-meta { gap: 6px; overflow: hidden; }
 .d-hist-badge { font-family: var(--font-serif); font-size: 10px; padding: 2px 7px; border-radius: 20px; flex-shrink: 0; border: 1px solid; }
 
 /* 页面 */

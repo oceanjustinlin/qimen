@@ -1662,7 +1662,9 @@ const notesMonthOptions = computed(() => {
         const value = `${cursor.getFullYear()}-${String(cursor.getMonth() + 1).padStart(2, '0')}`
         options.push({
             value,
-            label: `${cursor.getFullYear()}年${cursor.getMonth() + 1}月`,
+            label: locale.value === 'en-US'
+                ? cursor.toLocaleDateString('en-US', { year: 'numeric', month: 'short' })
+                : `${cursor.getFullYear()}年${cursor.getMonth() + 1}月`, // i18n-ignore
         })
     }
     return options

@@ -22,6 +22,18 @@ export function formatDate(value, locale, style = 'medium') {
   return d.toLocaleDateString(intlLocale(locale), STYLES[style])
 }
 
+// 列表里的短日期：英文当年省略年份（Nov 18），跨年带年份（Nov 18, 2025）；中文同「11月18日」/「2025年11月18日」。
+export function formatShortDate(value, locale, now = new Date()) {
+  const d = toDate(value)
+  if (!d) return ''
+  const sameYear = d.getFullYear() === now.getFullYear()
+  if (locale === 'en-US') {
+    return d.toLocaleDateString('en-US', sameYear ? { month: 'short', day: 'numeric' } : { year: 'numeric', month: 'short', day: 'numeric' })
+  }
+  const md = `${d.getMonth() + 1}月${d.getDate()}日` // i18n-ignore
+  return sameYear ? md : `${d.getFullYear()}年${md}` // i18n-ignore
+}
+
 export function formatDateTime(value, locale) {
   const d = toDate(value)
   if (!d) return ''
