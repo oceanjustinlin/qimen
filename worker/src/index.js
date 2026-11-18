@@ -27,6 +27,8 @@ import accountQuota from '../../lib/accountQuota.js';
 import baziLlmSections from '../../lib/baziLlmSections.js';
 import llmFetch from '../../lib/llmFetch.js';
 import { langfuseTelemetry } from './langfuse.mjs';
+import requestLocaleLib from '../../lib/i18n/requestLocale.js';
+import serverMessages from '../../lib/i18n/serverMessages.js';
 
 const { buildCompleteBaziDetail, buildQualitativeSections, hasCompleteLlmCache, hasLatestEngineCache, hasExistingLlm, CALIBRATION_VERSION, computeEventsHash, hasValidCalibration } = baziCore;
 const { normalizeQimenLlmOutput } = qimenLlmOutput;
@@ -315,6 +317,10 @@ function getCorsHeaders(request, env, allowedHeaders = 'Content-Type, Authorizat
 }
 
 function json(payload, init = {}, request, env) {
+  // 错误响应统一带稳定的 code（§5.8）；error 中文文本保持不变做兼容
+  if (payload && typeof payload === 'object' && payload.error && !payload.code && (init.status || 200) >= 400) {
+    payload = { ...payload, code: serverMessages.inferErrorCode(payload.error, init.status) };
+  }
   const headers = new Headers(init.headers || {});
   headers.set('Content-Type', 'application/json; charset=utf-8');
 
@@ -581,9 +587,7 @@ async function enforceQuota(user, env) {
     .eq('user_id', user.id);
 
   if (!error && count >= 3) {
-    const err = new Error('您的 3 次免费天机推演额度已用尽');
-    err.status = 403;
-    throw err;
+    throw serverMessages.quotaError('您的 3 次免费天机推演额度已用尽');
   }
 }
 
@@ -1247,7 +1251,7 @@ async function handleFortuneDaily(request, env) {
     return response;
   } catch (error) {
     console.error('[qimen-api] fortune-daily error:', error);
-    const isQuota = error.message.includes('额度');
+    const isQuota = error.code === 'QUOTA_EXCEEDED';
     return json({ error: isQuota ? error.message : '云端日运推演失败', details: error.message }, { status: error.status || (isQuota ? 403 : 500) }, request, env);
   }
 }
@@ -1464,14 +1468,14 @@ async function handleBaziQuestion(request, env, ctx) {
         llmFullText = await requestLLMText(textPrompt, env, questionModel, BAZI_ANSWER_TEMPERATURE, ctx, { ..._baziTraceMeta, name: 'bazi-question-answer-retry' });
       } catch (retryErr) {
         console.error('[bazi-question] retry also failed:', retryErr.message);
-        emit({ type: 'error', message: 'AI 推演暂时不可用，请稍后重试' });
+        emit({ type: 'error', message: 'AI 推演暂时不可用，请稍后重试', code: 'LLM_UNAVAILABLE' });
         return;
       }
       const retryBaziParser = createSentinelStreamParser(baziVisibleSections(_baziMode), {});
       retryBaziParser.push(llmFullText);
       baziSec = retryBaziParser.finish();
       if (baziSectionsAreBad(baziSec, _baziMode)) {
-        emit({ type: 'error', message: 'AI 推演暂时不可用，请稍后重试' });
+        emit({ type: 'error', message: 'AI 推演暂时不可用，请稍后重试', code: 'LLM_UNAVAILABLE' });
         return;
       }
       for (const [k] of baziTextFields(_baziMode)) {
@@ -1540,7 +1544,7 @@ async function handleBaziQuestion(request, env, ctx) {
     emit({ type: 'complete', result: outputWithSnapshot });
   } catch (error) {
     console.error('[qimen-api] bazi-question error:', error);
-    emit({ type: 'error', message: error.message || '八字问答生成失败' });
+    emit({ type: 'error', message: error.message || '八字问答生成失败', code: error.code || serverMessages.inferErrorCode(error.message, error.status || 500) });
   } finally {
     close();
   }
@@ -1684,7 +1688,7 @@ async function handleFortuneDailyInterpretation(request, env, ctx) {
     return json(pickInterpretationFields(mergedJson), { status: 200 }, request, env);
   } catch (error) {
     console.error('[qimen-api] fortune-daily-interpretation error:', error);
-    const isQuota = error.message.includes('额度');
+    const isQuota = error.code === 'QUOTA_EXCEEDED';
     return json({ error: isQuota ? error.message : '云端日运断语生成失败', details: error.message }, { status: error.status || (isQuota ? 403 : 500) }, request, env);
   }
 }
@@ -1890,7 +1894,7 @@ async function handleQimenFollowup(request, env, ctx) {
         sec = retry.finish();
         for (const k of fr.target_sections) if (sec[k]) emit({ type: 'patch_delta', section: k, text: sec[k] });
       } catch (e) {
-        emit({ type: 'error', message: '追问生成暂时不可用，请稍后重试' });
+        emit({ type: 'error', message: '追问生成暂时不可用，请稍后重试', code: 'FOLLOWUP_UNAVAILABLE' });
         return;
       }
     }
@@ -1918,7 +1922,7 @@ async function handleQimenFollowup(request, env, ctx) {
     });
   } catch (error) {
     console.error('[qimen-api] followup error:', error);
-    emit({ type: 'error', message: error.message || '追问生成失败' });
+    emit({ type: 'error', message: error.message || '追问生成失败', code: error.code || serverMessages.inferErrorCode(error.message, error.status || 500) });
   } finally {
     close();
   }
@@ -2065,7 +2069,7 @@ async function handleBaziFollowup(request, env, ctx) {
         rp.push(retryFull); const rsec = rp.finish();
         for (const k of patchable) if (rsec[k] && rsec[k].trim()) { supplements[k] = rsec[k].trim(); emit({ type: 'patch_delta', section: k, text: supplements[k] }); }
       } catch (e) {
-        emit({ type: 'error', message: '追问生成暂时不可用，请稍后重试' });
+        emit({ type: 'error', message: '追问生成暂时不可用，请稍后重试', code: 'FOLLOWUP_UNAVAILABLE' });
         return;
       }
     }
@@ -2074,7 +2078,7 @@ async function handleBaziFollowup(request, env, ctx) {
     await writeFollowupAudit(env, { ...auditBase, supplements });
   } catch (error) {
     console.error('[bazi-followup] error:', error);
-    emit({ type: 'error', message: error.message || '追问生成失败' });
+    emit({ type: 'error', message: error.message || '追问生成失败', code: error.code || serverMessages.inferErrorCode(error.message, error.status || 500) });
   } finally {
     close();
   }
@@ -2122,7 +2126,7 @@ async function handleQimen(request, env, ctx) {
       await assertDailyQimenQuota({ supabase, userId });
     } catch (quotaErr) {
       console.warn('[qimen-api] quota check failed:', quotaErr);
-      return json({ error: quotaErr.message || '额度检查失败' }, { status: quotaErr.status || 500 }, request, env);
+      return json({ error: quotaErr.message || '额度检查失败', ...(quotaErr.code ? { code: quotaErr.code } : {}) }, { status: quotaErr.status || 500 }, request, env);
     }
   }
 
@@ -2326,14 +2330,14 @@ ${scoreEvidenceSection}
         llmFullText = await requestLLMText(qimenPrompt, env, questionModel, QIMEN_ANSWER_TEMPERATURE, ctx, { ..._qimenTraceMeta, name: 'qimen-answer-retry' });
       } catch (retryErr) {
         console.error('[qimen-api] retry also failed:', retryErr.message);
-        emit({ type: 'error', message: 'AI 推演暂时不可用，请稍后重试' });
+        emit({ type: 'error', message: 'AI 推演暂时不可用，请稍后重试', code: 'LLM_UNAVAILABLE' });
         return;
       }
       const retryParser = createSentinelStreamParser(QIMEN_VISIBLE_SECTIONS, {});
       retryParser.push(llmFullText);
       sec = retryParser.finish();
       if (qimenSectionsAreBad(sec)) {
-        emit({ type: 'error', message: 'AI 推演暂时不可用，请稍后重试' });
+        emit({ type: 'error', message: 'AI 推演暂时不可用，请稍后重试', code: 'LLM_UNAVAILABLE' });
         return;
       }
       // 用重试内容重新 emit 可见段（含 title）
@@ -2588,7 +2592,7 @@ ${scoreEvidenceSection}
 
   } catch (error) {
     console.error('[qimen-api] qimen error:', error);
-    emit({ type: 'error', message: error.message || '奇门引擎推演失败' });
+    emit({ type: 'error', message: error.message || '奇门引擎推演失败', code: error.code || serverMessages.inferErrorCode(error.message, error.status || 500) });
   } finally {
     close();
   }
@@ -2808,7 +2812,7 @@ async function handleBazi(request, env, ctx) {
         emit({ type: 'complete', pct: 100, profileId: promptData.profileId });
       } catch (streamError) {
         console.error('[qimen-api] bazi stream error:', streamError);
-        emit({ type: 'error', message: streamError.message || '八字引擎推演失败' });
+        emit({ type: 'error', message: streamError.message || '八字引擎推演失败', code: streamError.code || serverMessages.inferErrorCode(streamError.message, streamError.status || 500) });
       } finally {
         close();
       }
@@ -2818,7 +2822,7 @@ async function handleBazi(request, env, ctx) {
 
   } catch (error) {
     console.error('[qimen-api] bazi error:', error);
-    const isQuota = error.message && error.message.includes("额度");
+    const isQuota = error.code === 'QUOTA_EXCEEDED';
     return json({ error: "八字引擎推演失败", details: error.message }, { status: isQuota ? 403 : 500 }, request, env);
   }
 }

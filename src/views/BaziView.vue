@@ -1183,6 +1183,7 @@
 import { ref, reactive, computed, nextTick, onMounted, onUnmounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import { localizeApiError, localeJson, withLocaleQuery } from '../i18n/requestLocale.mjs'
 import { contextFieldLabel, contextFieldPlaceholder, contextOptionLabel, monthlySectionTitle, noteCategoryLabel, noteImpactLabel, profileSectionTitle } from '../i18n/notesLabels.mjs'
 import { supabase } from '../lib/supabase.mjs'
 import { Solar } from 'lunar-javascript'
@@ -1235,7 +1236,8 @@ import {
 
 const router = useRouter()
 const route = useRoute()
-const { t, locale } = useI18n()
+const { t, te, locale } = useI18n()
+const i18nCtx = { t, te, get locale() { return locale.value } }
 const getFortuneStorage = () => (typeof window === 'undefined' ? null : window.localStorage)
 
 // 与后端 lib/baziCore.js 的 BAZI_ENGINE_VERSION 保持同步
@@ -3146,11 +3148,11 @@ const fetchProfileContextDraft = async () => {
     }
     try {
         const accessToken = await getAccessToken()
-        const response = await fetch(apiPath(`/api/context-notes?scope=profile&profile_id=${encodeURIComponent(activeProfile.value.id)}`), {
+        const response = await fetch(apiPath(withLocaleQuery(`/api/context-notes?scope=profile&profile_id=${encodeURIComponent(activeProfile.value.id)}`)), {
             headers: { Authorization: `Bearer ${accessToken}` },
         })
         const payload = await response.json()
-        if (!response.ok || payload.error) throw new Error(payload.details || payload.error || '加载长期基调失败')
+        if (!response.ok || payload.error) throw new Error(localizeApiError(payload, i18nCtx, payload.details || payload.error || '加载长期基调失败'))
         profileContextDraft.value = payload.data || createEmptyProfileContextDraft()
         profileContextBaseline.value = cloneContextValue(profileContextDraft.value)
     } catch (error) {
@@ -3169,11 +3171,11 @@ const fetchMonthlyContextDraft = async () => {
     }
     try {
         const accessToken = await getAccessToken()
-        const response = await fetch(apiPath(`/api/context-notes?scope=monthly&profile_id=${encodeURIComponent(activeProfile.value.id)}&month_key=${encodeURIComponent(notesMonthKey.value)}`), {
+        const response = await fetch(apiPath(withLocaleQuery(`/api/context-notes?scope=monthly&profile_id=${encodeURIComponent(activeProfile.value.id)}&month_key=${encodeURIComponent(notesMonthKey.value)}`)), {
             headers: { Authorization: `Bearer ${accessToken}` },
         })
         const payload = await response.json()
-        if (!response.ok || payload.error) throw new Error(payload.details || payload.error || '加载月度现状失败')
+        if (!response.ok || payload.error) throw new Error(localizeApiError(payload, i18nCtx, payload.details || payload.error || '加载月度现状失败'))
         monthlyContextDraft.value = payload.record || createEmptyMonthlyContextDraft(notesMonthKey.value)
         monthlyContextBaseline.value = cloneContextValue(monthlyContextDraft.value)
         recentMonthlyContextRecords.value = Array.isArray(payload.recent_records) ? payload.recent_records : []
@@ -3207,14 +3209,14 @@ const saveProfileContextDraft = async () => {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${accessToken}`,
             },
-            body: JSON.stringify({
+            body: localeJson({
                 scope: 'profile',
                 profile_id: activeProfile.value.id,
                 data: profileContextDraft.value,
             }),
         })
         const payload = await response.json()
-        if (!response.ok || payload.error) throw new Error(payload.details || payload.error || '保存长期基调失败')
+        if (!response.ok || payload.error) throw new Error(localizeApiError(payload, i18nCtx, payload.details || payload.error || '保存长期基调失败'))
         profileContextDraft.value = payload.data || createEmptyProfileContextDraft()
         profileContextBaseline.value = cloneContextValue(profileContextDraft.value)
         if (shouldRefreshInterpretation) {
@@ -3241,7 +3243,7 @@ const saveMonthlyContextDraft = async () => {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${accessToken}`,
             },
-            body: JSON.stringify({
+            body: localeJson({
                 scope: 'monthly',
                 profile_id: activeProfile.value.id,
                 month_key: notesMonthKey.value,
@@ -3249,7 +3251,7 @@ const saveMonthlyContextDraft = async () => {
             }),
         })
         const payload = await response.json()
-        if (!response.ok || payload.error) throw new Error(payload.details || payload.error || '保存月度现状失败')
+        if (!response.ok || payload.error) throw new Error(localizeApiError(payload, i18nCtx, payload.details || payload.error || '保存月度现状失败'))
         monthlyContextDraft.value = payload.record || createEmptyMonthlyContextDraft(notesMonthKey.value)
         monthlyContextBaseline.value = cloneContextValue(monthlyContextDraft.value)
         recentMonthlyContextRecords.value = Array.isArray(payload.recent_records) ? payload.recent_records : []
@@ -3703,7 +3705,7 @@ async function readBaziSSEStream(response, profileId) {
                 }
                 return event.result || null
             } else if (event.type === 'error') {
-                const err = new Error(event.message || '八字推演失败')
+                const err = new Error(localizeApiError(event, i18nCtx, event.message || '八字推演失败'))
                 err.profileId = profileId
                 throw err
             }
@@ -3731,7 +3733,7 @@ const requestAiSummary = async ({ force = false } = {}) => {
         const response = await fetch(apiPath('/api/bazi'), {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
-            body: JSON.stringify({ 
+            body: localeJson({ 
                 promptData: { profileId, gender: pd.gender, birthStr: pd.birthStr, baziStr: pd.baziStr, daYunStr: "当前大运", force }
             })
         })
@@ -3741,7 +3743,7 @@ const requestAiSummary = async ({ force = false } = {}) => {
             ? await readBaziSSEStream(response, profileId)
             : await response.json()
         if (data?.error) {
-            const err = new Error(data.error)
+            const err = new Error(localizeApiError(data, i18nCtx, data.error))
             err.httpStatus = response.status
             throw err
         }
@@ -3837,11 +3839,11 @@ const triggerCalibration = async ({ profileId = activeProfile.value?.id, force =
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${session.access_token}`,
             },
-            body: JSON.stringify({ profileId }),
+            body: localeJson({ profileId }),
         })
 
         const data = await res.json()
-        if (data.error) throw new Error(data.error)
+        if (data.error) throw new Error(localizeApiError(data, i18nCtx, data.error))
 
         const idx = baziProfiles.value.findIndex(p => p.id === profileId)
         if (idx !== -1) {

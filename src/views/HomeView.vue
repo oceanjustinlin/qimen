@@ -665,6 +665,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { supabase } from '../lib/supabase.mjs'
 import { displayText } from '../i18n/localeDisplay.mjs'
 import { useI18n } from 'vue-i18n'
+import { localizeApiError, localeJson } from '../i18n/requestLocale.mjs'
 import zhCNCatalogue from '../i18n/locales/zh-CN.mjs'
 import enUSCatalogue from '../i18n/locales/en-US.mjs'
 import { formatDate } from '../i18n/formatters.mjs'
@@ -730,7 +731,8 @@ const ROUTE_API_URL = apiPath("/api/divination-route")
 const BAZI_QUESTION_API_URL = apiPath("/api/bazi-question")
 const router = useRouter()
 const route = useRoute()
-const { t, locale } = useI18n()
+const { t, te, locale } = useI18n()
+const i18nCtx = { t, te, get locale() { return locale.value } }
 
 const currentUser = ref(globalState.currentUser)
 const authView = ref('landing')
@@ -1916,7 +1918,7 @@ async function readSSEStream(response) {
         ssePct.value = 100
         return event.result
       } else if (event.type === 'error') {
-        throw new Error(event.message || '推演失败')
+        throw new Error(localizeApiError(event, i18nCtx, event.message || '推演失败'))
       }
     }
   }
@@ -2430,7 +2432,7 @@ const fetchMissingPanelMatrix = async () => {
     const res = await fetch(apiPath('/api/bazi-panel'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
-      body: JSON.stringify({
+      body: localeJson({
         profileId,
         category: data.meta?.category,
         subcategory: data.meta?.subcategory,
@@ -2464,7 +2466,7 @@ const fetchMissingPanelData = async (data) => {
     const res = await fetch(apiPath('/api/bazi-panel'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
-      body: JSON.stringify({
+      body: localeJson({
         profileId,
         category: data.meta?.category,
         subcategory: data.meta?.subcategory,
@@ -2765,7 +2767,7 @@ const readFollowupSSE = async (response, q, branch = 'qimen') => {
         Object.assign(supplements, ev.supplements || {})
         nature = ev.nature || nature
       } else if (ev.type === 'error') {
-        throw new Error(ev.message || '追问失败')
+        throw new Error(localizeApiError(ev, i18nCtx, ev.message || '追问失败'))
       }
     }
   }
@@ -2803,11 +2805,11 @@ const submitFollowup = async () => {
     const origin = isBazi ? buildBaziOrigin(currentResultData.value) : buildFollowupOrigin(currentResultData.value)
     const response = await fetch(isBazi ? BAZI_FOLLOWUP_API_URL : FOLLOWUP_API_URL, {
       method: 'POST', headers,
-      body: JSON.stringify({ followup: q, branch, origin }),
+      body: localeJson({ followup: q, branch, origin }),
     })
     if (!response.ok) {
       const e = await response.json().catch(() => ({}))
-      throw new Error(e.details || e.error || '追问失败')
+      throw new Error(localizeApiError(e, i18nCtx, e.details || e.error || '追问失败'))
     }
     const outcome = await readFollowupSSE(response, q, branch)
     if (outcome.scope === 'new_matter') {
@@ -2887,7 +2889,7 @@ const startDivination = async () => {
     const routeResponse = await fetch(ROUTE_API_URL, {
       method: 'POST',
       headers,
-      body: JSON.stringify({
+      body: localeJson({
         question: input,
         hasBaziProfile: Boolean(selectedProfileId.value || baziProfiles.value.length),
         hasPanTime: Boolean(panTime.value)
@@ -2895,7 +2897,7 @@ const startDivination = async () => {
     })
     routeData = await routeResponse.json()
     if (!routeResponse.ok || routeData.error) {
-      const err = new Error(routeData.details || routeData.error || '分类失败')
+      const err = new Error(localizeApiError(routeData, i18nCtx, routeData.details || routeData.error || '分类失败'))
       err.httpStatus = routeResponse.status
       throw err
     }
@@ -2931,7 +2933,7 @@ const startDivination = async () => {
       const response = await fetch(BAZI_QUESTION_API_URL, {
         method: 'POST',
         headers,
-        body: JSON.stringify({ question: input, profileId, route: routeData })
+        body: localeJson({ question: input, profileId, route: routeData })
       })
       if (!response.ok) {
         const errData = await response.json()
@@ -2941,7 +2943,7 @@ const startDivination = async () => {
           router.push({ name: 'bazi', query: { profileId, question: input } })
           return
         }
-        const err = new Error(errData.details || errData.error || '八字问答失败')
+        const err = new Error(localizeApiError(errData, i18nCtx, errData.details || errData.error || '八字问答失败'))
         err.httpStatus = response.status
         throw err
       }
@@ -2976,7 +2978,7 @@ const startDivination = async () => {
     const response = await fetch(API_URL, {
       method: 'POST',
       headers,
-      body: JSON.stringify({
+      body: localeJson({
         question: input,
         route: routeData,
         baziInfo: (routeData.branch === 'qimen') ? null : (currentBaziString.value || null),
@@ -2985,7 +2987,7 @@ const startDivination = async () => {
     })
     if (!response.ok) {
       const errData = await response.json()
-      const err = new Error(errData.details || errData.error || '推演失败')
+      const err = new Error(localizeApiError(errData, i18nCtx, errData.details || errData.error || '推演失败'))
       err.httpStatus = response.status
       throw err
     }

@@ -756,6 +756,7 @@
 import { ref, computed, nextTick, onMounted, onUnmounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import { localizeApiError, localeJson } from '../i18n/requestLocale.mjs'
 import { ganzhiName, genderLabel } from '../i18n/domainLabels.mjs'
 import { supabase } from '../lib/supabase.mjs'
 import { globalState, resolveSelectedBaziProfileId, setSelectedBaziProfileId } from '../store.js'
@@ -788,7 +789,8 @@ import { BAZI_PROFILE_LIST_SELECT } from '../baziProfileFields.mjs'
 
 const route = useRoute()
 const router = useRouter()
-const { t, locale } = useI18n()
+const { t, te, locale } = useI18n()
+const i18nCtx = { t, te, get locale() { return locale.value } }
 
 const WEEKDAY_KEYS = ['fortune.weekday.0', 'fortune.weekday.1', 'fortune.weekday.2', 'fortune.weekday.3', 'fortune.weekday.4', 'fortune.weekday.5', 'fortune.weekday.6']
 const weekdayShort = (day) => t(WEEKDAY_KEYS[day] || WEEKDAY_KEYS[0])
@@ -1327,11 +1329,11 @@ const fetchFortuneBaseFromApi = async (dateStr, accessToken, profileId) => {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${accessToken}`
     },
-    body: JSON.stringify({ target_date: dateStr, profile_id: profileId || undefined })
+    body: localeJson({ target_date: dateStr, profile_id: profileId || undefined })
   })
   if (!response.ok) {
     const err = await response.json()
-    throw new Error(err.error || t('fortune.error.day'))
+    throw new Error(localizeApiError(err, i18nCtx, err.error || t('fortune.error.day')))
   }
   return response.json()
 }
@@ -1343,11 +1345,11 @@ const fetchMonthlyFortuneFromApi = async (monthKey, accessToken, profileId) => {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${accessToken}`
     },
-    body: JSON.stringify({ target_month: monthKey, profile_id: profileId || undefined })
+    body: localeJson({ target_month: monthKey, profile_id: profileId || undefined })
   })
   if (!response.ok) {
     const err = await response.json()
-    throw new Error(err.error || t('fortune.error.month'))
+    throw new Error(localizeApiError(err, i18nCtx, err.error || t('fortune.error.month')))
   }
   return response.json()
 }
@@ -1359,11 +1361,11 @@ const fetchWeeklyFortuneFromApi = async (dateStr, accessToken, profileId) => {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${accessToken}`
     },
-    body: JSON.stringify({ target_date: dateStr, profile_id: profileId || undefined })
+    body: localeJson({ target_date: dateStr, profile_id: profileId || undefined })
   })
   if (!response.ok) {
     const err = await response.json()
-    throw new Error(err.error || t('fortune.error.week'))
+    throw new Error(localizeApiError(err, i18nCtx, err.error || t('fortune.error.week')))
   }
   return response.json()
 }
@@ -1375,11 +1377,11 @@ const fetchAnnualFortuneFromApi = async (targetYear, accessToken, profileId) => 
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${accessToken}`
     },
-    body: JSON.stringify({ target_year: targetYear, profile_id: profileId || undefined })
+    body: localeJson({ target_year: targetYear, profile_id: profileId || undefined })
   })
   if (!response.ok) {
     const err = await response.json()
-    throw new Error(err.error || t('fortune.error.year'))
+    throw new Error(localizeApiError(err, i18nCtx, err.error || t('fortune.error.year')))
   }
   return response.json()
 }
@@ -1428,11 +1430,11 @@ const requestMonthlyInterpretation = async (monthKey, accessToken, profileId, di
       'Authorization': `Bearer ${accessToken}`,
       'Accept': 'application/json, text/event-stream',
     },
-    body: JSON.stringify({ target_month: monthKey, profile_id: profileId || undefined, dimension })
+    body: localeJson({ target_month: monthKey, profile_id: profileId || undefined, dimension })
   })
   if (!response.ok) {
     const err = await response.json().catch(() => ({}))
-    throw new Error(err.error || t('fortune.error.monthReading'))
+    throw new Error(localizeApiError(err, i18nCtx, err.error || t('fortune.error.monthReading')))
   }
 
   const contentType = response.headers.get('content-type') || ''
@@ -1484,12 +1486,12 @@ const requestFortuneInterpretation = async (userId, dateStr, accessToken, profil
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${accessToken}`
       },
-      body: JSON.stringify({ target_date: dateStr, profile_id: profileId || undefined })
+      body: localeJson({ target_date: dateStr, profile_id: profileId || undefined })
     })
       .then(async (response) => {
         if (!response.ok) {
           const err = await response.json()
-          throw new Error(err.error || t('fortune.error.reading'))
+          throw new Error(localizeApiError(err, i18nCtx, err.error || t('fortune.error.reading')))
         }
         return response.json()
       })
