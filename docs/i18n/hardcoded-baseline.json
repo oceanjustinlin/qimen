@@ -19,7 +19,7 @@
   "src/utils/monthlyScoreHits.mjs": 13,
   "src/utils/qimenCardFallbacks.mjs": 11,
   "src/utils/ziweiChart.mjs": 19,
-  "src/views/BaziView.vue": 476,
+  "src/views/BaziView.vue": 426,
   "src/views/FortuneView.vue": 8,
   "src/views/HomeView.vue": 344
 }

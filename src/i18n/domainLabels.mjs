@@ -115,3 +115,11 @@ export function symbolName(zh, locale) {
   if (!isEnglish(locale)) return value
   return glossary.toEnglish(value) || value
 }
+
+// 干支只要拼音名：'壬辰' → 'Ren Chen'（英文）；中文原样。
+export function ganzhiName(gz, locale) {
+  if (empty(gz)) return ''
+  const value = String(gz)
+  if (!isEnglish(locale)) return value
+  return [...value].map((ch) => symbolName(ch, locale)).join(' ')
+}

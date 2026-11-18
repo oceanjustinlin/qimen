@@ -668,7 +668,7 @@ import { useI18n } from 'vue-i18n'
 import zhCNCatalogue from '../i18n/locales/zh-CN.mjs'
 import enUSCatalogue from '../i18n/locales/en-US.mjs'
 import { formatDate } from '../i18n/formatters.mjs'
-import { genderLabel, categoryLabel, verdictLabel, feedbackOptionLabel, shortCategoryLabel, symbolName } from '../i18n/domainLabels.mjs'
+import { genderLabel, categoryLabel, verdictLabel, feedbackOptionLabel, shortCategoryLabel, symbolName, ganzhiName } from '../i18n/domainLabels.mjs'
 import { Solar } from 'lunar-javascript'
 import { getGuestState, trackGuestEvent } from '../guestMode.mjs'
 import {
@@ -2199,8 +2199,8 @@ const handleGuestEntry = async () => {
   await trackGuestEvent(supabase, 'guest_started', 'auth')
 }
 
-// 时钟里的干支：中文原样；英文逐字取拼音名（「Jia Zi」）
-const clockGanzhi = (gz) => (locale.value === 'en-US' ? [...String(gz)].map((ch) => symbolName(ch, 'en-US')).join(' ') : gz)
+// 时钟里的干支：中文原样；英文取拼音名（「Jia Zi」）
+const clockGanzhi = (gz) => ganzhiName(gz, locale.value)
 
 const updateClock = () => {
   // 自定义固定时刻：用 lunar 精确干支展示（带日期前缀），并停止跟随系统时钟

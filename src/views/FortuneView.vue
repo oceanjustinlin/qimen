@@ -622,7 +622,7 @@
                   </div>
                   <div class="score-side">
                     <div class="monthly-score-title-row">
-                      <div class="score-ganzhi">{{ t('fortune.year.ganzhi', { gz: visibleAnnualData.liunian_gz }) }}</div>
+                      <div class="score-ganzhi">{{ t('fortune.year.ganzhi', { gz: ganzhiName(visibleAnnualData.liunian_gz, locale) }) }}</div>
                       <button
                         v-if="annualScoreHitLayers.length"
                         type="button"
@@ -756,7 +756,7 @@
 import { ref, computed, nextTick, onMounted, onUnmounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { genderLabel } from '../i18n/domainLabels.mjs'
+import { ganzhiName, genderLabel } from '../i18n/domainLabels.mjs'
 import { supabase } from '../lib/supabase.mjs'
 import { globalState, resolveSelectedBaziProfileId, setSelectedBaziProfileId } from '../store.js'
 import { getGuestState, recordGuestFortuneViewed, trackGuestEvent } from '../guestMode.mjs'
@@ -892,8 +892,8 @@ const activeProfileName = computed(() => activeProfile.value?.name || t('fortune
 const currentProfileCacheKey = computed(() => selectedProfileId.value || '')
 const fortuneGanzhiText = computed(() => {
   if (!fortuneData.value) return '-'
-  const month = fortuneData.value.month_gz ? t('fortune.gzMonth', { gz: fortuneData.value.month_gz }) : ''
-  const day = fortuneData.value.day_gz ? t('fortune.gzDay', { gz: fortuneData.value.day_gz }) : ''
+  const month = fortuneData.value.month_gz ? t('fortune.gzMonth', { gz: ganzhiName(fortuneData.value.month_gz, locale.value) }) : ''
+  const day = fortuneData.value.day_gz ? t('fortune.gzDay', { gz: ganzhiName(fortuneData.value.day_gz, locale.value) }) : ''
   return `${month} ${day}`.trim() || '-'
 })
 

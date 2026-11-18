@@ -264,64 +264,64 @@
                                         :class="{ active: activePillarSlot === 'yearGan' }"
                                         @click="setActivePillarSlot('yearGan')"
                                     >
-                                        <span class="slot-label">年干</span>
-                                        <strong class="slot-value">{{ pillarInput.yearPillar.charAt(0) || '年干' }}</strong>
+                                        <span class="slot-label">{{ t('bazi.slot.yearGan') }}</span>
+                                        <strong class="slot-value">{{ pillarInput.yearPillar.charAt(0) || t('bazi.slot.yearGan') }}</strong>
                                     </button>
                                     <button
                                         class="pillar-slot derived"
                                         :class="{ active: activePillarSlot === 'monthGan' }"
                                         @click="setActivePillarSlot('monthGan')"
                                     >
-                                        <span class="slot-label">月干</span>
-                                        <strong class="slot-value">{{ pillarInput.monthPillar.charAt(0) || '月干' }}</strong>
+                                        <span class="slot-label">{{ t('bazi.slot.monthGan') }}</span>
+                                        <strong class="slot-value">{{ pillarInput.monthPillar.charAt(0) || t('bazi.slot.monthGan') }}</strong>
                                     </button>
                                     <button
                                         class="pillar-slot"
                                         :class="{ active: activePillarSlot === 'dayGan' }"
                                         @click="setActivePillarSlot('dayGan')"
                                     >
-                                        <span class="slot-label">日干</span>
-                                        <strong class="slot-value">{{ pillarInput.dayPillar.charAt(0) || '日干' }}</strong>
+                                        <span class="slot-label">{{ t('bazi.slot.dayGan') }}</span>
+                                        <strong class="slot-value">{{ pillarInput.dayPillar.charAt(0) || t('bazi.slot.dayGan') }}</strong>
                                     </button>
                                     <button
                                         class="pillar-slot derived"
                                         :class="{ active: activePillarSlot === 'timeGan' }"
                                         @click="setActivePillarSlot('timeGan')"
                                     >
-                                        <span class="slot-label">时干</span>
-                                        <strong class="slot-value">{{ pillarInput.timePillar.charAt(0) || '时干' }}</strong>
+                                        <span class="slot-label">{{ t('bazi.slot.timeGan') }}</span>
+                                        <strong class="slot-value">{{ pillarInput.timePillar.charAt(0) || t('bazi.slot.timeGan') }}</strong>
                                     </button>
                                     <button
                                         class="pillar-slot"
                                         :class="{ active: activePillarSlot === 'yearZhi' }"
                                         @click="setActivePillarSlot('yearZhi')"
                                     >
-                                        <span class="slot-label">年支</span>
-                                        <strong class="slot-value">{{ pillarInput.yearPillar.charAt(1) || '年支' }}</strong>
+                                        <span class="slot-label">{{ t('bazi.slot.yearZhi') }}</span>
+                                        <strong class="slot-value">{{ pillarInput.yearPillar.charAt(1) || t('bazi.slot.yearZhi') }}</strong>
                                     </button>
                                     <button
                                         class="pillar-slot"
                                         :class="{ active: activePillarSlot === 'monthZhi' }"
                                         @click="setActivePillarSlot('monthZhi')"
                                     >
-                                        <span class="slot-label">月支</span>
-                                        <strong class="slot-value">{{ pillarInput.monthPillar.charAt(1) || '月支' }}</strong>
+                                        <span class="slot-label">{{ t('bazi.slot.monthZhi') }}</span>
+                                        <strong class="slot-value">{{ pillarInput.monthPillar.charAt(1) || t('bazi.slot.monthZhi') }}</strong>
                                     </button>
                                     <button
                                         class="pillar-slot"
                                         :class="{ active: activePillarSlot === 'dayZhi' }"
                                         @click="setActivePillarSlot('dayZhi')"
                                     >
-                                        <span class="slot-label">日支</span>
-                                        <strong class="slot-value">{{ pillarInput.dayPillar.charAt(1) || '日支' }}</strong>
+                                        <span class="slot-label">{{ t('bazi.slot.dayZhi') }}</span>
+                                        <strong class="slot-value">{{ pillarInput.dayPillar.charAt(1) || t('bazi.slot.dayZhi') }}</strong>
                                     </button>
                                     <button
                                         class="pillar-slot"
                                         :class="{ active: activePillarSlot === 'timeZhi' }"
                                         @click="setActivePillarSlot('timeZhi')"
                                     >
-                                        <span class="slot-label">时支</span>
-                                        <strong class="slot-value">{{ pillarInput.timePillar.charAt(1) || '时支' }}</strong>
+                                        <span class="slot-label">{{ t('bazi.slot.timeZhi') }}</span>
+                                        <strong class="slot-value">{{ pillarInput.timePillar.charAt(1) || t('bazi.slot.timeZhi') }}</strong>
                                     </button>
                                 </div>
                                 <div class="pillar-choice-panel">
@@ -1592,15 +1592,15 @@ const ganOptions = GAN
 const zhiOptions = ZHI
 const activeSlotType = computed(() => activePillarSlot.value.endsWith('Gan') ? 'gan' : 'zhi')
 const activeSlotLabel = computed(() => ({
-    yearGan: '年干',
-    monthGan: '月干',
-    dayGan: '日干',
-    timeGan: '时干',
-    yearZhi: '年支',
-    monthZhi: '月支',
-    dayZhi: '日支',
-    timeZhi: '时支'
-}[activePillarSlot.value] || '年干'))
+    yearGan: t('bazi.slot.yearGan'),
+    monthGan: t('bazi.slot.monthGan'),
+    dayGan: t('bazi.slot.dayGan'),
+    timeGan: t('bazi.slot.timeGan'),
+    yearZhi: t('bazi.slot.yearZhi'),
+    monthZhi: t('bazi.slot.monthZhi'),
+    dayZhi: t('bazi.slot.dayZhi'),
+    timeZhi: t('bazi.slot.timeZhi'),
+}[activePillarSlot.value] || t('bazi.slot.yearGan')))
 const monthBranchOptions = computed(() => getAllowedMonthBranchesByStem(pillarInput.monthPillar.charAt(0)))
 const timeBranchOptions = computed(() => getAllowedTimeBranchesByStem(pillarInput.timePillar.charAt(0)))
 const activeCandidateOptions = computed(() => {
@@ -1624,18 +1624,18 @@ const activeSlotValue = computed(() => {
 })
 const activeSlotHint = computed(() => {
     if (activePillarSlot.value === 'monthZhi') {
-        return `已按月干 ${pillarInput.monthPillar.charAt(0)} 限定月支，可选六支：${monthBranchOptions.value.join('、')}`
+        return t('bazi.slot.monthZhiHint', { stem: pillarInput.monthPillar.charAt(0), options: monthBranchOptions.value.join(t('bazi.listSep')) })
     }
     if (activePillarSlot.value === 'timeZhi') {
-        return `已按时干 ${pillarInput.timePillar.charAt(0)} 限定时支，可选六支：${timeBranchOptions.value.join('、')}`
+        return t('bazi.slot.timeZhiHint', { stem: pillarInput.timePillar.charAt(0), options: timeBranchOptions.value.join(t('bazi.listSep')) })
     }
-    if (activePillarSlot.value === 'monthGan') return '先定月干，再进入月支选择。'
-    if (activePillarSlot.value === 'timeGan') return '先定时干，再进入时支选择。'
+    if (activePillarSlot.value === 'monthGan') return t('bazi.slot.monthGanHint')
+    if (activePillarSlot.value === 'timeGan') return t('bazi.slot.timeGanHint')
     return ''
 })
 const pillarPreviewError = computed(() => {
     if (pillarMatches.value.length) return ''
-    return '当前四柱暂无匹配日期，请调整后再试。'
+    return t('bazi.form.noPillarMatch')
 })
 
 // 计算属性 (Vue 魔法：数据变化自动更新 UI)
@@ -1665,12 +1665,12 @@ const notesMonthOptions = computed(() => {
     return options
 })
 const isGuest = computed(() => globalState.isGuest && !currentUser.value)
-const activeProfileName = computed(() => activeProfile.value?.name || (baziProfiles.value.length ? '请选择命主档案' : '暂无命主档案'))
+const activeProfileName = computed(() => activeProfile.value?.name || (baziProfiles.value.length ? t('bazi.profile.pick') : t('bazi.profile.none')))
 
 const formatSolarDate = (value) => {
-    if (!value) return '未录入阳历'
+    if (!value) return t('bazi.form.noSolar')
     const p = String(value).match(/\d+/g)
-    if (!p || p.length < 3) return '阳历待确认'
+    if (!p || p.length < 3) return t('bazi.form.solarPending')
     const time = p.length >= 5 ? ` ${p[3].padStart(2, '0')}:${p[4].padStart(2, '0')}` : ''
     return `${p[0]}.${p[1].padStart(2, '0')}.${p[2].padStart(2, '0')}${time}`
 }
@@ -2878,12 +2878,12 @@ const solarParsedInput = computed(() => parseCompactSolarInput(solarInput.text))
 const solarInputDigits = computed(() => String(solarInput.text || '').replace(/\D/g, '').slice(0, 12))
 const solarInputError = computed(() => {
     const digits = solarInputDigits.value
-    if (!digits.length) return '请输入出生年月日时分'
-    if (![8, 10, 12].includes(digits.length)) return '请输入 8 位、10 位或 12 位数字，例如 199303270255'
+    if (!digits.length) return t('bazi.form.error.empty')
+    if (![8, 10, 12].includes(digits.length)) return t('bazi.form.error.length')
     const parsed = solarParsedInput.value
-    if (!parsed) return '日期格式不正确'
+    if (!parsed) return t('bazi.form.error.format')
     if (parsed.month < 1 || parsed.month > 12 || parsed.day < 1 || parsed.day > 31 || parsed.hour > 23 || parsed.minute > 59) {
-        return '日期格式不正确，请检查月份、日期、小时和分钟'
+        return t('bazi.form.error.range')
     }
     return ''
 })
@@ -2944,7 +2944,7 @@ const pillarPreview = computed(() => {
 
 const solarDateStr = computed(() => {
     const data = promptDataObj.value
-    if (!data || !data.birthStr) return '阳历加载中...'
+    if (!data || !data.birthStr) return t('bazi.form.solarLoading')
     const p = data.birthStr.match(/\d+/g)
     if (!p || p.length < 3) return ''
     const s = Solar.fromYmdHms(parseInt(p[0]), parseInt(p[1]), parseInt(p[2]), parseInt(p[3]||12), parseInt(p[4]||0), 0)
@@ -2953,7 +2953,7 @@ const solarDateStr = computed(() => {
 
 const lunarDateStr = computed(() => {
     const data = promptDataObj.value
-    if (!data || !data.birthStr) return '农历加载中...'
+    if (!data || !data.birthStr) return t('bazi.form.lunarLoading')
     const p = data.birthStr.match(/\d+/g)
     if (!p || p.length < 3) return ''
     const s = Solar.fromYmdHms(parseInt(p[0]), parseInt(p[1]), parseInt(p[2]), parseInt(p[3]||12), parseInt(p[4]||0), 0)
@@ -3307,7 +3307,7 @@ const handleDocumentClick = (event) => {
 
 const openAddProfile = () => {
     if (isGuest.value && baziProfiles.value.length >= 1) {
-        alert('访客模式仅可添加 1 个本地八字档案')
+        alert(t('bazi.profile.guestOnlyOne'))
         return
     }
     resetProfileEntry()
@@ -3440,7 +3440,7 @@ const updateActivePillar = (value) => {
 const buildProfilePayloadFromEntry = () => {
     const name = form.name.trim()
     if (!name) {
-        throw new Error('请先填写命主姓名')
+        throw new Error(t('bazi.form.error.name'))
     }
 
     if (entryMode.value === ENTRY_MODE.SOLAR) {
@@ -3509,7 +3509,7 @@ const saveProfile = async () => {
     }
     if (error) {
         if (isMissingBaziProfileSolarTimeColumnError(error)) {
-            alert('数据库缺少出生地/真太阳时字段，请先执行 docs/sql/bazi-birthplace-solar-time-migration.sql 后再保存带出生地校正的档案。')
+            alert(t('bazi.form.error.migration'))
         } else {
             alert(error.message)
         }
@@ -3570,7 +3570,7 @@ const buildGuestProfile = (payload) => {
 const renameProfile = async () => {
     if (!activeProfile.value) return
     const nextName = renameName.value.trim()
-    if (!nextName) return alert('昵称不能为空')
+    if (!nextName) return alert(t('bazi.profile.nameEmpty'))
     const { error } = await supabase.from('bazi_profiles').update({ name: nextName }).eq('id', activeProfile.value.id)
     if (error) alert(error.message)
     else {
@@ -3597,7 +3597,7 @@ const setDefaultProfile = async () => {
 
 const deleteProfile = async (idOverride) => {
     const deletedId = idOverride || selectedProfileId.value
-    if (deletedId && confirm("确认删除该档案？")) {
+    if (deletedId && confirm(t('bazi.profile.confirmDelete'))) {
         const nextList = baziProfiles.value.filter(profile => profile.id !== deletedId)
         const nextProfileId = resolveSelectedBaziProfileId(nextList)
         selectedProfileId.value = nextProfileId
@@ -3751,7 +3751,7 @@ const requestAiSummary = async ({ force = false } = {}) => {
         if (shouldCalibrateFromEvents) {
             await triggerCalibration({ profileId, force })
         }
-        analysisNotice.value = '推演完成'
+        analysisNotice.value = t('bazi.analysis.finished')
     } catch (err) {
         if (err.httpStatus === 403) {
             showToast(err.message || '今日额度已用尽，请明日再来', 'error')
@@ -3829,7 +3829,7 @@ const triggerCalibration = async ({ profileId = activeProfile.value?.id, force =
     try {
         // prompt 由后端按档案与人生事件组装，前端只传档案 id
         const { data: { session } } = await supabase.auth.getSession()
-        if (!session?.access_token) throw new Error('登录状态已失效，请重新登录')
+        if (!session?.access_token) throw new Error(t('bazi.sessionExpired'))
 
         const res = await fetch(apiPath('/api/bazi-calibrate'), {
             method: 'POST',
@@ -4040,10 +4040,10 @@ const hasPreviousMonthlyContext = computed(() =>
     recentMonthlyContextRecords.value.some(item => item.month_key && item.month_key !== notesMonthKey.value)
 )
 const rerunButtonLabel = computed(() => {
-    if (isAnalyzing.value) return '正在推演'
-    if (needsUpgrade.value) return '生成排盘'
-    if (isGuest.value) return '生成排盘'
-    return '重新推演'
+    if (isAnalyzing.value) return t('bazi.analysis.running2')
+    if (needsUpgrade.value) return t('bazi.analysis.generate')
+    if (isGuest.value) return t('bazi.analysis.generate')
+    return t('bazi.analysis.rerun')
 })
 
 

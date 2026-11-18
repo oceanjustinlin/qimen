@@ -12,7 +12,12 @@ export default {
     "makeDefault": "Make default",
     "guestLimit": "Guest mode keeps one local profile. Sign in to keep several profiles in the cloud.",
     "newName": "New name",
-    "saveName": "Save name"
+    "saveName": "Save name",
+    "pick": "Pick a profile",
+    "none": "No profile yet",
+    "guestOnlyOne": "Guest mode allows only one local profile",
+    "nameEmpty": "Name cannot be empty",
+    "confirmDelete": "Delete this profile?"
   },
   "common": {
     "confirm": "Done"
@@ -59,7 +64,20 @@ export default {
     },
     "currentSlot": "Editing: {slot}",
     "stem": "Heavenly Stem",
-    "branch": "Earthly Branch"
+    "branch": "Earthly Branch",
+    "noPillarMatch": "No date matches these pillars. Please adjust and try again.",
+    "noSolar": "No date entered",
+    "solarPending": "Date to confirm",
+    "error": {
+      "empty": "Enter the birth date and time",
+      "length": "Enter 8, 10 or 12 digits, e.g. 199303270255",
+      "format": "Invalid date",
+      "range": "Invalid date. Check the month, day, hour and minute.",
+      "name": "Please enter a name first",
+      "migration": "The database is missing the birthplace and true solar time fields. Run docs/sql/bazi-birthplace-solar-time-migration.sql before saving a profile with birthplace correction."
+    },
+    "solarLoading": "Loading date...",
+    "lunarLoading": "Loading lunar date..."
   },
   "guest": {
     "kicker": "Guest mode",
@@ -78,7 +96,11 @@ export default {
       "useful": "Checking favorable elements",
       "luck": "Linking luck cycles and years",
       "reading": "Writing up the reading"
-    }
+    },
+    "finished": "Reading complete",
+    "running2": "Reading...",
+    "generate": "Generate chart",
+    "rerun": "Run again"
   },
   "notes": {
     "help": "How this works",
@@ -124,5 +146,21 @@ export default {
     "worry": "Biggest worry",
     "worryPlaceholder": "e.g. slow replies / mood swings / tight cash",
     "recent": "Last 3 months"
-  }
+  },
+  "slot": {
+    "yearGan": "Year stem",
+    "monthGan": "Month stem",
+    "dayGan": "Day stem",
+    "timeGan": "Hour stem",
+    "yearZhi": "Year branch",
+    "monthZhi": "Month branch",
+    "dayZhi": "Day branch",
+    "timeZhi": "Hour branch",
+    "monthZhiHint": "Month branch narrowed by month stem {stem}. Six options: {options}",
+    "timeZhiHint": "Hour branch narrowed by hour stem {stem}. Six options: {options}",
+    "monthGanHint": "Pick the month stem first, then the month branch.",
+    "timeGanHint": "Pick the hour stem first, then the hour branch."
+  },
+  "listSep": ", ",
+  "sessionExpired": "Your session has expired. Please sign in again."
 }

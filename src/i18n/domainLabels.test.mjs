@@ -46,3 +46,9 @@ test('空值返回空串，不抛错；入参不被改写', () => {
   symbolLabel('开门', 'en-US', opts)
   assert.equal(JSON.stringify(opts), snapshot)
 })
+
+test('ganzhiName 只给拼音名', async () => {
+  const { ganzhiName } = await import('./domainLabels.mjs')
+  assert.equal(ganzhiName('壬辰', 'en-US'), 'Ren Chen')
+  assert.equal(ganzhiName('壬辰', 'zh-CN'), '壬辰')
+})

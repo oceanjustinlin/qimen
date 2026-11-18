@@ -12,7 +12,12 @@ export default {
     "makeDefault": "设为默认档案",
     "guestLimit": "访客模式仅保存 1 个本地命主档案，登录后可维护多个云端档案。",
     "newName": "新的昵称",
-    "saveName": "保存昵称"
+    "saveName": "保存昵称",
+    "pick": "请选择命主档案",
+    "none": "暂无命主档案",
+    "guestOnlyOne": "访客模式仅可添加 1 个本地八字档案",
+    "nameEmpty": "昵称不能为空",
+    "confirmDelete": "确认删除该档案？"
   },
   "common": {
     "confirm": "确定"
@@ -59,7 +64,20 @@ export default {
     },
     "currentSlot": "当前选择：{slot}",
     "stem": "天干",
-    "branch": "地支"
+    "branch": "地支",
+    "noPillarMatch": "当前四柱暂无匹配日期，请调整后再试。",
+    "noSolar": "未录入阳历",
+    "solarPending": "阳历待确认",
+    "error": {
+      "empty": "请输入出生年月日时分",
+      "length": "请输入 8 位、10 位或 12 位数字，例如 199303270255",
+      "format": "日期格式不正确",
+      "range": "日期格式不正确，请检查月份、日期、小时和分钟",
+      "name": "请先填写命主姓名",
+      "migration": "数据库缺少出生地/真太阳时字段，请先执行 docs/sql/bazi-birthplace-solar-time-migration.sql 后再保存带出生地校正的档案。"
+    },
+    "solarLoading": "阳历加载中...",
+    "lunarLoading": "农历加载中..."
   },
   "guest": {
     "kicker": "访客模式",
@@ -78,7 +96,11 @@ export default {
       "useful": "核对喜忌用神",
       "luck": "联动大运流年",
       "reading": "整理天机断语"
-    }
+    },
+    "finished": "推演完成",
+    "running2": "正在推演",
+    "generate": "生成排盘",
+    "rerun": "重新推演"
   },
   "notes": {
     "help": "功能说明",
@@ -124,5 +146,21 @@ export default {
     "worry": "本月最担心",
     "worryPlaceholder": "例如：反馈拖延 / 情绪反复 / 现金流紧",
     "recent": "近 3 个月记录"
-  }
+  },
+  "slot": {
+    "yearGan": "年干",
+    "monthGan": "月干",
+    "dayGan": "日干",
+    "timeGan": "时干",
+    "yearZhi": "年支",
+    "monthZhi": "月支",
+    "dayZhi": "日支",
+    "timeZhi": "时支",
+    "monthZhiHint": "已按月干 {stem} 限定月支，可选六支：{options}",
+    "timeZhiHint": "已按时干 {stem} 限定时支，可选六支：{options}",
+    "monthGanHint": "先定月干，再进入月支选择。",
+    "timeGanHint": "先定时干，再进入时支选择。"
+  },
+  "listSep": "、",
+  "sessionExpired": "登录状态已失效，请重新登录"
 }
