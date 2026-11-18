@@ -33,7 +33,7 @@ export function formatNumber(value, locale) {
   return Number(value).toLocaleString(intlLocale(locale))
 }
 
-const LUNAR_MONTHS = ['正', '二', '三', '四', '五', '六', '七', '八', '九', '十', '冬', '腊']
+const LUNAR_MONTHS = ['正', '二', '三', '四', '五', '六', '七', '八', '九', '十', '冬', '腊'] // i18n-ignore
 const ordinal = (n) => {
   const s = ['th', 'st', 'nd', 'rd']
   const v = n % 100

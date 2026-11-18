@@ -53,6 +53,45 @@ export default {
     terms: { title: 'Terms of Service — Qimen AI', description: '' },
     privacy: { title: 'Privacy Policy — Qimen AI', description: '' },
   },
+  timePicker: {
+    unitYear: '',
+    unitMonth: '',
+    unitDay: '',
+    unitHour: 'h',
+    unitMinute: 'm',
+    preview: '{year}-{month}-{day} {hour}:{minute}',
+    title: 'Choose chart time · Gregorian',
+    inputPlaceholder: 'Type 202606121416 or scroll',
+    recognize: 'Apply',
+    hintNeedDigits: 'Enter 12 digits: year(4) month day hour minute',
+    hintOutOfRange: 'Date or time out of range',
+    hintRecognized: 'Applied',
+  },
+  links: {
+    openSource: 'Open-source links',
+    viewGithub: 'View source on GitHub',
+    githubSource: 'GitHub source',
+    afdian: 'Support on Afdian',
+    supportCreator: 'Support the creator',
+  },
+  auth: {
+    passwordTooShort: 'New password must be at least 6 characters',
+    passwordMismatch: 'The two passwords do not match',
+  },
+  qimenFeedback: {
+    accuracy: {
+      fulfilled: 'Came true',
+      partially_fulfilled: 'Partly came true',
+      not_fulfilled: 'Did not come true',
+      pending: 'Too early to tell',
+    },
+    direction: {
+      better: 'Better than predicted',
+      matched: 'About as predicted',
+      worse: 'Worse than predicted',
+      pending: 'No outcome yet',
+    },
+  },
   enum: {
     category: {
       career_business: 'Career',

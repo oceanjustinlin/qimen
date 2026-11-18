@@ -113,6 +113,6 @@ export const trackGuestEvent = async (supabase, eventName, feature, metadata = {
     const payload = buildGuestEventPayload(storage, eventName, feature, metadata)
     await supabase.from('guest_events').insert([payload])
   } catch (error) {
-    console.warn('访客埋点写入失败:', error?.message || error)
+    console.warn('访客埋点写入失败:', error?.message || error) // i18n-ignore 开发日志
   }
 }

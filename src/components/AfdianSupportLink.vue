@@ -4,8 +4,8 @@
     :href="afdianUrl"
     target="_blank"
     rel="noopener noreferrer"
-    aria-label="爱发电支持"
-    title="支持创作者"
+    :aria-label="t('links.afdian')"
+    :title="t('links.supportCreator')"
   >
     <svg viewBox="0 0 24 24" aria-hidden="true">
       <path
@@ -17,11 +17,13 @@
         fill="currentColor"
       />
     </svg>
-    <span>支持创作者</span>
+    <span>{{ t('links.supportCreator') }}</span>
   </a>
 </template>
 
 <script setup>
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 const afdianUrl = import.meta.env.VITE_AFDIAN_URL || 'https://ifdian.net/a/oceanjustinlin'
 </script>
 

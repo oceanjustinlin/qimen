@@ -1,6 +1,7 @@
 <script setup>
 import { ref, reactive, watch, nextTick, computed } from 'vue'
 import { Solar } from 'lunar-javascript'
+import { useI18n } from 'vue-i18n'
 
 const props = defineProps({
   open: { type: Boolean, default: false },
@@ -11,7 +12,9 @@ const emit = defineEmits(['confirm', 'cancel'])
 
 const ITEM_H = 40
 const UNITS = ['year', 'month', 'day', 'hour', 'minute']
-const SUFFIX = { year: '年', month: '月', day: '日', hour: '时', minute: '分' }
+const { t } = useI18n()
+const SUFFIX_KEYS = { year: 'timePicker.unitYear', month: 'timePicker.unitMonth', day: 'timePicker.unitDay', hour: 'timePicker.unitHour', minute: 'timePicker.unitMinute' }
+const SUFFIX = computed(() => Object.fromEntries(Object.entries(SUFFIX_KEYS).map(([k, key]) => [k, t(key)])))
 const KEY = { year: 'year', month: 'month', day: 'day', hour: 'hour', minute: 'minute' }
 
 const draft = reactive(nowParts())
@@ -43,11 +46,11 @@ const ranges = computed(() => {
 const ganzhiLabel = computed(() => {
   try {
     const l = Solar.fromYmdHms(draft.year, draft.month, draft.day, draft.hour, draft.minute, 0).getLunar()
-    return `${l.getDayInGanZhi()}日 ${l.getTimeZhi()}时`
+    return `${l.getDayInGanZhi()}日 ${l.getTimeZhi()}时` // i18n-ignore 干支属于盘面符号
   } catch { return '' }
 })
 const previewText = computed(() =>
-  `${draft.year}年${pad(draft.month)}月${pad(draft.day)}日 ${pad(draft.hour)}:${pad(draft.minute)}　${ganzhiLabel.value}`
+  `${t('timePicker.preview', { year: draft.year, month: pad(draft.month), day: pad(draft.day), hour: pad(draft.hour), minute: pad(draft.minute) })}　${ganzhiLabel.value}`
 )
 
 watch(() => props.open, async (isOpen) => {
@@ -95,12 +98,12 @@ function commit(unit, idx) {
 
 function applyNumInput() {
   const raw = numInput.value.replace(/\D/g, '')
-  if (raw.length !== 12) { numHint.value = '需 12 位数字：年(4) 月 日 时 分'; numErr.value = true; return }
+  if (raw.length !== 12) { numHint.value = t('timePicker.hintNeedDigits'); numErr.value = true; return }
   const y = +raw.slice(0, 4), mo = +raw.slice(4, 6), d = +raw.slice(6, 8), h = +raw.slice(8, 10), mi = +raw.slice(10, 12)
   if (mo < 1 || mo > 12 || d < 1 || d > daysInMonth(y, mo) || h > 23 || mi > 59) {
-    numHint.value = '日期/时间超出范围'; numErr.value = true; return
+    numHint.value = t('timePicker.hintOutOfRange'); numErr.value = true; return
   }
-  numHint.value = '已识别'; numErr.value = false
+  numHint.value = t('timePicker.hintRecognized'); numErr.value = false
   Object.assign(draft, { year: y, month: mo, day: d, hour: h, minute: mi })
   nextTick(() => UNITS.forEach(positionWheel))
 }
@@ -114,16 +117,16 @@ function cancel() { emit('cancel') }
     <div v-if="open" class="sheet-mask" @click.self="cancel">
       <div class="sheet">
         <div class="sheet-head">
-          <button class="sheet-cancel" type="button" @click="cancel">取消</button>
-          <span class="sheet-title">选择起局时间 · 公历</span>
-          <button class="sheet-confirm" type="button" @click="confirm">确认</button>
+          <button class="sheet-cancel" type="button" @click="cancel">{{ t('common.cancel') }}</button>
+          <span class="sheet-title">{{ t('timePicker.title') }}</span>
+          <button class="sheet-confirm" type="button" @click="confirm">{{ t('common.confirm') }}</button>
         </div>
 
         <div class="sel-preview">{{ previewText }}</div>
 
         <div class="num-input-row">
-          <input v-model="numInput" inputmode="numeric" placeholder="格式 202606121416 或滚动选择" @keyup.enter="applyNumInput" />
-          <button type="button" @click="applyNumInput">识别</button>
+          <input v-model="numInput" inputmode="numeric" :placeholder="t('timePicker.inputPlaceholder')" @keyup.enter="applyNumInput" />
+          <button type="button" @click="applyNumInput">{{ t('timePicker.recognize') }}</button>
         </div>
         <p v-if="numHint" class="num-hint" :class="{ err: numErr }">{{ numHint }}</p>
 

@@ -1,15 +1,15 @@
 export const QIMEN_ACCURACY_OPTIONS = [
-  { value: 'fulfilled', label: '已应验' },
-  { value: 'partially_fulfilled', label: '部分应验' },
-  { value: 'not_fulfilled', label: '未应验' },
-  { value: 'pending', label: '未到时间' }
+  { value: 'fulfilled', label: '已应验' }, // i18n-ignore 写库与旧测试用的简体原值；显示走 qimenFeedback.* 词条
+  { value: 'partially_fulfilled', label: '部分应验' }, // i18n-ignore 写库与旧测试用的简体原值；显示走 qimenFeedback.* 词条
+  { value: 'not_fulfilled', label: '未应验' }, // i18n-ignore 写库与旧测试用的简体原值；显示走 qimenFeedback.* 词条
+  { value: 'pending', label: '未到时间' } // i18n-ignore 写库与旧测试用的简体原值；显示走 qimenFeedback.* 词条
 ]
 
 export const QIMEN_DIRECTION_OPTIONS = [
-  { value: 'better', label: '比预测好' },
-  { value: 'matched', label: '基本符合' },
-  { value: 'worse', label: '比预测差' },
-  { value: 'pending', label: '暂无结果' }
+  { value: 'better', label: '比预测好' }, // i18n-ignore 写库与旧测试用的简体原值；显示走 qimenFeedback.* 词条
+  { value: 'matched', label: '基本符合' }, // i18n-ignore 写库与旧测试用的简体原值；显示走 qimenFeedback.* 词条
+  { value: 'worse', label: '比预测差' }, // i18n-ignore 写库与旧测试用的简体原值；显示走 qimenFeedback.* 词条
+  { value: 'pending', label: '暂无结果' } // i18n-ignore 写库与旧测试用的简体原值；显示走 qimenFeedback.* 词条
 ]
 
 const ACCURACY_VALUES = new Set(QIMEN_ACCURACY_OPTIONS.map(option => option.value))

@@ -19,7 +19,7 @@ const readStorageState = (storage) => {
     const raw = storage.getItem(STORAGE_KEY)
     return raw ? JSON.parse(raw) : {}
   } catch (error) {
-    console.warn('日运本地缓存读取失败，忽略缓存:', error)
+    console.warn('日运本地缓存读取失败，忽略缓存:', error) // i18n-ignore 开发日志
     return {}
   }
 }
@@ -33,7 +33,7 @@ const writeStorageState = (storage, state) => {
     }
     storage.setItem(STORAGE_KEY, JSON.stringify(state))
   } catch (error) {
-    console.warn('日运本地缓存写入失败，忽略缓存:', error)
+    console.warn('日运本地缓存写入失败，忽略缓存:', error) // i18n-ignore 开发日志
   }
 }
 
@@ -43,7 +43,7 @@ const readJsonState = (storage, key, fallback) => {
     const raw = storage.getItem(key)
     return raw ? JSON.parse(raw) : fallback
   } catch (error) {
-    console.warn('本地状态读取失败，忽略缓存:', error)
+    console.warn('本地状态读取失败，忽略缓存:', error) // i18n-ignore 开发日志
     return fallback
   }
 }
@@ -57,7 +57,7 @@ const writeJsonState = (storage, key, value) => {
     }
     storage.setItem(key, JSON.stringify(value))
   } catch (error) {
-    console.warn('本地状态写入失败，忽略缓存:', error)
+    console.warn('本地状态写入失败，忽略缓存:', error) // i18n-ignore 开发日志
   }
 }
 

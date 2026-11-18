@@ -54,6 +54,45 @@ export default {
     terms: { title: '服务条款 — 奇门遁甲 AI', description: '' },
     privacy: { title: '隐私政策 — 奇门遁甲 AI', description: '' },
   },
+  timePicker: {
+    unitYear: '年',
+    unitMonth: '月',
+    unitDay: '日',
+    unitHour: '时',
+    unitMinute: '分',
+    preview: '{year}年{month}月{day}日 {hour}:{minute}',
+    title: '选择起局时间 · 公历',
+    inputPlaceholder: '格式 202606121416 或滚动选择',
+    recognize: '识别',
+    hintNeedDigits: '需 12 位数字：年(4) 月 日 时 分',
+    hintOutOfRange: '日期/时间超出范围',
+    hintRecognized: '已识别',
+  },
+  links: {
+    openSource: '开源项目链接',
+    viewGithub: '查看 GitHub 源码',
+    githubSource: 'GitHub 源码',
+    afdian: '爱发电支持',
+    supportCreator: '支持创作者',
+  },
+  auth: {
+    passwordTooShort: '新密码至少需要 6 位',
+    passwordMismatch: '两次输入的密码不一致',
+  },
+  qimenFeedback: {
+    accuracy: {
+      fulfilled: '已应验',
+      partially_fulfilled: '部分应验',
+      not_fulfilled: '未应验',
+      pending: '未到时间',
+    },
+    direction: {
+      better: '比预测好',
+      matched: '基本符合',
+      worse: '比预测差',
+      pending: '暂无结果',
+    },
+  },
   enum: {
     category: {
       career_business: '事业职场',

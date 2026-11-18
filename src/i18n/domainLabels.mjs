@@ -60,7 +60,7 @@ export function subcategoryLabel(category, code, locale, labels = {}) {
 }
 
 // 与 Worker 的 QIMEN_SCORE_LABEL 三档一致
-const SCORE_BAND_KEY = { 中上吉: 'aboveAverage', 中平: 'average', 偏凶: 'belowAverage' }
+const SCORE_BAND_KEY = { 中上吉: 'aboveAverage', 中平: 'average', 偏凶: 'belowAverage' } // i18n-ignore
 export function scoreBandLabel(score, locale) {
   if (empty(score)) return ''
   let key
@@ -74,7 +74,7 @@ export function scoreBandLabel(score, locale) {
   return catalogueFor(locale).enum.scoreBand[key]
 }
 
-const VERDICT_KEY = { 大吉: 'great', 小吉: 'good', 平: 'neutral', 凶: 'bad' }
+const VERDICT_KEY = { 大吉: 'great', 小吉: 'good', 平: 'neutral', 凶: 'bad' } // i18n-ignore
 export function verdictLabel(zhOrScore, locale) {
   if (empty(zhOrScore)) return ''
   const key = VERDICT_KEY[zhOrScore]
@@ -84,7 +84,7 @@ export function verdictLabel(zhOrScore, locale) {
 
 export function genderLabel(code, locale, { zao = false } = {}) {
   if (empty(code)) return ''
-  const g = code === 'M' || code === '男' ? 'M' : code === 'F' || code === '女' ? 'F' : null
+  const g = code === 'M' || code === '男' ? 'M' : code === 'F' || code === '女' ? 'F' : null // i18n-ignore
   if (!g) return String(code)
   const cat = catalogueFor(locale).enum.gender
   if (!zao) return cat[g]
