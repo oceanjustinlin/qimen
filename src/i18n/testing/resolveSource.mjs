@@ -10,6 +10,8 @@ export function resolveSource(source) {
   return source
     // 模板插值 {{ t('x') }}
     .replace(/\{\{\s*t\('([\w.]+)'\)\s*\}\}/g, (m, key) => (typeof get(key) === 'string' ? get(key) : m))
+    // 属性绑定 :title="t('x')" → title="原文"
+    .replace(/:([\w-]+)="t\('([\w.]+)'\)"/g, (m, attr, key) => (typeof get(key) === 'string' ? `${attr}="${get(key)}"` : m))
     // 模板字符串 ${t('x')} / ${i18n.t('x')}
     .replace(/\$\{\s*(?:i18n\.)?t\('([\w.]+)'\)\s*\}/g, (m, key) => (typeof get(key) === 'string' ? get(key) : m))
 }
