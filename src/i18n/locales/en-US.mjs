@@ -1,10 +1,18 @@
 // English catalogue. Keys must mirror zh-CN.mjs exactly (see catalogueParity.test.mjs).
 import home from './en-US/home.mjs'
 import bazi from './en-US/bazi.mjs'
+import resetPassword from './en-US/resetPassword.mjs'
+import feedbackPage from './en-US/feedbackPage.mjs'
+import reports from './en-US/reports.mjs'
+import fortune from './en-US/fortune.mjs'
 
 export default {
   home,
   bazi,
+  resetPassword,
+  feedbackPage,
+  reports,
+  fortune,
   common: {
     cancel: 'Cancel',
     close: 'Close',

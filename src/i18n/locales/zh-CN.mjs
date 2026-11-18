@@ -1,10 +1,18 @@
 // 简体词条。值必须与原硬编码文字逐字相同（含全角标点、省略号）。繁体共用本文件，由展示层转繁。
 import home from './zh-CN/home.mjs'
 import bazi from './zh-CN/bazi.mjs'
+import resetPassword from './zh-CN/resetPassword.mjs'
+import feedbackPage from './zh-CN/feedbackPage.mjs'
+import reports from './zh-CN/reports.mjs'
+import fortune from './zh-CN/fortune.mjs'
 
 export default {
   home,
   bazi,
+  resetPassword,
+  feedbackPage,
+  reports,
+  fortune,
   common: {
     cancel: '取消',
     close: '关闭',

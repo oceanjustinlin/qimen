@@ -1,9 +1,9 @@
 <template>
   <main class="feedback-page">
-    <section class="feedback-container" aria-label="反馈与共创">
-      <router-link class="back-link" to="/" aria-label="返回首页">
+    <section class="feedback-container" :aria-label="t('feedbackPage.title')">
+      <router-link class="back-link" to="/" :aria-label="t('feedbackPage.backHome')">
         <span aria-hidden="true">←</span>
-        <span>返回</span>
+        <span>{{ t('common.back') }}</span>
       </router-link>
 
       <article class="feedback-card">
@@ -14,31 +14,31 @@
         </div>
 
         <div class="feedback-copy">
-          <h1>反馈与共创</h1>
-          <p class="feedback-lead">这个项目还在早期，我很需要真实使用中的问题和建议。</p>
+          <h1>{{ t('feedbackPage.title') }}</h1>
+          <p class="feedback-lead">{{ t('feedbackPage.lead') }}</p>
           <p>
-            你好，我是 Justin，这个项目目前由我持续开发。它希望把奇门遁甲排盘、解读和日常问题分析做得更清晰、更易用。现在产品形态还比较粗糙，如果你遇到问题、发现解释不准确，或有想要的功能，欢迎告诉我。
+            {{ t('feedbackPage.intro') }}
           </p>
           <p class="open-source-note">
-            项目完全开源，如果你觉得它有一点帮助，也欢迎在 GitHub 上给
+            {{ t('feedbackPage.starBefore') }}
             <a href="https://github.com/oceanjustinlin/qimen" target="_blank" rel="noreferrer">oceanjustinlin/qimen</a>
-            点一个 star。
+            {{ t('feedbackPage.starAfter') }}
           </p>
         </div>
 
         <div class="contact-strip">
-          <span>服务邮箱</span>
+          <span>{{ t('feedbackPage.email') }}</span>
           <div class="email-line">
             <a :href="mailHref">oceanjustinlin@gmail.com</a>
             <button class="copy-email-mini" type="button" @click="copyEmail">
-              {{ copied ? '已复制' : '复制' }}
+              {{ copied ? t('feedbackPage.copied') : t('feedbackPage.copy') }}
             </button>
           </div>
         </div>
 
         <div class="feedback-actions">
           <a class="primary-action" :href="formUrl" target="_blank" rel="noreferrer">
-            <span>填写反馈问卷</span>
+            <span>{{ t('feedbackPage.form') }}</span>
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M7 17 17 7M9 7h8v8"/>
             </svg>
@@ -48,11 +48,11 @@
               <path d="M4 6h16v12H4z"/>
               <path d="m4 7 8 6 8-6"/>
             </svg>
-            <span>发送邮件</span>
+            <span>{{ t('feedbackPage.sendEmail') }}</span>
           </a>
         </div>
 
-        <p class="privacy-note">请勿在反馈中提交身份证件、银行卡、医疗记录等高敏感信息。</p>
+        <p class="privacy-note">{{ t('feedbackPage.privacy') }}</p>
       </article>
     </section>
   </main>
@@ -60,13 +60,16 @@
 
 <script setup>
 import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const email = 'oceanjustinlin@gmail.com'
 const copied = ref(false)
 const formUrl = 'https://my.feishu.cn/share/base/form/shrcn58XbiIxTbzl4GxHtBdX61c'
 const mailHref = computed(() => {
-  const subject = encodeURIComponent('奇门遁甲产品反馈')
-  const body = encodeURIComponent('反馈类型：\n问题描述：\n发生页面：\n截图或补充信息：\n联系方式：')
+  const subject = encodeURIComponent(t('feedbackPage.mailSubject'))
+  const body = encodeURIComponent(t('feedbackPage.mailBody'))
   return `mailto:${email}?subject=${subject}&body=${body}`
 })
 
@@ -78,7 +81,7 @@ const copyEmail = async () => {
       copied.value = false
     }, 1500)
   } catch {
-    window.prompt('复制邮箱', email)
+    window.prompt(t('feedbackPage.copyEmail'), email)
   }
 }
 </script>

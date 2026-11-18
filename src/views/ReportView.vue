@@ -2,7 +2,7 @@
   <div class="report-view">
     <header id="siteHeader">
       <div class="header-side"></div>
-      <div class="site-logo">命理案卷</div>
+      <div class="site-logo">{{ t('reports.header') }}</div>
       <div class="header-side header-actions">
         <AccountMenu />
       </div>
@@ -11,9 +11,9 @@
     <div class="page-wrap">
       <div class="container">
         <div class="report-header">
-          <div class="section-kicker">专属报告</div>
-          <div class="section-title">命盘细读</div>
-          <div class="section-sub">深挖你的命局，从关系、运势到格局</div>
+          <div class="section-kicker">{{ t('reports.kicker') }}</div>
+          <div class="section-title">{{ t('reports.title') }}</div>
+          <div class="section-sub">{{ t('reports.sub') }}</div>
         </div>
 
         <div class="report-list">
@@ -24,9 +24,9 @@
               <div class="card-top-row">
                 <div class="report-icon">✨</div>
               </div>
-              <h3 class="report-title">八字双人合盘</h3>
-              <p class="report-subtitle">朋友缘分</p>
-              <p class="report-desc">你们俩，对盘吗？五个维度看两张盘</p>
+              <h3 class="report-title">{{ t('reports.pair.title') }}</h3>
+              <p class="report-subtitle">{{ t('reports.friends.subtitle') }}</p>
+              <p class="report-desc">{{ t('reports.friends.desc') }}</p>
             </div>
             <div class="card-arrow">→</div>
           </a>
@@ -38,9 +38,9 @@
               <div class="card-top-row">
                 <div class="report-icon">❦</div>
               </div>
-              <h3 class="report-title">八字双人合盘</h3>
-              <p class="report-subtitle">姻缘</p>
-              <p class="report-desc">对的人，对得上。四个问题看两张盘的结构</p>
+              <h3 class="report-title">{{ t('reports.pair.title') }}</h3>
+              <p class="report-subtitle">{{ t('reports.love.subtitle') }}</p>
+              <p class="report-desc">{{ t('reports.love.desc') }}</p>
             </div>
             <div class="card-arrow">→</div>
           </a>
@@ -51,11 +51,11 @@
             <div class="report-card-content">
               <div class="card-top-row">
                 <div class="report-icon report-icon-dim">🔮</div>
-                <span class="card-tag card-tag-soon">即将上线</span>
+                <span class="card-tag card-tag-soon">{{ t('reports.soon') }}</span>
               </div>
-              <h3 class="report-title report-title-dim">本命大运推演</h3>
-              <p class="report-subtitle report-subtitle-dim">流年运势</p>
-              <p class="report-desc">逐年解析大运流年，识别关键节点</p>
+              <h3 class="report-title report-title-dim">{{ t('reports.luck.title') }}</h3>
+              <p class="report-subtitle report-subtitle-dim">{{ t('reports.luck.subtitle') }}</p>
+              <p class="report-desc">{{ t('reports.luck.desc') }}</p>
             </div>
             <div class="locked-badge">🔒</div>
           </div>
@@ -66,11 +66,11 @@
             <div class="report-card-content">
               <div class="card-top-row">
                 <div class="report-icon report-icon-dim">💼</div>
-                <span class="card-tag card-tag-soon">即将上线</span>
+                <span class="card-tag card-tag-soon">{{ t('reports.soon') }}</span>
               </div>
-              <h3 class="report-title report-title-dim">事业财运报告</h3>
-              <p class="report-subtitle report-subtitle-dim">格局分析</p>
-              <p class="report-desc">用神喜忌、财官格局与行动策略</p>
+              <h3 class="report-title report-title-dim">{{ t('reports.career.title') }}</h3>
+              <p class="report-subtitle report-subtitle-dim">{{ t('reports.career.subtitle') }}</p>
+              <p class="report-desc">{{ t('reports.career.desc') }}</p>
             </div>
             <div class="locked-badge">🔒</div>
           </div>
@@ -81,7 +81,10 @@
 </template>
 
 <script setup>
+import { useI18n } from 'vue-i18n'
 import AccountMenu from '../components/AccountMenu.vue'
+
+const { t } = useI18n()
 </script>
 
 <style scoped>

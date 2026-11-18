@@ -21,10 +21,7 @@
   "src/utils/ziweiChart.mjs": 19,
   "src/views/BaziView.vue": 476,
   "src/views/EngineeringView.vue": 75,
-  "src/views/FeedbackView.vue": 16,
-  "src/views/FortuneView.vue": 170,
+  "src/views/FortuneView.vue": 14,
   "src/views/HomeView.vue": 344,
-  "src/views/LegalView.vue": 75,
-  "src/views/ReportView.vue": 18,
-  "src/views/ResetPasswordView.vue": 11
+  "src/views/LegalView.vue": 75
 }

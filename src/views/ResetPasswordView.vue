@@ -1,31 +1,31 @@
 <template>
   <div class="reset-password-view">
     <header id="siteHeader">
-      <router-link class="back-link" to="/">返回</router-link>
-      <div class="site-logo">账号安全</div>
+      <router-link class="back-link" to="/">{{ t('common.back') }}</router-link>
+      <div class="site-logo">{{ t('resetPassword.header') }}</div>
       <div class="header-spacer"></div>
     </header>
 
     <main class="reset-page-wrap">
       <section class="reset-panel">
         <div class="section-kicker">PASSWORD</div>
-        <h1>重设密码</h1>
+        <h1>{{ t('resetPassword.title') }}</h1>
         <p class="reset-copy">
-          {{ sessionReady ? '请输入新的账号密码，保存后即可继续使用。' : '请从重设密码邮件进入，或先登录后再修改密码。' }}
+          {{ sessionReady ? t('resetPassword.ready') : t('resetPassword.noSession') }}
         </p>
 
         <div class="reset-form">
           <label>
-            <span>新密码</span>
-            <input v-model="password" type="password" autocomplete="new-password" placeholder="至少 6 位">
+            <span>{{ t('resetPassword.newPassword') }}</span>
+            <input v-model="password" type="password" autocomplete="new-password" :placeholder="t('resetPassword.minLength')">
           </label>
           <label>
-            <span>确认新密码</span>
-            <input v-model="confirmPassword" type="password" autocomplete="new-password" placeholder="再次输入新密码">
+            <span>{{ t('resetPassword.confirmPassword') }}</span>
+            <input v-model="confirmPassword" type="password" autocomplete="new-password" :placeholder="t('resetPassword.repeat')">
           </label>
 
           <button class="reset-submit" :disabled="isSubmitting || !sessionReady" @click="handlePasswordUpdate">
-            {{ isSubmitting ? '正在保存...' : '确认修改' }}
+            {{ isSubmitting ? t('resetPassword.saving') : t('resetPassword.submit') }}
           </button>
         </div>
 
@@ -38,11 +38,13 @@
 <script setup>
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { supabase } from '../lib/supabase.mjs'
 import { setCurrentUser } from '../store.js'
 import { validatePasswordUpdate } from '../auth/passwordReset.mjs'
 
 const router = useRouter()
+const { t } = useI18n()
 const password = ref('')
 const confirmPassword = ref('')
 const session = ref(null)
@@ -70,7 +72,7 @@ onUnmounted(() => {
 })
 
 const handlePasswordUpdate = async () => {
-  const validationError = validatePasswordUpdate(password.value, confirmPassword.value)
+  const validationError = validatePasswordUpdate(password.value, confirmPassword.value, t)
   if (validationError) {
     notice.value = validationError
     isSuccess.value = false
@@ -83,11 +85,11 @@ const handlePasswordUpdate = async () => {
     const { error } = await supabase.auth.updateUser({ password: password.value })
     if (error) throw error
     isSuccess.value = true
-    notice.value = '密码已更新，即将返回首页。'
+    notice.value = t('resetPassword.done')
     window.setTimeout(() => router.push('/'), 900)
   } catch (error) {
     isSuccess.value = false
-    notice.value = '密码更新失败: ' + error.message
+    notice.value = t('resetPassword.failed', { error: error.message })
   } finally {
     isSubmitting.value = false
   }
