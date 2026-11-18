@@ -165,13 +165,13 @@
                   <div class="guide-row">
                     <span class="guide-label good">{{ t('fortune.day.do') }}</span>
                     <span :class="['guide-content', { muted: !hasInterpretationContent }]">
-                      {{ hasInterpretationContent ? formatGuide(fortuneData.day_guide, '宜') : t('fortune.day.readingPending') }}
+                      {{ hasInterpretationContent ? formatGuide(fortuneData.day_guide, 'do') : t('fortune.day.readingPending') }}
                     </span>
                   </div>
                   <div class="guide-row mt-2">
                     <span class="guide-label bad">{{ t('fortune.day.avoid') }}</span>
                     <span :class="['guide-content', { muted: !hasInterpretationContent }]">
-                      {{ hasInterpretationContent ? formatGuide(fortuneData.day_guide, '忌') : t('fortune.day.later') }}
+                      {{ hasInterpretationContent ? formatGuide(fortuneData.day_guide, 'avoid') : t('fortune.day.later') }}
                     </span>
                   </div>
 
@@ -892,8 +892,8 @@ const activeProfileName = computed(() => activeProfile.value?.name || t('fortune
 const currentProfileCacheKey = computed(() => selectedProfileId.value || '')
 const fortuneGanzhiText = computed(() => {
   if (!fortuneData.value) return '-'
-  const month = fortuneData.value.month_gz ? `${fortuneData.value.month_gz}月` : ''
-  const day = fortuneData.value.day_gz ? `${fortuneData.value.day_gz}日` : ''
+  const month = fortuneData.value.month_gz ? t('fortune.gzMonth', { gz: fortuneData.value.month_gz }) : ''
+  const day = fortuneData.value.day_gz ? t('fortune.gzDay', { gz: fortuneData.value.day_gz }) : ''
   return `${month} ${day}`.trim() || '-'
 })
 
@@ -1216,9 +1216,10 @@ const profileMetaText = (profile) => {
 
 const formatGuide = (guideStr, type) => {
   if (!guideStr) return t('fortune.day.noGuide')
-  const parts = guideStr.split('；')
-  if (type === '宜' && parts[0]) return parts[0].replace('宜', '').trim()
-  if (type === '忌' && parts[1]) return parts[1].replace('忌', '').trim()
+  const parts = guideStr.split('；') // i18n-ignore
+  // 引擎写的是「宜…；忌…」，这里按中文标记拆分（数据格式，不随界面语言变化）
+  if (type === 'do' && parts[0]) return parts[0].replace('宜', '').trim() // i18n-ignore
+  if (type === 'avoid' && parts[1]) return parts[1].replace('忌', '').trim() // i18n-ignore
   return guideStr
 }
 

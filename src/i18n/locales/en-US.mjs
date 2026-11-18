@@ -5,6 +5,8 @@ import resetPassword from './en-US/resetPassword.mjs'
 import feedbackPage from './en-US/feedbackPage.mjs'
 import reports from './en-US/reports.mjs'
 import fortune from './en-US/fortune.mjs'
+import about from './en-US/about.mjs'
+import legal from './en-US/legal.mjs'
 
 export default {
   home,
@@ -13,6 +15,8 @@ export default {
   feedbackPage,
   reports,
   fortune,
+  about,
+  legal,
   common: {
     cancel: 'Cancel',
     close: 'Close',

@@ -185,5 +185,7 @@ export default {
     "4": "Thu",
     "5": "Fri",
     "6": "Sat"
-  }
+  },
+  "gzMonth": "{gz} month",
+  "gzDay": "{gz} day"
 }

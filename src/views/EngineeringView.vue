@@ -1,13 +1,13 @@
 <template>
   <div class="about-view">
     <header class="about-header">
-      <router-link class="back" to="/" aria-label="返回首页">
+      <router-link class="back" to="/" :aria-label="t('feedbackPage.backHome')">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
           <path d="M10 3 6 8l4 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        返回
+        {{ t('common.back') }}
       </router-link>
-      <div class="about-title">关于</div>
+      <div class="about-title">{{ t('about.header') }}</div>
       <AccountMenu />
     </header>
 
@@ -15,12 +15,12 @@
       <section class="about-section hero-section">
         <div class="section-inner hero-inner">
           <div class="copy">
-            <p class="eyebrow">系统说明</p>
-            <h1>这个项目不是让人工智能直接算命</h1>
-            <p class="lead">奇门道把“排盘、评分、领域规则、模型解读”拆成独立环节。先用确定性程序算出盘面和结构化数据，再让大模型把这些数据翻译成用户能理解的判断和行动建议。</p>
+            <p class="eyebrow">{{ t('about.hero.eyebrow') }}</p>
+            <h1>{{ t('about.hero.title') }}</h1>
+            <p class="lead">{{ t('about.hero.lead') }}</p>
           </div>
-          <div class="pipeline-card" aria-label="系统总览">
-            <div v-for="(step, i) in pipeline" :key="step.title" class="pipeline-step">
+          <div class="pipeline-card" :aria-label="t('about.hero.overview')">
+            <div v-for="(step, i) in content.pipeline" :key="step.title" class="pipeline-step">
               <span class="step-index">{{ String(i + 1).padStart(2, '0') }}</span>
               <div>
                 <strong>{{ step.title }}</strong>
@@ -34,12 +34,12 @@
       <section class="about-section">
         <div class="section-inner release-inner">
           <div class="module-copy">
-            <p class="eyebrow">最近更新</p>
-            <h2>把“算得准”拆成可评测、可纠偏、可回放</h2>
-            <p class="lead">这轮重点不是多写几段断语，而是把用神、目标十神和动态引动做成更稳定的工程链路。</p>
+            <p class="eyebrow">{{ t('about.current.eyebrow') }}</p>
+            <h2>{{ t('about.current.title') }}</h2>
+            <p class="lead">{{ t('about.current.lead') }}</p>
           </div>
           <div class="release-list">
-            <article v-for="item in currentUpdates" :key="item.title" class="release-item is-current">
+            <article v-for="item in content.currentUpdates" :key="item.title" class="release-item is-current">
               <span>{{ item.tag }}</span>
               <div>
                 <h3>{{ item.title }}</h3>
@@ -53,12 +53,12 @@
       <section class="about-section">
         <div class="section-inner release-inner">
           <div class="module-copy">
-            <p class="eyebrow">历史更新</p>
-            <h2>从排盘工具，逐步变成可审计的推演系统</h2>
-            <p class="lead">早期工作主要在补齐体验和基础能力：问事、排盘、运势、反馈、缓存和报告展示都逐步从单点功能收敛到同一套规则优先的架构里。</p>
+            <p class="eyebrow">{{ t('about.history.eyebrow') }}</p>
+            <h2>{{ t('about.history.title') }}</h2>
+            <p class="lead">{{ t('about.history.lead') }}</p>
           </div>
           <div class="release-list">
-            <article v-for="item in historyUpdates" :key="item.title" class="release-item">
+            <article v-for="item in content.historyUpdates" :key="item.title" class="release-item">
               <span>{{ item.tag }}</span>
               <div>
                 <h3>{{ item.title }}</h3>
@@ -69,7 +69,7 @@
         </div>
       </section>
 
-      <section v-for="module in modules" :key="module.title" class="about-section">
+      <section v-for="module in content.modules" :key="module.title" class="about-section">
         <div class="section-inner module-inner">
           <div class="module-copy">
             <p class="eyebrow">{{ module.kicker }}</p>
@@ -90,17 +90,17 @@
 
       <section class="about-section">
         <div class="section-inner closing-inner">
-          <p class="eyebrow">为什么这样做</p>
-          <h2>目标是让推演可解释、可追溯、可迭代</h2>
+          <p class="eyebrow">{{ t('about.closing.eyebrow') }}</p>
+          <h2>{{ t('about.closing.title') }}</h2>
           <div class="promise-grid">
-            <div v-for="item in promises" :key="item.title" class="promise-item">
+            <div v-for="item in content.promises" :key="item.title" class="promise-item">
               <strong>{{ item.title }}</strong>
               <p>{{ item.body }}</p>
             </div>
           </div>
           <div class="about-actions">
-            <router-link class="primary-link" to="/">开始使用</router-link>
-            <router-link class="secondary-link" to="/feedback">反馈与共创</router-link>
+            <router-link class="primary-link" to="/">{{ t('about.closing.start') }}</router-link>
+            <router-link class="secondary-link" to="/feedback">{{ t('feedbackPage.title') }}</router-link>
           </div>
         </div>
       </section>
@@ -109,7 +109,15 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import AccountMenu from '../components/AccountMenu.vue'
+import aboutEn from '../i18n/content/aboutEn.mjs'
+
+const { t, locale } = useI18n()
+
+// 中文长文就地保存在下面（繁体由展示层转换）；英文见 i18n/content/aboutEn.mjs。
+// i18n-ignore-start
 
 const pipeline = [
   { title: '收集问题', body: '先判断用户在问奇门、八字还是综合问题，并保留原始提问。' },
@@ -217,6 +225,10 @@ const promises = [
   { title: '不是纯聊天', body: '大模型不直接生成盘面，而是在结构化数据上做解释。' },
   { title: '不是一次性页面', body: '历史记录、反馈和字段规范会持续推动系统迭代。' },
 ]
+// i18n-ignore-end
+
+const aboutZh = { pipeline, currentUpdates, historyUpdates, modules, promises }
+const content = computed(() => (locale.value === 'en-US' ? aboutEn : aboutZh))
 </script>
 
 <style>
