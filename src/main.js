@@ -19,13 +19,14 @@ router.afterEach((to) => applyRouteHead(to))
 function applyRouteHead(to) {
   const m = to.meta ?? {}
 
-  const title = displayText(m.seoTitle ?? m.title ?? '奇门遁甲在线排盘_AI解盘与八字运势分析 - 奇门道')
+  const title = m.seoTitle ?? m.title ?? '奇门遁甲在线排盘_AI解盘与八字运势分析 - 奇门道'
+  const shownTitle = displayText(title)
   const description = displayText(m.seoDescription ?? m.description ?? '')
-  document.title = title
+  document.title = shownTitle
 
   setMeta('name', 'description', description)
   setMeta('name', 'robots', m.robots ?? 'index, follow')
-  setMeta('property', 'og:title', title)
+  setMeta('property', 'og:title', shownTitle)
   setMeta('property', 'og:description', description)
   setMeta('property', 'og:url', `https://www.qimendao.com${to.path === '/' ? '' : to.path}`)
   if (m.ogImage) setMeta('property', 'og:image', m.ogImage)
