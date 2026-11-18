@@ -20,6 +20,7 @@ import { buildPolarityPromptSection } from '../../lib/qimenPolarityRules.js';
 import { buildQimenEvidence, toSimplified } from '../../lib/qimenPipeline.js';
 import { parsePanTime } from '../../lib/panTime.js';
 import baziCore from '../../lib/baziCore.js';
+import synastry from '../../lib/synastry/index.js';
 import { buildCalibrationPrompt } from '../../lib/baziCalibrationPrompt.js';
 import qimenLlmOutput from '../../lib/qimenLlmOutput.js';
 import accountQuota from '../../lib/accountQuota.js';
@@ -2837,64 +2838,19 @@ async function handleCompatibilityInit(request, env) {
       return json({ error: 'profileA and profileB required' }, { status: 400 }, request, env);
     }
 
-    // Zhi index 0-11 (子丑…亥) → representative solar hour (mid of 2-hr block)
-    const ZHI_MID_HOURS = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22];
-
-    function parsePerson(p) {
-      const dateParts = String(p.birth_date || '').split('-').map(Number);
-      const y = dateParts[0] || 2000, m = dateParts[1] || 1, d = dateParts[2] || 1;
-      const hi = parseInt(p.hour_index ?? -1);
-      let baseH = hi >= 0 ? ZHI_MID_HOURS[hi] : 12;
-      let baseMin = 0;
-
-      // Apply true solar time correction (in minutes, already computed on frontend)
-      const tstMin = parseInt(p.tst_correction_min || 0);
-      baseMin += tstMin;
-      if (baseMin < 0) { baseH -= 1; baseMin += 60; }
-      if (baseMin >= 60) { baseH += 1; baseMin -= 60; }
-      baseH = ((baseH % 24) + 24) % 24;
-
-      const solar = Solar.fromYmdHms(y, m, d, baseH, baseMin, 0);
-      const baZi = solar.getLunar().getEightChar();
-      const isMale = p.gender === 'M' || p.gender === '男';
-      const detail = buildCompleteBaziDetail({
-        baZi,
-        yun: baZi.getYun(isMale ? 1 : 0),
-        isMale,
-        currentYear: new Date().getFullYear(),
-      });
-
-      const gz = detail.pillars?.ganzhi || {};
-      return {
-        dayGan: (gz.day || '')[0] || '',
-        gans: [
-          (gz.year  || '')[0] || '',
-          (gz.month || '')[0] || '',
-          (gz.day   || '')[0] || '',
-          hi >= 0 ? (gz.time || '')[0] || '' : '',
-        ],
-        zhis: [
-          (gz.year  || '')[1] || '',
-          (gz.month || '')[1] || '',
-          detail.day_zhi   || (gz.day   || '')[1] || '',
-          hi >= 0 ? (gz.time || '')[1] || '' : '',
-        ],
-        dayZhi:   detail.day_zhi   || '',
-        yearZhi:  detail.year_zhi  || '',
-        monthZhi: detail.month_zhi || '',
-        five_shens:   detail.five_shens   || {},
-        wuxing_ratio: detail.wuxing_ratio || {},
-      };
-    }
-
-    const compactA = parsePerson(profileA);
-    const compactB = parsePerson(profileB);
+    // 排盘与合盘计算都在 lib/synastry：时辰不详时十二时辰取稳定结论，真太阳时修正跨日进退
+    const relationType = synastry.normalizeRelationType(body.relationType);
+    const { A: compactA, B: compactB, report } = synastry.buildCompatibilityResponse(profileA, profileB, {
+      relationType,
+      currentYear: new Date().getFullYear(),
+    });
+    const friendDims = report.friendDims || null;
 
     // Persist session (best-effort – don't fail the response if DB is unavailable)
     let sessionId = null;
     try {
       const supabase = createSupabaseClient(env);
-      const { data: session } = await supabase
+      const { data: session, error: insertError } = await supabase
         .from('compatibility_sessions')
         .insert({
           name_a: profileA.name || null,
@@ -2913,15 +2869,23 @@ async function handleCompatibilityInit(request, env) {
           hour_index_b: profileB.hour_index != null ? Number(profileB.hour_index) : -1,
           bazi_compact_a: compactA,
           bazi_compact_b: compactB,
+          relation_type: relationType,
+          engine_version: report.engineVersion,
+          report,
+          dim_scores: friendDims
+            ? { d1: friendDims.d1, d2: friendDims.d2, d3: friendDims.d3, d4: friendDims.d4, d5: friendDims.d5 }
+            : null,
+          total_score: friendDims ? friendDims.total : null,
         })
         .select('id')
         .single();
+      if (insertError) console.warn('[compatibility/init] db insert failed:', insertError.message);
       sessionId = session?.id || null;
     } catch (dbErr) {
       console.error('[compatibility/init] db insert failed:', dbErr.message);
     }
 
-    return json({ ok: true, sessionId, A: compactA, B: compactB }, { status: 200 }, request, env);
+    return json({ ok: true, sessionId, A: compactA, B: compactB, report }, { status: 200 }, request, env);
   } catch (e) {
     console.error('[compatibility/init] error:', e);
     return json({ error: e.message }, { status: 500 }, request, env);

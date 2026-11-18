@@ -4,57 +4,38 @@ import { test } from 'node:test'
 
 const wrappedHtml = readFileSync(new URL('../public/wrapped.html', import.meta.url), 'utf8')
 
-test('wrapped report uses dimension-specific analysis copy instead of day-stem copy for every DIM', () => {
-  assert.match(wrappedHtml, /const DIM_ANALYSIS_CONFIG=/)
-  assert.match(wrappedHtml, /dim1:\{[\s\S]*两人命盘的日干底层反应/)
-  assert.match(wrappedHtml, /dim2:\{[\s\S]*五神互补/)
-  assert.match(wrappedHtml, /dim3:\{[\s\S]*忌神激活/)
-  assert.match(wrappedHtml, /dim4:\{[\s\S]*贵人神煞/)
-  assert.match(wrappedHtml, /dim5:\{[\s\S]*日支冲害/)
+test('合盘页不再在前端计算分数，分数与称号取自接口的 report.friendDims', () => {
+  for (const fn of ['computeScores', 'computeMockBazi', 'l1Score', 'l3Score', 'l4Score', 'l5NobleScore',
+    'dayZhiMoneyScore', 'compScore', 'zhiRel', 'computeRealDIMs', 'weightedDimPart']) {
+    assert.doesNotMatch(wrappedHtml, new RegExp(`function ${fn}\\b`), fn)
+  }
+  assert.match(wrappedHtml, /relationType: REL/)
+  assert.match(wrappedHtml, /data\.report\?\.friendDims/)
+  assert.match(wrappedHtml, /function applyReport\(report\)/)
+  assert.match(wrappedHtml, /S\.total=f\.total;S\.tier=f\.tier;S\.tierClass=f\.tierClass/)
 })
 
-test('wrapped DIM analysis pages render demo-style visual blocks, not placeholder explanation cards', () => {
-  assert.match(wrappedHtml, /function buildComplementAnalysis/)
-  assert.match(wrappedHtml, /function buildShenshaAnalysis/)
-  assert.match(wrappedHtml, /function buildDrainAnalysis/)
-  assert.match(wrappedHtml, /调候互补 \+ 贵人神煞/)
-  assert.match(wrappedHtml, /月支社交宫/)
-  assert.match(wrappedHtml, /L5 = 月支/)
-  assert.match(wrappedHtml, /天乙 \+0/)
-  assert.match(wrappedHtml, /comp-block/)
-  assert.match(wrappedHtml, /comp-bz-row/)
-  assert.match(wrappedHtml, /comp-match-badge|comp-bless-badge|comp-clash-badge/)
-  assert.doesNotMatch(wrappedHtml, /测试 的成长补给/)
-  assert.doesNotMatch(wrappedHtml, /yx 的成长补给/)
-  assert.doesNotMatch(wrappedHtml, /这里对应 Demo/)
+test('分析页与扫盘页按证据渲染：高亮由 locus 与 chars 决定，小标题写明方向', () => {
+  assert.match(wrappedHtml, /function marksFor\(key,list,toneFn=evTone\)/)
+  assert.match(wrappedHtml, /loc==='chart'/)
+  assert.match(wrappedHtml, /e\.dir==='A<-B'/)
+  assert.match(wrappedHtml, /e\.dir==='B<-A'/)
+  assert.match(wrappedHtml, /e\.basis!=='folk'/)
 })
 
-test('wrapped DIM source labels match their actual score inputs', () => {
-  assert.match(wrappedHtml, /function l5NobleScore\(A,B\)/)
-  assert.match(wrappedHtml, /const d4=clamp\(l4\*DW\.d4\.s1\+l5\*DW\.d4\.s3\)/)
-  assert.match(wrappedHtml, /d4:\{s1:Math\.round\(l4\),s3:Math\.round\(l5\)\}/)
-  assert.match(wrappedHtml, /劫财财星<\/span><span class="si-val" id="d5-lv1"/)
-  assert.match(wrappedHtml, /日支冲害<\/span><span class="si-val" id="d5-lv3"/)
-  assert.doesNotMatch(wrappedHtml, /月支对位<\/span><span class="si-val" id="d5-lv1"/)
-  assert.doesNotMatch(wrappedHtml, /神煞互见<\/span><span class="si-val" id="d5-lv3"/)
+test('文案以「对盘」为核心，五个维度用短问，不再出现充电漏电', () => {
+  assert.match(wrappedHtml, /你们俩，<br><span class="hi">对盘<\/span>吗？/)
+  assert.match(wrappedHtml, /两个人的八字，摆在一起看。/)
+  assert.match(wrappedHtml, /开始对盘/)
+  for (const ask of ['聊得来吗', '靠得住吗', '处着累吗', '有长进吗', '谈钱伤吗']) assert.match(wrappedHtml, new RegExp(ask))
+  assert.doesNotMatch(wrappedHtml, /充电|漏电|柠檬精|敌蜜/)
+  assert.doesNotMatch(wrappedHtml, /th-src">《/)
+  assert.match(wrappedHtml, /没有硬伤。/)
 })
 
-test('wrapped report DIM scan targets match compatibility PRD sources', () => {
-  assert.match(
-    wrappedHtml,
-    /buildAnalysisAndScan\('dim3','d3',\['劫财','七杀','比肩'\]/
-  )
-  assert.match(
-    wrappedHtml,
-    /buildAnalysisAndScan\('dim5','d5',\['劫财','正财','偏财'\]/
-  )
-})
-
-test('wrapped report DIM5 scoring uses money flow plus day-branch conflict', () => {
-  assert.match(wrappedHtml, /function l3MoneyScore\(A,B\)/)
-  assert.match(wrappedHtml, /function dayZhiMoneyScore\(A,B\)/)
-  assert.match(wrappedHtml, /const d5=clamp\(l3money\*DW\.d5\.s1\+l2day\*DW\.d5\.s3\)/)
-  assert.doesNotMatch(wrappedHtml, /const d5=clamp\(l2y\*DW\.d5\.s1\+l5m\*DW\.d5\.s3\)/)
+test('深浅两套主题：读主站的主题偏好，深色覆盖 token', () => {
+  assert.match(wrappedHtml, /qimen-theme-preference/)
+  assert.match(wrappedHtml, /:root\[data-theme="dark"\]\{/)
 })
 
 test('wrapped birthplace dropdown shows enough county-level matches', () => {
@@ -64,4 +45,26 @@ test('wrapped birthplace dropdown shows enough county-level matches', () => {
   assert.doesNotMatch(wrappedHtml, /CITY_DISTRICT_FALLBACKS/)
   assert.doesNotMatch(wrappedHtml, /fallbackDistrictPlace/)
   assert.match(wrappedHtml, /api\.searchBirthplaces\(query, limit\)/)
+})
+
+const romanceJs = readFileSync(new URL('../public/wrapped-romance.js', import.meta.url), 'utf8')
+const reportView = readFileSync(new URL('./views/ReportView.vue', import.meta.url), 'utf8')
+
+test('婚恋合盘入口：?type=romance 透传 relationType，性别不预选且必须选', () => {
+  assert.match(reportView, /href="\/wrapped\.html\?type=romance"/)
+  assert.match(reportView, /href="\/wrapped\.html" class="report-card card-friendship"/)
+  assert.match(wrappedHtml, /get\('type'\)==='romance'\?'romance':'friend'/)
+  assert.match(wrappedHtml, /relationType: REL/)
+  assert.match(wrappedHtml, /const DEFAULT_GENDER=REL==='romance'\?'':'M'/)
+  assert.match(wrappedHtml, /\(REL!=='romance'\|\|S\.genderA\)/)
+  assert.match(wrappedHtml, /\(REL!=='romance'\|\|S\.genderB\)/)
+  assert.match(wrappedHtml, /<script src="\.\/wrapped-romance\.js"><\/script>/)
+})
+
+test('婚恋合盘：四问用短问，不出现单字章节名、总分、称号与禁用词', () => {
+  for (const ask of ['有缘吗', '处得顺吗', '谁成就谁', '走得远吗']) assert.match(romanceJs, new RegExp(ask))
+  assert.match(romanceJs, /待开放/)
+  assert.doesNotMatch(romanceJs, /friendDims|对盘指数|TIER_LINES/)
+  for (const src of [wrappedHtml, romanceJs]) assert.doesNotMatch(src, /克夫|克妻|旺夫|注定|必/)
+  assert.doesNotMatch(romanceJs, /'缘'|'和'|'益'|'久'/)
 })

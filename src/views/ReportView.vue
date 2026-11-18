@@ -26,7 +26,21 @@
               </div>
               <h3 class="report-title">八字双人合盘</h3>
               <p class="report-subtitle">朋友缘分</p>
-              <p class="report-desc">你们在一起是充电还是漏电？五个维度深测人际化学反应</p>
+              <p class="report-desc">你们俩，对盘吗？五个维度看两张盘</p>
+            </div>
+            <div class="card-arrow">→</div>
+          </a>
+
+          <!-- 婚恋合盘 -->
+          <a href="/wrapped.html?type=romance" class="report-card card-friendship card-romance">
+            <div class="card-glow"></div>
+            <div class="report-card-content">
+              <div class="card-top-row">
+                <div class="report-icon">❦</div>
+              </div>
+              <h3 class="report-title">八字双人合盘</h3>
+              <p class="report-subtitle">姻缘</p>
+              <p class="report-desc">对的人，对得上。四个问题看两张盘的结构</p>
             </div>
             <div class="card-arrow">→</div>
           </a>
