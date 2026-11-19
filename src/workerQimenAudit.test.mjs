@@ -68,3 +68,10 @@ test('CP2 路由钳制：含 panTime 时 bazi 钳 hybrid、clarify 钳 qimen', (
   assert.match(source, /route\.branch === 'clarify'[\s\S]{0,160}route\.branch = 'qimen'/)
   assert.match(source, /clampedByPanTime = true/)
 })
+
+test('audit inserts carry request geo (country/locale/tz) without raw IP', () => {
+  assert.match(source, /function getRequestGeo\(request, body\)/)
+  assert.match(source, /Object\.assign\(qimenAuditSnapshot, getRequestGeo\(request, body\)\)/)
+  assert.match(source, /Object\.assign\(auditSnapshot, getRequestGeo\(request, body\)\)/)
+  assert.doesNotMatch(source, /CF-Connecting-IP/)
+})
