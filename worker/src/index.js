@@ -294,6 +294,20 @@ function buildQimenAuditSnapshot({
   };
 }
 
+// 审计用的请求来源信息：只存国家码、界面语言、时区、浏览器首选语言，不存原始 IP。
+function getRequestGeo(request, body) {
+  const clip = (v, n) => { const t = String(v || '').trim(); return t ? t.slice(0, n) : null; };
+  const cf = request?.cf || {};
+  const country = clip(request?.headers?.get('CF-IPCountry') || cf.country, 8);
+  const acceptLang = String(request?.headers?.get('Accept-Language') || '').split(',')[0].split(';')[0];
+  return {
+    country: country && !['XX', 'T1'].includes(country.toUpperCase()) ? country.toUpperCase() : null,
+    ui_locale: clip(body?.locale, 16),
+    tz: clip(cf.timezone, 64),
+    browser_lang: clip(acceptLang, 16)
+  };
+}
+
 function getAllowedOrigins(env) {
   const configuredOrigins = String(env.FRONTEND_URL || '')
     .split(',')
@@ -1534,6 +1548,7 @@ async function handleBaziQuestion(request, env, ctx) {
     });
 
     try {
+      Object.assign(auditSnapshot, getRequestGeo(request, body));
       const auditSupabase = createSupabaseClient(env);
       const { error: auditError } = await auditSupabase.from('bazi_question_audit').insert(auditSnapshot);
       if (auditError) console.warn('[qimen-api] bazi audit insert failed:', auditError.message || auditError);
@@ -2604,6 +2619,7 @@ ${scoreEvidenceSection}
         });
 
         try {
+            Object.assign(qimenAuditSnapshot, getRequestGeo(request, body));
             const supabase = createSupabaseClient(env);
             const { error: auditError } = await supabase.from('qimen_question_audit').insert(qimenAuditSnapshot);
             if (auditError) console.warn('[qimen-api] qimen audit insert failed:', auditError.message || auditError);
