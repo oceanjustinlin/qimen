@@ -66,7 +66,7 @@ export default {
   },
   seo: {
     defaultTitle: 'Qimen Dunjia Online Chart, AI Reading & Bazi Fortune - Qimen Dao',
-    home: { title: 'Qimen Dunjia AI Engine — Free Online Divination', description: 'Rules first, then AI interprets. Enter time and location to generate a Qimen Dunjia chart with AI analysis.' },
+    home: { title: 'Qimendao — Qimen Dunjia Online Chart & AI Reading', description: 'Qimendao: free online Qimen Dunjia chart, AI reading, Bazi four-pillar chart and daily fortune. A rule engine computes the chart first; AI explains it.' },
     bazi: { title: 'Bazi Four Pillars — Qimen AI', description: 'Professional Bazi four-pillars chart: ten gods, patterns, major cycles and yearly luck in one click.' },
     reports: { title: 'Reports — Qimen AI', description: 'Your Bazi, compatibility and fortune reports.' },
     fortune: { title: 'Daily Fortune — Qimen AI', description: 'Rule-engine powered daily, weekly and monthly fortune analysis based on Qimen Dunjia and your Bazi.' },
