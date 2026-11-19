@@ -1,69 +1,82 @@
 <template>
-  <div class="bazi-table-wrap">
+  <div class="bazi-table-wrap" :class="{ 'is-en': isEn }">
     <table class="bazi-table">
       <colgroup>
         <col>
-        <col v-for="col in columns" :key="'cg-col-' + col.name" :class="{ 'is-day': col.name === '日' }">
+        <col v-for="col in columns" :key="'cg-col-' + col.name" :class="{ 'is-day': col.name === '日' }"><!-- i18n-ignore -->
       </colgroup>
       <thead>
         <tr>
-          <th class="bz-label">柱位</th>
-          <th v-for="col in columns" :key="col.name" class="bz-label">
-            {{ col.name }}{{ ['年','月','日','时'].includes(col.name) ? '柱' : '' }}
-          </th>
+          <th class="bz-label">{{ t('bazi.pillarTable.pillar') }}</th>
+          <th v-for="col in columns" :key="col.name" class="bz-label">{{ columnTitle(col.name) }}</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td class="bz-label">主星</td>
-          <td v-for="col in columns" :key="'star-' + col.name" class="bz-star">{{ col.star || '-' }}</td>
+          <td class="bz-label">{{ t('bazi.pillarTable.tenGod') }}</td>
+          <td v-for="col in columns" :key="'star-' + col.name" class="bz-star">
+            {{ col.star || '-' }}<span v-if="hint(col.star)" class="bz-en">{{ hint(col.star) }}</span>
+          </td>
         </tr>
         <tr>
-          <td class="bz-label">天干</td>
-          <td v-for="col in columns" :key="'gan-' + col.name" class="bz-char" :class="WX_MAP[col.gan] || 'wx-none'">{{ col.gan || '-' }}</td>
+          <td class="bz-label">{{ t('bazi.pillarTable.stem') }}</td>
+          <td v-for="col in columns" :key="'gan-' + col.name" class="bz-char" :class="WX_MAP[col.gan] || 'wx-none'">
+            {{ col.gan || '-' }}<span v-if="hint(col.gan)" class="bz-en bz-en-char">{{ hint(col.gan) }}</span>
+          </td>
         </tr>
         <tr>
-          <td class="bz-label">地支</td>
-          <td v-for="col in columns" :key="'zhi-' + col.name" class="bz-char" :class="WX_MAP[col.zhi] || 'wx-none'">{{ col.zhi || '-' }}</td>
+          <td class="bz-label">{{ t('bazi.pillarTable.branch') }}</td>
+          <td v-for="col in columns" :key="'zhi-' + col.name" class="bz-char" :class="WX_MAP[col.zhi] || 'wx-none'">
+            {{ col.zhi || '-' }}<span v-if="hint(col.zhi)" class="bz-en bz-en-char">{{ hint(col.zhi) }}</span>
+          </td>
         </tr>
         <tr>
-          <td class="bz-label">藏干</td>
+          <td class="bz-label">{{ t('bazi.pillarTable.hidden') }}</td>
           <td v-for="col in columns" :key="'cg-' + col.name" class="bz-sub">
             <template v-for="stem in normalizeHiddenStems(col.hidden_stems)" :key="stem.gan">
               <span class="cg-line"><span class="cg-gan" :class="WX_MAP[stem.gan] || 'wx-none'">{{ stem.gan }}{{ WX_NAME[WX_MAP[stem.gan]] || '' }}</span><span class="cg-shen">{{ stem.shi_shen }}</span></span>
+              <span v-if="hint(stem.shi_shen)" class="bz-en cg-en">{{ hint(stem.shi_shen) }}</span>
             </template>
             <span v-if="!normalizeHiddenStems(col.hidden_stems).length" style="color:var(--ink-dim)">-</span>
           </td>
         </tr>
         <tr>
-          <td class="bz-label">星运</td>
-          <td v-for="col in columns" :key="'shi-' + col.name" class="bz-sub">{{ col.shi || '-' }}</td>
+          <td class="bz-label">{{ t('bazi.pillarTable.lifeStage') }}</td>
+          <td v-for="col in columns" :key="'shi-' + col.name" class="bz-sub">
+            {{ col.shi || '-' }}<span v-if="hint(col.shi)" class="bz-en">{{ hint(col.shi) }}</span>
+          </td>
         </tr>
         <tr>
-          <td class="bz-label">自座</td>
-          <td v-for="col in columns" :key="'zizuo-' + col.name" class="bz-sub">{{ col.zizuo || '-' }}</td>
+          <td class="bz-label">{{ t('bazi.pillarTable.selfSeat') }}</td>
+          <td v-for="col in columns" :key="'zizuo-' + col.name" class="bz-sub">
+            {{ col.zizuo || '-' }}<span v-if="hint(col.zizuo)" class="bz-en">{{ hint(col.zizuo) }}</span>
+          </td>
         </tr>
         <tr>
-          <td class="bz-label">空亡</td>
+          <td class="bz-label">{{ t('bazi.pillarTable.void') }}</td>
           <td v-for="col in columns" :key="'kong-' + col.name" class="bz-sub">
-            <span v-if="col.kong && col.kong !== '-'">{{ col.kong }}</span>
-            <span v-else-if="col.is_kong" style="color:var(--crimson)">空亡</span>
+            <template v-if="col.kong && col.kong !== '-'">
+              <span>{{ col.kong }}</span><span v-if="hint(col.kong)" class="bz-en">{{ hint(col.kong) }}</span>
+            </template>
+            <span v-else-if="col.is_kong" style="color:var(--crimson)">{{ t('bazi.pillarTable.void') }}</span>
             <span v-else style="color:var(--ink-dim)">-</span>
           </td>
         </tr>
         <tr>
-          <td class="bz-label">纳音</td>
-          <td v-for="col in columns" :key="'nayin-' + col.name" class="bz-sub">{{ col.nayin || '-' }}</td>
+          <td class="bz-label">{{ t('bazi.pillarTable.nayin') }}</td>
+          <td v-for="col in columns" :key="'nayin-' + col.name" class="bz-sub">
+            {{ col.nayin || '-' }}<span v-if="hint(col.nayin)" class="bz-en">{{ hint(col.nayin) }}</span>
+          </td>
         </tr>
         <tr>
           <td class="bz-label">
-            神煞
-            <button class="ss-toggle" @click="shenshaCollapsed = !shenshaCollapsed" :title="shenshaCollapsed ? '展开' : '折叠'">
+            {{ t('bazi.pillarTable.shensha') }}
+            <button class="ss-toggle" @click="shenshaCollapsed = !shenshaCollapsed" :title="shenshaCollapsed ? t('bazi.pillarTable.expand') : t('bazi.pillarTable.collapse')">
               <svg :class="['ss-arrow', { expanded: !shenshaCollapsed }]" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </button>
-            <span class="shensha-hint">(点击)</span>
+            <span class="shensha-hint">{{ t('bazi.pillarTable.tapHint') }}</span>
           </td>
           <td v-for="col in columns" :key="'shen-' + col.name" class="bz-shensha">
             <template v-if="sortedShensha(col.shensha).length">
@@ -73,7 +86,7 @@
                 class="clickable-shensha"
                 :class="'ss-' + getShenshaInfo(s).nature"
                 @click="$emit('shensha-click', s)"
-              >{{ s }}</div>
+              >{{ s }}<span v-if="hint(s)" class="bz-en">{{ hint(s) }}</span></div>
               <span v-if="shenshaCollapsed && sortedShensha(col.shensha).length > 1" class="ss-more">+{{ sortedShensha(col.shensha).length - 1 }}</span>
             </template>
             <span v-else style="color:var(--ink-dim)">-</span>
@@ -85,8 +98,21 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { getShenshaInfo, sortedShensha } from '../utils/baziShensha.mjs'
+import { symbolHint } from '../i18n/domainLabels.mjs'
+
+const { t, locale } = useI18n()
+const isEn = computed(() => locale.value === 'en-US')
+// 英文模式：汉字大字照旧，下面加一行英文小字（天干阴阳五行、地支生肖、十神/神煞英文名）
+const hint = (zh) => symbolHint(zh, locale.value)
+const PILLAR_COLS = ['年', '月', '日', '时'] // i18n-ignore
+function columnTitle(name) {
+  const label = t(`bazi.pillarTable.col.${name}`)
+  const shown = label.startsWith('bazi.') ? name : label
+  return PILLAR_COLS.includes(name) ? shown + t('bazi.pillarTable.suffix') : shown
+}
 
 const shenshaCollapsed = ref(true)
 
@@ -158,6 +184,24 @@ function normalizeHiddenStems(stems) {
 .ss-arrow { width: 10px; height: 6px; display: block; transition: transform .22s cubic-bezier(.4,0,.2,1); transform: rotate(-90deg); }
 .ss-arrow.expanded { transform: rotate(0deg); }
 .ss-more { display: block; font-size: 10px; color: var(--ink-muted, #55595d); line-height: 1.4; }
+.bz-en {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: 0;
+  color: var(--ink-dim, #777b80);
+  white-space: normal;
+  overflow-wrap: anywhere;
+  margin-top: 1px;
+}
+.bz-en-char { font-size: 9.5px; color: var(--ink-muted, #55595d); }
+.clickable-shensha .bz-en { color: inherit; opacity: .75; white-space: normal; }
+.cg-en { margin: -1px 0 3px; }
+.is-en .clickable-shensha { white-space: normal; }
+.is-en .bazi-table th:first-child, .is-en .bazi-table td:first-child { width: 58px; }
+.is-en .bz-label { font-size: 10.5px; line-height: 1.2; padding-left: 2px; padding-right: 2px; }
 @media (max-width: 640px) {
   .bazi-table {
     --bz-label-size: 11px;

@@ -1,5 +1,5 @@
 <template>
-  <section ref="panelEl" class="bazi-backing-panel result-module bazi-mode-card reveal">
+  <section ref="panelEl" class="bazi-backing-panel result-module bazi-mode-card reveal" :class="{ 'is-en': isEn }">
     <slot name="identity"></slot>
 
     <BaziPillarTable
@@ -13,23 +13,23 @@
       <div v-if="selectedShensha" class="modal-overlay" @click="selectedShensha = null">
         <div class="shensha-modal" @click.stop>
           <div class="shensha-modal-head">
-            <h4>{{ getShenshaInfo(selectedShensha).label || selectedShensha }}</h4>
-            <span class="shensha-nature-badge" :class="'nature-' + getShenshaInfo(selectedShensha).nature">{{ getShenshaInfo(selectedShensha).nature }}</span>
+            <h4>{{ symbolLabel(getShenshaInfo(selectedShensha).label || selectedShensha, locale) }}</h4>
+            <span class="shensha-nature-badge" :class="'nature-' + getShenshaInfo(selectedShensha).nature">{{ t('bazi.nature.' + getShenshaInfo(selectedShensha).nature) }}</span>
           </div>
           <p class="shensha-summary">{{ getShenshaInfo(selectedShensha).summary }}</p>
           <div v-if="getShenshaInfo(selectedShensha).auspicious" class="shensha-section shensha-ji">
-            <span class="shensha-section-label">✦ 吉</span>
+            <span class="shensha-section-label">✦ {{ t('bazi.shenshaModal.good') }}</span>
             <span>{{ getShenshaInfo(selectedShensha).auspicious }}</span>
           </div>
           <div v-if="getShenshaInfo(selectedShensha).inauspicious" class="shensha-section shensha-xiong">
-            <span class="shensha-section-label">✦ 忌</span>
+            <span class="shensha-section-label">✦ {{ t('bazi.shenshaModal.bad') }}</span>
             <span>{{ getShenshaInfo(selectedShensha).inauspicious }}</span>
           </div>
           <div v-if="getShenshaInfo(selectedShensha).note" class="shensha-section shensha-note">
-            <span class="shensha-section-label">古籍</span>
+            <span class="shensha-section-label">{{ t('bazi.shenshaModal.classics') }}</span>
             <span>{{ getShenshaInfo(selectedShensha).note }}</span>
           </div>
-          <button class="btn-primary" style="width:100%; margin-top:14px;" @click="selectedShensha = null">知晓</button>
+          <button class="btn-primary" style="width:100%; margin-top:14px;" @click="selectedShensha = null">{{ t('bazi.shenshaModal.ok') }}</button>
         </div>
       </div>
     </Teleport>
@@ -38,10 +38,10 @@
       <!-- 折叠条 -->
       <button v-if="collapsible" class="timeline-toggle" @click="timelineExpanded = !timelineExpanded">
         <span class="timeline-toggle-summary">
-          <span v-if="selectedDayun" class="tl-chip">大运 {{ selectedDayun.gan }}{{ selectedDayun.zhi }}</span>
-          <span v-if="selectedLiunianYear" class="tl-chip">流年 {{ currentLiunianGanzhi }}</span>
+          <span v-if="selectedDayun" class="tl-chip">{{ t('bazi.timeline.dayun') }} {{ selectedDayun.gan }}{{ selectedDayun.zhi }}</span>
+          <span v-if="selectedLiunianYear" class="tl-chip">{{ t('bazi.timeline.liunian') }} {{ currentLiunianGanzhi }}</span>
         </span>
-        <span class="timeline-toggle-label">{{ timelineExpanded ? '收起' : '展开' }}大运流年</span>
+        <span class="timeline-toggle-label">{{ timelineExpanded ? t('bazi.timeline.collapse') : t('bazi.timeline.expand') }}</span>
         <svg class="timeline-toggle-arrow" :class="{ expanded: timelineExpanded }" width="14" height="14" viewBox="0 0 14 14" fill="none">
           <path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -49,8 +49,8 @@
 
       <template v-if="!collapsible || timelineExpanded">
         <div class="timeline-head">
-          <div class="timeline-title">专业四柱大运流年流月流日联动</div>
-          <button class="timeline-icon-btn" title="回到今日" @click="jumpToCurrent">
+          <div class="timeline-title">{{ t('bazi.timeline.title') }}</div>
+          <button class="timeline-icon-btn" :title="t('bazi.timeline.today')" @click="jumpToCurrent">
             <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="2" y="4" width="12" height="10" rx="2" stroke="currentColor" stroke-width="1.4"/>
               <path d="M5 2v3M11 2v3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
@@ -59,10 +59,11 @@
             </svg>
           </button>
         </div>
+        <p v-if="isEn" class="shen-legend">{{ t('bazi.timeline.legend') }}</p>
 
         <!-- 大运行（含小运） -->
         <div class="linkage-row">
-          <div class="row-label">大<br>运</div>
+          <div class="row-label" :class="{ 'row-label-en': isEn }">{{ t('bazi.timeline.rowDayun') }}</div>
           <div class="row-content">
             <!-- 小运：前置合并进大运行 -->
             <button
@@ -73,8 +74,8 @@
               :class="{ active: isSelectedDayun(xiaoyun) }"
               @click="selectDayun(xiaoyun)"
             >
-              <div class="item-header">{{ xiaoyun.start_year || '-' }}<br>{{ xiaoyun.start_age || '?' }}~{{ endAge(xiaoyun) }}岁</div>
-              <div class="item-body xiaoyun-body">小运</div>
+              <div class="item-header">{{ xiaoyun.start_year || '-' }}<br>{{ ageRange(xiaoyun) }}</div>
+              <div class="item-body xiaoyun-body">{{ t('bazi.timeline.xiaoyun') }}</div>
             </button>
             <!-- 正式大运 -->
             <button
@@ -85,15 +86,15 @@
               :class="{ active: isSelectedDayun(dayun), marked: dayunHasWindow(dayun), best: dayunHasBestWindow(dayun) }"
               @click="selectDayun(dayun)"
             >
-              <div class="item-header">{{ dayun.start_year || '-' }}<br>{{ dayun.start_age || '?' }}~{{ endAge(dayun) }}岁</div>
+              <div class="item-header">{{ dayun.start_year || '-' }}<br>{{ ageRange(dayun) }}</div>
               <div class="item-body stacked-ganzhi">
                 <div class="char-wrap">
                   <span class="char-gan" :class="WX_MAP[dayun.gan] || 'wx-none'">{{ dayun.gan || '-' }}</span>
-                  <span v-if="dayun.shi_shen" class="shi-shen" :class="getShenColor(dayun.shi_shen)">{{ dayun.shi_shen }}</span>
+                  <span v-if="dayun.shi_shen" class="shi-shen" :class="getShenColor(dayun.shi_shen)" :title="shenTitle(dayun.shi_shen)">{{ shenTag(dayun.shi_shen) }}</span>
                 </div>
                 <div class="char-wrap">
                   <span class="char-zhi" :class="WX_MAP[dayun.zhi] || 'wx-none'">{{ dayun.zhi || '-' }}</span>
-                  <span v-if="dayun.zhi_shi_shen" class="shi-shen" :class="getShenColor(dayun.zhi_shi_shen)">{{ dayun.zhi_shi_shen }}</span>
+                  <span v-if="dayun.zhi_shi_shen" class="shi-shen" :class="getShenColor(dayun.zhi_shi_shen)" :title="shenTitle(dayun.zhi_shi_shen)">{{ shenTag(dayun.zhi_shi_shen) }}</span>
                 </div>
               </div>
             </button>
@@ -101,7 +102,7 @@
         </div>
 
         <div v-if="linkedLiunianList.length" class="linkage-row">
-          <div class="row-label">流<br>年</div>
+          <div class="row-label" :class="{ 'row-label-en': isEn }">{{ t('bazi.timeline.rowLiunian') }}</div>
           <div class="row-content">
             <button
               v-for="liunian in linkedLiunianList"
@@ -115,11 +116,11 @@
               <div class="item-body stacked-ganzhi">
                 <div class="char-wrap">
                   <span class="char-gan" :class="WX_MAP[liunian.gan] || 'wx-none'">{{ liunian.gan || '-' }}</span>
-                  <span v-if="liunian.shi_shen" class="shi-shen" :class="getShenColor(liunian.shi_shen)">{{ liunian.shi_shen }}</span>
+                  <span v-if="liunian.shi_shen" class="shi-shen" :class="getShenColor(liunian.shi_shen)" :title="shenTitle(liunian.shi_shen)">{{ shenTag(liunian.shi_shen) }}</span>
                 </div>
                 <div class="char-wrap">
                   <span class="char-zhi" :class="WX_MAP[liunian.zhi] || 'wx-none'">{{ liunian.zhi || '-' }}</span>
-                  <span v-if="liunian.zhi_shi_shen" class="shi-shen" :class="getShenColor(liunian.zhi_shi_shen)">{{ liunian.zhi_shi_shen }}</span>
+                  <span v-if="liunian.zhi_shi_shen" class="shi-shen" :class="getShenColor(liunian.zhi_shi_shen)" :title="shenTitle(liunian.zhi_shi_shen)">{{ shenTag(liunian.zhi_shi_shen) }}</span>
                 </div>
               </div>
             </button>
@@ -127,7 +128,7 @@
         </div>
 
         <div v-if="linkedLiuyueList.length" class="linkage-row">
-          <div class="row-label">流<br>月</div>
+          <div class="row-label" :class="{ 'row-label-en': isEn }">{{ t('bazi.timeline.rowLiuyue') }}</div>
           <div class="row-content">
             <button
               v-for="liuyue in linkedLiuyueList"
@@ -137,15 +138,15 @@
               :class="{ active: selectedLiuyueIndex === liuyue.index }"
               @click="selectLiuyue(liuyue.index)"
             >
-              <div class="item-header">{{ liuyue.monthName || liuyue.month_name || '-' }}</div>
+              <div class="item-header">{{ monthLabel(liuyue.monthName || liuyue.month_name) }}</div>
               <div class="item-body stacked-ganzhi">
                 <div class="char-wrap">
                   <span class="char-gan" :class="WX_MAP[liuyue.gan] || 'wx-none'">{{ liuyue.gan || '-' }}</span>
-                  <span v-if="liuyue.shi_shen" class="shi-shen" :class="getShenColor(liuyue.shi_shen)">{{ liuyue.shi_shen }}</span>
+                  <span v-if="liuyue.shi_shen" class="shi-shen" :class="getShenColor(liuyue.shi_shen)" :title="shenTitle(liuyue.shi_shen)">{{ shenTag(liuyue.shi_shen) }}</span>
                 </div>
                 <div class="char-wrap">
                   <span class="char-zhi" :class="WX_MAP[liuyue.zhi] || 'wx-none'">{{ liuyue.zhi || '-' }}</span>
-                  <span v-if="liuyue.zhi_shi_shen" class="shi-shen" :class="getShenColor(liuyue.zhi_shi_shen)">{{ liuyue.zhi_shi_shen }}</span>
+                  <span v-if="liuyue.zhi_shi_shen" class="shi-shen" :class="getShenColor(liuyue.zhi_shi_shen)" :title="shenTitle(liuyue.zhi_shi_shen)">{{ shenTag(liuyue.zhi_shi_shen) }}</span>
                 </div>
               </div>
             </button>
@@ -153,7 +154,7 @@
         </div>
 
         <div v-if="linkedLiuriList.length" class="linkage-row">
-          <div class="row-label">流<br>日</div>
+          <div class="row-label" :class="{ 'row-label-en': isEn }">{{ t('bazi.timeline.rowLiuri') }}</div>
           <div class="row-content">
             <button
               v-for="liuri in linkedLiuriList"
@@ -163,15 +164,15 @@
               :class="{ active: selectedLiuriDateKey === liuri.dateKey }"
               @click="selectLiuri(liuri.dateKey)"
             >
-              <div class="item-header">{{ liuri.dateLabel }}<br>{{ liuri.weekLabel }}</div>
+              <div class="item-header">{{ liuri.dateLabel }}<br>{{ weekLabel(liuri.weekLabel) }}</div>
               <div class="item-body stacked-ganzhi">
                 <div class="char-wrap">
                   <span class="char-gan" :class="WX_MAP[liuri.gan] || 'wx-none'">{{ liuri.gan || '-' }}</span>
-                  <span v-if="liuri.shi_shen" class="shi-shen" :class="getShenColor(liuri.shi_shen)">{{ liuri.shi_shen }}</span>
+                  <span v-if="liuri.shi_shen" class="shi-shen" :class="getShenColor(liuri.shi_shen)" :title="shenTitle(liuri.shi_shen)">{{ shenTag(liuri.shi_shen) }}</span>
                 </div>
                 <div class="char-wrap">
                   <span class="char-zhi" :class="WX_MAP[liuri.zhi] || 'wx-none'">{{ liuri.zhi || '-' }}</span>
-                  <span v-if="liuri.zhi_shi_shen" class="shi-shen" :class="getShenColor(liuri.zhi_shi_shen)">{{ liuri.zhi_shi_shen }}</span>
+                  <span v-if="liuri.zhi_shi_shen" class="shi-shen" :class="getShenColor(liuri.zhi_shi_shen)" :title="shenTitle(liuri.zhi_shi_shen)">{{ shenTag(liuri.zhi_shi_shen) }}</span>
                 </div>
               </div>
             </button>
@@ -186,6 +187,32 @@
 import { computed, nextTick, ref, watch } from 'vue'
 import { Solar } from 'lunar-javascript'
 import { buildLiuRiList, getShiShen, findTransitSelectionByDate } from '../utils/baziTransit.mjs'
+import { useI18n } from 'vue-i18n'
+import { symbolLabel, tenGodAbbr, symbolName } from '../i18n/domainLabels.mjs'
+
+const { t, locale } = useI18n()
+const isEn = computed(() => locale.value === 'en-US')
+// 英文：十神小标用英文八字圈通用缩写（7K、DO、IR…），标题下有图例
+const shenTag = (zh) => (isEn.value ? tenGodAbbr(zh) : zh)
+const shenTitle = (zh) => (isEn.value ? symbolName(zh, locale.value) : undefined)
+function ageRange(item) {
+  return t('bazi.timeline.ageRange', { start: item.start_age || '?', end: endAge(item) })
+}
+// 农历月名：正月…腊月 → Month 1…Month 12
+const LUNAR_MONTH_NO = { 正: 1, 一: 1, 二: 2, 三: 3, 四: 4, 五: 5, 六: 6, 七: 7, 八: 8, 九: 9, 十: 10, 冬: 11, 十一: 11, 腊: 12, 十二: 12 } // i18n-ignore
+function monthLabel(name) {
+  if (!name) return '-'
+  if (!isEn.value) return name
+  const key = String(name).replace(/^闰/, '').replace(/月$/, '') // i18n-ignore
+  const no = LUNAR_MONTH_NO[key]
+  return no ? t('bazi.timeline.month', { n: no }) : name
+}
+const WEEK_INDEX = '日一二三四五六' // i18n-ignore
+function weekLabel(label) {
+  if (!isEn.value || !label) return label
+  const idx = WEEK_INDEX.indexOf(String(label).slice(-1))
+  return idx >= 0 ? t('bazi.timeline.week.' + idx) : label
+}
 
 const ZHI_MAIN_GAN = {
   子: '癸', 丑: '己', 寅: '甲', 卯: '乙', 辰: '戊', 巳: '丙',
@@ -585,6 +612,7 @@ defineExpose({ centerActiveItems })
   background: rgba(var(--paper-rgb), 0.72);
   overflow: hidden;
 }
+.shen-legend { margin: -4px 0 10px; font-size: 10px; line-height: 1.5; color: var(--ink-dim, #777b80); }
 .row-label {
   width: 38px;
   display: flex;
@@ -598,7 +626,11 @@ defineExpose({ centerActiveItems })
   border-right: 1px solid rgba(181,141,59,0.12);
   flex-shrink: 0;
   line-height: 1.45;
+  /* 竖排行名：中文两字上下排（等同原来的「大<br>运」），英文旋转成竖排 */
+  writing-mode: vertical-rl;
+  letter-spacing: 4px;
 }
+.row-label.row-label-en { transform: rotate(180deg); letter-spacing: .5px; font-size: 11px; font-weight: 600; }
 .row-content {
   display: flex;
   gap: 4px;
@@ -697,6 +729,8 @@ defineExpose({ centerActiveItems })
   border-radius: 5px;
   font-weight: 700;
 }
+.is-en .char-wrap { padding-right: 24px; }
+.is-en .shi-shen { font-size: 9px; padding: 1px 3px; letter-spacing: 0; right: -2px; }
 .shen-red { color: #d33d36; background: rgba(211,61,54,0.10); }
 .shen-green { color: #2e7d32; background: rgba(46,125,50,0.10); }
 .shen-gold { color: #9a6b12; background: rgba(181,141,59,0.13); }

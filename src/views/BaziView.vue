@@ -46,13 +46,13 @@
                                 class="badge badge-blue badge-action hero-pill"
                                 role="button" tabindex="0"
                                 @click.stop="openInsightPanel('strength')"
-                            >{{ activeProfile.strong_weak }}</span>
+                            >{{ symbolName(activeProfile.strong_weak, locale) }}</span>
                             <span
                                 v-if="activeProfile.geju"
                                 class="badge badge-gold badge-action hero-pill"
                                 role="button" tabindex="0"
                                 @click.stop="openInsightPanel('geju')"
-                            >{{ patternFinalName }}</span>
+                            >{{ symbolName(patternFinalName, locale) }}</span>
                         </div>
                     </div>
                 </div>
@@ -663,26 +663,26 @@
                     />
 
                     <div v-if="interactions" class="ai-section" style="margin-top:20px;">
-                        <div class="timeline-title">生克合化注意</div>
+                        <div class="timeline-title">{{ t('bazi.interactions.title') }}</div>
 
                         <div class="insight-card" v-if="intGroups.ganYuanju">
-                            <h4 style="color:var(--gold)">天干本命</h4>
+                            <h4 style="color:var(--gold)">{{ t('bazi.interactions.ganYuanju') }}</h4>
                             <p>{{ intGroups.ganYuanju }}</p>
                         </div>
                         <div class="insight-card" v-if="intGroups.zhiYuanju">
-                            <h4 style="color:var(--gold)">地支本命</h4>
+                            <h4 style="color:var(--gold)">{{ t('bazi.interactions.zhiYuanju') }}</h4>
                             <p>{{ intGroups.zhiYuanju }}</p>
                         </div>
                         <div class="insight-card" v-if="intGroups.ganYun">
-                            <h4 style="color:#FF5E57">天干运势</h4>
+                            <h4 style="color:#FF5E57">{{ t('bazi.interactions.ganYun') }}</h4>
                             <p>{{ intGroups.ganYun }}</p>
                         </div>
                         <div class="insight-card" v-if="intGroups.zhiYun">
-                            <h4 style="color:#FF5E57">地支运势</h4>
+                            <h4 style="color:#FF5E57">{{ t('bazi.interactions.zhiYun') }}</h4>
                             <p>{{ intGroups.zhiYun }}</p>
                         </div>
 
-                        <div v-if="!intGroups.ganYuanju && !intGroups.zhiYuanju && !intGroups.ganYun && !intGroups.zhiYun" style="text-align:center;color:#666;font-size:12px;">暂无明显的合冲破害关系</div>
+                        <div v-if="!intGroups.ganYuanju && !intGroups.zhiYuanju && !intGroups.ganYun && !intGroups.zhiYun" style="text-align:center;color:#666;font-size:12px;">{{ t('bazi.interactions.none') }}</div>
                     </div>
                 </div>
 
@@ -692,8 +692,8 @@
                     <div v-if="selectedShensha" class="modal-overlay" @click="selectedShensha = null">
                         <div class="shensha-modal bsheet-inner" @click.stop>
                             <div class="shensha-modal-head">
-                                <h4>{{ getShenshaInfo(selectedShensha).label || selectedShensha }}</h4>
-                                <span class="shensha-nature-badge" :class="'nature-' + getShenshaInfo(selectedShensha).nature">{{ getShenshaInfo(selectedShensha).nature }}</span>
+                                <h4>{{ symbolLabel(getShenshaInfo(selectedShensha).label || selectedShensha, locale) }}</h4>
+                                <span class="shensha-nature-badge" :class="'nature-' + getShenshaInfo(selectedShensha).nature">{{ t('bazi.nature.' + getShenshaInfo(selectedShensha).nature) }}</span>
                             </div>
                             <p class="shensha-summary">{{ getShenshaInfo(selectedShensha).summary }}</p>
                             <div v-if="getShenshaInfo(selectedShensha).auspicious" class="shensha-section shensha-ji">
@@ -1008,37 +1008,37 @@
                 <!-- 命局天机分析版块 -->
                 <div v-if="isBaziChartTab && activeProfile.bazi_detail && activeProfile.bazi_detail.scoring_details" class="rpt-section">
                     <div class="rpt-head">
-                        <span class="rpt-kicker">命局天机</span>
-                        <button class="info-button" title="查看命局判定" @click="openInsightPanel('strength')">i</button>
+                        <span class="rpt-kicker">{{ t('bazi.insight.kicker') }}</span>
+                        <button class="info-button" :title="t('bazi.insight.infoTitle')" @click="openInsightPanel('strength')">i</button>
                     </div>
 
                     <!-- 旺衰格局标题行 -->
                     <div class="rpt-sub-head" style="margin-bottom: 8px;">
-                        <span class="rpt-kicker-sm">旺衰格局</span>
+                        <span class="rpt-kicker-sm">{{ t('bazi.insight.strengthPattern') }}</span>
                         <span class="wangge-inline">
-                            <span class="wangge-val">{{ activeProfile.strong_weak }}</span>
+                            <span class="wangge-val">{{ symbolName(activeProfile.strong_weak, locale) }}</span>
                             <span class="wangge-sep">·</span>
-                            <span class="wangge-val">{{ patternFinalName }}</span>
-                            <span v-if="showChengGeText" class="rpt-h2-badge" style="margin-left:6px;">小格 {{ activeProfile.bazi_detail.chengge_detail.chengGe }}</span>
+                            <span class="wangge-val">{{ symbolName(patternFinalName, locale) }}</span>
+                            <span v-if="showChengGeText" class="rpt-h2-badge" style="margin-left:6px;">{{ t('bazi.insight.subPattern') }} {{ symbolName(activeProfile.bazi_detail.chengge_detail.chengGe, locale) }}</span>
                             <span v-if="gejuPanelContent?.imageHeadline" class="image-match-badge">{{ gejuPanelContent.imageHeadline }}</span>
                         </span>
                     </div>
                     <p v-if="gejuPanelContent?.headlineStatement" class="rpt-prose">{{ gejuPanelContent.headlineStatement }}</p>
                     <p v-if="gejuPanelContent?.imageCandidate" class="rpt-prose">
-                        <strong class="rpt-lead-w">基础格局　</strong>{{ gejuPanelContent.basePattern }}
+                        <strong class="rpt-lead-w">{{ t('bazi.insight.basePattern') }}　</strong>{{ symbolName(gejuPanelContent.basePattern, locale) }}
                     </p>
 
                     <!-- 调候诊断 -->
                     <div v-if="tiaohouPanelContent" class="rpt-sub">
                         <div class="rpt-sub-head">
-                            <span class="rpt-kicker-sm">调候诊断</span>
-                            <strong class="rpt-sub-title">{{ tiaohouPanelContent.climateState }}</strong>
-                            <span class="tiaohou-urgency" :class="tiaohouPanelContent.urgencyClass">{{ tiaohouPanelContent.urgency }}</span>
+                            <span class="rpt-kicker-sm">{{ t('bazi.insight.climate') }}</span>
+                            <strong class="rpt-sub-title">{{ symbolName(tiaohouPanelContent.climateState, locale) }}</strong>
+                            <span class="tiaohou-urgency" :class="tiaohouPanelContent.urgencyClass">{{ symbolName(tiaohouPanelContent.urgency, locale) }}</span>
                         </div>
                         <div class="rpt-stat-row">
-                            <span class="rpt-stat"><span class="rpt-stat-l">第一调候</span><strong>{{ tiaohouPanelContent.primary }}</strong></span>
-                            <span class="rpt-stat"><span class="rpt-stat-l">辅助调候</span><strong>{{ tiaohouPanelContent.secondary }}</strong></span>
-                            <span class="rpt-stat"><span class="rpt-stat-l">慎见</span><strong>{{ tiaohouPanelContent.avoid }}</strong></span>
+                            <span class="rpt-stat"><span class="rpt-stat-l">{{ t('bazi.insight.primary') }}</span><strong>{{ tiaohouPanelContent.primary }}</strong></span>
+                            <span class="rpt-stat"><span class="rpt-stat-l">{{ t('bazi.insight.secondary') }}</span><strong>{{ tiaohouPanelContent.secondary }}</strong></span>
+                            <span class="rpt-stat"><span class="rpt-stat-l">{{ t('bazi.insight.avoid') }}</span><strong>{{ tiaohouPanelContent.avoid }}</strong></span>
                         </div>
                         <p class="rpt-prose">{{ tiaohouPanelContent.explanation }}</p>
                         <p v-if="tiaohouPanelContent.warning" class="rpt-warn-line">{{ tiaohouPanelContent.warning }}</p>
@@ -1047,21 +1047,21 @@
                     <!-- 五行能量池 -->
                     <div v-if="activeProfile.bazi_detail.wuxing_ratio" class="rpt-sub">
                         <div class="rpt-sub-head">
-                            <span class="rpt-kicker-sm">五行能量池</span>
-                            <span v-if="Object.values(activeProfile.bazi_detail.wuxing_ratio).some(r => r > 45)" class="overload-tag">能量偏盛</span>
+                            <span class="rpt-kicker-sm">{{ t('bazi.insight.wuxing') }}</span>
+                            <span v-if="Object.values(activeProfile.bazi_detail.wuxing_ratio).some(r => r > 45)" class="overload-tag">{{ t('bazi.insight.overload') }}</span>
                         </div>
                         <div class="wuxing-bar-container">
                             <div v-for="(ratio, wx) in activeProfile.bazi_detail.wuxing_ratio" :key="wx"
                                  class="wuxing-bar-segment"
                                  :class="'bg-' + getWuxingClass(wx)"
                                  :style="{ width: ratio + '%' }"
-                                 :title="wx + ' ' + Math.round(ratio) + '%'">
+                                 :title="symbolName(wx, locale) + ' ' + Math.round(ratio) + '%'">
                             </div>
                         </div>
                         <!-- 图例放在条外：五行全部列出，占比小的也看得到 -->
                         <div class="wuxing-legend">
                             <span v-for="(ratio, wx) in activeProfile.bazi_detail.wuxing_ratio" :key="'lg-' + wx" class="wuxing-legend-item">
-                                <i :class="'bg-' + getWuxingClass(wx)"></i><b :class="'wx-' + ({ 金: 'jin', 木: 'mu', 水: 'shui', 火: 'huo', 土: 'tu' }[wx] || 'none')">{{ wx }}</b>{{ Math.round(ratio) }}%
+                                <i :class="'bg-' + getWuxingClass(wx)"></i><b :class="'wx-' + ({ 金: 'jin', 木: 'mu', 水: 'shui', 火: 'huo', 土: 'tu' }[wx] || 'none')">{{ symbolName(wx, locale) }}</b>{{ Math.round(ratio) }}%
                             </span>
                         </div>
                     </div>
@@ -1183,6 +1183,7 @@
 import { ref, reactive, computed, nextTick, onMounted, onUnmounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import { interactionLabel, symbolLabel, symbolName } from '../i18n/domainLabels.mjs'
 import { localizeApiError, localeJson, withLocaleQuery } from '../i18n/requestLocale.mjs'
 import { contentLocaleOf } from '../i18n/index.mjs'
 import { contextFieldLabel, contextFieldPlaceholder, contextOptionLabel, monthlySectionTitle, noteCategoryLabel, noteImpactLabel, profileSectionTitle } from '../i18n/notesLabels.mjs'
@@ -1662,7 +1663,9 @@ const notesMonthOptions = computed(() => {
         const value = `${cursor.getFullYear()}-${String(cursor.getMonth() + 1).padStart(2, '0')}`
         options.push({
             value,
-            label: `${cursor.getFullYear()}年${cursor.getMonth() + 1}月`,
+            label: locale.value === 'en-US'
+                ? cursor.toLocaleDateString('en-US', { year: 'numeric', month: 'short' })
+                : `${cursor.getFullYear()}年${cursor.getMonth() + 1}月`, // i18n-ignore
         })
     }
     return options
@@ -1919,15 +1922,17 @@ const intGroups = computed(() => {
     // 本命：只用静态数据（native↔native 永不变）
     const staticInter = interactions.value
     const isYuanju = (item) => item.pillars.every(p => ['year', 'month', 'day', 'time'].includes(p))
-    const ganYuanju = staticInter ? staticInter.gans.filter(isYuanju).map(i => i.name).join('；') : ''
-    const zhiYuanju = staticInter ? staticInter.zhis.filter(isYuanju).map(i => i.name).join('；') : ''
+    const sep = locale.value === 'en-US' ? '; ' : '；'
+    const label = (name) => interactionLabel(name, locale.value)
+    const ganYuanju = staticInter ? staticInter.gans.filter(isYuanju).map(i => label(i.name)).join(sep) : ''
+    const zhiYuanju = staticInter ? staticInter.zhis.filter(isYuanju).map(i => label(i.name)).join(sep) : ''
 
     // 运势：动态计算 transit↔native
     const ganYun = transitGans.length && nativeGans.length
-        ? _ganInteractions(transitGans, nativeGans).join('；')
+        ? _ganInteractions(transitGans, nativeGans).map(label).join(sep)
         : ''
     const zhiYun = transitZhis.length && nativeZhis.length
-        ? _zhiInteractions(transitZhis, nativeZhis).join('；')
+        ? _zhiInteractions(transitZhis, nativeZhis).map(label).join(sep)
         : ''
 
     return { ganYuanju, zhiYuanju, ganYun, zhiYun }
@@ -2471,7 +2476,9 @@ const gejuPanelContent = computed(() => {
         basePattern,
         imageCandidate,
         imageHeadline: imageCandidate
-            ? `${imageCandidate.override_normal_pattern ? '形象匹配度' : `${imageCandidate.subtype}倾向`} ${imageCandidate.match_score}%`
+            ? (imageCandidate.override_normal_pattern
+                ? t('bazi.insight.imageMatch', { score: imageCandidate.match_score })
+                : t('bazi.insight.leaning', { name: symbolName(imageCandidate.subtype, locale.value), score: imageCandidate.match_score }))
             : '',
         chengGe: chenggeDetail.chengGe || finalPatternName || '待定',
         chengGeResult,
@@ -2565,12 +2572,14 @@ const gejuSummaryLine = computed(() => {
 })
 
 const formatTiaohouGods = (items = []) => {
-    if (!Array.isArray(items) || items.length === 0) return '未触发'
+    const none = t('bazi.insight.none')
+    if (!Array.isArray(items) || items.length === 0) return none
+    const en = locale.value === 'en-US'
     return items.map(item => {
         const stem = item.gan || ''
-        const shen = item.shen ? `·${item.shen}` : ''
+        const shen = item.shen ? `·${en ? symbolName(item.shen, locale.value) : item.shen}` : ''
         return `${stem}${shen}`
-    }).filter(Boolean).join('、') || '未触发'
+    }).filter(Boolean).join(en ? ', ' : '、') || none
 }
 
 const _WUXING = { 甲:'木',乙:'木',丙:'火',丁:'火',戊:'土',己:'土',庚:'金',辛:'金',壬:'水',癸:'水' }

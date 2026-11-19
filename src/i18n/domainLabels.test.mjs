@@ -52,3 +52,46 @@ test('ganzhiName 只给拼音名', async () => {
   assert.equal(ganzhiName('壬辰', 'en-US'), 'Ren Chen')
   assert.equal(ganzhiName('壬辰', 'zh-CN'), '壬辰')
 })
+
+test('symbolHint: 盘表英文小字', async () => {
+  const { symbolHint } = await import('./domainLabels.mjs')
+  assert.equal(symbolHint('甲', 'en-US'), 'Yang Wood')
+  assert.equal(symbolHint('子', 'en-US'), 'Rat')
+  assert.equal(symbolHint('七杀', 'en-US'), 'Seven Killings')
+  assert.equal(symbolHint('元男', 'en-US'), 'Day Master')
+  assert.equal(symbolHint('天乙', 'en-US'), 'Heavenly Nobleman')
+  assert.equal(symbolHint('海中金', 'en-US'), 'Gold in the Sea')
+  assert.equal(symbolHint('戌亥', 'en-US'), 'Xu Hai')
+  assert.equal(symbolHint('帝旺', 'en-US'), 'Peak')
+  assert.equal(symbolHint('甲', 'zh-CN'), '')
+  assert.equal(symbolHint('不存在的词', 'en-US'), '')
+})
+
+test('tenGodAbbr: 单字与全称都能缩写', async () => {
+  const { tenGodAbbr } = await import('./domainLabels.mjs')
+  assert.equal(tenGodAbbr('枭'), 'IR')
+  assert.equal(tenGodAbbr('杀'), '7K')
+  assert.equal(tenGodAbbr('才'), 'IW')
+  assert.equal(tenGodAbbr('正官'), 'DO')
+  assert.equal(tenGodAbbr('比'), 'F')
+  assert.equal(tenGodAbbr('未知'), '未知')
+})
+
+test('symbolName: 引擎拼出的格局名', async () => {
+  const { symbolName } = await import('./domainLabels.mjs')
+  assert.equal(symbolName('火土成象', 'en-US'), 'Fire-Earth Image')
+  assert.equal(symbolName('甲己化土', 'en-US'), 'Jia-Ji Transforming to Earth')
+  assert.equal(symbolName('金白水清', 'en-US'), 'Pure Metal, Clear Water')
+  assert.equal(symbolName('火土成象', 'zh-CN'), '火土成象')
+})
+
+test('interactionLabel: 合冲刑害英文', async () => {
+  const { interactionLabel } = await import('./domainLabels.mjs')
+  assert.equal(interactionLabel('己癸相克', 'en-US'), 'Ji-Gui Control')
+  assert.equal(interactionLabel('甲己合化土', 'en-US'), 'Jia-Ji Combine into Earth')
+  assert.equal(interactionLabel('子午相冲', 'en-US'), 'Zi-Wu Clash')
+  assert.equal(interactionLabel('巳午未三会火局', 'en-US'), 'Si-Wu-Wei Directional Fire')
+  assert.equal(interactionLabel('辰辰自刑', 'en-US'), 'Chen-Chen Self Punishment')
+  assert.equal(interactionLabel('子午相冲', 'zh-CN'), '子午相冲')
+  assert.equal(interactionLabel('奇怪的', 'en-US'), '奇怪的')
+})
