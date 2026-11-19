@@ -2,6 +2,7 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { resolveSource } from '../i18n/testing/resolveSource.mjs'
+import zhResult from '../i18n/locales/zh-CN/result.mjs'
 
 const source = resolveSource(readFileSync(new URL('./HomeView.vue', import.meta.url), 'utf8'))
 
@@ -180,8 +181,11 @@ test('八字问答结果把枚举 meta 渲染为用户可读标签', () => {
   assert.ok(cardStart > -1)
   assert.ok(cardEnd > cardStart)
   assert.match(source, /baziAnalysisModeLabel/)
-  assert.match(source, /当前状态/)
-  assert.match(source, /精确领域/)
+  // 枚举标签走 result.bazi.* 词条，按枚举值动态取键
+  assert.match(source, /result\.bazi\.mode\.\$\{/)
+  assert.match(source, /result\.bazi\.fallbackLevel\.\$\{/)
+  assert.equal(zhResult.bazi.mode.status, '当前状态')
+  assert.equal(zhResult.bazi.fallbackLevel.subcategory, '精确领域')
   assert.match(cardSource, /<div class="mag-result tone-\$\{heroTone\}"/)
   assert.doesNotMatch(cardSource, /[“”]/)
   assert.doesNotMatch(source, /<span>\$\{meta\.analysis_mode \|\| 'bazi'\}<\/span>/)
@@ -388,10 +392,11 @@ test('问事结果页 Tab 随滚动位置通用联动', () => {
 })
 
 test('八字问答结果按 PRD 补齐 pattern character 和 timing 字段展示', () => {
-  assert.match(source, /先天结构适配/)
+  assert.match(source, /result\.bazi\.assessment\.\$\{/)
+  assert.equal(zhResult.bazi.assessment.innate_capacity, '先天结构适配')
+  assert.equal(zhResult.bazi.assessment.portrait_confidence, '人物倾向画像')
   assert.match(source, /readings\.structural_supports/)
   assert.match(source, /readings\.structural_risks/)
-  assert.match(source, /人物倾向画像/)
   assert.match(source, /buildPortraitBlockHTML/)
   assert.match(source, /readings\.appearance_tendency/)
   assert.match(source, /readings\.personality_tendency/)

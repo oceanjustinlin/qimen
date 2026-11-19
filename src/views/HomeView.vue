@@ -671,7 +671,8 @@ import { chipLine, tagLabel, sseText } from '../i18n/sseLabels.mjs'
 import zhCNCatalogue from '../i18n/locales/zh-CN.mjs'
 import enUSCatalogue from '../i18n/locales/en-US.mjs'
 import { formatDate, formatShortDate } from '../i18n/formatters.mjs'
-import { genderLabel, categoryLabel, verdictLabel, feedbackOptionLabel, shortCategoryLabel, symbolName, ganzhiName } from '../i18n/domainLabels.mjs'
+import { genderLabel, categoryLabel, verdictLabel, feedbackOptionLabel, shortCategoryLabel, symbolName, symbolHint, ganzhiName } from '../i18n/domainLabels.mjs'
+import { formationNameEn, formationDescEn } from '../i18n/content/qimenFormationsEn.mjs'
 import { Solar } from 'lunar-javascript'
 import { getGuestState, trackGuestEvent } from '../guestMode.mjs'
 import {
@@ -1315,26 +1316,12 @@ const currentLoaderMessage = ref(LOADER_MESSAGES[0])
 let loaderInterval = null
 
 // ── SSE progress state ──
-const SSE_STEPS = {
-  qimen: [
-    { name: '解析问题意图', tag: '路由分类',   detail: '正在识别问题类型' },
-    { name: '起盘计算',     tag: '天地盘落定', detail: '推算当前时辰九宫布局' },
-    { name: '定位用神',     tag: '目标星门确认', detail: '锁定用神与辅神宫位' },
-    { name: '推演应期',     tag: '扫描时间窗口', detail: '扫描未来 30 日应期节点' },
-    { name: '后端评分',     tag: '卦象强弱初判', detail: '量化宫象强弱与五行生克' },
-    { name: 'AI 推演解盘',  tag: '深度推演中',   detail: '综合推演，生成决策指引' },
-    { name: '解盘完成',     tag: '结果就绪', detail: '' },
-  ],
-  bazi: [
-    { name: '解析问题意图', tag: '路由分类',   detail: '正在识别问题类型' },
-    { name: '调取命盘',     tag: '八字加载',   detail: '读取日主与大运流年' },
-    { name: '语义路由',     tag: '分析模式确认', detail: '确认分析维度与时间范围' },
-    { name: '构建推演框架', tag: '命局分析',   detail: '整合命局与五行格局' },
-    { name: '五行喜忌',     tag: '格局评估',   detail: '评估喜用神与忌神强弱' },
-    { name: 'AI 深度解盘',  tag: '深度推演中', detail: '综合命局，生成运势解读' },
-    { name: '解盘完成',     tag: '结果就绪', detail: '' },
-  ],
-}
+// 加载步骤文案走 result.loader.<branch>.sN；最后一步没有 detail
+const SSE_STEP_COUNT = 7
+const sseStepsFor = (branch) => Array.from({ length: SSE_STEP_COUNT }, (_, i) => {
+  const base = `result.loader.${branch}.s${i}`
+  return { name: t(`${base}.name`), tag: t(`${base}.tag`), detail: te(`${base}.detail`) ? t(`${base}.detail`) : '' }
+})
 const CATEGORY_LABEL_MAP = {
   career_business: '事业运势', finance_wealth: '财运分析',
   relationship: '感情婚恋', health_action: '健康行动', general: '综合运势',
@@ -1343,7 +1330,7 @@ const sseBranch = ref('qimen')
 const sseActiveIndex = ref(0)
 const sseChips = ref({})
 const ssePct = ref(0)
-const sseCurrentSteps = computed(() => SSE_STEPS[sseBranch.value] || SSE_STEPS.qimen)
+const sseCurrentSteps = computed(() => sseStepsFor(sseBranch.value === 'bazi' ? 'bazi' : 'qimen'))
 const sseSpinePct = computed(() => {
   const done = Math.max(0, sseActiveIndex.value - 1)
   const total = sseCurrentSteps.value.length - 1
@@ -1362,7 +1349,7 @@ const shouldShowWenShiSkeleton = computed(() =>
 // 奇门流式脚手架：在结果页内就地骨架→流式
 const wenShiStreaming = ref(false)
 const resultPhase = ref('stream') // 'stream' 流式脚手架 / 'final' 最终卡片，用于交叉淡入过渡
-const wenShiStatus = ref('正在解析问题') // hero 能量球下方的最新中间产物状态
+const wenShiStatus = ref(t('result.status.parsing')) // hero 能量球下方的最新中间产物状态
 // 持久能量球覆盖层状态
 const showOrbFx = ref(false)   // 是否显示能量球层（加载~定格期间）
 const orbSettling = ref(false) // 是否进入定格态（膨胀+变色）
@@ -1513,7 +1500,7 @@ async function runQimenMock() {
   sseBranch.value = 'qimen'
   wenShiStreaming.value = true
   resultPhase.value = 'stream'
-  wenShiStatus.value = '正在解析问题'
+  wenShiStatus.value = t('result.status.parsing')
   showOrbFx.value = true
   orbSettling.value = false
   orbTone.value = ''
@@ -1759,7 +1746,7 @@ async function runBaziMock(mode = 'status') {
   sseBranch.value = 'bazi'
   wenShiStreaming.value = true
   resultPhase.value = 'stream'
-  wenShiStatus.value = '正在解析问题'
+  wenShiStatus.value = t('result.status.parsing')
   showOrbFx.value = true
   orbSettling.value = false
   orbTone.value = ''
@@ -1819,7 +1806,7 @@ function resetSseState() {
   wenShiEngineResult.value = null
   wenShiLlm.value = { status: 'idle', text: '' }
   wenShiStreaming.value = false
-  wenShiStatus.value = '正在解析问题'
+  wenShiStatus.value = t('result.status.parsing')
   showOrbFx.value = false
   orbSettling.value = false
   orbTone.value = ''
@@ -1891,7 +1878,7 @@ async function readSSEStream(response) {
       } else if (event.type === 'active') {
         sseActiveIndex.value = event.index
         ssePct.value = event.pct
-        if (wenShiStreaming.value) patchOrbStatus(sseCurrentSteps.value[event.index]?.name || 'AI 推演解盘')
+        if (wenShiStreaming.value) patchOrbStatus(sseCurrentSteps.value[event.index]?.name || t('result.loader.qimen.s5.name'))
         else wenShiLlm.value = { status: 'pending', text: '' }
       } else if (event.type === 'llm_retry') {
         // 后端结构校验未过，正在非流式重试：清空已显示的半截内容，重置回骨架
@@ -2009,6 +1996,19 @@ const GE_DESCRIPTIONS = {
   '反吟（凶）': '反吟翻覆，局势颠倒，守方处境艰难，变化剧烈，宜化解矛盾。',
 }
 
+// 格局显示名：英文模式用英文名，查不到保留原名
+const formationLabel = (name) => {
+  if (!isEnLocale()) return name
+  const hit = formationNameEn(name, (s) => symbolName(s, locale.value))
+  if (hit) return hit
+  // 引擎/模型现拼的信号名：「X临Y」「X空亡」
+  const lin = /^(.+?)临(.+)$/.exec(name) // i18n-ignore
+  if (lin) return `${nameOrEn(lin[1])} in ${nameOrEn(lin[2])}`
+  const kong = /^(.+?)空亡$/.exec(name) // i18n-ignore
+  if (kong) return `${nameOrEn(kong[1])} in Void`
+  return name
+}
+
 // ── 有名格 modal ──
 let geModalEl = null
 let geOverlayEl = null
@@ -2035,13 +2035,13 @@ const showGeModal = (tag, reasons) => {
   if (!geModalEl) {
     geModalEl = document.createElement('div')
     geModalEl.className = 'ge-modal'
-    geModalEl.innerHTML = `<button class="ge-modal-close">✕</button><div class="ge-pop-kicker">格局说明</div><div class="ge-pop-name"></div><div class="ge-pop-divider"></div><div class="ge-pop-text"></div>`
+    geModalEl.innerHTML = `<button class="ge-modal-close">✕</button><div class="ge-pop-kicker">${t('result.formation.kicker')}</div><div class="ge-pop-name"></div><div class="ge-pop-divider"></div><div class="ge-pop-text"></div>`
     geModalEl.querySelector('.ge-modal-close').addEventListener('click', hideGeModal)
     document.body.appendChild(geModalEl)
   }
-  geModalEl.querySelector('.ge-pop-name').textContent = entry.name
+  geModalEl.querySelector('.ge-pop-name').textContent = entry.label || entry.name
   geModalEl.querySelector('.ge-pop-name').className = `ge-pop-name ${entry.type}`
-  geModalEl.querySelector('.ge-pop-kicker').textContent = entry.type === 'ji' ? '吉格提示' : '凶格提示'
+  geModalEl.querySelector('.ge-pop-kicker').textContent = entry.type === 'ji' ? t('result.formation.kickerJi') : t('result.formation.kickerXiong')
   geModalEl.querySelector('.ge-pop-text').textContent = entry.text
   geOverlayEl.classList.add('visible')
   geModalEl.classList.add('visible')
@@ -2533,7 +2533,7 @@ function adaptBaziResultToV2(data) {
 
   // target_state（从 target_state_reading 包成数组）
   if (!r.target_state && r.target_state_reading) {
-    r.target_state = [{ title: '目标用神状态', text: r.target_state_reading }]
+    r.target_state = [{ title: t('result.bazi.targetStateTitle'), text: r.target_state_reading }]
   }
 
   // dayun_field（从 dayun_reading）
@@ -2826,7 +2826,7 @@ const submitFollowup = async () => {
       return
     }
     if (outcome.scope === 'recompute_pending') {
-      showToast('这个追问需要逐年／换靶补算，该能力即将上线')
+      showToast(t('result.toast.recomputePending'))
       return
     }
     if (outcome.supplements && Object.keys(outcome.supplements).length) {
@@ -2849,10 +2849,10 @@ const submitFollowup = async () => {
       nextTick(autoGrowFollowup)   // 清空后收回输入框高度
       persistFollowupsToDb()       // 落库（追问随 qimen_data 持久化，刷新可见）
     } else {
-      showToast('追问没有返回内容，请换个问法重试')
+      showToast(t('result.toast.followupEmpty'))
     }
   } catch (err) {
-    showToast(err.message || '追问失败，请稍后重试')
+    showToast(err.message || t('result.toast.followupFailed'))
   } finally {
     followupSubmitting.value = false
   }
@@ -2886,7 +2886,7 @@ const startDivination = async () => {
   // 提交后立即进入结果页（持久能量球覆盖层 + 透明 hero 脚手架），不再经过中间的半屏加载页
   wenShiStreaming.value = true
   resultPhase.value = 'stream'
-  wenShiStatus.value = '正在解析问题'
+  wenShiStatus.value = t('result.status.parsing')
   showOrbFx.value = true
   orbSettling.value = false
   orbTone.value = ''
@@ -3032,9 +3032,9 @@ const startDivination = async () => {
     viewState.value = 'result'
   } catch (err) {
     if (err.httpStatus === 403) {
-      showToast(err.message || '今日额度已用尽，请明日再来')
+      showToast(err.message || t('error.QUOTA_EXCEEDED'))
     } else {
-      showToast('推演失败，请稍后重试')
+      showToast(t('result.toast.castFailed'))
     }
     viewState.value = 'input'
   } finally {
@@ -3290,37 +3290,21 @@ const getVerdictCls = (score) => score >= 75 ? 'ji' : score >= 55 ? 'ping' : 'xi
 
 const isBaziRecord = (item) => item?.qimen_data?.branch === 'bazi' || item?.branch === 'bazi'
 
-const baziAssessmentLabel = (type) => ({
-  current_climate: '当前阶段气候',
-  timing_effectiveness: '候选时间窗',
-  innate_capacity: '先天结构适配',
-  portrait_confidence: '人物倾向画像',
-  unsupported: '边界说明'
-}[type] || '八字分析')
+const BAZI_ASSESSMENT_TYPES = ['current_climate', 'timing_effectiveness', 'innate_capacity', 'portrait_confidence', 'unsupported']
+const baziAssessmentLabel = (type) => t(`result.bazi.assessment.${BAZI_ASSESSMENT_TYPES.includes(type) ? type : 'default'}`)
 
-const baziLevelLabel = (level) => ({
-  strong: '强',
-  medium: '中',
-  weak: '弱',
-  mixed: '参半',
-  unknown: '未知'
-}[level] || level || '未知')
+const BAZI_LEVELS = ['strong', 'medium', 'weak', 'mixed', 'unknown']
+const baziLevelLabel = (level) => (BAZI_LEVELS.includes(level) ? t(`result.bazi.level.${level}`) : (level ? strengthLabelText(level) : t('result.bazi.level.unknown')))
 
-const baziAnalysisModeLabel = (mode) => ({
-  status: '当前状态',
-  timing: '应期扫描',
-  pattern: '先天结构',
-  character: '人物画像',
-  unsupported: '边界说明'
-}[mode] || '八字分析')
+const BAZI_MODES = ['status', 'timing', 'pattern', 'character', 'unsupported']
+const baziAnalysisModeLabel = (mode) => t(`result.bazi.mode.${BAZI_MODES.includes(mode) ? mode : 'default'}`)
 
-const baziFallbackLevelLabel = (level) => ({
-  subcategory: '精确领域',
-  category: '领域规则',
-  general: '通用规则',
-  llm_derived: '象义推断',
-  none: '无规则'
-}[level] || '')
+const BAZI_FALLBACK_LEVELS = ['subcategory', 'category', 'general', 'llm_derived', 'none']
+const baziFallbackLevelLabel = (level) => (BAZI_FALLBACK_LEVELS.includes(level) ? t(`result.bazi.fallbackLevel.${level}`) : '')
+
+// 引擎给的强弱档（最强…最弱）是中文原值，只换显示，判断仍用原值
+const BAZI_STRENGTH_KEYS = { 最强: 'strongest', 次强: 'veryStrong', 较强: 'strong', 中等: 'moderate', 较弱: 'weak', 最弱: 'weakest' } // i18n-ignore
+const strengthLabelText = (s) => (BAZI_STRENGTH_KEYS[s] ? t(`result.bazi.strength.${BAZI_STRENGTH_KEYS[s]}`) : s)
 
 const buildTextListHTML = (items = [], cls = '') => {
   if (!Array.isArray(items) || !items.length) return ''
@@ -3336,10 +3320,10 @@ const concreteTargetLabel = (data) => {
     ...toList(target.gongwei),
     ...toList(data?.chart_foundation?.core_palaces)
   ]
-  return [...new Set(labels)].slice(0, 4).join('、') || '本问题核心象'
+  return [...new Set(labels)].slice(0, 4).join(t('ziwei.listSep')) || t('result.bazi.coreTarget')
 }
 
-const sanitizeBaziDisplayText = (value, targetLabel = '本问题核心象') => {
+const sanitizeBaziDisplayText = (value, targetLabel = t('result.bazi.coreTarget')) => {
   if (value === null || value === undefined) return ''
   let text = typeof value === 'string' ? value : (value.label || value.detail || JSON.stringify(value))
   ;[
@@ -3353,7 +3337,7 @@ const sanitizeBaziDisplayText = (value, targetLabel = '本问题核心象') => {
   return text
     .replace(/目标十神/g, targetLabel)
     .replace(/目标元素/g, targetLabel)
-    .replace(/置信边界/g, '参考说明')
+    .replace(/置信边界/g, t('result.bazi.refNote'))
     .replace(/\s{2,}/g, ' ')
     .replace(/^[，,；;\s]+|[，,；;\s]+$/g, '')
     .trim()
@@ -3377,14 +3361,14 @@ const splitBaziFoundationSignal = (signal) => {
   }
 }
 
-const buildBaziTextListHTML = (items = [], cls = '', targetLabel = '本问题核心象') => {
+const buildBaziTextListHTML = (items = [], cls = '', targetLabel = t('result.bazi.coreTarget')) => {
   if (!Array.isArray(items) || !items.length) return ''
   const labels = items.map(item => sanitizeBaziDisplayText(item, targetLabel)).filter(Boolean)
   if (!labels.length) return ''
   return `<div class="${cls}">${labels.map(item => `<span>${item}</span>`).join('')}</div>`
 }
 
-const buildBaziFoundationGroupHTML = (label, items = [], cls = '', targetLabel = '本问题核心象') => {
+const buildBaziFoundationGroupHTML = (label, items = [], cls = '', targetLabel = t('result.bazi.coreTarget')) => {
   const listHTML = buildBaziTextListHTML(items, cls, targetLabel)
   if (!listHTML) return ''
   return `<div class="bazi-foundation-group">
@@ -3393,7 +3377,7 @@ const buildBaziFoundationGroupHTML = (label, items = [], cls = '', targetLabel =
   </div>`
 }
 
-const buildBaziAdviceRowsHTML = (rows = [], targetLabel = '本问题核心象') => {
+const buildBaziAdviceRowsHTML = (rows = [], targetLabel = t('result.bazi.coreTarget')) => {
   const normalized = rows
     .map(row => ({
       label: row.label,
@@ -3412,7 +3396,7 @@ const buildBaziAdviceRowsHTML = (rows = [], targetLabel = '本问题核心象') 
   </div>`
 }
 
-const buildPortraitBlockHTML = (block, label, targetLabel = '本问题核心象') => {
+const buildPortraitBlockHTML = (block, label, targetLabel = t('result.bazi.coreTarget')) => {
   if (!block?.text) return ''
   const confidence = block.confidence || 'low'
   return `<div class="bazi-portrait-block confidence-${confidence}">
@@ -3422,12 +3406,12 @@ const buildPortraitBlockHTML = (block, label, targetLabel = '本问题核心象'
   </div>`
 }
 
-const buildBaziAdviceExtrasHTML = (advice = {}, targetLabel = '本问题核心象') => {
+const buildBaziAdviceExtrasHTML = (advice = {}, targetLabel = t('result.bazi.coreTarget')) => {
   const rowsHTML = buildBaziAdviceRowsHTML([
-    { label: '风险提醒', value: advice.risk, tone: 'warning' },
-    { label: '需要避开', value: advice.avoid || [], tone: 'warning' },
-    { label: '建议节奏', value: advice.timing || [], tone: 'neutral' },
-    { label: '借势方法', value: advice.leverage, tone: 'positive' }
+    { label: t('result.bazi.advice.risk'), value: advice.risk, tone: 'warning' },
+    { label: t('result.bazi.advice.avoid'), value: advice.avoid || [], tone: 'warning' },
+    { label: t('result.bazi.advice.timing'), value: advice.timing || [], tone: 'neutral' },
+    { label: t('result.bazi.advice.leverage'), value: advice.leverage, tone: 'positive' }
   ], targetLabel)
   return rowsHTML ? `<div class="bazi-advice-extra">${rowsHTML}</div>` : ''
 }
@@ -3452,14 +3436,14 @@ const buildBaziQuestionCardHTML = (data) => {
   const tabClick = (id) => `var nav=this.closest('.mag-tabs');var tabs=nav.querySelectorAll('.mag-tab');tabs.forEach(function(t){t.classList.remove('mag-tab-active')});this.classList.add('mag-tab-active');var ink=nav.querySelector('.mag-tab-ink');if(ink){ink.style.transform='translateX('+this.offsetLeft+'px)';ink.style.width=this.offsetWidth+'px';}document.getElementById('${id}').scrollIntoView({behavior:'smooth',block:'start'})`
 
   // ── Hero：短标题 + verdict ──
-  const heroTitle = summary.title || '八字推演'
+  const heroTitle = summary.title || t('result.hero.baziTitle')
   const heroKeyword = summary.keyword || ''
 
   // ── Section 1: 结论先行（v2: +summary.basis 底盘交代） ──
   // 防御：老记录 summary.basis 可能是对象（adaptBaziResultToV2 应已处理，这里兜底）
   const basisText = typeof summary.basis === 'string' ? summary.basis : (summary.basis?.logic || '')
   const m1HTML = `<section class="mag-section" id="bazi-m1">
-    <div class="module-heading"><h2>结论先行</h2></div>
+    <div class="module-heading"><h2>${t('result.tab.conclusion')}</h2></div>
     ${question ? `<blockquote class="mag-question" data-i18n-skip>"${question}"</blockquote>` : ''}
     ${basisText ? `<p class="bazi-basis-text">${sanitizeBaziDisplayText(basisText, targetLabel)}</p>` : ''}
   </section>`
@@ -3472,13 +3456,13 @@ const buildBaziQuestionCardHTML = (data) => {
     .filter(row => row.label || row.detail)
   const targetStateItems = Array.isArray(readings.target_state) ? readings.target_state : []
   const fallbackTargetState = !targetStateItems.length && readings.target_state_reading
-    ? [{ title: '目标用神状态', text: readings.target_state_reading }]
+    ? [{ title: t('result.bazi.targetStateTitle'), text: readings.target_state_reading }]
     : []
   const visibleTargetStates = (targetStateItems.length ? targetStateItems : fallbackTargetState).slice(0, 3)
 
   const foundationPhenomenaHTML = bfPhenomena.length
     ? `<div class="bazi-foundation-block">
-        <h3 class="bazi-bf-title">命局现象</h3>
+        <h3 class="bazi-bf-title">${t('result.sub.baziPhenomena')}</h3>
         <div class="bazi-bf-signals">${bfPhenomena.map(row => `<div class="bazi-bf-signal-row">
           <span class="bazi-bf-signal-label">${sanitizeBaziDisplayText(row.label, targetLabel)}</span>
           ${row.detail ? `<span class="bazi-bf-signal-detail">${sanitizeBaziDisplayText(row.detail, targetLabel)}</span>` : ''}
@@ -3487,7 +3471,7 @@ const buildBaziQuestionCardHTML = (data) => {
     : ''
   const targetStateHTML = visibleTargetStates.length
     ? `<div class="bazi-foundation-block">
-        <h3 class="bazi-bf-title">用神状态</h3>
+        <h3 class="bazi-bf-title">${t('result.sub.baziUseful')}</h3>
         <div class="bazi-target-state-list">${visibleTargetStates.map(item => `<div class="bazi-target-state-row">
           <h4>${sanitizeBaziDisplayText(item.title || targetLabel, targetLabel)}</h4>
           ${item.text ? `<p>${sanitizeBaziDisplayText(item.text, targetLabel)}</p>` : ''}
@@ -3495,7 +3479,7 @@ const buildBaziQuestionCardHTML = (data) => {
       </div>`
     : ''
   const m2HTML = `<section class="mag-section" id="bazi-m2">
-      <div class="module-heading"><h2>命局解读</h2></div>
+      <div class="module-heading"><h2>${t('result.tab.baziReading')}</h2></div>
       <div id="bazi-panel-anchor" class="bazi-panel-anchor"></div>
       ${foundationPhenomenaHTML}
       ${targetStateHTML}
@@ -3533,7 +3517,7 @@ const buildBaziQuestionCardHTML = (data) => {
   const inferItems = []
 
   const mode = meta.analysis_mode || ''
-  if (bf.text) inferItems.push({ label: '原局底盘', text: bf.text, tone: '' })
+  if (bf.text) inferItems.push({ label: t('result.bazi.infer.base'), text: bf.text, tone: '' })
 
   // ── status / profile_driven: 大运建场 + 流年触发 ──
   const dayunFieldText = readings.dayun_field?.text || readings.dayun_reading || ''
@@ -3543,47 +3527,47 @@ const buildBaziQuestionCardHTML = (data) => {
 
   if (mode !== 'pattern' && mode !== 'character' && mode !== 'timing') {
     // status / profile_driven / legacy
-    if (dayunFieldText) inferItems.push({ label: '大运建场', text: dayunFieldText, tone: '', phenomena: [] })
+    if (dayunFieldText) inferItems.push({ label: t('result.bazi.infer.dayun'), text: dayunFieldText, tone: '', phenomena: [] })
     if (liunianText) {
-      inferItems.push({ label: '流年触发', text: liunianText, tone: '', phenomena: liunianPhenomena })
+      inferItems.push({ label: t('result.bazi.infer.liunian'), text: liunianText, tone: '', phenomena: liunianPhenomena })
     }
     // path_readings 不再混入扁平列表，改为独立「路径推演」分区（见 pathReadingsHTML）
     // v1 profile_driven
-    if (readings.structural_reading) inferItems.push({ label: '结构分析', text: readings.structural_reading, tone: '' })
+    if (readings.structural_reading) inferItems.push({ label: t('result.bazi.infer.structural'), text: readings.structural_reading, tone: '' })
   }
 
   // ── pattern: structural_supports/risks/verdict ──
   if (mode === 'pattern') {
     const strVerdict = readings.structural_verdict || readings.pattern_verdict || ''
-    if (strVerdict) inferItems.push({ label: '先天格局', text: strVerdict, tone: '' })
+    if (strVerdict) inferItems.push({ label: t('result.bazi.infer.natal'), text: strVerdict, tone: '' })
     const supports = Array.isArray(readings.structural_supports) ? readings.structural_supports : []
     const risks    = Array.isArray(readings.structural_risks)    ? readings.structural_risks    : []
-    if (supports.length) inferItems.push({ label: '结构支撑', text: supports.join('；'), tone: 'positive' })
-    if (risks.length)    inferItems.push({ label: '结构风险', text: risks.join('；'),    tone: 'outcome' })
-    if (readings.real_world_expression) inferItems.push({ label: '日常表现', text: readings.real_world_expression, tone: '' })
-    if (readings.how_to_leverage)       inferItems.push({ label: '发力方向', text: readings.how_to_leverage, tone: 'positive' })
-    if (readings.current_status_note)   inferItems.push({ label: '当前时机', text: readings.current_status_note, tone: '' })
+    if (supports.length) inferItems.push({ label: t('result.bazi.infer.supports'), text: supports.join('；'), tone: 'positive' })
+    if (risks.length)    inferItems.push({ label: t('result.bazi.infer.risks'), text: risks.join('；'),    tone: 'outcome' })
+    if (readings.real_world_expression) inferItems.push({ label: t('result.bazi.infer.daily'), text: readings.real_world_expression, tone: '' })
+    if (readings.how_to_leverage)       inferItems.push({ label: t('result.bazi.infer.leverage'), text: readings.how_to_leverage, tone: 'positive' })
+    if (readings.current_status_note)   inferItems.push({ label: t('result.bazi.infer.now'), text: readings.current_status_note, tone: '' })
   }
 
   // ── character mode（不变） ──
   if (mode === 'character') {
-    if (readings.appearance_tendency?.text)  inferItems.push({ label: '外貌气质', text: readings.appearance_tendency.text, tone: '' })
-    if (readings.personality_tendency?.text) inferItems.push({ label: '性格倾向', text: readings.personality_tendency.text, tone: '' })
-    if (readings.career_style?.text)         inferItems.push({ label: '行事风格', text: readings.career_style.text, tone: '' })
-    if (readings.relationship_dynamic)       inferItems.push({ label: '关系动态', text: readings.relationship_dynamic, tone: '' })
-    if (readings.do_not_overclaim)           inferItems.push({ label: '说明', text: readings.do_not_overclaim, tone: 'muted' })
+    if (readings.appearance_tendency?.text)  inferItems.push({ label: t('result.bazi.infer.appearance'), text: readings.appearance_tendency.text, tone: '' })
+    if (readings.personality_tendency?.text) inferItems.push({ label: t('result.bazi.infer.personality'), text: readings.personality_tendency.text, tone: '' })
+    if (readings.career_style?.text)         inferItems.push({ label: t('result.bazi.infer.workStyle'), text: readings.career_style.text, tone: '' })
+    if (readings.relationship_dynamic)       inferItems.push({ label: t('result.bazi.infer.relationship'), text: readings.relationship_dynamic, tone: '' })
+    if (readings.do_not_overclaim)           inferItems.push({ label: t('result.bazi.infer.note'), text: readings.do_not_overclaim, tone: 'muted' })
   }
 
   // ── timing: best/worst_window 概览（v2 对象/v1 字符串均支持） ──
   if (mode === 'timing') {
-    if (dayunFieldText) inferItems.push({ label: '大运建场', text: dayunFieldText, tone: '' })
+    if (dayunFieldText) inferItems.push({ label: t('result.bazi.infer.dayun'), text: dayunFieldText, tone: '' })
     const bwObj = readings.best_window
     const wwObj = readings.worst_window || (readings.avoid_window ? { reason: readings.avoid_window } : null)
     const metaLine = [
-      bwObj ? `最优窗口：${bwObj.year ? `${bwObj.year}年 ` : ''}${bwObj.reason || bwObj}` : '',
-      wwObj ? `规避：${wwObj.year ? `${wwObj.year}年 ` : ''}${wwObj.reason || wwObj}` : ''
+      bwObj ? t('result.bazi.infer.bestWindow', { year: bwObj.year ? t('result.bazi.infer.yearSuffix', { year: bwObj.year }) : '', reason: bwObj.reason || bwObj }) : '',
+      wwObj ? t('result.bazi.infer.avoidWindow', { year: wwObj.year ? t('result.bazi.infer.yearSuffix', { year: wwObj.year }) : '', reason: wwObj.reason || wwObj }) : ''
     ].filter(Boolean).join('　')
-    if (metaLine) inferItems.push({ label: '应期概览', text: metaLine, tone: '' })
+    if (metaLine) inferItems.push({ label: t('result.bazi.infer.timingOverview'), text: metaLine, tone: '' })
   }
 
   const inferFlowHTML = inferItems.length
@@ -3597,7 +3581,7 @@ const buildBaziQuestionCardHTML = (data) => {
   const timingWindowsHTML = windows.length
     ? `<div class="bazi-timing-flow">
         ${windows.map(item => {
-          const strengthLabel = item.strength || baziLevelLabel(item.quality)
+          const strengthLabel = item.strength ? strengthLabelText(item.strength) : baziLevelLabel(item.quality)
           const sCls = item.strength ? strengthClass(item.strength) : `quality-${item.quality || 'weak'}`
           const ph = Array.isArray(item.phenomena) && item.phenomena.length
             ? phenomenaHTML(item.phenomena)
@@ -3605,7 +3589,7 @@ const buildBaziQuestionCardHTML = (data) => {
           return `<article class="inference-card">
             <div class="inference-body">
               <div class="inference-head">
-                <span>${item.ganzhi ? `${item.year} ${item.ganzhi}` : item.year || '-'}</span>
+                <span>${item.ganzhi ? `${item.year} ${withEn(item.ganzhi)}` : item.year || '-'}</span>
                 <strong class="${sCls}">${strengthLabel}</strong>
               </div>
               <h4>${sanitizeBaziDisplayText(item.verdict || '', targetLabel)}</h4>
@@ -3624,19 +3608,19 @@ const buildBaziQuestionCardHTML = (data) => {
     : ''
   const pathReadingsHTML = pathReadings.length
     ? `<div class="bazi-path-block">
-        <h3 class="bazi-path-title">路径推演 · 多路径对比</h3>
+        <h3 class="bazi-path-title">${t('result.sub.paths')}</h3>
         <div class="bazi-path-grid">
           ${pathReadings.map((p, i) => `<article class="bazi-path-card">
             <div class="bazi-path-head">
-              <span class="bazi-path-badge">路径 ${PATH_LETTERS[i] || (i + 1)}</span>
-              <span class="bazi-path-name">${sanitizeBaziDisplayText(p.path || '路径', targetLabel)}</span>
+              <span class="bazi-path-badge">${t('result.bazi.path.badge', { n: PATH_LETTERS[i] || (i + 1) })}</span>
+              <span class="bazi-path-name">${sanitizeBaziDisplayText(p.path || t('result.bazi.path.name'), targetLabel)}</span>
             </div>
             <div class="bazi-path-rows">
-              ${pathRow('契合', p.structural_fit)}
-              ${pathRow('近1-3年', p.likely_experience)}
-              ${pathRow('满意度', p.satisfaction_prediction)}
-              ${pathRow('最顺期', p.peak_period)}
-              ${pathRow('风险', p.risk, ' bazi-path-risk')}
+              ${pathRow(t('result.bazi.path.fit'), p.structural_fit)}
+              ${pathRow(t('result.bazi.path.near'), p.likely_experience)}
+              ${pathRow(t('result.bazi.path.satisfaction'), p.satisfaction_prediction)}
+              ${pathRow(t('result.bazi.path.peak'), p.peak_period)}
+              ${pathRow(t('result.bazi.path.risk'), p.risk, ' bazi-path-risk')}
             </div>
           </article>`).join('')}
         </div>
@@ -3645,7 +3629,7 @@ const buildBaziQuestionCardHTML = (data) => {
 
   const m3HTML = inferFlowHTML || timingWindowsHTML || pathReadingsHTML
     ? `<section class="mag-section" id="bazi-m3">
-        <div class="module-heading"><h2>深度推演</h2></div>
+        <div class="module-heading"><h2>${t('result.tab.baziDeep')}</h2></div>
         ${inferFlowHTML}
         ${timingWindowsHTML}
         ${pathReadingsHTML}
@@ -3702,7 +3686,7 @@ const buildBaziQuestionCardHTML = (data) => {
 
   const m4HTML = rhythmFlowHTML
     ? `<section class="mag-section" id="bazi-m4">
-        <div class="module-heading"><h2>时间节奏</h2></div>
+        <div class="module-heading"><h2>${t('result.tab.baziTiming')}</h2></div>
         ${rhythmFlowHTML}
       </section>`
     : ''
@@ -3733,7 +3717,7 @@ const buildBaziQuestionCardHTML = (data) => {
   const hiddenHTML = !agText && hiddenInsight
     ? `<article class="inference-card bazi-infer-mirror" style="margin-top:0">
         <div class="inference-body">
-          <div class="inference-head"><span>盲点提醒</span></div>
+          <div class="inference-head"><span>${t('result.sub.blindSpot')}</span></div>
           <h4>${sanitizeBaziDisplayText(hiddenInsight, targetLabel)}</h4>
         </div>
       </article>`
@@ -3741,7 +3725,7 @@ const buildBaziQuestionCardHTML = (data) => {
 
   const m5HTML = agText || adviceListHTML || hiddenHTML
     ? `<section class="mag-section" id="bazi-m5">
-        <div class="module-heading"><h2>行动建议</h2></div>
+        <div class="module-heading"><h2>${t('result.tab.baziActions')}</h2></div>
         ${adviceIntroHTML}
         ${adviceListHTML}
         ${hiddenHTML}
@@ -3749,11 +3733,11 @@ const buildBaziQuestionCardHTML = (data) => {
     : ''
 
   const tabDefs = [
-    { id: 'bazi-m1', label: '结论先行', show: true },
-    { id: 'bazi-m2', label: '命局解读', show: true },
-    { id: 'bazi-m3', label: '深度推演', show: !!m3HTML },
-    { id: 'bazi-m4', label: '时间节奏', show: !!m4HTML },
-    { id: 'bazi-m5', label: '行动建议', show: !!m5HTML }
+    { id: 'bazi-m1', label: t('result.tab.conclusion'), show: true },
+    { id: 'bazi-m2', label: t('result.tab.baziReading'), show: true },
+    { id: 'bazi-m3', label: t('result.tab.baziDeep'), show: !!m3HTML },
+    { id: 'bazi-m4', label: t('result.tab.baziTiming'), show: !!m4HTML },
+    { id: 'bazi-m5', label: t('result.tab.baziActions'), show: !!m5HTML }
   ].filter(d => d.show)
   const tabsHTML = tabDefs.map((d, i) =>
     `<button class="mag-tab${i === 0 ? ' mag-tab-active' : ''}" onclick="${tabClick(d.id)}">${d.label}</button>`
@@ -3831,17 +3815,69 @@ const deriveScoreBasisFromM3 = (m3, formations) => {
 
 // ── 流式脚手架：复用真实卡片的 CSS class，保证与最终 buildCardHTML 视觉一致。 ──
 // 排盘表头：暴露完整起局校验字段（局名/节气元/旬首/值符值使及落宫/空亡·马星地支）供核对。
+// ── 英文模式下的盘面符号：汉字保留，旁注英文 ──
+const isEnLocale = () => locale.value === 'en-US'
+// 符号的英文：有通行译名用译名，没有就用拼音；非英文模式返回 ''
+const enOf = (zh) => {
+  if (!isEnLocale() || !zh) return ''
+  const name = symbolName(zh, locale.value)
+  return name && name !== zh ? name : symbolHint(zh, locale.value)
+}
+// 英文模式：译名替换汉字（宫名、节气、三元、星门等整体词）
+const nameOrEn = (zh) => (isEnLocale() && zh ? (enOf(zh) || zh) : zh)
+// 英文模式：汉字后括注英文（干支等单字符号）
+const withEn = (zh) => {
+  const en = enOf(zh)
+  return en ? `${zh} (${en})` : zh
+}
+// 盘内小字英文（神、星、门在汉字下另起一行，干在汉字后）
+const panEn = (zh, inline = false) => {
+  let en = enOf(zh)
+  if (!en) return ''
+  en = en.replace(/ Door$/, '')
+  return `<span class="pan-en${inline ? ' pan-en-inline' : ''}">${en}</span>`
+}
+const CN_DIGITS = { 一: 1, 二: 2, 三: 3, 四: 4, 五: 5, 六: 6, 七: 7, 八: 8, 九: 9 } // i18n-ignore
+const juNameText = (name = '') => {
+  if (!isEnLocale()) return name
+  const m = /^(阳|阴|陽|陰)遁(.+?)局$/.exec(name) // i18n-ignore
+  const yin = m && (m[1] === '阴' || m[1] === '陰') // i18n-ignore
+  return m ? `${symbolName(yin ? '阴遁' : '阳遁', locale.value)} ${CN_DIGITS[m[2]] || m[2]}` : name // i18n-ignore
+}
+// 卡片右上角的符号（模型或引擎给的「日干 辛」「值使门」「日干 ↔ 生门」）：英文模式逐词换成英文
+const SYMBOL_WORD_KEYS = { 日干: 'result.card.dayStem', 时干: 'result.card.hourStem', 用神: 'result.card.yongshen', 值使门: 'result.card.envoyDoor', 值使: 'result.pan.zhiShi', 值符: 'result.pan.zhiFu' } // i18n-ignore
+const symbolText = (sym) => {
+  if (!isEnLocale() || !sym) return sym
+  return String(sym).split(/(\s+|↔|\/|、)/).map((w) => {
+    if (!w || !/[\u4e00-\u9fff]/.test(w)) return w
+    if (SYMBOL_WORD_KEYS[w]) return t(SYMBOL_WORD_KEYS[w])
+    return w.length === 1 ? withEn(w) : nameOrEn(w)
+  }).join('')
+}
+// 盘头日期「2026年11月13日 22:29」：英文模式按本地格式显示
+const solarText = (solar = '') => {
+  const m = /^(\d{4})\D+(\d{1,2})\D+(\d{1,2})\D*\s+(\d{1,2}:\d{2})/.exec(solar)
+  if (!isEnLocale() || !m) return solar
+  const d = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]))
+  return `${d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })} ${m[4]}`
+}
+// 落宫「落坤2宫」：英文模式只留宫名
+const palaceText = (v = '') => (isEnLocale() ? nameOrEn(String(v).replace(/^落/, '')) : v) // i18n-ignore
+const parenText = (x) => (isEnLocale() ? ` (${x})` : `（${x}）`)
+
 const buildQimenPanInfo = (ju = {}, ts = {}, aux = {}) => {
-  const yuanText = [ju.jieqi, ju.yuan].filter(Boolean).join(' ')
-  const xunText = ju.xun_shou ? `　旬首：<b>${ju.xun_shou}</b>` : ''
-  const zhiFuPalace = ju.zhi_fu_palace ? `（${ju.zhi_fu_palace}）` : ''
-  const zhiShiPalace = ju.zhi_shi_palace ? `（${ju.zhi_shi_palace}）` : ''
+  const sep = isEnLocale() ? ': ' : '：'
+  const yuanText = [ju.jieqi, ju.yuan].filter(Boolean).map(nameOrEn).join(' ')
+  const xunText = ju.xun_shou ? `　${t('result.pan.xunShou')}${sep}<b>${withEn(ju.xun_shou)}</b>` : ''
+  const zhiFuPalace = ju.zhi_fu_palace ? parenText(palaceText(ju.zhi_fu_palace)) : ''
+  const zhiShiPalace = ju.zhi_shi_palace ? parenText(palaceText(ju.zhi_shi_palace)) : ''
   const kong = aux.kong_wang || {}
   const ma = aux.ma_xing || {}
+  const dh = (v) => `${t('result.pan.day')} ${v.day ? withEn(v.day) : '-'} / ${t('result.pan.hour')} ${v.hour ? withEn(v.hour) : '-'}`
   const kongMaText = (kong.day || kong.hour || ma.day || ma.hour)
-    ? `<br>空亡：<b>日 ${kong.day || '-'} / 时 ${kong.hour || '-'}</b>　马星：<b>日 ${ma.day || '-'} / 时 ${ma.hour || '-'}</b>`
+    ? `<br>${t('result.pan.kong')}${sep}<b>${dh(kong)}</b>　${t('result.pan.ma')}${sep}<b>${dh(ma)}</b>`
     : ''
-  return `<div class="pan-info">${ts.solar || ''} | ${ju.name || ''} · ${yuanText}${xunText}<br>值符：<b>${ju.zhi_fu || '-'}</b>${zhiFuPalace}&emsp;值使：<b>${ju.zhi_shi || '-'}</b>${zhiShiPalace}${kongMaText}</div>`
+  return `<div class="pan-info">${solarText(ts.solar || '')} | ${juNameText(ju.name || '')} · ${yuanText}${xunText}<br>${t('result.pan.zhiFu')}${sep}<b>${nameOrEn(ju.zhi_fu) || '-'}</b>${zhiFuPalace}&emsp;${t('result.pan.zhiShi')}${sep}<b>${nameOrEn(ju.zhi_shi) || '-'}</b>${zhiShiPalace}${kongMaText}</div>`
 }
 
 // engine 为 engine_complete 的 engineOutput（可为 null，表示尚未起盘）。
@@ -3871,29 +3907,29 @@ const buildBaziStreamingScaffoldHTML = (engine = null, statusText = '') => {
   return `<div class="mag-result tone-neutral wenshi-streaming" style="--theme-color:${et.THEME};--theme-color-dim:${et.DIM};">
     <section class="mag-hero wenshi-orb-spacer" id="bazi-hero"></section>
     <nav class="mag-tabs">
-      <button class="mag-tab mag-tab-active" onclick="${tabClick('bazi-m1')}">结论先行</button>
-      <button class="mag-tab" onclick="${tabClick('bazi-m2')}">命局解读</button>
-      <button class="mag-tab" onclick="${tabClick('bazi-m3')}">深度推演</button>
-      <button class="mag-tab" onclick="${tabClick('bazi-m5')}">行动建议</button>
+      <button class="mag-tab mag-tab-active" onclick="${tabClick('bazi-m1')}">${t('result.tab.conclusion')}</button>
+      <button class="mag-tab" onclick="${tabClick('bazi-m2')}">${t('result.tab.baziReading')}</button>
+      <button class="mag-tab" onclick="${tabClick('bazi-m3')}">${t('result.tab.baziDeep')}</button>
+      <button class="mag-tab" onclick="${tabClick('bazi-m5')}">${t('result.tab.baziActions')}</button>
       <span class="mag-tab-ink"></span>
     </nav>
     <section class="mag-section" id="bazi-m1">
-      <div class="module-heading"><h2>结论先行</h2></div>
+      <div class="module-heading"><h2>${t('result.tab.conclusion')}</h2></div>
       ${question ? `<blockquote class="mag-question" data-i18n-skip>"${question}"</blockquote>` : ''}
       <p class="bazi-basis-text">${slot('summary_basis')}</p>
     </section>
     <section class="mag-section" id="bazi-m2">
-      <div class="module-heading"><h2>命局解读</h2></div>
+      <div class="module-heading"><h2>${t('result.tab.baziReading')}</h2></div>
       <div id="bazi-panel-anchor" class="bazi-panel-anchor"></div>
       <div class="bazi-foundation-block"><p>${slot('base_foundation')}</p></div>
     </section>
     <section class="mag-section" id="bazi-m3">
-      <div class="module-heading"><h2>深度推演</h2></div>
-      <div class="bazi-foundation-block"><h3 class="bazi-bf-title">大运</h3><p>${slot('dayun_field')}</p></div>
-      <div class="bazi-foundation-block"><h3 class="bazi-bf-title">流年</h3><p>${slot('liunian_trigger')}</p></div>
+      <div class="module-heading"><h2>${t('result.tab.baziDeep')}</h2></div>
+      <div class="bazi-foundation-block"><h3 class="bazi-bf-title">${t('result.sub.dayun')}</h3><p>${slot('dayun_field')}</p></div>
+      <div class="bazi-foundation-block"><h3 class="bazi-bf-title">${t('result.sub.liunian')}</h3><p>${slot('liunian_trigger')}</p></div>
     </section>
     <section class="mag-section" id="bazi-m5">
-      <div class="module-heading"><h2>行动建议</h2></div>
+      <div class="module-heading"><h2>${t('result.tab.baziActions')}</h2></div>
       <p>${slot('action_guide')}</p>
     </section>
   </div>`
@@ -3925,11 +3961,11 @@ const buildStreamingScaffoldHTML = (engine = null, statusText = '') => {
     const cells = palaces.map(p => {
       if (p.is_center) return `<div class="pan-cell"><div class="pan-center-earth">${p.earth || ''}</div></div>`
       let marks = ''
-      if (p.ma_xing?.has_ma) marks += `<span class="pan-mark mark-ma">马</span>`
-      if (p.kong_wang?.is_kong) marks += `<span class="pan-mark mark-kong">空</span>`
-      return `<div class="pan-cell"><div class="pan-god">${p.god || ''}</div><div class="pan-stem stem-sky">${p.sky || ''}</div>${p.ji_sky ? `<div class="pan-stem ji-sky">${p.ji_sky}</div>` : ''}<div class="pan-star ${isZhiFu(p.star) ? 'highlight-text' : ''}">${p.star || ''}</div><div class="pan-door ${isZhiShi(p.door) ? 'highlight-text' : ''}">${p.door || ''}</div><div class="pan-stem stem-earth">${p.earth || ''}</div>${p.ji_earth ? `<div class="pan-stem ji-earth">${p.ji_earth}</div>` : ''}<div class="pan-marks">${marks}</div></div>`
+      if (p.ma_xing?.has_ma) marks += `<span class="pan-mark mark-ma">${t('result.pan.markMa')}</span>`
+      if (p.kong_wang?.is_kong) marks += `<span class="pan-mark mark-kong">${t('result.pan.markKong')}</span>`
+      return `<div class="pan-cell"><div class="pan-god">${p.god || ''}${panEn(p.god)}</div><div class="pan-stem stem-sky">${p.sky || ''}${panEn(p.sky, true)}</div>${p.ji_sky ? `<div class="pan-stem ji-sky">${p.ji_sky}</div>` : ''}<div class="pan-star ${isZhiFu(p.star) ? 'highlight-text' : ''}">${p.star || ''}${panEn(p.star)}</div><div class="pan-door ${isZhiShi(p.door) ? 'highlight-text' : ''}">${p.door || ''}${panEn(p.door)}</div><div class="pan-stem stem-earth">${panEn(p.earth, true)}${p.earth || ''}</div>${p.ji_earth ? `<div class="pan-stem ji-earth">${p.ji_earth}</div>` : ''}<div class="pan-marks">${marks}</div></div>`
     }).join('')
-    panInnerHTML = `<div class="pan-wrapper"><div class="pan-header"><div class="pan-pillars">${[pillars.year, pillars.month, pillars.day, pillars.hour].filter(Boolean).join('　')}</div>${buildQimenPanInfo(ju, ts, aux)}</div><div class="pan-grid">${cells}</div></div>`
+    panInnerHTML = `<div class="pan-wrapper"><div class="pan-header"><div class="pan-pillars">${[pillars.year, pillars.month, pillars.day, pillars.hour].filter(Boolean).map(g => `<span class="pan-pillar">${g}${panEn(g, true)}</span>`).join('　')}</div>${buildQimenPanInfo(ju, ts, aux)}</div><div class="pan-grid${isEnLocale() ? ' is-en' : ''}">${cells}</div></div>`
   } else {
     panInnerHTML = `<div class="pan-skeleton">${sk(1)}<div class="pan-grid">${'<div class="pan-cell"><span class="wsk"><i></i></span></div>'.repeat(9)}</div></div>`
   }
@@ -3938,26 +3974,26 @@ const buildStreamingScaffoldHTML = (engine = null, statusText = '') => {
   const formationTags = engine?.formation_tags || []
   const formationHTML = formationTags.length
     ? `<div class="formation-tag-row">${formationTags.map(h => `<span class="formation-tag ${h.type === 'ji' ? 'tag-ji' : 'tag-xiong'}">${h.name}</span>`).join('')}</div>`
-    : (chart ? `<div class="formation-tag-row"><span class="formation-tag tag-neutral">无显著有名格</span></div>` : `<div>${sk(1)}</div>`)
+    : (chart ? `<div class="formation-tag-row"><span class="formation-tag tag-neutral">${t('result.formation.none')}</span></div>` : `<div>${sk(1)}</div>`)
 
   // 用神选取（symbol/verdict/evidence 来自 data_json，complete 时到，先骨架）
-  const yongshenHTML = `<div class="yongshen-card-grid">${['问测人', '目标事态', '关键环境'].map(label => `<article class="yongshen-card tone-mixed"><div class="yongshen-card-head"><span>${label}</span><strong>—</strong></div>${sk(2)}</article>`).join('')}</div>`
+  const yongshenHTML = `<div class="yongshen-card-grid">${[t('result.card.asker'), t('result.card.target'), t('result.card.env')].map(label => `<article class="yongshen-card tone-mixed"><div class="yongshen-card-head"><span>${label}</span><strong>—</strong></div>${sk(2)}</article>`).join('')}</div>`
 
   // 局象推演六段：翻译层 reading 流式；提炼层 summary 流式；制约/支持/环境亦流式
   const inferCard = (label, symbol, slotKey, cls = '') => `<article class="inference-card tone-mixed ${cls}"><div class="inference-body"><div class="inference-head"><span>${label}</span><strong>${symbol}</strong></div><h4>${slot(slotKey)}</h4></div></article>`
   const inferenceHTML = `<div class="inference-flow">
-    ${inferCard('求测人状态', '日干', 'subject_reading')}
-    ${inferCard('目标事态', '用神', 'target_reading')}
-    ${inferCard('环境制约', '值使门', 'environment_reading')}
-    <article class="inference-card inference-support tone-positive"><div class="inference-body"><div class="inference-head"><span>有利因素</span></div><h4>${slot('support_summary')}</h4></div></article>
-    <article class="inference-card inference-constraint tone-warning"><div class="inference-body"><div class="inference-head"><span>不利因素</span></div><h4>${slot('constraint_summary')}</h4></div></article>
-    ${inferCard('生克决断', '日干 ↔ 用神', 'decision_reading')}
+    ${inferCard(t('result.card.subjectState'), t('result.card.dayStem'), 'subject_reading')}
+    ${inferCard(t('result.card.target'), t('result.card.yongshen'), 'target_reading')}
+    ${inferCard(t('result.card.envConstraint'), t('result.card.envoyDoor'), 'environment_reading')}
+    <article class="inference-card inference-support tone-positive"><div class="inference-body"><div class="inference-head"><span>${t('result.card.support')}</span></div><h4>${slot('support_summary')}</h4></div></article>
+    <article class="inference-card inference-constraint tone-warning"><div class="inference-body"><div class="inference-head"><span>${t('result.card.constraint')}</span></div><h4>${slot('constraint_summary')}</h4></div></article>
+    ${inferCard(t('result.card.decision'), t('result.card.dayVsYs'), 'decision_reading')}
   </div>`
 
   // 开运指南（m4，data_json，complete 到，先骨架）
   const guidanceHTML = `<div class="guidance-grid">
-    <article class="guidance-card"><div class="guidance-kicker">环境风水</div>${sk(3)}</article>
-    <article class="guidance-card"><div class="guidance-kicker">时空行为</div>${sk(3)}</article>
+    <article class="guidance-card"><div class="guidance-kicker">${t('result.guide.env')}</div>${sk(3)}</article>
+    <article class="guidance-card"><div class="guidance-kicker">${t('result.guide.timing')}</div>${sk(3)}</article>
   </div>`
 
   // 行动建议（m1.actions，data_json，complete 到，先一整块大骨架，不分 01/02/03）
@@ -3969,36 +4005,36 @@ const buildStreamingScaffoldHTML = (engine = null, statusText = '') => {
     <section class="mag-hero wenshi-orb-spacer" id="mag-hero"></section>
 
     <nav class="mag-tabs">
-      <button class="mag-tab mag-tab-active" onclick="${tabClick('mag-m1')}">结论先行</button>
-      <button class="mag-tab" onclick="${tabClick('mag-m2')}">奇门定基</button>
-      <button class="mag-tab" onclick="${tabClick('mag-m3')}">局象推演</button>
-      <button class="mag-tab" onclick="${tabClick('mag-m4')}">开运指南</button>
+      <button class="mag-tab mag-tab-active" onclick="${tabClick('mag-m1')}">${t('result.tab.conclusion')}</button>
+      <button class="mag-tab" onclick="${tabClick('mag-m2')}">${t('result.tab.basis')}</button>
+      <button class="mag-tab" onclick="${tabClick('mag-m3')}">${t('result.tab.inference')}</button>
+      <button class="mag-tab" onclick="${tabClick('mag-m4')}">${t('result.tab.guidance')}</button>
       <span class="mag-tab-ink"></span>
     </nav>
 
     <section class="mag-section" id="mag-m1">
-      <div class="module-heading"><h2>结论先行</h2></div>
+      <div class="module-heading"><h2>${t('result.tab.conclusion')}</h2></div>
       ${question ? `<blockquote class="mag-question" data-i18n-skip>"${question}"</blockquote>` : ''}
-      <div class="report-subtitle">行动建议</div>
+      <div class="report-subtitle">${t('result.sub.actions')}</div>
       ${actionsHTML}
     </section>
 
     <section class="mag-section" id="mag-m2">
-      <div class="module-heading"><h2>奇门定基</h2></div>
+      <div class="module-heading"><h2>${t('result.tab.basis')}</h2></div>
       ${panInnerHTML ? `<div class="mag-pan-block">${panInnerHTML}</div>` : ''}
-      <div class="report-subtitle">格局吉凶</div>
+      <div class="report-subtitle">${t('result.sub.formations')}</div>
       ${formationHTML}
-      <div class="report-subtitle">用神选取</div>
+      <div class="report-subtitle">${t('result.sub.yongshen')}</div>
       ${yongshenHTML}
     </section>
 
     <section class="mag-section" id="mag-m3">
-      <div class="module-heading"><h2>局象推演</h2></div>
+      <div class="module-heading"><h2>${t('result.tab.inference')}</h2></div>
       ${inferenceHTML}
     </section>
 
     <section class="mag-section" id="mag-m4">
-      <div class="module-heading"><h2>开运指南</h2></div>
+      <div class="module-heading"><h2>${t('result.tab.guidance')}</h2></div>
       ${guidanceHTML}
     </section>
   </div>`
@@ -4025,7 +4061,7 @@ const followupModuleMap = (branch) => (branch === 'bazi' ? FOLLOWUP_SECTION_MODU
 const followupModuleAnchorSelector = (branch, moduleKey) => (branch === 'bazi' ? `#${moduleKey}` : `#mag-${moduleKey}`)
 // 单个增补块 HTML（流式 DOM 占位与终态烘焙复用，保证样式一致）
 const renderFollowupBlockHTML = ({ q = '', section = '', text = '', nature = 'deepen', streaming = false } = {}) => {
-  const badge = nature === 'revise' ? '因新情况修正' : '追问深挖'
+  const badge = nature === 'revise' ? t('result.followup.revise') : t('result.followup.deeper')
   const body = streaming ? '<span class="wsk"><i></i><i></i></span>' : mdBold(escapeHtmlText(text))
   return `<div class="mag-followup${streaming ? ' mag-followup-pop' : ''}${nature === 'revise' ? ' is-revise' : ''}">`
     + `<div class="mag-followup-q"><span class="mag-followup-badge">${badge}</span><span data-i18n-skip>${escapeHtmlText(q)}</span></div>`
@@ -4084,7 +4120,7 @@ const buildCardHTML = (data, opts = {}) => {
   const reportM2 = report.m2_basis || {}
   const reportM3 = report.m3_inference || {}
   const reportM4 = report.m4_guidance || {}
-  const summary = data.summary || { title: '生成中...', conclusion: '暂无数据', score: 0 }
+  const summary = data.summary || { title: t('result.hero.generating'), conclusion: t('result.hero.noData'), score: 0 }
   const analysis = data.analysis || {}
   const advice = data.advice || { lucky_tips: {} }
   const question = data.question || ''
@@ -4117,7 +4153,7 @@ const buildCardHTML = (data, opts = {}) => {
   const hourStem = String(pillars.hour || '').charAt(0)
   const dayPanStem = panStem(pillars.day)
   const hourPanStem = panStem(pillars.hour)
-  const toneBadge = { positive: '顺', mixed: '参', warning: '慎' }
+  const toneBadge = { positive: t('result.card.toneBadgePositive'), mixed: t('result.card.toneBadgeMixed'), warning: t('result.card.toneBadgeWarning') }
   const normalizeTone = (tone) => ['positive', 'mixed', 'warning'].includes(tone) ? tone : 'mixed'
   const formatSymbol = (label, symbol) => [label, symbol].filter(Boolean).join(' ')
   const findPalaceForSymbol = (symbol) => {
@@ -4144,7 +4180,7 @@ const buildCardHTML = (data, opts = {}) => {
       || toStr(card?.evidence, fallback.evidence || '')
     return {
       key: card?.key || fallback.key || 'custom',
-      label: toStr(card?.label, fallback.label || '关键判断'),
+      label: toStr(card?.label, fallback.label || t('result.card.keyJudgement')),
       symbol: toStr(card?.symbol, fallback.symbol || ''),
       palace: toStr(card?.palace, fallback.palace || findPalaceForSymbol(card?.symbol || fallback.symbol)),
       tone,
@@ -4183,13 +4219,13 @@ const buildCardHTML = (data, opts = {}) => {
     const palaceRoles = (p) => {
       const roles = []
       const stems = [p.sky, p.ji_sky].filter(Boolean).join('')
-      if (dayPanStem && stems.includes(dayPanStem)) roles.push({ cls: 'role-day', short: '日', text: `日干${dayStem}${dayStem !== dayPanStem ? '（遁' + dayPanStem + '）' : ''}：代表求测人自己` })
-      if (hourPanStem && stems.includes(hourPanStem)) roles.push({ cls: 'role-hour', short: '时', text: `时干${hourStem}${hourStem !== hourPanStem ? '（遁' + hourPanStem + '）' : ''}：代表所问之事` })
+      if (dayPanStem && stems.includes(dayPanStem)) roles.push({ cls: 'role-day', short: t('result.pan.roleDay'), text: t('result.pan.roleDayText', { stem: withEn(dayStem), dun: dayStem !== dayPanStem ? t('result.pan.dun', { stem: withEn(dayPanStem) }) : '' }) })
+      if (hourPanStem && stems.includes(hourPanStem)) roles.push({ cls: 'role-hour', short: t('result.pan.roleHour'), text: t('result.pan.roleHourText', { stem: withEn(hourStem), dun: hourStem !== hourPanStem ? t('result.pan.dun', { stem: withEn(hourPanStem) }) : '' }) })
       ysCardsForPan.filter(c => c.palace && p.name && String(c.palace).includes(String(p.name).replace(/宫$/, ''))).forEach(c => {
-        roles.push({ cls: 'role-ys', short: '用', text: `${c.label}${c.symbol ? '（' + c.symbol + '）' : ''}` })
+        roles.push({ cls: 'role-ys', short: t('result.pan.roleYs'), text: `${c.label}${c.symbol ? parenText(c.symbol) : ''}` })
       })
-      if (isZhiFu(p.star)) roles.push({ cls: '', short: '', text: `值符${ju.zhi_fu}落此宫` })
-      if (isZhiShi(p.door)) roles.push({ cls: '', short: '', text: `值使${ju.zhi_shi}落此宫` })
+      if (isZhiFu(p.star)) roles.push({ cls: '', short: '', text: t('result.pan.zhiFuHere', { name: nameOrEn(ju.zhi_fu) }) })
+      if (isZhiShi(p.door)) roles.push({ cls: '', short: '', text: t('result.pan.zhiShiHere', { name: nameOrEn(ju.zhi_shi) }) })
       return roles
     }
     const pick = (i) => `var w=this.closest('.pan-wrapper');if(!w)return;var on=this.classList.contains('sel');w.querySelectorAll('.pan-cell').forEach(function(c){c.classList.remove('sel')});w.querySelectorAll('.pan-detail-item').forEach(function(d){d.hidden=on||d.getAttribute('data-i')!=='${i}'});var h=w.querySelector('.pan-detail-hint');if(h)h.hidden=!on;if(!on)this.classList.add('sel')`
@@ -4199,20 +4235,20 @@ const buildCardHTML = (data, opts = {}) => {
       const starCls = isZhiFu(p.star) ? 'highlight-text' : ''
       const doorCls = isZhiShi(p.door) ? 'highlight-text' : ''
       let marks = ''
-      if (p.ma_xing?.has_ma) marks += `<span class="pan-mark mark-ma">马</span>`
-      if (p.kong_wang?.is_kong) marks += `<span class="pan-mark mark-kong">空</span>`
+      if (p.ma_xing?.has_ma) marks += `<span class="pan-mark mark-ma">${t('result.pan.markMa')}</span>`
+      if (p.kong_wang?.is_kong) marks += `<span class="pan-mark mark-kong">${t('result.pan.markKong')}</span>`
       const roles = palaceRoles(p)
       const roleTags = roles.filter(r => r.short).map(r => `<span class="pan-role ${r.cls}">${r.short}</span>`).join('')
-      const flags = [p.kong_wang?.is_kong ? '逢空亡' : '', p.ma_xing?.has_ma ? '临驿马' : ''].filter(Boolean).join('，')
+      const flags = [p.kong_wang?.is_kong ? t('result.pan.flagKong') : '', p.ma_xing?.has_ma ? t('result.pan.flagMa') : ''].filter(Boolean).join(isEnLocale() ? ', ' : '，')
       details.push(`<div class="pan-detail-item" data-i="${i}" hidden>
-        <div class="pan-detail-head"><b>${p.name || ''}</b>${flags ? `<span>${flags}</span>` : ''}</div>
-        <div class="pan-detail-grid"><span>八神</span><b>${p.god || '—'}</b><span>九星</span><b>${p.star || '—'}</b><span>八门</span><b>${p.door || '—'}</b><span>天盘</span><b>${[p.sky, p.ji_sky].filter(Boolean).join(' ') || '—'}</b><span>地盘</span><b>${[p.earth, p.ji_earth].filter(Boolean).join(' ') || '—'}</b></div>
-        ${roles.length ? `<ul class="pan-detail-roles">${roles.map(r => `<li>${r.text}</li>`).join('')}</ul>` : '<p class="pan-detail-none">本次所问之事未直接取用此宫。</p>'}
+        <div class="pan-detail-head"><b>${nameOrEn(p.name || '')}</b>${flags ? `<span>${flags}</span>` : ''}</div>
+        <div class="pan-detail-grid"><span>${t('result.pan.god')}</span><b>${withEn(p.god) || '—'}</b><span>${t('result.pan.star')}</span><b>${withEn(p.star) || '—'}</b><span>${t('result.pan.door')}</span><b>${withEn(p.door) || '—'}</b><span>${t('result.pan.sky')}</span><b>${[p.sky, p.ji_sky].filter(Boolean).map(withEn).join(' ') || '—'}</b><span>${t('result.pan.earth')}</span><b>${[p.earth, p.ji_earth].filter(Boolean).map(withEn).join(' ') || '—'}</b></div>
+        ${roles.length ? `<ul class="pan-detail-roles">${roles.map(r => `<li>${r.text}</li>`).join('')}</ul>` : `<p class="pan-detail-none">${t('result.pan.none')}</p>`}
       </div>`)
-      return `<div class="pan-cell pan-pickable" role="button" tabindex="0" aria-label="${p.name || ''}，点击查看详情" onclick="${pick(i)}"><div class="pan-roles">${roleTags}</div><div class="pan-god">${p.god || ''}</div><div class="pan-stem stem-sky">${p.sky || ''}</div>${p.ji_sky ? `<div class="pan-stem ji-sky">${p.ji_sky}</div>` : ''}<div class="pan-star ${starCls}">${p.star || ''}</div><div class="pan-door ${doorCls}">${p.door || ''}</div><div class="pan-stem stem-earth">${p.earth || ''}</div>${p.ji_earth ? `<div class="pan-stem ji-earth">${p.ji_earth}</div>` : ''}<div class="pan-marks">${marks}</div></div>`
+      return `<div class="pan-cell pan-pickable" role="button" tabindex="0" aria-label="${t('result.pan.tapDetail', { name: nameOrEn(p.name || '') })}" onclick="${pick(i)}"><div class="pan-roles">${roleTags}</div><div class="pan-god">${p.god || ''}${panEn(p.god)}</div><div class="pan-stem stem-sky">${p.sky || ''}${panEn(p.sky, true)}</div>${p.ji_sky ? `<div class="pan-stem ji-sky">${p.ji_sky}</div>` : ''}<div class="pan-star ${starCls}">${p.star || ''}${panEn(p.star)}</div><div class="pan-door ${doorCls}">${p.door || ''}${panEn(p.door)}</div><div class="pan-stem stem-earth">${panEn(p.earth, true)}${p.earth || ''}</div>${p.ji_earth ? `<div class="pan-stem ji-earth">${p.ji_earth}</div>` : ''}<div class="pan-marks">${marks}</div></div>`
     }).join('')
-    const panDetail = `<div class="pan-detail"><p class="pan-detail-hint">点任一宫看神、星、门、干和它在本事中的角色。<span class="pan-role role-day">日</span>日干 <span class="pan-role role-hour">时</span>时干 <span class="pan-role role-ys">用</span>用神</p>${details.join('')}</div>`
-    panInnerHTML = `<div class="pan-wrapper"><div class="pan-header"><div class="pan-pillars">${[pillars.year, pillars.month, pillars.day, pillars.hour].filter(Boolean).join('　')}</div>${buildQimenPanInfo(ju, ts, aux)}</div><div class="pan-grid">${cells}</div>${panDetail}</div>`
+    const panDetail = `<div class="pan-detail"><p class="pan-detail-hint">${t('result.pan.hint')}<span class="pan-role role-day">${t('result.pan.roleDay')}</span>${t('result.pan.legendDay')} <span class="pan-role role-hour">${t('result.pan.roleHour')}</span>${t('result.pan.legendHour')} <span class="pan-role role-ys">${t('result.pan.roleYs')}</span>${t('result.pan.legendYs')}</p>${details.join('')}</div>`
+    panInnerHTML = `<div class="pan-wrapper"><div class="pan-header"><div class="pan-pillars">${[pillars.year, pillars.month, pillars.day, pillars.hour].filter(Boolean).map(g => `<span class="pan-pillar">${g}${panEn(g, true)}</span>`).join('　')}</div>${buildQimenPanInfo(ju, ts, aux)}</div><div class="pan-grid${isEnLocale() ? ' is-en' : ''}">${cells}</div>${panDetail}</div>`
   }
 
   // ── 格局吉凶
@@ -4220,14 +4256,14 @@ const buildCardHTML = (data, opts = {}) => {
     ? reportM2.formation_tags.map(h => ({ signal: h.name, effect: h.effect, reason: h.reason, text: h.text, type: h.type }))
     : (data.backend_score_audit?.adjustments || []).filter(h => h.layer === 'named_formation')
   const formationTagsHTML = namedFormationHits.length
-    ? `<div class="formation-tag-row" data-ge-reasons='${JSON.stringify(namedFormationHits.map(h => ({ name: h.signal || h.name, type: h.type || (String(h.effect).startsWith('+') ? 'ji' : 'xiong'), text: h.text || GE_DESCRIPTIONS[h.signal || h.name] || h.reason || '' })))}'>
+    ? `<div class="formation-tag-row" data-ge-reasons='${JSON.stringify(namedFormationHits.map(h => ({ name: h.signal || h.name, label: formationLabel(h.signal || h.name), type: h.type || (String(h.effect).startsWith('+') ? 'ji' : 'xiong'), text: (isEnLocale() && formationDescEn(h.signal || h.name)) || h.text || GE_DESCRIPTIONS[h.signal || h.name] || h.reason || '' }))).replace(/'/g, '&#39;')}'>
         ${namedFormationHits.map(h => {
           const name = h.signal || h.name
           const isJi = (h.type || '').includes('ji') || String(h.effect).startsWith('+')
-          return `<span class="ge-tag ${isJi ? 'ji' : 'xiong'}" data-ge-name="${name}"><span class="ge-dot"></span>${name}</span>`
+          return `<span class="ge-tag ${isJi ? 'ji' : 'xiong'}" data-ge-name="${name}"><span class="ge-dot"></span>${formationLabel(name)}</span>`
         }).join('')}
       </div>`
-    : `<p class="report-muted">未见足以改写主线的有名格。</p>`
+    : `<p class="report-muted">${t('result.formation.noneFinal')}</p>`
 
   const domainCards = Array.isArray(domainView?.axes)
     ? domainView.axes.map((axis, index) => buildReportCard(axis, {
@@ -4242,27 +4278,27 @@ const buildCardHTML = (data, opts = {}) => {
   const fallbackYongshenCards = [
     buildReportCard({}, {
       key: 'subject',
-      label: '问测人状态',
-      symbol: formatSymbol('日干', dayStem || '-'),
+      label: t('result.card.askerState'),
+      symbol: formatSymbol('日干', dayStem || '-'), // i18n-ignore 显示时由 symbolText 转换
       tone: 'mixed',
-      verdict: displayBlocks?.situation || analysis.tensor || '以日干落宫观察求测人当前承接力与行动状态。',
-      evidence: analysis.yong_shen || '结合日干落宫的门、星、神、空亡与马星判断自身状态。'
+      verdict: displayBlocks?.situation || analysis.tensor || t('result.fallback.askerVerdict'),
+      evidence: analysis.yong_shen || t('result.fallback.askerEvidence')
     }),
     buildReportCard({}, {
       key: 'target',
-      label: '目标事态',
-      symbol: formatSymbol('时干', hourStem || '-'),
+      label: t('result.card.target'),
+      symbol: formatSymbol('时干', hourStem || '-'), // i18n-ignore 显示时由 symbolText 转换
       tone: 'mixed',
-      verdict: displayBlocks?.support || analysis.yong_shen || '以时干或领域主用神观察目标事态。',
-      evidence: displayBlocks?.situation || analysis.yong_shen || '结合目标用神落宫与日时互动判断事情能否落地。'
+      verdict: displayBlocks?.support || analysis.yong_shen || t('result.fallback.targetVerdict'),
+      evidence: displayBlocks?.situation || analysis.yong_shen || t('result.fallback.targetEvidence')
     }),
     buildReportCard({}, {
       key: 'environment',
-      label: '关键环境因素',
-      symbol: ju.zhi_shi ? `值使 ${ju.zhi_shi}` : (ju.zhi_fu ? `值符 ${ju.zhi_fu}` : '值使门'),
+      label: t('result.card.envFactor'),
+      symbol: ju.zhi_shi ? `值使 ${ju.zhi_shi}` : (ju.zhi_fu ? `值符 ${ju.zhi_fu}` : '值使门'), // i18n-ignore 显示时由 symbolText 转换
       tone: displayBlocks?.risk ? 'warning' : 'mixed',
-      verdict: displayBlocks?.risk || analysis.god_help || '观察流程、环境和现实阻力。',
-      evidence: advice.risk || analysis.pattern || '结合值符、值使、格局、空亡和风险信号判断外部环境。'
+      verdict: displayBlocks?.risk || analysis.god_help || t('result.fallback.envVerdict'),
+      evidence: advice.risk || analysis.pattern || t('result.fallback.envEvidence')
     })
   ]
   const yongshenCards = (Array.isArray(reportM2.yongshen_cards) && reportM2.yongshen_cards.length)
@@ -4272,10 +4308,10 @@ const buildCardHTML = (data, opts = {}) => {
     ${yongshenCards.map(card => `<article class="yongshen-card tone-${card.tone}">
       <div class="yongshen-card-head">
         <span>${card.label}</span>
-        <strong>${card.symbol || '-'}</strong>
+        <strong>${symbolText(card.symbol) || '-'}</strong>
       </div>
-      <h4>${card.verdict || '暂无明确断语'}</h4>
-      <p>${card.evidence || '暂无依据说明'}</p>
+      <h4>${card.verdict || t('result.card.noVerdict')}</h4>
+      <p>${card.evidence || t('result.card.noEvidence')}</p>
     </article>`).join('')}
   </div>`
 
@@ -4305,29 +4341,29 @@ const buildCardHTML = (data, opts = {}) => {
   const inferenceCards = [
     buildReportCard(subjectState, {
       key: 'self',
-      label: '自身状态',
-      symbol: formatSymbol('日干', dayStem || '-'),
+      label: t('result.card.selfState'),
+      symbol: formatSymbol('日干', dayStem || '-'), // i18n-ignore 显示时由 symbolText 转换
       tone: 'mixed',
-      verdict: displayBlocks?.situation || analysis.tensor || '日干落宫，判断求测人当前承接力与行动状态。',
-      evidence: analysis.yong_shen || '需结合日干落宫的门、星、神、旺衰、空亡与马星综合判断。'
+      verdict: displayBlocks?.situation || analysis.tensor || t('result.fallback.selfVerdict'),
+      evidence: analysis.yong_shen || t('result.fallback.selfEvidence')
     }),
     buildReportCard(targetState, {
       key: 'target',
-      label: '目标事态',
-      symbol: formatSymbol('时干', hourStem || '-'),
+      label: t('result.card.target'),
+      symbol: formatSymbol('时干', hourStem || '-'), // i18n-ignore 显示时由 symbolText 转换
       tone: 'mixed',
-      verdict: displayBlocks?.support || analysis.yong_shen || '目标用神落宫，判断事情本身能量与实现可能。',
-      evidence: domainView?.process?.evidence || analysis.yong_shen || '以时干或领域主用神观察目标事态的旺衰与空亡。'
+      verdict: displayBlocks?.support || analysis.yong_shen || t('result.fallback.targetVerdict2'),
+      evidence: domainView?.process?.evidence || analysis.yong_shen || t('result.fallback.targetEvidence2')
     }),
     buildReportCard(normalizedInteractionDecision, {
       key: 'interaction',
-      label: '生克决断',
+      label: t('result.card.decision'),
       symbol: interactionDecision?.subject_symbol && interactionDecision?.target_symbol
         ? `${interactionDecision.subject_symbol} ↔ ${interactionDecision.target_symbol}`
-        : '日干 ↔ 时干',
+        : '日干 ↔ 时干' /* i18n-ignore 显示时由 symbolText 转换 */,
       tone: interactionDecision?.tone || (relation?.effect > 0 ? 'positive' : relation?.effect < 0 ? 'warning' : 'mixed'),
-      verdict: relation?.reason || displayBlocks?.situation || '综合自身、目标与环境，给出五行生克的方向性结论。',
-      evidence: relation?.reason || '若后端未给出明确生克关系，则以整体局势和用神强弱综合判断。'
+      verdict: relation?.reason || displayBlocks?.situation || t('result.fallback.decisionVerdict'),
+      evidence: relation?.reason || t('result.fallback.decisionEvidence')
     })
   ]
 
@@ -4337,10 +4373,10 @@ const buildCardHTML = (data, opts = {}) => {
     || toStr(environmentState?.verdict, '')
     || macroReason
     || displayBlocks?.situation
-    || '值使门与值符状态决定当前流程管道是否通畅。'
+    || t('result.fallback.envPipe')
   const environmentCardHTML = `<article class="inference-card tone-${envTone}">
     <div class="inference-body">
-      <div class="inference-head"><span>环境制约</span><strong>${toStr(environmentState?.symbol, '值使门')}</strong></div>
+      <div class="inference-head"><span>${t('result.card.envConstraint')}</span><strong>${symbolText(toStr(environmentState?.symbol, '值使门' /* i18n-ignore */))}</strong></div>
       <h4>${envVerdict}</h4>
     </div>
   </article>`
@@ -4353,7 +4389,7 @@ const buildCardHTML = (data, opts = {}) => {
     || toStr(supportState?.verdict, '')
     || toStr(displayBlocks?.support, '')
     || (scoreBasis?.positive_signals?.[0] || '')
-    || '局面存在一定正向支撑，需结合用神旺相与格局综合判断。'
+    || t('result.fallback.supportVerdict')
   const supportItems = getFactorItems(supportState)
   const supportFactorsHTML = renderFactorList(supportItems, 'positive')
   const rawSupportFactors = supportItems.length
@@ -4364,7 +4400,7 @@ const buildCardHTML = (data, opts = {}) => {
     : ''
   const supportCardHTML = `<article class="inference-card inference-support tone-${supportTone}">
     <div class="inference-body">
-      <div class="inference-head"><span>有利因素</span></div>
+      <div class="inference-head"><span>${t('result.card.support')}</span></div>
       <h4>${supportPrimary}</h4>
       ${supportFactorsHTML || supportTagsHTML}
     </div>
@@ -4373,7 +4409,7 @@ const buildCardHTML = (data, opts = {}) => {
   // 不利因素：提炼层，支持 factors[] 多要素列表
   const constraintTone = normalizeTone(constraintState?.tone || 'warning')
   const constraintPrimaryRisk = toStr(constraintState?.summary, '') || toStr(constraintState?.primary_risk, '')
-  const constraintVerdict = constraintPrimaryRisk || constraintState?.verdict || displayBlocks?.risk || advice.risk || '主要限制来自流程、空亡、凶格或现实条件。'
+  const constraintVerdict = constraintPrimaryRisk || constraintState?.verdict || displayBlocks?.risk || advice.risk || t('result.fallback.constraintVerdict')
   const constraintItems = getFactorItems(constraintState)
   const constraintFactorsHTML = renderFactorList(constraintItems, 'warning')
   const rawFactors = constraintItems.length
@@ -4384,7 +4420,7 @@ const buildCardHTML = (data, opts = {}) => {
     : ''
   const constraintCardHTML = `<article class="inference-card inference-constraint tone-${constraintTone}">
     <div class="inference-body">
-      <div class="inference-head"><span>不利因素</span></div>
+      <div class="inference-head"><span>${t('result.card.constraint')}</span></div>
       <h4>${constraintVerdict}</h4>
       ${constraintFactorsHTML || factorsTagsHTML}
     </div>
@@ -4393,8 +4429,8 @@ const buildCardHTML = (data, opts = {}) => {
   const inferenceHTML = `<div class="inference-flow">
     ${inferenceCards.slice(0, 2).map(card => `<article class="inference-card tone-${card.tone}">
       <div class="inference-body">
-        <div class="inference-head"><span>${card.label}</span><strong>${card.symbol || '-'}</strong></div>
-        <h4>${card.verdict || '暂无明确断语'}</h4>
+        <div class="inference-head"><span>${card.label}</span><strong>${symbolText(card.symbol) || '-'}</strong></div>
+        <h4>${card.verdict || t('result.card.noVerdict')}</h4>
       </div>
     </article>`).join('')}
     ${environmentCardHTML}
@@ -4402,40 +4438,40 @@ const buildCardHTML = (data, opts = {}) => {
     ${constraintCardHTML}
     ${inferenceCards.slice(2).map(card => `<article class="inference-card tone-${card.tone}">
       <div class="inference-body">
-        <div class="inference-head"><span>${card.label}</span><strong>${card.symbol || '-'}</strong></div>
-        <h4>${card.verdict || '暂无明确断语'}</h4>
+        <div class="inference-head"><span>${card.label}</span><strong>${symbolText(card.symbol) || '-'}</strong></div>
+        <h4>${card.verdict || t('result.card.noVerdict')}</h4>
       </div>
     </article>`).join('')}
   </div>`
 
   const envGuide = reportM4.environment_fengshui || {}
   const timingGuide = reportM4.timing_behavior || {}
-  const envDirection = envGuide.suitable_direction || envGuide.direction || luckyTips.direction || '暂无明确方位'
-  const envDo = envGuide.do || envGuide.environment_advice || '优先选择信息更透明、沟通更顺畅的场景，不在压力和杂讯过重时强推。'
+  const envDirection = envGuide.suitable_direction || envGuide.direction || luckyTips.direction || t('result.fallback.envDirection')
+  const envDo = envGuide.do || envGuide.environment_advice || t('result.fallback.envDo')
   const envAvoid = envGuide.avoid || envGuide.avoid_direction || ''
-  const envReason = envGuide.reason || '依据用神宫位、值符值使与风险信号综合给出。'
-  const timingWindow = timingGuide.window || timingGuide.best_window || luckyTips.time || '暂无明确窗口'
-  const timingDo = timingGuide.do || timingGuide.action || luckyTips.action || '先观察再行动'
+  const envReason = envGuide.reason || t('result.fallback.envReason')
+  const timingWindow = timingGuide.window || timingGuide.best_window || luckyTips.time || t('result.fallback.timingWindow')
+  const timingDo = timingGuide.do || timingGuide.action || luckyTips.action || t('result.fallback.timingDo')
   const timingAvoid = timingGuide.avoid || timingGuide.avoid_action || ''
-  const timingReason = timingGuide.reason || displayBlocks?.timing || analysis.dynamic_timing || '应期只代表启动和观察窗口，不代表结果必然落地。'
+  const timingReason = timingGuide.reason || displayBlocks?.timing || analysis.dynamic_timing || t('result.fallback.timingReason')
   const guidanceHTML = `<div class="guidance-grid">
     <article class="guidance-card">
-      <div class="guidance-kicker">环境风水</div>
+      <div class="guidance-kicker">${t('result.guide.env')}</div>
       <h4>${envDirection}</h4>
       <div class="guidance-rows">
-        <div class="guidance-row"><span>宜</span><p>${envDo}</p></div>
-        ${envAvoid ? `<div class="guidance-row warning"><span>避</span><p>${envAvoid}</p></div>` : ''}
-        <div class="guidance-row muted"><span>据</span><p>${envReason}</p></div>
+        <div class="guidance-row"><span>${t('result.guide.do')}</span><p>${envDo}</p></div>
+        ${envAvoid ? `<div class="guidance-row warning"><span>${t('result.guide.avoid')}</span><p>${envAvoid}</p></div>` : ''}
+        <div class="guidance-row muted"><span>${t('result.guide.basis')}</span><p>${envReason}</p></div>
       </div>
     </article>
     <article class="guidance-card">
-      <div class="guidance-kicker">时空行为</div>
+      <div class="guidance-kicker">${t('result.guide.timing')}</div>
       <h4>${timingWindow}</h4>
       <div class="guidance-rows">
-        ${timingGuide.wait_until ? `<div class="guidance-row"><span>等</span><p>${timingGuide.wait_until}</p></div>` : ''}
-        <div class="guidance-row"><span>行</span><p>${timingDo}</p></div>
-        ${timingAvoid ? `<div class="guidance-row warning"><span>避</span><p>${timingAvoid}</p></div>` : ''}
-        <div class="guidance-row muted"><span>据</span><p>${timingReason}</p></div>
+        ${timingGuide.wait_until ? `<div class="guidance-row"><span>${t('result.guide.wait')}</span><p>${timingGuide.wait_until}</p></div>` : ''}
+        <div class="guidance-row"><span>${t('result.guide.act')}</span><p>${timingDo}</p></div>
+        ${timingAvoid ? `<div class="guidance-row warning"><span>${t('result.guide.avoid')}</span><p>${timingAvoid}</p></div>` : ''}
+        <div class="guidance-row muted"><span>${t('result.guide.basis')}</span><p>${timingReason}</p></div>
       </div>
     </article>
   </div>`
@@ -4449,54 +4485,54 @@ const buildCardHTML = (data, opts = {}) => {
   return `<div class="mag-result tone-${heroTone}" style="--theme-color:${THEME};--theme-color-dim:${THEME_DIM};">
     <section class="mag-hero" id="mag-hero">
       <div class="mag-hero-panel">
-        ${summary.score !== null && summary.score !== undefined ? `<div class="mag-score-inline"><span>参考指数</span><strong id="vueScoreValue">${score}</strong></div>` : ''}
+        ${summary.score !== null && summary.score !== undefined ? `<div class="mag-score-inline"><span>${t('result.hero.refIndex')}</span><strong id="vueScoreValue">${score}</strong></div>` : ''}
         <div class="mag-hero-tags">
-          <span class="mag-verdict-badge mag-verdict-${vd.cls}">${vd.label}</span>
-          <span>${orSkel(reportM1.keyword || summary.keyword, '本局总判', 1)}</span>
+          <span class="mag-verdict-badge mag-verdict-${vd.cls}">${verdictLabel(vd.label, locale.value)}</span>
+          <span>${orSkel(reportM1.keyword || summary.keyword, t('result.hero.keyword'), 1)}</span>
         </div>
-        <h1>${orSkel(reportM1.title || summary.title, '本局断语', 1)}</h1>
+        <h1>${orSkel(reportM1.title || summary.title, t('result.hero.title'), 1)}</h1>
         <p>${orSkel(reportM1.conclusion || summary.conclusion, '', 3)}</p>
-        ${!streaming && summary.score !== null && summary.score !== undefined ? `<div class="mag-scale" aria-label="参考指数 ${score}，凶 55 以下，平 55 至 74，吉 75 以上">
+        ${!streaming && summary.score !== null && summary.score !== undefined ? `<div class="mag-scale" aria-label="${t('result.hero.scaleAria', { score })}">
           <div class="mag-scale-bar"><i class="seg-xiong"></i><i class="seg-ping"></i><i class="seg-ji"></i><b style="left:${Math.max(0, Math.min(100, Number(score) || 0))}%"></b></div>
-          <div class="mag-scale-labels"><span>凶</span><span style="left:55%">55</span><span style="left:65%">平</span><span style="left:75%">75</span><span style="left:100%">吉</span></div>
+          <div class="mag-scale-labels"><span>${t('result.hero.bad')}</span><span style="left:55%">55</span><span style="left:65%">${t('result.hero.neutral')}</span><span style="left:75%">75</span><span style="left:100%">${t('result.hero.good')}</span></div>
         </div>` : ''}
       </div>
     </section>
 
     <nav class="mag-tabs">
-      <button class="mag-tab mag-tab-active" onclick="${tabClick('mag-m1')}">结论先行</button>
-      <button class="mag-tab" onclick="${tabClick('mag-m2')}">奇门定基</button>
-      <button class="mag-tab" onclick="${tabClick('mag-m3')}">局象推演</button>
-      <button class="mag-tab" onclick="${tabClick('mag-m4')}">开运指南</button>
+      <button class="mag-tab mag-tab-active" onclick="${tabClick('mag-m1')}">${t('result.tab.conclusion')}</button>
+      <button class="mag-tab" onclick="${tabClick('mag-m2')}">${t('result.tab.basis')}</button>
+      <button class="mag-tab" onclick="${tabClick('mag-m3')}">${t('result.tab.inference')}</button>
+      <button class="mag-tab" onclick="${tabClick('mag-m4')}">${t('result.tab.guidance')}</button>
       <span class="mag-tab-ink"></span>
     </nav>
 
     <section class="mag-section" id="mag-m1">
-      <div class="module-heading"><h2>结论先行</h2></div>
+      <div class="module-heading"><h2>${t('result.tab.conclusion')}</h2></div>
       ${question ? `<blockquote class="mag-question" data-i18n-skip>"${question}"</blockquote>` : ''}
-      <div class="report-subtitle">行动建议</div>
+      <div class="report-subtitle">${t('result.sub.actions')}</div>
       <div class="mag-action-list">${magActionListHTML}</div>
       ${renderFollowupsForModule('m1', followups)}
     </section>
 
     <section class="mag-section" id="mag-m2">
-      <div class="module-heading"><h2>奇门定基</h2></div>
+      <div class="module-heading"><h2>${t('result.tab.basis')}</h2></div>
       ${panInnerHTML ? `<div class="mag-pan-block">${panInnerHTML}</div>` : ''}
-      <div class="report-subtitle">格局吉凶</div>
+      <div class="report-subtitle">${t('result.sub.formations')}</div>
       ${formationTagsHTML}
-      <div class="report-subtitle">用神选取</div>
+      <div class="report-subtitle">${t('result.sub.yongshen')}</div>
       ${yongshenCardsHTML}
       ${renderFollowupsForModule('m2', followups)}
     </section>
 
     <section class="mag-section" id="mag-m3">
-      <div class="module-heading"><h2>局象推演</h2></div>
+      <div class="module-heading"><h2>${t('result.tab.inference')}</h2></div>
       ${inferenceHTML}
       ${renderFollowupsForModule('m3', followups)}
     </section>
 
     <section class="mag-section" id="mag-m4">
-      <div class="module-heading"><h2>开运指南</h2></div>
+      <div class="module-heading"><h2>${t('result.tab.guidance')}</h2></div>
       ${guidanceHTML}
       ${renderFollowupsForModule('m4', followups)}
     </section>
@@ -5824,6 +5860,16 @@ input::placeholder { color: var(--text-muted); }
 :deep(.mark-ma) { background:var(--gold); color:white; }
 :deep(.mark-kong) { border:1px solid var(--line); color:var(--text-muted); background:var(--paper-soft); }
 :deep(.highlight-text) { color:var(--gold) !important; }
+/* 英文模式：盘内汉字下的英文小字 */
+:deep(.pan-en) { display:block; font-family:var(--font-sans, system-ui, sans-serif); font-size:8.5px; font-weight:500; line-height:1.15; letter-spacing:0; color:var(--text-muted); white-space:nowrap; }
+:deep(.pan-grid.is-en .pan-cell) { aspect-ratio:auto; min-height:136px; padding-top:26px; }
+:deep(.pan-pillar) { display:inline-block; vertical-align:top; text-align:center; }
+:deep(.pan-pillars .pan-en) { font-size:9px; letter-spacing:0; }
+:deep(.pan-grid.is-en .ji-earth) { bottom:30px; }
+:deep(.pan-grid.is-en .ji-sky) { top:32px; }
+:deep(.pan-en-inline) { font-size:8px; font-weight:400; }
+:deep(.stem-earth .pan-en-inline) { text-align:right; }
+:deep(.pan-door .pan-en) { font-size:9px; color:var(--ink-muted); }
 /* 单列洞察条 */
 :deep(.insight-flow) { display:flex; flex-direction:column; gap:10px; }
 :deep(.insight-strip) { position:relative; padding:14px 16px 14px 18px; background:var(--paper-soft); border:1px solid var(--line); border-radius:12px; border-left:3px solid var(--line); transition:border-color .3s, transform .25s; }
