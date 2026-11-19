@@ -24,6 +24,7 @@ const EXCLUDE_PATTERNS = [
   /\.test\.m?js$/,
   /^src\/data\//,
   /^src\/i18n\/locales\//,
+  /^src\/i18n\/content\//, // 英文内容数据，键为简体原文
   /^src\/utils\/t2s\.mjs$/, // 生成的繁→简字表
   /^src\/views\/AdminView\.vue$/,
   /^src\/components\/BaziStaticPanelDemo\.vue$/,
