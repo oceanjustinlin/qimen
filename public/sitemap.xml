@@ -5,7 +5,7 @@
 
   <url>
     <loc>https://www.qimendao.com/</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -16,7 +16,7 @@
 
   <url>
     <loc>https://www.qimendao.com/bazi</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -27,28 +27,28 @@
 
   <url>
     <loc>https://www.qimendao.com/fortune</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://www.qimendao.com/engineering</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
     <loc>https://www.qimendao.com/terms</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
 
   <url>
     <loc>https://www.qimendao.com/privacy</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
