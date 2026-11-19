@@ -3840,8 +3840,9 @@ const panEn = (zh, inline = false) => {
 const CN_DIGITS = { 一: 1, 二: 2, 三: 3, 四: 4, 五: 5, 六: 6, 七: 7, 八: 8, 九: 9 } // i18n-ignore
 const juNameText = (name = '') => {
   if (!isEnLocale()) return name
-  const m = /^(阳遁|阴遁)(.+?)局$/.exec(name) // i18n-ignore
-  return m ? `${symbolName(m[1], locale.value)} ${CN_DIGITS[m[2]] || m[2]}` : name
+  const m = /^(阳|阴|陽|陰)遁(.+?)局$/.exec(name) // i18n-ignore
+  const yin = m && (m[1] === '阴' || m[1] === '陰') // i18n-ignore
+  return m ? `${symbolName(yin ? '阴遁' : '阳遁', locale.value)} ${CN_DIGITS[m[2]] || m[2]}` : name // i18n-ignore
 }
 // 卡片右上角的符号（模型或引擎给的「日干 辛」「值使门」「日干 ↔ 生门」）：英文模式逐词换成英文
 const SYMBOL_WORD_KEYS = { 日干: 'result.card.dayStem', 时干: 'result.card.hourStem', 用神: 'result.card.yongshen', 值使门: 'result.card.envoyDoor', 值使: 'result.pan.zhiShi', 值符: 'result.pan.zhiFu' } // i18n-ignore
@@ -3853,21 +3854,30 @@ const symbolText = (sym) => {
     return w.length === 1 ? withEn(w) : nameOrEn(w)
   }).join('')
 }
+// 盘头日期「2026年11月13日 22:29」：英文模式按本地格式显示
+const solarText = (solar = '') => {
+  const m = /^(\d{4})\D+(\d{1,2})\D+(\d{1,2})\D*\s+(\d{1,2}:\d{2})/.exec(solar)
+  if (!isEnLocale() || !m) return solar
+  const d = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]))
+  return `${d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })} ${m[4]}`
+}
+// 落宫「落坤2宫」：英文模式只留宫名
+const palaceText = (v = '') => (isEnLocale() ? nameOrEn(String(v).replace(/^落/, '')) : v) // i18n-ignore
 const parenText = (x) => (isEnLocale() ? ` (${x})` : `（${x}）`)
 
 const buildQimenPanInfo = (ju = {}, ts = {}, aux = {}) => {
   const sep = isEnLocale() ? ': ' : '：'
   const yuanText = [ju.jieqi, ju.yuan].filter(Boolean).map(nameOrEn).join(' ')
   const xunText = ju.xun_shou ? `　${t('result.pan.xunShou')}${sep}<b>${withEn(ju.xun_shou)}</b>` : ''
-  const zhiFuPalace = ju.zhi_fu_palace ? parenText(nameOrEn(ju.zhi_fu_palace)) : ''
-  const zhiShiPalace = ju.zhi_shi_palace ? parenText(nameOrEn(ju.zhi_shi_palace)) : ''
+  const zhiFuPalace = ju.zhi_fu_palace ? parenText(palaceText(ju.zhi_fu_palace)) : ''
+  const zhiShiPalace = ju.zhi_shi_palace ? parenText(palaceText(ju.zhi_shi_palace)) : ''
   const kong = aux.kong_wang || {}
   const ma = aux.ma_xing || {}
   const dh = (v) => `${t('result.pan.day')} ${v.day ? withEn(v.day) : '-'} / ${t('result.pan.hour')} ${v.hour ? withEn(v.hour) : '-'}`
   const kongMaText = (kong.day || kong.hour || ma.day || ma.hour)
     ? `<br>${t('result.pan.kong')}${sep}<b>${dh(kong)}</b>　${t('result.pan.ma')}${sep}<b>${dh(ma)}</b>`
     : ''
-  return `<div class="pan-info">${ts.solar || ''} | ${juNameText(ju.name || '')} · ${yuanText}${xunText}<br>${t('result.pan.zhiFu')}${sep}<b>${nameOrEn(ju.zhi_fu) || '-'}</b>${zhiFuPalace}&emsp;${t('result.pan.zhiShi')}${sep}<b>${nameOrEn(ju.zhi_shi) || '-'}</b>${zhiShiPalace}${kongMaText}</div>`
+  return `<div class="pan-info">${solarText(ts.solar || '')} | ${juNameText(ju.name || '')} · ${yuanText}${xunText}<br>${t('result.pan.zhiFu')}${sep}<b>${nameOrEn(ju.zhi_fu) || '-'}</b>${zhiFuPalace}&emsp;${t('result.pan.zhiShi')}${sep}<b>${nameOrEn(ju.zhi_shi) || '-'}</b>${zhiShiPalace}${kongMaText}</div>`
 }
 
 // engine 为 engine_complete 的 engineOutput（可为 null，表示尚未起盘）。
@@ -3955,7 +3965,7 @@ const buildStreamingScaffoldHTML = (engine = null, statusText = '') => {
       if (p.kong_wang?.is_kong) marks += `<span class="pan-mark mark-kong">${t('result.pan.markKong')}</span>`
       return `<div class="pan-cell"><div class="pan-god">${p.god || ''}${panEn(p.god)}</div><div class="pan-stem stem-sky">${p.sky || ''}${panEn(p.sky, true)}</div>${p.ji_sky ? `<div class="pan-stem ji-sky">${p.ji_sky}</div>` : ''}<div class="pan-star ${isZhiFu(p.star) ? 'highlight-text' : ''}">${p.star || ''}${panEn(p.star)}</div><div class="pan-door ${isZhiShi(p.door) ? 'highlight-text' : ''}">${p.door || ''}${panEn(p.door)}</div><div class="pan-stem stem-earth">${panEn(p.earth, true)}${p.earth || ''}</div>${p.ji_earth ? `<div class="pan-stem ji-earth">${p.ji_earth}</div>` : ''}<div class="pan-marks">${marks}</div></div>`
     }).join('')
-    panInnerHTML = `<div class="pan-wrapper"><div class="pan-header"><div class="pan-pillars">${[pillars.year, pillars.month, pillars.day, pillars.hour].filter(Boolean).map(g => `${g}${panEn(g, true)}`).join('　')}</div>${buildQimenPanInfo(ju, ts, aux)}</div><div class="pan-grid${isEnLocale() ? ' is-en' : ''}">${cells}</div></div>`
+    panInnerHTML = `<div class="pan-wrapper"><div class="pan-header"><div class="pan-pillars">${[pillars.year, pillars.month, pillars.day, pillars.hour].filter(Boolean).map(g => `<span class="pan-pillar">${g}${panEn(g, true)}</span>`).join('　')}</div>${buildQimenPanInfo(ju, ts, aux)}</div><div class="pan-grid${isEnLocale() ? ' is-en' : ''}">${cells}</div></div>`
   } else {
     panInnerHTML = `<div class="pan-skeleton">${sk(1)}<div class="pan-grid">${'<div class="pan-cell"><span class="wsk"><i></i></span></div>'.repeat(9)}</div></div>`
   }
@@ -4238,7 +4248,7 @@ const buildCardHTML = (data, opts = {}) => {
       return `<div class="pan-cell pan-pickable" role="button" tabindex="0" aria-label="${t('result.pan.tapDetail', { name: nameOrEn(p.name || '') })}" onclick="${pick(i)}"><div class="pan-roles">${roleTags}</div><div class="pan-god">${p.god || ''}${panEn(p.god)}</div><div class="pan-stem stem-sky">${p.sky || ''}${panEn(p.sky, true)}</div>${p.ji_sky ? `<div class="pan-stem ji-sky">${p.ji_sky}</div>` : ''}<div class="pan-star ${starCls}">${p.star || ''}${panEn(p.star)}</div><div class="pan-door ${doorCls}">${p.door || ''}${panEn(p.door)}</div><div class="pan-stem stem-earth">${panEn(p.earth, true)}${p.earth || ''}</div>${p.ji_earth ? `<div class="pan-stem ji-earth">${p.ji_earth}</div>` : ''}<div class="pan-marks">${marks}</div></div>`
     }).join('')
     const panDetail = `<div class="pan-detail"><p class="pan-detail-hint">${t('result.pan.hint')}<span class="pan-role role-day">${t('result.pan.roleDay')}</span>${t('result.pan.legendDay')} <span class="pan-role role-hour">${t('result.pan.roleHour')}</span>${t('result.pan.legendHour')} <span class="pan-role role-ys">${t('result.pan.roleYs')}</span>${t('result.pan.legendYs')}</p>${details.join('')}</div>`
-    panInnerHTML = `<div class="pan-wrapper"><div class="pan-header"><div class="pan-pillars">${[pillars.year, pillars.month, pillars.day, pillars.hour].filter(Boolean).map(g => `${g}${panEn(g, true)}`).join('　')}</div>${buildQimenPanInfo(ju, ts, aux)}</div><div class="pan-grid${isEnLocale() ? ' is-en' : ''}">${cells}</div>${panDetail}</div>`
+    panInnerHTML = `<div class="pan-wrapper"><div class="pan-header"><div class="pan-pillars">${[pillars.year, pillars.month, pillars.day, pillars.hour].filter(Boolean).map(g => `<span class="pan-pillar">${g}${panEn(g, true)}</span>`).join('　')}</div>${buildQimenPanInfo(ju, ts, aux)}</div><div class="pan-grid${isEnLocale() ? ' is-en' : ''}">${cells}</div>${panDetail}</div>`
   }
 
   // ── 格局吉凶
@@ -5853,6 +5863,10 @@ input::placeholder { color: var(--text-muted); }
 /* 英文模式：盘内汉字下的英文小字 */
 :deep(.pan-en) { display:block; font-family:var(--font-sans, system-ui, sans-serif); font-size:8.5px; font-weight:500; line-height:1.15; letter-spacing:0; color:var(--text-muted); white-space:nowrap; }
 :deep(.pan-grid.is-en .pan-cell) { aspect-ratio:auto; min-height:136px; padding-top:26px; }
+:deep(.pan-pillar) { display:inline-block; vertical-align:top; text-align:center; }
+:deep(.pan-pillars .pan-en) { font-size:9px; letter-spacing:0; }
+:deep(.pan-grid.is-en .ji-earth) { bottom:30px; }
+:deep(.pan-grid.is-en .ji-sky) { top:32px; }
 :deep(.pan-en-inline) { font-size:8px; font-weight:400; }
 :deep(.stem-earth .pan-en-inline) { text-align:right; }
 :deep(.pan-door .pan-en) { font-size:9px; color:var(--ink-muted); }
