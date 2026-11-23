@@ -1336,7 +1336,8 @@ async function handleBaziQuestion(request, env, ctx) {
 
   const userToken = request.headers.get('Authorization')?.replace('Bearer ', '');
   const body = await readJson(request);
-  const { contentLocale } = requestLocaleLib.resolveRequestLocale({ bodyLocale: body?.locale });
+  // 回答语种跟随提问文字，判不出再看界面语言（英文界面里问中文，答中文）
+  const { contentLocale } = requestLocaleLib.resolveAnswerLocale({ text: body?.question, bodyLocale: body?.locale });
   const question = String(body.question || '').trim();
   const profileId = String(body.profileId || '').trim();
   if (!question) return json({ error: '问题不能为空' }, { status: 400 }, request, env);
@@ -1834,8 +1835,8 @@ async function handleQimenFollowup(request, env, ctx) {
   const followup = String(body.followup || '').trim();
   const branch = body.branch === 'bazi' ? 'bazi' : 'qimen';
   const origin = body.origin && typeof body.origin === 'object' ? body.origin : {};
-  // 追问跟原报告同语言（spec T3.5）：优先 origin.output_locale，其次本次请求的界面语言。
-  const { contentLocale } = requestLocaleLib.resolveRequestLocale({ bodyLocale: body?.originLocale || origin.output_locale || body?.locale });
+  // 追问语种跟随这次追问的文字；判不出（如只写了数字、表情或单个英文词）才沿用原报告语言（spec T3.5），再其次界面语言。
+  const { contentLocale } = requestLocaleLib.resolveAnswerLocale({ text: followup, bodyLocale: body?.locale, fallbackLocale: body?.originLocale || origin.output_locale || body?.locale });
   if (!followup) return json({ error: '追问不能为空' }, { status: 400 }, request, env);
   if (!origin.evidence) return json({ error: '缺少原局上下文（evidence）' }, { status: 400 }, request, env);
 
@@ -1993,7 +1994,8 @@ async function handleBaziFollowup(request, env, ctx) {
   const body = await readJson(request);
   const followup = String(body.followup || '').trim();
   const origin = body.origin && typeof body.origin === 'object' ? body.origin : {};
-  const { contentLocale } = requestLocaleLib.resolveRequestLocale({ bodyLocale: body?.originLocale || origin.output_locale || body?.locale });
+  // 同奇门追问：跟随追问文字，判不出再沿用原报告语言
+  const { contentLocale } = requestLocaleLib.resolveAnswerLocale({ text: followup, bodyLocale: body?.locale, fallbackLocale: body?.originLocale || origin.output_locale || body?.locale });
   const profileId = String(origin.profileId || origin.profile_id || '').trim();
   if (!followup) return json({ error: '追问不能为空' }, { status: 400 }, request, env);
   if (!profileId) return json({ error: '缺少八字档案 ID（origin.profileId）' }, { status: 400 }, request, env);
@@ -2151,8 +2153,8 @@ async function handleQimen(request, env, ctx) {
 
   // Body must be read before SSE starts (Request.body can only be consumed once)
   const body = await readJson(request);
-  // 内容语言（§5.8）：只看请求体里显式的 locale；简体与繁体都是 zh-CN
-  const { contentLocale } = requestLocaleLib.resolveRequestLocale({ bodyLocale: body?.locale });
+  // 内容语言：跟随提问文字（中文问答中文、英文问答英文），判不出再看请求体 locale（§5.8）；简体与繁体都是 zh-CN
+  const { contentLocale } = requestLocaleLib.resolveAnswerLocale({ text: body?.question, bodyLocale: body?.locale });
 
   // Quota enforcement
   const currentUserEmail = user?.email ? user.email.toLowerCase() : "";

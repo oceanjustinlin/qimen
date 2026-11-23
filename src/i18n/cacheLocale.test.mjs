@@ -78,12 +78,13 @@ test('验收 4：前端追问带 originLocale，旧记录按中文', () => {
   assert.match(home, /localeJson\(\{ followup: q, branch, origin, originLocale \}\)/)
 })
 
-test('验收 5：追问语言跟原报告，不跟界面', () => {
+test('验收 5：追问判不出语种时跟原报告，不跟界面', () => {
   const fromBody = (body) => resolveRequestLocale({ bodyLocale: body.originLocale || body.origin?.output_locale || body.locale }).contentLocale
   const zhPatch = appendOutputLanguage('PATCH', fromBody({ locale: 'en-US', originLocale: 'zh-CN' }))
   assert.equal(zhPatch, 'PATCH')
   const enPatch = appendOutputLanguage('PATCH', fromBody({ locale: 'zh-CN', originLocale: 'en-US' }))
   assert.ok(enPatch.endsWith(buildOutputLanguageBlock('en-US')))
   const src = readFileSync(new URL('../../worker/src/index.js', import.meta.url), 'utf8')
-  assert.equal((src.match(/bodyLocale: body\?\.originLocale \|\| origin\.output_locale \|\| body\?\.locale/g) || []).length, 2)
+  // 追问文字判得出语种时跟文字走；判不出才回落原报告语言（见 requestLocale.test.js）
+  assert.equal((src.match(/fallbackLocale: body\?\.originLocale \|\| origin\.output_locale \|\| body\?\.locale/g) || []).length, 2)
 })
