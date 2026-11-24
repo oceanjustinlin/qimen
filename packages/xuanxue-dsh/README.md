@@ -1,6 +1,6 @@
 # xuanxue-dsh
 
-**English summary.** `xuanxue-dsh` is a [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) (`dsh`) plugin bundle. It is a thin shell over [`xuanxue-mcp`](../xuanxue-mcp/): the bundle patch mounts dsh's built-in MCP client to run `xuanxue-mcp` over stdio (tools `mcp__xuanxue__bazi` / `ziwei` / `qimen` / `astro` / `calendar`), and the plugin registers the four reading guides as dsh skills, because dsh's MCP client does not support MCP prompt templates. Everything runs locally. Requires dsh ≥ 0.2.2-rc.1 (Node ≥ 24.9).
+**English summary.** `xuanxue-dsh` is a [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) (`dsh`) plugin bundle. It is a thin shell over [`xuanxue-mcp`](https://github.com/oceanjustinlin/qimen/tree/main/packages/xuanxue-mcp): the bundle patch mounts dsh's built-in MCP client to run `xuanxue-mcp` over stdio (tools `mcp__xuanxue__bazi` / `ziwei` / `qimen` / `astro` / `calendar`), and the plugin registers the four reading guides as dsh skills, because dsh's MCP client does not support MCP prompt templates. Everything runs locally. Requires dsh ≥ 0.2.2-rc.1 (Node ≥ 24.9).
 
 ## 它做什么
 
@@ -13,7 +13,7 @@
 
 dsh 的 MCP 客户端不支持 MCP prompt 模板，所以守则改走 skill：模型在命中八字、紫微等话题时按需加载，平时不占上下文。
 
-工具参数、输出外层与隐私承诺见 [xuanxue-mcp 的 README](../xuanxue-mcp/README.md)。
+工具参数、输出外层与隐私承诺见 [xuanxue-mcp 的 README](https://github.com/oceanjustinlin/qimen/tree/main/packages/xuanxue-mcp/README.md)。
 
 ## 安装
 
@@ -26,6 +26,8 @@ dsh web
 ```
 
 首次启动时 `npx` 会下载 `xuanxue-mcp`，之后走缓存。
+
+也可以从 GitHub 安装（无需构建）：`dsh plugin --profile web add github:oceanjustinlin/xuanxue-dsh`。推荐 npm 版本。
 
 ## 自定义
 
@@ -45,16 +47,19 @@ dsh web
 
 dsh-mcp-client 默认 `failOnStartupError: false`：server 启动失败时 harness 照常运行，只是没有 `mcp__xuanxue__*` 工具（stderr 会有一条错误）。排查时可像上面那样打开它。
 
-## 开发
+## 源码与开发
 
-- 测试：仓库根目录 `npm test`（含 `packages/xuanxue-dsh/test/plugin.test.mjs`）。
+源码在 [qimen 仓库的 `packages/xuanxue-dsh`](https://github.com/oceanjustinlin/qimen/tree/main/packages/xuanxue-dsh)，npm 包也从那里发布。独立仓库 [oceanjustinlin/xuanxue-dsh](https://github.com/oceanjustinlin/xuanxue-dsh) 是导出的副本（dsh 社区目录要求插件位于仓库根目录），请到 qimen 仓库提 issue 或 PR。
+
+- 测试：qimen 仓库根目录 `npm test`（含 `packages/xuanxue-dsh/test/plugin.test.mjs`）。
 - `cordis.patch.yml` 里 `xuanxue-mcp@<版本>` 钉的是 `packages/xuanxue-mcp/package.json` 的版本，测试会检查两者一致；xuanxue-mcp 升版时同步改这里。
-- `prepack` 把 `../xuanxue-mcp/prompts/` 复制进本包的 `prompts/`（已 gitignore）。开发时 `index.js` 自动退回读取仓库里的那份。
-- 本地联调：`dsh plugin --profile <名称> add <仓库绝对路径>/packages/xuanxue-dsh` 会以 `link:` 方式安装，再按上面的“自定义”把 server 指向本地 `server.mjs`。
+- `prepack` 把 `../xuanxue-mcp/prompts/` 复制进本包的 `prompts/`（在 qimen 里已 gitignore）。开发时 `index.js` 自动退回读取仓库里的那份。
+- 同步独立仓库：`node packages/xuanxue-dsh/scripts/export-repo.mjs <xuanxue-dsh 仓库本地目录>`，再在那边提交推送。
+- 本地联调：`dsh plugin --profile <名称> add <qimen 绝对路径>/packages/xuanxue-dsh` 会以 `link:` 方式安装，再按上面的“自定义”把 server 指向本地 `server.mjs`。
 
 ## 发布
 
-见 [RELEASING.md](./RELEASING.md)。必须先发布 `xuanxue-mcp`，再发布本包。
+见 qimen 仓库的 [RELEASING.md](https://github.com/oceanjustinlin/qimen/tree/main/packages/xuanxue-dsh/RELEASING.md)。必须先发布 `xuanxue-mcp`，再发布本包。
 
 ## 许可
 
